@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
+    <card>
+        <title>Credentials</title>
+        <input-field>
+            <name>merchantId</name>
+            <label>Merchant Id</label>
+        </input-field>
+        <input-field type="password">
+            <name>apiKey</name>
+            <label>API Key</label>
+        </input-field>
+        <input-field type="password">
+            <name>apiSecret</name>
+            <label>API Secret</label>
+        </input-field>
+        <input-field type="password">
+            <name>webhookKey</name>
+            <label>Webhook key</label>
+        </input-field>
+        <input-field type="password">
+            <name>webhookSecret</name>
+            <label>Webhook secret</label>
+        </input-field>
+        <input-field>
+            <name>liveEndpoint</name>
+            <label>Live endpoint</label>
+        </input-field>
+        <input-field>
+            <name>sandboxEndpoint</name>
+            <label>Sandbox endpoint</label>
+        </input-field>
+        <input-field>
+            <name>returnUrl</name>
+            <label>Return URL</label>
+        </input-field>
+        <input-field type="bool">
+            <name>isLiveMode</name>
+            <defaultValue>false</defaultValue>
+            <label>Is live mode</label>
+        </input-field>
+        <component name="api-test-button">
+            <name>apiTest</name>
+        </component>
+        <component name="payment-method-button">
+            <name>paymentMethod</name>
+        </component>
+        <input-field type="single-select">
+            <name>autoCapture</name>
+            <label>Automatic capture</label>
+            <options>
+                <option>
+                    <id>disabled</id>
+                    <name>Disabled</name>
+                </option>
+                <option>
+                    <id>0_day</id>
+                    <name>Immediately</name>
+                </option>
+                <option>
+                    <id>1_day</id>
+                    <name>In 1 day</name>
+                </option>
+                <option>
+                    <id>2_days</id>
+                    <name>In 2 days</name>
+                </option>
+                <option>
+                    <id>3_days</id>
+                    <name>In 3 days</name>
+                </option>
+                <option>
+                    <id>4_days</id>
+                    <name>In 4 days</name>
+                </option>
+                <option>
+                    <id>5_days</id>
+                    <name>In 5 days</name>
+                </option>
+            </options>
+            <defaultValue>INFO</defaultValue>
+        </input-field>
+        <input-field type="single-select">
+            <name>logLevel</name>
+            <helpText>Choose the loglevel of non-error messages</helpText>
+            <helpText lang="de-DE">Wählen Sie den Loglevel der Nicht-Fehlermeldungen</helpText>
+            <label>Log level</label>
+            <label lang="de-DE">Log level</label>
+            <options>
+                <option>
+                    <id>DEBUG</id>
+                    <name>DEBUG</name>
+                </option>
+                <option>
+                    <id>ERROR</id>
+                    <name>ERROR</name>
+                </option>
+                <option>
+                    <id>INFO</id>
+                    <name>INFO</name>
+                </option>
+            </options>
+            <defaultValue>INFO</defaultValue>
+        </input-field>
+    </card>
+</config>

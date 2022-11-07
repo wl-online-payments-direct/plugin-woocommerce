@@ -1,0 +1,32 @@
+{% block sw_order_detail_base_custom_fields %}
+    {% parent() %}
+    <sw-card :title="$t('worldline.worldline-order.detail.cardLabel')"
+             :isLoading="isLoading">
+        <sw-button-process
+            :isLoading="isLoading"
+            :processSuccess="isSaveSuccessful"
+            @click="statusCheck"
+        >{{ $tc('worldline.check-status-button.button') }}</sw-button-process>
+
+        <sw-button-process
+            id="WorldlineBtnCapture"
+            :isLoading="isLoading"
+            :processSuccess="isSaveSuccessful"
+            @click="capture"
+        >{{ $tc('worldline.capture-payment-button.button') }}</sw-button-process>
+
+        <sw-button-process
+            id="WorldlineBtnCancel"
+            :isLoading="isLoading"
+            :processSuccess="isSaveSuccessful"
+            @click="cancel"
+        >{{ $tc('worldline.cancel-payment-button.button') }}</sw-button-process>
+
+        <sw-button-process
+            id="WorldlineBtnRefund"
+            :isLoading="isLoading"
+            :processSuccess="isSaveSuccessful"
+            @click="refund"
+        >{{ $tc('worldline.refund-payment-button.button') }}</sw-button-process>
+    </sw-card>
+{% endblock %}

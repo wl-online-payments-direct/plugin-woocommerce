@@ -1,0 +1,11 @@
+<div>
+    <br/>
+    <sw-button-process
+        :isLoading="isLoading"
+        :processSuccess="isSaveSuccessful"
+        @process-finish="saveFinish"
+        @click="check"
+    >{{ $tc('worldline.api-test-button.button') }}</sw-button-process>
+    <br/>
+    <br/>
+</div>

@@ -1,0 +1,119 @@
+{
+    "worldline" : {
+        "api-test-button": {
+            "title": "API Test",
+            "success": "Connection test was successful.",
+            "error": "Connection could not be established. Please check the access data.",
+            "button": "Test connection"
+        },
+        "check-status-button": {
+            "title": "Status check",
+            "success": "Status was successfully updated.",
+            "error": "Connection could not be established. Please check the access data.",
+            "button": "Check status"
+        },
+        "capture-payment-button": {
+            "title": "Capture payment",
+            "success": "Payment was successfully captured.",
+            "error": "Connection could not be established. Please check the access data.",
+            "button": "Capture payment"
+        },
+        "cancel-payment-button": {
+            "title": "Cancel payment",
+            "success": "Payment was successfully canceled.",
+            "error": "Connection could not be established. Please check the access data.",
+            "button": "Cancel payment"
+        },
+        "refund-payment-button": {
+            "title": "Refund payment",
+            "success": "Payment was successfully refunded.",
+            "error": "Connection could not be established. Please check the access data.",
+            "button": "Refund payment"
+        },
+        "forwardToPaymentHandler": "Forwarding to payment handler.",
+        "errorWithConfirmRedirect": "Error. Redirecting to confirm page.",
+        "buildingOrder": "Building order",
+        "started": "Started",
+        "captureRequested": "Capture requested",
+        "gettingPaymentStatus": "Getting payment status",
+        "tryingToCapture": "Trying to capture",
+        "unsupportedStatus": "Unsupported status",
+        "operationIsNotPossibleDueToCurrentStatus": "Operation is not possible due to current status",
+        "gettingPaymentDetails": "Getting payment details",
+        "paymentOpen": "Payment is open",
+        "paymentInProgress": "Payment is in progress",
+        "paymentPaid": "Paid",
+        "paymentRefunded": "Payment refunded",
+        "paymentCanceled": "Payment cancelled",
+        "paymentFailed": "Payment failed",
+        "refundInProgress": "Refund in progress",
+        "cantFindCurrencyOfOrder": "Cannot find currency of order",
+        "statusUpdateError": "Status update error",
+        "statusUpdateRequestSent": "Status update request sent",
+        "noTransactionForThisOrder": "No transaction for this order",
+        "success": "Success",
+        "failed": "Operation failed.",
+        "worldline-order": {
+            "detail": {
+                "cardLabel": "Worldline transaction control",
+                "bundleSelectLabel": "Associated bundles",
+                "bundleSelectPlaceholder": "Add bundle..."
+            }
+        },
+        "transactionStatus": {
+            "refunded": "Refunded",
+            "cancelled": "Cancelled",
+            "captured": "Captured",
+            "created": "Created",
+            "rejected": "Rejected",
+            "rejectedCapture": "Capture rejected",
+            "redirected": "Redirected",
+            "pendingCapture": "Pending capture",
+            "authorizationRequested": "Authorization requested",
+            "captureRequested": "Capture requested",
+            "refundRequested": "Refund requested"
+        },
+        "payment-method-button": {
+            "headline": "Payment Methods",
+            "subline": "Please select payment methods for your checkout",
+            "selectAll": "select / deselect all",
+            "save": "Save",
+            "request": "Requesting available payment methods...",
+            "requestEmpty": "No payment methods to display",
+            "title": "Get available payment methods",
+            "error": "Connection could not be established. Please check the access data.",
+            "success": "Changes successfully saved",
+            "errorAPI": "There was an error on save",
+            "APITitle": "Payment method saving"
+        },
+        "configFile": {
+            "merchantId": "Merchant Id",
+            "apiKey": "API Key",
+            "aspSecret": "API Secret",
+            "webhookKey": "Webhook key",
+            "webhookSecret": "Webhook secret",
+            "liveEndpoint": "Live endpoint",
+            "sandboxEndpoint": "Sandbox endpoint",
+            "returnUrl": "Return URL",
+            "isLiveMode": "Is live mode",
+            "logLevel": "Log level",
+            "logLevelHint": "Choose the loglevel of non-error messages",
+            "logLevelDebug": "DEBUG",
+            "logLevelError": "ERROR",
+            "logLevelInfo": "INFO",
+            "automaticCapture": "Automatic capture",
+            "disabled": "Disabled",
+            "0_day": "Immediately",
+            "1_day": "In 1 day",
+            "2_day": "In 2 days",
+            "3_day": "In 3 days",
+            "4_day": "In 4 days",
+            "5_day": "In 5 days"
+        },
+        "composer": {
+            "label": "Worldline Online Payments.",
+            "description": "Worldline Online Payments.",
+            "extraDescription": "Certified Worldline online payments extension for Shopware 6"
+        }
+    }
+}
