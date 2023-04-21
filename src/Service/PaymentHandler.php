@@ -2,7 +2,6 @@
 
 namespace MoptWorldline\Service;
 
-use http\Exception;
 use Monolog\Logger;
 use MoptWorldline\Bootstrap\Form;
 use OnlinePayments\Sdk\Domain\CreateHostedCheckoutResponse;
@@ -11,7 +10,6 @@ use OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
-use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
 use Shopware\Core\Framework\Context;
@@ -594,7 +592,7 @@ class PaymentHandler
             if (!array_key_exists($outerLogId, $innerLog)) {
                 $needToUpdate = true;
                 $externalChange = '';
-                if (!empty($innerLog)) {
+                if (!empty($innerLog) && !in_array($outerStatusCode, Payment::STATUS_DO_NOT_LOCK)) {
                     $needToLock = true;
                     $externalChange = " EXTERNAL CHANGE!";
                 }
