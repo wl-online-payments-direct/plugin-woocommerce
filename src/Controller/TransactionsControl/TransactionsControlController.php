@@ -200,14 +200,13 @@ class TransactionsControlController extends AbstractController
                 }
             }
 
-            [$allowedActions, $allowedAmounts] = Payment::getAllowed($customFields);
+            $allowedAmounts = Payment::getAllowed($customFields);
         } catch (\Exception $e) {
             return $this->response(false, $e->getMessage());
         }
         return
             new JsonResponse([
                 'success' => true,
-                'message' => $allowedActions,
                 'allowedAmounts' => $allowedAmounts,
                 'log' => $log,
                 'worldlinePaymentStatus' => $itemsStatus,

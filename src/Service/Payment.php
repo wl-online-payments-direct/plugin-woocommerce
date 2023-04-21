@@ -88,14 +88,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
     public const STATUS_REFUNDED = [7, 8, 85];                  //refunded
 
     public const CAPTURE_AMOUNT = 'WorldlineCaptureAmount';
-    public const CANCEL_AMOUNT = 'WorldlineCancelAmount';
     public const REFUND_AMOUNT = 'WorldlineRefundAmount';
-
-    public const PAYMENT_ACTIONS = [
-        self::CANCEL_AMOUNT => 'WorldlineBtnCapture',
-        self::CAPTURE_AMOUNT => 'WorldlineBtnCancel',
-        self::REFUND_AMOUNT => 'WorldlineBtnRefund',
-    ];
 
     public const STATUS_LABELS = [
         0 => 'created',
@@ -424,17 +417,9 @@ class Payment implements AsynchronousPaymentHandlerInterface
      */
     public static function getAllowed(array $customFields): array
     {
-        $allowedAmounts = [
+        return [
             Payment::CAPTURE_AMOUNT => $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT] / 100,
-            Payment::CANCEL_AMOUNT => $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT] / 100,
             Payment::REFUND_AMOUNT => $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT] / 100,
         ];
-        $allowedActions = [];
-        foreach ($allowedAmounts as $key => $amount ) {
-            if ($amount > 0) {
-                $allowedActions[] = Payment::PAYMENT_ACTIONS[$key];
-            }
-        }
-        return [$allowedActions, $allowedAmounts];
     }
 }
