@@ -222,7 +222,7 @@ class PaymentHandler
             ];
             $amounts = $this->recalculateAmounts($customFields, $amount, 0, 0);
         }
-        $orderItemsStatus = $this->reBuildOrderItemStatus($customFields, $itemsChanges, 'paid');
+        $orderItemsStatus = $this->rebuildOrderItemStatus($customFields, $itemsChanges, 'paid');
 
         $this->saveOrderCustomFields(
             $newStatus,
@@ -286,7 +286,7 @@ class PaymentHandler
                 'amount' => $amount
             ];
         }
-        $orderItemsStatus = $this->reBuildOrderItemStatus($customFields, $itemsChanges, 'canceled');
+        $orderItemsStatus = $this->rebuildOrderItemStatus($customFields, $itemsChanges, 'canceled');
 
         $this->saveOrderCustomFields(
             $newStatus,
@@ -351,7 +351,7 @@ class PaymentHandler
                 'amount' => $amount
             ];
         }
-        $orderItemsStatus = $this->reBuildOrderItemStatus($customFields, $itemsChanges, 'refunded');
+        $orderItemsStatus = $this->rebuildOrderItemStatus($customFields, $itemsChanges, 'refunded');
 
         $this->saveOrderCustomFields(
             $newStatus,
@@ -494,7 +494,7 @@ class PaymentHandler
      * @param array $changes
      * @return array
      */
-    public function reBuildOrderItemStatus(array $customFields, array $changes, $process): array
+    public function rebuildOrderItemStatus(array $customFields, array $changes, $process): array
     {
         $original = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_ITEMS_STATUS];
         switch ($process) {
