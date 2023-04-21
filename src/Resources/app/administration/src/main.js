@@ -3,6 +3,10 @@ import './service/transactionsControlService';
 
 import './component/api-test-button';
 import './component/payment-method-button';
+import './component/orders-unprocessed';
+import './component/orders-paid';
+import './component/orders-refunded';
+import './component/orders-canceled';
 
 import './extension/sw-order/view/sw-order-detail-base';
 

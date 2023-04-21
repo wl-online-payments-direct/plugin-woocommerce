@@ -44,7 +44,12 @@ class Form
     /** @var string Field name for the plugin custom field */
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID = 'payment_transaction_id';
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS = 'payment_transaction_status';
+    const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT = 'payment_transaction_capture_amount';
+    const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT = 'payment_transaction_refund_amount';
+    const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG = 'payment_transaction_log';
+    const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_ITEMS_STATUS = 'payment_transaction_items';
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_READABLE_STATUS = 'payment_transaction_readable_status';
+    const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED = 'payment_transaction_locked';
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID = 'worldline_payment_method_id';
     const CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN = 'worldline_saved_payment_card_token';
     const CUSTOM_FIELD_WORLDLINE_CUSTOMER_ACCOUNT_PAYMENT_CARD_TOKEN = 'worldline_account_payment_card_token';

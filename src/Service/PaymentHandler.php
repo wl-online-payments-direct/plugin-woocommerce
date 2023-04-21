@@ -2,13 +2,14 @@
 
 namespace MoptWorldline\Service;
 
+use http\Exception;
 use Monolog\Logger;
 use MoptWorldline\Bootstrap\Form;
 use OnlinePayments\Sdk\Domain\CreateHostedCheckoutResponse;
 use OnlinePayments\Sdk\Domain\CreatePaymentResponse;
 use OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
-use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
+use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use Shopware\Core\Checkout\Order\OrderEntity;
@@ -27,10 +28,9 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PaymentHandler
 {
     private WorldlineSDKAdapter $adapter;
-    private OrderTransactionEntity $orderTransaction;
+    private OrderEntity $order;
     private TranslatorInterface $translator;
     private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $orderTransactionRepository;
     private Context $context;
     private OrderTransactionStateHandler $transactionStateHandler;
     private EntityRepositoryInterface $customerRepository;
@@ -38,10 +38,9 @@ class PaymentHandler
     /**
      * @param SystemConfigService $systemConfigService
      * @param Logger $logger
-     * @param OrderTransactionEntity $orderTransaction
+     * @param OrderEntity $order
      * @param TranslatorInterface $translator
      * @param EntityRepositoryInterface $orderRepository
-     * @param EntityRepositoryInterface $orderTransactionRepository
      * @param EntityRepositoryInterface $customerRepository
      * @param Context $context
      * @param OrderTransactionStateHandler $transactionStateHandler
@@ -49,21 +48,19 @@ class PaymentHandler
     public function __construct(
         SystemConfigService          $systemConfigService,
         Logger                       $logger,
-        OrderTransactionEntity       $orderTransaction,
+        OrderEntity                  $order,
         TranslatorInterface          $translator,
         EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $orderTransactionRepository,
         EntityRepositoryInterface    $customerRepository,
         Context                      $context,
         OrderTransactionStateHandler $transactionStateHandler
     )
     {
-        $salesChannelId = $orderTransaction->getOrder()->getSalesChannelId();
+        $salesChannelId = $order->getSalesChannelId();
         $this->adapter = new WorldlineSDKAdapter($systemConfigService, $logger, $salesChannelId);
-        $this->orderTransaction = $orderTransaction;
+        $this->order = $order;
         $this->translator = $translator;
         $this->orderRepository = $orderRepository;
-        $this->orderTransactionRepository = $orderTransactionRepository;
         $this->customerRepository = $customerRepository;
         $this->context = $context;
         $this->transactionStateHandler = $transactionStateHandler;
@@ -74,15 +71,7 @@ class PaymentHandler
      */
     public function getOrderId(): string
     {
-        return $this->orderTransaction->getOrder()->getId();
-    }
-
-    /**
-     * @return string
-     */
-    public function getCustomerId(): string
-    {
-        return $this->orderTransaction->getOrder()->getOrderCustomer()->getCustomerId();
+        return $this->order->getId();
     }
 
     /**
@@ -90,13 +79,9 @@ class PaymentHandler
      * @return int
      * @throws \Exception
      */
-    public function updatePaymentStatus(string $hostedCheckoutId, $status = false): int
+    public function updatePaymentStatus(string $hostedCheckoutId): int
     {
-        if (!$status) {
-            $status = $this->updatePaymentTransactionStatus($hostedCheckoutId);
-        } else {
-            $this->saveOrderCustomFields($status, $hostedCheckoutId);
-        }
+        $status = $this->updatePaymentTransactionStatus($hostedCheckoutId);
         $this->updateOrderTransactionState($status, $hostedCheckoutId);
 
         return $status;
@@ -110,7 +95,7 @@ class PaymentHandler
      */
     public function createPayment(int $worldlinePaymentMethodId): CreateHostedCheckoutResponse
     {
-        $order = $this->orderTransaction->getOrder();
+        $order = $this->order;
         $orderObject = null;
         if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
             $criteria = new Criteria([$order->getId()]);
@@ -126,7 +111,7 @@ class PaymentHandler
             $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
         }
 
-        $amountTotal = $order->getAmountTotal();
+        $amountTotal = (int)round($order->getAmountTotal() * 100);
         $currencyISO = $this->getCurrencyISO();
 
         $this->log(AdminTranslate::trans($this->translator->getLocale(), 'buildingOrder'));
@@ -136,10 +121,19 @@ class PaymentHandler
             $worldlinePaymentMethodId,
             $orderObject
         );
-
+        $hostedCheckoutId = $hostedCheckoutResponse->getHostedCheckoutId();
         $this->saveOrderCustomFields(
             Payment::STATUS_PAYMENT_CREATED[0],
-            $hostedCheckoutResponse->getHostedCheckoutId()
+            $hostedCheckoutId,
+            [
+                'toCaptureOrCancel' => $amountTotal,
+                'toRefund' => 0,
+            ],
+            [
+                'id' => $hostedCheckoutId,
+                'amount' => $amountTotal,
+            ],
+            $this->buildOrderItemStatus()
         );
         return $hostedCheckoutResponse;
     }
@@ -152,8 +146,8 @@ class PaymentHandler
      */
     public function createHostedTokenizationPayment(array $iframeData): CreatePaymentResponse
     {
-        $order = $this->orderTransaction->getOrder();
-        $amountTotal = $order->getAmountTotal();
+        $order = $this->order;
+        $amountTotal = (int)round($order->getAmountTotal() * 100);
         $currencyISO = $this->getCurrencyISO();
 
         $this->log(AdminTranslate::trans($this->translator->getLocale(), 'buildingHostdTokenizationOrder'));
@@ -166,10 +160,29 @@ class PaymentHandler
         );
         $this->saveCustomerCustomFields($hostedTokenization);
 
-        $id = explode('_', $hostedTokenizationPaymentResponse->getPayment()->getId());
+        $responseId = $hostedTokenizationPaymentResponse->getPayment()->getId();
+        $id = explode('_', $responseId);
+        $statusCode = $hostedTokenizationPaymentResponse->getPayment()->getStatusOutput()->getStatusCode();
+        $isDirectSale = false;
+        $toCapture = $amountTotal;
+        $toRefund = 0;
+        if (in_array($statusCode, Payment::STATUS_CAPTURED)) {
+            $isDirectSale = true;
+            $toCapture = 0;
+            $toRefund = $amountTotal;
+        }
         $this->saveOrderCustomFields(
             $hostedTokenizationPaymentResponse->getPayment()->getStatusOutput()->getStatusCode(),
-            $id[0]
+            $id[0],
+            [
+                'toCaptureOrCancel' => $toCapture,
+                'toRefund' => $toRefund,
+            ],
+            [
+                'id' => $responseId,
+                'amount' => $amountTotal,
+            ],
+            $this->buildOrderItemStatus($isDirectSale)
         );
 
         return $hostedTokenizationPaymentResponse;
@@ -177,27 +190,51 @@ class PaymentHandler
 
     /**
      * @param string $hostedCheckoutId
+     * @param int $amount
+     * @param array $itemsChanges
      * @return bool
      * @throws \Exception
      */
-    public function capturePayment(string $hostedCheckoutId): bool
+    public function capturePayment(string $hostedCheckoutId, int $amount, array $itemsChanges): bool
     {
         $status = $this->updatePaymentTransactionStatus($hostedCheckoutId);
+        $customFields = $this->order->getCustomFields();
 
         if (!in_array($status, Payment::STATUS_PENDING_CAPTURE)) {
             $this->log('operationIsNotPossibleDueToCurrentStatus' . $status, Logger::ERROR);
             return false;
         }
+        if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]) {
+            $this->log('maxAmountExceeded',Logger::ERROR);
+            return false;
+        }
 
-        $amount = $this->orderTransaction->getOrder()->getAmountTotal();
-        $captureResponse = $this->adapter->capturePayment($hostedCheckoutId, $amount);
-        $this->log('capturePayment', 0, $captureResponse->toJson());
-        $newStatus = $captureResponse->getStatusOutput()->getStatusCode();
+        $newStatus = $status;
+        $amounts = [];
+        $log = [];
+        if ($amount != 0 && !$this->isOrderLocked($customFields)) {
+            $isFinal = ($amount == $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]);
+            $captureResponse = $this->adapter->capturePayment($hostedCheckoutId, $amount, $isFinal);
+            $this->log('capturePayment', 0, $captureResponse->toJson());
+            $newStatus = $captureResponse->getStatusOutput()->getStatusCode();
+            $log = [
+                'id' => $captureResponse->getId(),
+                'amount' => $amount,
+            ];
+            $amounts = $this->recalculateAmounts($customFields, $amount, 0, 0);
+        }
+        $orderItemsStatus = $this->rebuildOrderItemStatus($customFields, $itemsChanges, 'paid');
 
-        $this->saveOrderCustomFields($newStatus, $hostedCheckoutId);
+        $this->saveOrderCustomFields(
+            $newStatus,
+            $hostedCheckoutId,
+            $amounts,
+            $log,
+            $orderItemsStatus
+        );
         $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
 
-        if (!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED)) {
+        if (!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED) && $amount > 0) {
             return false;
         }
         return true;
@@ -205,72 +242,129 @@ class PaymentHandler
 
     /**
      * @param string $hostedCheckoutId
-     * @return bool
-     * @throws \Exception
-     */
-    public function cancelPayment(string $hostedCheckoutId): bool
-    {
-        $status = $this->updatePaymentTransactionStatus($hostedCheckoutId);
-        if (!in_array($status, Payment::STATUS_PENDING_CAPTURE)) {
-            $this->log('operationIsNotPossibleDueToCurrentStatus' . $status, Logger::ERROR);
-            return false;
-        }
-
-        $cancelResponse = $this->adapter->cancelPayment($hostedCheckoutId);
-        $this->log('cancelPayment', 0, $cancelResponse->toJson());
-        $newStatus = $this->adapter->getCancelStatus($cancelResponse);
-
-        $this->saveOrderCustomFields($newStatus, $hostedCheckoutId);
-        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
-
-        if (!in_array($newStatus, Payment::STATUS_PAYMENT_CANCELLED)) {
-            return false;
-        }
-        return true;
-    }
-
-    /**
-     * @param string $hostedCheckoutId
+     * @param int $amount
+     * @param array $itemsChanges
      * @return bool
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function refundPayment(string $hostedCheckoutId): bool
+    public function cancelPayment(string $hostedCheckoutId, int $amount, array $itemsChanges): bool
+    {
+        $status = $this->updatePaymentTransactionStatus($hostedCheckoutId);
+        $customFields = $this->order->getCustomFields();
+
+        if (!in_array($status, Payment::STATUS_PENDING_CAPTURE)) {
+            $this->log('operationIsNotPossibleDueToCurrentStatus' . $status, Logger::ERROR);
+            return false;
+        }
+
+        if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]) {
+            $this->log('maxAmountExceeded',Logger::ERROR);
+            return false;
+        }
+
+        $newStatus = $status;
+        $amounts = [];
+        $log = [];
+        if ($amount != 0 && !$this->isOrderLocked($customFields)) {
+            $currencyISO = $this->getCurrencyISO();
+            if ($currencyISO === false) {
+                return false;
+            }
+
+            $isFinal = $amount == $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT];
+            $cancelResponse = $this->adapter->cancelPayment(
+                $hostedCheckoutId,
+                $amount,
+                $currencyISO,
+                $isFinal
+            );
+            $this->log('cancelPayment', 0, $cancelResponse->toJson());
+            $newStatus = $this->adapter->getCancelStatus($cancelResponse);
+            $amounts = $this->recalculateAmounts($customFields, 0, $amount, 0);
+            $log = [
+                'id' => $cancelResponse->getPayment()->getId(),
+                'amount' => $amount
+            ];
+        }
+        $orderItemsStatus = $this->rebuildOrderItemStatus($customFields, $itemsChanges, 'canceled');
+
+        $this->saveOrderCustomFields(
+            $newStatus,
+            $hostedCheckoutId,
+            $amounts,
+            $log,
+            $orderItemsStatus
+        );
+        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
+
+        if (!in_array($newStatus, Payment::STATUS_PAYMENT_CANCELLED) && $amount > 0) {
+            return false;
+        }
+        return true;
+    }
+
+    /**
+     * @param string $hostedCheckoutId
+     * @param int $amount
+     * @param array $itemsChanges
+     * @return bool
+     * @throws \Doctrine\DBAL\Driver\Exception
+     * @throws \Doctrine\DBAL\Exception
+     */
+    public function refundPayment(string $hostedCheckoutId, int $amount, array $itemsChanges): bool
     {
         $status = $this->updatePaymentTransactionStatus($hostedCheckoutId);
 
         if (in_array($status, Payment::STATUS_REFUNDED)) {
             return false;
         }
-        if (!in_array($status, Payment::STATUS_CAPTURED)) {
-            $this->log('operationIsNotPossibleDueToCurrentStatus' . $status, Logger::ERROR);
+
+        $customFields = $this->order->getCustomFields();
+        if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT]) {
+            $this->log('maxAmountExceeded',Logger::ERROR);
             return false;
         }
 
-        $amount = $this->orderTransaction->getOrder()->getAmountTotal();
+        $newStatus = $status;
+        $amounts = [];
+        $log = [];
+        if ($amount != 0 && !$this->isOrderLocked($customFields)) {
+            $currencyISO = $this->getCurrencyISO();
+            if ($currencyISO === false) {
+                return false;
+            }
 
-        $currencyISO = $this->getCurrencyISO();
-        if ($currencyISO === false) {
-            return false;
+            $orderNumber = $this->order->getOrderNumber();
+
+            $refundResponse = $this->adapter->refundPayment(
+                $hostedCheckoutId,
+                $amount,
+                $currencyISO,
+                $orderNumber
+            );
+
+            $this->log('refundPayment', 0, $refundResponse->toJson());
+            $newStatus = $this->adapter->getRefundStatus($refundResponse);
+            $amounts = $this->recalculateAmounts($customFields, 0, 0, $amount);
+            $log = [
+                'id' => $refundResponse->getId(),
+                'amount' => $amount
+            ];
         }
+        $orderItemsStatus = $this->rebuildOrderItemStatus($customFields, $itemsChanges, 'refunded');
 
-        $orderNumber = $this->orderTransaction->getOrder()->getOrderNumber();
-
-        $refundResponse = $this->adapter->refundPayment(
+        $this->saveOrderCustomFields(
+            $newStatus,
             $hostedCheckoutId,
-            $amount,
-            $currencyISO,
-            $orderNumber
+            $amounts,
+            $log,
+            $orderItemsStatus
         );
+        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
 
-        $this->log('refundPayment', 0, $refundResponse->toJson());
-        $status = $this->adapter->getRefundStatus($refundResponse);
-
-        $this->saveOrderCustomFields($status, $hostedCheckoutId);
-        $this->updateOrderTransactionState($status, $hostedCheckoutId);
-
-        if (!in_array($status, Payment::STATUS_REFUND_REQUESTED)
-            && !in_array($status, Payment::STATUS_REFUNDED)) {
+        if (!in_array($newStatus, Payment::STATUS_REFUND_REQUESTED)
+            && !in_array($newStatus, Payment::STATUS_REFUNDED)) {
             return false;
         }
         return true;
@@ -278,7 +372,7 @@ class PaymentHandler
 
     /**
      * @param string $hostedCheckoutId
-     * @return void
+     * @return string
      * @throws \Exception
      */
     private function updatePaymentTransactionStatus(string $hostedCheckoutId): string
@@ -288,42 +382,232 @@ class PaymentHandler
 
         if ($token = $this->adapter->getRedirectToken($paymentDetails)) {
             $card = $this->createRedirectPaymentProduct($token, $paymentDetails);
-            $this->saveCustomerCustomFields(
-                null,
-                $token,
-                $card
-            );
+            $this->saveCustomerCustomFields(null, $token, $card);
         }
 
         $status = $this->adapter->getStatus($paymentDetails);
+
+        //Check log for any outer actions
+        $this->compareLog($paymentDetails);
         $this->saveOrderCustomFields($status, $hostedCheckoutId);
         return $status;
     }
 
     /**
+     * @param array $customFields
+     * @param float $captureAmount
+     * @param float $cancelAmount
+     * @param float $refundAmount
+     * @return float[]
+     */
+    private function recalculateAmounts(array $customFields, float $captureAmount, float $cancelAmount, float $refundAmount): array
+    {
+        $toCaptureOrCancel = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT];
+        $toRefund = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT];
+
+        return [
+            'toCaptureOrCancel' => $toCaptureOrCancel - $captureAmount - $cancelAmount,
+            'toRefund' => $toRefund + $captureAmount - $refundAmount,
+        ];
+    }
+
+    /**
+     * @param bool $isDirectSale
+     * @return array
+     */
+    public function buildOrderItemStatus(bool $isDirectSale = false): array
+    {
+        $orderId = $this->order->getId();
+        $criteria = new Criteria([$orderId]);
+        $criteria->addAssociation('lineItems')
+            ->addAssociation('deliveries.positions.orderLineItem')
+            ->addAssociation('orderCustomer.customer')
+            ->addAssociation('orderCustomer.customer.group');
+        /** @var OrderEntity $orderEntity */
+        $orderEntity = $this->orderRepository->search($criteria, $this->context)->first();
+        $isNetPrice = !$orderEntity->getOrderCustomer()->getCustomer()->getGroup()->getDisplayGross();
+
+        $orderItemsStatus = [];
+        /** @var OrderLineItemEntity $lineItem */
+        foreach ($orderEntity->getLineItems() as $lineItem) {
+            [$totalPrice, $quantity, $unitPrice] = WorldlineSDKAdapter::getUnitPrice($lineItem, $isNetPrice);
+            $unprocessed = $quantity;
+            $paid = 0;
+            if ($isDirectSale) {
+                $unprocessed = 0;
+                $paid = $quantity;
+            }
+            $orderItemsStatus[$lineItem->getId()] = [
+                'id' => $lineItem->getId(),
+                'label' => $lineItem->getLabel(),
+                'unitPrice' => $unitPrice,
+                'unprocessed' => $unprocessed,
+                'paid' => $paid,
+                'refunded' => 0,
+                'canceled' => 0,
+            ];
+        }
+
+        $shippingPrice = WorldlineSDKAdapter::getShippingPrice($orderEntity->getShippingCosts(), $isNetPrice);
+        if ($shippingPrice > 0) {
+            $unprocessed = 1;
+            $paid = 0;
+            if ($isDirectSale) {
+                $unprocessed = 0;
+                $paid = 1;
+            }
+            $id = WorldlineSDKAdapter::SHIPPING_LABEL;
+            $orderItemsStatus[$id] = [
+                'id' => $id,
+                'label' => $id,
+                'unitPrice' => $shippingPrice,
+                'unprocessed' => $unprocessed,
+                'paid' => $paid,
+                'refunded' => 0,
+                'canceled' => 0,
+            ];
+        }
+
+        return $orderItemsStatus;
+    }
+
+    /**
+     * @param array $customFields
+     * @param array $changes
+     * @return array
+     */
+    public function rebuildOrderItemStatus(array $customFields, array $changes, $process): array
+    {
+        $original = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_ITEMS_STATUS];
+        switch ($process) {
+            case 'paid':
+            case 'canceled':
+            {
+                foreach ($changes as $itemChange) {
+                    $original[$itemChange['id']][$process] += $itemChange['quantity'];
+                    $original[$itemChange['id']]['unprocessed'] -= $itemChange['quantity'];
+                }
+                break;
+            }
+            case 'refunded':
+            {
+                foreach ($changes as $itemChange) {
+                    $original[$itemChange['id']][$process] += $itemChange['quantity'];
+                    $original[$itemChange['id']]['paid'] -= $itemChange['quantity'];
+                }
+                break;
+            }
+        }
+
+        return $original;
+    }
+
+    /**
      * @param int $statusCode
      * @param string $hostedCheckoutId
+     * @param array $amounts
+     * @param array $log
+     * @param array $orderItemsStatus
      * @return void
      */
-    private function saveOrderCustomFields(int $statusCode, string $hostedCheckoutId)
+    private function saveOrderCustomFields(
+        int    $statusCode,
+        string $hostedCheckoutId,
+        array  $amounts = [],
+        array  $log = [],
+        array  $orderItemsStatus = []
+    )
     {
-        $orderId = $this->getOrderId();
-        $transactionId = $this->orderTransaction->getId();
+        $currentCustomField = $this->order->getCustomFields();
+        if (!empty($currentCustomField)) {
+            $customFields = $currentCustomField;
+        }
 
         $readableStatus = $this->getReadableStatus($statusCode);
-        $customFields = [
-            Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID => $hostedCheckoutId,
-            Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS => (string)$statusCode,
-            Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_READABLE_STATUS => $readableStatus
-        ];
+        $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID] = $hostedCheckoutId;
+        $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS] = (string)$statusCode;
+        $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_READABLE_STATUS] = $readableStatus;
 
-        $this->orderTransactionRepository->update([
-            [
-                'id' => $transactionId,
-                'customFields' => $customFields
-            ]
-        ], $this->context);
+        if (!empty($amounts)) {
+            $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT] = $amounts['toCaptureOrCancel'];
+            $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT] = $amounts['toRefund'];
+        }
 
+        if (!empty($log)) {
+            if (!strpos($log['id'], '_')) {
+                $log['id'] .= '_0';
+            }
+            $log['date'] = time();
+            $log['status'] = $statusCode;
+            $log['readableStatus'] = $readableStatus;
+            $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG][$log['id']] = $log;
+        }
+
+        if (!empty($orderItemsStatus)) {
+            $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_ITEMS_STATUS] = $orderItemsStatus;
+        }
+
+        if (is_null($currentCustomField)
+            || $currentCustomField[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS] != (string)$statusCode
+            || !empty($log)
+            || !empty($amounts)
+            || !empty($orderItemsStatus)
+        ) {
+            $this->updateDatabase($customFields);
+        }
+    }
+
+    /**
+     * @param PaymentDetailsResponse $paymentDetailsResponse
+     * @return void
+     */
+    private function compareLog(PaymentDetailsResponse $paymentDetailsResponse): void
+    {
+        $customFields = $this->order->getCustomFields();
+        $innerLog = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG];
+        $outerLog = $paymentDetailsResponse->getOperations();
+
+        $needToUpdate = false;
+        $needToLock = false;
+        foreach ($outerLog as $operation) {
+            $outerLogId = $operation->getId();
+            $outerStatusCode = $operation->getStatusOutput()->getStatusCode();
+
+            if (!array_key_exists($outerLogId, $innerLog)) {
+                $needToUpdate = true;
+                $externalChange = '';
+                if (!empty($innerLog)) {
+                    $needToLock = true;
+                    $externalChange = " EXTERNAL CHANGE!";
+                }
+                $innerLog[$outerLogId]['id'] = $outerLogId;
+                $innerLog[$outerLogId]['amount'] = 0;
+                $innerLog[$outerLogId]['status'] = $outerStatusCode;
+                $innerLog[$outerLogId]['readableStatus'] = $this->getReadableStatus($outerStatusCode) . $externalChange;
+                $innerLog[$outerLogId]['date'] = time();
+            } elseif ($innerLog[$outerLogId]['status'] != $outerStatusCode) {
+                $needToUpdate = true;
+                $innerLog[$outerLogId]['status'] = $outerStatusCode;
+                $innerLog[$outerLogId]['readableStatus'] = $this->getReadableStatus($outerStatusCode);
+                $innerLog[$outerLogId]['date'] = time();
+            }
+        }
+
+        if ($needToUpdate || $needToLock) {
+            $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG] = $innerLog;
+            $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED] = $needToLock;
+            $this->updateDatabase($customFields);
+            $this->order->setCustomFields($customFields);
+        }
+    }
+
+    /**
+     * @param array $customFields
+     * @return void
+     */
+    private function updateDatabase(array $customFields): void
+    {
+        $orderId = $this->order->getId();
         $this->orderRepository->update([
             [
                 'id' => $orderId,
@@ -339,7 +623,9 @@ class PaymentHandler
      */
     public function updateOrderTransactionState(int $statusCode, string $hostedCheckoutId)
     {
-        $orderTransactionId = $this->orderTransaction->getId();
+        // 22.03.2023 - should be disabled before Worldline will fix status notifications.
+        return;
+        /*$orderTransactionId = $this->order->getTransactions()->last()->getId();
         $orderTransactionState = $this->orderTransaction->getStateMachineState()->getTechnicalName();
 
         switch ($statusCode) {
@@ -428,23 +714,23 @@ class PaymentHandler
             {
                 break;
             }
-        }
+        }*/
     }
 
     /**
      * @param Context $context
-     * @param EntityRepositoryInterface $orderTransactionRepository
+     * @param EntityRepositoryInterface $orderRepository
      * @param string $hostedCheckoutId
-     * @return OrderTransactionEntity|null
+     * @return OrderEntity|null
      */
-    public static function getOrderTransaction(
+    public static function getOrder(
         Context                   $context,
-        EntityRepositoryInterface $orderTransactionRepository,
+        EntityRepositoryInterface $orderRepository,
         string                    $hostedCheckoutId
-    ): ?OrderTransactionEntity
+    ): ?OrderEntity
     {
         $criteria = new Criteria();
-        $criteria->addAssociation('order');
+        $criteria->addAssociation('transactions');
         $criteria->addFilter(
             new MultiFilter(
                 MultiFilter::CONNECTION_AND,
@@ -466,14 +752,14 @@ class PaymentHandler
             )
         );
 
-        /** @var OrderTransactionEntity|null $orderTransaction */
-        $orderTransaction = $orderTransactionRepository->search($criteria, $context)->getEntities()->first();
+        /** @var OrderEntity|null $order */
+        $order = $orderRepository->search($criteria, $context)->getEntities()->first();
 
-        if ($orderTransaction === null) {
+        if ($order === null) {
             throw new InvalidTransactionException('');
         }
 
-        return $orderTransaction;
+        return $order;
     }
 
     /**
@@ -495,7 +781,7 @@ class PaymentHandler
     {
         $additionalData = array_merge(
             [$additionalData],
-            ['orderNumber' => $this->orderTransaction->getOrder()->getOrderNumber()]
+            ['orderNumber' => $this->order->getOrderNumber()]
         );
 
         $this->adapter->log(
@@ -506,14 +792,13 @@ class PaymentHandler
     }
 
     /**
-     * @param string $currencyId
-     * @return false|mixed|mixed[]
+     * @return false|mixed
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
     private function getCurrencyISO()
     {
-        $currencyId = $this->orderTransaction->getOrder()->getCurrencyId();
+        $currencyId = $this->order->getCurrencyId();
 
         $connection = Kernel::getConnection();
         $sql = "SELECT iso_code  FROM `currency` WHERE id = UNHEX('$currencyId')";
@@ -566,7 +851,7 @@ class PaymentHandler
             [$token, $paymentProduct] = $this->createPaymentProduct($hostedTokenization);
         }
 
-        $customerId = $this->getCustomerId();
+        $customerId = $this->order->getOrderCustomer()->getCustomerId();
         $customer = $this->customerRepository->search(new Criteria([$customerId]), $this->context);
         $customFields = $customer->first()->getCustomFields();
         $customFields[Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN][$token] = $paymentProduct;
@@ -623,5 +908,17 @@ class PaymentHandler
             ],
             PaymentProducts::getPaymentProductDetails($paymentProductId)
         );
+    }
+
+    /**
+     * @param $customFields
+     * @return bool
+     */
+    private function isOrderLocked($customFields): bool
+    {
+        if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED, $customFields)) {
+            return $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED];
+        }
+        return false;
     }
 }

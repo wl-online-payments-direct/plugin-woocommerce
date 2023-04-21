@@ -1,0 +1,34 @@
+<sw-container type="row" gap="15px">
+    <sw-data-grid
+            v-if="hasContent"
+            ref="dataGrid"
+            class="sw-order-line-items-grid__data-grid"
+            identifier="mo-order-line-item-grid"
+            :data-source="orderLineItems"
+            :columns="getLineItemColumns"
+            :show-settings="false"
+            :show-selection="false"
+            :showActions="false"
+            :is-loading="isLoading"
+            :compactMode="false"
+    >
+        <template #column-quantity="{ item }">
+            <span>{{ item.refunded }}x</span>
+        </template>
+
+        <template #column-unitPrice="{ item }">
+            <span>{{ item.unitPrice | currency(order.currency.shortName, order.itemRounding.decimals) }}</span>
+        </template>
+
+        <template #column-totalPrice="{ item, itemIndex }">
+            <span>{{ itemPrices[itemIndex] | currency(order.currency.shortName, order.itemRounding.decimals) }}</span>
+        </template>
+    </sw-data-grid>
+
+    <sw-container v-if="hasContent" columns="1fr 120px" gap="15px" justify="stretch" align="stretch">
+        <div></div>
+        <sw-text-field :value="totalAmount | currency(order.currency.shortName, order.itemRounding.decimals)" disabled />
+    </sw-container>
+
+    <div class="table--no-content" v-if="!hasContent">{{ $tc('worldline.transaction-control.table.empty') }}</div>
+</sw-container>

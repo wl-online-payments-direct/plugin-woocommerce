@@ -1,122 +1,200 @@
 import template from './sw-order-detail-base.html.twig';
+import './my-styles.scss'
+
 
 const { Component } = Shopware;
+
 
 Component.override('sw-order-detail-base', {
     template,
 
     inject: ['transactionsControl'],
+
     data() {
         return {
+            activeTab: 'unprocessed',
+            tabs: [
+                {name: 'unprocessed'},
+                {name: 'paid'},
+                {name: 'refunded'},
+                {name: 'canceled'},
+            ],
+            transactionStatus: false,
+            transactionLogs: '',
+            worldlinePaymentStatus: [],
             isLoading: false,
-            isSaveSuccessful: false,
+            unwatchOrder: null,
+            isUnpaidAdminOrder: false,
+            adminPayFinishUrl: '',
+            adminPayErrorUrl: '',
+            swAccessKey: '',
+            isWorldlineOnlinePayment: false,
+            lockedButtons: false,
+            allowedAmounts: null,
         };
     },
-     computed: {
-            pluginConfig() {
-                return {
-                    'url': window.location.href
+
+    created() {
+        this.unwatchOrder = this.$watch('order', (newOrder) => {
+            if (newOrder?.lineItems?.length) {
+                this.initializePanel();
+            }
+        });
+    },
+
+    computed: {
+        transactionId() {
+            return this.order.customFields?.payment_transaction_id;
+        },
+
+        paymentMethod() {
+            return this.order.transactions.last().paymentMethod.customFields.worldline_payment_method_id;
+        },
+
+        transactionStatusId() {
+            return this.order.customFields?.payment_transaction_status;
+        },
+
+        getOrderId() {
+            return this.order.id;
+        },
+
+        isAdminOrder() {
+            return this.order.createdBy !== null;
+        },
+
+        isNoTransactionPresent() {
+            return !this.transactionId;
+        },
+
+        isNoCompleteTransactionPresent() {
+            if (this.isNoTransactionPresent) return true;
+            return this.transactionStatusId == 0;
+        },
+    },
+
+    methods: {
+        setActiveTab(tab) {
+            this.activeTab = tab.name;
+        },
+
+        getPanelConfig() {
+            this.transactionsControl.getConfig({'orderId': this.order.id}).then((res) => {
+                this.adminPayFinishUrl = res.adminPayFinishUrl;
+                this.adminPayErrorUrl = res.adminPayErrorUrl;
+                this.isWorldlineOnlinePayment = res.isFullRedirectMethod;
+                this.swAccessKey = res.swAccessKey;
+            }).finally(() => {
+                this.isUnpaidAdminOrder = (this.isAdminOrder && this.isWorldlineOnlinePayment && this.isNoCompleteTransactionPresent);
+                this.statusCheck();
+            });
+        },
+
+        setInitialTab() {
+            if (this.worldlinePaymentStatus.filter(entry => entry.unprocessed > 0).length === 0 ) {
+                if (this.worldlinePaymentStatus.filter(entry => entry.paid > 0).length > 0 ) {
+                    this.activeTab = 'paid';
+                } else if (this.worldlinePaymentStatus.filter(entry => entry.refunded > 0).length > 0 ) {
+                    this.activeTab = 'refunded';
+                } else if (this.worldlinePaymentStatus.filter(entry => entry.canceled > 0).length > 0 ) {
+                    this.activeTab = 'canceled';
                 }
             }
         },
-    methods: {
-        statusCheck() {
-            this.isLoading = true;
-            this.transactionsControl.statusCheck(this.pluginConfig).then((res) => {
+
+        initializePanel() {
+            this.unwatchOrder();
+            this.getPanelConfig();
+        },
+
+        getValues() {
+            if (this.transactionId === null) {
+                this.isLoading = false
+                return;
+            }
+            this.transactionsControl.enableButtons({'transactionId': this.transactionId}).then((res) => {
                 if (res.success) {
-                    this.isSaveSuccessful = true;
-                    this.createNotificationSuccess({
-                        title: this.$tc('worldline.check-status-button.title'),
-                        message: this.$tc('worldline.check-status-button.success')
-                    });
-                    location.reload();
+                    this.worldlinePaymentStatus = res.worldlinePaymentStatus;
+                    this.transactionLogs = res.log;
+                    this.allowedAmounts = res.allowedAmounts;
+                    this.lockedButtons = res.worldlineLockButtons;
+                    this.setInitialTab();
+                    this.transactionStatus = true;
                 } else {
                     this.createNotificationError({
                         title: this.$tc('worldline.check-status-button.title'),
                         message: this.$tc('worldline.check-status-button.error') + res.message
                     });
                 }
-
-                this.isLoading = false;
-            });
+            }).finally(() => this.isLoading = false);
         },
 
-        capture() {
+        statusCheck() {
             this.isLoading = true;
-            this.transactionsControl.capture(this.pluginConfig).then((res) => {
+            this.transactionsControl.statusCheck(
+                {'transactionId': this.transactionId}
+            ).then((res) => {
                 if (res.success) {
-                    this.isSaveSuccessful = true;
-                    this.createNotificationSuccess({
-                        title: this.$tc('worldline.capture-payment-button.title'),
-                        message: this.$tc('worldline.capture-payment-button.success')
-                    });
-                    location.reload();
+                    this.getValues();
                 } else {
-                    this.createNotificationError({
-                        title: this.$tc('worldline.capture-payment-button.title'),
-                        message: this.$tc('worldline.capture-payment-button.error') + res.message
-                    });
-                }
-
-                this.isLoading = false;
-            });
-        },
-        cancel() {
-            this.isLoading = true;
-            this.transactionsControl.cancel(this.pluginConfig).then((res) => {
-                if (res.success) {
-                    this.isSaveSuccessful = true;
-                    this.createNotificationSuccess({
-                        title: this.$tc('worldline.cancel-payment-button.title'),
-                        message: this.$tc('worldline.cancel-payment-button.success')
-                    });
-                    location.reload();
-                } else {
-                    this.createNotificationError({
-                        title: this.$tc('worldline.cancel-payment-button.title'),
-                        message: this.$tc('worldline.cancel-payment-button.error') + res.message
-                    });
-                }
-
-                this.isLoading = false;
-            });
-        },
-        refund() {
-            this.isLoading = true;
-            this.transactionsControl.refund(this.pluginConfig).then((res) => {
-                if (res.success) {
-                    this.isSaveSuccessful = true;
-                    this.createNotificationSuccess({
-                        title: this.$tc('worldline.refund-payment-button.title'),
-                        message: this.$tc('worldline.refund-payment-button.success')
-                    });
-                    location.reload();
-                } else {
-                    this.createNotificationError({
-                        title: this.$tc('worldline.refund-payment-button.title'),
-                        message: this.$tc('worldline.refund-payment-button.error') + res.message
-                    });
-                }
-
-                this.isLoading = false;
-            });
-        },
-        enableButtons() {
-            this.transactionsControl.enableButtons(this.pluginConfig).then((res) => {
-                if (res.message.length > 0) {
-                    for (const element of res.message) {
-                        document.getElementById(element).disabled = false;
-
+                    if (!this.isUnpaidAdminOrder) {
+                        this.transactionStatus = false;
+                        this.createNotificationError({
+                            title: this.$tc('worldline.check-status-button.title'),
+                            message: this.$tc('worldline.check-status-button.error') + res.message
+                        });
                     }
+                    this.isLoading = false;
                 }
             });
-        }
+        },
+
+        payByAdmin() {
+            this.isLoading = true;
+            const payload = {
+                orderId: this.getOrderId,
+                finishUrl: this.adminPayFinishUrl,
+                errorUrl: this.adminPayErrorUrl,
+            };
+
+            fetch('/store-api/handle-payment', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'sw-access-key': this.swAccessKey
+                },
+                body: JSON.stringify(payload),
+            }).then((response) => {
+                if (response.ok) {
+                    response.json().then(r => {
+                        let popup = null
+                        let invId = null
+                        let invFunc = () => {
+                            if (popup.closed) {
+                                clearInterval(invId);
+                                location.reload();
+                            }
+                        }
+                        popup = open(r.redirectUrl);
+                        invId = setInterval(invFunc, 500);
+                    });
+                } else {
+                    console.error(response);
+                    this.createNotificationError({
+                        title: this.$tc('worldline.check-status-button.title'),
+                        message: this.$tc('worldline.transaction-control.buttons.error')
+                    });
+                }
+            }).catch((error) => {
+                console.error(error);
+                this.createNotificationError({
+                    title: this.$tc('worldline.check-status-button.title'),
+                    message: this.$tc('worldline.check-status-button.error') + error
+                });
+            }).finally(() => {
+                this.isLoading = false;
+            });
+        },
     },
-    updated() {
-        //Disabling buttons via twig add some classes and make enabling much more complicated
-        document.getElementById("WorldlineBtnCapture").disabled = true;
-        document.getElementById("WorldlineBtnCancel").disabled = true;
-        document.getElementById("WorldlineBtnRefund").disabled = true;
-        this.enableButtons();
-    }
-});
+
+})

@@ -3,11 +3,13 @@
 namespace MoptWorldline\Adapter;
 
 use Monolog\Logger;
+use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
 use OnlinePayments\Sdk\Domain\AddressPersonal;
 use OnlinePayments\Sdk\Domain\AmountOfMoney;
 use OnlinePayments\Sdk\Domain\BrowserData;
+use OnlinePayments\Sdk\Domain\CancelPaymentRequest;
 use OnlinePayments\Sdk\Domain\CancelPaymentResponse;
 use OnlinePayments\Sdk\Domain\CapturePaymentRequest;
 use OnlinePayments\Sdk\Domain\CaptureResponse;
@@ -177,7 +179,7 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param float $amountTotal
+     * @param int $amountTotal
      * @param string $currencyISO
      * @param int $worldlinePaymentProductId
      * @param OrderEntity|null $orderEntity
@@ -185,7 +187,7 @@ class WorldlineSDKAdapter
      * @throws \Exception
      */
     public function createPayment(
-        float        $amountTotal,
+        int          $amountTotal,
         string       $currencyISO,
         int          $worldlinePaymentProductId,
         ?OrderEntity $orderEntity
@@ -196,7 +198,7 @@ class WorldlineSDKAdapter
 
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setCurrencyCode($currencyISO);
-        $amountOfMoney->setAmount((int)($amountTotal * 100));
+        $amountOfMoney->setAmount($amountTotal);
 
         $order = new Order();
         $order->setAmountOfMoney($amountOfMoney);
@@ -206,6 +208,10 @@ class WorldlineSDKAdapter
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
+        $captureConfig = $this->getPluginConfig(Form::AUTO_CAPTURE);
+        if ($captureConfig === Form::AUTO_CAPTURE_IMMEDIATELY) {
+            $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
+        }
 
         $hostedCheckoutRequest = new CreateHostedCheckoutRequest();
         if ($worldlinePaymentProductId != 0) {
@@ -256,7 +262,7 @@ class WorldlineSDKAdapter
         switch ($worldlinePaymentProductId) {
             case PaymentProducts::PAYMENT_PRODUCT_INTERSOLVE:
             {
-                $cardPaymentMethodSpecificInput->setAuthorizationMode('SALE');
+                $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
                 $hostedCheckoutSpecificInput->setIsRecurring(false);
                 break;
             }
@@ -331,7 +337,7 @@ class WorldlineSDKAdapter
      * @throws \Exception
      */
     public function createHostedTokenizationPayment(
-        float                         $amountTotal,
+        int                           $amountTotal,
         string                        $currencyISO,
         array                         $iframeData,
         GetHostedTokenizationResponse $hostedTokenization
@@ -359,7 +365,7 @@ class WorldlineSDKAdapter
 
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setCurrencyCode($currencyISO);
-        $amountOfMoney->setAmount($amountTotal * 100);
+        $amountOfMoney->setAmount($amountTotal);
 
         $order = new Order();
         $order->setAmountOfMoney($amountOfMoney);
@@ -374,7 +380,11 @@ class WorldlineSDKAdapter
         $threeDSecure->setChallengeIndicator('challenge-required');
 
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
-        $cardPaymentMethodSpecificInput->setAuthorizationMode("FINAL_AUTHORIZATION");
+        $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::FINAL_AUTHORIZATION);
+        $captureConfig = $this->getPluginConfig(Form::AUTO_CAPTURE);
+        if ($captureConfig === Form::AUTO_CAPTURE_IMMEDIATELY) {
+            $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
+        }
         $cardPaymentMethodSpecificInput->setToken($token);
         $cardPaymentMethodSpecificInput->setPaymentProductId($paymentProductId);
         $cardPaymentMethodSpecificInput->setTokenize(false);
@@ -415,49 +425,61 @@ class WorldlineSDKAdapter
 
     /**
      * @param string $hostedCheckoutId
-     * @param float $amount
-     * @return void
+     * @param int $amount
+     * @param bool $isFinal
+     * @return CaptureResponse
      * @throws \Exception
      */
-    public function capturePayment(string $hostedCheckoutId, float $amount): CaptureResponse
+    public function capturePayment(string $hostedCheckoutId, int $amount, bool $isFinal): CaptureResponse
     {
         $merchantClient = $this->getMerchantClient();
         $hostedCheckoutId = $hostedCheckoutId . '_0';
 
         $capturePaymentRequest = new CapturePaymentRequest();
-        $capturePaymentRequest->setAmount($amount * 100);
-        $capturePaymentRequest->setIsFinal(true);
+        $capturePaymentRequest->setAmount($amount);
+        $capturePaymentRequest->setIsFinal($isFinal);
 
         return $merchantClient->payments()->capturePayment($hostedCheckoutId, $capturePaymentRequest);
     }
 
     /**
      * @param string $hostedCheckoutId
+     * @param int $amount
+     * @param string $currency
+     * @param bool $isFinal
      * @return CancelPaymentResponse
      * @throws \Exception
      */
-    public function cancelPayment(string $hostedCheckoutId): CancelPaymentResponse
+    public function cancelPayment(string $hostedCheckoutId, int $amount, string $currency, bool $isFinal): CancelPaymentResponse
     {
+        $amountOfMoney = new AmountOfMoney();
+        $amountOfMoney->setAmount($amount);
+        $amountOfMoney->setCurrencyCode($currency);
+
+        $cancelRequest = new CancelPaymentRequest();
+        $cancelRequest->setAmountOfMoney($amountOfMoney);
+        $cancelRequest->setIsFinal($isFinal);
+
         $merchantClient = $this->getMerchantClient();
         $hostedCheckoutId = $hostedCheckoutId . '_1';
-        return $merchantClient->payments()->cancelPayment($hostedCheckoutId);
+        return $merchantClient->payments()->cancelPayment($hostedCheckoutId, $cancelRequest);
     }
 
     /**
      * @param string $hostedCheckoutId
-     * @param float $amount
+     * @param int $amount
      * @param string $currency
      * @param string $orderNumber
      * @return RefundResponse
      * @throws \Exception
      */
-    public function refundPayment(string $hostedCheckoutId, float $amount, string $currency, string $orderNumber): RefundResponse
+    public function refundPayment(string $hostedCheckoutId, int $amount, string $currency, string $orderNumber): RefundResponse
     {
         $merchantClient = $this->getMerchantClient();
         $hostedCheckoutId = $hostedCheckoutId . '_1';
 
         $amountOfMoney = new AmountOfMoney();
-        $amountOfMoney->setAmount($amount * 100);
+        $amountOfMoney->setAmount($amount);
         $amountOfMoney->setCurrencyCode($currency);
 
         $paymentReferences = new PaymentReferences();
@@ -678,23 +700,11 @@ class WorldlineSDKAdapter
         $requestLineItems = [];
         /** @var OrderLineItemEntity $lineItem */
         foreach ($lineItemCollection as $lineItem) {
-            $tax = 0;
-            if ($isNetPrice) {
-                $tax += $lineItem->getPrice()->getCalculatedTaxes()->getAmount();
-            }
-            $totalPrice = ($lineItem->getPrice()->getTotalPrice() + $tax) * 100;
-            $quantity = $lineItem->getPrice()->getQuantity();
-            $unitPrice = $totalPrice / $quantity;
+            [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
             $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
         }
 
-        $shippingTaxTotal = 0;
-        if ($isNetPrice) {
-            foreach ($shippingPrice->getCalculatedTaxes()->getElements() as $shippingTax) {
-                $shippingTaxTotal += $shippingTax->getTax();
-            }
-        }
-        $shippingPrice = ($shippingPrice->getTotalPrice() + $shippingTaxTotal) * 100;
+        $shippingPrice = self::getShippingPrice($shippingPrice, $isNetPrice);
         $requestLineItems[] = $this->createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
 
         return $requestLineItems;
@@ -771,5 +781,43 @@ class WorldlineSDKAdapter
         $customer->setPersonalInformation($personalInformation);
         $customer->setBillingAddress($this->createAddress($billingAddress));
         return $customer;
+    }
+
+    /**
+     * @param OrderLineItemEntity $lineItem
+     * @param bool $isNetPrice
+     * @return array
+     */
+    public static function getUnitPrice(OrderLineItemEntity $lineItem, bool $isNetPrice): array
+    {
+        $tax = 0;
+        if ($isNetPrice) {
+            $tax += $lineItem->getPrice()->getCalculatedTaxes()->getAmount();
+        }
+        $totalPrice = (int)round((($lineItem->getPrice()->getTotalPrice() + $tax) * 100));
+        $quantity = $lineItem->getPrice()->getQuantity();
+
+        return [
+            $totalPrice,
+            $quantity,
+            $totalPrice / $quantity
+        ];
+    }
+
+    /**
+     * @param CalculatedPrice $shippingPrice
+     * @param bool $isNetPrice
+     * @return int
+     */
+    public static function getShippingPrice(CalculatedPrice $shippingPrice, bool $isNetPrice): int
+    {
+        $shippingTaxTotal = 0;
+        if ($isNetPrice) {
+            foreach ($shippingPrice->getCalculatedTaxes()->getElements() as $shippingTax) {
+                $shippingTaxTotal += $shippingTax->getTax();
+            }
+        }
+
+        return (int)(round(($shippingPrice->getTotalPrice() + $shippingTaxTotal) * 100));
     }
 }

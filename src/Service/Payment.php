@@ -64,8 +64,10 @@ class Payment implements AsynchronousPaymentHandlerInterface
         self::SAVED_CARD_PAYMENT_METHOD_ID
     ];
 
+    const DIRECT_SALE = 'SALE';
+    const FINAL_AUTHORIZATION = 'FINAL_AUTHORIZATION';
+
     private SystemConfigService $systemConfigService;
-    private EntityRepositoryInterface $orderTransactionRepository;
     private EntityRepositoryInterface $orderRepository;
     private EntityRepositoryInterface $customerRepository;
     private TranslatorInterface $translator;
@@ -85,9 +87,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
     public const STATUS_REFUND_REQUESTED = [81, 82];            //in progress
     public const STATUS_REFUNDED = [7, 8, 85];                  //refunded
 
-    public const CANCEL_ALLOWED = 'WorldlineBtnCancel';
-    public const REFUND_ALLOWED = 'WorldlineBtnRefund';
-    public const CAPTURE_ALLOWED = 'WorldlineBtnCapture';
+    public const CAPTURE_AMOUNT = 'WorldlineCaptureAmount';
+    public const REFUND_AMOUNT = 'WorldlineRefundAmount';
 
     public const STATUS_LABELS = [
         0 => 'created',
@@ -133,7 +134,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepositoryInterface $orderTransactionRepository
      * @param EntityRepositoryInterface $orderRepository
      * @param EntityRepositoryInterface $customerRepository
      * @param TranslatorInterface $translator
@@ -143,7 +143,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
-        EntityRepositoryInterface    $orderTransactionRepository,
         EntityRepositoryInterface    $orderRepository,
         EntityRepositoryInterface    $customerRepository,
         TranslatorInterface          $translator,
@@ -153,7 +152,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
     )
     {
         $this->systemConfigService = $systemConfigService;
-        $this->orderTransactionRepository = $orderTransactionRepository;
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->translator = $translator;
@@ -167,6 +165,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
      * @param RequestDataBag $dataBag
      * @param SalesChannelContext $salesChannelContext
      * @return RedirectResponse
+     * @throws \Doctrine\DBAL\Driver\Exception
      */
     public function pay(AsyncPaymentTransactionStruct $transaction, RequestDataBag $dataBag, SalesChannelContext $salesChannelContext): RedirectResponse
     {
@@ -185,7 +184,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
                     );
                     break;
                 }
-                default: {
+                default:
+                {
                     $redirectUrl = $this->getHostedCheckoutRedirectUrl(
                         $transaction,
                         $salesChannelContext->getContext()
@@ -238,13 +238,14 @@ class Payment implements AsynchronousPaymentHandlerInterface
     ): void
     {
         $transactionId = $transaction->getOrderTransaction()->getId();
-        $customFields = $transaction->getOrderTransaction()->getCustomFields();
+        $orderId = $transaction->getOrder()->getId();
+        $customFields = $transaction->getOrder()->getCustomFields();
         if (is_array($customFields) && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS, $customFields)) {
             $status = (int)$customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS];
             $hostedCheckoutId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID];
             //For 0 status we need to make an additional GET call to be sure
             if (in_array($status, self::STATUS_PAYMENT_CREATED)) {
-                $handler = $this->getHandler($transactionId, $salesChannelContext->getContext());
+                $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
                 try {
                     $status = $handler->updatePaymentStatus($hostedCheckoutId);
                 } catch (\Exception $e) {
@@ -297,13 +298,15 @@ class Payment implements AsynchronousPaymentHandlerInterface
     private function getHostedCheckoutRedirectUrl(AsyncPaymentTransactionStruct $transaction, Context $context)
     {
         $transactionId = $transaction->getOrderTransaction()->getId();
-        $handler = $this->getHandler($transactionId, $context);
+        $orderId = $transaction->getOrder()->getId();
+        $handler = $this->getHandler($orderId, $context);
 
         try {
-            $customFields = $transaction->getOrderTransaction()->getPaymentMethod()->getCustomFields();
+            $paymentMethodCustomFields = $transaction->getOrderTransaction()->getPaymentMethod()->getCustomFields();
             $worldlinePaymentMethodId = 0;
-            if (is_array($customFields) && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)) {
-                $worldlinePaymentMethodId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
+            if (is_array($paymentMethodCustomFields)
+                && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $paymentMethodCustomFields)) {
+                $worldlinePaymentMethodId = $paymentMethodCustomFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
             }
 
             if (in_array($worldlinePaymentMethodId, self::FAKE_METHODS_LIST)) {
@@ -336,7 +339,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
     private function getHostedTokenizationRedirectUrl(AsyncPaymentTransactionStruct $transaction, Context $context, array $iframeData)
     {
         $transactionId = $transaction->getOrderTransaction()->getId();
-        $handler = $this->getHandler($transactionId, $context);
+        $orderId = $transaction->getOrder()->getId();
+        $handler = $this->getHandler($orderId, $context);
 
         try {
             $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
@@ -355,23 +359,22 @@ class Payment implements AsynchronousPaymentHandlerInterface
     }
 
     /**
-     * @param string $transactionId
+     * @param string $orderId
      * @param Context $context
      * @return PaymentHandler
      */
-    private function getHandler(string $transactionId, Context $context): PaymentHandler
+    private function getHandler(string $orderId, Context $context): PaymentHandler
     {
-        $criteria = new Criteria([$transactionId]);
-        $criteria->addAssociation('order');
-        $orderTransaction = $this->orderTransactionRepository->search($criteria, $context)->first();
+        $criteria = new Criteria([$orderId]);
+        $criteria->addAssociation('transactions');
+        $order = $this->orderRepository->search($criteria, $context)->first();
 
         return new PaymentHandler(
             $this->systemConfigService,
             $this->logger,
-            $orderTransaction,
+            $order,
             $this->translator,
             $this->orderRepository,
-            $this->orderTransactionRepository,
             $this->customerRepository,
             $context,
             $this->transactionStateHandler
@@ -409,21 +412,14 @@ class Payment implements AsynchronousPaymentHandlerInterface
     }
 
     /**
-     * @param int $status
+     * @param array $customFields
      * @return array
      */
-    public static function getAllowedActions(int $status): array
+    public static function getAllowed(array $customFields): array
     {
-        switch ($status) {
-            case in_array($status, self::STATUS_PENDING_CAPTURE):{
-                return [self::CANCEL_ALLOWED, self::CAPTURE_ALLOWED];
-            }
-            case in_array($status, self::STATUS_CAPTURED): {
-                return [self::REFUND_ALLOWED];
-            }
-            default: {
-                return [];
-            }
-        }
+        return [
+            Payment::CAPTURE_AMOUNT => $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT] / 100,
+            Payment::REFUND_AMOUNT => $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT] / 100,
+        ];
     }
 }

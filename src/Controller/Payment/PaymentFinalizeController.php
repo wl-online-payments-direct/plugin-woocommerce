@@ -10,8 +10,8 @@ namespace MoptWorldline\Controller\Payment;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\PaymentHandler;
-use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
+use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Cart\AsyncPaymentTransactionStruct;
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\AsynchronousPaymentHandlerInterface;
 use Shopware\Core\Checkout\Payment\Exception\CustomerCanceledAsyncPaymentException;
@@ -37,7 +37,6 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PaymentFinalizeController extends AbstractController
 {
     private RouterInterface $router;
-    private EntityRepositoryInterface $orderTransactionRepository;
     private EntityRepositoryInterface $orderRepository;
     private EntityRepositoryInterface $customerRepository;
     private AsynchronousPaymentHandlerInterface $paymentHandler;
@@ -48,7 +47,6 @@ class PaymentFinalizeController extends AbstractController
 
     public function __construct(
         SystemConfigService                 $systemConfigService,
-        EntityRepositoryInterface           $orderTransactionRepository,
         EntityRepositoryInterface           $orderRepository,
         EntityRepositoryInterface           $customerRepository,
         AsynchronousPaymentHandlerInterface $paymentHandler,
@@ -59,7 +57,6 @@ class PaymentFinalizeController extends AbstractController
     )
     {
         $this->systemConfigService = $systemConfigService;
-        $this->orderTransactionRepository = $orderTransactionRepository;
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->paymentHandler = $paymentHandler;
@@ -86,16 +83,13 @@ class PaymentFinalizeController extends AbstractController
         }
         $context = $salesChannelContext->getContext();
 
-        /** @var OrderTransactionEntity|null $orderTransaction */
-        $orderTransaction = PaymentHandler::getOrderTransaction($context, $this->orderTransactionRepository, $hostedCheckoutId);
-
+        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
         $paymentHandler = new PaymentHandler(
             $this->systemConfigService,
             $this->logger,
-            $orderTransaction,
+            $order,
             $this->translator,
             $this->orderRepository,
-            $this->orderTransactionRepository,
             $this->customerRepository,
             $salesChannelContext->getContext(),
             $this->transactionStateHandler
@@ -103,7 +97,7 @@ class PaymentFinalizeController extends AbstractController
 
         $paymentHandler->updatePaymentStatus($hostedCheckoutId);
 
-        $finishUrl = $this->buildFinishUrl($request, $orderTransaction, $salesChannelContext, $context);
+        $finishUrl = $this->buildFinishUrl($request, $order, $salesChannelContext, $context);
 
         return new RedirectResponse($finishUrl);
     }
@@ -126,24 +120,19 @@ class PaymentFinalizeController extends AbstractController
 
     /**
      * @param Request $request
-     * @param OrderTransactionEntity $orderTransaction
+     * @param OrderEntity|null $order
      * @param SalesChannelContext $salesChannelContext
      * @param Context $context
      * @return string
      */
     private function buildFinishUrl(
         Request                $request,
-        OrderTransactionEntity $orderTransaction,
+        ?OrderEntity           $order,
         SalesChannelContext    $salesChannelContext,
         Context                $context
     ): string
     {
-        $order = $orderTransaction->getOrder();
-
-        if ($order === null) {
-            throw new InvalidTransactionException($orderTransaction->getId());
-        }
-
+        $orderTransaction = $order->getTransactions()->last();
         $paymentTransactionStruct = new AsyncPaymentTransactionStruct($orderTransaction, $order, '');
 
         $orderId = $order->getId();

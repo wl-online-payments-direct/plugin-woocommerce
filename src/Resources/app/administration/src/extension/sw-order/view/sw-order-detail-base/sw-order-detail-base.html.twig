@@ -2,31 +2,43 @@
     {% parent() %}
     <sw-card :title="$t('worldline.worldline-order.detail.cardLabel')"
              :isLoading="isLoading">
-        <sw-button-process
-            :isLoading="isLoading"
-            :processSuccess="isSaveSuccessful"
-            @click="statusCheck"
-        >{{ $tc('worldline.check-status-button.button') }}</sw-button-process>
+        <sw-container
+                type="row"
+                class="sw-order-line-items-grid"
+                gap="15px"
+        >
+            <sw-tabs v-if="transactionStatus" @new-item-active="setActiveTab" :small="false">
+                <template v-for="tab in tabs">
+                    <sw-tabs-item :key="tab.name" :name="tab.name" :active="tab.name === activeTab">
+                        {{ $tc('worldline.transaction-control.tabs.' + tab.name) }}
+                    </sw-tabs-item>
+                </template>
+            </sw-tabs>
+            <template v-if="transactionStatus">
+                <mo-orders-unprocessed v-if="activeTab === 'unprocessed'" :order="order" :transactionId="transactionId" :paymentStatus="worldlinePaymentStatus" :maxCapture="allowedAmounts.WorldlineCaptureAmount" :lockedButton="lockedButtons" />
+                <mo-orders-paid v-if="activeTab === 'paid'" :order="order" :transactionId="transactionId" :paymentStatus="worldlinePaymentStatus" :maxRefund="allowedAmounts.WorldlineRefundAmount" :lockedButton="lockedButtons" />
+                <mo-orders-refunded v-if="activeTab === 'refunded'" :order="order" :paymentStatus="worldlinePaymentStatus" />
+                <mo-orders-canceled v-if="activeTab === 'canceled'" :order="order" :paymentStatus="worldlinePaymentStatus" />
+            </template>
 
-        <sw-button-process
-            id="WorldlineBtnCapture"
-            :isLoading="isLoading"
-            :processSuccess="isSaveSuccessful"
-            @click="capture"
-        >{{ $tc('worldline.capture-payment-button.button') }}</sw-button-process>
+            <sw-container v-if="transactionStatus" gap="15px">
+                <sw-textarea-field :value="transactionLogs"
+                                   type="textarea"
+                                   :label="$t('worldline.transaction-control.logs.label')"
+                                   :placeholder="$t('worldline.transaction-control.logs.placeholder')"
+                                   disabled
+                />
+                <sw-button :isLoading="isLoading" @click="statusCheck">{{ $tc('worldline.check-status-button.button') }}</sw-button>
+            </sw-container>
 
-        <sw-button-process
-            id="WorldlineBtnCancel"
-            :isLoading="isLoading"
-            :processSuccess="isSaveSuccessful"
-            @click="cancel"
-        >{{ $tc('worldline.cancel-payment-button.button') }}</sw-button-process>
-
-        <sw-button-process
-            id="WorldlineBtnRefund"
-            :isLoading="isLoading"
-            :processSuccess="isSaveSuccessful"
-            @click="refund"
-        >{{ $tc('worldline.refund-payment-button.button') }}</sw-button-process>
+            <sw-button
+                    v-if="isUnpaidAdminOrder"
+                    @click="payByAdmin"
+                    variant="ghost"
+                    :isLoading="isLoading"
+            >
+                {{ $tc('worldline.transaction-control.buttons.adminPay') }}
+            </sw-button>
+        </sw-container>
     </sw-card>
 {% endblock %}
