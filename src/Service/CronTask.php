@@ -11,7 +11,7 @@ use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTask;
 
 class CronTask extends ScheduledTask
 {
-    public const CRON_INTERVAL = 30;
+    public const CRON_INTERVAL = 600;
 
     public static function getTaskName(): string
     {

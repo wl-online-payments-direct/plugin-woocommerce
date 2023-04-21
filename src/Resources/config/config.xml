@@ -102,10 +102,6 @@
                     <name>Disabled</name>
                 </option>
                 <option>
-                    <id>0_hour</id>
-                    <name>In 0 hour (QA option!)</name>
-                </option>
-                <option>
                     <id>1_hour</id>
                     <name>In 1 hour</name>
                 </option>
