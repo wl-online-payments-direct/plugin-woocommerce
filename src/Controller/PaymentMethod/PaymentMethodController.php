@@ -11,6 +11,8 @@ use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentMethodHelper;
+use MoptWorldline\Service\PaymentProducts;
+use OnlinePayments\Sdk\Domain\PaymentProduct;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
@@ -86,7 +88,7 @@ class PaymentMethodController
         $adapter->getMerchantClient();
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
         foreach ($paymentProducts->getPaymentProducts() as $product) {
-            $name = 'Worldline ' . $product->getDisplayHints()->getLabel();
+            $name = $this->getProductName($product);
             if (in_array($product->getId(), $toCreate)) {
                 $method = [
                     'id' => $product->getId(),
@@ -118,7 +120,7 @@ class PaymentMethodController
      * @throws \Exception
      */
     public function getPaymentMethodsList(
-        array $credentials,
+        array   $credentials,
         ?string $salesChannelId,
         ?string $countryIso3,
         ?string $currencyIsoCode
@@ -151,7 +153,7 @@ class PaymentMethodController
             $toFrontend[] = [
                 'id' => $product->getId(),
                 'logo' => $product->getDisplayHints()->getLogo(),
-                'label' => $createdPaymentMethod['label'] ? : $product->getDisplayHints()->getLabel(),
+                'label' => $createdPaymentMethod['label'] ?: $product->getDisplayHints()->getLabel(),
                 'isActive' => $createdPaymentMethod['isActive'],
                 'internalId' => $createdPaymentMethod['internalId']
             ];
@@ -172,5 +174,20 @@ class PaymentMethodController
             'message' => $message,
             'paymentMethods' => $paymentMethods,
         ]);
+    }
+
+    /**
+     * @param PaymentProduct $product
+     * @return string
+     */
+    private function getProductName(PaymentProduct $product): string
+    {
+        $id = $product->getId();
+        $name = 'Worldline ' . $product->getDisplayHints()->getLabel();
+        if (array_key_exists($id, PaymentProducts::PAYMENT_PRODUCT_NAMES)) {
+            $name = PaymentProducts::PAYMENT_PRODUCT_NAMES[$id];
+        }
+
+        return $name;
     }
 }
