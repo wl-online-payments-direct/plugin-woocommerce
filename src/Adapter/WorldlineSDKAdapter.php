@@ -698,14 +698,30 @@ class WorldlineSDKAdapter
     ): array
     {
         $requestLineItems = [];
+        $discount = 0;
         /** @var OrderLineItemEntity $lineItem */
         foreach ($lineItemCollection as $lineItem) {
             [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
-            $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
+            if ($totalPrice < 0) {
+                $discount += abs($totalPrice);
+            }
+        }
+        foreach ($lineItemCollection as $lineItem) {
+            [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
+            if ($totalPrice < 0) {
+                continue;
+            }
+            if ($discount > 0 && $discount < $totalPrice) {
+                $partDiscount = (int)($discount/$quantity);
+                $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity, $partDiscount);
+                $discount -= $partDiscount * $quantity;
+            } else {
+                $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
+            }
         }
 
         $shippingPrice = self::getShippingPrice($shippingPrice, $isNetPrice);
-        $requestLineItems[] = $this->createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+        $requestLineItems[] = $this->createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1, $discount);
 
         return $requestLineItems;
     }
@@ -716,19 +732,27 @@ class WorldlineSDKAdapter
      * @param int $totalPrice
      * @param int $unitPrice
      * @param int $quantity
+     * @param int $discount
      * @return LineItem
      */
-    private function createLineItem(string $label, string $currencyISO, int $totalPrice, int $unitPrice, int $quantity): LineItem
+    private function createLineItem(
+        string $label,
+        string $currencyISO,
+        int $totalPrice,
+        int $unitPrice,
+        int $quantity,
+        int $discount = 0
+    ): LineItem
     {
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setCurrencyCode($currencyISO);
-        $amountOfMoney->setAmount($totalPrice);
+        $amountOfMoney->setAmount($totalPrice - $discount * $quantity);
 
         $lineDetails = new OrderLineDetails();
         $lineDetails->setProductName($label);
         $lineDetails->setProductPrice($unitPrice);
         $lineDetails->setQuantity($quantity);
-        $lineDetails->setDiscountAmount(0);
+        $lineDetails->setDiscountAmount($discount);
         $lineDetails->setTaxAmount(0);
 
         $lineItem = new LineItem();
