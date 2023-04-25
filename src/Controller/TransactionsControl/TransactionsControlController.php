@@ -215,6 +215,33 @@ class TransactionsControlController extends AbstractController
     }
 
     /**
+     * @Route(
+     *     "/api/_action/transactions-control/getOneyPaymentOption",
+     *     name="api.action.transactions.control.getOneyPaymentOption",
+     *     methods={"GET"}
+     * )
+     */
+    public function getOneyPaymentOption(): JsonResponse
+    {
+        return new JsonResponse([
+            'oneyPaymentOption' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD)
+        ]);
+    }
+
+    /**
+     * @Route(
+     *     "/api/_action/transactions-control/setOneyPaymentOption",
+     *     name="api.action.transactions.control.setOneyPaymentOption",
+     *     methods={"POST"}
+     * )
+     */
+    public function setOneyPaymentOption(Request $request): void
+    {
+        $oneyPaymentOption = $request->request->get('oneyPaymentOption');
+        $this->systemConfigService->set(Form::ONEY_PAYMENT_OPTION_FIELD, $oneyPaymentOption);
+    }
+
+    /**
      * @param Request $request
      * @param Context $context
      * @param string $action

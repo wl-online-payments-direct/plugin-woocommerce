@@ -89,10 +89,6 @@
             </options>
             <defaultValue>INFO</defaultValue>
         </input-field>
-        <input-field>
-            <name>oneyPaymentOption</name>
-            <label>Oney Payment Option</label>
-        </input-field>
         <input-field type="single-select">
             <name>logLevel</name>
             <helpText>Choose the loglevel of non-error messages</helpText>

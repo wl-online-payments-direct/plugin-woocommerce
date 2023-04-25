@@ -67,6 +67,17 @@ class transactionsControlService extends ApiService {
                 return ApiService.handleResponse(response);
             });
     }
+
+    getOneyPaymentConfig(values) {
+        const headers = this.getBasicHeaders({});
+        return this.httpClient
+            .post(`_action/${this.getApiBasePath()}/getOneyPaymentOption`, values,{
+                headers
+            })
+            .then((response) => {
+                return ApiService.handleResponse(response);
+            });
+    }
 }
 
 Application.addServiceProvider('transactionsControl', (container) => {
