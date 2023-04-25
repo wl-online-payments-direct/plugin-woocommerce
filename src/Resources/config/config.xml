@@ -94,6 +94,41 @@
             <label>Oney Payment Option</label>
         </input-field>
         <input-field type="single-select">
+            <name>autoCancel</name>
+            <label>Automatic cancellation</label>
+            <options>
+                <option>
+                    <id>disabled</id>
+                    <name>Disabled</name>
+                </option>
+                <option>
+                    <id>1_hour</id>
+                    <name>In 1 hour</name>
+                </option>
+                <option>
+                    <id>2_hour</id>
+                    <name>In 2 hours</name>
+                </option>
+                <option>
+                    <id>4_hour</id>
+                    <name>In 4 hours</name>
+                </option>
+                <option>
+                    <id>6_hour</id>
+                    <name>In 6 hours</name>
+                </option>
+                <option>
+                    <id>12_hour</id>
+                    <name>In 12 hours</name>
+                </option>
+                <option>
+                    <id>24_hour</id>
+                    <name>In 24 hours</name>
+                </option>
+            </options>
+            <defaultValue>INFO</defaultValue>
+        </input-field>
+        <input-field type="single-select">
             <name>logLevel</name>
             <helpText>Choose the loglevel of non-error messages</helpText>
             <helpText lang="de-DE">Wählen Sie den Loglevel der Nicht-Fehlermeldungen</helpText>

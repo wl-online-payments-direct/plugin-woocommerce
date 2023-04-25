@@ -23,7 +23,7 @@ use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
 class MoptWorldline extends Plugin
 {
     const PLUGIN_NAME = 'MoptWorldline';
-    const PLUGIN_VERSION = '1.5.0';
+    const PLUGIN_VERSION = '1.6.0';
 
     /**
      * @param InstallContext $installContext

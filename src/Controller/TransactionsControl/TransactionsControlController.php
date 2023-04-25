@@ -199,7 +199,10 @@ class TransactionsControlController extends AbstractController
                     $itemsStatus[] = $itemEntity;
                 }
             }
-
+            $lockButtons = false;
+            if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED, $customFields)) {
+                $lockButtons = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED];
+            }
             $allowedAmounts = Payment::getAllowed($customFields);
         } catch (\Exception $e) {
             return $this->response(false, $e->getMessage());
@@ -210,7 +213,7 @@ class TransactionsControlController extends AbstractController
                 'allowedAmounts' => $allowedAmounts,
                 'log' => $log,
                 'worldlinePaymentStatus' => $itemsStatus,
-                'worldlineLockButtons' => false,
+                'worldlineLockButtons' => $lockButtons,
             ]);
     }
 

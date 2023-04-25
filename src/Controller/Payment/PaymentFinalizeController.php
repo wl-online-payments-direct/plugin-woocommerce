@@ -95,7 +95,7 @@ class PaymentFinalizeController extends AbstractController
             $this->transactionStateHandler
         );
 
-        $paymentHandler->updatePaymentStatus($hostedCheckoutId);
+        $paymentHandler->updatePaymentStatus($hostedCheckoutId, true);
 
         $finishUrl = $this->buildFinishUrl($request, $order, $salesChannelContext, $context);
 

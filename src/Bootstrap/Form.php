@@ -30,7 +30,8 @@ class Form
     const ONEY_PAYMENT_OPTION_FIELD = 'MoptWorldline.config.oneyPaymentOption';
     const FULL_REDIRECT_TEMPLATE_NAME = 'MoptWorldline.config.fullRedirectTemplateName';
     const AUTO_CAPTURE = 'MoptWorldline.config.autoCapture';
-    const AUTO_CAPTURE_DISABLED = 'disabled';
+    const AUTO_CANCEL = 'MoptWorldline.config.autoCancel';
+    const AUTO_PROCESSING_DISABLED = 'disabled';
     const AUTO_CAPTURE_IMMEDIATELY = '0_day';
     const AUTO_CAPTURE_1_DAY = '1_day';
     const AUTO_CAPTURE_2_DAYS = '2_days';
