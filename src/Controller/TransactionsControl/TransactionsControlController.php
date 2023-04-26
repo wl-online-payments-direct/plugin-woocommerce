@@ -13,6 +13,7 @@ use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
+use OnlinePayments\Sdk\ValidationException;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
@@ -244,8 +245,19 @@ class TransactionsControlController extends AbstractController
 
         Payment::lockOrder($this->requestStack->getSession(), $handler->getOrderId());
         $message = AdminTranslate::trans($this->translator->getLocale(), "failed");
-        if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
-            $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+        try {
+            if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
+                $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+            }
+        } catch (ValidationException $ve) {
+            $result = false;
+            $errors = $ve->getErrors();
+            $messages = [];
+            foreach ($errors as $error) {
+                $propertyName = $error->getPropertyName();
+                $messages[] = $error->getCode() . ' ' . $error->getMessage() . ($propertyName ? "($propertyName)" : '');
+            }
+            $message = implode(', ', $messages);
         }
         Payment::unlockOrder($this->requestStack->getSession(), $handler->getOrderId());
 

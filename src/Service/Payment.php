@@ -77,6 +77,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
 
     public const STATUS_PAYMENT_CREATED = [0];                  //open
     public const STATUS_PAYMENT_CANCELLED = [1, 6, 61, 62, 64, 75]; //cancelled
+    public const STATUS_PAYMENT_CANCELLATION_DECLINED = [63];   //cancellation declined
     public const STATUS_PAYMENT_REJECTED = [2, 57, 59, 73, 83]; //failed
     public const STATUS_REJECTED_CAPTURE = [93];                //fail
     public const STATUS_REDIRECTED = [46];                      //
@@ -86,6 +87,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
     public const STATUS_CAPTURED = [9];                         //paid
     public const STATUS_REFUND_REQUESTED = [81, 82];            //in progress
     public const STATUS_REFUNDED = [7, 8, 85];                  //refunded
+
+    public const STATUS_DO_NOT_LOCK = [63]; //After fix amount customer can repeat operation
 
     public const CAPTURE_AMOUNT = 'WorldlineCaptureAmount';
     public const REFUND_AMOUNT = 'WorldlineRefundAmount';
@@ -99,6 +102,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
         62 => 'cancelled',
         64 => 'cancelled',
         75 => 'cancelled',
+
+        63 => 'cancellationDeclined',
 
         2  => 'rejected',
         57 => 'rejected',
