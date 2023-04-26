@@ -54,6 +54,12 @@
         <component name="payment-method-button">
             <name>paymentMethod</name>
         </component>
+        <input-field type="bool">
+            <name>groupCards</name>
+            <defaultValue>false</defaultValue>
+            <label>Group cards</label>
+            <helpText>Group cards will put all cards together for full redirect payment method.</helpText>
+        </input-field>
         <input-field type="single-select">
             <name>autoCapture</name>
             <label>Automatic capture</label>
