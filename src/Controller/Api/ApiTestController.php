@@ -10,6 +10,8 @@ namespace MoptWorldline\Controller\Api;
 use Monolog\Logger;
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\Helper;
+use Shopware\Core\Content\Media\File\FileSaver;
+use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
@@ -34,6 +36,9 @@ class ApiTestController extends AbstractController
     private EntityRepositoryInterface $paymentMethodRepository;
     private EntityRepositoryInterface $salesChannelPaymentRepository;
     private PluginIdProvider $pluginIdProvider;
+    private EntityRepositoryInterface $mediaRepository;
+    private MediaService $mediaService;
+    private FileSaver $fileSaver;
 
     /** @var array */
     private $credentialKeys = [
@@ -52,6 +57,9 @@ class ApiTestController extends AbstractController
      * @param EntityRepositoryInterface $paymentMethodRepository
      * @param EntityRepositoryInterface $salesChannelPaymentRepository
      * @param PluginIdProvider $pluginIdProvider
+     * @param EntityRepositoryInterface $mediaRepository
+     * @param MediaService $mediaService
+     * @param FileSaver $fileSaver
      */
     public function __construct(
         SystemConfigService       $systemConfigService,
@@ -61,7 +69,10 @@ class ApiTestController extends AbstractController
         Logger                    $logger,
         EntityRepositoryInterface $paymentMethodRepository,
         EntityRepositoryInterface $salesChannelPaymentRepository,
-        PluginIdProvider          $pluginIdProvider
+        PluginIdProvider          $pluginIdProvider,
+        EntityRepositoryInterface $mediaRepository,
+        MediaService $mediaService,
+        FileSaver $fileSaver
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -72,6 +83,9 @@ class ApiTestController extends AbstractController
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->salesChannelPaymentRepository = $salesChannelPaymentRepository;
         $this->pluginIdProvider = $pluginIdProvider;
+        $this->mediaRepository = $mediaRepository;
+        $this->mediaService = $mediaService;
+        $this->fileSaver = $fileSaver;
     }
 
     /**
@@ -103,7 +117,8 @@ class ApiTestController extends AbstractController
                 $credentials,
                 $salesChannelId,
                 $countryIso3,
-                $currencyIsoCode
+                $currencyIsoCode,
+                $context
             );
         } catch (\Exception $e) {
             $message = '<br/>' . $e->getMessage();
@@ -140,7 +155,10 @@ class ApiTestController extends AbstractController
             $this->logger,
             $this->paymentMethodRepository,
             $this->salesChannelPaymentRepository,
-            $this->pluginIdProvider
+            $this->pluginIdProvider,
+            $this->mediaRepository,
+            $this->mediaService,
+            $this->fileSaver
         );
     }
 
