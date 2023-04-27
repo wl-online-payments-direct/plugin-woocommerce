@@ -11,37 +11,44 @@ use Monolog\Logger;
 use OnlinePayments\Sdk\Domain\PaymentProduct;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
+use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class MediaHelper
 {
     const TEMP_NAME = 'image-import-from-url';
     const MEDIA_FOLDER = 'payment_method';
+    const FILE_PREFIX = 'Worldline_logo ';
 
     private Logger $logger;
     private EntityRepositoryInterface $mediaRepository;
     private MediaService $mediaService;
     private FileSaver $fileSaver;
+    private EntityRepositoryInterface $paymentRepository;
 
     /**
      * @param EntityRepositoryInterface $mediaRepository
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
      * @param Logger $logger
+     * @param EntityRepositoryInterface $paymentRepository
      */
     public function __construct(
         EntityRepositoryInterface $mediaRepository,
         MediaService              $mediaService,
         FileSaver                 $fileSaver,
-        Logger                    $logger
+        Logger                    $logger,
+        EntityRepositoryInterface $paymentRepository
     )
     {
         $this->mediaRepository = $mediaRepository;
         $this->mediaService = $mediaService;
         $this->fileSaver = $fileSaver;
         $this->logger = $logger;
+        $this->paymentRepository = $paymentRepository;
     }
 
     /**
@@ -49,7 +56,7 @@ class MediaHelper
      * @param Context $context
      * @return string|null
      */
-    public function createLogo(PaymentProduct $product, Context $context): ?string
+    public function createProductLogo(PaymentProduct $product, Context $context): ?string
     {
         $productData = PaymentProducts::getPaymentProductDetails($product->getId());
         if ($productData['fileName'] === PaymentProducts::PAYMENT_PRODUCT_MEDIA_DEFAULT) {
@@ -70,7 +77,7 @@ class MediaHelper
         $filePathParts = explode('/', $imageUrl);
         $fileNameParts = explode('.', array_pop($filePathParts));
 
-        $fileName = $fileNameParts[0];
+        $fileName = self::FILE_PREFIX . $fileNameParts[0];
         $fileExtension = $fileNameParts[1];
 
         if ($fileName && $fileExtension) {
@@ -101,14 +108,93 @@ class MediaHelper
             $mediaId = $this->mediaService->createMediaInFolder(self::MEDIA_FOLDER, $context, false);
             $this->fileSaver->persistFileToMedia(
                 $mediaFile,
-                $fileName,
+                self::FILE_PREFIX . $fileName,
                 $mediaId,
                 $context
             );
         } catch (\Exception $e) {
             $this->logger->log(Logger::ERROR, $e->getMessage());
+            $this->mediaRepository->delete([['id' => $mediaId]], $context);
+            $mediaId = null;
         }
 
         return $mediaId;
+    }
+
+    /**
+     * @param array $dbMethod
+     * @param array $method
+     * @param Context $context
+     * @return string
+     */
+    public function getSystemMethodLogo(array $dbMethod, array $method, Context $context): string
+    {
+        $mediaId = $dbMethod['mediaId'] ?: $this->createSystemLogo($method['id'], $dbMethod['internalId'], $context);
+        return MediaHelper::loadLogo($mediaId, $context) ?: '';
+    }
+
+    /**
+     * @param string $logoName
+     * @param string $paymentMethodId
+     * @param Context $context
+     * @return ?string
+     */
+    private function createSystemLogo(string $logoName, string $paymentMethodId, Context $context): ?string
+    {
+        $logoPath = \sprintf('%s/%s.png', PaymentProducts::PAYMENT_PRODUCT_MEDIA_DIR, $logoName);
+        $mediaId = $this->createMediaFromFile($logoPath, $logoName, 'png', $context);
+
+        $paymentMethod = [
+            'id' => $paymentMethodId,
+            'mediaId' => $mediaId
+        ];
+        $this->paymentRepository->update([$paymentMethod], $context);
+
+        return $mediaId;
+    }
+
+    /**
+     * @param string $mediaId
+     * @param Context $context
+     * @return string
+     */
+    public function loadLogo(string $mediaId, Context $context): string
+    {
+        $result = $this->mediaRepository->search(new Criteria([$mediaId]), $context);
+        $url = '';
+        /** @var MediaEntity $media */
+        foreach ($result->getElements() as $media) {
+            $url = $media->getUrl();
+            break;
+        }
+        return $url;
+    }
+
+    /**
+     * @param array $dbMethod
+     * @param PaymentProduct $product
+     * @param Context $context
+     * @return string
+     */
+    public function getPaymentMethodLogo(array $dbMethod, PaymentProduct $product, Context $context): string
+    {
+        $mediaId = null;
+        if (!is_null($dbMethod['mediaId'])) {
+            $mediaId = $dbMethod['mediaId'];
+        } elseif ($dbMethod['internalId']) {
+            $mediaId = $this->createProductLogo($product, $context);
+            $paymentMethod = [
+                'id' => $dbMethod['internalId'],
+                'mediaId' => $mediaId
+            ];
+            $this->paymentRepository->update([$paymentMethod], $context);
+        }
+
+        $logo = $product->getDisplayHints()->getLogo();
+        if (!is_null($mediaId)) {
+            $logo = $this->loadLogo($mediaId, $context);
+        }
+
+        return $logo;
     }
 }

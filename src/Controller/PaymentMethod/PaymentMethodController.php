@@ -14,10 +14,8 @@ use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentMethodHelper;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\Domain\PaymentProduct;
-use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,7 +100,9 @@ class PaymentMethodController
             return $this->response();
         }
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
-        $mediaHelper = new MediaHelper($this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger);
+        $mediaHelper = new MediaHelper(
+            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger, $this->paymentMethodRepository
+        );
         $adapter->getMerchantClient();
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
         foreach ($paymentProducts->getPaymentProducts() as $product) {
@@ -122,7 +122,7 @@ class PaymentMethodController
                     $method,
                     $salesChannelId,
                     null,
-                    $mediaHelper->createLogo($product, $context)
+                    $mediaHelper->createProductLogo($product, $context)
                 );
             }
         }
@@ -147,10 +147,14 @@ class PaymentMethodController
         Context $context
     ): array
     {
+        $mediaHelper = new MediaHelper(
+            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger, $this->paymentMethodRepository
+        );
+
         $toFrontend = [];
         foreach (Payment::METHODS_LIST as $method) {
-            $dbMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$method['id'], $salesChannelId);
-            $logo = $this->getLogo($dbMethod, $method, $context);
+            $dbMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$method['id']);
+            $logo = $mediaHelper->getSystemMethodLogo($dbMethod, $method, $context);
             $toFrontend[] = [
                 'id' => $method['id'],
                 'logo' => $logo,
@@ -170,12 +174,8 @@ class PaymentMethodController
 
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
         foreach ($paymentProducts->getPaymentProducts() as $product) {
-            $createdPaymentMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$product->getId(), $salesChannelId);
-            $logo = $product->getDisplayHints()->getLogo();
-            if (!is_null($createdPaymentMethod['mediaId'])) {
-                $logo = $this->loadLogo($createdPaymentMethod['mediaId'], $context);
-            }
-
+            $createdPaymentMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$product->getId());
+            $logo = $mediaHelper->getPaymentMethodLogo($createdPaymentMethod, $product, $context);
             $toFrontend[] = [
                 'id' => $product->getId(),
                 'logo' => $logo,
@@ -215,61 +215,5 @@ class PaymentMethodController
         }
 
         return $name;
-    }
-
-    /**
-     * @param array $dbMethod
-     * @param array $method
-     * @param Context $context
-     * @return string
-     */
-    private function getLogo(array $dbMethod, array $method, Context $context): string
-    {
-        if (is_null($dbMethod['mediaId'])) {
-            $mediaId = $this->createLogo($method['id'], $dbMethod['internalId'], $context);
-        } else {
-            $mediaId = $dbMethod['mediaId'];
-        }
-
-        return $this->loadLogo($mediaId, $context) ?: '';
-    }
-
-
-    /**
-     * @param $mediaId
-     * @param $context
-     * @return string
-     */
-    private function loadLogo($mediaId, $context): string
-    {
-        $result = $this->mediaRepository->search(new Criteria([$mediaId]), $context);
-        $url = '';
-        /** @var MediaEntity $media */
-        foreach ($result->getElements() as $media) {
-            $url = $media->getUrl();
-            break;
-        }
-        return $url;
-    }
-
-    /**
-     * @param string $logoName
-     * @param string $paymentMethodId
-     * @param Context $context
-     * @return ?string
-     */
-    private function createLogo(string $logoName, string $paymentMethodId, Context $context): ?string
-    {
-        $mediaHelper = new MediaHelper($this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger);
-        $logoPath = \sprintf('%s/%s.png', PaymentProducts::PAYMENT_PRODUCT_MEDIA_DIR, $logoName);
-        $mediaId = $mediaHelper->createMediaFromFile($logoPath, $logoName, 'png', $context);
-        $paymentMethod = [
-            'id' => $paymentMethodId,
-            'mediaId' => $mediaId
-        ];
-
-        $this->paymentMethodRepository->update([$paymentMethod], $context);
-
-        return $mediaId;
     }
 }
