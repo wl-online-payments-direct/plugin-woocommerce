@@ -1,3 +1,6 @@
+# 1.8.0
+- Payment methods logo 
+
 # 1.7.0
 - Group cards functionality 
 

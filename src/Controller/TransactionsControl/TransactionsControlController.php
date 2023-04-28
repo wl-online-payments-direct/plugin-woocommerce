@@ -249,9 +249,9 @@ class TransactionsControlController extends AbstractController
             if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
                 $message = AdminTranslate::trans($this->translator->getLocale(), "success");
             }
-        } catch (ValidationException $ve) {
+        } catch (ValidationException $e) {
             $result = false;
-            $errors = $ve->getErrors();
+            $errors = $e->getErrors();
             $messages = [];
             foreach ($errors as $error) {
                 $propertyName = $error->getPropertyName();

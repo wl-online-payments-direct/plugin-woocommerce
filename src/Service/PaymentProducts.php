@@ -22,22 +22,20 @@ class PaymentProducts
           self::PAYMENT_PRODUCT_KLARNA_PAY_NOW,
           self::PAYMENT_PRODUCT_KLARNA_PAY_LATER,
     ];
-    private const PAYMENT_PRODUCT_MEDIA_DIR = 'bundles/moptworldline/static/img';
+    public const PAYMENT_PRODUCT_MEDIA_DIR = 'bundles/moptworldline/static/img';
     private const PAYMENT_PRODUCT_MEDIA_PREFIX = 'pp_logo_';
-    private const PAYMENT_PRODUCT_MEDIA_DEFAULT = 'base';
+    public const PAYMENT_PRODUCT_MEDIA_DEFAULT = 'base';
     public const PAYMENT_PRODUCT_NAMES = [
         self::PAYMENT_PRODUCT_KLARNA_PAY_NOW => 'Klarna',
-        self::PAYMENT_PRODUCT_KLARNA_PAY_LATER => 'Klarna',
+        self::PAYMENT_PRODUCT_KLARNA_PAY_LATER => 'Klarna pay later',
         self::PAYMENT_PRODUCT_ONEY_3X_4X => 'Oney 3x-4x',
         self::PAYMENT_PRODUCT_ONEY_FINANCEMENT_LONG => 'Oney Financement Long',
         self::PAYMENT_PRODUCT_ONEY_BRANDED_GIFT_CARD => 'OneyBrandedGiftCard',
-        861 => 'Alipay',
         5100 => 'Cpay',
         320 => 'Google Pay',
         5402 => 'Mealvouchers',
         771 => 'SEPA Direct Debit',
-        56 => 'UPI - UnionPay International', //no logo!
-        863 => 'WeChat Pay',
+        56 => 'UPI - UnionPay International',
 
         // List from Worldline for shortnames
         5405 => 'Alipay',
@@ -75,6 +73,7 @@ class PaymentProducts
         return [
             'title' => $title,
             'logo' => \sprintf('%s/%s.svg', self::PAYMENT_PRODUCT_MEDIA_DIR, $logoName),
+            'fileName' => $logoName,
         ];
     }
 }
