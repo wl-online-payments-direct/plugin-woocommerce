@@ -74,11 +74,9 @@ class MediaHelper
     {
         $mediaId = null;
 
-        $filePathParts = explode('/', $imageUrl);
-        $fileNameParts = explode('.', array_pop($filePathParts));
-
-        $fileName = self::FILE_PREFIX . $fileNameParts[0];
-        $fileExtension = $fileNameParts[1];
+        $filePathParts = pathinfo($imageUrl);
+        $fileName = self::FILE_PREFIX . $filePathParts['filename'];
+        $fileExtension = $filePathParts['extension'];
 
         if ($fileName && $fileExtension) {
             $filePath = tempnam(sys_get_temp_dir(), self::TEMP_NAME);
@@ -190,11 +188,9 @@ class MediaHelper
             $this->paymentRepository->update([$paymentMethod], $context);
         }
 
-        $logo = $product->getDisplayHints()->getLogo();
-        if (!is_null($mediaId)) {
-            $logo = $this->loadLogo($mediaId, $context);
+        if ($mediaId === null) {
+            return $product->getDisplayHints()->getLogo();
         }
-
-        return $logo;
+        return $this->loadLogo($mediaId, $context);
     }
 }
