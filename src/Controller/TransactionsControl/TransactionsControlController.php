@@ -13,6 +13,7 @@ use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
+use OnlinePayments\Sdk\ValidationException;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
@@ -199,7 +200,10 @@ class TransactionsControlController extends AbstractController
                     $itemsStatus[] = $itemEntity;
                 }
             }
-
+            $lockButtons = false;
+            if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED, $customFields)) {
+                $lockButtons = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED];
+            }
             $allowedAmounts = Payment::getAllowed($customFields);
         } catch (\Exception $e) {
             return $this->response(false, $e->getMessage());
@@ -210,7 +214,7 @@ class TransactionsControlController extends AbstractController
                 'allowedAmounts' => $allowedAmounts,
                 'log' => $log,
                 'worldlinePaymentStatus' => $itemsStatus,
-                'worldlineLockButtons' => false,
+                'worldlineLockButtons' => $lockButtons,
             ]);
     }
 
@@ -241,8 +245,19 @@ class TransactionsControlController extends AbstractController
 
         Payment::lockOrder($this->requestStack->getSession(), $handler->getOrderId());
         $message = AdminTranslate::trans($this->translator->getLocale(), "failed");
-        if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
-            $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+        try {
+            if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
+                $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+            }
+        } catch (ValidationException $e) {
+            $result = false;
+            $errors = $e->getErrors();
+            $messages = [];
+            foreach ($errors as $error) {
+                $propertyName = $error->getPropertyName();
+                $messages[] = $error->getCode() . ' ' . $error->getMessage() . ($propertyName ? "($propertyName)" : '');
+            }
+            $message = implode(', ', $messages);
         }
         Payment::unlockOrder($this->requestStack->getSession(), $handler->getOrderId());
 

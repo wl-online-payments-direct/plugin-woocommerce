@@ -23,7 +23,7 @@ use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
 class MoptWorldline extends Plugin
 {
     const PLUGIN_NAME = 'MoptWorldline';
-    const PLUGIN_VERSION = '1.5.0';
+    const PLUGIN_VERSION = '1.8.0';
 
     /**
      * @param InstallContext $installContext
@@ -84,6 +84,11 @@ class MoptWorldline extends Plugin
         $this->setPaymentMethodsStatus(false, $deactivateContext->getContext());
     }
 
+    /**
+     * @param bool $status
+     * @param Context $context
+     * @return void
+     */
     private function setPaymentMethodsStatus(bool $status, Context $context)
     {
         /** @var EntityRepositoryInterface $paymentMethodRepository */

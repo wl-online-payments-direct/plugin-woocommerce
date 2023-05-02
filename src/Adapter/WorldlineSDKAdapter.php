@@ -14,6 +14,7 @@ use OnlinePayments\Sdk\Domain\CancelPaymentResponse;
 use OnlinePayments\Sdk\Domain\CapturePaymentRequest;
 use OnlinePayments\Sdk\Domain\CaptureResponse;
 use OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
+use OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputForHostedCheckout;
 use OnlinePayments\Sdk\Domain\ContactDetails;
 use OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 use OnlinePayments\Sdk\Domain\CreateHostedTokenizationRequest;
@@ -211,6 +212,13 @@ class WorldlineSDKAdapter
         $captureConfig = $this->getPluginConfig(Form::AUTO_CAPTURE);
         if ($captureConfig === Form::AUTO_CAPTURE_IMMEDIATELY) {
             $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
+        }
+
+        $groupCardsConfig = $this->getPluginConfig(Form::GROUP_CARDS);
+        if ($groupCardsConfig) {
+            $cardPaymentMethodSpecificInputForHostedCheckout = new CardPaymentMethodSpecificInputForHostedCheckout();
+            $cardPaymentMethodSpecificInputForHostedCheckout->setGroupCards(true);
+            $hostedCheckoutSpecificInput->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInputForHostedCheckout);
         }
 
         $hostedCheckoutRequest = new CreateHostedCheckoutRequest();

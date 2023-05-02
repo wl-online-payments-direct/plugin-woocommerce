@@ -9,25 +9,25 @@
         "check-status-button": {
             "title": "Status check",
             "success": "Status was successfully updated.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Check status"
         },
         "capture-payment-button": {
             "title": "Capture payment",
             "success": "Payment was successfully captured.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Capture payment"
         },
         "cancel-payment-button": {
             "title": "Cancel payment",
             "success": "Payment was successfully canceled.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Cancel payment"
         },
         "refund-payment-button": {
             "title": "Refund payment",
             "success": "Payment was successfully refunded.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Refund payment"
         },
         "save-payment-card": {
@@ -74,6 +74,7 @@
             "created": "Created",
             "rejected": "Rejected",
             "rejectedCapture": "Capture rejected",
+            "cancellationDeclined": "Cancellation declined",
             "redirected": "Redirected",
             "pendingCapture": "Pending capture",
             "authorizationRequested": "Authorization requested",

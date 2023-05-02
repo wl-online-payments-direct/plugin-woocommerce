@@ -26,12 +26,10 @@ class PaymentMethodHelper
      * @param EntityRepositoryInterface $salesChannelPaymentRepository
      * @param PluginIdProvider $pluginIdProvider
      * @param Context $context
-     * @param string $methodId
-     * @param string $methodName
-     * @param string $description
-     * @param bool $active
+     * @param array $method
      * @param string|null $salesChannelId
      * @param EntityRepositoryInterface|null $salesChannelRepository
+     * @param string|null $mediaId
      * @return void
      */
     public static function addPaymentMethod(
@@ -41,7 +39,8 @@ class PaymentMethodHelper
         Context                    $context,
         array                      $method,
         ?string                    $salesChannelId,
-        ?EntityRepositoryInterface $salesChannelRepository
+        ?EntityRepositoryInterface $salesChannelRepository,
+        ?string                    $mediaId = null
     )
     {
         $paymentMethodExists = self::getPaymentMethodId($paymentRepository, (string)$method['id']);
@@ -61,7 +60,8 @@ class PaymentMethodHelper
             'active' => $method['active'],
             'customFields' => [
                 Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID => $method['id']
-            ]
+            ],
+            'mediaId' => $mediaId
         ];
 
         $paymentRepository->create([$paymentData], $context);
@@ -153,14 +153,16 @@ class PaymentMethodHelper
             return [
                 'label' => $method->getName(),
                 'internalId' => $method->getId(),
-                'isActive' => $method->getActive()
+                'isActive' => $method->getActive(),
+                'mediaId' => $method->getMediaId()
             ];
         }
 
         return [
             'label' => '',
             'internalId' => '',
-            'isActive' => false
+            'isActive' => false,
+            'mediaId' => null
         ];
     }
 
