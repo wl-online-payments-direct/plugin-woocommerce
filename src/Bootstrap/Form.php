@@ -30,13 +30,15 @@ class Form
     const ONEY_PAYMENT_OPTION_FIELD = 'MoptWorldline.config.oneyPaymentOption';
     const FULL_REDIRECT_TEMPLATE_NAME = 'MoptWorldline.config.fullRedirectTemplateName';
     const AUTO_CAPTURE = 'MoptWorldline.config.autoCapture';
-    const AUTO_CAPTURE_DISABLED = 'disabled';
+    const AUTO_CANCEL = 'MoptWorldline.config.autoCancel';
+    const AUTO_PROCESSING_DISABLED = 'disabled';
     const AUTO_CAPTURE_IMMEDIATELY = '0_day';
     const AUTO_CAPTURE_1_DAY = '1_day';
     const AUTO_CAPTURE_2_DAYS = '2_days';
     const AUTO_CAPTURE_3_DAYS = '3_days';
     const AUTO_CAPTURE_4_DAYS = '4_days';
     const AUTO_CAPTURE_5_DAYS = '5_days';
+    const GROUP_CARDS = 'MoptWorldline.config.groupCards';
 
     /** @var string Fieldset name for the plugin custom field */
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_FIELDSET = 'payment_transaction_fieldset';

@@ -1,3 +1,12 @@
+# 1.8.0
+- Payment methods logo 
+
+# 1.7.0
+- Group cards functionality 
+
+# 1.6.0
+- Auto-cancel for payment status open (0) and redirected (46) 
+
 # 1.5.0
 - Order item statuses
 

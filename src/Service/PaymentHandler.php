@@ -2,7 +2,6 @@
 
 namespace MoptWorldline\Service;
 
-use http\Exception;
 use Monolog\Logger;
 use MoptWorldline\Bootstrap\Form;
 use OnlinePayments\Sdk\Domain\CreateHostedCheckoutResponse;
@@ -11,7 +10,6 @@ use OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
-use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
 use Shopware\Core\Framework\Context;
@@ -76,12 +74,13 @@ class PaymentHandler
 
     /**
      * @param string $hostedCheckoutId
+     * @param bool $isFinalize
      * @return int
      * @throws \Exception
      */
-    public function updatePaymentStatus(string $hostedCheckoutId): int
+    public function updatePaymentStatus(string $hostedCheckoutId, bool $isFinalize = false): int
     {
-        $status = $this->updatePaymentTransactionStatus($hostedCheckoutId);
+        $status = $this->updatePaymentTransactionStatus($hostedCheckoutId, $isFinalize);
         $this->updateOrderTransactionState($status, $hostedCheckoutId);
 
         return $status;
@@ -95,10 +94,9 @@ class PaymentHandler
      */
     public function createPayment(int $worldlinePaymentMethodId): CreateHostedCheckoutResponse
     {
-        $order = $this->order;
         $orderObject = null;
         if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
-            $criteria = new Criteria([$order->getId()]);
+            $criteria = new Criteria([$this->order->getId()]);
             $criteria->addAssociation('lineItems')
                 ->addAssociation('deliveries.positions.orderLineItem')
                 ->addAssociation('orderCustomer.customer')
@@ -111,7 +109,7 @@ class PaymentHandler
             $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
         }
 
-        $amountTotal = (int)round($order->getAmountTotal() * 100);
+        $amountTotal = (int)round($this->order->getAmountTotal() * 100);
         $currencyISO = $this->getCurrencyISO();
 
         $this->log(AdminTranslate::trans($this->translator->getLocale(), 'buildingOrder'));
@@ -146,8 +144,7 @@ class PaymentHandler
      */
     public function createHostedTokenizationPayment(array $iframeData): CreatePaymentResponse
     {
-        $order = $this->order;
-        $amountTotal = (int)round($order->getAmountTotal() * 100);
+        $amountTotal = (int)round($this->order->getAmountTotal() * 100);
         $currencyISO = $this->getCurrencyISO();
 
         $this->log(AdminTranslate::trans($this->translator->getLocale(), 'buildingHostdTokenizationOrder'));
@@ -372,10 +369,11 @@ class PaymentHandler
 
     /**
      * @param string $hostedCheckoutId
+     * @param bool $isFinalize
      * @return string
      * @throws \Exception
      */
-    private function updatePaymentTransactionStatus(string $hostedCheckoutId): string
+    private function updatePaymentTransactionStatus(string $hostedCheckoutId, bool $isFinalize = false): string
     {
         $this->log('gettingPaymentDetails', 0, ['hostedCheckoutId' => $hostedCheckoutId]);
         $paymentDetails = $this->adapter->getPaymentDetails($hostedCheckoutId);
@@ -389,7 +387,25 @@ class PaymentHandler
 
         //Check log for any outer actions
         $this->compareLog($paymentDetails);
-        $this->saveOrderCustomFields($status, $hostedCheckoutId);
+
+        //finalize for direct sales case
+        $autoCapture = $this->adapter->getPluginConfig(Form::AUTO_CAPTURE);
+        if ($isFinalize && $autoCapture == Form::AUTO_CAPTURE_IMMEDIATELY && in_array($status, Payment::STATUS_CAPTURED)) {
+            $amountTotal = (int)round($this->order->getAmountTotal() * 100);
+            $this->saveOrderCustomFields(
+                $status,
+                $hostedCheckoutId,
+                [
+                    'toCaptureOrCancel' => 0,
+                    'toRefund' => $amountTotal,
+                ],
+                [],
+                $this->buildOrderItemStatus(true)
+            );
+        } else {
+            $this->saveOrderCustomFields($status, $hostedCheckoutId);
+        }
+
         return $status;
     }
 
@@ -576,7 +592,7 @@ class PaymentHandler
             if (!array_key_exists($outerLogId, $innerLog)) {
                 $needToUpdate = true;
                 $externalChange = '';
-                if (!empty($innerLog)) {
+                if (!empty($innerLog) && !in_array($outerStatusCode, Payment::STATUS_DO_NOT_LOCK)) {
                     $needToLock = true;
                     $externalChange = " EXTERNAL CHANGE!";
                 }

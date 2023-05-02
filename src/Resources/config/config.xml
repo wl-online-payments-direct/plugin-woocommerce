@@ -54,6 +54,12 @@
         <component name="payment-method-button">
             <name>paymentMethod</name>
         </component>
+        <input-field type="bool">
+            <name>groupCards</name>
+            <defaultValue>false</defaultValue>
+            <label>Group cards</label>
+            <helpText>Group cards will put all cards together for full redirect payment method.</helpText>
+        </input-field>
         <input-field type="single-select">
             <name>autoCapture</name>
             <label>Automatic capture</label>
@@ -85,6 +91,41 @@
                 <option>
                     <id>5_days</id>
                     <name>In 5 days</name>
+                </option>
+            </options>
+            <defaultValue>INFO</defaultValue>
+        </input-field>
+        <input-field type="single-select">
+            <name>autoCancel</name>
+            <label>Automatic cancellation</label>
+            <options>
+                <option>
+                    <id>disabled</id>
+                    <name>Disabled</name>
+                </option>
+                <option>
+                    <id>1_hour</id>
+                    <name>In 1 hour</name>
+                </option>
+                <option>
+                    <id>2_hour</id>
+                    <name>In 2 hours</name>
+                </option>
+                <option>
+                    <id>4_hour</id>
+                    <name>In 4 hours</name>
+                </option>
+                <option>
+                    <id>6_hour</id>
+                    <name>In 6 hours</name>
+                </option>
+                <option>
+                    <id>12_hour</id>
+                    <name>In 12 hours</name>
+                </option>
+                <option>
+                    <id>24_hour</id>
+                    <name>In 24 hours</name>
                 </option>
             </options>
             <defaultValue>INFO</defaultValue>
