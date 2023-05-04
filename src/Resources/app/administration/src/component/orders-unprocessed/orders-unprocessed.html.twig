@@ -46,7 +46,7 @@
 
         <sw-button-process
                 :isLoading="isLoading"
-                :disabled="totalSelections === 0"
+                :disabled="transactionDisabled"
                 :processSuccess="transactionSuccess.cancel"
                 variant="ghost-danger"
                 @click="cancel"
