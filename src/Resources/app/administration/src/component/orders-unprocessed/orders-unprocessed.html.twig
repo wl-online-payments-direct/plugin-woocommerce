@@ -38,7 +38,7 @@
         <div v-else ></div>
         <sw-button-process
                 :isLoading="isLoading"
-                :disabled="totalSelections === 0"
+                :disabled="transactionDisabled"
                 :processSuccess="transactionSuccess.capture"
                 variant="ghost"
                 @click="capture"
@@ -46,7 +46,7 @@
 
         <sw-button-process
                 :isLoading="isLoading"
-                :disabled="totalSelections === 0"
+                :disabled="transactionDisabled"
                 :processSuccess="transactionSuccess.cancel"
                 variant="ghost-danger"
                 @click="cancel"

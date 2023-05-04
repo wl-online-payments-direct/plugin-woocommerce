@@ -138,6 +138,10 @@ Component.register('mo-orders-unprocessed', {
             });
             return payload;
         },
+
+        transactionDisabled() {
+            return (this.amountToProcess === 0) && (this.totalSelections === 0);
+        },
     },
 
     methods: {
