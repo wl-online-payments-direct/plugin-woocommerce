@@ -53,6 +53,10 @@ Component.register('mo-orders-paid', {
     },
 
     computed: {
+        totalSelections() {
+            return this.Selection.reduce((prev, current) => prev + current, 0);
+        },
+
         maxAmountToProcess() {
             return !isNaN(this.maxRefund) ?
                 this.maxRefund :
@@ -131,6 +135,10 @@ Component.register('mo-orders-paid', {
                 });
             });
             return payload;
+        },
+
+        transactionDisabled() {
+            return (this.amountToProcess === 0) && (this.totalSelections === 0);
         },
     },
 
