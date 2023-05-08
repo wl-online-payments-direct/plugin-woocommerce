@@ -1,15 +1,13 @@
 {% block sw_settings_payment_detail_base_content_media_upload %}
     {% parent() %}
-
-    <sw-field
-            @change="setOneyPaymentOption"
-            :value="oneyPaymentOptionValue"
-            type="text"
-            class="sw-settings-payment-detail__field-position"
-            :disabled="!acl.can('payment.editor')"
-            :label="$tc('worldline.payment-methods.oney-label')"
-    />
-
-    paymentMethod.customFields.worldline_payment_method_id
-    5110, 5125, 5600
+    <sw-container v-if="showOneyField">
+        <sw-field
+                @change="setOneyPaymentOption"
+                :value="oneyPaymentOptionValue"
+                type="text"
+                class="sw-settings-payment-detail__field-position"
+                :disabled="!acl.can('payment.editor')"
+                :label="$tc('worldline.payment-methods.oney-label')"
+        />
+    </sw-container>
 {% endblock %}

@@ -9,25 +9,53 @@ Component.override('sw-settings-payment-detail', {
 
     data() {
         return {
+            currentPaymentMethodId: '',
             oneyPaymentOptionValue: '',
-            isOneyMethod: false
+            oneyIds: [5110, 5125, 5600],
         };
     },
 
-    methods: {
-        setOneyPaymentOption(value) {
-            this.oneyPaymentOptionValue = value;
-            console.log('test');
+    created() {
+        this.$watch('paymentMethod', (pM) => {
+            console.log(pM);
+            // this.currentPaymentMethodId = pM.customFields.worldline_payment_method_id;
+            this.currentPaymentMethodId = 5110;
 
-            this.transactionsControl.getOneyPaymentOption({})
-               .then((res) => {
+        });
+        this.getInitialData();
+    },
+
+    computed: {
+        showOneyField() {
+            return this.oneyIds.includes(this.currentPaymentMethodId);
+        },
+    },
+
+    methods: {
+        getInitialData() {
+            this.loading = true;
+            this.transactionsControl.getOneyPaymentConfig({})
+                .then((res) => {
+                    console.log(res);
+                    this.oneyPaymentOptionValue = res.value;
+                })
+                .finally(() => {
+                    this.loading = false;
+                })
+            ;
+        },
+
+        setOneyPaymentOption(value) {
+            this.loading = true;
+            this.oneyPaymentOptionValue = value;
+            this.transactionsControl.setOneyPaymentConfig({oneyPaymentOption: this.oneyPaymentOptionValue})
+                .then((res) => {
                     console.log(res);
                 })
                 .finally(() => {
-                });
-
-            console.log('test2');
-
+                    this.loading = false;
+                })
+            ;
         },
     },
 })
