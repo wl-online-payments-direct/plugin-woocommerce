@@ -231,7 +231,9 @@ class PaymentHandler
         );
         $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
 
-        if (!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED) && $amount > 0) {
+        if ((!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED)
+            && !in_array($newStatus, Payment::STATUS_CAPTURED))
+            && $amount > 0) {
             return false;
         }
         return true;

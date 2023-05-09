@@ -154,7 +154,7 @@ class PaymentMethodController
         $toFrontend = [];
         foreach (Payment::METHODS_LIST as $method) {
             $dbMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$method['id']);
-            $logo = $mediaHelper->getSystemMethodLogo($dbMethod, $method, $context);
+            $logo = $method['logo'] ? $mediaHelper->getSystemMethodLogo($dbMethod, $method, $context) : '';
             $toFrontend[] = [
                 'id' => $method['id'],
                 'logo' => $logo,

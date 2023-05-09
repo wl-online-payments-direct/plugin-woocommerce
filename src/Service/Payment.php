@@ -42,19 +42,22 @@ class Payment implements AsynchronousPaymentHandlerInterface
             'id' => self::FULL_REDIRECT_PAYMENT_METHOD_ID,
             'name' => self::FULL_REDIRECT_PAYMENT_METHOD_NAME,
             'description' => 'Worldline full redirect payment method',
-            'active' => true
+            'active' => true,
+            'logo' => true,
         ],
         [
             'id' => self::IFRAME_PAYMENT_METHOD_ID,
             'name' => self::IFRAME_PAYMENT_METHOD_NAME,
             'description' => 'Worldline Iframe payment method',
-            'active' => false
+            'active' => false,
+            'logo' => true,
         ],
         [
             'id' => self::SAVED_CARD_PAYMENT_METHOD_ID,
             'name' => self::SAVED_CARD_PAYMENT_METHOD_NAME,
             'description' => 'Worldline saved card payment method',
-            'active' => false
+            'active' => false,
+            'logo' => false,
         ]
     ];
 

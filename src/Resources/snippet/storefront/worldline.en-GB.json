@@ -143,6 +143,9 @@
                 "adminPay": "Pay for order",
                 "error": "Something went wrong"
             }
+        },
+        "payment-methods": {
+            "oney-label": "Oney custom field"
         }
     }
 }

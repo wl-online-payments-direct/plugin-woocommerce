@@ -95,10 +95,6 @@
             </options>
             <defaultValue>INFO</defaultValue>
         </input-field>
-        <input-field>
-            <name>oneyPaymentOption</name>
-            <label>Oney Payment Option</label>
-        </input-field>
         <input-field type="single-select">
             <name>autoCancel</name>
             <label>Automatic cancellation</label>
