@@ -3,6 +3,7 @@
 namespace MoptWorldline\Adapter;
 
 use Monolog\Logger;
+use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
@@ -663,7 +664,7 @@ class WorldlineSDKAdapter
         $isNetPrice = !$orderEntity->getOrderCustomer()->getCustomer()->getGroup()->getDisplayGross();
 
         $shoppingCart->setItems(
-            $this->crateRequestLineItems(
+            $this->createRequestLineItems(
                 $orderEntity->getLineItems(),
                 $orderEntity->getShippingCosts(),
                 $currencyISO,
@@ -698,42 +699,42 @@ class WorldlineSDKAdapter
      * @param bool $isNetPrice
      * @return array
      */
-    private function crateRequestLineItems(
+    private function createRequestLineItems(
         OrderLineItemCollection $lineItemCollection,
-        CalculatedPrice $shippingPrice,
-        string $currencyISO,
-        bool $isNetPrice
+        CalculatedPrice         $shippingPrice,
+        string                  $currencyISO,
+        bool                    $isNetPrice
     ): array
     {
         $requestLineItems = [];
         $discount = 0;
+        $maxUnitPrice = 0;
+        $maxPriceItemId = '';
         /** @var OrderLineItemEntity $lineItem */
         foreach ($lineItemCollection as $lineItem) {
             [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
             if ($totalPrice < 0) {
                 $discount += abs($totalPrice);
-            }
-        }
-        foreach ($lineItemCollection as $lineItem) {
-            [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
-            if ($totalPrice < 0) {
                 continue;
             }
-            if ($discount > 0 && $discount < $totalPrice) {
-                $partDiscount = (int)($discount/$quantity);
-                $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity, $partDiscount);
-                $discount -= $partDiscount * $quantity;
-            } else {
-                $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
+            if ($maxUnitPrice < $unitPrice) {
+                $maxUnitPrice = $unitPrice;
+                $maxPriceItemId = $lineItem->getId();
             }
+            $requestLineItems[$lineItem->getId()] = self::createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
+        }
+
+        if ($discount > 0) {
+            $requestLineItems = DiscountHelper::handleDiscount($requestLineItems, $discount, $maxPriceItemId, $maxUnitPrice);
         }
 
         $shippingPrice = self::getShippingPrice($shippingPrice, $isNetPrice);
-        $requestLineItems[] = $this->createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1, $discount);
+        if ($shippingPrice > 0) {
+            $requestLineItems[] = self::createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+        }
 
         return $requestLineItems;
     }
-
     /**
      * @param string $label
      * @param string $currencyISO
@@ -743,18 +744,18 @@ class WorldlineSDKAdapter
      * @param int $discount
      * @return LineItem
      */
-    private function createLineItem(
+    public static function createLineItem(
         string $label,
         string $currencyISO,
-        int $totalPrice,
-        int $unitPrice,
-        int $quantity,
-        int $discount = 0
+        int    $totalPrice,
+        int    $unitPrice,
+        int    $quantity,
+        int    $discount = 0
     ): LineItem
     {
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setCurrencyCode($currencyISO);
-        $amountOfMoney->setAmount($totalPrice - $discount * $quantity);
+        $amountOfMoney->setAmount($totalPrice);
 
         $lineDetails = new OrderLineDetails();
         $lineDetails->setProductName($label);
@@ -784,7 +785,8 @@ class WorldlineSDKAdapter
         $address->setStreet($addressEntity->getStreet());
         $address->setZip($addressEntity->getZipcode());
         $address->setCity($addressEntity->getCity());
-        $address->setCountryCode($addressEntity->getCountry()->getIso());
+        //$address->setCountryCode($addressEntity->getCountry()->getIso());
+        $address->setCountryCode('US');
         $address->setName($name);
 
         return $address;
