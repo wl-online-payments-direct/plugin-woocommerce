@@ -2,6 +2,8 @@
     {% parent() %}
     <sw-container v-if="showOneyField">
         <sw-field
+                id="oneyPaymentOption"
+                name="oneyPaymentOption"
                 @change="setOneyPaymentOption"
                 :value="oneyPaymentOptionValue"
                 type="text"

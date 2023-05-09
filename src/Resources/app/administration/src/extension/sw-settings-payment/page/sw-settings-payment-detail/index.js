@@ -17,10 +17,7 @@ Component.override('sw-settings-payment-detail', {
 
     created() {
         this.$watch('paymentMethod', (pM) => {
-            console.log(pM);
-            // this.currentPaymentMethodId = pM.customFields.worldline_payment_method_id;
-            this.currentPaymentMethodId = 5110;
-
+            this.currentPaymentMethodId = pM.customFields.worldline_payment_method_id;
         });
         this.getInitialData();
     },
@@ -36,8 +33,8 @@ Component.override('sw-settings-payment-detail', {
             this.loading = true;
             this.transactionsControl.getOneyPaymentConfig({})
                 .then((res) => {
-                    console.log(res);
                     this.oneyPaymentOptionValue = res.value;
+                    document.getElementById('oneyPaymentOption').value = res.value;
                 })
                 .finally(() => {
                     this.loading = false;
@@ -50,7 +47,6 @@ Component.override('sw-settings-payment-detail', {
             this.oneyPaymentOptionValue = value;
             this.transactionsControl.setOneyPaymentConfig({oneyPaymentOption: this.oneyPaymentOptionValue})
                 .then((res) => {
-                    console.log(res);
                 })
                 .finally(() => {
                     this.loading = false;
