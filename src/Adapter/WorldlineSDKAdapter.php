@@ -686,6 +686,7 @@ class WorldlineSDKAdapter
             $locale = str_replace('-', '_', $locale->getCode());
         }
         $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
+        $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
         $hostedCheckoutSpecificInput->setLocale($locale);
         $hostedCheckoutSpecificInput->setVariant(null);
 
@@ -785,8 +786,7 @@ class WorldlineSDKAdapter
         $address->setStreet($addressEntity->getStreet());
         $address->setZip($addressEntity->getZipcode());
         $address->setCity($addressEntity->getCity());
-        //$address->setCountryCode($addressEntity->getCountry()->getIso());
-        $address->setCountryCode('US');
+        $address->setCountryCode($addressEntity->getCountry()->getIso());
         $address->setName($name);
 
         return $address;
