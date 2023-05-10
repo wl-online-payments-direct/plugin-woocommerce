@@ -686,7 +686,6 @@ class WorldlineSDKAdapter
             $locale = str_replace('-', '_', $locale->getCode());
         }
         $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
-        $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
         $hostedCheckoutSpecificInput->setLocale($locale);
         $hostedCheckoutSpecificInput->setVariant(null);
 
