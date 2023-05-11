@@ -2,6 +2,7 @@
 
 namespace MoptWorldline\Adapter;
 
+use Interop\Queue\Exception\Exception;
 use Monolog\Logger;
 use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\Payment;
@@ -50,6 +51,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\OrderEntity;
+use Shopware\Core\Checkout\Payment\Exception\AsyncPaymentProcessException;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Bootstrap\Form;
 use OnlinePayments\Sdk\DefaultConnection;
@@ -257,6 +259,7 @@ class WorldlineSDKAdapter
      * @param Order $order
      * @param CreateHostedCheckoutRequest $hostedCheckoutRequest
      * @return void
+     * @throws Exception
      */
     private function setCustomProperties(
         string                         $worldlinePaymentProductId,
@@ -648,6 +651,7 @@ class WorldlineSDKAdapter
      * @param HostedCheckoutSpecificInput $hostedCheckoutSpecificInput
      * @param Order $order
      * @return void
+     * @throws Exception
      */
     private function addCartToRequest(
         string                         $currencyISO,
@@ -698,6 +702,7 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param bool $isNetPrice
      * @return array
+     * @throws Exception
      */
     private function createRequestLineItems(
         OrderLineItemCollection $lineItemCollection,
@@ -708,8 +713,12 @@ class WorldlineSDKAdapter
     {
         $requestLineItems = [];
         $discount = 0;
-        $maxUnitPrice = 0;
-        $maxPriceItemId = '';
+        $maxPrices = [
+            'unit' => ['id' => '', 'price' => 0],
+            'item' => ['id' => '', 'price' => 0]
+        ];
+        $grandPrice = 0;
+        $grandCount = 0;
         /** @var OrderLineItemEntity $lineItem */
         foreach ($lineItemCollection as $lineItem) {
             [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
@@ -717,24 +726,46 @@ class WorldlineSDKAdapter
                 $discount += abs($totalPrice);
                 continue;
             }
-            if ($maxUnitPrice < $unitPrice) {
-                $maxUnitPrice = $unitPrice;
-                $maxPriceItemId = $lineItem->getId();
+            $grandPrice += $totalPrice;
+            $grandCount += $quantity;
+
+            if ($maxPrices['unit']['price'] < $unitPrice) {
+                $maxPrices['unit']['price'] = $unitPrice;
+                $maxPrices['unit']['id'] = $lineItem->getId();
+            }
+            if ($maxPrices['item']['price'] < $totalPrice) {
+                $maxPrices['item']['price'] = $totalPrice;
+                $maxPrices['item']['id'] = $lineItem->getId();
             }
             $requestLineItems[$lineItem->getId()] = self::createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
         }
 
-        if ($discount > 0) {
-            $requestLineItems = DiscountHelper::handleDiscount($requestLineItems, $discount, $maxPriceItemId, $maxUnitPrice);
-        }
-
         $shippingPrice = self::getShippingPrice($shippingPrice, $isNetPrice);
         if ($shippingPrice > 0) {
-            $requestLineItems[] = self::createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+            $grandPrice += $shippingPrice;
+            $grandCount++;
+            $shippingElementId = 'shipping_element';
+            if ($maxPrices['unit']['price'] < $shippingPrice) {
+                $maxPrices['unit']['price'] = $shippingPrice;
+                $maxPrices['unit']['id'] = $shippingElementId;
+            }
+            $requestLineItems[$shippingElementId] = self::createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+        }
+
+        if ($discount > 0) {
+            if ($grandPrice <= ($discount + $grandCount)) {
+                $this->log('Discount over limit.', Logger::ERROR);
+                throw new Exception(
+                    'Discount should be less than ' . ($grandPrice - $grandCount) / 100
+                );
+            }
+
+            $requestLineItems = DiscountHelper::handleDiscount($requestLineItems, $discount, $maxPrices);
         }
 
         return $requestLineItems;
     }
+
     /**
      * @param string $label
      * @param string $currencyISO

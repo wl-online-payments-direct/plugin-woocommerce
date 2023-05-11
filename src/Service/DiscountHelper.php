@@ -14,46 +14,52 @@ class DiscountHelper
      * @param int $maxPrice
      * @return array
      */
-    public static function handleDiscount(array $lineItems, int $discount, ?string $maxPriceItemId = null, int $maxPrice = 0): array
+    public static function handleDiscount(array $lineItems, int $discount, array $maxPrices): array
     {
-        if ($maxPrice > $discount) {
-            $item = $lineItems[$maxPriceItemId]->toObject();
+        // Add discount to most expensive unit
+        if ($maxPrices['unit']['price'] > $discount) {
+            $id = $maxPrices['unit']['id'];
+            $item = $lineItems[$id]->toObject();
             if ($item->orderLineDetails->quantity > 1) {
-                self::generateDiscountedItem($lineItems, $item, 1, $discount, $maxPriceItemId);
+                self::generateDiscountedItem($lineItems, $item, 1, $discount, $id);
             } else {
-                $item->orderLineDetails->discountAmount = $discount;
-                $item->amountOfMoney->amount -= $discount;
-                self::replaceLineItem($lineItems, $item, $maxPriceItemId);
+                self::addDiscountToItem($lineItems, $item, $discount, $id);
             }
             return $lineItems;
         }
 
+        // Split discount in item (same type units)
+        if ($maxPrices['item']['price'] > $discount) {
+            self::splitDiscountInItem($lineItems, $maxPrices['item']['id'], $discount);
+            return $lineItems;
+        }
+
+        // Split discount by items
         /** @var LineItem $lineItem */
         foreach ($lineItems as $key => $lineItem) {
             $item = $lineItem->toObject();
-            if ($discount < $item->amountOfMoney->amount) {
-                $quantity = $item->orderLineDetails->quantity;
-                $leftover = $discount % $quantity;
-                if ($leftover) {
-                    $leftoverPart = $discount % ($quantity - 1);
-                    $partDiscount = (int) ($discount / ($quantity - 1));
-
-                    self::generateDiscountedItem($lineItems, $item, $quantity - 1, $partDiscount, $key);
-                    if ($leftoverPart) {
-                        $newItem = $lineItems[$key]->toObject();
-                        $newItem->orderLineDetails->discountAmount = $leftoverPart;
-                        $newItem->amountOfMoney->amount -= $leftoverPart;
-                        self::replaceLineItem($lineItems, $newItem, $key);
-                    }
+            $partDiscount = $item->amountOfMoney->amount - $item->orderLineDetails->quantity;
+            if ($discount >= $partDiscount) {
+                if ($item->orderLineDetails->quantity > 1) {
+                    self::splitDiscountInItem($lineItems, $key, $partDiscount);
                 } else {
-                    $item->orderLineDetails->discountAmount = $discount / $quantity;
-                    $item->amountOfMoney->amount -= $discount;
-                    self::replaceLineItem($lineItems, $item, $key);
+                    self::addDiscountToItem($lineItems, $item, $partDiscount, $key);
                 }
+                $discount -= $partDiscount;
+            } else {
+                self::splitDiscountInItem($lineItems, $key, $discount);
+                $discount = 0;
             }
         }
 
         return $lineItems;
+    }
+
+    private static function addDiscountToItem(array &$lineItems,object $item, int $discount, string $id): void
+    {
+        $item->orderLineDetails->discountAmount = $discount;
+        $item->amountOfMoney->amount -= $discount;
+        self::replaceLineItem($lineItems, $item, $id);
     }
 
     /**
@@ -64,7 +70,7 @@ class DiscountHelper
      * @param string $id
      * @return void
      */
-    public static function generateDiscountedItem(array &$lineItems,object $item, int $quantity, int $discount, string $id): void
+    private static function generateDiscountedItem(array &$lineItems,object $item, int $quantity, int $discount, string $id): void
     {
         $discountedItem = WorldlineSDKAdapter::createLineItem
         (
@@ -82,13 +88,34 @@ class DiscountHelper
         self::replaceLineItem($lineItems, $item, $id);
     }
 
+    private static function splitDiscountInItem(&$lineItems, $itemId, $discount)
+    {
+        $item = $lineItems[$itemId]->toObject();
+        $quantity = $item->orderLineDetails->quantity;
+        $leftover = $discount % $quantity;
+        if ($leftover) {
+            $leftoverPart = $discount % ($quantity - 1);
+            $partDiscount = (int)($discount / ($quantity - 1));
+
+            self::generateDiscountedItem($lineItems, $item, $quantity - 1, $partDiscount, $itemId);
+            if ($leftoverPart) {
+                $newItem = $lineItems[$itemId]->toObject();
+                self::addDiscountToItem($lineItems, $newItem, $leftoverPart, $itemId);
+            }
+        } else {
+            $item->orderLineDetails->discountAmount = $discount / $quantity;
+            $item->amountOfMoney->amount -= $discount;
+            self::replaceLineItem($lineItems, $item, $itemId);
+        }
+    }
+
     /**
      * @param array $lineItems
      * @param object $replacer
      * @param string $id
      * @return void
      */
-    public static function replaceLineItem(array &$lineItems, object $replacer, string $id): void
+    private static function replaceLineItem(array &$lineItems, object $replacer, string $id): void
     {
         $item = new LineItem();
         $lineItems[$id] = $item->fromObject($replacer);
