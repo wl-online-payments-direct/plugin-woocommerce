@@ -13,7 +13,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStat
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
@@ -28,18 +28,18 @@ class PaymentHandler
     private WorldlineSDKAdapter $adapter;
     private OrderEntity $order;
     private TranslatorInterface $translator;
-    private EntityRepositoryInterface $orderRepository;
+    private EntityRepository $orderRepository;
     private Context $context;
     private OrderTransactionStateHandler $transactionStateHandler;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $customerRepository;
 
     /**
      * @param SystemConfigService $systemConfigService
      * @param Logger $logger
      * @param OrderEntity $order
      * @param TranslatorInterface $translator
-     * @param EntityRepositoryInterface $orderRepository
-     * @param EntityRepositoryInterface $customerRepository
+     * @param EntityRepository $orderRepository
+     * @param EntityRepository $customerRepository
      * @param Context $context
      * @param OrderTransactionStateHandler $transactionStateHandler
      */
@@ -48,8 +48,8 @@ class PaymentHandler
         Logger                       $logger,
         OrderEntity                  $order,
         TranslatorInterface          $translator,
-        EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $customerRepository,
+        EntityRepository    $orderRepository,
+        EntityRepository    $customerRepository,
         Context                      $context,
         OrderTransactionStateHandler $transactionStateHandler
     )
@@ -735,13 +735,13 @@ class PaymentHandler
 
     /**
      * @param Context $context
-     * @param EntityRepositoryInterface $orderRepository
+     * @param EntityRepository $orderRepository
      * @param string $hostedCheckoutId
      * @return OrderEntity|null
      */
     public static function getOrder(
         Context                   $context,
-        EntityRepositoryInterface $orderRepository,
+        EntityRepository $orderRepository,
         string                    $hostedCheckoutId
     ): ?OrderEntity
     {

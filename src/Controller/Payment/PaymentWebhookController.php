@@ -15,10 +15,7 @@ use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\PaymentHandler;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\AsynchronousPaymentHandlerInterface;
-use Shopware\Core\Checkout\Payment\Exception\CustomerCanceledAsyncPaymentException;
-use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,13 +27,13 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @RouteScope(scopes={"storefront"})
+ * @Route(defaults={"_routeScope"={"storefront"}})
  */
 class PaymentWebhookController extends AbstractController
 {
     private RouterInterface $router;
-    private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $orderRepository;
+    private EntityRepository $customerRepository;
     private AsynchronousPaymentHandlerInterface $paymentHandler;
     private OrderTransactionStateHandler $transactionStateHandler;
     private SystemConfigService $systemConfigService;
@@ -45,8 +42,8 @@ class PaymentWebhookController extends AbstractController
 
     public function __construct(
         SystemConfigService                 $systemConfigService,
-        EntityRepositoryInterface           $orderRepository,
-        EntityRepositoryInterface           $customerRepository,
+        EntityRepository                    $orderRepository,
+        EntityRepository                    $customerRepository,
         AsynchronousPaymentHandlerInterface $paymentHandler,
         OrderTransactionStateHandler        $transactionStateHandler,
         RouterInterface                     $router,

@@ -2,13 +2,12 @@
 
 namespace MoptWorldline\Controller\Payment;
 
-use _PHPStan_b8e553790\Nette\Neon\Exception;
 use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use Psr\Log\LogLevel;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
@@ -17,25 +16,23 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Shopware\Core\Framework\Routing\Annotation\LoginRequired;
 
 /**
- * @RouteScope(scopes={"storefront"})
+ * @Route(defaults={"_routeScope"={"storefront"}})
  */
 class IframeController extends AbstractController
 {
     public SystemConfigService $systemConfigService;
     private Logger $logger;
     private Session $session;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $customerRepository;
 
     public function __construct(
         SystemConfigService       $systemConfigService,
         Logger                    $logger,
         Session                   $session,
-        EntityRepositoryInterface $customerRepository
+        EntityRepository          $customerRepository
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -89,8 +86,7 @@ class IframeController extends AbstractController
     }
 
     /**
-     * @LoginRequired()
-     * @Route("/worldline/card/delete/{tokenId}", name="worldline.card.delete", options={"seo"="false"}, methods={"POST"})
+     * @Route("/worldline/card/delete/{tokenId}", name="worldline.card.delete", options={"seo"="false"}, methods={"POST"}, defaults={"_loginRequired"=true})
      *
      * @param string $tokenId
      * @param SalesChannelContext $context
@@ -131,23 +127,23 @@ class IframeController extends AbstractController
      * @param string $tokenId
      * @param CustomerEntity $customer
      * @return mixed
-     * @throws Exception
+     * @throws \Exception
      */
     private function prepareCustomField(string $tokenId, CustomerEntity $customer)
     {
         $key = Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN;
 
         if (!$customerCustomFields = $customer->getCustomFields()) {
-            throw new Exception('No custom fields');
+            throw new \Exception('No custom fields');
         }
 
         if (!array_key_exists($key, $customerCustomFields)) {
-            throw new Exception('No saved cards');
+            throw new \Exception('No saved cards');
         }
 
         $savedCards = $customerCustomFields[$key];
         if (!array_key_exists($tokenId, $savedCards)) {
-            throw new Exception("Can not find saved card with token $tokenId");
+            throw new \Exception("Can not find saved card with token $tokenId");
         }
 
         //If customer remove default card - set random card as default

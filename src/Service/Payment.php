@@ -22,7 +22,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Monolog\Logger;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use MoptWorldline\Bootstrap\Form;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -68,8 +68,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
     const FINAL_AUTHORIZATION = 'FINAL_AUTHORIZATION';
 
     private SystemConfigService $systemConfigService;
-    private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $orderRepository;
+    private EntityRepository $customerRepository;
     private TranslatorInterface $translator;
     private Logger $logger;
     private OrderTransactionStateHandler $transactionStateHandler;
@@ -139,8 +139,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepositoryInterface $orderRepository
-     * @param EntityRepositoryInterface $customerRepository
+     * @param EntityRepository $orderRepository
+     * @param EntityRepository $customerRepository
      * @param TranslatorInterface $translator
      * @param Logger $logger
      * @param OrderTransactionStateHandler $transactionStateHandler
@@ -148,8 +148,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
-        EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $customerRepository,
+        EntityRepository             $orderRepository,
+        EntityRepository             $customerRepository,
         TranslatorInterface          $translator,
         Logger                       $logger,
         OrderTransactionStateHandler $transactionStateHandler,

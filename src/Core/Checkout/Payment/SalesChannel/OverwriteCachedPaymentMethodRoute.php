@@ -9,9 +9,9 @@ use Shopware\Core\Checkout\Payment\SalesChannel\CachedPaymentMethodRoute;
 use Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRouteResponse;
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
+use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -20,9 +20,9 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class OverwriteCachedPaymentMethodRoute extends CachedPaymentMethodRoute
 {
-    private SalesChannelRepositoryInterface $paymentMethodsRepository;
+    private SalesChannelRepository $paymentMethodsRepository;
     private Session $session;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $customerRepository;
 
     /**
      * @param AbstractPaymentMethodRoute $decorated
@@ -32,9 +32,9 @@ class OverwriteCachedPaymentMethodRoute extends CachedPaymentMethodRoute
      * @param EventDispatcherInterface $dispatcher
      * @param array $states
      * @param LoggerInterface $logger
-     * @param SalesChannelRepositoryInterface $paymentMethodsRepository
+     * @param SalesChannelRepository $paymentMethodsRepository
      * @param Session $session
-     * @param EntityRepositoryInterface $customerRepository
+     * @param EntityRepository $customerRepository
      */
     public function __construct(
         AbstractPaymentMethodRoute      $decorated,
@@ -44,9 +44,9 @@ class OverwriteCachedPaymentMethodRoute extends CachedPaymentMethodRoute
         EventDispatcherInterface        $dispatcher,
         array                           $states,
         LoggerInterface                 $logger,
-        SalesChannelRepositoryInterface $paymentMethodsRepository,
+        SalesChannelRepository          $paymentMethodsRepository,
         Session                         $session,
-        EntityRepositoryInterface       $customerRepository
+        EntityRepository                $customerRepository
     )
     {
         parent::__construct($decorated, $cache, $generator, $tracer, $dispatcher, $states, $logger);

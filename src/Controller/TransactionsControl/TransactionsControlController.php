@@ -18,10 +18,8 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEnti
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
-use Shopware\Core\Kernel;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -31,13 +29,13 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @RouteScope(scopes={"api"})
+ * @Route(defaults={"_routeScope"={"api"}})
  */
 class TransactionsControlController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
-    private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $orderRepository;
+    private EntityRepository $customerRepository;
     private OrderTransactionStateHandler $transactionStateHandler;
     private Logger $logger;
     private TranslatorInterface $translator;
@@ -45,8 +43,8 @@ class TransactionsControlController extends AbstractController
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepositoryInterface $orderRepository
-     * @param EntityRepositoryInterface $customerRepository
+     * @param EntityRepository $orderRepository
+     * @param EntityRepository $customerRepository
      * @param OrderTransactionStateHandler $transactionStateHandler
      * @param Logger $logger
      * @param TranslatorInterface $translator
@@ -54,8 +52,8 @@ class TransactionsControlController extends AbstractController
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
-        EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $customerRepository,
+        EntityRepository             $orderRepository,
+        EntityRepository             $customerRepository,
         OrderTransactionStateHandler $transactionStateHandler,
         Logger                       $logger,
         TranslatorInterface          $translator,
