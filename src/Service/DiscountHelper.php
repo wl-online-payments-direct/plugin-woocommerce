@@ -10,8 +10,7 @@ class DiscountHelper
     /**
      * @param array $lineItems
      * @param int $discount
-     * @param ?string $maxPriceItemId
-     * @param int $maxPrice
+     * @param array $maxPrices
      * @return array
      */
     public static function handleDiscount(array $lineItems, int $discount, array $maxPrices): array
@@ -55,6 +54,13 @@ class DiscountHelper
         return $lineItems;
     }
 
+    /**
+     * @param array $lineItems
+     * @param object $item
+     * @param int $discount
+     * @param string $id
+     * @return void
+     */
     private static function addDiscountToItem(array &$lineItems,object $item, int $discount, string $id): void
     {
         $item->orderLineDetails->discountAmount = $discount;
@@ -70,7 +76,7 @@ class DiscountHelper
      * @param string $id
      * @return void
      */
-    private static function generateDiscountedItem(array &$lineItems,object $item, int $quantity, int $discount, string $id): void
+    private static function generateDiscountedItem(array &$lineItems, object $item, int $quantity, int $discount, string $id): void
     {
         $discountedItem = WorldlineSDKAdapter::createLineItem
         (
@@ -88,7 +94,13 @@ class DiscountHelper
         self::replaceLineItem($lineItems, $item, $id);
     }
 
-    private static function splitDiscountInItem(&$lineItems, $itemId, $discount)
+    /**
+     * @param array $lineItems
+     * @param string $itemId
+     * @param int $discount
+     * @return void
+     */
+    private static function splitDiscountInItem(array &$lineItems, string $itemId, int $discount): void
     {
         $item = $lineItems[$itemId]->toObject();
         $quantity = $item->orderLineDetails->quantity;
