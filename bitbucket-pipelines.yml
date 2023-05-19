@@ -5,3 +5,4 @@ pipelines:
           script:
             - apt-get update && apt-get install -y unzip git
             - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/moptworldline.git
+            
