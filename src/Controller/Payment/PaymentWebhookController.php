@@ -13,7 +13,6 @@ use OnlinePayments\Sdk\Webhooks\InMemorySecretKeyStore;
 use OnlinePayments\Sdk\Webhooks\WebhooksHelper;
 use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\PaymentHandler;
-use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\AsynchronousPaymentHandlerInterface;
 use Shopware\Core\Checkout\Payment\Exception\CustomerCanceledAsyncPaymentException;
@@ -36,8 +35,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class PaymentWebhookController extends AbstractController
 {
     private RouterInterface $router;
-    private EntityRepositoryInterface $orderTransactionRepository;
     private EntityRepositoryInterface $orderRepository;
+    private EntityRepositoryInterface $customerRepository;
     private AsynchronousPaymentHandlerInterface $paymentHandler;
     private OrderTransactionStateHandler $transactionStateHandler;
     private SystemConfigService $systemConfigService;
@@ -46,8 +45,8 @@ class PaymentWebhookController extends AbstractController
 
     public function __construct(
         SystemConfigService                 $systemConfigService,
-        EntityRepositoryInterface           $orderTransactionRepository,
         EntityRepositoryInterface           $orderRepository,
+        EntityRepositoryInterface           $customerRepository,
         AsynchronousPaymentHandlerInterface $paymentHandler,
         OrderTransactionStateHandler        $transactionStateHandler,
         RouterInterface                     $router,
@@ -56,8 +55,8 @@ class PaymentWebhookController extends AbstractController
     )
     {
         $this->systemConfigService = $systemConfigService;
-        $this->orderTransactionRepository = $orderTransactionRepository;
         $this->orderRepository = $orderRepository;
+        $this->customerRepository = $customerRepository;
         $this->paymentHandler = $paymentHandler;
         $this->transactionStateHandler = $transactionStateHandler;
         $this->router = $router;
@@ -72,8 +71,10 @@ class PaymentWebhookController extends AbstractController
      *     defaults={"csrf_protected"=false},
      *     methods={"POST"}
      * )
-     * @throws InvalidTransactionException
-     * @throws CustomerCanceledAsyncPaymentException
+     * @param Request $request
+     * @param SalesChannelContext $salesChannelContext
+     * @return Response
+     * @throws \Exception
      */
     public function webhook(Request $request, SalesChannelContext $salesChannelContext): Response
     {
@@ -83,10 +84,9 @@ class PaymentWebhookController extends AbstractController
         }
 
         try {
-            /** @var OrderTransactionEntity|null $orderTransaction */
-            $orderTransaction = PaymentHandler::getOrderTransaction(
+            $order = PaymentHandler::getOrder(
                 $salesChannelContext->getContext(),
-                $this->orderTransactionRepository,
+                $this->orderRepository,
                 $data['hostedCheckoutId']
             );
         } catch (\Exception $e) {
@@ -97,16 +97,16 @@ class PaymentWebhookController extends AbstractController
         $paymentHandler = new PaymentHandler(
             $this->systemConfigService,
             $this->logger,
-            $orderTransaction,
+            $order,
             $this->translator,
             $this->orderRepository,
-            $this->orderTransactionRepository,
+            $this->customerRepository,
             $salesChannelContext->getContext(),
             $this->transactionStateHandler
         );
         $paymentHandler->logWebhook($request->request->all());
 
-        $paymentHandler->updatePaymentStatus($data['hostedCheckoutId'], $data['statusCode']);
+        $paymentHandler->updatePaymentStatus($data['hostedCheckoutId']);
 
         return new Response();
     }

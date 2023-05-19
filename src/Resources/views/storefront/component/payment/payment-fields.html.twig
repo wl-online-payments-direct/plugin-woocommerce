@@ -1,0 +1,19 @@
+{% sw_extends '@Storefront/storefront/component/payment/payment-fields.html.twig' %}
+{% block component_payment_method %}
+    <input type="hidden" id="moptWorldlinePageId" value="{{ moptPageId }}">
+    <input type="hidden" id="moptWorldlineSalesChannelId" value="{{ context.salesChannel.id }}">
+    <input type="hidden" id="moptWorldlineCustomerId" value="{{ context.customer.id }}">
+    <input type="hidden" id="moptWorldlineShowIframe" value="{{
+        moptPageId == 'cartConfirm'
+        and (context.paymentMethod.customFields.worldline_payment_method_id == 'moptWorldlineIframe'
+            or context.paymentMethod.customFields.worldline_payment_method_id == 'moptWorldlineSavedCard'
+        )
+    }}">
+    {% if app.request.get('cardDeleted') == '1' %}
+        {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
+            type:"success",
+            content: "worldline.save-payment-card.deleted"|trans|sw_sanitize
+        } %}
+    {% endif %}
+    {{ parent() }}
+{% endblock %}

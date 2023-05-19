@@ -1,3 +1,31 @@
+# 1.8.0
+- Payment methods logo 
+
+# 1.7.0
+- Group cards functionality 
+
+# 1.6.0
+- Auto-cancel for payment status open (0) and redirected (46) 
+
+# 1.5.0
+- Order item statuses
+
+ # 1.4.0
+- Update statuses of changed log data
+ 
+# 1.3.0
+- Partial capture, cancel, refund
+- Transaction log
+
+# 1.2.0
+- Klarna and Oney payment methods
+
+# 1.1.0
+- Tokenization
+
+# 1.0.1
+- Iframe basic flow
+
 # 1.0.0
 - Shopware store release updates
 

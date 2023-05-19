@@ -1,0 +1,58 @@
+<sw-container type="row" gap="15px">
+    <sw-data-grid
+            v-if="hasContent"
+            ref="dataGrid"
+            class="sw-order-line-items-grid__data-grid"
+            identifier="mo-order-line-item-grid"
+            :data-source="orderLineItems"
+            :columns="getLineItemColumns"
+            :show-settings="false"
+            :show-selection="false"
+            :showActions="false"
+            :is-loading="isLoading"
+            :compactMode="false"
+    >
+        <template #column-unprocessed="{ item, itemIndex }">
+            <sw-select-field v-model="Selection[itemIndex]" @change="setLinePrice(itemIndex, $event, item.unitPrice)">
+                <option :value="0">0</option>
+                <option v-for="n in item.unprocessed" :value="n">{{ n }}</option>
+            </sw-select-field>
+        </template>
+
+        <template #column-quantity="{ item }">
+            <span>{{ item.unprocessed }}x</span>
+        </template>
+
+        <template #column-unitPrice="{ item }">
+            <span>{{ item.unitPrice | currency(order.currency.shortName, order.itemRounding.decimals) }}</span>
+        </template>
+
+        <template #column-totalPrice="{ item, itemIndex }">
+            <span>{{ itemPrices[itemIndex] | currency(order.currency.shortName, order.itemRounding.decimals) }}</span>
+        </template>
+    </sw-data-grid>
+
+    <sw-container v-if="hasContent" columns="1fr 120px min-content min-content" gap="15px" justify="stretch" align="stretch">
+        <div></div>
+        <sw-number-field v-if="!lockedButton" @change="setCustomAmount" :value="amountToProcess" :min="0" :max="maxAmountToProcess" :fillDigits="true" />
+        <div v-else ></div>
+        <sw-button-process
+                :isLoading="isLoading"
+                :disabled="transactionDisabled"
+                :processSuccess="transactionSuccess.capture"
+                variant="ghost"
+                @click="capture"
+        >{{ $tc('worldline.capture-payment-button.button') }}</sw-button-process>
+
+        <sw-button-process
+                :isLoading="isLoading"
+                :disabled="transactionDisabled"
+                :processSuccess="transactionSuccess.cancel"
+                variant="ghost-danger"
+                @click="cancel"
+        >{{ $tc('worldline.cancel-payment-button.button') }}</sw-button-process>
+
+    </sw-container>
+
+    <div class="table--no-content" v-if="!hasContent">{{ $tc('worldline.transaction-control.table.empty') }}</div>
+</sw-container>

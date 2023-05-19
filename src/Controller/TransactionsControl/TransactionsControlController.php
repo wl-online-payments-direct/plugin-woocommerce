@@ -8,13 +8,18 @@
 namespace MoptWorldline\Controller\TransactionsControl;
 
 use Monolog\Logger;
+use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
+use OnlinePayments\Sdk\ValidationException;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
+use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Shopware\Core\Kernel;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -31,8 +36,8 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 class TransactionsControlController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
-    private EntityRepositoryInterface $orderTransactionRepository;
     private EntityRepositoryInterface $orderRepository;
+    private EntityRepositoryInterface $customerRepository;
     private OrderTransactionStateHandler $transactionStateHandler;
     private Logger $logger;
     private TranslatorInterface $translator;
@@ -40,8 +45,8 @@ class TransactionsControlController extends AbstractController
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepositoryInterface $orderTransactionRepository
      * @param EntityRepositoryInterface $orderRepository
+     * @param EntityRepositoryInterface $customerRepository
      * @param OrderTransactionStateHandler $transactionStateHandler
      * @param Logger $logger
      * @param TranslatorInterface $translator
@@ -49,8 +54,8 @@ class TransactionsControlController extends AbstractController
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
-        EntityRepositoryInterface    $orderTransactionRepository,
         EntityRepositoryInterface    $orderRepository,
+        EntityRepositoryInterface    $customerRepository,
         OrderTransactionStateHandler $transactionStateHandler,
         Logger                       $logger,
         TranslatorInterface          $translator,
@@ -58,8 +63,8 @@ class TransactionsControlController extends AbstractController
     )
     {
         $this->systemConfigService = $systemConfigService;
-        $this->orderTransactionRepository = $orderTransactionRepository;
         $this->orderRepository = $orderRepository;
+        $this->customerRepository = $customerRepository;
         $this->transactionStateHandler = $transactionStateHandler;
         $this->logger = $logger;
         $this->translator = $translator;
@@ -77,7 +82,8 @@ class TransactionsControlController extends AbstractController
     {
         $success = false;
         $message = AdminTranslate::trans($this->translator->getLocale(), "statusUpdateError");
-        if (!$hostedCheckoutId = $this->getTransactionId($request)) {
+        $hostedCheckoutId = $request->request->get('transactionId');
+        if (!$hostedCheckoutId) {
             $message = AdminTranslate::trans($this->translator->getLocale(), "noTransactionForThisOrder");
             return $this->response($success, $message);
         }
@@ -127,6 +133,45 @@ class TransactionsControlController extends AbstractController
 
     /**
      * @Route(
+     *     "/api/_action/transactions-control/getConfig",
+     *     name="api.action.transactions.control.getConfig",
+     *     methods={"POST"}
+     * )
+     */
+    public function getConfig(Request $request, Context $context): JsonResponse
+    {
+        $orderId = $request->request->get('orderId');
+
+        $criteria = new Criteria([$orderId]);
+        $criteria->addAssociation('transactions.paymentMethod')
+            ->addAssociation('salesChannel');
+        /** @var OrderEntity $orderEntity */
+        $orderEntity = $this->orderRepository->search($criteria, $context)->first();
+        /** @var OrderTransactionEntity $transaction */
+        $transaction = $orderEntity->getTransactions()->last();
+        $customFields = $transaction->getPaymentMethod()->getCustomFields();
+        $isFullRedirectMethod = false;
+        if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)) {
+            $isFullRedirectMethod = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID] == Payment::FULL_REDIRECT_PAYMENT_METHOD_ID;
+        }
+
+        $salesChannelId = $orderEntity->getSalesChannelId();
+
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $returnUrl = $adapter->getPluginConfig(Form::RETURN_URL_FIELD);
+        $apiKey = $orderEntity->getSalesChannel()->getAccessKey();
+
+        return
+            new JsonResponse([
+                'isFullRedirectMethod' => $isFullRedirectMethod,
+                'adminPayFinishUrl' => $returnUrl,
+                'adminPayErrorUrl' => $returnUrl,
+                'swAccessKey' => $apiKey
+            ]);
+    }
+
+    /**
+     * @Route(
      *     "/api/_action/transactions-control/enableButtons",
      *     name="api.action.transactions.control.enableButtons",
      *     methods={"POST"}
@@ -135,18 +180,41 @@ class TransactionsControlController extends AbstractController
     public function enableButtons(Request $request, Context $context): JsonResponse
     {
         try {
-            $hostedCheckoutId = $this->getTransactionId($request);
-            $orderTransaction = PaymentHandler::getOrderTransaction($context, $this->orderTransactionRepository, $hostedCheckoutId);
-            $fields = $orderTransaction->getCustomFields();
-            $status =  $fields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS];
-            $allowedActions = Payment::getAllowedActions($status);
+            $hostedCheckoutId = $request->request->get('transactionId');
+            $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
+            $customFields = $order->getCustomFields();
+            $log = [];
+            if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG, $customFields)) {
+                foreach ($customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG] as $logId => $logEntity) {
+                    $date = date('d-m-Y H:i:s', $logEntity['date']);
+                    $amount = $logEntity['amount'] / 100;
+                    $log[] = "$logId $date $amount {$logEntity['readableStatus']}";
+                }
+            }
+            $log = implode("\r\n", $log);
+
+            $itemsStatus = [];
+            if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_ITEMS_STATUS, $customFields)) {
+                foreach ($customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_ITEMS_STATUS] as $itemEntity) {
+                    $itemEntity['unitPrice'] = $itemEntity['unitPrice'] / 100;
+                    $itemsStatus[] = $itemEntity;
+                }
+            }
+            $lockButtons = false;
+            if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED, $customFields)) {
+                $lockButtons = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED];
+            }
+            $allowedAmounts = Payment::getAllowed($customFields);
         } catch (\Exception $e) {
-            return $this->response(false,'');
+            return $this->response(false, $e->getMessage());
         }
         return
             new JsonResponse([
                 'success' => true,
-                'message' => $allowedActions
+                'allowedAmounts' => $allowedAmounts,
+                'log' => $log,
+                'worldlinePaymentStatus' => $itemsStatus,
+                'worldlineLockButtons' => $lockButtons,
             ]);
     }
 
@@ -160,8 +228,16 @@ class TransactionsControlController extends AbstractController
      */
     private function processPayment(Request $request, Context $context, string $action): JsonResponse
     {
-        if (!$hostedCheckoutId = $this->getTransactionId($request)) {
+        $hostedCheckoutId = $request->request->get('transactionId');
+        $itemsChanges = $request->request->get('items');
+
+        $amount = (int)round($request->request->get('amount') * 100);
+        if (!$hostedCheckoutId) {
             $message = AdminTranslate::trans($this->translator->getLocale(), "noTransactionForThisOrder");
+            return $this->response(false, $message);
+        }
+        if ($amount < 0) {
+            $message = AdminTranslate::trans($this->translator->getLocale(), "wrongAmountRequested");
             return $this->response(false, $message);
         }
 
@@ -169,34 +245,23 @@ class TransactionsControlController extends AbstractController
 
         Payment::lockOrder($this->requestStack->getSession(), $handler->getOrderId());
         $message = AdminTranslate::trans($this->translator->getLocale(), "failed");
-        if ($result = $handler->$action($hostedCheckoutId)) {
-            $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+        try {
+            if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
+                $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+            }
+        } catch (ValidationException $e) {
+            $result = false;
+            $errors = $e->getErrors();
+            $messages = [];
+            foreach ($errors as $error) {
+                $propertyName = $error->getPropertyName();
+                $messages[] = $error->getCode() . ' ' . $error->getMessage() . ($propertyName ? "($propertyName)" : '');
+            }
+            $message = implode(', ', $messages);
         }
         Payment::unlockOrder($this->requestStack->getSession(), $handler->getOrderId());
 
         return $this->response($result, $message);
-    }
-
-    /**
-     * @param Request $request
-     * @return false|string
-     * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\Exception
-     */
-    private function getTransactionId(Request $request): ?string
-    {
-        $url = explode('/', $request->request->get('url'));
-        $orderId = $url[count($url) - 2];
-
-        $connection = Kernel::getConnection();
-        $sql = "SELECT custom_fields  FROM `order_transaction` WHERE order_id = UNHEX('$orderId')";
-        $orderTransactionCustomFields = $connection->executeQuery($sql)->fetchAssociative();
-        $customFields = json_decode($orderTransactionCustomFields['custom_fields'], true);
-        if (!is_array($customFields) || !array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID, $customFields)) {
-            return false;
-        }
-
-        return $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID];
     }
 
     /**
@@ -219,15 +284,15 @@ class TransactionsControlController extends AbstractController
      */
     private function getHandler(string $hostedCheckoutId, Context $context): ?PaymentHandler
     {
-        $orderTransaction = PaymentHandler::getOrderTransaction($context, $this->orderTransactionRepository, $hostedCheckoutId);
+        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
         return new PaymentHandler(
             $this->systemConfigService,
             $this->logger,
-            $orderTransaction,
+            $order,
             $this->translator,
             $this->orderRepository,
-            $this->orderTransactionRepository,
+            $this->customerRepository,
             $context,
             $this->transactionStateHandler
         );

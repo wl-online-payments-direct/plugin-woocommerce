@@ -120,7 +120,7 @@ Component.register('payment-method-button', {
         getPaymentMethods() {
             this.display(`<p class="innerText">${this.$tc('worldline.payment-method-button.request')}</p>`);
             this.isLoading = true;
-            this.apiTest.check(this.pluginConfig).then((res) => {//todo split this
+            this.apiTest.check(this.pluginConfig).then((res) => {//todo  split this
                 if (res.success) {
                     this.renderPaymentMethods(res.paymentMethods);
                 } else {

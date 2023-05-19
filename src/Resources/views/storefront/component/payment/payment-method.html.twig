@@ -1,0 +1,86 @@
+{% sw_extends '@Storefront/storefront/component/payment/payment-method.html.twig' %}
+{% block component_payment_method_control %}
+    {{ parent() }}
+    {% if (payment.customFields.selected or ((payment.id == selectedPaymentMethodId) and payment.customFields.token == null))
+        and (moptPageId == 'cartConfirm')
+        and ((payment.customFields.worldline_payment_method_id == "moptWorldlineIframe") or (payment.customFields.token !== null)) %}
+        <script src="https://payment.preprod.direct.worldline-solutions.com/hostedtokenization/js/client/tokenizer.min.js"/>
+        <script type="text/javascript"></script>
+        <div>
+            <div data-ajax-helper>
+                <div id="div-hosted-tokenization"></div>
+                {% if payment.customFields.worldline_payment_method_id == "moptWorldlineIframe" %}
+                    <input type="checkbox" id="moptWorldlineSavePaymentCard">
+                    <label for="moptWorldlineSavePaymentCard">{{ 'worldline.save-payment-card.label' | trans }}</label>
+                {% endif %}
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
+
+{% block component_payment_method_input %}
+    <input type="radio"
+           id="paymentMethod{{ payment._uniqueIdentifier }}"
+           name="paymentMethodId"
+           value="{{ payment.id }}"
+           {% if payment.customFields.token %}
+               rel="{{ payment.customFields.token }}"
+           {% endif %}
+           {% if (payment.customFields.selected and moptPageId == 'cartConfirm')
+               or (payment.customFields.default and moptPageId == 'account')
+               or (payment.id == selectedPaymentMethodId and payment.customFields.token == null and moptPageId == 'cartConfirm')
+               or (payment.id == selectedPaymentMethodId and payment.customFields.token == null and moptPageId == 'account')
+           %}
+               checked="checked"
+           {% endif %}
+           {% if page.isPaymentChangeable is defined and not page.isPaymentChangeable %}
+               disabled="disabled"
+           {% endif %}
+           class="custom-control-input payment-method-input">
+{% endblock %}
+
+{% block component_payment_method_label %}
+    <label class="custom-control-label payment-method-label"
+           for="paymentMethod{{ payment._uniqueIdentifier }}">
+        {% block component_payment_method_image %}
+            {% if payment.media %}
+                {% sw_thumbnails 'payment-method-image-thumbnails' with {
+                    media: payment.media,
+                    sizes: {
+                        'default': '100px'
+                    },
+                    attributes: {
+                        'class': 'payment-method-image',
+                        'alt': (payment.media.translated.alt ?: payment.translated.name),
+                        'title': (payment.media.translated.title ?: payment.translated.name)
+                    }
+                } %}
+            {% endif %}
+        {% endblock %}
+
+        {% block component_payment_method_description %}
+            <div class="payment-method-description">
+                <strong>{{ payment.translated.name }}</strong>
+                {% if payment.translated.description %}
+                    {% set paymentDescription = payment.translated.description|raw %}
+
+                    {% if not payment.id is same as(selectedPaymentMethodId) %}
+                        {% set paymentDescription = (paymentDescription|length > 75 ? paymentDescription[:75] ~ ' ...' : paymentDescription) %}
+                    {% endif %}
+
+                    <p title="{{ payment.translated.description|raw }}">{{ paymentDescription }}</p>
+                {% endif %}
+            </div>
+        {% endblock %}
+    </label>
+    {% if payment.customFields.token and moptPageId == 'account' %}
+        <div class="btn btn-light btn-sm"
+            onclick="deleteCard(
+                '{{path('worldline.card.delete',{'tokenId': payment.customFields.token})}}',
+                '{{sw_csrf('worldline.card.delete', {"mode": "token"})}}'
+            )"
+        >
+            {{ "worldline.save-payment-card.deleteButton"|trans|sw_sanitize }}
+        </div>
+    {% endif %}
+{% endblock %}

@@ -4,11 +4,10 @@ namespace MoptWorldline\Subscriber;
 
 use Monolog\Logger;
 use MoptWorldline\Bootstrap\Form;
-use MoptWorldline\Service\AdminTranslate;
+use MoptWorldline\Service\Helper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
 use Psr\Log\LogLevel;
-use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Order\OrderEvents;
@@ -17,50 +16,79 @@ use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Shopware\Storefront\Event\RouteRequest\HandlePaymentMethodRouteRequestEvent;
 use Shopware\Storefront\Event\StorefrontRenderEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Symfony\Component\HttpFoundation\Session\Session;
 
 class OrderChangesSubscriber implements EventSubscriberInterface
 {
     private SystemConfigService $systemConfigService;
     private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $orderTransactionRepository;
+    private EntityRepositoryInterface $customerRepository;
     private Logger $logger;
     private RequestStack $requestStack;
     private TranslatorInterface $translator;
     private OrderTransactionStateHandler $transactionStateHandler;
+    private Session $session;
 
     /**
      * @param SystemConfigService $systemConfigService
+     * @param EntityRepositoryInterface $orderRepository
+     * @param EntityRepositoryInterface $customerRepository
      * @param Logger $logger
+     * @param RequestStack $requestStack
+     * @param TranslatorInterface $translator
+     * @param OrderTransactionStateHandler $transactionStateHandler
+     * @param Session $session
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
         EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $orderTransactionRepository,
+        EntityRepositoryInterface    $customerRepository,
         Logger                       $logger,
         RequestStack                 $requestStack,
         TranslatorInterface          $translator,
-        OrderTransactionStateHandler $transactionStateHandler
+        OrderTransactionStateHandler $transactionStateHandler,
+        Session                      $session
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->orderRepository = $orderRepository;
-        $this->orderTransactionRepository = $orderTransactionRepository;
+        $this->customerRepository = $customerRepository;
         $this->logger = $logger;
         $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->transactionStateHandler = $transactionStateHandler;
+        $this->session = $session;
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            OrderEvents::ORDER_WRITTEN_EVENT => 'onOrderWritten',
+            HandlePaymentMethodRouteRequestEvent::class => 'setIframeFields',
+            // 22.03.2023 - should be disabled before Worldline will fix status notifications.
+            //OrderEvents::ORDER_WRITTEN_EVENT => 'onOrderWritten',
         ];
+    }
+
+    /**
+     * @param HandlePaymentMethodRouteRequestEvent $event
+     * @return void
+     */
+    public function setIframeFields(HandlePaymentMethodRouteRequestEvent $event)
+    {
+        $iframeData = [];
+        foreach (Form::WORLDLINE_CART_FORM_KEYS as $key) {
+            $iframeData[$key] = $event->getStorefrontRequest()->request->get($key);
+            if (is_null($iframeData[$key])) {
+                return;
+            }
+        }
+        $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
     }
 
     /**
@@ -127,30 +155,36 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         }
         $hostedCheckoutId = $customFields['payment_transaction_id'];
 
-        /** @var OrderTransactionEntity|null $orderTransaction */
-        $orderTransaction = PaymentHandler::getOrderTransaction($context, $this->orderTransactionRepository, $hostedCheckoutId);
+        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
         $paymentHandler = new PaymentHandler(
             $this->systemConfigService,
             $this->logger,
-            $orderTransaction,
+            $order,
             $this->translator,
             $this->orderRepository,
-            $this->orderTransactionRepository,
+            $this->customerRepository,
             $context,
             $this->transactionStateHandler
         );
+        $customFields = $order->getCustomFields();
         switch ($state) {
             case StateMachineTransitionActions::ACTION_CANCEL:
             {
                 Payment::lockOrder($this->requestStack->getSession(), $orderId);
-                $paymentHandler->cancelPayment($hostedCheckoutId);
+                $amount = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT];
+                if ($amount > 0) {
+                    $paymentHandler->cancelPayment($hostedCheckoutId, $amount, []);
+                }
                 break;
             }
             case StateMachineTransitionActions::ACTION_REFUND:
             {
                 Payment::lockOrder($this->requestStack->getSession(), $orderId);
-                $paymentHandler->refundPayment($hostedCheckoutId);
+                $amount = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT];
+                if ($amount > 0) {
+                    $paymentHandler->refundPayment($hostedCheckoutId, $amount, []);
+                }
                 break;
             }
             default :

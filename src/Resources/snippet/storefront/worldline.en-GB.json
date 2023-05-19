@@ -9,26 +9,31 @@
         "check-status-button": {
             "title": "Status check",
             "success": "Status was successfully updated.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Check status"
         },
         "capture-payment-button": {
             "title": "Capture payment",
             "success": "Payment was successfully captured.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Capture payment"
         },
         "cancel-payment-button": {
             "title": "Cancel payment",
             "success": "Payment was successfully canceled.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Cancel payment"
         },
         "refund-payment-button": {
             "title": "Refund payment",
             "success": "Payment was successfully refunded.",
-            "error": "Connection could not be established. Please check the access data.",
+            "error": "Operation failed.",
             "button": "Refund payment"
+        },
+        "save-payment-card": {
+            "label": "Save payment card",
+            "deleteButton": "Delete",
+            "deleted": "Card has been deleted."
         },
         "forwardToPaymentHandler": "Forwarding to payment handler.",
         "errorWithConfirmRedirect": "Error. Redirecting to confirm page.",
@@ -39,6 +44,8 @@
         "tryingToCapture": "Trying to capture",
         "unsupportedStatus": "Unsupported status",
         "operationIsNotPossibleDueToCurrentStatus": "Operation is not possible due to current status",
+        "maxAmountExceeded": "Maximum amount exceeded.",
+        "wrongAmountRequested": "Wrong amount requested.",
         "gettingPaymentDetails": "Getting payment details",
         "paymentOpen": "Payment is open",
         "paymentInProgress": "Payment is in progress",
@@ -67,6 +74,7 @@
             "created": "Created",
             "rejected": "Rejected",
             "rejectedCapture": "Capture rejected",
+            "cancellationDeclined": "Cancellation declined",
             "redirected": "Redirected",
             "pendingCapture": "Pending capture",
             "authorizationRequested": "Authorization requested",
@@ -114,6 +122,27 @@
             "label": "Worldline Online Payments.",
             "description": "Worldline Online Payments.",
             "extraDescription": "Certified Worldline online payments extension for Shopware 6"
+        },
+        "transaction-control": {
+            "logs": {
+                "label": "Payment log",
+                "placeholder": "nothing here..."
+            },
+            "tabs": {
+                "unprocessed": "Unprocessed",
+                "paid": "Paid",
+                "refunded": "Refunded",
+                "canceled": "Canceled"
+            },
+            "table": {
+                "selected": "Selected",
+                "unitPrice": "Unit Price",
+                "empty": "No items with current status in order"
+            },
+            "buttons": {
+                "adminPay": "Pay for order",
+                "error": "Something went wrong"
+            }
         }
     }
 }

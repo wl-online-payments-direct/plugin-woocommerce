@@ -13,14 +13,17 @@
             <argument type="service" id="payment_method.repository" />
             <argument type="service" id="sales_channel_payment_method.repository" />
             <argument type="service" id="Shopware\Core\Framework\Plugin\Util\PluginIdProvider"  />
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Media\MediaService" />
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver" />
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
         </service>
         <service id="MoptWorldline\Controller\TransactionsControl\TransactionsControlController" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
-            <argument type="service" id="order_transaction.repository"/>
             <argument type="service" id="order.repository"/>
+            <argument type="service" id="customer.repository"/>
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="translator" />
@@ -31,17 +34,18 @@
         </service>
         <service id="MoptWorldline\Service\Payment">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
-            <argument type="service" id="order_transaction.repository"/>
             <argument type="service" id="order.repository"/>
+            <argument type="service" id="customer.repository"/>
             <argument type="service" id="translator" />
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="session" />
             <tag name="shopware.payment.method.async" priority="-5100"/>
         </service>
         <service id="MoptWorldline\Controller\Payment\PaymentFinalizeController" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
-            <argument type="service" id="order_transaction.repository"/>
             <argument type="service" id="order.repository"/>
+            <argument type="service" id="customer.repository"/>
             <argument type="service" id="MoptWorldline\Service\Payment"/>
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
             <argument type="service" id="router"/>
@@ -53,8 +57,8 @@
         </service>
         <service id="MoptWorldline\Controller\Payment\PaymentWebhookController" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
-            <argument type="service" id="order_transaction.repository"/>
             <argument type="service" id="order.repository"/>
+            <argument type="service" id="customer.repository"/>
             <argument type="service" id="MoptWorldline\Service\Payment"/>
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
             <argument type="service" id="router"/>
@@ -67,11 +71,12 @@
         <service id="MoptWorldline\Subscriber\OrderChangesSubscriber">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
             <argument type="service" id="order.repository" />
-            <argument type="service" id="order_transaction.repository"/>
+            <argument type="service" id="customer.repository"/>
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="request_stack"/>
             <argument type="service" id="translator" />
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="session" />
             <tag name="kernel.event_subscriber" priority="-5100"/>
         </service>
         <service id="MoptWorldline\Service\CronTask">
@@ -82,11 +87,41 @@
             <argument type="service" id="sales_channel.repository" />
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
             <argument type="service" id="monolog.logger" />
-            <argument type="service" id="order_transaction.repository"/>
             <argument type="service" id="order.repository"/>
+            <argument type="service" id="customer.repository"/>
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
             <argument type="service" id="translator" />
             <tag name="messenger.message_handler" />
+        </service>
+        <service id="MoptWorldline\Controller\Payment\IframeController" public="true">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="monolog.logger" />
+            <argument type="service" id="session" />
+            <argument type="service" id="customer.repository"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
+        <service id="MoptWorldline\Core\Checkout\Payment\SalesChannel\OverwritePaymentMethodRoute"
+                 decorates="Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRoute"
+                 public="true">
+            <argument type="service" id="sales_channel.payment_method.repository"/>
+            <argument type="service" id="session" />
+            <argument type="service" id="customer.repository"/>
+        </service>
+        <service id="MoptWorldline\Core\Checkout\Payment\SalesChannel\OverwriteCachedPaymentMethodRoute"
+                 decorates="Shopware\Core\Checkout\Payment\SalesChannel\CachedPaymentMethodRoute"
+                 public="true">
+            <argument type="service" id="Shopware\Core\Checkout\Payment\SalesChannel\CachedPaymentMethodRoute.inner"/>
+            <argument type="service" id="cache.object"/>
+            <argument type="service" id="Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator"/>
+            <argument type="service" id="Shopware\Core\Framework\Adapter\Cache\CacheTracer"/>
+            <argument type="service" id="event_dispatcher"/>
+            <argument>%shopware.cache.invalidation.payment_method_route%</argument>
+            <argument type="service" id="logger" />
+            <argument type="service" id="sales_channel.payment_method.repository"/>
+            <argument type="service" id="session" />
+            <argument type="service" id="customer.repository"/>
         </service>
     </services>
 </container>
