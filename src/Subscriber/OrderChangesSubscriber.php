@@ -43,7 +43,6 @@ class OrderChangesSubscriber implements EventSubscriberInterface
      * @param RequestStack $requestStack
      * @param TranslatorInterface $translator
      * @param OrderTransactionStateHandler $transactionStateHandler
-     * @param Session $session
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
@@ -52,8 +51,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         Logger                       $logger,
         RequestStack                 $requestStack,
         TranslatorInterface          $translator,
-        OrderTransactionStateHandler $transactionStateHandler,
-        Session                      $session
+        OrderTransactionStateHandler $transactionStateHandler
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -63,7 +61,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->transactionStateHandler = $transactionStateHandler;
-        $this->session = $session;
+        $this->session = new Session();
     }
 
     public static function getSubscribedEvents(): array

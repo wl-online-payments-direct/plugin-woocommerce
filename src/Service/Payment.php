@@ -144,7 +144,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
      * @param TranslatorInterface $translator
      * @param Logger $logger
      * @param OrderTransactionStateHandler $transactionStateHandler
-     * @param Session $session
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
@@ -152,8 +151,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
         EntityRepository             $customerRepository,
         TranslatorInterface          $translator,
         Logger                       $logger,
-        OrderTransactionStateHandler $transactionStateHandler,
-        Session                      $session
+        OrderTransactionStateHandler $transactionStateHandler
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -162,7 +160,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $this->translator = $translator;
         $this->logger = $logger;
         $this->transactionStateHandler = $transactionStateHandler;
-        $this->session = $session;
+        $this->session = new Session();
     }
 
     /**

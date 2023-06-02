@@ -31,13 +31,12 @@ class IframeController extends AbstractController
     public function __construct(
         SystemConfigService       $systemConfigService,
         Logger                    $logger,
-        Session                   $session,
         EntityRepository          $customerRepository
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->logger = $logger;
-        $this->session = $session;
+        $this->session = new Session();
         $this->customerRepository = $customerRepository;
     }
 

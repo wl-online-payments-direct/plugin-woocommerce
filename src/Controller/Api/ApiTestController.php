@@ -96,7 +96,7 @@ class ApiTestController extends AbstractController
      */
     public function testConnection(Request $request, Context $context): JsonResponse
     {
-        $configFormData = $request->request->get('сonfigData');
+        $configFormData = $request->request->all('сonfigData');
 
         if (is_null($configFormData)) {
             return $this->response(false, "There is no config data.");

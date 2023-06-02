@@ -75,7 +75,7 @@ class PaymentMethodController
      */
     public function saveMethod(Request $request, Context $context, ?string $countryIso3, ?string $currencyIsoCode): JsonResponse
     {
-        $data = $request->request->get('data');
+        $data = $request->request->all('data');
         $salesChannelId = $request->request->get('salesChannelId');
 
         $toCreate = [];

@@ -31,14 +31,13 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
 
     /**
      * @param SalesChannelRepository $paymentMethodsRepository
-     * @param Session $session
      * @param EntityRepository $customerRepository
      */
-    public function __construct(SalesChannelRepository $paymentMethodsRepository, Session $session, EntityRepository $customerRepository)
+    public function __construct(SalesChannelRepository $paymentMethodsRepository, EntityRepository $customerRepository)
     {
         parent::__construct($paymentMethodsRepository);
         $this->paymentMethodsRepository = $paymentMethodsRepository;
-        $this->session = $session;
+        $this->session = new Session();
         $this->customerRepository = $customerRepository;
     }
 

@@ -227,7 +227,7 @@ class TransactionsControlController extends AbstractController
     private function processPayment(Request $request, Context $context, string $action): JsonResponse
     {
         $hostedCheckoutId = $request->request->get('transactionId');
-        $itemsChanges = $request->request->get('items');
+        $itemsChanges = $request->request->all('items');
 
         $amount = (int)round($request->request->get('amount') * 100);
         if (!$hostedCheckoutId) {

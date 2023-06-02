@@ -65,7 +65,6 @@ class PaymentWebhookController extends AbstractController
      * @Route(
      *     "/worldline/payment/webhook",
      *     name="worldline.payment.webhook",
-     *     defaults={"csrf_protected"=false},
      *     methods={"POST"}
      * )
      * @param Request $request

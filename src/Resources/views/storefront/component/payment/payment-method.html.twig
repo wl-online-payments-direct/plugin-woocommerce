@@ -76,8 +76,7 @@
     {% if payment.customFields.token and moptPageId == 'account' %}
         <div class="btn btn-light btn-sm"
             onclick="deleteCard(
-                '{{path('worldline.card.delete',{'tokenId': payment.customFields.token})}}',
-                '{{sw_csrf('worldline.card.delete', {"mode": "token"})}}'
+                '{{path('worldline.card.delete',{'tokenId': payment.customFields.token})}}'
             )"
         >
             {{ "worldline.save-payment-card.deleteButton"|trans|sw_sanitize }}
