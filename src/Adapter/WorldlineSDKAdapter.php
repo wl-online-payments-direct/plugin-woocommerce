@@ -2,7 +2,9 @@
 
 namespace MoptWorldline\Adapter;
 
+use Interop\Queue\Exception\Exception;
 use Monolog\Logger;
+use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
@@ -49,6 +51,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\OrderEntity;
+use Shopware\Core\Checkout\Payment\Exception\AsyncPaymentProcessException;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Bootstrap\Form;
 use OnlinePayments\Sdk\DefaultConnection;
@@ -256,6 +259,7 @@ class WorldlineSDKAdapter
      * @param Order $order
      * @param CreateHostedCheckoutRequest $hostedCheckoutRequest
      * @return void
+     * @throws Exception
      */
     private function setCustomProperties(
         string                         $worldlinePaymentProductId,
@@ -647,6 +651,7 @@ class WorldlineSDKAdapter
      * @param HostedCheckoutSpecificInput $hostedCheckoutSpecificInput
      * @param Order $order
      * @return void
+     * @throws Exception
      */
     private function addCartToRequest(
         string                         $currencyISO,
@@ -663,7 +668,7 @@ class WorldlineSDKAdapter
         $isNetPrice = !$orderEntity->getOrderCustomer()->getCustomer()->getGroup()->getDisplayGross();
 
         $shoppingCart->setItems(
-            $this->crateRequestLineItems(
+            $this->createRequestLineItems(
                 $orderEntity->getLineItems(),
                 $orderEntity->getShippingCosts(),
                 $currencyISO,
@@ -697,23 +702,66 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param bool $isNetPrice
      * @return array
+     * @throws Exception
      */
-    private function crateRequestLineItems(
+    private function createRequestLineItems(
         OrderLineItemCollection $lineItemCollection,
-        CalculatedPrice $shippingPrice,
-        string $currencyISO,
-        bool $isNetPrice
+        CalculatedPrice         $shippingPrice,
+        string                  $currencyISO,
+        bool                    $isNetPrice
     ): array
     {
         $requestLineItems = [];
+        $discount = 0;
+        $maxPrices = [
+            'unit' => ['id' => '', 'price' => 0],
+            'item' => ['id' => '', 'price' => 0]
+        ];
+        $grandPrice = 0;
+        $grandCount = 0;
         /** @var OrderLineItemEntity $lineItem */
         foreach ($lineItemCollection as $lineItem) {
             [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
-            $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
+            if ($totalPrice < 0) {
+                $discount += abs($totalPrice);
+                continue;
+            }
+            $grandPrice += $totalPrice;
+            $grandCount += $quantity;
+
+            if ($maxPrices['unit']['price'] < $unitPrice) {
+                $maxPrices['unit']['price'] = $unitPrice;
+                $maxPrices['unit']['id'] = $lineItem->getId();
+            }
+            if ($maxPrices['item']['price'] < $totalPrice) {
+                $maxPrices['item']['price'] = $totalPrice;
+                $maxPrices['item']['id'] = $lineItem->getId();
+            }
+            $requestLineItems[$lineItem->getId()] = self::createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
         }
 
         $shippingPrice = self::getShippingPrice($shippingPrice, $isNetPrice);
-        $requestLineItems[] = $this->createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+        if ($shippingPrice > 0) {
+            $grandPrice += $shippingPrice;
+            $grandCount++;
+            $shippingElementId = 'shipping_element';
+            if ($maxPrices['unit']['price'] < $shippingPrice) {
+                $maxPrices['unit']['price'] = $shippingPrice;
+                $maxPrices['unit']['id'] = $shippingElementId;
+            }
+            $requestLineItems[$shippingElementId] = self::createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+        }
+
+        if ($discount > 0) {
+            if ($grandPrice <= ($discount + $grandCount)) {
+                $this->log('Discount over limit.', Logger::ERROR);
+                throw new Exception(
+                    'Discount should be less than ' . ($grandPrice - $grandCount) / 100
+                );
+            }
+
+            $requestLineItems = DiscountHelper::handleDiscount($requestLineItems, $discount, $maxPrices);
+        }
 
         return $requestLineItems;
     }
@@ -724,9 +772,17 @@ class WorldlineSDKAdapter
      * @param int $totalPrice
      * @param int $unitPrice
      * @param int $quantity
+     * @param int $discount
      * @return LineItem
      */
-    private function createLineItem(string $label, string $currencyISO, int $totalPrice, int $unitPrice, int $quantity): LineItem
+    public static function createLineItem(
+        string $label,
+        string $currencyISO,
+        int    $totalPrice,
+        int    $unitPrice,
+        int    $quantity,
+        int    $discount = 0
+    ): LineItem
     {
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setCurrencyCode($currencyISO);
@@ -736,7 +792,7 @@ class WorldlineSDKAdapter
         $lineDetails->setProductName($label);
         $lineDetails->setProductPrice($unitPrice);
         $lineDetails->setQuantity($quantity);
-        $lineDetails->setDiscountAmount(0);
+        $lineDetails->setDiscountAmount($discount);
         $lineDetails->setTaxAmount(0);
 
         $lineItem = new LineItem();
