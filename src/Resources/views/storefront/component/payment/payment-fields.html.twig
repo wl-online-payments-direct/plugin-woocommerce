@@ -1,19 +1,87 @@
-{% sw_extends '@Storefront/storefront/component/payment/payment-fields.html.twig' %}
-{% block component_payment_method %}
-    <input type="hidden" id="moptWorldlinePageId" value="{{ moptPageId }}">
-    <input type="hidden" id="moptWorldlineSalesChannelId" value="{{ context.salesChannel.id }}">
-    <input type="hidden" id="moptWorldlineCustomerId" value="{{ context.customer.id }}">
-    <input type="hidden" id="moptWorldlineShowIframe" value="{{
-        moptPageId == 'cartConfirm'
-        and (context.paymentMethod.customFields.worldline_payment_method_id == 'moptWorldlineIframe'
-            or context.paymentMethod.customFields.worldline_payment_method_id == 'moptWorldlineSavedCard'
-        )
-    }}">
-    {% if app.request.get('cardDeleted') == '1' %}
-        {% sw_include '@Storefront/storefront/utilities/alert.html.twig' with {
-            type:"success",
-            content: "worldline.save-payment-card.deleted"|trans|sw_sanitize
-        } %}
-    {% endif %}
-    {{ parent() }}
-{% endblock %}
+ordernumber
+mainnumber
+name
+supplier
+tax
+price_EK
+pseudoprice_EK
+baseprice_EK
+supplier_number
+active
+configurator_options
+attr1
+attr2
+attr3
+attr4
+attr5
+attr6
+attr7
+attr9
+attr10
+attr11
+attr12
+attr13
+attr14
+attr15
+attr16
+attr17
+attr18
+attr19
+attr20
+attr21
+attr22
+attr23
+attr24
+attr26
+attr27
+attr28
+attr29
+attr30
+attr31
+attr32
+attr33
+attr34
+attr35
+attr36
+attr41
+attr43
+ean
+weight
+stock
+kind
+shipping_free
+attr37
+attr37_orig
+attr8
+attr49
+attr50
+attr51
+description_long
+bestellsperre
+auslaufkennzeichen
+prop1
+prop2
+prop3
+prop4
+prop5
+prop10
+prop11
+prop12
+prop50
+prop51
+prop52
+prop53
+prop60
+prop61
+prop62
+prop63
+prop64
+prop_status
+enev_color
+enev_download
+enev_image
+enev_klasse
+enev_spectrumfrom
+enev_spectrum
+enev_active
+filter_reason
