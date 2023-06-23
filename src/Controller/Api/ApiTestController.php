@@ -173,13 +173,12 @@ class ApiTestController extends AbstractController
 
     /**
      * @param Request $request
-     * @return bool
+     * @return string
      */
-    private function getMode(Request $request): bool
+    private function getMode(Request $request): string
     {
         $button = $request->request->get('button');
         return ($button == Form::LIVE_API_TEST_BUTTON) ? 'live' : 'sandbox';
-;
     }
 
     /**
