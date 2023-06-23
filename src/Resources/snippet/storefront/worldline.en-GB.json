@@ -35,6 +35,12 @@
             "deleteButton": "Delete",
             "deleted": "Card has been deleted."
         },
+        "show-sandbox-credentials-button": {
+            "label": "Sandbox credentials"
+        },
+        "show-live-credentials-button": {
+            "label": "Live credentials"
+        },
         "forwardToPaymentHandler": "Forwarding to payment handler.",
         "errorWithConfirmRedirect": "Error. Redirecting to confirm page.",
         "buildingOrder": "Building order",

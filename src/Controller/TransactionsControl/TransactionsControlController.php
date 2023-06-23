@@ -158,7 +158,7 @@ class TransactionsControlController extends AbstractController
         $salesChannelId = $orderEntity->getSalesChannelId();
 
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
-        $returnUrl = $adapter->getPluginConfig(Form::RETURN_URL_FIELD);
+        $returnUrl = $adapter->getReturnUrl();
         $apiKey = $orderEntity->getSalesChannel()->getAccessKey();
 
         return
