@@ -45,25 +45,22 @@ Component.register('payment-method-button', {
             return  $parent.currentSalesChannelId;
         },
 
-        selectCheckbox() {
-            document.querySelectorAll('.paymentMethod').forEach((el, number,parent) => {
-                if (number === 0) {
-                    el.click();
-                } else if (el.checked != parent[0].checked) {
-                    el.click();
-                }
-            })
+        selectAllCheckbox(shouldBeActive) {
+            this.paymentMethodData.forEach(item => {
+                item.isActive = shouldBeActive;
+            });
+            this.saveButton();
         },
 
         createPaymentMethodsArray() {
             let paymentMethodsArray = [];
-            document.querySelectorAll('.payment-method--container').forEach((el) => {
+            this.paymentMethodData.forEach(item => {
                 paymentMethodsArray.push({
-                    id: el.children[0].children[0].id,
-                    status: el.children[0].children[0].checked,
-                    internalId: el.children[0].children[0].getAttribute('internalId'),
+                    id: item.id,
+                    status: item.isActive,
+                    internalId: item.internalId,
                 });
-            })
+            });
             return paymentMethodsArray;
         },
 
@@ -90,9 +87,6 @@ Component.register('payment-method-button', {
         },
 
         renderPaymentMethods(paymentMethods) {
-            if (paymentMethods.length <= 5) {
-                document.querySelector('.select-all').innerHTML = '';
-            }
             if (paymentMethods.length === 0) {
                 this.displayMessage = this.$tc('worldline.payment-method-button.requestEmpty');
             } else {

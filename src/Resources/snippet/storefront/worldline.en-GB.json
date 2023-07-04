@@ -90,7 +90,8 @@
         "payment-method-button": {
             "headline": "Payment Methods",
             "subline": "Please select payment methods for your checkout",
-            "selectAll": "select / deselect all",
+            "selectAll": "select all",
+            "deselectAll": "deselect all",
             "save": "Save",
             "request": "Requesting available payment methods...",
             "requestEmpty": "No payment methods to display",
