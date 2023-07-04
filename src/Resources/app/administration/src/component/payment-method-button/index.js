@@ -77,10 +77,6 @@ Component.register('payment-method-button', {
             ).then((res) => {
                 if (res.success) {
                     this.isSaveSuccessful = true;
-                    this.createNotificationSuccess({
-                        title: this.$tc('worldline.payment-method-button.APITitle'),
-                        message: this.$tc('worldline.payment-method-button.success')
-                    });
                 } else {
                     this.createNotificationError({
                         title: this.$tc('worldline.payment-method-button.APITitle'),
@@ -101,6 +97,7 @@ Component.register('payment-method-button', {
                 this.displayMessage = this.$tc('worldline.payment-method-button.requestEmpty');
             } else {
                 this.displayMessage = null;
+                this.paymentMethodData = [];
                 paymentMethods.forEach((item) => {
                     this.paymentMethodData.push({
                         id: item.id,
