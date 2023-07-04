@@ -1,3 +1,6 @@
+# 1.8.1
+- Separated test and live credentials 
+
 # 1.8.0
 - Payment methods logo 
 
