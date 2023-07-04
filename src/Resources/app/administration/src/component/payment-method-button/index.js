@@ -16,6 +16,8 @@ Component.register('payment-method-button', {
         return {
             isLoading: false,
             isSaveSuccessful: false,
+            paymentMethodData: [],
+            displayMessage: null,
         };
     },
 
@@ -66,6 +68,7 @@ Component.register('payment-method-button', {
         },
 
         saveButton() {
+            this.isLoading = true;
             this.apiTest.savemethod(
             {
                 'data': this.createPaymentMethodsArray(),
@@ -90,41 +93,34 @@ Component.register('payment-method-button', {
 
         },
 
-        display(content) {
-            document.querySelector('.border-inner').innerHTML = content;
-        },
-
         renderPaymentMethods(paymentMethods) {
             if (paymentMethods.length <= 5) {
                 document.querySelector('.select-all').innerHTML = '';
             }
-            if (paymentMethods.length == 0) {
-                this.display(`<p class="innerText">${this.$tc('worldline.payment-method-button.requestEmpty')}</p>`);
+            if (paymentMethods.length === 0) {
+                this.displayMessage = this.$tc('worldline.payment-method-button.requestEmpty');
             } else {
-                let checkboxTemplate = paymentMethods.map((item) => {
-
-                    return `<div class="payment-method--container">
-                    <label class="switch">
-                      <input type="checkbox" id="${item.id}" internalId="${item.internalId}" class="paymentMethod" ${item.isActive?'checked':''}>
-                      <span class="slider round"></span>
-                    </label>
-                    <img src="${item.logo}">
-                    <label for="${item.label}">
-                    ${item.label}</label>
-                    </div>`;
-                }).join(" ");
-                this.display(checkboxTemplate);
+                this.displayMessage = null;
+                paymentMethods.forEach((item) => {
+                    this.paymentMethodData.push({
+                        id: item.id,
+                        internalId: item.internalId,
+                        isActive: item.isActive,
+                        logo: item.logo,
+                        label: item.label,
+                    });
+                });
             }
         },
 
         getPaymentMethods() {
-            this.display(`<p class="innerText">${this.$tc('worldline.payment-method-button.request')}</p>`);
+            this.displayMessage = this.$tc('worldline.payment-method-button.request');
             this.isLoading = true;
             this.apiTest.check(this.pluginConfig).then((res) => {//todo  split this
                 if (res.success) {
                     this.renderPaymentMethods(res.paymentMethods);
                 } else {
-                    this.display(`<p class="innerText">${this.$tc('worldline.payment-method-button.error')}</p>`);
+                    this.displayMessage = this.$tc('worldline.payment-method-button.error');
                     this.createNotificationError({
                         title: this.$tc('worldline.payment-method-button.title'),
                         message: this.$tc('worldline.payment-method-button.error') + res.message
@@ -132,14 +128,9 @@ Component.register('payment-method-button', {
                 }
                 this.isLoading = false;
             }).catch((error) => {
-                this.display(`<p class="innerText">${this.$tc('worldline.payment-method-button.error')}</p>`);
+                this.displayMessage = this.$tc('worldline.payment-method-button.error');
+                this.isLoading = false;
             });
-
-            var methods = document.getElementsByClassName("paymentMethod");
-            Array.from(methods).forEach(item => item.addEventListener("click", (event)=>{
-                console.log(item);
-                this.saveButton();
-            }));
         }
     },
 
