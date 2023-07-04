@@ -52,6 +52,12 @@ Component.register('payment-method-button', {
             this.saveButton();
         },
 
+        selectSingleCheckbox(internalId) {
+            const element = this.paymentMethodData.find(value => value.internalId === internalId);
+            element.isActive = !element.isActive;
+            this.saveButton();
+        },
+
         createPaymentMethodsArray() {
             let paymentMethodsArray = [];
             this.paymentMethodData.forEach(item => {

@@ -17,7 +17,7 @@
             <div v-else v-for="item in paymentMethodData">
                 <div class="payment-method--container">
                     <label class="switch">
-                        <input @click="saveButton" type="checkbox" :id="item.id" :internalId="item.internalId" class="paymentMethod" :checked="item.isActive">
+                        <input @click="selectSingleCheckbox(item.internalId)" type="checkbox" :id="item.id" :internalId="item.internalId" class="paymentMethod" :checked="item.isActive">
                         <span class="slider round"></span>
                     </label>
                     <img :src="item.logo">
