@@ -149,22 +149,6 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @return void
-     * @throws \Exception
-     */
-    public function testConnection()
-    {
-        $queryParams = new GetPaymentProductsParams();
-
-        $queryParams->setCountryCode("DEU");
-        $queryParams->setCurrencyCode("EUR");
-
-        $this->merchantClient
-            ->products()
-            ->getPaymentProducts($queryParams);
-    }
-
-    /**
      * @param string $hostedCheckoutId
      * @return PaymentDetailsResponse
      * @throws \Exception

@@ -134,6 +134,12 @@ Component.register('payment-method-button', {
             }).catch((error) => {
                 this.display(`<p class="innerText">${this.$tc('worldline.payment-method-button.error')}</p>`);
             });
+
+            var methods = document.getElementsByClassName("paymentMethod");
+            Array.from(methods).forEach(item => item.addEventListener("click", (event)=>{
+                console.log(item);
+                this.saveButton();
+            }));
         }
     },
 
