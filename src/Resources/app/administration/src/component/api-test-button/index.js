@@ -28,7 +28,8 @@ Component.register('api-test-button', {
 
             return {
                 'сonfigData': $parent.actualConfigData,
-                'salesChannelId': $parent.currentSalesChannelId
+                'salesChannelId': $parent.currentSalesChannelId,
+                'button': this.$parent.$el.attributes.name.value
             }
         }
     },

@@ -112,14 +112,8 @@ class WorldlineSDKAdapter
         }
 
         if (empty($credentials)) {
-            $credentials = [
-                'merchantId' => $this->getPluginConfig(Form::MERCHANT_ID_FIELD),
-                'apiKey' => $this->getPluginConfig(Form::API_KEY_FIELD),
-                'apiSecret' => $this->getPluginConfig(Form::API_SECRET_FIELD),
-                'isLiveMode' => (bool)$this->getPluginConfig(Form::IS_LIVE_MODE_FIELD),
-            ];
+            $credentials = $this->getCredentials();
         }
-        $credentials['endpoint'] = $this->getEndpoint($credentials['isLiveMode']);
 
         $communicatorConfiguration = new CommunicatorConfiguration(
             $credentials['apiKey'],
@@ -208,7 +202,7 @@ class WorldlineSDKAdapter
         $order->setAmountOfMoney($amountOfMoney);
 
         $hostedCheckoutSpecificInput = new HostedCheckoutSpecificInput();
-        $returnUrl = $this->getPluginConfig(Form::RETURN_URL_FIELD);
+        $returnUrl = $this->getReturnUrl();
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
@@ -383,7 +377,7 @@ class WorldlineSDKAdapter
         $order->setAmountOfMoney($amountOfMoney);
         $order->setCustomer($customer);
 
-        $returnUrl = $this->getPluginConfig(Form::RETURN_URL_FIELD);
+        $returnUrl = $this->getReturnUrl();
         $redirectionData = new RedirectionData();
         $redirectionData->setReturnUrl($returnUrl);
 
@@ -579,14 +573,61 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param bool $isLiveMode
-     * @return ?string
+     * @return array
      */
-    private function getEndpoint(bool $isLiveMode): ?string
+    private function getCredentials(): array
     {
-        return $isLiveMode
-            ? $this->getPluginConfig(Form::LIVE_ENDPOINT_FIELD)
-            : $this->getPluginConfig(Form::SANDBOX_ENDPOINT_FIELD);
+        $isLiveMode = $this->isLiveMode();
+        if ($isLiveMode) {
+            return [
+                'merchantId' => $this->getPluginConfig(Form::LIVE_MERCHANT_ID_FIELD),
+                'apiKey' => $this->getPluginConfig(Form::LIVE_API_KEY_FIELD),
+                'apiSecret' => $this->getPluginConfig(Form::LIVE_API_SECRET_FIELD),
+                'endpoint' => $this->getPluginConfig(Form::LIVE_ENDPOINT_FIELD),
+                'isLiveMode' => $isLiveMode,
+            ];
+        }
+        return [
+            'merchantId' => $this->getPluginConfig(Form::MERCHANT_ID_FIELD),
+            'apiKey' => $this->getPluginConfig(Form::API_KEY_FIELD),
+            'apiSecret' => $this->getPluginConfig(Form::API_SECRET_FIELD),
+            'endpoint' => $this->getPluginConfig(Form::SANDBOX_ENDPOINT_FIELD),
+            'isLiveMode' => $isLiveMode,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getWebhookCredentials(): array
+    {
+        if ($this->isLiveMode()) {
+            $webhookKey = $this->getPluginConfig(Form::LIVE_WEBHOOK_KEY_FIELD);
+            $webhookSecret = $this->getPluginConfig(Form::LIVE_WEBHOOK_SECRET_FIELD);
+            return [$webhookKey => $webhookSecret];
+        }
+        $webhookKey = $this->getPluginConfig(Form::WEBHOOK_KEY_FIELD);
+        $webhookSecret = $this->getPluginConfig(Form::WEBHOOK_SECRET_FIELD);
+        return [$webhookKey => $webhookSecret];
+    }
+
+    /**
+     * @return string
+     */
+    public function getReturnUrl(): string
+    {
+        if ($this->isLiveMode()) {
+            return $this->getPluginConfig(Form::RETURN_URL_FIELD);
+        }
+        return $this->getPluginConfig(Form::LIVE_RETURN_URL_FIELD);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isLiveMode(): bool
+    {
+        return (bool)$this->getPluginConfig(Form::IS_LIVE_MODE_FIELD);
     }
 
     /**

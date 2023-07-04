@@ -125,9 +125,7 @@ class PaymentWebhookController extends AbstractController
         }
 
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
-        $webhookKey = $adapter->getPluginConfig(Form::WEBHOOK_KEY_FIELD);
-        $webhookSecret = $adapter->getPluginConfig(Form::WEBHOOK_SECRET_FIELD);
-        $keys = new InMemorySecretKeyStore([$webhookKey => $webhookSecret]);
+        $keys = new InMemorySecretKeyStore($adapter->getWebhookCredentials());
         $helper = new WebhooksHelper($keys);
 
         try {
