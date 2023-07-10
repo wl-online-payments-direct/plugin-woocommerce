@@ -601,9 +601,9 @@ class WorldlineSDKAdapter
     public function getReturnUrl(): string
     {
         if ($this->isLiveMode()) {
-            return $this->getPluginConfig(Form::RETURN_URL_FIELD);
+            return $this->getPluginConfig(Form::LIVE_RETURN_URL_FIELD);
         }
-        return $this->getPluginConfig(Form::LIVE_RETURN_URL_FIELD);
+        return $this->getPluginConfig(Form::RETURN_URL_FIELD);
     }
 
     /**
