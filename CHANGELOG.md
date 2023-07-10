@@ -2,7 +2,7 @@
 - Methods creation form update
 - Separated credentials for live and test environments
 
-- # 1.8.0
+# 1.8.0
 - Payment methods logo 
 
 # 1.7.0
