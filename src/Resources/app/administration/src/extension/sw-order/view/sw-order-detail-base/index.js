@@ -20,6 +20,7 @@ Component.override('sw-order-detail-base', {
                 {name: 'canceled'},
             ],
             transactionStatus: false,
+            partialOperations: false,
             transactionLogs: '',
             worldlinePaymentStatus: [],
             isLoading: false,
@@ -43,6 +44,9 @@ Component.override('sw-order-detail-base', {
     },
 
     computed: {
+        showPartialOperations() {
+            return this.transactionStatus && this.partialOperations;
+        },
         transactionId() {
             return this.order.customFields?.payment_transaction_id;
         },

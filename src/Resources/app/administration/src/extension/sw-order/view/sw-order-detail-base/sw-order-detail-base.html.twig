@@ -7,20 +7,28 @@
                 class="sw-order-line-items-grid"
                 gap="15px"
         >
-            <sw-tabs v-if="transactionStatus" @new-item-active="setActiveTab" :small="false">
+            <sw-tabs v-if="showPartialOperations" @new-item-active="setActiveTab" :small="false">
                 <template v-for="tab in tabs">
                     <sw-tabs-item :key="tab.name" :name="tab.name" :active="tab.name === activeTab">
                         {{ $tc('worldline.transaction-control.tabs.' + tab.name) }}
                     </sw-tabs-item>
                 </template>
             </sw-tabs>
-            <template v-if="transactionStatus">
+            <template v-if="showPartialOperations">
                 <mo-orders-unprocessed v-if="activeTab === 'unprocessed'" :order="order" :transactionId="transactionId" :paymentStatus="worldlinePaymentStatus" :maxCapture="allowedAmounts.WorldlineCaptureAmount" :lockedButton="lockedButtons" />
                 <mo-orders-paid v-if="activeTab === 'paid'" :order="order" :transactionId="transactionId" :paymentStatus="worldlinePaymentStatus" :maxRefund="allowedAmounts.WorldlineRefundAmount" :lockedButton="lockedButtons" />
                 <mo-orders-refunded v-if="activeTab === 'refunded'" :order="order" :paymentStatus="worldlinePaymentStatus" />
                 <mo-orders-canceled v-if="activeTab === 'canceled'" :order="order" :paymentStatus="worldlinePaymentStatus" />
             </template>
-
+            <div v-else>
+                <mo-order-buttons
+                        :order="order"
+                        :transactionId="transactionId"
+                        :paymentStatus="worldlinePaymentStatus"
+                        :maxCapture="allowedAmounts.WorldlineCaptureAmount"
+                        :maxRefund="allowedAmounts.WorldlineRefundAmount"
+                />
+            </div>
             <sw-container v-if="transactionStatus" gap="15px">
                 <sw-textarea-field :value="transactionLogs"
                                    type="textarea"

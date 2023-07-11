@@ -179,7 +179,7 @@ Component.register('mo-orders-unprocessed', {
             this.transactionsControl.cancel(payload)
                 .then((res) => {
                     if (res.success) {
-                        this.transactionSuccess.refund = true;
+                        this.transactionSuccess.cancel = true;
                         setTimeout(() => {
                             location.reload();
                         }, 1000);

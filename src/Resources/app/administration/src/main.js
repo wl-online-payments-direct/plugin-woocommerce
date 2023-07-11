@@ -8,6 +8,7 @@ import './component/orders-paid';
 import './component/orders-refunded';
 import './component/orders-canceled';
 import './component/config-tabs';
+import './component/order-buttons'
 
 import './extension/sw-order/view/sw-order-detail-base';
 import './extension/sw-settings-payment/page/sw-settings-payment-detail';
