@@ -124,6 +124,7 @@ Component.override('sw-order-detail-base', {
                     this.lockedButtons = res.worldlineLockButtons;
                     this.setInitialTab();
                     this.transactionStatus = true;
+                    this.partialOperations = res.partialOperationsEnabled;
                 } else {
                     this.createNotificationError({
                         title: this.$tc('worldline.check-status-button.title'),
