@@ -14,6 +14,7 @@ use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
 use OnlinePayments\Sdk\ValidationException;
+use Safe\Exceptions\FpmException;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
@@ -205,6 +206,9 @@ class TransactionsControlController extends AbstractController
                 $lockButtons = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED];
             }
             $allowedAmounts = Payment::getAllowed($customFields);
+
+            $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $order->getSalesChannelId());
+            $partialOperationsEnabled = $adapter->getPluginConfig(Form::PARTIAL_OPERATIONS_ENABLED);
         } catch (\Exception $e) {
             return $this->response(false, $e->getMessage());
         }
@@ -215,6 +219,7 @@ class TransactionsControlController extends AbstractController
                 'log' => $log,
                 'worldlinePaymentStatus' => $itemsStatus,
                 'worldlineLockButtons' => $lockButtons,
+                'partialOperationsEnabled' => $partialOperationsEnabled,
             ]);
     }
 
