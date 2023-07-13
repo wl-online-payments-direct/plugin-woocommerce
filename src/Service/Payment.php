@@ -290,7 +290,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
      */
     private function finalizeError($transactionId, $message)
     {
-        debug('finalize error!');
         throw new AsyncPaymentFinalizeException(
             $transactionId,
             $message
