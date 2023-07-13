@@ -43,6 +43,7 @@
         },
         "forwardToPaymentHandler": "Forwarding to payment handler.",
         "errorWithConfirmRedirect": "Error. Redirecting to confirm page.",
+        "errorWithWebhookRequest": "Error with webhook request.",
         "buildingOrder": "Building order",
         "started": "Started",
         "captureRequested": "Capture requested",

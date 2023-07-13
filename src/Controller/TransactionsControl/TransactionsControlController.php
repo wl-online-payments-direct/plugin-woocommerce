@@ -151,7 +151,7 @@ class TransactionsControlController extends AbstractController
         $transaction = $orderEntity->getTransactions()->last();
         $customFields = $transaction->getPaymentMethod()->getCustomFields();
         $isFullRedirectMethod = false;
-        if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)) {
+        if (is_array($customFields) && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)) {
             $isFullRedirectMethod = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID] == Payment::FULL_REDIRECT_PAYMENT_METHOD_ID;
         }
 
