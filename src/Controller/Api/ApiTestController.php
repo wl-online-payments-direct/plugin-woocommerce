@@ -167,7 +167,8 @@ class ApiTestController extends AbstractController
             $this->pluginIdProvider,
             $this->mediaRepository,
             $this->mediaService,
-            $this->fileSaver
+            $this->fileSaver,
+            $this->salesChannelRepository
         );
     }
 
