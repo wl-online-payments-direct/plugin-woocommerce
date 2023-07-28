@@ -202,7 +202,7 @@ class PaymentHandler
             return false;
         }
         if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]) {
-            $this->log('maxAmountExceeded',Logger::ERROR);
+            $this->log('maxAmountExceeded', Logger::ERROR);
             return false;
         }
 
@@ -258,7 +258,7 @@ class PaymentHandler
         }
 
         if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]) {
-            $this->log('maxAmountExceeded',Logger::ERROR);
+            $this->log('maxAmountExceeded', Logger::ERROR);
             return false;
         }
 
@@ -321,7 +321,7 @@ class PaymentHandler
 
         $customFields = $this->order->getCustomFields();
         if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT]) {
-            $this->log('maxAmountExceeded',Logger::ERROR);
+            $this->log('maxAmountExceeded', Logger::ERROR);
             return false;
         }
 
@@ -865,13 +865,23 @@ class PaymentHandler
             return;
         }
 
+        // New token
         if (empty($token)) {
-            [$token, $paymentProduct] = $this->createPaymentProduct($hostedTokenization);
+            [$token, $paymentProduct] = $this->buildPaymentProduct($hostedTokenization);
+        } // New redirect token
+        else {
+            $paymentProduct['redirectToken'] = true;
         }
 
         $customerId = $this->order->getOrderCustomer()->getCustomerId();
         $customer = $this->customerRepository->search(new Criteria([$customerId]), $this->context);
         $customFields = $customer->first()->getCustomFields();
+
+        // Token already exist
+        if (array_key_exists($token, $customFields[Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN])) {
+            return;
+        }
+
         $customFields[Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN][$token] = $paymentProduct;
 
         $this->customerRepository->update([
@@ -886,7 +896,7 @@ class PaymentHandler
      * @param GetHostedTokenizationResponse $hostedTokenization
      * @return array
      */
-    private function createPaymentProduct(GetHostedTokenizationResponse $hostedTokenization): array
+    private function buildPaymentProduct(GetHostedTokenizationResponse $hostedTokenization): array
     {
         $paymentProductId = $hostedTokenization->getToken()->getPaymentProductId();
         $token = $hostedTokenization->getToken()->getId();
@@ -897,7 +907,8 @@ class PaymentHandler
                     'paymentProductId' => $paymentProductId,
                     'token' => $token,
                     'paymentCard' => $hostedTokenization->getToken()->getCard()->getData()->getCardWithoutCvv()->getCardNumber(),
-                    'default' => false
+                    'default' => false,
+                    'redirectToken' => false,
                 ],
                 PaymentProducts::getPaymentProductDetails($paymentProductId)
             )
