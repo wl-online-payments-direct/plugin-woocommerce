@@ -92,7 +92,7 @@ class PaymentHandler
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function createPayment(int $worldlinePaymentMethodId): CreateHostedCheckoutResponse
+    public function createPayment(int $worldlinePaymentMethodId, string $token = ''): CreateHostedCheckoutResponse
     {
         $orderObject = null;
         if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
@@ -117,7 +117,8 @@ class PaymentHandler
             $amountTotal,
             $currencyISO,
             $worldlinePaymentMethodId,
-            $orderObject
+            $orderObject,
+            $token
         );
         $hostedCheckoutId = $hostedCheckoutResponse->getHostedCheckoutId();
         $this->saveOrderCustomFields(
@@ -148,6 +149,7 @@ class PaymentHandler
         $currencyISO = $this->getCurrencyISO();
 
         $this->log(AdminTranslate::trans($this->translator->getLocale(), 'buildingHostdTokenizationOrder'));
+
         $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
             $amountTotal,

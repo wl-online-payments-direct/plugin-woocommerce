@@ -149,7 +149,9 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
                 'name' => "Pay with my previously saved card {$savedCard['paymentCard']} {$savedCard['title']}"
             ]);
             $customFields = [
-                'token' => $savedCard['token']
+                'token' => $savedCard['token'],
+                'redirectToken' => $savedCard['redirectToken'],
+                'product' => $savedCard['paymentProductId']
             ];
             if ($sessionToken === $savedCard['token']) {
                 $customFields['selected'] = true;

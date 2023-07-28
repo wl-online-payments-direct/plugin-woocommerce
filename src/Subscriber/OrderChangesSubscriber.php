@@ -82,13 +82,27 @@ class OrderChangesSubscriber implements EventSubscriberInterface
     public function setIframeFields(HandlePaymentMethodRouteRequestEvent $event)
     {
         $iframeData = [];
-        foreach (Form::WORLDLINE_CART_FORM_KEYS as $key) {
-            $iframeData[$key] = $event->getStorefrontRequest()->request->get($key);
-            if (is_null($iframeData[$key])) {
-                return;
+        $request = $event->getStorefrontRequest()->request;
+        if (!is_null($request->get(Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID))) {
+            foreach (Form::WORLDLINE_CART_FORM_KEYS as $key) {
+                $iframeData[$key] = $request->get($key);
+                if (is_null($iframeData[$key])) {
+                    return;
+                }
             }
+            $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
+            return;
         }
-        $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
+
+        if (!is_null($request->get(Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN))) {
+            foreach (Form::WORLDLINE_CART_REDIRECT_FORM_KEYS as $key) {
+                $iframeData[$key] = $request->get($key);
+                if (is_null($iframeData[$key])) {
+                    return;
+                }
+            }
+            $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
+        }
     }
 
     /**
