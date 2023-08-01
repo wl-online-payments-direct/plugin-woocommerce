@@ -148,10 +148,19 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
             $newMethod->setTranslated([
                 'name' => "Pay with my previously saved card {$savedCard['paymentCard']} {$savedCard['title']}"
             ]);
+
+            // Old saved cards compatibility
+            if (!array_key_exists('redirectToken', $savedCard)) {
+                $savedCard['redirectToken'] = false;
+                // Redirect saved cards have '*' as mask, non-redirect have 'X'
+                if (strpos($savedCard['paymentCard'], '******')) {
+                    $savedCard['redirectToken'] = true;
+                }
+            }
+
             $customFields = [
                 'token' => $savedCard['token'],
                 'redirectToken' => $savedCard['redirectToken'],
-                'product' => $savedCard['paymentProductId']
             ];
             if ($sessionToken === $savedCard['token']) {
                 $customFields['selected'] = true;
