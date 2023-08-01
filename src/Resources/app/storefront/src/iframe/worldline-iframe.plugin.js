@@ -94,7 +94,6 @@ export default class WorldlineIframePlugin extends Plugin {
     _initRedirectTokenMethod() {
         this.confirmForm = document.getElementById("confirmOrderForm");
         this._createHiddenInput(this.confirmForm, "moptWorldlineRedirectToken", this._getCurrentToken());
-        this._createHiddenInput(this.confirmForm, "moptWorldlinePaymentProductId", this._getPaymentProductId());
     }
 
     _createHiddenInput(form, name, value)

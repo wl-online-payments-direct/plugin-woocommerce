@@ -219,9 +219,12 @@ class WorldlineSDKAdapter
                 $cardPaymentMethodSpecificInput,
                 $hostedCheckoutSpecificInput,
                 $order,
-                $hostedCheckoutRequest,
-                $token
+                $hostedCheckoutRequest
             );
+        }
+
+        if ($token != '') {
+            $cardPaymentMethodSpecificInput->setToken($token);
         }
 
         $hostedCheckoutRequest->setOrder($order);
@@ -229,7 +232,6 @@ class WorldlineSDKAdapter
         $hostedCheckoutRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
         $hostedCheckoutClient = $merchantClient->hostedCheckout();
 
-        debug($hostedCheckoutRequest->toJson());
         return $hostedCheckoutClient->createHostedCheckout($hostedCheckoutRequest);
     }
 
@@ -251,8 +253,7 @@ class WorldlineSDKAdapter
         CardPaymentMethodSpecificInput &$cardPaymentMethodSpecificInput,
         HostedCheckoutSpecificInput    &$hostedCheckoutSpecificInput,
         Order                          &$order,
-        CreateHostedCheckoutRequest    &$hostedCheckoutRequest,
-        string                         $token
+        CreateHostedCheckoutRequest    &$hostedCheckoutRequest
     ): void
     {
         switch ($worldlinePaymentProductId) {
@@ -285,13 +286,6 @@ class WorldlineSDKAdapter
                 $redirectPaymentMethodSpecificInput->setPaymentOption($this->getPluginConfig(Form::ONEY_PAYMENT_OPTION_FIELD));
                 break;
             }
-        }
-
-        if ($token != '') {
-            if (!isset($redirectPaymentMethodSpecificInput)) {
-                $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
-            }
-            $redirectPaymentMethodSpecificInput->setToken($token);
         }
 
         if (isset($redirectPaymentMethodSpecificInput)) {

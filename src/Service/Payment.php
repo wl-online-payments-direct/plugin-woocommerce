@@ -227,13 +227,9 @@ class Payment implements AsynchronousPaymentHandlerInterface
             return $iframeData;
         }
 
-        if (!is_null($dataBag->get(Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN))) {
-            foreach (Form::WORLDLINE_CART_REDIRECT_FORM_KEYS as $key) {
-                $iframeData[$key] = $dataBag->get($key);
-                if (is_null($iframeData[$key])) {
-                    return false;
-                }
-            }
+        $tokenField = Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN;
+        if (!is_null($dataBag->get($tokenField))) {
+            $iframeData[$tokenField] = $dataBag->get($tokenField);
             return $iframeData;
         }
 
@@ -363,10 +359,9 @@ class Payment implements AsynchronousPaymentHandlerInterface
         try {
             if (array_key_exists(Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID, $iframeData)) {
                 $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
-
             } else {
                 $hostedCheckoutResponse = $handler->createPayment(
-                    (int)$iframeData[Form::WORLDLINE_CART_FORM_REDIRECT_PRODUCT_ID],
+                    0,
                     $iframeData[Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN]
                 );
                 $link = $hostedCheckoutResponse->getRedirectUrl();

@@ -1,3 +1,6 @@
+# 1.8.4
+- Redirect token
+
 # 1.8.3
 - Finalize flow improvement
 

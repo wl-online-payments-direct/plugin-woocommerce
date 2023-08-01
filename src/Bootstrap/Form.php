@@ -85,12 +85,6 @@ class Form
     ];
 
     const WORLDLINE_CART_FORM_REDIRECT_TOKEN = 'moptWorldlineRedirectToken';
-    const WORLDLINE_CART_FORM_REDIRECT_PRODUCT_ID = 'moptWorldlinePaymentProductId';
-
-    const WORLDLINE_CART_REDIRECT_FORM_KEYS = [
-        self::WORLDLINE_CART_FORM_REDIRECT_TOKEN,
-        self::WORLDLINE_CART_FORM_REDIRECT_PRODUCT_ID,
-    ];
 
     /** @var string Field name for the plugin session key */
     const SESSION_OPERATIONS_LOCK = 'order_locked';

@@ -94,13 +94,9 @@ class OrderChangesSubscriber implements EventSubscriberInterface
             return;
         }
 
-        if (!is_null($request->get(Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN))) {
-            foreach (Form::WORLDLINE_CART_REDIRECT_FORM_KEYS as $key) {
-                $iframeData[$key] = $request->get($key);
-                if (is_null($iframeData[$key])) {
-                    return;
-                }
-            }
+        $tokenField = Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN;
+        if (!is_null($request->get($tokenField))) {
+            $iframeData[$tokenField] = $request->get($tokenField);
             $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
         }
     }
