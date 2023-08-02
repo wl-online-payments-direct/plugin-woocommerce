@@ -112,7 +112,7 @@ class PaymentWebhookController extends AbstractController
      * @param string $salesChannelId
      * @return array|false
      */
-    private function parseRequest(Request $request, string $salesChannelId): ?array
+    private function parseRequest(Request $request, string $salesChannelId)
     {
         // Get rid of additional array level
         $headers = $request->headers->all();
@@ -121,16 +121,20 @@ class PaymentWebhookController extends AbstractController
         }
 
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
-        $webhookKey = $adapter->getPluginConfig(Form::WEBHOOK_KEY_FIELD);
-        $webhookSecret = $adapter->getPluginConfig(Form::WEBHOOK_SECRET_FIELD);
-        $keys = new InMemorySecretKeyStore([$webhookKey => $webhookSecret]);
+        $keys = new InMemorySecretKeyStore($adapter->getWebhookCredentials());
         $helper = new WebhooksHelper($keys);
 
         try {
             //Request validation
             $event = $helper->unmarshal($request->getContent(), $headers);
 
-            $paymentId = $event->getPayment()->getId();
+            $payment = $event->getPayment();
+            if (is_null($payment)) {
+                $this->log('errorWithWebhookRequest', [$request->getContent(), $request->headers->all()]);
+                return false;
+            }
+
+            $paymentId = $payment->getId();
             $paymentId = explode('_', $paymentId);
             $hostedCheckoutId = $paymentId[0];
             $statusCode = $event->getPayment()->getStatusOutput()->getStatusCode();

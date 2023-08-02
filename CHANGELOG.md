@@ -1,3 +1,15 @@
+# 1.8.4
+- Redirect token
+
+# 1.8.3
+- Finalize flow improvement
+
+# 1.8.2
+- Methods creation form update
+
+# 1.8.1
+- Separated test and live credentials
+
 # 1.8.0
 - Payment methods logo 
 

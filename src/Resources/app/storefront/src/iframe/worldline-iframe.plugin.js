@@ -21,7 +21,11 @@ export default class WorldlineIframePlugin extends Plugin {
             this.moptWorldlineSalesChannel = document.getElementById("moptWorldlineSalesChannelId");
             var showIframe = document.getElementById("moptWorldlineShowIframe");
             if (showIframe !== null && showIframe.value) {
-                this._initIframe();
+                if(this._isRedirectToken() === '1') {
+                    this._initRedirectTokenMethod();
+                } else {
+                    this._initIframe();
+                }
             }
             //Get rid of chosen card token
             this._client.get('/worldline_cardToken?worldline_cardToken=');
@@ -87,6 +91,11 @@ export default class WorldlineIframePlugin extends Plugin {
         });
     }
 
+    _initRedirectTokenMethod() {
+        this.confirmForm = document.getElementById("confirmOrderForm");
+        this._createHiddenInput(this.confirmForm, "moptWorldlineRedirectToken", this._getCurrentToken());
+    }
+
     _createHiddenInput(form, name, value)
      {
          var input = document.createElement("input");
@@ -116,6 +125,18 @@ export default class WorldlineIframePlugin extends Plugin {
         var elem = document.querySelector('#changePaymentForm input:checked');
         var rel =  elem ? elem.attributes['rel'] : "";
         return rel ? rel.value : "";
+    }
+
+    _isRedirectToken() {
+        var elem = document.querySelector('#changePaymentForm input:checked');
+        var redirect =  elem ? elem.attributes['redirect'] : "";
+        return redirect ? redirect.value : "";
+    }
+
+    _getPaymentProductId() {
+        var elem = document.querySelector('#changePaymentForm input:checked');
+        var product =  elem ? elem.attributes['product'] : "";
+        return product ? product.value : "";
     }
 
     //Send saved card token if exist

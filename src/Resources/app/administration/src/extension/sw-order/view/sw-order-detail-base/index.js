@@ -139,10 +139,6 @@ Component.override('sw-order-detail-base', {
                 } else {
                     if (!this.isUnpaidAdminOrder) {
                         this.transactionStatus = false;
-                        this.createNotificationError({
-                            title: this.$tc('worldline.check-status-button.title'),
-                            message: this.$tc('worldline.check-status-button.error') + res.message
-                        });
                     }
                     this.isLoading = false;
                 }

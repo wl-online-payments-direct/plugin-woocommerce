@@ -25,6 +25,8 @@
            value="{{ payment.id }}"
            {% if payment.customFields.token %}
                rel="{{ payment.customFields.token }}"
+               redirect="{{ payment.customFields.redirectToken }}"
+               product="{{ payment.customFields.product }}"
            {% endif %}
            {% if (payment.customFields.selected and moptPageId == 'cartConfirm')
                or (payment.customFields.default and moptPageId == 'account')

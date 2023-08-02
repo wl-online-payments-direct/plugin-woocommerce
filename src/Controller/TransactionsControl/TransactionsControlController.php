@@ -149,14 +149,14 @@ class TransactionsControlController extends AbstractController
         $transaction = $orderEntity->getTransactions()->last();
         $customFields = $transaction->getPaymentMethod()->getCustomFields();
         $isFullRedirectMethod = false;
-        if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)) {
+        if (is_array($customFields) && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)) {
             $isFullRedirectMethod = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID] == Payment::FULL_REDIRECT_PAYMENT_METHOD_ID;
         }
 
         $salesChannelId = $orderEntity->getSalesChannelId();
 
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
-        $returnUrl = $adapter->getPluginConfig(Form::RETURN_URL_FIELD);
+        $returnUrl = $adapter->getReturnUrl();
         $apiKey = $orderEntity->getSalesChannel()->getAccessKey();
 
         return
@@ -214,6 +214,36 @@ class TransactionsControlController extends AbstractController
                 'worldlinePaymentStatus' => $itemsStatus,
                 'worldlineLockButtons' => $lockButtons,
             ]);
+    }
+
+    /**
+     * @Route(
+     *     "/api/_action/transactions-control/getOneyPaymentOption",
+     *     name="api.action.transactions.control.getOneyPaymentOption",
+     *     methods={"POST"}
+     * )
+     */
+    public function getOneyPaymentOption(): JsonResponse
+    {
+        return new JsonResponse([
+            'value' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD)
+        ]);
+    }
+
+    /**
+     * @Route(
+     *     "/api/_action/transactions-control/setOneyPaymentOption",
+     *     name="api.action.transactions.control.setOneyPaymentOption",
+     *     methods={"POST"}
+     * )
+     */
+    public function setOneyPaymentOption(Request $request): JsonResponse
+    {
+        $oneyPaymentOption = $request->request->get('oneyPaymentOption');
+        $this->systemConfigService->set(Form::ONEY_PAYMENT_OPTION_FIELD, $oneyPaymentOption);
+        return new JsonResponse([
+            'value' => $oneyPaymentOption
+        ]);
     }
 
     /**

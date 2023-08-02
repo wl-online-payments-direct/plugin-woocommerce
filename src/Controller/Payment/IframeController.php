@@ -2,6 +2,7 @@
 
 namespace MoptWorldline\Controller\Payment;
 
+use Exception;
 use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
@@ -44,7 +45,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_iframe", name="worldline.iframe", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function showIframe(Request $request): JsonResponse
     {
@@ -62,7 +63,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_cardToken", name="worldline.cardToken", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveCardToken(Request $request): JsonResponse
     {
@@ -75,7 +76,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_accountCardToken", name="worldline.accountCardToken", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveAccountCardToken(Request $request): JsonResponse
     {
@@ -111,7 +112,7 @@ class IframeController extends AbstractController
             ], $context->getContext());
             $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $context->getSalesChannelId());
             $adapter->deleteToken($tokenId);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $success = false;
             $this->logger->log(LogLevel::ERROR, $exception->getMessage());
         }
@@ -126,23 +127,23 @@ class IframeController extends AbstractController
      * @param string $tokenId
      * @param CustomerEntity $customer
      * @return mixed
-     * @throws \Exception
+     * @throws Exception
      */
     private function prepareCustomField(string $tokenId, CustomerEntity $customer)
     {
         $key = Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN;
 
         if (!$customerCustomFields = $customer->getCustomFields()) {
-            throw new \Exception('No custom fields');
+            throw new Exception('No custom fields');
         }
 
         if (!array_key_exists($key, $customerCustomFields)) {
-            throw new \Exception('No saved cards');
+            throw new Exception('No saved cards');
         }
 
         $savedCards = $customerCustomFields[$key];
         if (!array_key_exists($tokenId, $savedCards)) {
-            throw new \Exception("Can not find saved card with token $tokenId");
+            throw new Exception("Can not find saved card with token $tokenId");
         }
 
         //If customer remove default card - set random card as default

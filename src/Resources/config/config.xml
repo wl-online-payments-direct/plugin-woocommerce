@@ -3,29 +3,28 @@
         xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/shopware/platform/trunk/src/Core/System/SystemConfig/Schema/config.xsd">
     <card>
         <title>Credentials</title>
+        <component name="config-tabs">
+            <name>configTabs</name>
+        </component>
         <input-field>
             <name>merchantId</name>
-            <label>Merchant Id</label>
+            <label>Sandbox merchant Id</label>
         </input-field>
         <input-field type="password">
             <name>apiKey</name>
-            <label>API Key</label>
+            <label>Sandbox API Key</label>
         </input-field>
         <input-field type="password">
             <name>apiSecret</name>
-            <label>API Secret</label>
+            <label>Sandbox API Secret</label>
         </input-field>
         <input-field type="password">
             <name>webhookKey</name>
-            <label>Webhook key</label>
+            <label>Sandbox webhook key</label>
         </input-field>
         <input-field type="password">
             <name>webhookSecret</name>
-            <label>Webhook secret</label>
-        </input-field>
-        <input-field>
-            <name>liveEndpoint</name>
-            <label>Live endpoint</label>
+            <label>Sandbox webhook secret</label>
         </input-field>
         <input-field>
             <name>sandboxEndpoint</name>
@@ -33,7 +32,46 @@
         </input-field>
         <input-field>
             <name>returnUrl</name>
-            <label>Return URL</label>
+            <label>Sandbox return URL</label>
+        </input-field>
+        <component name="api-test-button">
+            <name>sandboxApiTest</name>
+        </component>
+        <input-field>
+            <name>liveMerchantId</name>
+            <label>Live merchant Id</label>
+        </input-field>
+        <input-field type="password">
+            <name>liveApiKey</name>
+            <label>Live API Key</label>
+        </input-field>
+        <input-field type="password">
+            <name>liveApiSecret</name>
+            <label>Live API Secret</label>
+        </input-field>
+        <input-field type="password">
+            <name>liveWebhookKey</name>
+            <label>Live webhook key</label>
+        </input-field>
+        <input-field type="password">
+            <name>liveWebhookSecret</name>
+            <label>Live webhook secret</label>
+        </input-field>
+        <input-field>
+            <name>liveEndpoint</name>
+            <label>Live endpoint</label>
+        </input-field>
+        <input-field>
+            <name>liveReturnUrl</name>
+            <label>Live return URL</label>
+        </input-field>
+        <component name="api-test-button">
+            <name>liveApiTest</name>
+        </component>
+        <input-field type="bool">
+            <name>isLiveMode</name>
+            <defaultValue>false</defaultValue>
+            <label>Is live mode</label>
         </input-field>
         <input-field>
             <name>fullRedirectTemplateName</name>
@@ -43,14 +81,6 @@
             <name>iframeTemplateName</name>
             <label>Iframe template name</label>
         </input-field>
-        <input-field type="bool">
-            <name>isLiveMode</name>
-            <defaultValue>false</defaultValue>
-            <label>Is live mode</label>
-        </input-field>
-        <component name="api-test-button">
-            <name>apiTest</name>
-        </component>
         <component name="payment-method-button">
             <name>paymentMethod</name>
         </component>
@@ -94,10 +124,6 @@
                 </option>
             </options>
             <defaultValue>INFO</defaultValue>
-        </input-field>
-        <input-field>
-            <name>oneyPaymentOption</name>
-            <label>Oney Payment Option</label>
         </input-field>
         <input-field type="single-select">
             <name>autoCancel</name>
