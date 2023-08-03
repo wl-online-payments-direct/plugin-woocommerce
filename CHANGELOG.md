@@ -1,3 +1,6 @@
+# 1.8.5
+- Shopware 6.5 compatibility
+
 # 1.8.4
 - Redirect token
 
