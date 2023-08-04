@@ -55,7 +55,7 @@ class PaymentMethodController
         EntityRepository    $mediaRepository,
         MediaService        $mediaService,
         FileSaver           $fileSaver,
-        EntityInterface     $salesChannelRepository
+        EntityRepository    $salesChannelRepository
     )
     {
         $this->systemConfigService = $systemConfigService;
