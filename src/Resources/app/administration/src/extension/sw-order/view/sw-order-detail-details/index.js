@@ -1,11 +1,11 @@
-import template from './sw-order-detail-base.html.twig';
+import template from './sw-order-detail-details.html.twig';
 import './my-styles.scss'
 
 
 const { Component } = Shopware;
 
 
-Component.override('sw-order-detail-base', {
+Component.override('sw-order-detail-details', {
     template,
 
     inject: ['transactionsControl'],

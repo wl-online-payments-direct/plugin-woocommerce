@@ -9,7 +9,7 @@ import './component/orders-refunded';
 import './component/orders-canceled';
 import './component/config-tabs';
 
-import './extension/sw-order/view/sw-order-detail-base';
+import './extension/sw-order/view/sw-order-detail-details';
 import './extension/sw-settings-payment/page/sw-settings-payment-detail';
 
 import localeDE from '../../../snippet/storefront/worldline.de-DE.json';
