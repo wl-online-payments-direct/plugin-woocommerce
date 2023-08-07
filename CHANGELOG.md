@@ -1,3 +1,6 @@
+# 1.8.3
+- Finalize flow improvement
+
 # 1.8.2
 - Methods creation form update
 

@@ -251,14 +251,13 @@ class Payment implements AsynchronousPaymentHandlerInterface
         if (is_array($customFields) && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS, $customFields)) {
             $status = (int)$customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS];
             $hostedCheckoutId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID];
-            //For 0 status we need to make an additional GET call to be sure
-            if (in_array($status, self::STATUS_PAYMENT_CREATED)) {
-                $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
-                try {
-                    $status = $handler->updatePaymentStatus($hostedCheckoutId);
-                } catch (\Exception $e) {
-                    $this->finalizeError($transactionId, $e->getMessage());
-                }
+
+            //We need to make an additional GET call to get current status
+            $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
+            try {
+                $status = $handler->updatePaymentStatus($hostedCheckoutId);
+            } catch (\Exception $e) {
+                $this->finalizeError($transactionId, $e->getMessage());
             }
             if (in_array($status, self::STATUS_PAYMENT_CANCELLED)) {
                 throw new CustomerCanceledAsyncPaymentException(
