@@ -185,10 +185,11 @@ class Payment implements AsynchronousPaymentHandlerInterface
                 case self::IFRAME_PAYMENT_METHOD_ID:
                 case self::SAVED_CARD_PAYMENT_METHOD_ID:
                 {
+                    $iframeData = $this->getIframeData($dataBag);
                     $redirectUrl = $this->getHostedTokenizationRedirectUrl(
                         $transaction,
                         $salesChannelContext->getContext(),
-                        $this->getIframeData($dataBag)
+                        $iframeData
                     );
                     break;
                 }
@@ -223,6 +224,12 @@ class Payment implements AsynchronousPaymentHandlerInterface
                     return false;
                 }
             }
+            return $iframeData;
+        }
+
+        $tokenField = Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN;
+        if (!is_null($dataBag->get($tokenField))) {
+            $iframeData[$tokenField] = $dataBag->get($tokenField);
             return $iframeData;
         }
 
@@ -350,7 +357,16 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $handler = $this->getHandler($orderId, $context);
 
         try {
-            $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
+            if (array_key_exists(Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID, $iframeData)) {
+                $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
+            } else {
+                $hostedCheckoutResponse = $handler->createPayment(
+                    0,
+                    $iframeData[Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN]
+                );
+                $link = $hostedCheckoutResponse->getRedirectUrl();
+            }
+
         } catch (\Exception $e) {
             throw new AsyncPaymentProcessException(
                 $transactionId,

@@ -165,14 +165,16 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param int $worldlinePaymentProductId
      * @param OrderEntity|null $orderEntity
+     * @param string $token
      * @return CreateHostedCheckoutResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function createPayment(
         int          $amountTotal,
         string       $currencyISO,
         int          $worldlinePaymentProductId,
-        ?OrderEntity $orderEntity
+        ?OrderEntity $orderEntity,
+        string       $token
     ): CreateHostedCheckoutResponse
     {
         $fullRedirectTemplateName = $this->getPluginConfig(Form::FULL_REDIRECT_TEMPLATE_NAME);
@@ -221,10 +223,15 @@ class WorldlineSDKAdapter
             );
         }
 
+        if ($token != '') {
+            $cardPaymentMethodSpecificInput->setToken($token);
+        }
+
         $hostedCheckoutRequest->setOrder($order);
         $hostedCheckoutRequest->setHostedCheckoutSpecificInput($hostedCheckoutSpecificInput);
         $hostedCheckoutRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
         $hostedCheckoutClient = $merchantClient->hostedCheckout();
+
         return $hostedCheckoutClient->createHostedCheckout($hostedCheckoutRequest);
     }
 
@@ -264,7 +271,6 @@ class WorldlineSDKAdapter
                 );
                 $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
-                $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
                 break;
             }
             case PaymentProducts::PAYMENT_PRODUCT_ONEY_3X_4X:
@@ -278,9 +284,12 @@ class WorldlineSDKAdapter
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 $redirectPaymentMethodSpecificInput->setRequiresApproval(true);
                 $redirectPaymentMethodSpecificInput->setPaymentOption($this->getPluginConfig(Form::ONEY_PAYMENT_OPTION_FIELD));
-                $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
                 break;
             }
+        }
+
+        if (isset($redirectPaymentMethodSpecificInput)) {
+            $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
         }
     }
 
