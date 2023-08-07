@@ -14,7 +14,7 @@ use Shopware\Core\Content\Media\File\MediaFile;
 use Shopware\Core\Content\Media\MediaEntity;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 
 class MediaHelper
@@ -24,24 +24,24 @@ class MediaHelper
     const FILE_PREFIX = 'Worldline_logo ';
 
     private Logger $logger;
-    private EntityRepositoryInterface $mediaRepository;
+    private EntityRepository $mediaRepository;
     private MediaService $mediaService;
     private FileSaver $fileSaver;
-    private EntityRepositoryInterface $paymentRepository;
+    private EntityRepository $paymentRepository;
 
     /**
-     * @param EntityRepositoryInterface $mediaRepository
+     * @param EntityRepository $mediaRepository
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
      * @param Logger $logger
-     * @param EntityRepositoryInterface $paymentRepository
+     * @param EntityRepository $paymentRepository
      */
     public function __construct(
-        EntityRepositoryInterface $mediaRepository,
-        MediaService              $mediaService,
-        FileSaver                 $fileSaver,
-        Logger                    $logger,
-        EntityRepositoryInterface $paymentRepository
+        EntityRepository $mediaRepository,
+        MediaService     $mediaService,
+        FileSaver        $fileSaver,
+        Logger           $logger,
+        EntityRepository $paymentRepository
     )
     {
         $this->mediaRepository = $mediaRepository;

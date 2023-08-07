@@ -2,13 +2,13 @@
 
 namespace MoptWorldline\Controller\Payment;
 
-use _PHPStan_b8e553790\Nette\Neon\Exception;
+use Exception;
 use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use Psr\Log\LogLevel;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
@@ -17,30 +17,27 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Symfony\Component\HttpFoundation\Session\Session;
-use Shopware\Core\Framework\Routing\Annotation\LoginRequired;
 
 /**
- * @RouteScope(scopes={"storefront"})
+ * @Route(defaults={"_routeScope"={"storefront"}})
  */
 class IframeController extends AbstractController
 {
     public SystemConfigService $systemConfigService;
     private Logger $logger;
     private Session $session;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $customerRepository;
 
     public function __construct(
         SystemConfigService       $systemConfigService,
         Logger                    $logger,
-        Session                   $session,
-        EntityRepositoryInterface $customerRepository
+        EntityRepository          $customerRepository
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->logger = $logger;
-        $this->session = $session;
+        $this->session = new Session();
         $this->customerRepository = $customerRepository;
     }
 
@@ -48,7 +45,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_iframe", name="worldline.iframe", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function showIframe(Request $request): JsonResponse
     {
@@ -66,7 +63,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_cardToken", name="worldline.cardToken", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveCardToken(Request $request): JsonResponse
     {
@@ -79,7 +76,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_accountCardToken", name="worldline.accountCardToken", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveAccountCardToken(Request $request): JsonResponse
     {
@@ -89,8 +86,7 @@ class IframeController extends AbstractController
     }
 
     /**
-     * @LoginRequired()
-     * @Route("/worldline/card/delete/{tokenId}", name="worldline.card.delete", options={"seo"="false"}, methods={"POST"})
+     * @Route("/worldline/card/delete/{tokenId}", name="worldline.card.delete", options={"seo"="false"}, methods={"POST"}, defaults={"_loginRequired"=true})
      *
      * @param string $tokenId
      * @param SalesChannelContext $context
@@ -116,7 +112,7 @@ class IframeController extends AbstractController
             ], $context->getContext());
             $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $context->getSalesChannelId());
             $adapter->deleteToken($tokenId);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $success = false;
             $this->logger->log(LogLevel::ERROR, $exception->getMessage());
         }

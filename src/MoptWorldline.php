@@ -10,7 +10,7 @@ namespace MoptWorldline;
 
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentMethodHelper;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Plugin;
 use Shopware\Core\Framework\Plugin\Context\InstallContext;
 use Shopware\Core\Framework\Plugin\Context\UninstallContext;
@@ -23,7 +23,7 @@ use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
 class MoptWorldline extends Plugin
 {
     const PLUGIN_NAME = 'MoptWorldline';
-    const PLUGIN_VERSION = '1.8.1';
+    const PLUGIN_VERSION = '1.8.5';
 
     /**
      * @param InstallContext $installContext
@@ -35,13 +35,13 @@ class MoptWorldline extends Plugin
         $customField = new CustomField($this->container);
         $customField->addCustomFields($installContext);
 
-        /** @var EntityRepositoryInterface $paymentMethodRep */
-        $paymentMethodRep =$this->container->get('payment_method.repository');
-        /** @var EntityRepositoryInterface $salesChannelPaymentMethodRep */
+        /** @var EntityRepository $paymentMethodRep */
+        $paymentMethodRep = $this->container->get('payment_method.repository');
+        /** @var EntityRepository $salesChannelPaymentMethodRep */
         $salesChannelPaymentMethodRep = $this->container->get('sales_channel_payment_method.repository');
         /** @var PluginIdProvider $pluginIdProvider */
         $pluginIdProvider = $this->container->get(PluginIdProvider::class);
-        /** @var EntityRepositoryInterface $salesChannelRep */
+        /** @var EntityRepository $salesChannelRep */
         $salesChannelRep = $this->container->get('sales_channel.repository');
 
         foreach (Payment::METHODS_LIST as $method) {
@@ -91,7 +91,7 @@ class MoptWorldline extends Plugin
      */
     private function setPaymentMethodsStatus(bool $status, Context $context)
     {
-        /** @var EntityRepositoryInterface $paymentMethodRepository */
+        /** @var EntityRepository $paymentMethodRepository */
         $paymentMethodRepository = $this->container->get('payment_method.repository');
         foreach (Payment::METHODS_LIST as $method) {
             PaymentMethodHelper::setPaymentMethodStatus($paymentMethodRepository, $status, $context, $method['id']);

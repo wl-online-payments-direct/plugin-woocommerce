@@ -13,7 +13,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStat
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
@@ -28,18 +28,18 @@ class PaymentHandler
     private WorldlineSDKAdapter $adapter;
     private OrderEntity $order;
     private TranslatorInterface $translator;
-    private EntityRepositoryInterface $orderRepository;
+    private EntityRepository $orderRepository;
     private Context $context;
     private OrderTransactionStateHandler $transactionStateHandler;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $customerRepository;
 
     /**
      * @param SystemConfigService $systemConfigService
      * @param Logger $logger
      * @param OrderEntity $order
      * @param TranslatorInterface $translator
-     * @param EntityRepositoryInterface $orderRepository
-     * @param EntityRepositoryInterface $customerRepository
+     * @param EntityRepository $orderRepository
+     * @param EntityRepository $customerRepository
      * @param Context $context
      * @param OrderTransactionStateHandler $transactionStateHandler
      */
@@ -48,8 +48,8 @@ class PaymentHandler
         Logger                       $logger,
         OrderEntity                  $order,
         TranslatorInterface          $translator,
-        EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $customerRepository,
+        EntityRepository    $orderRepository,
+        EntityRepository    $customerRepository,
         Context                      $context,
         OrderTransactionStateHandler $transactionStateHandler
     )
@@ -92,7 +92,7 @@ class PaymentHandler
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function createPayment(int $worldlinePaymentMethodId): CreateHostedCheckoutResponse
+    public function createPayment(int $worldlinePaymentMethodId, string $token = ''): CreateHostedCheckoutResponse
     {
         $orderObject = null;
         if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
@@ -117,7 +117,8 @@ class PaymentHandler
             $amountTotal,
             $currencyISO,
             $worldlinePaymentMethodId,
-            $orderObject
+            $orderObject,
+            $token
         );
         $hostedCheckoutId = $hostedCheckoutResponse->getHostedCheckoutId();
         $this->saveOrderCustomFields(
@@ -148,6 +149,7 @@ class PaymentHandler
         $currencyISO = $this->getCurrencyISO();
 
         $this->log(AdminTranslate::trans($this->translator->getLocale(), 'buildingHostdTokenizationOrder'));
+
         $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
             $amountTotal,
@@ -202,7 +204,7 @@ class PaymentHandler
             return false;
         }
         if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]) {
-            $this->log('maxAmountExceeded',Logger::ERROR);
+            $this->log('maxAmountExceeded', Logger::ERROR);
             return false;
         }
 
@@ -258,7 +260,7 @@ class PaymentHandler
         }
 
         if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]) {
-            $this->log('maxAmountExceeded',Logger::ERROR);
+            $this->log('maxAmountExceeded', Logger::ERROR);
             return false;
         }
 
@@ -321,7 +323,7 @@ class PaymentHandler
 
         $customFields = $this->order->getCustomFields();
         if ($amount > $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT]) {
-            $this->log('maxAmountExceeded',Logger::ERROR);
+            $this->log('maxAmountExceeded', Logger::ERROR);
             return false;
         }
 
@@ -737,13 +739,13 @@ class PaymentHandler
 
     /**
      * @param Context $context
-     * @param EntityRepositoryInterface $orderRepository
+     * @param EntityRepository $orderRepository
      * @param string $hostedCheckoutId
      * @return OrderEntity|null
      */
     public static function getOrder(
         Context                   $context,
-        EntityRepositoryInterface $orderRepository,
+        EntityRepository $orderRepository,
         string                    $hostedCheckoutId
     ): ?OrderEntity
     {
@@ -865,14 +867,27 @@ class PaymentHandler
             return;
         }
 
+        // New token
         if (empty($token)) {
-            [$token, $paymentProduct] = $this->createPaymentProduct($hostedTokenization);
+            [$token, $paymentProduct] = $this->buildPaymentProduct($hostedTokenization);
+        } // New redirect token
+        else {
+            $paymentProduct['redirectToken'] = true;
         }
 
         $customerId = $this->order->getOrderCustomer()->getCustomerId();
         $customer = $this->customerRepository->search(new Criteria([$customerId]), $this->context);
         $customFields = $customer->first()->getCustomFields();
-        $customFields[Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN][$token] = $paymentProduct;
+
+        // Token already exist
+        $savedCardKey = Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN;
+        if (!is_null($customFields)
+            && array_key_exists($savedCardKey, $customFields)
+            && array_key_exists($token, $customFields[$savedCardKey])) {
+            return;
+        }
+
+        $customFields[$savedCardKey][$token] = $paymentProduct;
 
         $this->customerRepository->update([
             [
@@ -886,7 +901,7 @@ class PaymentHandler
      * @param GetHostedTokenizationResponse $hostedTokenization
      * @return array
      */
-    private function createPaymentProduct(GetHostedTokenizationResponse $hostedTokenization): array
+    private function buildPaymentProduct(GetHostedTokenizationResponse $hostedTokenization): array
     {
         $paymentProductId = $hostedTokenization->getToken()->getPaymentProductId();
         $token = $hostedTokenization->getToken()->getId();
@@ -897,7 +912,8 @@ class PaymentHandler
                     'paymentProductId' => $paymentProductId,
                     'token' => $token,
                     'paymentCard' => $hostedTokenization->getToken()->getCard()->getData()->getCardWithoutCvv()->getCardNumber(),
-                    'default' => false
+                    'default' => false,
+                    'redirectToken' => false,
                 ],
                 PaymentProducts::getPaymentProductDetails($paymentProductId)
             )

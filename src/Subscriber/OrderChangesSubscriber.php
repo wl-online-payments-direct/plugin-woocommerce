@@ -11,7 +11,7 @@ use Psr\Log\LogLevel;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Order\OrderEvents;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
@@ -27,8 +27,8 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class OrderChangesSubscriber implements EventSubscriberInterface
 {
     private SystemConfigService $systemConfigService;
-    private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $orderRepository;
+    private EntityRepository $customerRepository;
     private Logger $logger;
     private RequestStack $requestStack;
     private TranslatorInterface $translator;
@@ -37,23 +37,21 @@ class OrderChangesSubscriber implements EventSubscriberInterface
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepositoryInterface $orderRepository
-     * @param EntityRepositoryInterface $customerRepository
+     * @param EntityRepository $orderRepository
+     * @param EntityRepository $customerRepository
      * @param Logger $logger
      * @param RequestStack $requestStack
      * @param TranslatorInterface $translator
      * @param OrderTransactionStateHandler $transactionStateHandler
-     * @param Session $session
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
-        EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $customerRepository,
+        EntityRepository             $orderRepository,
+        EntityRepository             $customerRepository,
         Logger                       $logger,
         RequestStack                 $requestStack,
         TranslatorInterface          $translator,
-        OrderTransactionStateHandler $transactionStateHandler,
-        Session                      $session
+        OrderTransactionStateHandler $transactionStateHandler
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -63,7 +61,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->transactionStateHandler = $transactionStateHandler;
-        $this->session = $session;
+        $this->session = new Session();
     }
 
     public static function getSubscribedEvents(): array
@@ -82,13 +80,23 @@ class OrderChangesSubscriber implements EventSubscriberInterface
     public function setIframeFields(HandlePaymentMethodRouteRequestEvent $event)
     {
         $iframeData = [];
-        foreach (Form::WORLDLINE_CART_FORM_KEYS as $key) {
-            $iframeData[$key] = $event->getStorefrontRequest()->request->get($key);
-            if (is_null($iframeData[$key])) {
-                return;
+        $request = $event->getStorefrontRequest()->request;
+        if (!is_null($request->get(Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID))) {
+            foreach (Form::WORLDLINE_CART_FORM_KEYS as $key) {
+                $iframeData[$key] = $request->get($key);
+                if (is_null($iframeData[$key])) {
+                    return;
+                }
             }
+            $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
+            return;
         }
-        $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
+
+        $tokenField = Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN;
+        if (!is_null($request->get($tokenField))) {
+            $iframeData[$tokenField] = $request->get($tokenField);
+            $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
+        }
     }
 
     /**
@@ -126,8 +134,8 @@ class OrderChangesSubscriber implements EventSubscriberInterface
             //For order transaction changes payload is empty
             if (empty($result->getPayload())) {
                 $this->processOrder($orderId, $newState, $event->getContext());
-            //Order cancel should lead to payment transaction refund.
-            //For order changes payload is NOT empty.
+                //Order cancel should lead to payment transaction refund.
+                //For order changes payload is NOT empty.
             } else {
                 $this->processOrder($orderId, StateMachineTransitionActions::ACTION_REFUND, $event->getContext());
             }

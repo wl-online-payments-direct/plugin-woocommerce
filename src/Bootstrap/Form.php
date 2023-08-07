@@ -85,6 +85,8 @@ class Form
         self::WORLDLINE_CART_FORM_USER_AGENT,
     ];
 
+    const WORLDLINE_CART_FORM_REDIRECT_TOKEN = 'moptWorldlineRedirectToken';
+
     /** @var string Field name for the plugin session key */
     const SESSION_OPERATIONS_LOCK = 'order_locked';
     const SESSION_IFRAME_DATA = 'worldline_iframe_data';

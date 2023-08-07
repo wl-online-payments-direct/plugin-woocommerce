@@ -22,7 +22,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Monolog\Logger;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use MoptWorldline\Bootstrap\Form;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
@@ -71,8 +71,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
     const FINAL_AUTHORIZATION = 'FINAL_AUTHORIZATION';
 
     private SystemConfigService $systemConfigService;
-    private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $orderRepository;
+    private EntityRepository $customerRepository;
     private TranslatorInterface $translator;
     private Logger $logger;
     private OrderTransactionStateHandler $transactionStateHandler;
@@ -142,21 +142,19 @@ class Payment implements AsynchronousPaymentHandlerInterface
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepositoryInterface $orderRepository
-     * @param EntityRepositoryInterface $customerRepository
+     * @param EntityRepository $orderRepository
+     * @param EntityRepository $customerRepository
      * @param TranslatorInterface $translator
      * @param Logger $logger
      * @param OrderTransactionStateHandler $transactionStateHandler
-     * @param Session $session
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
-        EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $customerRepository,
+        EntityRepository             $orderRepository,
+        EntityRepository             $customerRepository,
         TranslatorInterface          $translator,
         Logger                       $logger,
-        OrderTransactionStateHandler $transactionStateHandler,
-        Session                      $session
+        OrderTransactionStateHandler $transactionStateHandler
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -165,7 +163,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $this->translator = $translator;
         $this->logger = $logger;
         $this->transactionStateHandler = $transactionStateHandler;
-        $this->session = $session;
+        $this->session = new Session();
     }
 
     /**
@@ -185,10 +183,11 @@ class Payment implements AsynchronousPaymentHandlerInterface
                 case self::IFRAME_PAYMENT_METHOD_ID:
                 case self::SAVED_CARD_PAYMENT_METHOD_ID:
                 {
+                    $iframeData = $this->getIframeData($dataBag);
                     $redirectUrl = $this->getHostedTokenizationRedirectUrl(
                         $transaction,
                         $salesChannelContext->getContext(),
-                        $this->getIframeData($dataBag)
+                        $iframeData
                     );
                     break;
                 }
@@ -226,6 +225,12 @@ class Payment implements AsynchronousPaymentHandlerInterface
             return $iframeData;
         }
 
+        $tokenField = Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN;
+        if (!is_null($dataBag->get($tokenField))) {
+            $iframeData[$tokenField] = $dataBag->get($tokenField);
+            return $iframeData;
+        }
+
         if ($iframeData = $this->session->get(Form::SESSION_IFRAME_DATA)) {
             $this->session->set(Form::SESSION_IFRAME_DATA, null);
             return $iframeData;
@@ -251,14 +256,13 @@ class Payment implements AsynchronousPaymentHandlerInterface
         if (is_array($customFields) && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS, $customFields)) {
             $status = (int)$customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS];
             $hostedCheckoutId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID];
-            //For 0 status we need to make an additional GET call to be sure
-            if (in_array($status, self::STATUS_PAYMENT_CREATED)) {
-                $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
-                try {
-                    $status = $handler->updatePaymentStatus($hostedCheckoutId);
-                } catch (\Exception $e) {
-                    $this->finalizeError($transactionId, $e->getMessage());
-                }
+
+            //We need to make an additional GET call to get current status
+            $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
+            try {
+                $status = $handler->updatePaymentStatus($hostedCheckoutId);
+            } catch (\Exception $e) {
+                $this->finalizeError($transactionId, $e->getMessage());
             }
             if (in_array($status, self::STATUS_PAYMENT_CANCELLED)) {
                 throw new CustomerCanceledAsyncPaymentException(
@@ -351,7 +355,16 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $handler = $this->getHandler($orderId, $context);
 
         try {
-            $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
+            if (array_key_exists(Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID, $iframeData)) {
+                $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
+            } else {
+                $hostedCheckoutResponse = $handler->createPayment(
+                    0,
+                    $iframeData[Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN]
+                );
+                $link = $hostedCheckoutResponse->getRedirectUrl();
+            }
+
         } catch (\Exception $e) {
             throw new AsyncPaymentProcessException(
                 $transactionId,

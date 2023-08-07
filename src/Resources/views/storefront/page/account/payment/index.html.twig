@@ -1,14 +1,14 @@
 {% sw_extends '@Storefront/storefront/page/account/payment/index.html.twig' %}
 {% block page_account_payment_fields %}
     <script type="text/javascript">
-        function deleteCard(cardDeleteUrl, token) {
+        function deleteCard(cardDeleteUrl) {
             fetch(cardDeleteUrl, {
                 method: 'POST',
                 headers: {
                     'Accept': 'application/json',
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ "_csrf_token": token })
+                body: JSON.stringify({})
             })
             .then((response) => {
                 if (response.ok) {

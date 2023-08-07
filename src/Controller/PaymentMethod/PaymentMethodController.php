@@ -15,7 +15,7 @@ use MoptWorldline\Service\PaymentMethodHelper;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\Domain\PaymentProduct;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -27,32 +27,35 @@ class PaymentMethodController
 {
     private SystemConfigService $systemConfigService;
     private Logger $logger;
-    private EntityRepositoryInterface $paymentMethodRepository;
-    private EntityRepositoryInterface $salesChannelPaymentRepository;
+    private EntityRepository $paymentMethodRepository;
+    private EntityRepository $salesChannelPaymentRepository;
     private PluginIdProvider $pluginIdProvider;
-    private EntityRepositoryInterface $mediaRepository;
+    private EntityRepository $mediaRepository;
     private MediaService $mediaService;
     private FileSaver $fileSaver;
+    private EntityRepository $salesChannelRepository;
 
     /**
      * @param SystemConfigService $systemConfigService
      * @param Logger $logger
-     * @param EntityRepositoryInterface $paymentMethodRepository
-     * @param EntityRepositoryInterface $salesChannelPaymentRepository
+     * @param EntityRepository $paymentMethodRepository
+     * @param EntityRepository $salesChannelPaymentRepository
      * @param PluginIdProvider $pluginIdProvider
-     * @param EntityRepositoryInterface $mediaRepository
+     * @param EntityRepository $mediaRepository
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
+     * @param EntityRepository $salesChannelRepository
      */
     public function __construct(
-        SystemConfigService       $systemConfigService,
-        Logger                    $logger,
-        EntityRepositoryInterface $paymentMethodRepository,
-        EntityRepositoryInterface $salesChannelPaymentRepository,
-        PluginIdProvider          $pluginIdProvider,
-        EntityRepositoryInterface $mediaRepository,
-        MediaService              $mediaService,
-        FileSaver                 $fileSaver
+        SystemConfigService $systemConfigService,
+        Logger              $logger,
+        EntityRepository    $paymentMethodRepository,
+        EntityRepository    $salesChannelPaymentRepository,
+        PluginIdProvider    $pluginIdProvider,
+        EntityRepository    $mediaRepository,
+        MediaService        $mediaService,
+        FileSaver           $fileSaver,
+        EntityRepository    $salesChannelRepository
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -63,6 +66,7 @@ class PaymentMethodController
         $this->mediaRepository = $mediaRepository;
         $this->mediaService = $mediaService;
         $this->fileSaver = $fileSaver;
+        $this->salesChannelRepository = $salesChannelRepository;
     }
 
     /**
@@ -75,7 +79,7 @@ class PaymentMethodController
      */
     public function saveMethod(Request $request, Context $context, ?string $countryIso3, ?string $currencyIsoCode): JsonResponse
     {
-        $data = $request->request->get('data');
+        $data = $request->request->all('data');
         $salesChannelId = $request->request->get('salesChannelId');
 
         $toCreate = [];
@@ -121,7 +125,7 @@ class PaymentMethodController
                     $context,
                     $method,
                     $salesChannelId,
-                    null,
+                    $this->salesChannelRepository,
                     $mediaHelper->createProductLogo($product, $context)
                 );
             }
@@ -166,11 +170,6 @@ class PaymentMethodController
 
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
         $adapter->getMerchantClient($credentials);
-
-        if (is_null($salesChannelId)) {
-            $adapter->testConnection();
-            return $toFrontend;
-        }
 
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
         foreach ($paymentProducts->getPaymentProducts() as $product) {
