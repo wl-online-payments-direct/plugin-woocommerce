@@ -1,3 +1,6 @@
+# 1.8.6
+- Plugin config payment methods interface update
+
 # 1.8.5
 - Shopware 6.5 compatibility
 

@@ -80,56 +80,30 @@ class PaymentMethodController
     public function saveMethod(Request $request, Context $context, ?string $countryIso3, ?string $currencyIsoCode): JsonResponse
     {
         $data = $request->request->all('data');
-        $salesChannelId = $request->request->get('salesChannelId');
+        $salesChannelId = (string)$request->request->get('salesChannelId');
 
         $toCreate = [];
-        foreach ($data as $paymentMethod) {
-            if (!empty($paymentMethod['internalId'])) {
-                //Activate/deactivate method, that already exist
-                PaymentMethodHelper::setDBPaymentMethodStatus(
-                    $this->paymentMethodRepository,
-                    $paymentMethod['status'],
-                    $context,
-                    $paymentMethod['internalId']
-                );
+        $toLink = [];
+        $toStatusChange = [];
+
+        foreach ($data as $method) {
+            if (empty($method['internalId']) && ($method['status'] || $method['isLinked'])) {
+                $toCreate[$method['id']] = [
+                    'id' => $method['id'],
+                    'status' => $method['status'],
+                    'isLinked' => $method['isLinked']
+                ];
                 continue;
             }
-
-            if ($paymentMethod['status']) {
-                $toCreate[] = $paymentMethod['id'];
+            if (!empty($method['internalId'])) {
+                $toLink[$method['internalId']] = $method['isLinked'];
+                $toStatusChange[$method['internalId']] = $method['status'];
             }
         }
 
-        if (empty($toCreate)) {
-            return $this->response();
-        }
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
-        $mediaHelper = new MediaHelper(
-            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger, $this->paymentMethodRepository
-        );
-        $adapter->getMerchantClient();
-        $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
-        foreach ($paymentProducts->getPaymentProducts() as $product) {
-            $name = $this->getProductName($product);
-            if (in_array($product->getId(), $toCreate)) {
-                $method = [
-                    'id' => $product->getId(),
-                    'name' => $name,
-                    'description' => '',
-                    'active' => true,
-                ];
-                PaymentMethodHelper::addPaymentMethod(
-                    $this->paymentMethodRepository,
-                    $this->salesChannelPaymentRepository,
-                    $this->pluginIdProvider,
-                    $context,
-                    $method,
-                    $salesChannelId,
-                    $this->salesChannelRepository,
-                    $mediaHelper->createProductLogo($product, $context)
-                );
-            }
-        }
+        $this->createMethods($toCreate, $salesChannelId, $countryIso3, $currencyIsoCode, $context);
+        $this->linkMethods($toLink, $salesChannelId, $context);
+        $this->changeStatus($toStatusChange, $context);
 
         return $this->response();
     }
@@ -155,16 +129,24 @@ class PaymentMethodController
             $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger, $this->paymentMethodRepository
         );
 
+        $dbMethods = PaymentMethodHelper::getPaymentMethods($salesChannelId);
+
         $toFrontend = [];
         foreach (Payment::METHODS_LIST as $method) {
-            $dbMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$method['id']);
+            if (array_key_exists($method['id'], $dbMethods)) {
+                $dbMethod = $dbMethods[$method['id']];
+            } else {
+                continue;
+            }
+
             $logo = $method['logo'] ? $mediaHelper->getSystemMethodLogo($dbMethod, $method, $context) : '';
             $toFrontend[] = [
                 'id' => $method['id'],
                 'logo' => $logo,
                 'label' => $dbMethod['label'],
                 'isActive' => $dbMethod['isActive'],
-                'internalId' => $dbMethod['internalId']
+                'internalId' => $dbMethod['internalId'],
+                'isLinked' => $dbMethod['isLinked']
             ];
         }
 
@@ -172,17 +154,31 @@ class PaymentMethodController
         $adapter->getMerchantClient($credentials);
 
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
-        foreach ($paymentProducts->getPaymentProducts() as $product) {
-            $createdPaymentMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$product->getId());
-            $logo = $mediaHelper->getPaymentMethodLogo($createdPaymentMethod, $product, $context);
+        $methods = $paymentProducts->getPaymentProducts();
+        foreach ($methods as $product) {
+            $key = (string)$product->getId();
+            if (array_key_exists($key, $dbMethods)) {
+                $dbMethod = $dbMethods[$key];
+            } else {
+                $dbMethod = [
+                    'label' => '',
+                    'internalId' => '',
+                    'isActive' => false,
+                    'mediaId' => null,
+                    'isLinked' => false
+                ];
+            }
+            $logo = $mediaHelper->getPaymentMethodLogo($dbMethod, $product, $context);
             $toFrontend[] = [
                 'id' => $product->getId(),
                 'logo' => $logo,
-                'label' => $createdPaymentMethod['label'] ?: $product->getDisplayHints()->getLabel(),
-                'isActive' => $createdPaymentMethod['isActive'],
-                'internalId' => $createdPaymentMethod['internalId']
+                'label' => $dbMethod['label'] ?: $product->getDisplayHints()->getLabel(),
+                'isActive' => $dbMethod['isActive'],
+                'internalId' => $dbMethod['internalId'],
+                'isLinked' => $dbMethod['isLinked']
             ];
-        };
+        }
+
         return $toFrontend;
     }
 
@@ -214,5 +210,97 @@ class PaymentMethodController
         }
 
         return $name;
+    }
+
+    /**
+     * @param string $salesChannelId
+     * @param string|null $countryIso3
+     * @param string|null $currencyIsoCode
+     * @param array $methods
+     * @return void
+     * @throws \Exception
+     */
+    private function createMethods(array $methods, string $salesChannelId, ?string $countryIso3, ?string $currencyIsoCode, Context $context): void
+    {
+        if (empty($methods)) {
+            return;
+        }
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $mediaHelper = new MediaHelper(
+            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger, $this->paymentMethodRepository
+        );
+        $adapter->getMerchantClient();
+        $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
+
+        foreach ($paymentProducts->getPaymentProducts() as $product) {
+            $name = $this->getProductName($product);
+
+            if (array_key_exists($product->getId(), $methods)) {
+                $method = [
+                    'id' => $product->getId(),
+                    'name' => $name,
+                    'description' => '',
+                    'active' => $methods[$product->getId()]['status'],
+                ];
+
+                $newMethodId = PaymentMethodHelper::addPaymentMethod(
+                     $this->paymentMethodRepository,
+                     $this->pluginIdProvider,
+                     $context,
+                     $method,
+                     $mediaHelper->createProductLogo($product, $context)
+                 );
+
+                PaymentMethodHelper::linkPaymentMethod(
+                    $newMethodId,
+                    null,
+                    true,
+                    $this->salesChannelRepository,
+                    $this->salesChannelPaymentRepository,
+                    $context
+                );
+            }
+        }
+    }
+
+    /**
+     * @param array $methods
+     * @param Context $context
+     * @return void
+     */
+    private function changeStatus(array $methods, Context $context): void
+    {
+        foreach ($methods as $id => $status) {
+            PaymentMethodHelper::setDBPaymentMethodStatus(
+                $this->paymentMethodRepository,
+                $status,
+                $context,
+                $id
+            );
+        }
+    }
+
+
+    /**
+     * @param array $methods
+     * @param string|null $salesChannel
+     * @param Context $context
+     * @return void
+     */
+    private function linkMethods(array $methods, ?string $salesChannel, Context $context)
+    {
+        if (empty($methods)) {
+            return;
+        }
+        foreach ($methods as $id => $isLinked) {
+            PaymentMethodHelper::linkPaymentMethod(
+                $id,
+                $salesChannel,
+                $isLinked,
+                $this->salesChannelRepository,
+                $this->salesChannelPaymentRepository,
+                $context
+            );
+        }
     }
 }

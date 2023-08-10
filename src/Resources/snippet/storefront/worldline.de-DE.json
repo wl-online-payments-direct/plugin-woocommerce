@@ -9,6 +9,8 @@
         "payment-method-button": {
             "headline": "Zahlungsarten",
             "subline": "Bitte Zahlungsarten für Ihren Checkout auswählen",
+            "activeLabel": "Activ",
+            "linkLabel": "Link zum Kanal",
             "selectAll": "alle auswählen",
             "deselectAll": "alle abwählen",
             "save": "speichern",

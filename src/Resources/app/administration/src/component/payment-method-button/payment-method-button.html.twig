@@ -10,6 +10,8 @@
                 <span @click="selectAllCheckbox(false)">{{ $tc('worldline.payment-method-button.deselectAll') }}</span>
             </p>
         </div>
+        <span >{{ $tc('worldline.payment-method-button.activeLabel') }}</span> |
+        <span >{{ $tc('worldline.payment-method-button.linkLabel') }}</span>
         <div class="border-inner">
             <div v-if="displayMessage">
                 <p class="innerText">{{ displayMessage }}</p>
@@ -17,10 +19,28 @@
             <div v-else v-for="item in paymentMethodData">
                 <div class="payment-method--container">
                     <label class="switch">
-                        <input @click="selectSingleCheckbox(item.internalId)" type="checkbox" :id="item.id" :internalId="item.internalId" class="paymentMethod" :checked="item.isActive">
+                        <input @click="selectSingleCheckbox(item.id)"
+                               type="checkbox"
+                               :id="item.id"
+                               :internalId="item.internalId"
+                               class="paymentMethod"
+                               :checked="item.isActive">
                         <span class="slider round"></span>
                     </label>
+                    <tab></tab>
+                    <tab></tab>
+                    <label class="switch">
+                        <input @click="selectSingleCheckboxIsLinked(item.id)"
+                               type="checkbox"
+                               :id="item.id_linked"
+                               :internalId="item.internalId"
+                               class="paymentMethod"
+                               :checked="item.isLinked">
+                        <span class="slider round"></span>
+                    </label>
+                    <tab></tab>
                     <img :src="item.logo">
+                    <tab></tab>
                     <label :for="item.label">{{item.label}}</label>
                 </div>
             </div>

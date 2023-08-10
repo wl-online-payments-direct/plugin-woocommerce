@@ -23,7 +23,7 @@ use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
 class MoptWorldline extends Plugin
 {
     const PLUGIN_NAME = 'MoptWorldline';
-    const PLUGIN_VERSION = '1.8.5';
+    const PLUGIN_VERSION = '1.8.6';
 
     /**
      * @param InstallContext $installContext
@@ -45,14 +45,20 @@ class MoptWorldline extends Plugin
         $salesChannelRep = $this->container->get('sales_channel.repository');
 
         foreach (Payment::METHODS_LIST as $method) {
-            PaymentMethodHelper::addPaymentMethod(
+            $methodId = PaymentMethodHelper::addPaymentMethod(
                 $paymentMethodRep,
-                $salesChannelPaymentMethodRep,
                 $pluginIdProvider,
                 $installContext->getContext(),
-                $method,
+                $method
+            );
+
+            PaymentMethodHelper::linkPaymentMethod(
+                $methodId,
                 null,
-                $salesChannelRep
+                true,
+                $salesChannelRep,
+                $salesChannelPaymentMethodRep,
+                $installContext->getContext()
             );
         }
     }
