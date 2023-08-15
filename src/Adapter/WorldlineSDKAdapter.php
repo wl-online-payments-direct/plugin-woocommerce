@@ -265,6 +265,7 @@ class WorldlineSDKAdapter
             }
             case PaymentProducts::PAYMENT_PRODUCT_KLARNA_PAY_NOW:
             case PaymentProducts::PAYMENT_PRODUCT_KLARNA_PAY_LATER:
+            case PaymentProducts::PAYMENT_PRODUCT_TWINTWL:
             {
                 $this->addCartToRequest(
                     $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput, $order
