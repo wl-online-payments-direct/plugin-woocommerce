@@ -23,7 +23,6 @@ Component.override('sw-order-detail-details', {
             transactionLogs: '',
             worldlinePaymentStatus: [],
             isLoading: false,
-            unwatchOrder: null,
             isUnpaidAdminOrder: false,
             adminPayFinishUrl: '',
             adminPayErrorUrl: '',
@@ -35,11 +34,7 @@ Component.override('sw-order-detail-details', {
     },
 
     created() {
-        this.unwatchOrder = this.$watch('order', (newOrder) => {
-            if (newOrder?.lineItems?.length) {
-                this.initializePanel();
-            }
-        });
+        this.getPanelConfig();
     },
 
     computed: {
@@ -100,11 +95,6 @@ Component.override('sw-order-detail-details', {
                     this.activeTab = 'canceled';
                 }
             }
-        },
-
-        initializePanel() {
-            this.unwatchOrder();
-            this.getPanelConfig();
         },
 
         getValues() {
