@@ -1,11 +1,11 @@
-import template from './sw-order-detail-base.html.twig';
+import template from './sw-order-detail-details.html.twig';
 import './my-styles.scss'
 
 
 const { Component } = Shopware;
 
 
-Component.override('sw-order-detail-base', {
+Component.override('sw-order-detail-details', {
     template,
 
     inject: ['transactionsControl'],
@@ -24,7 +24,6 @@ Component.override('sw-order-detail-base', {
             transactionLogs: '',
             worldlinePaymentStatus: [],
             isLoading: false,
-            unwatchOrder: null,
             isUnpaidAdminOrder: false,
             adminPayFinishUrl: '',
             adminPayErrorUrl: '',
@@ -36,11 +35,7 @@ Component.override('sw-order-detail-base', {
     },
 
     created() {
-        this.unwatchOrder = this.$watch('order', (newOrder) => {
-            if (newOrder?.lineItems?.length) {
-                this.initializePanel();
-            }
-        });
+        this.getPanelConfig();
     },
 
     computed: {
@@ -104,11 +99,6 @@ Component.override('sw-order-detail-base', {
                     this.activeTab = 'canceled';
                 }
             }
-        },
-
-        initializePanel() {
-            this.unwatchOrder();
-            this.getPanelConfig();
         },
 
         getValues() {
