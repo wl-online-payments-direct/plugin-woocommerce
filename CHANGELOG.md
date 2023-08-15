@@ -1,4 +1,4 @@
-# 1.8.5
+# 2.0.0
 - Shopware 6.5 compatibility
 
 # 1.8.4
