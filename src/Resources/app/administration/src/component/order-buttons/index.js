@@ -98,9 +98,6 @@ Component.register('mo-order-buttons', {
                 amount: this.unprocessedAmount,
                 items: this.unprocessedPayload,
             }
-            console.log(payload);
-            return;
-            //@todo can hit submit without entering 3digit code on payment order page
             this.transactionsControl.capture(payload)
                 .then((res) => {
                     if (res.success) {
@@ -127,8 +124,6 @@ Component.register('mo-order-buttons', {
                 amount: this.unprocessedAmount,
                 items: this.unprocessedPayload,
             }
-            console.log(payload);
-            return;
             this.transactionsControl.cancel(payload)
                 .then((res) => {
                     if (res.success) {
@@ -154,8 +149,6 @@ Component.register('mo-order-buttons', {
                 amount: this.paidAmount,
                 items: this.paidPayload,
             }
-            console.log(payload);
-            return;
             this.transactionsControl.refund(payload)
                 .then((res) => {
                     if (res.success) {

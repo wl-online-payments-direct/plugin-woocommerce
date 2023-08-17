@@ -31,6 +31,7 @@ Component.override('sw-order-detail-details', {
             isWorldlineOnlinePayment: false,
             lockedButtons: false,
             allowedAmounts: null,
+            isReady: false,
         };
     },
 
@@ -121,7 +122,10 @@ Component.override('sw-order-detail-details', {
                         message: this.$tc('worldline.check-status-button.error') + res.message
                     });
                 }
-            }).finally(() => this.isLoading = false);
+            }).finally(() => {
+                this.isLoading = false;
+                this.isReady = true;
+            });
         },
 
         statusCheck() {
