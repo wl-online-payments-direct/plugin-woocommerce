@@ -5,15 +5,25 @@
     <div class="border">
         <div class="subline">
             <p class="subline">{{ $tc('worldline.payment-method-button.subline') }}</p>
-            <p @click="selectCheckbox" class="select-all">{{ $tc('worldline.payment-method-button.selectAll') }}</p>
+            <p v-if="paymentMethodData.length > 5" class="select-all">
+                <span @click="selectAllCheckbox(true)">{{ $tc('worldline.payment-method-button.selectAll') }}</span> |
+                <span @click="selectAllCheckbox(false)">{{ $tc('worldline.payment-method-button.deselectAll') }}</span>
+            </p>
         </div>
         <div class="border-inner">
-        </div>
-        <div class="button-container">
-            <sw-button-process
-                :isLoading="isLoading"
-                @click="saveButton"
-            >{{ $tc('worldline.payment-method-button.save') }}</sw-button-process>
+            <div v-if="displayMessage">
+                <p class="innerText">{{ displayMessage }}</p>
+            </div>
+            <div v-else v-for="item in paymentMethodData">
+                <div class="payment-method--container">
+                    <label class="switch">
+                        <input @click="selectSingleCheckbox(item.internalId)" type="checkbox" :id="item.id" :internalId="item.internalId" class="paymentMethod" :checked="item.isActive">
+                        <span class="slider round"></span>
+                    </label>
+                    <img :src="item.logo">
+                    <label :for="item.label">{{item.label}}</label>
+                </div>
+            </div>
         </div>
     </div>
 </div>

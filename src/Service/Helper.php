@@ -14,19 +14,20 @@ class Helper
      */
     public static function getSalesChannelData(?string $salesChannelId): array
     {
-        if (is_null($salesChannelId)) {
-            return [null, null];
-        }
-
         $connection = Kernel::getConnection();
 
         $qb = $connection->createQueryBuilder();
         $qb->select('c.iso3, cu.iso_code')
             ->from('sales_channel', 'sc')
             ->leftJoin('sc', 'country', 'c', 'c.id = sc.country_id')
-            ->leftJoin('sc', 'currency', 'cu', 'cu.id = sc.currency_id')
-            ->where("sc.id = UNHEX(:salesChannelId)")
-            ->setParameter('salesChannelId', $salesChannelId);
+            ->leftJoin('sc', 'currency', 'cu', 'cu.id = sc.currency_id');
+
+        if (is_null($salesChannelId)) {
+            $qb->setMaxResults(1);
+        } else {
+            $qb->where("sc.id = UNHEX(:salesChannelId)")
+                ->setParameter('salesChannelId', $salesChannelId);
+        }
 
         $salesChannelData = $qb->execute()->fetchAssociative();
 

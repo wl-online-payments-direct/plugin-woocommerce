@@ -1,0 +1,15 @@
+{% block sw_settings_payment_detail_base_content_media_upload %}
+    {% parent() %}
+    <sw-container v-if="showOneyField">
+        <sw-field
+                id="oneyPaymentOption"
+                name="oneyPaymentOption"
+                @change="setOneyPaymentOption"
+                :value="oneyPaymentOptionValue"
+                type="text"
+                class="sw-settings-payment-detail__field-position"
+                :disabled="!acl.can('payment.editor')"
+                :label="$tc('worldline.payment-methods.oney-label')"
+        />
+    </sw-container>
+{% endblock %}

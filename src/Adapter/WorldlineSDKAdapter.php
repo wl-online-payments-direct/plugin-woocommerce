@@ -2,7 +2,9 @@
 
 namespace MoptWorldline\Adapter;
 
+use Interop\Queue\Exception\Exception;
 use Monolog\Logger;
+use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
@@ -49,6 +51,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderCustomer\OrderCustomerEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemCollection;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\OrderEntity;
+use Shopware\Core\Checkout\Payment\Exception\AsyncPaymentProcessException;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Bootstrap\Form;
 use OnlinePayments\Sdk\DefaultConnection;
@@ -109,14 +112,8 @@ class WorldlineSDKAdapter
         }
 
         if (empty($credentials)) {
-            $credentials = [
-                'merchantId' => $this->getPluginConfig(Form::MERCHANT_ID_FIELD),
-                'apiKey' => $this->getPluginConfig(Form::API_KEY_FIELD),
-                'apiSecret' => $this->getPluginConfig(Form::API_SECRET_FIELD),
-                'isLiveMode' => (bool)$this->getPluginConfig(Form::IS_LIVE_MODE_FIELD),
-            ];
+            $credentials = $this->getCredentials();
         }
-        $credentials['endpoint'] = $this->getEndpoint($credentials['isLiveMode']);
 
         $communicatorConfiguration = new CommunicatorConfiguration(
             $credentials['apiKey'],
@@ -152,22 +149,6 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @return void
-     * @throws \Exception
-     */
-    public function testConnection()
-    {
-        $queryParams = new GetPaymentProductsParams();
-
-        $queryParams->setCountryCode("DEU");
-        $queryParams->setCurrencyCode("EUR");
-
-        $this->merchantClient
-            ->products()
-            ->getPaymentProducts($queryParams);
-    }
-
-    /**
      * @param string $hostedCheckoutId
      * @return PaymentDetailsResponse
      * @throws \Exception
@@ -184,14 +165,16 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param int $worldlinePaymentProductId
      * @param OrderEntity|null $orderEntity
+     * @param string $token
      * @return CreateHostedCheckoutResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function createPayment(
         int          $amountTotal,
         string       $currencyISO,
         int          $worldlinePaymentProductId,
-        ?OrderEntity $orderEntity
+        ?OrderEntity $orderEntity,
+        string       $token
     ): CreateHostedCheckoutResponse
     {
         $fullRedirectTemplateName = $this->getPluginConfig(Form::FULL_REDIRECT_TEMPLATE_NAME);
@@ -205,7 +188,7 @@ class WorldlineSDKAdapter
         $order->setAmountOfMoney($amountOfMoney);
 
         $hostedCheckoutSpecificInput = new HostedCheckoutSpecificInput();
-        $returnUrl = $this->getPluginConfig(Form::RETURN_URL_FIELD);
+        $returnUrl = $this->getReturnUrl();
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
@@ -240,10 +223,15 @@ class WorldlineSDKAdapter
             );
         }
 
+        if ($token != '') {
+            $cardPaymentMethodSpecificInput->setToken($token);
+        }
+
         $hostedCheckoutRequest->setOrder($order);
         $hostedCheckoutRequest->setHostedCheckoutSpecificInput($hostedCheckoutSpecificInput);
         $hostedCheckoutRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
         $hostedCheckoutClient = $merchantClient->hostedCheckout();
+
         return $hostedCheckoutClient->createHostedCheckout($hostedCheckoutRequest);
     }
 
@@ -256,6 +244,7 @@ class WorldlineSDKAdapter
      * @param Order $order
      * @param CreateHostedCheckoutRequest $hostedCheckoutRequest
      * @return void
+     * @throws Exception
      */
     private function setCustomProperties(
         string                         $worldlinePaymentProductId,
@@ -282,7 +271,6 @@ class WorldlineSDKAdapter
                 );
                 $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
-                $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
                 break;
             }
             case PaymentProducts::PAYMENT_PRODUCT_ONEY_3X_4X:
@@ -296,9 +284,12 @@ class WorldlineSDKAdapter
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 $redirectPaymentMethodSpecificInput->setRequiresApproval(true);
                 $redirectPaymentMethodSpecificInput->setPaymentOption($this->getPluginConfig(Form::ONEY_PAYMENT_OPTION_FIELD));
-                $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
                 break;
             }
+        }
+
+        if (isset($redirectPaymentMethodSpecificInput)) {
+            $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
         }
     }
 
@@ -379,7 +370,7 @@ class WorldlineSDKAdapter
         $order->setAmountOfMoney($amountOfMoney);
         $order->setCustomer($customer);
 
-        $returnUrl = $this->getPluginConfig(Form::RETURN_URL_FIELD);
+        $returnUrl = $this->getReturnUrl();
         $redirectionData = new RedirectionData();
         $redirectionData->setReturnUrl($returnUrl);
 
@@ -575,14 +566,61 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param bool $isLiveMode
-     * @return ?string
+     * @return array
      */
-    private function getEndpoint(bool $isLiveMode): ?string
+    private function getCredentials(): array
     {
-        return $isLiveMode
-            ? $this->getPluginConfig(Form::LIVE_ENDPOINT_FIELD)
-            : $this->getPluginConfig(Form::SANDBOX_ENDPOINT_FIELD);
+        $isLiveMode = $this->isLiveMode();
+        if ($isLiveMode) {
+            return [
+                'merchantId' => $this->getPluginConfig(Form::LIVE_MERCHANT_ID_FIELD),
+                'apiKey' => $this->getPluginConfig(Form::LIVE_API_KEY_FIELD),
+                'apiSecret' => $this->getPluginConfig(Form::LIVE_API_SECRET_FIELD),
+                'endpoint' => $this->getPluginConfig(Form::LIVE_ENDPOINT_FIELD),
+                'isLiveMode' => $isLiveMode,
+            ];
+        }
+        return [
+            'merchantId' => $this->getPluginConfig(Form::MERCHANT_ID_FIELD),
+            'apiKey' => $this->getPluginConfig(Form::API_KEY_FIELD),
+            'apiSecret' => $this->getPluginConfig(Form::API_SECRET_FIELD),
+            'endpoint' => $this->getPluginConfig(Form::SANDBOX_ENDPOINT_FIELD),
+            'isLiveMode' => $isLiveMode,
+        ];
+    }
+
+    /**
+     * @return array
+     */
+    public function getWebhookCredentials(): array
+    {
+        if ($this->isLiveMode()) {
+            $webhookKey = $this->getPluginConfig(Form::LIVE_WEBHOOK_KEY_FIELD);
+            $webhookSecret = $this->getPluginConfig(Form::LIVE_WEBHOOK_SECRET_FIELD);
+            return [$webhookKey => $webhookSecret];
+        }
+        $webhookKey = $this->getPluginConfig(Form::WEBHOOK_KEY_FIELD);
+        $webhookSecret = $this->getPluginConfig(Form::WEBHOOK_SECRET_FIELD);
+        return [$webhookKey => $webhookSecret];
+    }
+
+    /**
+     * @return string
+     */
+    public function getReturnUrl(): string
+    {
+        if ($this->isLiveMode()) {
+            return $this->getPluginConfig(Form::LIVE_RETURN_URL_FIELD);
+        }
+        return $this->getPluginConfig(Form::RETURN_URL_FIELD);
+    }
+
+    /**
+     * @return bool
+     */
+    private function isLiveMode(): bool
+    {
+        return (bool)$this->getPluginConfig(Form::IS_LIVE_MODE_FIELD);
     }
 
     /**
@@ -647,6 +685,7 @@ class WorldlineSDKAdapter
      * @param HostedCheckoutSpecificInput $hostedCheckoutSpecificInput
      * @param Order $order
      * @return void
+     * @throws Exception
      */
     private function addCartToRequest(
         string                         $currencyISO,
@@ -663,7 +702,7 @@ class WorldlineSDKAdapter
         $isNetPrice = !$orderEntity->getOrderCustomer()->getCustomer()->getGroup()->getDisplayGross();
 
         $shoppingCart->setItems(
-            $this->crateRequestLineItems(
+            $this->createRequestLineItems(
                 $orderEntity->getLineItems(),
                 $orderEntity->getShippingCosts(),
                 $currencyISO,
@@ -697,23 +736,66 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param bool $isNetPrice
      * @return array
+     * @throws Exception
      */
-    private function crateRequestLineItems(
+    private function createRequestLineItems(
         OrderLineItemCollection $lineItemCollection,
-        CalculatedPrice $shippingPrice,
-        string $currencyISO,
-        bool $isNetPrice
+        CalculatedPrice         $shippingPrice,
+        string                  $currencyISO,
+        bool                    $isNetPrice
     ): array
     {
         $requestLineItems = [];
+        $discount = 0;
+        $maxPrices = [
+            'unit' => ['id' => '', 'price' => 0],
+            'item' => ['id' => '', 'price' => 0]
+        ];
+        $grandPrice = 0;
+        $grandCount = 0;
         /** @var OrderLineItemEntity $lineItem */
         foreach ($lineItemCollection as $lineItem) {
             [$totalPrice, $quantity, $unitPrice] = self::getUnitPrice($lineItem, $isNetPrice);
-            $requestLineItems[] = $this->createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
+            if ($totalPrice < 0) {
+                $discount += abs($totalPrice);
+                continue;
+            }
+            $grandPrice += $totalPrice;
+            $grandCount += $quantity;
+
+            if ($maxPrices['unit']['price'] < $unitPrice) {
+                $maxPrices['unit']['price'] = $unitPrice;
+                $maxPrices['unit']['id'] = $lineItem->getId();
+            }
+            if ($maxPrices['item']['price'] < $totalPrice) {
+                $maxPrices['item']['price'] = $totalPrice;
+                $maxPrices['item']['id'] = $lineItem->getId();
+            }
+            $requestLineItems[$lineItem->getId()] = self::createLineItem($lineItem->getLabel(), $currencyISO, $totalPrice, $unitPrice, $quantity);
         }
 
         $shippingPrice = self::getShippingPrice($shippingPrice, $isNetPrice);
-        $requestLineItems[] = $this->createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+        if ($shippingPrice > 0) {
+            $grandPrice += $shippingPrice;
+            $grandCount++;
+            $shippingElementId = 'shipping_element';
+            if ($maxPrices['unit']['price'] < $shippingPrice) {
+                $maxPrices['unit']['price'] = $shippingPrice;
+                $maxPrices['unit']['id'] = $shippingElementId;
+            }
+            $requestLineItems[$shippingElementId] = self::createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
+        }
+
+        if ($discount > 0) {
+            if ($grandPrice <= ($discount + $grandCount)) {
+                $this->log('Discount over limit.', Logger::ERROR);
+                throw new Exception(
+                    'Discount should be less than ' . ($grandPrice - $grandCount) / 100
+                );
+            }
+
+            $requestLineItems = DiscountHelper::handleDiscount($requestLineItems, $discount, $maxPrices);
+        }
 
         return $requestLineItems;
     }
@@ -724,9 +806,17 @@ class WorldlineSDKAdapter
      * @param int $totalPrice
      * @param int $unitPrice
      * @param int $quantity
+     * @param int $discount
      * @return LineItem
      */
-    private function createLineItem(string $label, string $currencyISO, int $totalPrice, int $unitPrice, int $quantity): LineItem
+    public static function createLineItem(
+        string $label,
+        string $currencyISO,
+        int    $totalPrice,
+        int    $unitPrice,
+        int    $quantity,
+        int    $discount = 0
+    ): LineItem
     {
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setCurrencyCode($currencyISO);
@@ -736,7 +826,7 @@ class WorldlineSDKAdapter
         $lineDetails->setProductName($label);
         $lineDetails->setProductPrice($unitPrice);
         $lineDetails->setQuantity($quantity);
-        $lineDetails->setDiscountAmount(0);
+        $lineDetails->setDiscountAmount($discount);
         $lineDetails->setTaxAmount(0);
 
         $lineItem = new LineItem();

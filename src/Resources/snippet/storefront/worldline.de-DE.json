@@ -9,7 +9,8 @@
         "payment-method-button": {
             "headline": "Zahlungsarten",
             "subline": "Bitte Zahlungsarten für Ihren Checkout auswählen",
-            "selectAll": "alle auswählen / abwählen",
+            "selectAll": "alle auswählen",
+            "deselectAll": "alle abwählen",
             "save": "speichern",
             "request": "Verfügbare Zahlungsarten werden abgerufen...",
             "requestEmpty": "Keine Zahlungsarten zum Anzeigen gefunden",

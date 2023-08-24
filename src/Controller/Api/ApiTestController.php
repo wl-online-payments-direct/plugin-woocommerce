@@ -42,10 +42,18 @@ class ApiTestController extends AbstractController
 
     /** @var array */
     private $credentialKeys = [
-        'merchantId' => Form::MERCHANT_ID_FIELD,
-        'apiSecret' => Form::API_SECRET_FIELD,
-        'apiKey' => Form::API_KEY_FIELD,
-        'isLiveMode' => Form::IS_LIVE_MODE_FIELD
+        'sandbox' => [
+            'merchantId' => Form::MERCHANT_ID_FIELD,
+            'apiSecret' => Form::API_SECRET_FIELD,
+            'apiKey' => Form::API_KEY_FIELD,
+            'endpoint' => Form::SANDBOX_ENDPOINT_FIELD
+        ],
+        'live' => [
+            'merchantId' => Form::LIVE_MERCHANT_ID_FIELD,
+            'apiSecret' => Form::LIVE_API_SECRET_FIELD,
+            'apiKey' => Form::LIVE_API_KEY_FIELD,
+            'endpoint' => Form::LIVE_ENDPOINT_FIELD
+        ]
     ];
 
     /**
@@ -71,8 +79,8 @@ class ApiTestController extends AbstractController
         EntityRepositoryInterface $salesChannelPaymentRepository,
         PluginIdProvider          $pluginIdProvider,
         EntityRepositoryInterface $mediaRepository,
-        MediaService $mediaService,
-        FileSaver $fileSaver
+        MediaService              $mediaService,
+        FileSaver                 $fileSaver
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -104,10 +112,11 @@ class ApiTestController extends AbstractController
         }
 
         $salesChannelId = $request->request->get('salesChannelId');
+        $mode = $this->getMode($request);
 
         [$countryIso3, $currencyIsoCode] = Helper::getSalesChannelData($salesChannelId);
 
-        $credentials = $this->buildCredentials($salesChannelId, $configFormData);
+        $credentials = $this->buildCredentials($salesChannelId, $configFormData, $mode);
 
         $paymentMethods = [];
         $message = '';
@@ -158,32 +167,41 @@ class ApiTestController extends AbstractController
             $this->pluginIdProvider,
             $this->mediaRepository,
             $this->mediaService,
-            $this->fileSaver
+            $this->fileSaver,
+            $this->salesChannelRepository
         );
     }
 
     /**
-     * @param ?string $salesChannelId
+     * @param Request $request
+     * @return string
+     */
+    private function getMode(Request $request): string
+    {
+        $button = $request->request->get('button');
+        return ($button == Form::LIVE_API_TEST_BUTTON) ? 'live' : 'sandbox';
+    }
+
+    /**
+     * @param string|null $salesChannelId
      * @param array $configData
+     * @param string $mode
      * @return array
      */
-    private function buildCredentials(?string $salesChannelId, array $configData): array
+    private function buildCredentials(?string $salesChannelId, array $configData, string $mode): array
     {
         $globalConfig = [];
         if (array_key_exists('null', $configData)) {
             $globalConfig = $configData['null'];
         }
 
-        $credentials = [
-            'isLiveMode' => false
-        ];
-
         //For "All Sales Channels" data will be in "null" part of configData
         $salesChannelId = $salesChannelId ?? 'null';
 
+        $credentials = [];
         if (array_key_exists($salesChannelId, $configData)) {
             $channelConfig = $configData[$salesChannelId];
-            foreach ($this->credentialKeys as $key => $formKey) {
+            foreach ($this->credentialKeys[$mode] as $key => $formKey) {
                 if (array_key_exists($formKey, $channelConfig) && !is_null($channelConfig[$formKey])) {
                     $credentials[$key] = $channelConfig[$formKey];
                 } elseif (array_key_exists($formKey, $globalConfig) && !is_null($globalConfig[$formKey])) {
@@ -191,8 +209,6 @@ class ApiTestController extends AbstractController
                 }
             }
         }
-
-        $credentials['isLiveMode'] = (bool)$credentials['isLiveMode'];
 
         return $credentials;
     }

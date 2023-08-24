@@ -2,7 +2,7 @@
 
 namespace MoptWorldline\Controller\Payment;
 
-use _PHPStan_b8e553790\Nette\Neon\Exception;
+use Exception;
 use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
@@ -48,7 +48,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_iframe", name="worldline.iframe", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function showIframe(Request $request): JsonResponse
     {
@@ -66,7 +66,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_cardToken", name="worldline.cardToken", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveCardToken(Request $request): JsonResponse
     {
@@ -79,7 +79,7 @@ class IframeController extends AbstractController
      * @Route("/worldline_accountCardToken", name="worldline.accountCardToken", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
-     * @throws \Exception
+     * @throws Exception
      */
     public function saveAccountCardToken(Request $request): JsonResponse
     {
@@ -116,7 +116,7 @@ class IframeController extends AbstractController
             ], $context->getContext());
             $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $context->getSalesChannelId());
             $adapter->deleteToken($tokenId);
-        } catch (\Exception $exception) {
+        } catch (Exception $exception) {
             $success = false;
             $this->logger->log(LogLevel::ERROR, $exception->getMessage());
         }

@@ -35,8 +35,15 @@
             "deleteButton": "Delete",
             "deleted": "Card has been deleted."
         },
+        "show-sandbox-credentials-button": {
+            "label": "Sandbox credentials"
+        },
+        "show-live-credentials-button": {
+            "label": "Live credentials"
+        },
         "forwardToPaymentHandler": "Forwarding to payment handler.",
         "errorWithConfirmRedirect": "Error. Redirecting to confirm page.",
+        "errorWithWebhookRequest": "Error with webhook request.",
         "buildingOrder": "Building order",
         "started": "Started",
         "captureRequested": "Capture requested",
@@ -84,7 +91,8 @@
         "payment-method-button": {
             "headline": "Payment Methods",
             "subline": "Please select payment methods for your checkout",
-            "selectAll": "select / deselect all",
+            "selectAll": "select all",
+            "deselectAll": "deselect all",
             "save": "Save",
             "request": "Requesting available payment methods...",
             "requestEmpty": "No payment methods to display",
@@ -143,6 +151,9 @@
                 "adminPay": "Pay for order",
                 "error": "Something went wrong"
             }
+        },
+        "payment-methods": {
+            "oney-label": "Oney custom field"
         }
     }
 }

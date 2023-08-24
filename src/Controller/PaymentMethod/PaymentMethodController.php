@@ -33,6 +33,7 @@ class PaymentMethodController
     private EntityRepositoryInterface $mediaRepository;
     private MediaService $mediaService;
     private FileSaver $fileSaver;
+    private EntityRepositoryInterface $salesChannelRepository;
 
     /**
      * @param SystemConfigService $systemConfigService
@@ -43,6 +44,7 @@ class PaymentMethodController
      * @param EntityRepositoryInterface $mediaRepository
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
+     * @param EntityRepositoryInterface $salesChannelRepository
      */
     public function __construct(
         SystemConfigService       $systemConfigService,
@@ -52,7 +54,8 @@ class PaymentMethodController
         PluginIdProvider          $pluginIdProvider,
         EntityRepositoryInterface $mediaRepository,
         MediaService              $mediaService,
-        FileSaver                 $fileSaver
+        FileSaver                 $fileSaver,
+        EntityRepositoryInterface $salesChannelRepository
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -63,6 +66,7 @@ class PaymentMethodController
         $this->mediaRepository = $mediaRepository;
         $this->mediaService = $mediaService;
         $this->fileSaver = $fileSaver;
+        $this->salesChannelRepository = $salesChannelRepository;
     }
 
     /**
@@ -121,7 +125,7 @@ class PaymentMethodController
                     $context,
                     $method,
                     $salesChannelId,
-                    null,
+                    $this->salesChannelRepository,
                     $mediaHelper->createProductLogo($product, $context)
                 );
             }
@@ -154,7 +158,7 @@ class PaymentMethodController
         $toFrontend = [];
         foreach (Payment::METHODS_LIST as $method) {
             $dbMethod = PaymentMethodHelper::getPaymentMethod($this->paymentMethodRepository, (string)$method['id']);
-            $logo = $mediaHelper->getSystemMethodLogo($dbMethod, $method, $context);
+            $logo = $method['logo'] ? $mediaHelper->getSystemMethodLogo($dbMethod, $method, $context) : '';
             $toFrontend[] = [
                 'id' => $method['id'],
                 'logo' => $logo,
@@ -166,11 +170,6 @@ class PaymentMethodController
 
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
         $adapter->getMerchantClient($credentials);
-
-        if (is_null($salesChannelId)) {
-            $adapter->testConnection();
-            return $toFrontend;
-        }
 
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
         foreach ($paymentProducts->getPaymentProducts() as $product) {

@@ -25,6 +25,13 @@ class Form
     const API_SECRET_FIELD = 'MoptWorldline.config.apiSecret';
     const WEBHOOK_KEY_FIELD  = 'MoptWorldline.config.webhookKey';
     const WEBHOOK_SECRET_FIELD = 'MoptWorldline.config.webhookSecret';
+    const LIVE_MERCHANT_ID_FIELD  = 'MoptWorldline.config.liveMerchantId';
+    const LIVE_API_KEY_FIELD  = 'MoptWorldline.config.liveApiKey';
+    const LIVE_API_SECRET_FIELD = 'MoptWorldline.config.liveApiSecret';
+    const LIVE_WEBHOOK_KEY_FIELD  = 'MoptWorldline.config.liveWebhookKey';
+    const LIVE_WEBHOOK_SECRET_FIELD = 'MoptWorldline.config.liveWebhookSecret';
+    const LIVE_RETURN_URL_FIELD = 'MoptWorldline.config.liveReturnUrl';
+    const LIVE_API_TEST_BUTTON = 'MoptWorldline.config.liveApiTest';
     const LOG_LEVEL = 'MoptWorldline.config.logLevel';
     const IFRAME_TEMPLATE_NAME = 'MoptWorldline.config.iframeTemplateName';
     const ONEY_PAYMENT_OPTION_FIELD = 'MoptWorldline.config.oneyPaymentOption';
@@ -76,6 +83,8 @@ class Form
         self::WORLDLINE_CART_FORM_TIMEZONE_OFFSET_MINUTES,
         self::WORLDLINE_CART_FORM_USER_AGENT,
     ];
+
+    const WORLDLINE_CART_FORM_REDIRECT_TOKEN = 'moptWorldlineRedirectToken';
 
     /** @var string Field name for the plugin session key */
     const SESSION_OPERATIONS_LOCK = 'order_locked';

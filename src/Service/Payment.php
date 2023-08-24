@@ -42,19 +42,22 @@ class Payment implements AsynchronousPaymentHandlerInterface
             'id' => self::FULL_REDIRECT_PAYMENT_METHOD_ID,
             'name' => self::FULL_REDIRECT_PAYMENT_METHOD_NAME,
             'description' => 'Worldline full redirect payment method',
-            'active' => true
+            'active' => true,
+            'logo' => true,
         ],
         [
             'id' => self::IFRAME_PAYMENT_METHOD_ID,
             'name' => self::IFRAME_PAYMENT_METHOD_NAME,
             'description' => 'Worldline Iframe payment method',
-            'active' => false
+            'active' => false,
+            'logo' => true,
         ],
         [
             'id' => self::SAVED_CARD_PAYMENT_METHOD_ID,
             'name' => self::SAVED_CARD_PAYMENT_METHOD_NAME,
             'description' => 'Worldline saved card payment method',
-            'active' => false
+            'active' => false,
+            'logo' => false,
         ]
     ];
 
@@ -182,10 +185,11 @@ class Payment implements AsynchronousPaymentHandlerInterface
                 case self::IFRAME_PAYMENT_METHOD_ID:
                 case self::SAVED_CARD_PAYMENT_METHOD_ID:
                 {
+                    $iframeData = $this->getIframeData($dataBag);
                     $redirectUrl = $this->getHostedTokenizationRedirectUrl(
                         $transaction,
                         $salesChannelContext->getContext(),
-                        $this->getIframeData($dataBag)
+                        $iframeData
                     );
                     break;
                 }
@@ -223,6 +227,12 @@ class Payment implements AsynchronousPaymentHandlerInterface
             return $iframeData;
         }
 
+        $tokenField = Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN;
+        if (!is_null($dataBag->get($tokenField))) {
+            $iframeData[$tokenField] = $dataBag->get($tokenField);
+            return $iframeData;
+        }
+
         if ($iframeData = $this->session->get(Form::SESSION_IFRAME_DATA)) {
             $this->session->set(Form::SESSION_IFRAME_DATA, null);
             return $iframeData;
@@ -248,14 +258,13 @@ class Payment implements AsynchronousPaymentHandlerInterface
         if (is_array($customFields) && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS, $customFields)) {
             $status = (int)$customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_STATUS];
             $hostedCheckoutId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID];
-            //For 0 status we need to make an additional GET call to be sure
-            if (in_array($status, self::STATUS_PAYMENT_CREATED)) {
-                $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
-                try {
-                    $status = $handler->updatePaymentStatus($hostedCheckoutId);
-                } catch (\Exception $e) {
-                    $this->finalizeError($transactionId, $e->getMessage());
-                }
+
+            //We need to make an additional GET call to get current status
+            $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
+            try {
+                $status = $handler->updatePaymentStatus($hostedCheckoutId);
+            } catch (\Exception $e) {
+                $this->finalizeError($transactionId, $e->getMessage());
             }
             if (in_array($status, self::STATUS_PAYMENT_CANCELLED)) {
                 throw new CustomerCanceledAsyncPaymentException(
@@ -348,7 +357,16 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $handler = $this->getHandler($orderId, $context);
 
         try {
-            $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
+            if (array_key_exists(Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID, $iframeData)) {
+                $link = $handler->createHostedTokenizationPayment($iframeData)->getMerchantAction()->getRedirectData()->getRedirectURL();
+            } else {
+                $hostedCheckoutResponse = $handler->createPayment(
+                    0,
+                    $iframeData[Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN]
+                );
+                $link = $hostedCheckoutResponse->getRedirectUrl();
+            }
+
         } catch (\Exception $e) {
             throw new AsyncPaymentProcessException(
                 $transactionId,
