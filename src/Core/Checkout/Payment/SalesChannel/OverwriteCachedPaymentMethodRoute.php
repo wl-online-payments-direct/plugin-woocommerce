@@ -3,55 +3,47 @@
 namespace MoptWorldline\Core\Checkout\Payment\SalesChannel;
 
 use MoptWorldline\Bootstrap\Form;
-use Psr\Log\LoggerInterface;
 use Shopware\Core\Checkout\Payment\SalesChannel\AbstractPaymentMethodRoute;
 use Shopware\Core\Checkout\Payment\SalesChannel\CachedPaymentMethodRoute;
 use Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRouteResponse;
 use Shopware\Core\Framework\Adapter\Cache\AbstractCacheTracer;
 use Shopware\Core\Framework\DataAbstractionLayer\Cache\EntityCacheKeyGenerator;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
+use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
-use Symfony\Component\Cache\Adapter\TagAwareAdapterInterface;
+use Symfony\Contracts\Cache\TagAwareCacheInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class OverwriteCachedPaymentMethodRoute extends CachedPaymentMethodRoute
 {
-    private SalesChannelRepositoryInterface $paymentMethodsRepository;
-    private Session $session;
-    private EntityRepositoryInterface $customerRepository;
+    private SalesChannelRepository $paymentMethodsRepository;
+    private EntityRepository $customerRepository;
 
     /**
      * @param AbstractPaymentMethodRoute $decorated
-     * @param TagAwareAdapterInterface $cache
+     * @param TagAwareCacheInterface $cache
      * @param EntityCacheKeyGenerator $generator
      * @param AbstractCacheTracer $tracer
      * @param EventDispatcherInterface $dispatcher
      * @param array $states
-     * @param LoggerInterface $logger
-     * @param SalesChannelRepositoryInterface $paymentMethodsRepository
-     * @param Session $session
-     * @param EntityRepositoryInterface $customerRepository
+     * @param SalesChannelRepository $paymentMethodsRepository
+     * @param EntityRepository $customerRepository
      */
     public function __construct(
         AbstractPaymentMethodRoute      $decorated,
-        TagAwareAdapterInterface        $cache,
+        TagAwareCacheInterface          $cache,
         EntityCacheKeyGenerator         $generator,
         AbstractCacheTracer             $tracer,
         EventDispatcherInterface        $dispatcher,
         array                           $states,
-        LoggerInterface                 $logger,
-        SalesChannelRepositoryInterface $paymentMethodsRepository,
-        Session                         $session,
-        EntityRepositoryInterface       $customerRepository
+        SalesChannelRepository          $paymentMethodsRepository,
+        EntityRepository                $customerRepository
     )
     {
-        parent::__construct($decorated, $cache, $generator, $tracer, $dispatcher, $states, $logger);
+        parent::__construct($decorated, $cache, $generator, $tracer, $dispatcher, $states);
         $this->paymentMethodsRepository = $paymentMethodsRepository;
-        $this->session = $session;
         $this->customerRepository = $customerRepository;
     }
 
@@ -70,7 +62,6 @@ class OverwriteCachedPaymentMethodRoute extends CachedPaymentMethodRoute
             if (!is_null($fields) && array_key_exists($key, $fields) && !empty($fields[$key])) {
                 $paymentMethodRoute = new OverwritePaymentMethodRoute(
                     $this->paymentMethodsRepository,
-                    $this->session,
                     $this->customerRepository
                 );
                 return $paymentMethodRoute->load($request, $context, $criteria);

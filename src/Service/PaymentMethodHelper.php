@@ -11,7 +11,7 @@ use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\MoptWorldline;
 use Shopware\Core\Checkout\Payment\PaymentMethodEntity;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
@@ -22,24 +22,24 @@ use Shopware\Core\Framework\Uuid\Uuid;
 class PaymentMethodHelper
 {
     /**
-     * @param EntityRepositoryInterface $paymentRepository
-     * @param EntityRepositoryInterface $salesChannelPaymentRepository
+     * @param EntityRepository $paymentRepository
+     * @param EntityRepository $salesChannelPaymentRepository
      * @param PluginIdProvider $pluginIdProvider
      * @param Context $context
      * @param array $method
      * @param string|null $salesChannelId
-     * @param EntityRepositoryInterface|null $salesChannelRepository
+     * @param EntityRepository|null $salesChannelRepository
      * @param string|null $mediaId
      * @return void
      */
     public static function addPaymentMethod(
-        EntityRepositoryInterface  $paymentRepository,
-        EntityRepositoryInterface  $salesChannelPaymentRepository,
+        EntityRepository  $paymentRepository,
+        EntityRepository  $salesChannelPaymentRepository,
         PluginIdProvider           $pluginIdProvider,
         Context                    $context,
         array                      $method,
         ?string                    $salesChannelId,
-        ?EntityRepositoryInterface $salesChannelRepository,
+        ?EntityRepository $salesChannelRepository,
         ?string                    $mediaId = null
     )
     {
@@ -86,14 +86,14 @@ class PaymentMethodHelper
     }
 
     /**
-     * @param EntityRepositoryInterface $paymentRepository
+     * @param EntityRepository $paymentRepository
      * @param bool $active
      * @param Context $context
      * @param string $methodId
      * @return void
      */
     public static function setPaymentMethodStatus(
-        EntityRepositoryInterface $paymentRepository,
+        EntityRepository $paymentRepository,
         bool                      $active,
         Context                   $context,
         string                    $methodId
@@ -108,14 +108,14 @@ class PaymentMethodHelper
     }
 
     /**
-     * @param EntityRepositoryInterface $paymentRepository
+     * @param EntityRepository $paymentRepository
      * @param bool $active
      * @param Context $context
      * @param string $paymentMethodId
      * @return void
      */
     public static function setDBPaymentMethodStatus(
-        EntityRepositoryInterface $paymentRepository,
+        EntityRepository $paymentRepository,
         bool                      $active,
         Context                   $context,
         string                    $paymentMethodId
@@ -130,21 +130,21 @@ class PaymentMethodHelper
     }
 
     /**
-     * @param EntityRepositoryInterface $paymentRepository
+     * @param EntityRepository $paymentRepository
      * @param string $worldlineMethodId
      * @return string|null
      */
-    public static function getPaymentMethodId(EntityRepositoryInterface $paymentRepository, string $worldlineMethodId): ?string
+    public static function getPaymentMethodId(EntityRepository $paymentRepository, string $worldlineMethodId): ?string
     {
         return $paymentRepository->searchIds(self::getCriteria($worldlineMethodId), Context::createDefaultContext())->firstId();
     }
 
     /**
-     * @param EntityRepositoryInterface $paymentRepository
+     * @param EntityRepository $paymentRepository
      * @param string $worldlineMethodId
      * @return array
      */
-    public static function getPaymentMethod(EntityRepositoryInterface $paymentRepository, string $worldlineMethodId): array
+    public static function getPaymentMethod(EntityRepository $paymentRepository, string $worldlineMethodId): array
     {
         /** @var PaymentMethodEntity $method */
         $method = $paymentRepository->search(self::getCriteria($worldlineMethodId), Context::createDefaultContext())->first();

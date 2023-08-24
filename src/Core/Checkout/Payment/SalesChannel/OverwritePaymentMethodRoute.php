@@ -6,14 +6,14 @@ use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\Payment;
 use Shopware\Core\Checkout\Payment\PaymentMethodCollection;
 use Shopware\Core\Checkout\Payment\PaymentMethodEntity;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
-use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepositoryInterface;
+use Symfony\Component\Routing\Annotation\Route;
+use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRouteResponse;
@@ -21,24 +21,23 @@ use Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRoute;
 use Symfony\Component\HttpFoundation\Session\Session;
 
 /**
- * @RouteScope(scopes={"store-api"})
+ * @Route(defaults={"_routeScope"={"store-api"}})
  */
 class OverwritePaymentMethodRoute extends PaymentMethodRoute
 {
-    private SalesChannelRepositoryInterface $paymentMethodsRepository;
+    private SalesChannelRepository $paymentMethodsRepository;
     private Session $session;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $customerRepository;
 
     /**
-     * @param SalesChannelRepositoryInterface $paymentMethodsRepository
-     * @param Session $session
-     * @param EntityRepositoryInterface $customerRepository
+     * @param SalesChannelRepository $paymentMethodsRepository
+     * @param EntityRepository $customerRepository
      */
-    public function __construct(SalesChannelRepositoryInterface $paymentMethodsRepository, Session $session, EntityRepositoryInterface $customerRepository)
+    public function __construct(SalesChannelRepository $paymentMethodsRepository, EntityRepository $customerRepository)
     {
         parent::__construct($paymentMethodsRepository);
         $this->paymentMethodsRepository = $paymentMethodsRepository;
-        $this->session = $session;
+        $this->session = new Session();
         $this->customerRepository = $customerRepository;
     }
 

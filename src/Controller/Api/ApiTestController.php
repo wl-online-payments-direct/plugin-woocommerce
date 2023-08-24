@@ -13,9 +13,8 @@ use MoptWorldline\Service\Helper;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
-use Shopware\Core\Framework\Routing\Annotation\RouteScope;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -24,19 +23,19 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Controller\PaymentMethod\PaymentMethodController;
 
 /**
- * @RouteScope(scopes={"api"})
+ * @Route(defaults={"_routeScope"={"api"}})
  */
 class ApiTestController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
-    private EntityRepositoryInterface $salesChannelRepository;
-    private EntityRepositoryInterface $countryRepository;
-    private EntityRepositoryInterface $currencyRepository;
+    private EntityRepository $salesChannelRepository;
+    private EntityRepository $countryRepository;
+    private EntityRepository $currencyRepository;
     private Logger $logger;
-    private EntityRepositoryInterface $paymentMethodRepository;
-    private EntityRepositoryInterface $salesChannelPaymentRepository;
+    private EntityRepository $paymentMethodRepository;
+    private EntityRepository $salesChannelPaymentRepository;
     private PluginIdProvider $pluginIdProvider;
-    private EntityRepositoryInterface $mediaRepository;
+    private EntityRepository $mediaRepository;
     private MediaService $mediaService;
     private FileSaver $fileSaver;
 
@@ -58,29 +57,29 @@ class ApiTestController extends AbstractController
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepositoryInterface $salesChannelRepository
-     * @param EntityRepositoryInterface $countryRepository
-     * @param EntityRepositoryInterface $currencyRepository
+     * @param EntityRepository $salesChannelRepository
+     * @param EntityRepository $countryRepository
+     * @param EntityRepository $currencyRepository
      * @param Logger $logger
-     * @param EntityRepositoryInterface $paymentMethodRepository
-     * @param EntityRepositoryInterface $salesChannelPaymentRepository
+     * @param EntityRepository $paymentMethodRepository
+     * @param EntityRepository $salesChannelPaymentRepository
      * @param PluginIdProvider $pluginIdProvider
-     * @param EntityRepositoryInterface $mediaRepository
+     * @param EntityRepository $mediaRepository
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
      */
     public function __construct(
-        SystemConfigService       $systemConfigService,
-        EntityRepositoryInterface $salesChannelRepository,
-        EntityRepositoryInterface $countryRepository,
-        EntityRepositoryInterface $currencyRepository,
-        Logger                    $logger,
-        EntityRepositoryInterface $paymentMethodRepository,
-        EntityRepositoryInterface $salesChannelPaymentRepository,
-        PluginIdProvider          $pluginIdProvider,
-        EntityRepositoryInterface $mediaRepository,
-        MediaService              $mediaService,
-        FileSaver                 $fileSaver
+        SystemConfigService $systemConfigService,
+        EntityRepository    $salesChannelRepository,
+        EntityRepository    $countryRepository,
+        EntityRepository    $currencyRepository,
+        Logger              $logger,
+        EntityRepository    $paymentMethodRepository,
+        EntityRepository    $salesChannelPaymentRepository,
+        PluginIdProvider    $pluginIdProvider,
+        EntityRepository    $mediaRepository,
+        MediaService        $mediaService,
+        FileSaver           $fileSaver
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -105,7 +104,7 @@ class ApiTestController extends AbstractController
      */
     public function testConnection(Request $request, Context $context): JsonResponse
     {
-        $configFormData = $request->request->get('сonfigData');
+        $configFormData = $request->request->all('сonfigData');
 
         if (is_null($configFormData)) {
             return $this->response(false, "There is no config data.");

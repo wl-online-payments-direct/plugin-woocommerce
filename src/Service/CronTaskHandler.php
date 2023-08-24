@@ -6,7 +6,7 @@ use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
+use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use Shopware\Core\Kernel;
@@ -17,24 +17,24 @@ use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CronTaskHandler extends ScheduledTaskHandler
 {
-    private EntityRepositoryInterface $salesChannelRepository;
+    private EntityRepository $salesChannelRepository;
     private SystemConfigService $systemConfigService;
     private Logger $logger;
-    private EntityRepositoryInterface $orderRepository;
-    private EntityRepositoryInterface $customerRepository;
+    private EntityRepository $orderRepository;
+    private EntityRepository $customerRepository;
     private OrderTransactionStateHandler $transactionStateHandler;
     private TranslatorInterface $translator;
 
     const CANCELLATION_MODE = 'cancellation';
-    const CAPTURE_MODE = 'captrure';
+    const CAPTURE_MODE = 'capture';
 
     public function __construct(
-        EntityRepositoryInterface    $scheduledTaskRepository,
-        EntityRepositoryInterface    $salesChannelRepository,
+        EntityRepository             $scheduledTaskRepository,
+        EntityRepository             $salesChannelRepository,
         SystemConfigService          $systemConfigService,
         Logger                       $logger,
-        EntityRepositoryInterface    $orderRepository,
-        EntityRepositoryInterface    $customerRepository,
+        EntityRepository             $orderRepository,
+        EntityRepository             $customerRepository,
         OrderTransactionStateHandler $transactionStateHandler,
         TranslatorInterface          $translator
     )
@@ -126,8 +126,7 @@ class CronTaskHandler extends ScheduledTaskHandler
                         )
                     )
                     ->andWhere("sms.technical_name != :technicalName")
-                    ->setParameter('technicalName', StateMachineTransitionActions::ACTION_CANCEL)
-                ;
+                    ->setParameter('technicalName', StateMachineTransitionActions::ACTION_CANCEL);
 
                 $timeInterval = $this->getTimeInterval($cancellationConfig) * 60 * 60;
                 break;
@@ -141,7 +140,7 @@ class CronTaskHandler extends ScheduledTaskHandler
                 ->setParameter('timeInterval', $timeInterval);
         }
 
-        return $qb->execute()->fetchAllAssociative() ? : [];
+        return $qb->execute()->fetchAllAssociative() ?: [];
     }
 
     /**

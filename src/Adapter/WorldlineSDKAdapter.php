@@ -223,7 +223,7 @@ class WorldlineSDKAdapter
             );
         }
 
-        if ($token != '') {
+        if (!empty($token)) {
             $cardPaymentMethodSpecificInput->setToken($token);
         }
 
