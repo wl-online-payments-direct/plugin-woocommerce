@@ -880,7 +880,10 @@ class PaymentHandler
         $customFields = $customer->first()->getCustomFields();
 
         // Token already exist
-        if (array_key_exists($token, $customFields[Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN])) {
+        $savedCardKey = Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN;
+        if (!is_null($customFields)
+            && array_key_exists($savedCardKey, $customFields)
+            && array_key_exists($token, $customFields[$savedCardKey])) {
             return;
         }
 
