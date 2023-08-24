@@ -29,8 +29,6 @@ class ApiTestController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
     private EntityRepository $salesChannelRepository;
-    private EntityRepository $countryRepository;
-    private EntityRepository $currencyRepository;
     private Logger $logger;
     private EntityRepository $paymentMethodRepository;
     private EntityRepository $salesChannelPaymentRepository;
@@ -58,8 +56,6 @@ class ApiTestController extends AbstractController
     /**
      * @param SystemConfigService $systemConfigService
      * @param EntityRepository $salesChannelRepository
-     * @param EntityRepository $countryRepository
-     * @param EntityRepository $currencyRepository
      * @param Logger $logger
      * @param EntityRepository $paymentMethodRepository
      * @param EntityRepository $salesChannelPaymentRepository
@@ -71,8 +67,6 @@ class ApiTestController extends AbstractController
     public function __construct(
         SystemConfigService $systemConfigService,
         EntityRepository    $salesChannelRepository,
-        EntityRepository    $countryRepository,
-        EntityRepository    $currencyRepository,
         Logger              $logger,
         EntityRepository    $paymentMethodRepository,
         EntityRepository    $salesChannelPaymentRepository,
@@ -84,8 +78,6 @@ class ApiTestController extends AbstractController
     {
         $this->systemConfigService = $systemConfigService;
         $this->salesChannelRepository = $salesChannelRepository;
-        $this->countryRepository = $countryRepository;
-        $this->currencyRepository = $currencyRepository;
         $this->logger = $logger;
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->salesChannelPaymentRepository = $salesChannelPaymentRepository;
@@ -106,7 +98,7 @@ class ApiTestController extends AbstractController
     {
         $configFormData = $request->request->all('сonfigData');
 
-        if (is_null($configFormData)) {
+        if (empty($configFormData)) {
             return $this->response(false, "There is no config data.");
         }
 

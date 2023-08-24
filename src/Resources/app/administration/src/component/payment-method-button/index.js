@@ -42,19 +42,26 @@ Component.register('payment-method-button', {
             while ($parent.currentSalesChannelId === undefined) {
                 $parent = $parent.$parent;
             }
-            return  $parent.currentSalesChannelId;
+            return $parent.currentSalesChannelId;
         },
 
-        selectAllCheckbox(shouldBeActive) {
+        selectAllCheckbox(switcherValue) {
             this.paymentMethodData.forEach(item => {
-                item.isActive = shouldBeActive;
+                item.isActive = switcherValue;
+                item.isLinked = switcherValue;
             });
             this.saveButton();
         },
 
-        selectSingleCheckbox(internalId) {
-            const element = this.paymentMethodData.find(value => value.internalId === internalId);
+        selectSingleCheckbox(id) {
+            const element = this.paymentMethodData.find(value => value.id === id);
             element.isActive = !element.isActive;
+            this.saveButton();
+        },
+
+        selectSingleCheckboxIsLinked(id) {
+            const element = this.paymentMethodData.find(value => value.id === id);
+            element.isLinked = !element.isLinked;
             this.saveButton();
         },
 
@@ -64,6 +71,7 @@ Component.register('payment-method-button', {
                 paymentMethodsArray.push({
                     id: item.id,
                     status: item.isActive,
+                    isLinked: item.isLinked,
                     internalId: item.internalId,
                 });
             });
@@ -103,6 +111,7 @@ Component.register('payment-method-button', {
                         id: item.id,
                         internalId: item.internalId,
                         isActive: item.isActive,
+                        isLinked: item.isLinked,
                         logo: item.logo,
                         label: item.label,
                     });
