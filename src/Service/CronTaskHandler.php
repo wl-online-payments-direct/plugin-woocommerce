@@ -5,12 +5,12 @@ namespace MoptWorldline\Service;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
+use Shopware\Core\Checkout\Order\OrderStates;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepositoryInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use Shopware\Core\Kernel;
-use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -126,7 +126,7 @@ class CronTaskHandler extends ScheduledTaskHandler
                         )
                     )
                     ->andWhere("sms.technical_name != :technicalName")
-                    ->setParameter('technicalName', StateMachineTransitionActions::ACTION_CANCEL)
+                    ->setParameter('technicalName', OrderStates::STATE_CANCELLED)
                 ;
 
                 $timeInterval = $this->getTimeInterval($cancellationConfig) * 60 * 60;
