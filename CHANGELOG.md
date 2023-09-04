@@ -1,3 +1,9 @@
+# 2.0.2
+- Missed media fix
+
+# 2.0.1
+- Plugin config payment methods interface update
+
 # 2.0.0
 - Shopware 6.5 compatibility
 

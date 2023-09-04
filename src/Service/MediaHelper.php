@@ -127,7 +127,14 @@ class MediaHelper
      */
     public function getSystemMethodLogo(array $dbMethod, array $method, Context $context): string
     {
-        $mediaId = $dbMethod['mediaId'] ?: $this->createSystemLogo($method['id'], $dbMethod['internalId'], $context);
+        if (array_key_exists('mediaId', $dbMethod)) {
+            $mediaId = $dbMethod['mediaId'] ?: $this->createSystemLogo($method['id'], $dbMethod['internalId'], $context);
+        } else {
+            return '';
+        }
+        if (is_null($mediaId)) {
+            return '';
+        }
         return MediaHelper::loadLogo($mediaId, $context) ?: '';
     }
 
@@ -188,7 +195,7 @@ class MediaHelper
             $this->paymentRepository->update([$paymentMethod], $context);
         }
 
-        if ($mediaId === null) {
+        if (empty($mediaId)) {
             return $product->getDisplayHints()->getLogo();
         }
         return $this->loadLogo($mediaId, $context);

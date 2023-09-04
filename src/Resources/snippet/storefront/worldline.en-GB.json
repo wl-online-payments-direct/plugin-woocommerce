@@ -92,6 +92,8 @@
             "headline": "Payment Methods",
             "subline": "Please select payment methods for your checkout",
             "selectAll": "select all",
+            "activeLabel": "Active",
+            "linkLabel": "Link to channel",
             "deselectAll": "deselect all",
             "save": "Save",
             "request": "Requesting available payment methods...",
