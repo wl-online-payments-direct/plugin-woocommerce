@@ -1,3 +1,6 @@
+# 2.0.2
+- Missed media fix
+
 # 2.0.1
 - Plugin config payment methods interface update
 
