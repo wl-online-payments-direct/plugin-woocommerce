@@ -1,3 +1,6 @@
+# 2.0.3
+- Partial operations config
+
 # 2.0.2
 - Missed media fix
 
