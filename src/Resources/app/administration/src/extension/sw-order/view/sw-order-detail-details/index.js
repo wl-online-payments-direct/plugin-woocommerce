@@ -20,10 +20,10 @@ Component.override('sw-order-detail-details', {
                 {name: 'canceled'},
             ],
             transactionStatus: false,
+            partialOperations: false,
             transactionLogs: '',
             worldlinePaymentStatus: [],
             isLoading: false,
-            unwatchOrder: null,
             isUnpaidAdminOrder: false,
             adminPayFinishUrl: '',
             adminPayErrorUrl: '',
@@ -31,18 +31,18 @@ Component.override('sw-order-detail-details', {
             isWorldlineOnlinePayment: false,
             lockedButtons: false,
             allowedAmounts: null,
+            isReady: false,
         };
     },
 
     created() {
-        this.unwatchOrder = this.$watch('order', (newOrder) => {
-            if (newOrder?.lineItems?.length) {
-                this.initializePanel();
-            }
-        });
+        this.getPanelConfig();
     },
 
     computed: {
+        showPartialOperations() {
+            return this.transactionStatus && this.partialOperations;
+        },
         transactionId() {
             return this.order.customFields?.payment_transaction_id;
         },
@@ -102,11 +102,6 @@ Component.override('sw-order-detail-details', {
             }
         },
 
-        initializePanel() {
-            this.unwatchOrder();
-            this.getPanelConfig();
-        },
-
         getValues() {
             if (this.transactionId === null) {
                 this.isLoading = false
@@ -120,13 +115,17 @@ Component.override('sw-order-detail-details', {
                     this.lockedButtons = res.worldlineLockButtons;
                     this.setInitialTab();
                     this.transactionStatus = true;
+                    this.partialOperations = res.partialOperationsEnabled;
                 } else {
                     this.createNotificationError({
                         title: this.$tc('worldline.check-status-button.title'),
                         message: this.$tc('worldline.check-status-button.error') + res.message
                     });
                 }
-            }).finally(() => this.isLoading = false);
+            }).finally(() => {
+                this.isLoading = false;
+                this.isReady = true;
+            });
         },
 
         statusCheck() {

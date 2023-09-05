@@ -1,0 +1,30 @@
+<sw-container type="row" gap="15px">
+    <sw-container columns="1fr min-content min-content" gap="15px" justify="stretch" align="stretch">
+        <template v-if="!!unprocessedLineItems.length">
+            <sw-button-process
+                    :isLoading="isLoading"
+                    :processSuccess="transactionSuccess.capture"
+                    variant="ghost"
+                    @click="capture"
+            >{{ $tc('worldline.capture-payment-button.button') }}</sw-button-process>
+            <div></div>
+
+            <sw-button-process
+                    :isLoading="isLoading"
+                    :processSuccess="transactionSuccess.cancel"
+                    variant="ghost-danger"
+                    @click="cancel"
+            >{{ $tc('worldline.cancel-payment-button.button') }}</sw-button-process>
+        </template>
+        <template v-if="!!paidLineItems.length">
+            <div></div>
+            <div></div>
+            <sw-button-process
+                    :isLoading="isLoading"
+                    :processSuccess="transactionSuccess.refund"
+                    variant="ghost-danger"
+                    @click="refund"
+            >{{ $tc('worldline.refund-payment-button.button') }}</sw-button-process>
+        </template>
+    </sw-container>
+</sw-container>

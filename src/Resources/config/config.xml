@@ -90,6 +90,11 @@
             <label>Group cards</label>
             <helpText>Group cards will put all cards together for full redirect payment method.</helpText>
         </input-field>
+        <input-field type="bool">
+            <name>partialOperationsEnabled</name>
+            <defaultValue>false</defaultValue>
+            <label>Use partial capture/cancel/refund operations</label>
+        </input-field>
         <input-field type="single-select">
             <name>autoCapture</name>
             <label>Automatic capture</label>
