@@ -1,3 +1,6 @@
+# 2.0.4
+- Twint payment method
+
 # 2.0.3
 - Partial operations config
 

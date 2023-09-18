@@ -192,8 +192,7 @@ class WorldlineSDKAdapter
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
-        $captureConfig = $this->getPluginConfig(Form::AUTO_CAPTURE);
-        if ($captureConfig === Form::AUTO_CAPTURE_IMMEDIATELY) {
+        if ($this->isDirectSales()) {
             $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
         }
 
@@ -271,6 +270,11 @@ class WorldlineSDKAdapter
                     $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput, $order
                 );
                 $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
+                if ($this->isDirectSales()) {
+                    $redirectPaymentMethodSpecificInput->setRequiresApproval(false);
+                } else {
+                    $redirectPaymentMethodSpecificInput->setRequiresApproval(true);
+                }
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 break;
             }
@@ -381,8 +385,7 @@ class WorldlineSDKAdapter
 
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
         $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::FINAL_AUTHORIZATION);
-        $captureConfig = $this->getPluginConfig(Form::AUTO_CAPTURE);
-        if ($captureConfig === Form::AUTO_CAPTURE_IMMEDIATELY) {
+        if ($this->isDirectSales()) {
             $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
         }
         $cardPaymentMethodSpecificInput->setToken($token);
@@ -880,6 +883,14 @@ class WorldlineSDKAdapter
         $customer->setPersonalInformation($personalInformation);
         $customer->setBillingAddress($this->createAddress($billingAddress));
         return $customer;
+    }
+
+    /**
+     * @return bool
+     */
+    private function isDirectSales(): bool
+    {
+        return $this->getPluginConfig(Form::AUTO_CAPTURE) === Form::AUTO_CAPTURE_IMMEDIATELY;
     }
 
     /**
