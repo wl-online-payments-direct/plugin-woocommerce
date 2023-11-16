@@ -20,6 +20,7 @@ Component.override('sw-order-detail-details', {
                 {name: 'canceled'},
             ],
             transactionStatus: false,
+            partialOperations: false,
             transactionLogs: '',
             worldlinePaymentStatus: [],
             isLoading: false,
@@ -30,6 +31,7 @@ Component.override('sw-order-detail-details', {
             isWorldlineOnlinePayment: false,
             lockedButtons: false,
             allowedAmounts: null,
+            isReady: false,
         };
     },
 
@@ -38,6 +40,9 @@ Component.override('sw-order-detail-details', {
     },
 
     computed: {
+        showPartialOperations() {
+            return this.transactionStatus && this.partialOperations;
+        },
         transactionId() {
             return this.order.customFields?.payment_transaction_id;
         },
@@ -110,13 +115,17 @@ Component.override('sw-order-detail-details', {
                     this.lockedButtons = res.worldlineLockButtons;
                     this.setInitialTab();
                     this.transactionStatus = true;
+                    this.partialOperations = res.partialOperationsEnabled;
                 } else {
                     this.createNotificationError({
                         title: this.$tc('worldline.check-status-button.title'),
                         message: this.$tc('worldline.check-status-button.error') + res.message
                     });
                 }
-            }).finally(() => this.isLoading = false);
+            }).finally(() => {
+                this.isLoading = false;
+                this.isReady = true;
+            });
         },
 
         statusCheck() {
