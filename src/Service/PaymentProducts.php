@@ -15,12 +15,14 @@ class PaymentProducts
     const PAYMENT_PRODUCT_ONEY_BRANDED_GIFT_CARD = 5600;
     const PAYMENT_PRODUCT_KLARNA_PAY_NOW = 3301;
     const PAYMENT_PRODUCT_KLARNA_PAY_LATER = 3302;
+    const PAYMENT_PRODUCT_TWINTWL = 5407;
     const PAYMENT_PRODUCT_NEED_DETAILS = [
           self::PAYMENT_PRODUCT_ONEY_3X_4X,
           self::PAYMENT_PRODUCT_ONEY_FINANCEMENT_LONG,
           self::PAYMENT_PRODUCT_ONEY_BRANDED_GIFT_CARD,
           self::PAYMENT_PRODUCT_KLARNA_PAY_NOW,
           self::PAYMENT_PRODUCT_KLARNA_PAY_LATER,
+          self::PAYMENT_PRODUCT_TWINTWL,
     ];
     public const PAYMENT_PRODUCT_MEDIA_DIR = 'bundles/moptworldline/static/img';
     private const PAYMENT_PRODUCT_MEDIA_PREFIX = 'pp_logo_';
@@ -31,6 +33,7 @@ class PaymentProducts
         self::PAYMENT_PRODUCT_ONEY_3X_4X => 'Oney 3x-4x',
         self::PAYMENT_PRODUCT_ONEY_FINANCEMENT_LONG => 'Oney Financement Long',
         self::PAYMENT_PRODUCT_ONEY_BRANDED_GIFT_CARD => 'OneyBrandedGiftCard',
+        self::PAYMENT_PRODUCT_TWINTWL => 'TWINTWL',
         5100 => 'Cpay',
         320 => 'Google Pay',
         5402 => 'Mealvouchers',

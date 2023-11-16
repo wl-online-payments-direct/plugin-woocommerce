@@ -10,6 +10,7 @@ use OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
 use Shopware\Core\Framework\Context;
@@ -643,10 +644,14 @@ class PaymentHandler
      */
     public function updateOrderTransactionState(int $statusCode, string $hostedCheckoutId)
     {
-        // 22.03.2023 - should be disabled before Worldline will fix status notifications.
-        return;
-        /*$orderTransactionId = $this->order->getTransactions()->last()->getId();
-        $orderTransactionState = $this->orderTransaction->getStateMachineState()->getTechnicalName();
+        //We should change status for full operations only
+        if ($this->adapter->getPluginConfig(Form::PARTIAL_OPERATIONS_ENABLED)) {
+            return;
+        }
+
+        $orderTransaction = $this->order->getTransactions()->last();
+        $orderTransactionId = $orderTransaction->getId();
+        $orderTransactionState = $orderTransaction->getStateMachineState()->getTechnicalName();
 
         switch ($statusCode) {
             case in_array($statusCode, Payment::STATUS_PAYMENT_CREATED):
@@ -734,7 +739,7 @@ class PaymentHandler
             {
                 break;
             }
-        }*/
+        }
     }
 
     /**
