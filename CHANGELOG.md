@@ -1,3 +1,7 @@
+# 2.0.5
+- Refund payment fix
+- Payment "Paid" status update for DirectSales in Partial operations mode
+
 # 2.0.4
 - Twint payment method
 
