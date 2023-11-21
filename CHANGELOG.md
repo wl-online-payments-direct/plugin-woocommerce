@@ -1,3 +1,7 @@
+# 2.0.6
+- Rounding issue fix
+- CSS issue fix
+
 # 2.0.5
 - Refund payment fix
 - Payment "Paid" status update for DirectSales in Partial operations mode
