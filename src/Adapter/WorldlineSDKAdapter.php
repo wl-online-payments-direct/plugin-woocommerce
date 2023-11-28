@@ -2,7 +2,6 @@
 
 namespace MoptWorldline\Adapter;
 
-use Interop\Queue\Exception\Exception;
 use Monolog\Logger;
 use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\Payment;
@@ -167,7 +166,7 @@ class WorldlineSDKAdapter
      * @param OrderEntity|null $orderEntity
      * @param string $token
      * @return CreateHostedCheckoutResponse
-     * @throws Exception
+     * @throws \Exception
      */
     public function createPayment(
         int          $amountTotal,
@@ -243,7 +242,7 @@ class WorldlineSDKAdapter
      * @param Order $order
      * @param CreateHostedCheckoutRequest $hostedCheckoutRequest
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     private function setCustomProperties(
         string                         $worldlinePaymentProductId,
@@ -479,7 +478,7 @@ class WorldlineSDKAdapter
     public function refundPayment(string $hostedCheckoutId, int $amount, string $currency, string $orderNumber): RefundResponse
     {
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_1';
+        $hostedCheckoutId = $hostedCheckoutId . '_0';
 
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setAmount($amount);
@@ -689,7 +688,7 @@ class WorldlineSDKAdapter
      * @param HostedCheckoutSpecificInput $hostedCheckoutSpecificInput
      * @param Order $order
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     private function addCartToRequest(
         string                         $currencyISO,
@@ -740,7 +739,7 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param bool $isNetPrice
      * @return array
-     * @throws Exception
+     * @throws \Exception
      */
     private function createRequestLineItems(
         OrderLineItemCollection $lineItemCollection,
@@ -793,7 +792,7 @@ class WorldlineSDKAdapter
         if ($discount > 0) {
             if ($grandPrice <= ($discount + $grandCount)) {
                 $this->log('Discount over limit.', Logger::ERROR);
-                throw new Exception(
+                throw new \Exception(
                     'Discount should be less than ' . ($grandPrice - $grandCount) / 100
                 );
             }

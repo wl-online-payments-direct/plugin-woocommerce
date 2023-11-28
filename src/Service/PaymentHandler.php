@@ -645,7 +645,9 @@ class PaymentHandler
     public function updateOrderTransactionState(int $statusCode, string $hostedCheckoutId)
     {
         //We should change status for full operations only
-        if ($this->adapter->getPluginConfig(Form::PARTIAL_OPERATIONS_ENABLED)) {
+        if ($this->adapter->getPluginConfig(Form::PARTIAL_OPERATIONS_ENABLED)
+            && !in_array($statusCode, Payment::STATUS_CAPTURED)
+        ) {
             return;
         }
 
