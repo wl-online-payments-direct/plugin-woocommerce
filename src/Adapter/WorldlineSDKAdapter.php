@@ -74,6 +74,7 @@ class WorldlineSDKAdapter
     /** @var string */
     const INTEGRATOR_NAME = 'Mediaopt';
     const SHIPPING_LABEL = 'Shipping';
+    const REQUEST_POSTFIX = '_0';
 
     /** @var MerchantClient */
     protected $merchantClient;
@@ -155,7 +156,7 @@ class WorldlineSDKAdapter
     public function getPaymentDetails(string $hostedCheckoutId): PaymentDetailsResponse
     {
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_0';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
         return $merchantClient->payments()->getPaymentDetails($hostedCheckoutId);
     }
 
@@ -435,7 +436,7 @@ class WorldlineSDKAdapter
     public function capturePayment(string $hostedCheckoutId, int $amount, bool $isFinal): CaptureResponse
     {
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_0';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
 
         $capturePaymentRequest = new CapturePaymentRequest();
         $capturePaymentRequest->setAmount($amount);
@@ -463,7 +464,7 @@ class WorldlineSDKAdapter
         $cancelRequest->setIsFinal($isFinal);
 
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_1';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
         return $merchantClient->payments()->cancelPayment($hostedCheckoutId, $cancelRequest);
     }
 
@@ -478,7 +479,7 @@ class WorldlineSDKAdapter
     public function refundPayment(string $hostedCheckoutId, int $amount, string $currency, string $orderNumber): RefundResponse
     {
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_0';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
 
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setAmount($amount);

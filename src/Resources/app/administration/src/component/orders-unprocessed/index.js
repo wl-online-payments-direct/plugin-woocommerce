@@ -62,7 +62,7 @@ Component.register('mo-orders-unprocessed', {
         },
 
         maxAmountToProcess() {
-            return this.paymentStatus.reduce((accumulator, currentValue) => accumulator + (currentValue.unprocessed * currentValue.unitPrice), 0);
+            return this.maxCapture;
         },
 
         orderLineItems() {

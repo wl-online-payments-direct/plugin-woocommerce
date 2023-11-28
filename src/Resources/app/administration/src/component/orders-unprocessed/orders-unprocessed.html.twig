@@ -34,7 +34,7 @@
 
     <sw-container v-if="hasContent" columns="1fr 120px min-content min-content" gap="15px" justify="stretch" align="stretch">
         <div></div>
-        <sw-number-field v-if="!lockedButton" @change="setCustomAmount" :value="amountToProcess" :min="0" :max="maxAmountToProcess" :fillDigits="true" />
+        <sw-number-field class="moptWorldlineAmountToProcess" v-if="!lockedButton" @change="setCustomAmount" :value="amountToProcess" :min="0" :max="maxAmountToProcess" :fillDigits="true" />
         <div v-else ></div>
         <sw-button-process
                 :isLoading="isLoading"
