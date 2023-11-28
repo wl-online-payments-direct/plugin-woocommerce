@@ -888,7 +888,7 @@ class WorldlineSDKAdapter
     /**
      * @return bool
      */
-    private function isDirectSales(): bool
+    public function isDirectSales(): bool
     {
         return $this->getPluginConfig(Form::AUTO_CAPTURE) === Form::AUTO_CAPTURE_IMMEDIATELY;
     }

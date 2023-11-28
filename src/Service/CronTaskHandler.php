@@ -11,6 +11,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use Shopware\Core\Kernel;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Bridge\Monolog\Logger;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -24,6 +25,7 @@ class CronTaskHandler extends ScheduledTaskHandler
     private EntityRepository $customerRepository;
     private OrderTransactionStateHandler $transactionStateHandler;
     private TranslatorInterface $translator;
+    private StateMachineRegistry $stateMachineRegistry;
 
     const CANCELLATION_MODE = 'cancellation';
     const CAPTURE_MODE = 'capture';
@@ -36,7 +38,8 @@ class CronTaskHandler extends ScheduledTaskHandler
         EntityRepository             $orderRepository,
         EntityRepository             $customerRepository,
         OrderTransactionStateHandler $transactionStateHandler,
-        TranslatorInterface          $translator
+        TranslatorInterface          $translator,
+        StateMachineRegistry         $stateMachineRegistry
     )
     {
         $this->salesChannelRepository = $salesChannelRepository;
@@ -46,6 +49,7 @@ class CronTaskHandler extends ScheduledTaskHandler
         $this->customerRepository = $customerRepository;
         $this->transactionStateHandler = $transactionStateHandler;
         $this->translator = $translator;
+        $this->stateMachineRegistry = $stateMachineRegistry;
         parent::__construct($scheduledTaskRepository);
     }
 
@@ -167,7 +171,7 @@ class CronTaskHandler extends ScheduledTaskHandler
         }
         $hostedCheckoutId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID];
 
-        $order = PaymentHandler::getOrder(
+        $order = OrderHelper::getOrder(
             Context::createDefaultContext(),
             $this->orderRepository,
             $hostedCheckoutId
@@ -181,7 +185,8 @@ class CronTaskHandler extends ScheduledTaskHandler
             $this->orderRepository,
             $this->customerRepository,
             Context::createDefaultContext(),
-            $this->transactionStateHandler
+            $this->transactionStateHandler,
+            $this->stateMachineRegistry
         );
 
         $amount = (int)round($order->getAmountTotal() * 100);

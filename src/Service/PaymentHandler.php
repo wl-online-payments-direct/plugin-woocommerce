@@ -20,6 +20,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\MultiFilter;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\NotFilter;
 use Shopware\Core\Kernel;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -33,6 +34,7 @@ class PaymentHandler
     private Context $context;
     private OrderTransactionStateHandler $transactionStateHandler;
     private EntityRepository $customerRepository;
+    private StateMachineRegistry $stateMachineRegistry;
 
     /**
      * @param SystemConfigService $systemConfigService
@@ -43,6 +45,7 @@ class PaymentHandler
      * @param EntityRepository $customerRepository
      * @param Context $context
      * @param OrderTransactionStateHandler $transactionStateHandler
+     * @param ?StateMachineRegistry $stateMachineRegistry
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
@@ -52,7 +55,8 @@ class PaymentHandler
         EntityRepository    $orderRepository,
         EntityRepository    $customerRepository,
         Context                      $context,
-        OrderTransactionStateHandler $transactionStateHandler
+        OrderTransactionStateHandler $transactionStateHandler,
+        StateMachineRegistry $stateMachineRegistry
     )
     {
         $salesChannelId = $order->getSalesChannelId();
@@ -63,6 +67,7 @@ class PaymentHandler
         $this->customerRepository = $customerRepository;
         $this->context = $context;
         $this->transactionStateHandler = $transactionStateHandler;
+        $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
     /**
@@ -82,13 +87,15 @@ class PaymentHandler
     public function updatePaymentStatus(string $hostedCheckoutId, bool $isFinalize = false): int
     {
         $status = $this->updatePaymentTransactionStatus($hostedCheckoutId, $isFinalize);
-        $this->updateOrderTransactionState($status, $hostedCheckoutId);
+        //Partial operations can only be done after manual changes. Webhook and status change operations is always full.
+        $this->updateOrderTransactionState($status, $hostedCheckoutId, true);
 
         return $status;
     }
 
     /**
      * @param int $worldlinePaymentMethodId
+     * @param string $token
      * @return CreateHostedCheckoutResponse
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
@@ -212,8 +219,8 @@ class PaymentHandler
         $newStatus = $status;
         $amounts = [];
         $log = [];
+        $isFinal = ($amount == $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]);
         if ($amount != 0 && !$this->isOrderLocked($customFields)) {
-            $isFinal = ($amount == $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]);
             $captureResponse = $this->adapter->capturePayment($hostedCheckoutId, $amount, $isFinal);
             $this->log('capturePayment', 0, $captureResponse->toJson());
             $newStatus = $captureResponse->getStatusOutput()->getStatusCode();
@@ -232,7 +239,7 @@ class PaymentHandler
             $log,
             $orderItemsStatus
         );
-        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
+        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId, $isFinal);
 
         if ((!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED)
             && !in_array($newStatus, Payment::STATUS_CAPTURED))
@@ -268,13 +275,13 @@ class PaymentHandler
         $newStatus = $status;
         $amounts = [];
         $log = [];
+        $isFinal = $amount == $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT];
         if ($amount != 0 && !$this->isOrderLocked($customFields)) {
             $currencyISO = $this->getCurrencyISO();
             if ($currencyISO === false) {
                 return false;
             }
 
-            $isFinal = $amount == $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT];
             $cancelResponse = $this->adapter->cancelPayment(
                 $hostedCheckoutId,
                 $amount,
@@ -298,7 +305,7 @@ class PaymentHandler
             $log,
             $orderItemsStatus
         );
-        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
+        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId, $isFinal);
 
         if (!in_array($newStatus, Payment::STATUS_PAYMENT_CANCELLED) && $amount > 0) {
             return false;
@@ -363,7 +370,11 @@ class PaymentHandler
             $log,
             $orderItemsStatus
         );
-        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId);
+
+        $canBeRefundedLater = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT] - $amount
+            + $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT];
+        $isFinalRefund = ($canBeRefundedLater == 0);
+        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId, $isFinalRefund);
 
         if (!in_array($newStatus, Payment::STATUS_REFUND_REQUESTED)
             && !in_array($newStatus, Payment::STATUS_REFUNDED)) {
@@ -495,9 +506,10 @@ class PaymentHandler
     /**
      * @param array $customFields
      * @param array $changes
+     * @param string $process
      * @return array
      */
-    public function rebuildOrderItemStatus(array $customFields, array $changes, $process): array
+    public function rebuildOrderItemStatus(array $customFields, array $changes, string $process): array
     {
         $original = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_ITEMS_STATUS];
         switch ($process) {
@@ -640,101 +652,88 @@ class PaymentHandler
     /**
      * @param int $statusCode
      * @param string $hostedCheckoutId
+     * @param bool $isFinal
      * @return void
      */
-    public function updateOrderTransactionState(int $statusCode, string $hostedCheckoutId)
+    public function updateOrderTransactionState(int $statusCode, string $hostedCheckoutId, bool $isFinal = false): void
     {
-        //We should change status for full operations only
-        if ($this->adapter->getPluginConfig(Form::PARTIAL_OPERATIONS_ENABLED)
-            && !in_array($statusCode, Payment::STATUS_CAPTURED)
-        ) {
-            return;
-        }
-
         $orderTransaction = $this->order->getTransactions()->last();
         $orderTransactionId = $orderTransaction->getId();
         $orderTransactionState = $orderTransaction->getStateMachineState()->getTechnicalName();
+
+        if (!$isFinal) {
+            switch ($statusCode) {
+                case in_array($statusCode, Payment::STATUS_CAPTURED):
+                case in_array($statusCode, Payment::STATUS_CAPTURE_REQUESTED):
+                {
+                    if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_PAID)) {
+                        break;
+                    }
+                    $this->log('paymentPaidPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                    $this->transactionStateHandler->payPartially($orderTransactionId, $this->context);
+                    break;
+                }
+                case in_array($statusCode, Payment::STATUS_REFUND_REQUESTED):
+                case in_array($statusCode, Payment::STATUS_REFUNDED):
+                {
+                    if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_REFUNDED)) {
+                        break;
+                    }
+                    $this->log('paymentRefundedPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                    $this->transactionStateHandler->refundPartially($orderTransactionId, $this->context);
+                    break;
+                }
+                default:
+                {
+                    break;
+                }
+            }
+            return;
+        }
 
         switch ($statusCode) {
             case in_array($statusCode, Payment::STATUS_PAYMENT_CREATED):
             case in_array($statusCode, Payment::STATUS_PENDING_CAPTURE):
             {
-                if ($orderTransactionState === OrderTransactionStates::STATE_OPEN) {
+                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_OPEN)) {
                     break;
                 }
-                $this->log(
-                    'paymentOpen',
-                    0,
-                    ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]
-                );
+                $this->log('paymentOpen',0,  ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId],);
                 $this->transactionStateHandler->reopen($orderTransactionId, $this->context);
                 break;
             }
             case in_array($statusCode, Payment::STATUS_CAPTURE_REQUESTED):
-            {
-                if ($orderTransactionState === OrderTransactionStates::STATE_IN_PROGRESS) {
-                    break;
-                }
-                $this->log(
-                    'paymentInProgress',
-                    0,
-                    ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]
-                );
-                $this->transactionStateHandler->process($orderTransactionId, $this->context);
-                break;
-            }
             case in_array($statusCode, Payment::STATUS_CAPTURED):
             {
-                if ($orderTransactionState === OrderTransactionStates::STATE_PAID) {
+                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PAID)) {
                     break;
                 }
-                $this->log(
-                    'paymentPaid',
-                    0,
-                    ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]
-                );
-                $this->transactionStateHandler->paid($orderTransactionId, $this->context);
+                if ($orderTransactionState === OrderTransactionStates::STATE_PARTIALLY_PAID) {
+                    $this->log('paymentPartiallyToPaid',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                    OrderTransactionHelper::paidPartiallyToPaid($this->stateMachineRegistry, $this->context, $orderTransactionId);
+                } else {
+                    $this->log('paymentPaid',0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId] );
+                    $this->transactionStateHandler->paid($orderTransactionId, $this->context);
+                }
                 break;
             }
             case in_array($statusCode, Payment::STATUS_REFUND_REQUESTED):
             case in_array($statusCode, Payment::STATUS_REFUNDED):
             {
-                if ($orderTransactionState === OrderTransactionStates::STATE_REFUNDED) {
+                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_REFUNDED)) {
                     break;
                 }
-                $this->log(
-                    'paymentRefunded',
-                    0,
-                    ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]
-                );
+                $this->log('paymentRefunded',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                 $this->transactionStateHandler->refund($orderTransactionId, $this->context);
                 break;
             }
             case in_array($statusCode, Payment::STATUS_PAYMENT_CANCELLED):
             {
-                if ($orderTransactionState === OrderTransactionStates::STATE_CANCELLED) {
+                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_CANCELLED)) {
                     break;
                 }
-                $this->log(
-                    'paymentCanceled',
-                    0,
-                    ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]
-                );
+                $this->log('paymentCanceled',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                 $this->transactionStateHandler->cancel($orderTransactionId, $this->context);
-                break;
-            }
-            case in_array($statusCode, Payment::STATUS_PAYMENT_REJECTED):
-            case in_array($statusCode, Payment::STATUS_REJECTED_CAPTURE):
-            {
-                if ($orderTransactionState === OrderTransactionStates::STATE_FAILED) {
-                    break;
-                }
-                $this->log(
-                    'paymentFailed',
-                    0,
-                    ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]
-                );
-                $this->transactionStateHandler->fail($orderTransactionId, $this->context);
                 break;
             }
             default:
@@ -745,55 +744,10 @@ class PaymentHandler
     }
 
     /**
-     * @param Context $context
-     * @param EntityRepository $orderRepository
-     * @param string $hostedCheckoutId
-     * @return OrderEntity|null
-     */
-    public static function getOrder(
-        Context                   $context,
-        EntityRepository $orderRepository,
-        string                    $hostedCheckoutId
-    ): ?OrderEntity
-    {
-        $criteria = new Criteria();
-        $criteria->addAssociation('transactions');
-        $criteria->addFilter(
-            new MultiFilter(
-                MultiFilter::CONNECTION_AND,
-                [
-                    new EqualsFilter(
-                        \sprintf('customFields.%s', Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID),
-                        $hostedCheckoutId
-                    ),
-                    new NotFilter(
-                        NotFilter::CONNECTION_AND,
-                        [
-                            new EqualsFilter(
-                                \sprintf('customFields.%s', Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_HOSTED_CHECKOUT_ID),
-                                null
-                            ),
-                        ]
-                    ),
-                ]
-            )
-        );
-
-        /** @var OrderEntity|null $order */
-        $order = $orderRepository->search($criteria, $context)->getEntities()->first();
-
-        if ($order === null) {
-            throw new InvalidTransactionException('');
-        }
-
-        return $order;
-    }
-
-    /**
      * @param array $request
      * @return void
      */
-    public function logWebhook(array $request)
+    public function logWebhook(array $request): void
     {
         $this->log('webhook', 0, $request);
     }
@@ -804,7 +758,7 @@ class PaymentHandler
      * @param mixed $additionalData
      * @return void
      */
-    private function log(string $string, int $logLevel = 0, $additionalData = null)
+    private function log(string $string, int $logLevel = 0, mixed $additionalData = null): void
     {
         $additionalData = array_merge(
             [$additionalData],

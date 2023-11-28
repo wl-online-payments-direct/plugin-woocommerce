@@ -2,15 +2,14 @@
 
 namespace MoptWorldline\Service;
 
+use Monolog\Logger;
 use Shopware\Core\Kernel;
 
 class Helper
 {
     /**
      * @param string|null $salesChannelId
-     * @return array
-     * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\Exception
+     * @return array|null[]
      */
     public static function getSalesChannelData(?string $salesChannelId): array
     {
@@ -29,7 +28,11 @@ class Helper
                 ->setParameter('salesChannelId', $salesChannelId);
         }
 
-        $salesChannelData = $qb->execute()->fetchAssociative();
+        try {
+            $salesChannelData = $qb->fetchAssociative();
+        } catch (\Exception $e){
+            return [null, null];
+        }
 
         if (is_array($salesChannelData)
             && array_key_exists('iso3', $salesChannelData)

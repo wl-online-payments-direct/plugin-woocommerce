@@ -7,8 +7,10 @@
 
 namespace MoptWorldline\Controller\Payment;
 
+use Monolog\Level;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Service\AdminTranslate;
+use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\PaymentHandler;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
@@ -82,19 +84,7 @@ class PaymentFinalizeController extends AbstractController
         }
         $context = $salesChannelContext->getContext();
 
-        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
-        $paymentHandler = new PaymentHandler(
-            $this->systemConfigService,
-            $this->logger,
-            $order,
-            $this->translator,
-            $this->orderRepository,
-            $this->customerRepository,
-            $salesChannelContext->getContext(),
-            $this->transactionStateHandler
-        );
-
-        $paymentHandler->updatePaymentStatus($hostedCheckoutId, true);
+        $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
         $finishUrl = $this->buildFinishUrl($request, $order, $salesChannelContext, $context);
 

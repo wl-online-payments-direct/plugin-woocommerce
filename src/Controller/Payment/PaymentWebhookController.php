@@ -9,6 +9,7 @@ namespace MoptWorldline\Controller\Payment;
 
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
+use MoptWorldline\Service\OrderHelper;
 use OnlinePayments\Sdk\Webhooks\InMemorySecretKeyStore;
 use OnlinePayments\Sdk\Webhooks\WebhooksHelper;
 use MoptWorldline\Service\AdminTranslate;
@@ -17,6 +18,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStat
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\AsynchronousPaymentHandlerInterface;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -39,6 +41,7 @@ class PaymentWebhookController extends AbstractController
     private SystemConfigService $systemConfigService;
     private Logger $logger;
     private TranslatorInterface $translator;
+    private StateMachineRegistry $stateMachineRegistry;
 
     public function __construct(
         SystemConfigService                 $systemConfigService,
@@ -48,7 +51,8 @@ class PaymentWebhookController extends AbstractController
         OrderTransactionStateHandler        $transactionStateHandler,
         RouterInterface                     $router,
         Logger                              $logger,
-        TranslatorInterface                 $translator
+        TranslatorInterface                 $translator,
+        StateMachineRegistry                $stateMachineRegistry
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -59,6 +63,7 @@ class PaymentWebhookController extends AbstractController
         $this->router = $router;
         $this->logger = $logger;
         $this->translator = $translator;
+        $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
     /**
@@ -80,7 +85,7 @@ class PaymentWebhookController extends AbstractController
         }
 
         try {
-            $order = PaymentHandler::getOrder(
+            $order = OrderHelper::getOrder(
                 $salesChannelContext->getContext(),
                 $this->orderRepository,
                 $data['hostedCheckoutId']
@@ -98,7 +103,8 @@ class PaymentWebhookController extends AbstractController
             $this->orderRepository,
             $this->customerRepository,
             $salesChannelContext->getContext(),
-            $this->transactionStateHandler
+            $this->transactionStateHandler,
+            $this->stateMachineRegistry
         );
         $paymentHandler->logWebhook($request->request->all());
 
