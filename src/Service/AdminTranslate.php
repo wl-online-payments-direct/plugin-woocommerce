@@ -43,4 +43,18 @@ class AdminTranslate
         return false;
     }
 
+    /**
+     * @param string $statusCode
+     * @param string $locale
+     * @return string
+     */
+    public static function getReadableStatus(string $statusCode, string $locale): string
+    {
+        $label = AdminTranslate::trans($locale, 'unknownStatus');
+        if (array_key_exists($statusCode, Payment::STATUS_LABELS)) {
+            $label = AdminTranslate::trans($locale, "transactionStatus." . Payment::STATUS_LABELS[$statusCode]);
+        }
+
+        return $label . " ($statusCode)";
+    }
 }

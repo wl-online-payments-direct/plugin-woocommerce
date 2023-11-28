@@ -2,8 +2,9 @@
 
 namespace MoptWorldline\Adapter;
 
-use Monolog\Logger;
+use Monolog\Level;
 use MoptWorldline\Service\DiscountHelper;
+use MoptWorldline\Service\LogHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
@@ -82,21 +83,16 @@ class WorldlineSDKAdapter
     /** @var SystemConfigService */
     private $systemConfigService;
 
-    /** @var Logger */
-    private $logger;
-
     /** @var string|null */
     private $salesChannelId;
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param Logger $logger
      * @param string|null $salesChannelId
      */
-    public function __construct(SystemConfigService $systemConfigService, Logger $logger, ?string $salesChannelId = null)
+    public function __construct(SystemConfigService $systemConfigService, ?string $salesChannelId = null)
     {
         $this->systemConfigService = $systemConfigService;
-        $this->logger = $logger;
         $this->salesChannelId = $salesChannelId;
     }
 
@@ -637,52 +633,6 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param string $message
-     * @param int $logLevel
-     * @param mixed $additionalData
-     * @return void
-     */
-    public function log(string $message, int $logLevel = 0, $additionalData = '')
-    {
-        if ($logLevel == 0) {
-            $logLevel = $this->getLogLevel();
-        }
-
-        $this->logger->addRecord(
-            $logLevel,
-            $message,
-            [
-                'source' => 'Worldline',
-                'additionalData' => json_encode($additionalData),
-            ]
-        );
-    }
-
-    /**
-     * get monolog log-level by module configuration
-     * @return int
-     */
-    protected function getLogLevel()
-    {
-        $logLevel = 'INFO';
-
-        if ($overrideLogLevel = $this->getPluginConfig(Form::LOG_LEVEL)) {
-            $logLevel = $overrideLogLevel;
-        }
-
-        //set levels
-        switch ($logLevel) {
-            case 'INFO':
-                return Logger::INFO;
-            case 'ERROR':
-                return Logger::ERROR;
-            case 'DEBUG':
-            default:
-                return Logger::DEBUG;
-        }
-    }
-
-    /**
      * @param string $currencyISO
      * @param OrderEntity $orderEntity
      * @param CardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput
@@ -792,7 +742,7 @@ class WorldlineSDKAdapter
 
         if ($discount > 0) {
             if ($grandPrice <= ($discount + $grandCount)) {
-                $this->log('Discount over limit.', Logger::ERROR);
+                LogHelper::addLog(Level::Error, 'Discount over limit.');
                 throw new \Exception(
                     'Discount should be less than ' . ($grandPrice - $grandCount) / 100
                 );

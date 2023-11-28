@@ -2,7 +2,6 @@
 
 namespace MoptWorldline\Service;
 
-use Monolog\Logger;
 use Shopware\Core\Kernel;
 
 class Helper

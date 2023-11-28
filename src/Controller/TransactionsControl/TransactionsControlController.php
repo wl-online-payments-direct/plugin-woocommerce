@@ -7,7 +7,6 @@
 
 namespace MoptWorldline\Controller\TransactionsControl;
 
-use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\AdminTranslate;
@@ -39,7 +38,6 @@ class TransactionsControlController extends AbstractController
     private EntityRepository $orderRepository;
     private EntityRepository $customerRepository;
     private OrderTransactionStateHandler $transactionStateHandler;
-    private Logger $logger;
     private TranslatorInterface $translator;
     private RequestStack $requestStack;
     private StateMachineRegistry $stateMachineRegistry;
@@ -49,16 +47,15 @@ class TransactionsControlController extends AbstractController
      * @param EntityRepository $orderRepository
      * @param EntityRepository $customerRepository
      * @param OrderTransactionStateHandler $transactionStateHandler
-     * @param Logger $logger
      * @param TranslatorInterface $translator
      * @param RequestStack $requestStack
+     * @param StateMachineRegistry $stateMachineRegistry
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
         EntityRepository             $orderRepository,
         EntityRepository             $customerRepository,
         OrderTransactionStateHandler $transactionStateHandler,
-        Logger                       $logger,
         TranslatorInterface          $translator,
         RequestStack                 $requestStack,
         StateMachineRegistry $stateMachineRegistry
@@ -68,7 +65,6 @@ class TransactionsControlController extends AbstractController
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->transactionStateHandler = $transactionStateHandler;
-        $this->logger = $logger;
         $this->translator = $translator;
         $this->requestStack = $requestStack;
 
@@ -161,7 +157,7 @@ class TransactionsControlController extends AbstractController
 
         $salesChannelId = $orderEntity->getSalesChannelId();
 
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
         $returnUrl = $adapter->getReturnUrl();
         $apiKey = $orderEntity->getSalesChannel()->getAccessKey();
 
@@ -210,7 +206,7 @@ class TransactionsControlController extends AbstractController
             }
             $allowedAmounts = Payment::getAllowed($customFields);
 
-            $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $order->getSalesChannelId());
+            $adapter = new WorldlineSDKAdapter($this->systemConfigService, $order->getSalesChannelId());
             $partialOperationsEnabled = $adapter->getPluginConfig(Form::PARTIAL_OPERATIONS_ENABLED);
         } catch (\Exception $e) {
             return $this->response(false, $e->getMessage());
@@ -326,7 +322,6 @@ class TransactionsControlController extends AbstractController
 
         return new PaymentHandler(
             $this->systemConfigService,
-            $this->logger,
             $order,
             $this->translator,
             $this->orderRepository,

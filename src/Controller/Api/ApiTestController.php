@@ -7,7 +7,6 @@
 
 namespace MoptWorldline\Controller\Api;
 
-use Monolog\Logger;
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\Helper;
 use Shopware\Core\Content\Media\File\FileSaver;
@@ -29,7 +28,6 @@ class ApiTestController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
     private EntityRepository $salesChannelRepository;
-    private Logger $logger;
     private EntityRepository $paymentMethodRepository;
     private EntityRepository $salesChannelPaymentRepository;
     private PluginIdProvider $pluginIdProvider;
@@ -55,7 +53,6 @@ class ApiTestController extends AbstractController
     /**
      * @param SystemConfigService $systemConfigService
      * @param EntityRepository $salesChannelRepository
-     * @param Logger $logger
      * @param EntityRepository $paymentMethodRepository
      * @param EntityRepository $salesChannelPaymentRepository
      * @param PluginIdProvider $pluginIdProvider
@@ -66,7 +63,6 @@ class ApiTestController extends AbstractController
     public function __construct(
         SystemConfigService $systemConfigService,
         EntityRepository    $salesChannelRepository,
-        Logger              $logger,
         EntityRepository    $paymentMethodRepository,
         EntityRepository    $salesChannelPaymentRepository,
         PluginIdProvider    $pluginIdProvider,
@@ -77,7 +73,6 @@ class ApiTestController extends AbstractController
     {
         $this->systemConfigService = $systemConfigService;
         $this->salesChannelRepository = $salesChannelRepository;
-        $this->logger = $logger;
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->salesChannelPaymentRepository = $salesChannelPaymentRepository;
         $this->pluginIdProvider = $pluginIdProvider;
@@ -151,7 +146,6 @@ class ApiTestController extends AbstractController
     {
         return new PaymentMethodController(
             $this->systemConfigService,
-            $this->logger,
             $this->paymentMethodRepository,
             $this->salesChannelPaymentRepository,
             $this->pluginIdProvider,

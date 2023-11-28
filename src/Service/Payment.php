@@ -23,7 +23,6 @@ use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Monolog\Logger;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use MoptWorldline\Bootstrap\Form;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -76,7 +75,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
     private EntityRepository $orderRepository;
     private EntityRepository $customerRepository;
     private TranslatorInterface $translator;
-    private Logger $logger;
     private OrderTransactionStateHandler $transactionStateHandler;
     private Session $session;
     private StateMachineRegistry $stateMachineRegistry;
@@ -171,15 +169,14 @@ class Payment implements AsynchronousPaymentHandlerInterface
      * @param EntityRepository $orderRepository
      * @param EntityRepository $customerRepository
      * @param TranslatorInterface $translator
-     * @param Logger $logger
      * @param OrderTransactionStateHandler $transactionStateHandler
+     * @param StateMachineRegistry $stateMachineRegistry
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
         EntityRepository             $orderRepository,
         EntityRepository             $customerRepository,
         TranslatorInterface          $translator,
-        Logger                       $logger,
         OrderTransactionStateHandler $transactionStateHandler,
         StateMachineRegistry         $stateMachineRegistry
     )
@@ -188,7 +185,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->translator = $translator;
-        $this->logger = $logger;
         $this->transactionStateHandler = $transactionStateHandler;
         $this->stateMachineRegistry = $stateMachineRegistry;
         $this->session = new Session();
@@ -420,7 +416,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
 
         return new PaymentHandler(
             $this->systemConfigService,
-            $this->logger,
             $order,
             $this->translator,
             $this->orderRepository,
