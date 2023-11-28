@@ -1,3 +1,6 @@
+# 2.1.0
+- Partial statuses
+
 # 2.0.6
 - Rounding issue fix
 - CSS issue fix
