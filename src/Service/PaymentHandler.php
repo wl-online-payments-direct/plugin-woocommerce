@@ -373,7 +373,8 @@ class PaymentHandler
         $this->updateOrderTransactionState($newStatus, $hostedCheckoutId, $isFinalRefund);
 
         if (!in_array($newStatus, Payment::STATUS_REFUND_REQUESTED)
-            && !in_array($newStatus, Payment::STATUS_REFUNDED)) {
+            && !in_array($newStatus, Payment::STATUS_REFUNDED)
+            && $amount > 0) {
             return false;
         }
         return true;
