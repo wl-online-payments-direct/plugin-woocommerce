@@ -4,12 +4,12 @@ pipelines:
       - step:
           script:
             - apt-get update && apt-get install -y unzip git
-            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/moptworldline.git
-            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/moptworldline.git --tags
+            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/worldline-shopware-6.git
+            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/worldline-shopware-6.git --tags
     main_65: 
       - step:
           script:
             - apt-get update && apt-get install -y unzip git
-            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/moptworldline.git
-            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/moptworldline.git --tags  
+            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/worldline-shopware-6.git
+            - git push https://$USERNAME:$PASSWORD@github.com/mediaopt/worldline-shopware-6.git --tags  
         
