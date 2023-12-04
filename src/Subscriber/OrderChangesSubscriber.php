@@ -1,5 +1,10 @@
 <?php declare(strict_types=1);
 
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Subscriber
+ */
+
 namespace MoptWorldline\Subscriber;
 
 use Monolog\Logger;
