@@ -60,6 +60,7 @@ class OrderHelper
         $order = $orderRepository->search($criteria, $context)->getEntities()->first();
 
         if ($order === null) {
+            LogHelper::addLog(Level::Error, 'The order with hostedCheckoutId $hostedCheckoutId could not be found.');
             throw new InvalidTransactionException('');
         }
 
