@@ -1,5 +1,10 @@
 <?php declare(strict_types=1);
 
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Service
+ */
+
 namespace MoptWorldline\Service;
 
 use Monolog\Level;
