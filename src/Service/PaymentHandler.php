@@ -671,7 +671,7 @@ class PaymentHandler
                 case in_array($statusCode, Payment::STATUS_CAPTURED):
                 case in_array($statusCode, Payment::STATUS_CAPTURE_REQUESTED):
                 {
-                    if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_PAID)) {
+                    if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_PAID)) {
                         break;
                     }
                     $this->log('paymentPaidPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
@@ -681,7 +681,7 @@ class PaymentHandler
                 case in_array($statusCode, Payment::STATUS_REFUND_REQUESTED):
                 case in_array($statusCode, Payment::STATUS_REFUNDED):
                 {
-                    if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_REFUNDED)) {
+                    if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_REFUNDED)) {
                         break;
                     }
                     $this->log('paymentRefundedPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
@@ -700,7 +700,7 @@ class PaymentHandler
             case in_array($statusCode, Payment::STATUS_PAYMENT_CREATED):
             case in_array($statusCode, Payment::STATUS_PENDING_CAPTURE):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_OPEN)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_OPEN)) {
                     break;
                 }
                 $this->log('paymentOpen',0,  ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId],);
@@ -710,7 +710,7 @@ class PaymentHandler
             case in_array($statusCode, Payment::STATUS_CAPTURE_REQUESTED):
             case in_array($statusCode, Payment::STATUS_CAPTURED):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PAID)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PAID)) {
                     break;
                 }
                 if ($orderTransactionState === OrderTransactionStates::STATE_PARTIALLY_PAID) {
@@ -725,7 +725,7 @@ class PaymentHandler
             case in_array($statusCode, Payment::STATUS_REFUND_REQUESTED):
             case in_array($statusCode, Payment::STATUS_REFUNDED):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_REFUNDED)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_REFUNDED)) {
                     break;
                 }
                 $this->log('paymentRefunded',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
@@ -734,7 +734,7 @@ class PaymentHandler
             }
             case in_array($statusCode, Payment::STATUS_PAYMENT_CANCELLED):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_CANCELLED)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_CANCELLED)) {
                     break;
                 }
                 $this->log('paymentCanceled',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
