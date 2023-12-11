@@ -7,6 +7,9 @@
 
 namespace MoptWorldline\Service;
 
+use OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
+use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
+
 class PaymentProducts
 {
     const PAYMENT_PRODUCT_INTERSOLVE = 5700;
@@ -61,7 +64,7 @@ class PaymentProducts
     ];
 
     /**
-     * @param int  $paymentProductId
+     * @param int $paymentProductId
      * @return array
      */
     public static function getPaymentProductDetails(int $paymentProductId): array
@@ -77,6 +80,55 @@ class PaymentProducts
             'title' => $title,
             'logo' => \sprintf('%s/%s.svg', self::PAYMENT_PRODUCT_MEDIA_DIR, $logoName),
             'fileName' => $logoName,
+        ];
+    }
+
+
+    /**
+     * @param $token
+     * @param PaymentDetailsResponse $paymentDetailsResponse
+     * @return array
+     */
+    public static function createRedirectPaymentProduct($token, PaymentDetailsResponse $paymentDetailsResponse): array
+    {
+        $paymentProductId = $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
+
+        // Make masked card number from bin (123456) and last 4 digs (************1234) - 123456******1234
+        $bin = $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getBin();
+        $card = $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber();
+        $paymentCard = substr_replace($card, $bin, 0, 6);
+        return array_merge(
+            [
+                'paymentProductId' => $paymentProductId,
+                'token' => $token,
+                'paymentCard' => $paymentCard,
+                'default' => false
+            ],
+            self::getPaymentProductDetails($paymentProductId)
+        );
+    }
+
+
+    /**
+     * @param GetHostedTokenizationResponse $hostedTokenization
+     * @return array
+     */
+    public static function buildPaymentProduct(GetHostedTokenizationResponse $hostedTokenization): array
+    {
+        $paymentProductId = $hostedTokenization->getToken()->getPaymentProductId();
+        $token = $hostedTokenization->getToken()->getId();
+        return [
+            $token,
+            array_merge(
+                [
+                    'paymentProductId' => $paymentProductId,
+                    'token' => $token,
+                    'paymentCard' => $hostedTokenization->getToken()->getCard()->getData()->getCardWithoutCvv()->getCardNumber(),
+                    'default' => false,
+                    'redirectToken' => false,
+                ],
+                self::getPaymentProductDetails($paymentProductId)
+            )
         ];
     }
 }

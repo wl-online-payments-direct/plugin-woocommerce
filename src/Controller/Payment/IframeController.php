@@ -8,10 +8,10 @@
 namespace MoptWorldline\Controller\Payment;
 
 use Exception;
-use Monolog\Logger;
+use Monolog\Level;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
-use Psr\Log\LogLevel;
+use MoptWorldline\Service\LogHelper;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
@@ -30,18 +30,15 @@ use Symfony\Component\HttpFoundation\Session\Session;
 class IframeController extends AbstractController
 {
     public SystemConfigService $systemConfigService;
-    private Logger $logger;
     private Session $session;
     private EntityRepository $customerRepository;
 
     public function __construct(
         SystemConfigService       $systemConfigService,
-        Logger                    $logger,
         EntityRepository          $customerRepository
     )
     {
         $this->systemConfigService = $systemConfigService;
-        $this->logger = $logger;
         $this->session = new Session();
         $this->customerRepository = $customerRepository;
     }
@@ -56,7 +53,7 @@ class IframeController extends AbstractController
     {
         $salesChannelId = $request->get('salesChannelId');
         $token = $request->get('token');
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
         $tokenizationUrl = $adapter->createHostedTokenizationUrl($token);
 
         return new JsonResponse([
@@ -115,11 +112,11 @@ class IframeController extends AbstractController
                     'customFields' => $fields
                 ]
             ], $context->getContext());
-            $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $context->getSalesChannelId());
+            $adapter = new WorldlineSDKAdapter($this->systemConfigService, $context->getSalesChannelId());
             $adapter->deleteToken($tokenId);
         } catch (Exception $exception) {
             $success = false;
-            $this->logger->log(LogLevel::ERROR, $exception->getMessage());
+            LogHelper::addLog(Level::Error, $exception->getMessage());
         }
 
         return new RedirectResponse(

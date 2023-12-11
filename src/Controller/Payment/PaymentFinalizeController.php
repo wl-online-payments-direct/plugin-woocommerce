@@ -10,8 +10,8 @@ namespace MoptWorldline\Controller\Payment;
 use Monolog\Level;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Service\AdminTranslate;
+use MoptWorldline\Service\LogHelper;
 use MoptWorldline\Service\OrderHelper;
-use MoptWorldline\Service\PaymentHandler;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Cart\AsyncPaymentTransactionStruct;
@@ -28,7 +28,6 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Routing\RouterInterface;
-use Monolog\Logger;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
@@ -43,7 +42,6 @@ class PaymentFinalizeController extends AbstractController
     private AsynchronousPaymentHandlerInterface $paymentHandler;
     private OrderTransactionStateHandler $transactionStateHandler;
     private SystemConfigService $systemConfigService;
-    private Logger $logger;
     private TranslatorInterface $translator;
 
     public function __construct(
@@ -53,7 +51,6 @@ class PaymentFinalizeController extends AbstractController
         AsynchronousPaymentHandlerInterface $paymentHandler,
         OrderTransactionStateHandler        $transactionStateHandler,
         RouterInterface                     $router,
-        Logger                              $logger,
         TranslatorInterface                 $translator
     )
     {
@@ -63,7 +60,6 @@ class PaymentFinalizeController extends AbstractController
         $this->paymentHandler = $paymentHandler;
         $this->transactionStateHandler = $transactionStateHandler;
         $this->router = $router;
-        $this->logger = $logger;
         $this->translator = $translator;
     }
 
@@ -132,14 +128,15 @@ class PaymentFinalizeController extends AbstractController
         ]);
 
         $salesChannelId = $salesChannelContext->getSalesChannelId();
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
         try {
-            $adapter->log(AdminTranslate::trans($this->translator->getLocale(), 'forwardToPaymentHandler'));
+            $logger = new LogHelper($adapter);
+            $logger->log(AdminTranslate::trans($this->translator->getLocale(), 'forwardToPaymentHandler'));
             $this->paymentHandler->finalize($paymentTransactionStruct, $request, $salesChannelContext);
         } catch (PaymentProcessException $paymentProcessException) {
-            $adapter->log(
+            LogHelper::addLog(
+                Level::Error,
                 AdminTranslate::trans($this->translator->getLocale(), 'errorWithConfirmRedirect'),
-                Logger::ERROR,
                 ['message' => $paymentProcessException->getMessage(), 'error' => $paymentProcessException]
             );
             $finishUrl = $this->redirectToConfirmPageWorkflow(
@@ -181,10 +178,9 @@ class PaymentFinalizeController extends AbstractController
 
         $transactionId = $paymentProcessException->getOrderTransactionId();
 
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
-        $adapter->log(
+        LogHelper::addLog(
+            Level::Error,
             $paymentProcessException->getMessage(),
-            Logger::ERROR,
             ['orderTransactionId' => $transactionId, 'error' => $paymentProcessException]
         );
         $this->transactionStateHandler->fail(

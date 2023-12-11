@@ -18,14 +18,12 @@ use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use Shopware\Core\Kernel;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
-use Symfony\Bridge\Monolog\Logger;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 class CronTaskHandler extends ScheduledTaskHandler
 {
     private EntityRepository $salesChannelRepository;
     private SystemConfigService $systemConfigService;
-    private Logger $logger;
     private EntityRepository $orderRepository;
     private EntityRepository $customerRepository;
     private OrderTransactionStateHandler $transactionStateHandler;
@@ -39,7 +37,6 @@ class CronTaskHandler extends ScheduledTaskHandler
         EntityRepository             $scheduledTaskRepository,
         EntityRepository             $salesChannelRepository,
         SystemConfigService          $systemConfigService,
-        Logger                       $logger,
         EntityRepository             $orderRepository,
         EntityRepository             $customerRepository,
         OrderTransactionStateHandler $transactionStateHandler,
@@ -49,7 +46,6 @@ class CronTaskHandler extends ScheduledTaskHandler
     {
         $this->salesChannelRepository = $salesChannelRepository;
         $this->systemConfigService = $systemConfigService;
-        $this->logger = $logger;
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->transactionStateHandler = $transactionStateHandler;
@@ -89,7 +85,7 @@ class CronTaskHandler extends ScheduledTaskHandler
      */
     private function getOrderList(string $salesChannelId, string $mode): array
     {
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
         $connection = Kernel::getConnection();
 
         $qb = $connection->createQueryBuilder();
@@ -153,9 +149,10 @@ class CronTaskHandler extends ScheduledTaskHandler
     }
 
     /**
+     * @param $config
      * @return int
      */
-    private function getTimeInterval($config)
+    private function getTimeInterval($config): int
     {
         return (int)filter_var($config, FILTER_SANITIZE_NUMBER_INT);
     }
@@ -184,7 +181,6 @@ class CronTaskHandler extends ScheduledTaskHandler
 
         $paymentHandler = new PaymentHandler(
             $this->systemConfigService,
-            $this->logger,
             $order,
             $this->translator,
             $this->orderRepository,

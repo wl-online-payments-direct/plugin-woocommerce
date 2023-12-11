@@ -1,3 +1,6 @@
+# 2.1.1
+- Logger update
+
 # 2.1.0
 - Partial statuses
 
