@@ -474,7 +474,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
      * @param string $goalStatus
      * @return bool
      */
-    public static function operationImossible(string $currentStatus, string $goalStatus): bool
+    public static function operationImpossible(string $currentStatus, string $goalStatus): bool
     {
         if ($currentStatus === $goalStatus) {
             return true;

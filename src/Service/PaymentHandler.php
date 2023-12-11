@@ -388,10 +388,10 @@ class PaymentHandler
     /**
      * @param string $hostedCheckoutId
      * @param bool $isFinalize
-     * @return string
+     * @return int
      * @throws \Exception
      */
-    private function updatePaymentTransactionStatus(string $hostedCheckoutId, bool $isFinalize = false): string
+    private function updatePaymentTransactionStatus(string $hostedCheckoutId, bool $isFinalize = false): int
     {
         $this->logger->paymentLog($this->order->getOrderNumber(), 'gettingPaymentDetails', 0, ['hostedCheckoutId' => $hostedCheckoutId]);
         $paymentDetails = $this->adapter->getPaymentDetails($hostedCheckoutId);
@@ -669,7 +669,7 @@ class PaymentHandler
                 case in_array($statusCode, Payment::STATUS_CAPTURED):
                 case in_array($statusCode, Payment::STATUS_CAPTURE_REQUESTED):
                 {
-                    if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_PAID)) {
+                    if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_PAID)) {
                         break;
                     }
                     $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentPaidPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
@@ -679,7 +679,7 @@ class PaymentHandler
                 case in_array($statusCode, Payment::STATUS_REFUND_REQUESTED):
                 case in_array($statusCode, Payment::STATUS_REFUNDED):
                 {
-                    if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_REFUNDED)) {
+                    if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_REFUNDED)) {
                         break;
                     }
                     $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentRefundedPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
@@ -698,7 +698,7 @@ class PaymentHandler
             case in_array($statusCode, Payment::STATUS_PAYMENT_CREATED):
             case in_array($statusCode, Payment::STATUS_PENDING_CAPTURE):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_OPEN)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_OPEN)) {
                     break;
                 }
                 $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentOpen',0,  ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId],);
@@ -708,7 +708,7 @@ class PaymentHandler
             case in_array($statusCode, Payment::STATUS_CAPTURE_REQUESTED):
             case in_array($statusCode, Payment::STATUS_CAPTURED):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_PAID)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PAID)) {
                     break;
                 }
                 if ($orderTransactionState === OrderTransactionStates::STATE_PARTIALLY_PAID) {
@@ -723,7 +723,7 @@ class PaymentHandler
             case in_array($statusCode, Payment::STATUS_REFUND_REQUESTED):
             case in_array($statusCode, Payment::STATUS_REFUNDED):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_REFUNDED)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_REFUNDED)) {
                     break;
                 }
                 $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentRefunded',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
@@ -732,7 +732,7 @@ class PaymentHandler
             }
             case in_array($statusCode, Payment::STATUS_PAYMENT_CANCELLED):
             {
-                if (Payment::operationImossible($orderTransactionState, OrderTransactionStates::STATE_CANCELLED)) {
+                if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_CANCELLED)) {
                     break;
                 }
                 $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentCanceled',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
