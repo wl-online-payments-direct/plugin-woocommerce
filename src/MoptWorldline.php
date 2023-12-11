@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /**
  * @author Mediaopt GmbH
@@ -23,7 +22,7 @@ use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
 class MoptWorldline extends Plugin
 {
     const PLUGIN_NAME = 'MoptWorldline';
-    const PLUGIN_VERSION = '2.0.6';
+    const PLUGIN_VERSION = '2.1.0';
 
     /**
      * @param InstallContext $installContext

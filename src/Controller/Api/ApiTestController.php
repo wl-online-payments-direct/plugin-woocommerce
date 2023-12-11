@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Mediaopt GmbH
@@ -37,8 +37,7 @@ class ApiTestController extends AbstractController
     private MediaService $mediaService;
     private FileSaver $fileSaver;
 
-    /** @var array */
-    private $credentialKeys = [
+    private array $credentialKeys = [
         'sandbox' => [
             'merchantId' => Form::MERCHANT_ID_FIELD,
             'apiSecret' => Form::API_SECRET_FIELD,
@@ -207,9 +206,10 @@ class ApiTestController extends AbstractController
     /**
      * @param bool $success
      * @param string $message
+     * @param array $paymentMethods
      * @return JsonResponse
      */
-    private function response(bool $success, string $message, $paymentMethods = []): JsonResponse
+    private function response(bool $success, string $message, array $paymentMethods = []): JsonResponse
     {
         return new JsonResponse([
             'success' => $success,

@@ -1,9 +1,15 @@
 <?php declare(strict_types=1);
 
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Subscriber
+ */
+
 namespace MoptWorldline\Subscriber;
 
 use Monolog\Logger;
 use MoptWorldline\Bootstrap\Form;
+use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\Helper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
@@ -15,6 +21,7 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Event\RouteRequest\HandlePaymentMethodRouteRequestEvent;
 use Shopware\Storefront\Event\StorefrontRenderEvent;
@@ -34,6 +41,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
     private TranslatorInterface $translator;
     private OrderTransactionStateHandler $transactionStateHandler;
     private Session $session;
+    private StateMachineRegistry $stateMachineRegistry;
 
     /**
      * @param SystemConfigService $systemConfigService
@@ -51,7 +59,8 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         Logger                       $logger,
         RequestStack                 $requestStack,
         TranslatorInterface          $translator,
-        OrderTransactionStateHandler $transactionStateHandler
+        OrderTransactionStateHandler $transactionStateHandler,
+        StateMachineRegistry         $stateMachineRegistry
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -61,6 +70,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->transactionStateHandler = $transactionStateHandler;
+        $this->stateMachineRegistry = $stateMachineRegistry;
         $this->session = new Session();
     }
 
@@ -163,7 +173,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         }
         $hostedCheckoutId = $customFields['payment_transaction_id'];
 
-        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
+        $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
         $paymentHandler = new PaymentHandler(
             $this->systemConfigService,
@@ -173,7 +183,8 @@ class OrderChangesSubscriber implements EventSubscriberInterface
             $this->orderRepository,
             $this->customerRepository,
             $context,
-            $this->transactionStateHandler
+            $this->transactionStateHandler,
+            $this->stateMachineRegistry
         );
         $customFields = $order->getCustomFields();
         switch ($state) {

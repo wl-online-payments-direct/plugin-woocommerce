@@ -61,10 +61,10 @@ class PaymentProducts
     ];
 
     /**
-     * @param string $paymentProductId
+     * @param int  $paymentProductId
      * @return array
      */
-    public static function getPaymentProductDetails(string $paymentProductId): array
+    public static function getPaymentProductDetails(int $paymentProductId): array
     {
         $title = 'Unknown';
         $logoName = self::PAYMENT_PRODUCT_MEDIA_DEFAULT;

@@ -26,6 +26,7 @@
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="translator" />
             <argument type="service" id="request_stack"/>
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -37,6 +38,7 @@
             <argument type="service" id="translator" />
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry"/>
             <tag name="shopware.payment.method.async" priority="-5100"/>
         </service>
         <service id="MoptWorldline\Controller\Payment\PaymentFinalizeController" public="true">
@@ -48,6 +50,7 @@
             <argument type="service" id="router"/>
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="translator" />
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -61,6 +64,7 @@
             <argument type="service" id="router"/>
             <argument type="service" id="monolog.logger" />
             <argument type="service" id="translator" />
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>
@@ -73,6 +77,7 @@
             <argument type="service" id="request_stack"/>
             <argument type="service" id="translator" />
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry"/>
             <tag name="kernel.event_subscriber" priority="-5100"/>
         </service>
         <service id="MoptWorldline\Service\CronTask">
@@ -87,6 +92,7 @@
             <argument type="service" id="customer.repository"/>
             <argument type="service" id="Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler"/>
             <argument type="service" id="translator" />
+            <argument type="service" id="Shopware\Core\System\StateMachine\StateMachineRegistry"/>
             <tag name="messenger.message_handler" />
         </service>
         <service id="MoptWorldline\Controller\Payment\IframeController" public="true">

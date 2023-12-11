@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Mediaopt GmbH
@@ -11,16 +11,17 @@ use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\AdminTranslate;
+use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
 use OnlinePayments\Sdk\ValidationException;
-use Safe\Exceptions\FpmException;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -41,6 +42,7 @@ class TransactionsControlController extends AbstractController
     private Logger $logger;
     private TranslatorInterface $translator;
     private RequestStack $requestStack;
+    private StateMachineRegistry $stateMachineRegistry;
 
     /**
      * @param SystemConfigService $systemConfigService
@@ -58,7 +60,8 @@ class TransactionsControlController extends AbstractController
         OrderTransactionStateHandler $transactionStateHandler,
         Logger                       $logger,
         TranslatorInterface          $translator,
-        RequestStack                 $requestStack
+        RequestStack                 $requestStack,
+        StateMachineRegistry $stateMachineRegistry
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -68,6 +71,8 @@ class TransactionsControlController extends AbstractController
         $this->logger = $logger;
         $this->translator = $translator;
         $this->requestStack = $requestStack;
+
+        $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
     /**
@@ -180,7 +185,7 @@ class TransactionsControlController extends AbstractController
     {
         try {
             $hostedCheckoutId = $request->request->get('transactionId');
-            $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
+            $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
             $customFields = $order->getCustomFields();
             $log = [];
             if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG, $customFields)) {
@@ -317,7 +322,7 @@ class TransactionsControlController extends AbstractController
      */
     private function getHandler(string $hostedCheckoutId, Context $context): ?PaymentHandler
     {
-        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
+        $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
         return new PaymentHandler(
             $this->systemConfigService,
@@ -327,7 +332,8 @@ class TransactionsControlController extends AbstractController
             $this->orderRepository,
             $this->customerRepository,
             $context,
-            $this->transactionStateHandler
+            $this->transactionStateHandler,
+            $this->stateMachineRegistry
         );
     }
 }

@@ -1,5 +1,10 @@
 <?php declare(strict_types=1);
 
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Controller
+ */
+
 namespace MoptWorldline\Controller\Payment;
 
 use Exception;

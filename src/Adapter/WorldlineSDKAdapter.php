@@ -1,4 +1,9 @@
-<?php
+<?php declare(strict_types=1);
+
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Adapter
+ */
 
 namespace MoptWorldline\Adapter;
 
@@ -888,7 +893,7 @@ class WorldlineSDKAdapter
     /**
      * @return bool
      */
-    private function isDirectSales(): bool
+    public function isDirectSales(): bool
     {
         return $this->getPluginConfig(Form::AUTO_CAPTURE) === Form::AUTO_CAPTURE_IMMEDIATELY;
     }

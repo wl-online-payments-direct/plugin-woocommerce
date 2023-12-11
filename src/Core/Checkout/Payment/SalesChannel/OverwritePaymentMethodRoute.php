@@ -1,5 +1,10 @@
 <?php declare(strict_types=1);
 
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Core
+ */
+
 namespace MoptWorldline\Core\Checkout\Payment\SalesChannel;
 
 use MoptWorldline\Bootstrap\Form;
