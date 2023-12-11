@@ -44,11 +44,11 @@ class AdminTranslate
     }
 
     /**
-     * @param string $statusCode
+     * @param int $statusCode
      * @param string $locale
      * @return string
      */
-    public static function getReadableStatus(string $locale, string $statusCode): string
+    public static function getReadableStatus(string $locale, int $statusCode): string
     {
         $label = AdminTranslate::trans($locale, 'unknownStatus');
         if (array_key_exists($statusCode, Payment::STATUS_LABELS)) {

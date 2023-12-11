@@ -151,7 +151,7 @@ class PaymentMethodController
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
         $methods = $paymentProducts->getPaymentProducts();
         foreach ($methods as $product) {
-            $key = (string)$product->getId();
+            $key = $product->getId();
             if (array_key_exists($key, $dbMethods)) {
                 $dbMethod = $dbMethods[$key];
             } else {

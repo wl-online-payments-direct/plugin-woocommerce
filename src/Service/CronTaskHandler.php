@@ -149,9 +149,10 @@ class CronTaskHandler extends ScheduledTaskHandler
     }
 
     /**
+     * @param $config
      * @return int
      */
-    private function getTimeInterval($config)
+    private function getTimeInterval($config): int
     {
         return (int)filter_var($config, FILTER_SANITIZE_NUMBER_INT);
     }

@@ -64,7 +64,7 @@ class PaymentProducts
     ];
 
     /**
-     * @param int  $paymentProductId
+     * @param int $paymentProductId
      * @return array
      */
     public static function getPaymentProductDetails(int $paymentProductId): array
@@ -91,7 +91,7 @@ class PaymentProducts
      */
     public static function createRedirectPaymentProduct($token, PaymentDetailsResponse $paymentDetailsResponse): array
     {
-        $paymentProductId = (string) $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
+        $paymentProductId = $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getPaymentProductId();
 
         // Make masked card number from bin (123456) and last 4 digs (************1234) - 123456******1234
         $bin = $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getBin();
@@ -115,7 +115,7 @@ class PaymentProducts
      */
     public static function buildPaymentProduct(GetHostedTokenizationResponse $hostedTokenization): array
     {
-        $paymentProductId = (string) $hostedTokenization->getToken()->getPaymentProductId();
+        $paymentProductId = $hostedTokenization->getToken()->getPaymentProductId();
         $token = $hostedTokenization->getToken()->getId();
         return [
             $token,
