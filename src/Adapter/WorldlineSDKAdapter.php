@@ -247,7 +247,7 @@ class WorldlineSDKAdapter
      * @throws \Exception
      */
     private function setCustomProperties(
-        string                         $worldlinePaymentProductId,
+        int                            $worldlinePaymentProductId,
         string                         $currencyISO,
         ?OrderEntity                   $orderEntity,
         CardPaymentMethodSpecificInput &$cardPaymentMethodSpecificInput,
