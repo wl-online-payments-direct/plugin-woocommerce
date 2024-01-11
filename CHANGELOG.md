@@ -1,3 +1,6 @@
+# 2.1.2
+- Multilingual shop support
+
 # 2.1.1
 - Logger update
 

@@ -7,6 +7,7 @@
 
 namespace MoptWorldline\Service;
 
+use Monolog\Level;
 use MoptWorldline\MoptWorldline;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use Shopware\Core\Checkout\Payment\Exception\CustomerCanceledAsyncPaymentException;
@@ -201,9 +202,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
     {
         // Method that sends the return URL to the external gateway and gets a redirect URL back
         try {
-            $customFields = $transaction->getOrderTransaction()->getPaymentMethod()->getCustomFields();
-            $paymentMethodId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
-            switch ($paymentMethodId) {
+            switch (OrderTransactionHelper::getWorldlinePaymentMethodId($transaction->getOrderTransaction())) {
                 case self::IFRAME_PAYMENT_METHOD_ID:
                 case self::SAVED_CARD_PAYMENT_METHOD_ID:
                 {
