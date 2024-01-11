@@ -41,9 +41,9 @@ class OrderTransactionHelper
 
     /**
      * @param OrderTransactionEntity $transaction
-     * @return string|null
+     * @return mixed
      */
-    public static function getWorldlinePaymentMethodId(OrderTransactionEntity $transaction): ?string
+    public static function getWorldlinePaymentMethodId(OrderTransactionEntity $transaction): mixed
     {
         $customFields = $transaction->getPaymentMethod()->getCustomFields();
 
@@ -60,9 +60,9 @@ class OrderTransactionHelper
     /**
      * #35519 Special case for other language subshop have no custom field
      * @param OrderTransactionEntity $transaction
-     * @return mixed|null
+     * @return mixed
      */
-    private static function getCustomFieldFromTransaction(OrderTransactionEntity $transaction): ?string
+    private static function getCustomFieldFromTransaction(OrderTransactionEntity $transaction): mixed
     {
         $translated = $transaction->getPaymentMethod()->getTranslated();
         if (array_key_exists('customFields', $translated)) {
