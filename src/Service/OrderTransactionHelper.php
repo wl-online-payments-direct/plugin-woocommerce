@@ -7,7 +7,10 @@
 
 namespace MoptWorldline\Service;
 
+use Monolog\Level;
+use MoptWorldline\Bootstrap\Form;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionDefinition;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\StateMachine\Transition;
@@ -34,5 +37,49 @@ class OrderTransactionHelper
                 'stateId'
             ), $context
         );
+    }
+
+    /**
+     * @param OrderTransactionEntity $transaction
+     * @return mixed
+     */
+    public static function getWorldlinePaymentMethodId(OrderTransactionEntity $transaction): mixed
+    {
+        $customFields = $transaction->getPaymentMethod()->getCustomFields();
+
+        if (!is_array($customFields)
+            || !array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)
+            || empty($customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID])
+        ) {
+            return self::getCustomFieldFromTransaction($transaction);
+        }
+
+        return $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
+    }
+
+    /**
+     * #35519 Special case for other language subshop have no custom field
+     * @param OrderTransactionEntity $transaction
+     * @return mixed
+     */
+    private static function getCustomFieldFromTransaction(OrderTransactionEntity $transaction): mixed
+    {
+        $translated = $transaction->getPaymentMethod()->getTranslated();
+        if (array_key_exists('customFields', $translated)) {
+            $customFields = $translated['customFields'];
+        } else {
+            LogHelper::addLog(Level::Error, "Can't get payment method ID", $transaction->getPaymentMethod());
+            return null;
+        }
+
+        if (!is_array($customFields)
+            || !array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)
+            || empty($customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID])
+        ) {
+            LogHelper::addLog(Level::Error, "Can't get payment method ID", $transaction->getPaymentMethod());
+            return null;
+        }
+
+        return $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
     }
 }
