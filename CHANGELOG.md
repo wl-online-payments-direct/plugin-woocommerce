@@ -1,3 +1,6 @@
+# 2.1.3
+- Subshop wrong payment method redirect issue fix 
+
 # 2.1.2
 - Multilingual shop support
 
