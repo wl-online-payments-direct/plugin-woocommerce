@@ -26,14 +26,12 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\InputBag;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"storefront"}})
- */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class PaymentFinalizeController extends AbstractController
 {
     private RouterInterface $router;
@@ -64,14 +62,14 @@ class PaymentFinalizeController extends AbstractController
     }
 
     /**
-     * @Route(
-     *     "/worldline/payment/finalize-transaction",
-     *     name="worldline.payment.finalize.transaction",
-     *     methods={"GET"}
-     * )
      * @throws InvalidTransactionException
      * @throws CustomerCanceledAsyncPaymentException
      */
+    #[Route(
+        path: '/worldline/payment/finalize-transaction',
+        name: 'worldline.payment.finalize.transaction',
+        methods: ['GET']
+    )]
     public function finalizeTransaction(Request $request, SalesChannelContext $salesChannelContext): RedirectResponse
     {
         $hostedCheckoutId = $this->getHostedCheckoutId($request->query);

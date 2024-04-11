@@ -22,16 +22,14 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}})
- */
+#[Route(defaults: ['_routeScope' => ['api']])]
 class TransactionsControlController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
@@ -71,13 +69,11 @@ class TransactionsControlController extends AbstractController
         $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/status",
-     *     name="api.action.transactions.control.status",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/status',
+        name: 'api.action.transactions.control.status',
+        methods: ['POST']
+    )]
     public function status(Request $request, Context $context): JsonResponse
     {
         $success = false;
@@ -95,49 +91,41 @@ class TransactionsControlController extends AbstractController
         return $this->response($success, $message);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/capture",
-     *     name="api.action.transactions.control.capture",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/capture',
+        name: 'api.action.transactions.control.capture',
+        methods: ['POST']
+    )]
     public function capture(Request $request, Context $context): JsonResponse
     {
         return $this->processPayment($request, $context, 'capturePayment');
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/cancel",
-     *     name="api.action.transactions.control.cancel",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/cancel',
+        name: 'api.action.transactions.control.cancel',
+        methods: ['POST']
+    )]
     public function cancel(Request $request, Context $context): JsonResponse
     {
         return $this->processPayment($request, $context, 'cancelPayment');
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/refund",
-     *     name="api.action.transactions.control.refund",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/refund',
+        name: 'api.action.transactions.control.refund',
+        methods: ['POST']
+    )]
     public function refund(Request $request, Context $context): JsonResponse
     {
         return $this->processPayment($request, $context, 'refundPayment');
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/getConfig",
-     *     name="api.action.transactions.control.getConfig",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/getConfig',
+        name: 'api.action.transactions.control.getConfig',
+        methods: ['POST']
+    )]
     public function getConfig(Request $request, Context $context): JsonResponse
     {
         $orderId = $request->request->get('orderId');
@@ -170,13 +158,11 @@ class TransactionsControlController extends AbstractController
             ]);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/enableButtons",
-     *     name="api.action.transactions.control.enableButtons",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/enableButtons',
+        name: 'api.action.transactions.control.enableButtons',
+        methods: ['POST']
+    )]
     public function enableButtons(Request $request, Context $context): JsonResponse
     {
         try {
@@ -222,13 +208,11 @@ class TransactionsControlController extends AbstractController
             ]);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/getOneyPaymentOption",
-     *     name="api.action.transactions.control.getOneyPaymentOption",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/getOneyPaymentOption',
+        name: 'api.action.transactions.control.getOneyPaymentOption',
+        methods: ['POST']
+    )]
     public function getOneyPaymentOption(): JsonResponse
     {
         return new JsonResponse([
@@ -236,13 +220,11 @@ class TransactionsControlController extends AbstractController
         ]);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/setOneyPaymentOption",
-     *     name="api.action.transactions.control.setOneyPaymentOption",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/transactions-control/setOneyPaymentOption',
+        name: 'api.action.transactions.control.setOneyPaymentOption',
+        methods: ['POST']
+    )]
     public function setOneyPaymentOption(Request $request): JsonResponse
     {
         $oneyPaymentOption = $request->request->get('oneyPaymentOption');

@@ -14,16 +14,14 @@ use Shopware\Core\Content\Media\MediaService;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Controller\PaymentMethod\PaymentMethodController;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}})
- */
+#[Route(defaults: ['_routeScope' => ['api']])]
 class ApiTestController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
@@ -81,13 +79,11 @@ class ApiTestController extends AbstractController
         $this->fileSaver = $fileSaver;
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/api-test/test-connection",
-     *     name="api.action.test.connection",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/api-test/test-connection',
+        name: 'api.action.test.connection',
+        methods: ['POST']
+    )]
     public function testConnection(Request $request, Context $context): JsonResponse
     {
         $configFormData = $request->request->all('сonfigData');
@@ -123,13 +119,11 @@ class ApiTestController extends AbstractController
         return $this->response($success, $message, $paymentMethods);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/api-test/savemethod",
-     *     name="api.action.test.savemethod",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/api-test/savemethod',
+        name: 'api.action.test.savemethod',
+        methods: ['POST']
+    )]
     public function saveMethod(Request $request, Context $context): JsonResponse
     {
         $paymentMethodController = $this->getPaymentMethodController();
