@@ -1,3 +1,6 @@
+# 2.1.4
+- Git-based package update
+
 # 2.1.3
 - Subshop wrong payment method redirect issue fix 
 
