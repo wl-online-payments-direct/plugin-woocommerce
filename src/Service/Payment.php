@@ -7,7 +7,9 @@
 
 namespace MoptWorldline\Service;
 
+use Monolog\Level;
 use MoptWorldline\MoptWorldline;
+use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use Shopware\Core\Checkout\Payment\Exception\CustomerCanceledAsyncPaymentException;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
@@ -18,10 +20,10 @@ use Shopware\Core\Checkout\Payment\Exception\AsyncPaymentFinalizeException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\Validation\DataBag\RequestDataBag;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Monolog\Logger;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use MoptWorldline\Bootstrap\Form;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -74,9 +76,9 @@ class Payment implements AsynchronousPaymentHandlerInterface
     private EntityRepository $orderRepository;
     private EntityRepository $customerRepository;
     private TranslatorInterface $translator;
-    private Logger $logger;
     private OrderTransactionStateHandler $transactionStateHandler;
     private Session $session;
+    private StateMachineRegistry $stateMachineRegistry;
 
     public const STATUS_PAYMENT_CREATED = [0];                  //open
     public const STATUS_PAYMENT_CANCELLED = [1, 6, 61, 62, 64, 75]; //cancelled
@@ -90,6 +92,29 @@ class Payment implements AsynchronousPaymentHandlerInterface
     public const STATUS_CAPTURED = [9];                         //paid
     public const STATUS_REFUND_REQUESTED = [81, 82];            //in progress
     public const STATUS_REFUNDED = [7, 8, 85];                  //refunded
+
+    public const POSSIBLE_STATUSES = [
+        OrderTransactionStates::STATE_OPEN => [
+            OrderTransactionStates::STATE_CANCELLED,
+            OrderTransactionStates::STATE_PARTIALLY_PAID,
+            OrderTransactionStates::STATE_PAID,
+        ],
+        OrderTransactionStates::STATE_PARTIALLY_PAID => [
+            OrderTransactionStates::STATE_PAID,
+            OrderTransactionStates::STATE_PARTIALLY_REFUNDED,
+            OrderTransactionStates::STATE_REFUNDED,
+        ],
+        OrderTransactionStates::STATE_PARTIALLY_REFUNDED => [
+            OrderTransactionStates::STATE_REFUNDED,
+        ],
+        OrderTransactionStates::STATE_PAID => [
+            OrderTransactionStates::STATE_PARTIALLY_REFUNDED,
+            OrderTransactionStates::STATE_REFUNDED,
+        ],
+        OrderTransactionStates::STATE_CANCELLED => [
+            OrderTransactionStates::STATE_OPEN,
+        ],
+    ];
 
     public const STATUS_DO_NOT_LOCK = [63]; //After fix amount customer can repeat operation
 
@@ -145,24 +170,24 @@ class Payment implements AsynchronousPaymentHandlerInterface
      * @param EntityRepository $orderRepository
      * @param EntityRepository $customerRepository
      * @param TranslatorInterface $translator
-     * @param Logger $logger
      * @param OrderTransactionStateHandler $transactionStateHandler
+     * @param StateMachineRegistry $stateMachineRegistry
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
         EntityRepository             $orderRepository,
         EntityRepository             $customerRepository,
         TranslatorInterface          $translator,
-        Logger                       $logger,
-        OrderTransactionStateHandler $transactionStateHandler
+        OrderTransactionStateHandler $transactionStateHandler,
+        StateMachineRegistry         $stateMachineRegistry
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->translator = $translator;
-        $this->logger = $logger;
         $this->transactionStateHandler = $transactionStateHandler;
+        $this->stateMachineRegistry = $stateMachineRegistry;
         $this->session = new Session();
     }
 
@@ -177,9 +202,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
     {
         // Method that sends the return URL to the external gateway and gets a redirect URL back
         try {
-            $customFields = $transaction->getOrderTransaction()->getPaymentMethod()->getCustomFields();
-            $paymentMethodId = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
-            switch ($paymentMethodId) {
+            switch (OrderTransactionHelper::getWorldlinePaymentMethodId($transaction->getOrderTransaction())) {
                 case self::IFRAME_PAYMENT_METHOD_ID:
                 case self::SAVED_CARD_PAYMENT_METHOD_ID:
                 {
@@ -260,7 +283,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
             //We need to make an additional GET call to get current status
             $handler = $this->getHandler($orderId, $salesChannelContext->getContext());
             try {
-                $status = $handler->updatePaymentStatus($hostedCheckoutId);
+                $status = $handler->updatePaymentStatus($hostedCheckoutId, true);
             } catch (\Exception $e) {
                 $this->finalizeError($transactionId, $e->getMessage());
             }
@@ -314,17 +337,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $handler = $this->getHandler($orderId, $context);
 
         try {
-            $paymentMethodCustomFields = $transaction->getOrderTransaction()->getPaymentMethod()->getCustomFields();
-            $worldlinePaymentMethodId = 0;
-            if (is_array($paymentMethodCustomFields)
-                && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $paymentMethodCustomFields)) {
-                $worldlinePaymentMethodId = $paymentMethodCustomFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
-            }
-
-            if (in_array($worldlinePaymentMethodId, self::FAKE_METHODS_LIST)) {
-                $worldlinePaymentMethodId = 0;
-            }
-
+            $worldlinePaymentMethodId = OrderTransactionHelper::getWorldlinePaymentMethodId($transaction->getOrderTransaction());
             $hostedCheckoutResponse = $handler->createPayment((int)$worldlinePaymentMethodId);
         } catch (\Exception $e) {
             throw new AsyncPaymentProcessException(
@@ -392,13 +405,13 @@ class Payment implements AsynchronousPaymentHandlerInterface
 
         return new PaymentHandler(
             $this->systemConfigService,
-            $this->logger,
             $order,
             $this->translator,
             $this->orderRepository,
             $this->customerRepository,
             $context,
-            $this->transactionStateHandler
+            $this->transactionStateHandler,
+            $this->stateMachineRegistry
         );
     }
 
@@ -442,5 +455,29 @@ class Payment implements AsynchronousPaymentHandlerInterface
             Payment::CAPTURE_AMOUNT => $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT] / 100,
             Payment::REFUND_AMOUNT => $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_REFUND_AMOUNT] / 100,
         ];
+    }
+
+
+    /**
+     * @param string $currentStatus
+     * @param string $goalStatus
+     * @return bool
+     */
+    public static function operationImpossible(string $currentStatus, string $goalStatus): bool
+    {
+        if ($currentStatus === $goalStatus) {
+            return true;
+        }
+
+        if (!array_key_exists($currentStatus, Payment::POSSIBLE_STATUSES)) {
+            return true;
+        }
+
+        if (!in_array($goalStatus, Payment::POSSIBLE_STATUSES[$currentStatus]))
+        {
+            return true;
+        }
+
+        return false;
     }
 }

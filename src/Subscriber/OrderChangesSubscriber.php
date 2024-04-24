@@ -1,23 +1,27 @@
 <?php declare(strict_types=1);
 
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Subscriber
+ */
+
 namespace MoptWorldline\Subscriber;
 
-use Monolog\Logger;
+use Monolog\Level;
 use MoptWorldline\Bootstrap\Form;
-use MoptWorldline\Service\Helper;
+use MoptWorldline\Service\LogHelper;
+use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
-use Psr\Log\LogLevel;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\OrderEntity;
-use Shopware\Core\Checkout\Order\OrderEvents;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Event\EntityWrittenEvent;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Shopware\Storefront\Event\RouteRequest\HandlePaymentMethodRouteRequestEvent;
-use Shopware\Storefront\Event\StorefrontRenderEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\HttpFoundation\RequestStack;
@@ -29,38 +33,38 @@ class OrderChangesSubscriber implements EventSubscriberInterface
     private SystemConfigService $systemConfigService;
     private EntityRepository $orderRepository;
     private EntityRepository $customerRepository;
-    private Logger $logger;
     private RequestStack $requestStack;
     private TranslatorInterface $translator;
     private OrderTransactionStateHandler $transactionStateHandler;
     private Session $session;
+    private StateMachineRegistry $stateMachineRegistry;
 
     /**
      * @param SystemConfigService $systemConfigService
      * @param EntityRepository $orderRepository
      * @param EntityRepository $customerRepository
-     * @param Logger $logger
      * @param RequestStack $requestStack
      * @param TranslatorInterface $translator
      * @param OrderTransactionStateHandler $transactionStateHandler
+     * @param StateMachineRegistry $stateMachineRegistry
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
         EntityRepository             $orderRepository,
         EntityRepository             $customerRepository,
-        Logger                       $logger,
         RequestStack                 $requestStack,
         TranslatorInterface          $translator,
-        OrderTransactionStateHandler $transactionStateHandler
+        OrderTransactionStateHandler $transactionStateHandler,
+        StateMachineRegistry         $stateMachineRegistry
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
-        $this->logger = $logger;
         $this->requestStack = $requestStack;
         $this->translator = $translator;
         $this->transactionStateHandler = $transactionStateHandler;
+        $this->stateMachineRegistry = $stateMachineRegistry;
         $this->session = new Session();
     }
 
@@ -163,17 +167,17 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         }
         $hostedCheckoutId = $customFields['payment_transaction_id'];
 
-        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
+        $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
         $paymentHandler = new PaymentHandler(
             $this->systemConfigService,
-            $this->logger,
             $order,
             $this->translator,
             $this->orderRepository,
             $this->customerRepository,
             $context,
-            $this->transactionStateHandler
+            $this->transactionStateHandler,
+            $this->stateMachineRegistry
         );
         $customFields = $order->getCustomFields();
         switch ($state) {
@@ -215,7 +219,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         foreach ($orders->getElements() as $order) {
             return $order;
         }
-        $this->logger->log(LogLevel::ERROR, "There is no order with id = $orderId");
+        LogHelper::addLog(Level::Error, "There is no order with id = $orderId");
         return false;
     }
 }

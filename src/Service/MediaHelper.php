@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Mediaopt GmbH
@@ -7,7 +7,7 @@
 
 namespace MoptWorldline\Service;
 
-use Monolog\Logger;
+use Monolog\Level;
 use OnlinePayments\Sdk\Domain\PaymentProduct;
 use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Content\Media\File\MediaFile;
@@ -23,7 +23,6 @@ class MediaHelper
     const MEDIA_FOLDER = 'payment_method';
     const FILE_PREFIX = 'Worldline_logo ';
 
-    private Logger $logger;
     private EntityRepository $mediaRepository;
     private MediaService $mediaService;
     private FileSaver $fileSaver;
@@ -33,21 +32,18 @@ class MediaHelper
      * @param EntityRepository $mediaRepository
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
-     * @param Logger $logger
      * @param EntityRepository $paymentRepository
      */
     public function __construct(
         EntityRepository $mediaRepository,
         MediaService     $mediaService,
         FileSaver        $fileSaver,
-        Logger           $logger,
         EntityRepository $paymentRepository
     )
     {
         $this->mediaRepository = $mediaRepository;
         $this->mediaService = $mediaService;
         $this->fileSaver = $fileSaver;
-        $this->logger = $logger;
         $this->paymentRepository = $paymentRepository;
     }
 
@@ -111,7 +107,7 @@ class MediaHelper
                 $context
             );
         } catch (\Exception $e) {
-            $this->logger->log(Logger::ERROR, $e->getMessage());
+            LogHelper::addLog(Level::Error, $e->getMessage());
             $this->mediaRepository->delete([['id' => $mediaId]], $context);
             $mediaId = null;
         }
@@ -127,7 +123,14 @@ class MediaHelper
      */
     public function getSystemMethodLogo(array $dbMethod, array $method, Context $context): string
     {
-        $mediaId = $dbMethod['mediaId'] ?: $this->createSystemLogo($method['id'], $dbMethod['internalId'], $context);
+        if (array_key_exists('mediaId', $dbMethod)) {
+            $mediaId = $dbMethod['mediaId'] ?: $this->createSystemLogo($method['id'], $dbMethod['internalId'], $context);
+        } else {
+            return '';
+        }
+        if (is_null($mediaId)) {
+            return '';
+        }
         return MediaHelper::loadLogo($mediaId, $context) ?: '';
     }
 
@@ -188,7 +191,7 @@ class MediaHelper
             $this->paymentRepository->update([$paymentMethod], $context);
         }
 
-        if ($mediaId === null) {
+        if (empty($mediaId)) {
             return $product->getDisplayHints()->getLogo();
         }
         return $this->loadLogo($mediaId, $context);

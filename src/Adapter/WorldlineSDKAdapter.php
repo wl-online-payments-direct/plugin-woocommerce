@@ -1,10 +1,15 @@
-<?php
+<?php declare(strict_types=1);
+
+/**
+ * @author Mediaopt GmbH
+ * @package MoptWorldline\Adapter
+ */
 
 namespace MoptWorldline\Adapter;
 
-use Interop\Queue\Exception\Exception;
-use Monolog\Logger;
+use Monolog\Level;
 use MoptWorldline\Service\DiscountHelper;
+use MoptWorldline\Service\LogHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
@@ -75,6 +80,7 @@ class WorldlineSDKAdapter
     /** @var string */
     const INTEGRATOR_NAME = 'Mediaopt';
     const SHIPPING_LABEL = 'Shipping';
+    const REQUEST_POSTFIX = '_0';
 
     /** @var MerchantClient */
     protected $merchantClient;
@@ -82,21 +88,16 @@ class WorldlineSDKAdapter
     /** @var SystemConfigService */
     private $systemConfigService;
 
-    /** @var Logger */
-    private $logger;
-
     /** @var string|null */
     private $salesChannelId;
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param Logger $logger
      * @param string|null $salesChannelId
      */
-    public function __construct(SystemConfigService $systemConfigService, Logger $logger, ?string $salesChannelId = null)
+    public function __construct(SystemConfigService $systemConfigService, ?string $salesChannelId = null)
     {
         $this->systemConfigService = $systemConfigService;
-        $this->logger = $logger;
         $this->salesChannelId = $salesChannelId;
     }
 
@@ -156,7 +157,7 @@ class WorldlineSDKAdapter
     public function getPaymentDetails(string $hostedCheckoutId): PaymentDetailsResponse
     {
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_0';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
         return $merchantClient->payments()->getPaymentDetails($hostedCheckoutId);
     }
 
@@ -167,7 +168,7 @@ class WorldlineSDKAdapter
      * @param OrderEntity|null $orderEntity
      * @param string $token
      * @return CreateHostedCheckoutResponse
-     * @throws Exception
+     * @throws \Exception
      */
     public function createPayment(
         int          $amountTotal,
@@ -192,8 +193,7 @@ class WorldlineSDKAdapter
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
-        $captureConfig = $this->getPluginConfig(Form::AUTO_CAPTURE);
-        if ($captureConfig === Form::AUTO_CAPTURE_IMMEDIATELY) {
+        if ($this->isDirectSales()) {
             $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
         }
 
@@ -244,10 +244,10 @@ class WorldlineSDKAdapter
      * @param Order $order
      * @param CreateHostedCheckoutRequest $hostedCheckoutRequest
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     private function setCustomProperties(
-        string                         $worldlinePaymentProductId,
+        int                            $worldlinePaymentProductId,
         string                         $currencyISO,
         ?OrderEntity                   $orderEntity,
         CardPaymentMethodSpecificInput &$cardPaymentMethodSpecificInput,
@@ -265,11 +265,17 @@ class WorldlineSDKAdapter
             }
             case PaymentProducts::PAYMENT_PRODUCT_KLARNA_PAY_NOW:
             case PaymentProducts::PAYMENT_PRODUCT_KLARNA_PAY_LATER:
+            case PaymentProducts::PAYMENT_PRODUCT_TWINTWL:
             {
                 $this->addCartToRequest(
                     $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput, $order
                 );
                 $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
+                if ($this->isDirectSales()) {
+                    $redirectPaymentMethodSpecificInput->setRequiresApproval(false);
+                } else {
+                    $redirectPaymentMethodSpecificInput->setRequiresApproval(true);
+                }
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 break;
             }
@@ -380,8 +386,7 @@ class WorldlineSDKAdapter
 
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
         $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::FINAL_AUTHORIZATION);
-        $captureConfig = $this->getPluginConfig(Form::AUTO_CAPTURE);
-        if ($captureConfig === Form::AUTO_CAPTURE_IMMEDIATELY) {
+        if ($this->isDirectSales()) {
             $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
         }
         $cardPaymentMethodSpecificInput->setToken($token);
@@ -432,7 +437,7 @@ class WorldlineSDKAdapter
     public function capturePayment(string $hostedCheckoutId, int $amount, bool $isFinal): CaptureResponse
     {
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_0';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
 
         $capturePaymentRequest = new CapturePaymentRequest();
         $capturePaymentRequest->setAmount($amount);
@@ -460,7 +465,7 @@ class WorldlineSDKAdapter
         $cancelRequest->setIsFinal($isFinal);
 
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_1';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
         return $merchantClient->payments()->cancelPayment($hostedCheckoutId, $cancelRequest);
     }
 
@@ -475,7 +480,7 @@ class WorldlineSDKAdapter
     public function refundPayment(string $hostedCheckoutId, int $amount, string $currency, string $orderNumber): RefundResponse
     {
         $merchantClient = $this->getMerchantClient();
-        $hostedCheckoutId = $hostedCheckoutId . '_1';
+        $hostedCheckoutId = $hostedCheckoutId . self::REQUEST_POSTFIX;
 
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setAmount($amount);
@@ -633,59 +638,13 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param string $message
-     * @param int $logLevel
-     * @param mixed $additionalData
-     * @return void
-     */
-    public function log(string $message, int $logLevel = 0, $additionalData = '')
-    {
-        if ($logLevel == 0) {
-            $logLevel = $this->getLogLevel();
-        }
-
-        $this->logger->addRecord(
-            $logLevel,
-            $message,
-            [
-                'source' => 'Worldline',
-                'additionalData' => json_encode($additionalData),
-            ]
-        );
-    }
-
-    /**
-     * get monolog log-level by module configuration
-     * @return int
-     */
-    protected function getLogLevel()
-    {
-        $logLevel = 'INFO';
-
-        if ($overrideLogLevel = $this->getPluginConfig(Form::LOG_LEVEL)) {
-            $logLevel = $overrideLogLevel;
-        }
-
-        //set levels
-        switch ($logLevel) {
-            case 'INFO':
-                return Logger::INFO;
-            case 'ERROR':
-                return Logger::ERROR;
-            case 'DEBUG':
-            default:
-                return Logger::DEBUG;
-        }
-    }
-
-    /**
      * @param string $currencyISO
      * @param OrderEntity $orderEntity
      * @param CardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput
      * @param HostedCheckoutSpecificInput $hostedCheckoutSpecificInput
      * @param Order $order
      * @return void
-     * @throws Exception
+     * @throws \Exception
      */
     private function addCartToRequest(
         string                         $currencyISO,
@@ -736,7 +695,7 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param bool $isNetPrice
      * @return array
-     * @throws Exception
+     * @throws \Exception
      */
     private function createRequestLineItems(
         OrderLineItemCollection $lineItemCollection,
@@ -788,8 +747,8 @@ class WorldlineSDKAdapter
 
         if ($discount > 0) {
             if ($grandPrice <= ($discount + $grandCount)) {
-                $this->log('Discount over limit.', Logger::ERROR);
-                throw new Exception(
+                LogHelper::addLog(Level::Error, 'Discount over limit.');
+                throw new \Exception(
                     'Discount should be less than ' . ($grandPrice - $grandCount) / 100
                 );
             }
@@ -879,6 +838,14 @@ class WorldlineSDKAdapter
         $customer->setPersonalInformation($personalInformation);
         $customer->setBillingAddress($this->createAddress($billingAddress));
         return $customer;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDirectSales(): bool
+    {
+        return $this->getPluginConfig(Form::AUTO_CAPTURE) === Form::AUTO_CAPTURE_IMMEDIATELY;
     }
 
     /**

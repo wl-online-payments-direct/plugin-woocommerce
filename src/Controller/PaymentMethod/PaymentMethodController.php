@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Mediaopt GmbH
@@ -7,7 +7,6 @@
 
 namespace MoptWorldline\Controller\PaymentMethod;
 
-use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Service\MediaHelper;
 use MoptWorldline\Service\Payment;
@@ -26,7 +25,6 @@ use Shopware\Core\Content\Media\MediaService;
 class PaymentMethodController
 {
     private SystemConfigService $systemConfigService;
-    private Logger $logger;
     private EntityRepository $paymentMethodRepository;
     private EntityRepository $salesChannelPaymentRepository;
     private PluginIdProvider $pluginIdProvider;
@@ -37,7 +35,6 @@ class PaymentMethodController
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param Logger $logger
      * @param EntityRepository $paymentMethodRepository
      * @param EntityRepository $salesChannelPaymentRepository
      * @param PluginIdProvider $pluginIdProvider
@@ -48,7 +45,6 @@ class PaymentMethodController
      */
     public function __construct(
         SystemConfigService $systemConfigService,
-        Logger              $logger,
         EntityRepository    $paymentMethodRepository,
         EntityRepository    $salesChannelPaymentRepository,
         PluginIdProvider    $pluginIdProvider,
@@ -59,7 +55,6 @@ class PaymentMethodController
     )
     {
         $this->systemConfigService = $systemConfigService;
-        $this->logger = $logger;
         $this->paymentMethodRepository = $paymentMethodRepository;
         $this->salesChannelPaymentRepository = $salesChannelPaymentRepository;
         $this->pluginIdProvider = $pluginIdProvider;
@@ -126,7 +121,7 @@ class PaymentMethodController
     ): array
     {
         $mediaHelper = new MediaHelper(
-            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger, $this->paymentMethodRepository
+            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->paymentMethodRepository
         );
 
         $dbMethods = PaymentMethodHelper::getPaymentMethods($salesChannelId);
@@ -150,13 +145,13 @@ class PaymentMethodController
             ];
         }
 
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
         $adapter->getMerchantClient($credentials);
 
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);
         $methods = $paymentProducts->getPaymentProducts();
         foreach ($methods as $product) {
-            $key = (string)$product->getId();
+            $key = $product->getId();
             if (array_key_exists($key, $dbMethods)) {
                 $dbMethod = $dbMethods[$key];
             } else {
@@ -225,9 +220,9 @@ class PaymentMethodController
         if (empty($methods)) {
             return;
         }
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
         $mediaHelper = new MediaHelper(
-            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->logger, $this->paymentMethodRepository
+            $this->mediaRepository, $this->mediaService, $this->fileSaver, $this->paymentMethodRepository
         );
         $adapter->getMerchantClient();
         $paymentProducts = $adapter->getPaymentProducts($countryIso3, $currencyIsoCode);

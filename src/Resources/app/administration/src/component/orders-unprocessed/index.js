@@ -62,7 +62,7 @@ Component.register('mo-orders-unprocessed', {
         },
 
         maxAmountToProcess() {
-            return this.paymentStatus.reduce((accumulator, currentValue) => accumulator + (currentValue.unprocessed * currentValue.unitPrice), 0);
+            return this.maxCapture;
         },
 
         orderLineItems() {
@@ -179,14 +179,14 @@ Component.register('mo-orders-unprocessed', {
             this.transactionsControl.cancel(payload)
                 .then((res) => {
                     if (res.success) {
-                        this.transactionSuccess.refund = true;
+                        this.transactionSuccess.cancel = true;
                         setTimeout(() => {
                             location.reload();
                         }, 1000);
                     } else {
                         this.createNotificationError({
-                            title: this.$tc('worldline.refund-payment-button.title'),
-                            message: this.$tc('worldline.refund-payment-button.error') + res.message
+                            title: this.$tc('worldline.cancel-payment-button.title'),
+                            message: this.$tc('worldline.cancel-payment-button.error') + res.message
                         });
                     }
                 })

@@ -1,3 +1,35 @@
+# 2.1.4
+- Git-based package update
+
+# 2.1.3
+- Subshop wrong payment method redirect issue fix 
+
+# 2.1.2
+- Multilingual shop support
+
+# 2.1.1
+- Logger update
+
+# 2.1.0
+- Partial statuses
+
+# 2.0.6
+- Rounding issue fix
+- CSS issue fix
+
+# 2.0.5
+- Refund payment fix
+- Payment "Paid" status update for DirectSales in Partial operations mode
+
+# 2.0.4
+- Twint payment method
+
+# 2.0.3
+- Partial operations config
+
+# 2.0.2
+- Missed media fix
+
 # 2.0.1
 - Plugin config payment methods interface update
 

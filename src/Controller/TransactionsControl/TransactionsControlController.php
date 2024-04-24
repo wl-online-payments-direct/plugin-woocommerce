@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types=1);
 
 /**
  * @author Mediaopt GmbH
@@ -7,10 +7,10 @@
 
 namespace MoptWorldline\Controller\TransactionsControl;
 
-use Monolog\Logger;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\AdminTranslate;
+use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentHandler;
 use OnlinePayments\Sdk\ValidationException;
@@ -20,6 +20,7 @@ use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
+use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -37,36 +38,37 @@ class TransactionsControlController extends AbstractController
     private EntityRepository $orderRepository;
     private EntityRepository $customerRepository;
     private OrderTransactionStateHandler $transactionStateHandler;
-    private Logger $logger;
     private TranslatorInterface $translator;
     private RequestStack $requestStack;
+    private StateMachineRegistry $stateMachineRegistry;
 
     /**
      * @param SystemConfigService $systemConfigService
      * @param EntityRepository $orderRepository
      * @param EntityRepository $customerRepository
      * @param OrderTransactionStateHandler $transactionStateHandler
-     * @param Logger $logger
      * @param TranslatorInterface $translator
      * @param RequestStack $requestStack
+     * @param StateMachineRegistry $stateMachineRegistry
      */
     public function __construct(
         SystemConfigService          $systemConfigService,
         EntityRepository             $orderRepository,
         EntityRepository             $customerRepository,
         OrderTransactionStateHandler $transactionStateHandler,
-        Logger                       $logger,
         TranslatorInterface          $translator,
-        RequestStack                 $requestStack
+        RequestStack                 $requestStack,
+        StateMachineRegistry $stateMachineRegistry
     )
     {
         $this->systemConfigService = $systemConfigService;
         $this->orderRepository = $orderRepository;
         $this->customerRepository = $customerRepository;
         $this->transactionStateHandler = $transactionStateHandler;
-        $this->logger = $logger;
         $this->translator = $translator;
         $this->requestStack = $requestStack;
+
+        $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
     /**
@@ -155,7 +157,7 @@ class TransactionsControlController extends AbstractController
 
         $salesChannelId = $orderEntity->getSalesChannelId();
 
-        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $this->logger, $salesChannelId);
+        $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
         $returnUrl = $adapter->getReturnUrl();
         $apiKey = $orderEntity->getSalesChannel()->getAccessKey();
 
@@ -179,7 +181,7 @@ class TransactionsControlController extends AbstractController
     {
         try {
             $hostedCheckoutId = $request->request->get('transactionId');
-            $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
+            $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
             $customFields = $order->getCustomFields();
             $log = [];
             if (array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_LOG, $customFields)) {
@@ -203,6 +205,9 @@ class TransactionsControlController extends AbstractController
                 $lockButtons = $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_IS_LOCKED];
             }
             $allowedAmounts = Payment::getAllowed($customFields);
+
+            $adapter = new WorldlineSDKAdapter($this->systemConfigService, $order->getSalesChannelId());
+            $partialOperationsEnabled = $adapter->getPluginConfig(Form::PARTIAL_OPERATIONS_ENABLED);
         } catch (\Exception $e) {
             return $this->response(false, $e->getMessage());
         }
@@ -213,6 +218,7 @@ class TransactionsControlController extends AbstractController
                 'log' => $log,
                 'worldlinePaymentStatus' => $itemsStatus,
                 'worldlineLockButtons' => $lockButtons,
+                'partialOperationsEnabled' => $partialOperationsEnabled,
             ]);
     }
 
@@ -312,17 +318,17 @@ class TransactionsControlController extends AbstractController
      */
     private function getHandler(string $hostedCheckoutId, Context $context): ?PaymentHandler
     {
-        $order = PaymentHandler::getOrder($context, $this->orderRepository, $hostedCheckoutId);
+        $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
         return new PaymentHandler(
             $this->systemConfigService,
-            $this->logger,
             $order,
             $this->translator,
             $this->orderRepository,
             $this->customerRepository,
             $context,
-            $this->transactionStateHandler
+            $this->transactionStateHandler,
+            $this->stateMachineRegistry
         );
     }
 }
