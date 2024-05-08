@@ -8,6 +8,7 @@
 namespace MoptWorldline\Adapter;
 
 use Monolog\Level;
+use MoptWorldline\Controller\Payment\ReturnUrlController;
 use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\LogHelper;
 use MoptWorldline\Service\Payment;
@@ -189,7 +190,8 @@ class WorldlineSDKAdapter
         $order->setAmountOfMoney($amountOfMoney);
 
         $hostedCheckoutSpecificInput = new HostedCheckoutSpecificInput();
-        $returnUrl = $this->getReturnUrl();
+        $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
+        $returnUrl = $ReturnUrlController->getReturnUrl($this, $this->isLiveMode());
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
@@ -376,7 +378,8 @@ class WorldlineSDKAdapter
         $order->setAmountOfMoney($amountOfMoney);
         $order->setCustomer($customer);
 
-        $returnUrl = $this->getReturnUrl();
+        $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
+        $returnUrl = $ReturnUrlController->getReturnUrl($this, $this->isLiveMode());
         $redirectionData = new RedirectionData();
         $redirectionData->setReturnUrl($returnUrl);
 
@@ -607,17 +610,6 @@ class WorldlineSDKAdapter
         $webhookKey = $this->getPluginConfig(Form::WEBHOOK_KEY_FIELD);
         $webhookSecret = $this->getPluginConfig(Form::WEBHOOK_SECRET_FIELD);
         return [$webhookKey => $webhookSecret];
-    }
-
-    /**
-     * @return string
-     */
-    public function getReturnUrl(): string
-    {
-        if ($this->isLiveMode()) {
-            return $this->getPluginConfig(Form::LIVE_RETURN_URL_FIELD);
-        }
-        return $this->getPluginConfig(Form::RETURN_URL_FIELD);
     }
 
     /**

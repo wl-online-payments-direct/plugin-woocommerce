@@ -20,7 +20,7 @@ Component.register('config-tabs', {
                 'sw-system-config--field-mopt-worldline-config-webhook-key',
                 'sw-system-config--field-mopt-worldline-config-webhook-secret',
                 'sw-system-config--field-mopt-worldline-config-sandbox-endpoint',
-                'sw-system-config--field-mopt-worldline-config-return-url',
+                'sw-system-config--field-mopt-worldline-config-main-return-server-url',
                 'sw-system-config--field-mopt-worldline-config-sandbox-api-test'
             ],
             liveClasses: [
@@ -30,7 +30,7 @@ Component.register('config-tabs', {
                 'sw-system-config--field-mopt-worldline-config-live-webhook-key',
                 'sw-system-config--field-mopt-worldline-config-live-webhook-secret',
                 'sw-system-config--field-mopt-worldline-config-live-endpoint',
-                'sw-system-config--field-mopt-worldline-config-live-return-url',
+                'sw-system-config--field-mopt-worldline-config-live-main-return-server-url',
                 'sw-system-config--field-mopt-worldline-config-live-api-test'
             ],
         };
