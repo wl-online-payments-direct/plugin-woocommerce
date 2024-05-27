@@ -10,7 +10,7 @@ namespace MoptWorldline\Controller\Payment;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\JsonResponse;
@@ -18,9 +18,7 @@ use Exception;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 
-/**
- * @Route(defaults={"_routeScope"={"storefront"}})
- */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class ReturnUrlController extends AbstractController
 {
     public SystemConfigService $systemConfigService;
@@ -45,11 +43,16 @@ class ReturnUrlController extends AbstractController
     }
 
     /**
-     * @Route("/worldline_serverUrl", name="worldline.serverUrl", defaults={"XmlHttpRequest"=true}, methods={"GET"})
      * @param Request $request
      * @return JsonResponse
      * @throws Exception
      */
+    #[Route(
+        path: '/worldline_serverUrl',
+        name: 'worldline.serverUrl',
+        defaults: ['XmlHttpRequest' => true],
+        methods: ['GET'],
+    )]
     public function saveServerUrl(Request $request): JsonResponse
     {
         $serverUrl = $request->get('serverUrl') ?: null;

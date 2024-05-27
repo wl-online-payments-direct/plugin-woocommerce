@@ -49,8 +49,8 @@ class IframeController extends AbstractController
     #[Route(
         path: '/worldline_iframe',
         name: 'worldline.iframe',
+        defaults: ['XmlHttpRequest' => true],
         methods: ['GET'],
-        defaults: ['XmlHttpRequest' => true]
     )]
     public function showIframe(Request $request): JsonResponse
     {
@@ -72,8 +72,8 @@ class IframeController extends AbstractController
     #[Route(
         path: '/worldline_cardToken',
         name: 'worldline.cardToken',
+        defaults: ['XmlHttpRequest' => true],
         methods: ['GET'],
-        defaults: ['XmlHttpRequest' => true]
     )]
     public function saveCardToken(Request $request): JsonResponse
     {
@@ -90,8 +90,8 @@ class IframeController extends AbstractController
     #[Route(
         path: '/worldline_accountCardToken',
         name: 'worldline.accountCardToken',
+        defaults: ['XmlHttpRequest' => true],
         methods: ['GET'],
-        defaults: ['XmlHttpRequest' => true]
     )]
     public function saveAccountCardToken(Request $request): JsonResponse
     {
