@@ -19,6 +19,7 @@ export default class WorldlineIframePlugin extends Plugin {
             });
 
             this.moptWorldlineSalesChannel = document.getElementById("moptWorldlineSalesChannelId");
+            this._client.get('/worldline_serverUrl?serverUrl='+document.URL);
             var showIframe = document.getElementById("moptWorldlineShowIframe");
             if (showIframe !== null && showIframe.value) {
                 if(this._isRedirectToken() === '1') {

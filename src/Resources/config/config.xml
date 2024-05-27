@@ -31,8 +31,8 @@
             <label>Sandbox endpoint</label>
         </input-field>
         <input-field>
-            <name>returnUrl</name>
-            <label>Sandbox return URL</label>
+            <name>mainReturnServerUrl</name>
+            <label>Sandbox main return URL</label>
         </input-field>
         <component name="api-test-button">
             <name>sandboxApiTest</name>
@@ -62,8 +62,8 @@
             <label>Live endpoint</label>
         </input-field>
         <input-field>
-            <name>liveReturnUrl</name>
-            <label>Live return URL</label>
+            <name>liveMainReturnServerUrl</name>
+            <label>Live main return URL</label>
         </input-field>
         <component name="api-test-button">
             <name>liveApiTest</name>

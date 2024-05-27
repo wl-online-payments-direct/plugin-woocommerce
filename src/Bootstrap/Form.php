@@ -19,7 +19,7 @@ class Form
     const IS_LIVE_MODE_FIELD = 'MoptWorldline.config.isLiveMode';
     const LIVE_ENDPOINT_FIELD = 'MoptWorldline.config.liveEndpoint';
     const SANDBOX_ENDPOINT_FIELD = 'MoptWorldline.config.sandboxEndpoint';
-    const RETURN_URL_FIELD = 'MoptWorldline.config.returnUrl';
+    const MAIN_RETURN_SERVER_FIELD = 'MoptWorldline.config.mainReturnServerUrl';
     const MERCHANT_ID_FIELD  = 'MoptWorldline.config.merchantId';
     const API_KEY_FIELD  = 'MoptWorldline.config.apiKey';
     const API_SECRET_FIELD = 'MoptWorldline.config.apiSecret';
@@ -30,7 +30,7 @@ class Form
     const LIVE_API_SECRET_FIELD = 'MoptWorldline.config.liveApiSecret';
     const LIVE_WEBHOOK_KEY_FIELD  = 'MoptWorldline.config.liveWebhookKey';
     const LIVE_WEBHOOK_SECRET_FIELD = 'MoptWorldline.config.liveWebhookSecret';
-    const LIVE_RETURN_URL_FIELD = 'MoptWorldline.config.liveReturnUrl';
+    const LIVE_MAIN_RETURN_SERVER_FIELD = 'MoptWorldline.config.liveMainReturnServerUrl';
     const LIVE_API_TEST_BUTTON = 'MoptWorldline.config.liveApiTest';
     const LOG_LEVEL = 'MoptWorldline.config.logLevel';
     const IFRAME_TEMPLATE_NAME = 'MoptWorldline.config.iframeTemplateName';
@@ -90,4 +90,5 @@ class Form
     /** @var string Field name for the plugin session key */
     const SESSION_OPERATIONS_LOCK = 'order_locked';
     const SESSION_IFRAME_DATA = 'worldline_iframe_data';
+    const SESSION_SERVER_URL = 'worldline_server_url';
 }

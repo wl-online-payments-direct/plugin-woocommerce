@@ -4,11 +4,11 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="../../Controller/Api/ApiTestController.php" type="attribute"/>
-    <import resource="../../Controller/Payment/PaymentFinalizeController.php" type="attribute"/>
-    <import resource="../../Controller/Payment/PaymentWebhookController.php" type="attribute"/>
-    <import resource="../../Controller/Payment/IframeController.php" type="attribute"/>
-    <import resource="../../Controller/TransactionsControl/TransactionsControlController.php" type="attribute"/>
-    <import resource="../../Core/Checkout/Payment/SalesChannel/OverwritePaymentMethodRoute.php" type="attribute" />
+    <import resource="../../Controller/Api/ApiTestController.php" type="annotation"/>
+    <import resource="../../Controller/Payment/PaymentFinalizeController.php" type="annotation"/>
+    <import resource="../../Controller/Payment/PaymentWebhookController.php" type="annotation"/>
+    <import resource="../../Controller/Payment/IframeController.php" type="annotation"/>
+    <import resource="../../Controller/TransactionsControl/TransactionsControlController.php" type="annotation"/>
+    <import resource="../../Core/Checkout/Payment/SalesChannel/OverwritePaymentMethodRoute.php" type="annotation" />
 
 </routes>
