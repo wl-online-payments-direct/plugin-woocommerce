@@ -662,7 +662,7 @@ class PaymentHandler
     {
         $orderTransaction = $this->order->getTransactions()->last();
         $orderTransactionId = $orderTransaction->getId();
-        $orderTransactionState = $orderTransaction->getStateMachineState()->getTechnicalName();
+        $orderTransactionState = OrderTransactionHelper::getState($orderTransactionId);
 
         if (!$isFinal) {
             switch ($statusCode) {

@@ -1,3 +1,6 @@
+# 3.0.0
+- Shopware 6.6 update
+
 # 2.1.5
 - Git-based package update
 
