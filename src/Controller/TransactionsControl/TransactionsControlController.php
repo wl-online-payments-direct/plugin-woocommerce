@@ -9,6 +9,7 @@ namespace MoptWorldline\Controller\TransactionsControl;
 
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
+use MoptWorldline\Controller\Payment\ReturnUrlController;
 use MoptWorldline\Service\AdminTranslate;
 use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\Payment;
@@ -158,7 +159,8 @@ class TransactionsControlController extends AbstractController
         $salesChannelId = $orderEntity->getSalesChannelId();
 
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
-        $returnUrl = $adapter->getReturnUrl();
+        $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
+        $returnUrl = $ReturnUrlController->getReturnUrl($adapter, $adapter->isLiveMode());
         $apiKey = $orderEntity->getSalesChannel()->getAccessKey();
 
         return
