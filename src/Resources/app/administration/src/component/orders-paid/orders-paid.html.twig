@@ -13,7 +13,7 @@
             :compactMode="false"
     >
         <template #column-refund="{ item, itemIndex }">
-            <sw-select-field v-model="Selection[itemIndex]" @change="setLinePrice(itemIndex, $event, item.unitPrice)">
+            <sw-select-field v-model:value="Selection[itemIndex]" @change:value="setLinePrice(itemIndex, $event, item.unitPrice)">
                 <option :value="0">0</option>
                 <option v-for="n in item.paid" :value="n">{{ n }}</option>
             </sw-select-field>
