@@ -1,3 +1,6 @@
+# 2.1.6
+- MOTO return URL fix
+
 # 2.1.5
 - Git-based package update
 
