@@ -139,6 +139,7 @@ Component.override('sw-order-detail-details', {
                     if (!this.isUnpaidAdminOrder) {
                         this.transactionStatus = false;
                     }
+                    this.isReady = true;
                     this.isLoading = false;
                 }
             });
