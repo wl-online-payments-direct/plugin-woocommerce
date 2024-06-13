@@ -20,7 +20,7 @@
 
 {% block component_payment_method_input %}
     <input type="radio"
-           id="paymentMethod{{ payment._uniqueIdentifier }}"
+           id="paymentMethod{{ payment.uniqueIdentifier }}"
            name="paymentMethodId"
            value="{{ payment.id }}"
            {% if payment.customFields.token %}
@@ -43,7 +43,7 @@
 
 {% block component_payment_method_label %}
     <label class="custom-control-label payment-method-label"
-           for="paymentMethod{{ payment._uniqueIdentifier }}">
+           for="paymentMethod{{ payment.uniqueIdentifier }}">
         {% block component_payment_method_image %}
             {% if payment.media %}
                 {% sw_thumbnails 'payment-method-image-thumbnails' with {
