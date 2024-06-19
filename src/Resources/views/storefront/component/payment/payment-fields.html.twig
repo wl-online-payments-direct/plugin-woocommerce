@@ -5,8 +5,8 @@
     <input type="hidden" id="moptWorldlineCustomerId" value="{{ context.customer.id }}">
     <input type="hidden" id="moptWorldlineShowIframe" value="{{
     moptPageId == 'cartConfirm'
-    and (context.paymentMethod.customFields.worldline_payment_method_id == 'moptWorldlineIframe'
-    or context.paymentMethod.customFields.worldline_payment_method_id == 'moptWorldlineSavedCard'
+    and (context.paymentMethod.translated.customFields.worldline_payment_method_id == 'moptWorldlineIframe'
+    or context.paymentMethod.translated.customFields.worldline_payment_method_id == 'moptWorldlineSavedCard'
     )
     }}">
     {% if app.request.get('cardDeleted') == '1' %}
