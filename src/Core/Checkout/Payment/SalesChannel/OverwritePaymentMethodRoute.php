@@ -84,7 +84,8 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
         $isDefaultSet = false;
         /** @var PaymentMethodEntity $method */
         foreach ($paymentMethods as $key => $method) {
-            $customFields = $method->getCustomFields();
+            $translated = $method->getTranslated();
+            $customFields = $translated['customFields'];
             if (!empty($customFields)
                 && array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)
                 && $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID] == Payment::SAVED_CARD_PAYMENT_METHOD_ID
@@ -149,9 +150,6 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
         $uniqueId = false;
         foreach ($savedCards as $savedCard) {
             $newMethod = clone $savedCardMethod;
-            $newMethod->setTranslated([
-                'name' => "Pay with my previously saved card {$savedCard['paymentCard']} {$savedCard['title']}"
-            ]);
 
             // Old saved cards compatibility
             if (!array_key_exists('redirectToken', $savedCard)) {
@@ -173,6 +171,10 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
                 $customFields['default'] = 1;
             }
             $newMethod->setCustomFields($customFields);
+            $newMethod->setTranslated([
+                'name' => "Pay with my previously saved card {$savedCard['paymentCard']} {$savedCard['title']}",
+                'customFields' => array_merge($newMethod->getCustomFields(), $customFields),
+            ]);
 
             // For validation reasons we need to have at least one saved card method with uniqueId from saved payment methods
             if ($uniqueId) {

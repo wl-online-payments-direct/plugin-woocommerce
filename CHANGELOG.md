@@ -1,3 +1,6 @@
+# 2.1.7
+- Subshop iframe fix
+
 # 2.1.6
 - MOTO return URL fix
 
