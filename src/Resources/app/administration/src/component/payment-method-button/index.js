@@ -1,6 +1,6 @@
 const { Component, Mixin } = Shopware;
 import template from './payment-method-button.html.twig';
-import '../../assets/payment-method-button.less';
+import '../../assets/payment-method-button.css';
 
 Component.register('payment-method-button', {
     template,

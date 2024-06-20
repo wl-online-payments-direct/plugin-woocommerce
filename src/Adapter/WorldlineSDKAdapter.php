@@ -615,7 +615,7 @@ class WorldlineSDKAdapter
     /**
      * @return bool
      */
-    private function isLiveMode(): bool
+    public function isLiveMode(): bool
     {
         return (bool)$this->getPluginConfig(Form::IS_LIVE_MODE_FIELD);
     }

@@ -17,17 +17,17 @@
         </template>
 
         <template #column-unitPrice="{ item }">
-            <span>{{ item.unitPrice | currency(order.currency.shortName, order.itemRounding.decimals) }}</span>
+            <span>{{ currencyFilter(item.unitPrice, order.currency.shortName) }}</span>
         </template>
 
         <template #column-totalPrice="{ item, itemIndex }">
-            <span>{{ itemPrices[itemIndex] | currency(order.currency.shortName, order.itemRounding.decimals) }}</span>
+            <span>{{ currencyFilter(itemPrices[itemIndex], order.currency.shortName) }}</span>
         </template>
     </sw-data-grid>
 
     <sw-container v-if="hasContent" columns="1fr 120px" gap="15px" justify="stretch" align="stretch">
         <div></div>
-        <sw-text-field :value="totalAmount | currency(order.currency.shortName, order.itemRounding.decimals)" disabled />
+        <sw-text-field :value="currencyFilter(totalAmount, order.currency.shortName)" disabled />
     </sw-container>
 
     <div class="table--no-content" v-if="!hasContent">{{ $tc('worldline.transaction-control.table.empty') }}</div>

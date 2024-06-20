@@ -1,6 +1,6 @@
 import template from './orders-canceled.html.twig';
 
-const { Component, Utils } = Shopware;
+const { Component, Utils, Filter } = Shopware;
 const { get, format } = Utils;
 
 
@@ -91,6 +91,10 @@ Component.register('mo-orders-canceled', {
                 align: 'right',
                 width: '120px',
             }];
+        },
+
+        currencyFilter() {
+            return Filter.getByName('currency');
         },
     },
 });

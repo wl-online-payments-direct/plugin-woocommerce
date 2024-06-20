@@ -1,6 +1,6 @@
 import template from './orders-unprocessed.html.twig';
 
-const { Component, Utils, Mixin } = Shopware;
+const { Component, Utils, Mixin, Filter } = Shopware;
 const { get, format } = Utils;
 
 
@@ -141,6 +141,10 @@ Component.register('mo-orders-unprocessed', {
 
         transactionDisabled() {
             return (this.amountToProcess === 0) && (this.totalSelections === 0);
+        },
+
+        currencyFilter() {
+            return Filter.getByName('currency');
         },
     },
 

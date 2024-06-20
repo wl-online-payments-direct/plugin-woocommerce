@@ -1,6 +1,6 @@
 import template from './orders-paid.html.twig';
 
-const { Component, Utils, Mixin } = Shopware;
+const { Component, Utils, Mixin, Filter } = Shopware;
 const { get, format } = Utils;
 
 
@@ -139,6 +139,10 @@ Component.register('mo-orders-paid', {
 
         transactionDisabled() {
             return (this.amountToProcess === 0) && (this.totalSelections === 0);
+        },
+
+        currencyFilter() {
+            return Filter.getByName('currency');
         },
     },
 
