@@ -1,3 +1,6 @@
+# 3.0.1
+- Subshop iframe fix 
+
 # 3.0.0
 - Shopware 6.6 update
 
