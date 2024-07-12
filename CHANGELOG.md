@@ -1,3 +1,6 @@
+# 1.8.6
+- Shopware 6.4.1 compatibility
+
 # 1.8.5
 - Fix for cronjob cancellation
 
