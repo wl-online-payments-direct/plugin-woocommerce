@@ -1,4 +1,7 @@
 # 3.0.0
+- Shopware 6.5 exception replacement
+
+# 3.0.0
 - Shopware 6.6 update
 
 # 2.1.5

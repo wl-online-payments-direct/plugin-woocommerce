@@ -7,16 +7,12 @@
 
 namespace MoptWorldline\Service;
 
-use Monolog\Level;
-use MoptWorldline\MoptWorldline;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
-use Shopware\Core\Checkout\Payment\Exception\CustomerCanceledAsyncPaymentException;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Payment\Cart\AsyncPaymentTransactionStruct;
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\AsynchronousPaymentHandlerInterface;
-use Shopware\Core\Checkout\Payment\Exception\AsyncPaymentProcessException;
-use Shopware\Core\Checkout\Payment\Exception\AsyncPaymentFinalizeException;
+use Shopware\Core\Checkout\Payment\PaymentException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\Validation\DataBag\RequestDataBag;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -223,7 +219,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
                 }
             }
         } catch (\Exception $e) {
-            throw new AsyncPaymentProcessException(
+            throw PaymentException::asyncProcessInterrupted(
                 $transaction->getOrderTransaction()->getId(),
                 'An error occurred during the communication with external payment gateway' . PHP_EOL . $e->getMessage()
             );
@@ -288,7 +284,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
                 $this->finalizeError($transactionId, $e->getMessage());
             }
             if (in_array($status, self::STATUS_PAYMENT_CANCELLED)) {
-                throw new CustomerCanceledAsyncPaymentException(
+                throw PaymentException::customerCanceled(
                     $transactionId,
                     "Payment canceled"
                 );
@@ -318,7 +314,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
      */
     private function finalizeError($transactionId, $message)
     {
-        throw new AsyncPaymentFinalizeException(
+        throw PaymentException::asyncFinalizeInterrupted(
             $transactionId,
             $message
         );
@@ -340,7 +336,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
             $worldlinePaymentMethodId = OrderTransactionHelper::getWorldlinePaymentMethodId($transaction->getOrderTransaction());
             $hostedCheckoutResponse = $handler->createPayment((int)$worldlinePaymentMethodId);
         } catch (\Exception $e) {
-            throw new AsyncPaymentProcessException(
+            throw PaymentException::asyncProcessInterrupted(
                 $transactionId,
                 \sprintf('An error occurred during the communication with Worldline%s%s', \PHP_EOL, $e->getMessage())
             );
@@ -348,7 +344,7 @@ class Payment implements AsynchronousPaymentHandlerInterface
 
         $link = $hostedCheckoutResponse->getRedirectUrl();
         if ($link === null) {
-            throw new AsyncPaymentProcessException($transactionId, 'No redirect link provided by Worldline');
+            throw PaymentException::asyncProcessInterrupted($transactionId, 'No redirect link provided by Worldline');
         }
 
         return $link;
@@ -379,14 +375,14 @@ class Payment implements AsynchronousPaymentHandlerInterface
             }
 
         } catch (\Exception $e) {
-            throw new AsyncPaymentProcessException(
+            throw PaymentException::asyncProcessInterrupted(
                 $transactionId,
                 \sprintf('An error occurred during the communication with Worldline%s%s', \PHP_EOL, $e->getMessage())
             );
         }
 
         if ($link === null) {
-            throw new AsyncPaymentProcessException($transactionId, 'No redirect link provided by Worldline');
+            throw PaymentException::asyncProcessInterrupted($transactionId, 'No redirect link provided by Worldline');
         }
 
         return $link;

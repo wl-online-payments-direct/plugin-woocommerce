@@ -16,9 +16,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStat
 use Shopware\Core\Checkout\Order\OrderEntity;
 use Shopware\Core\Checkout\Payment\Cart\AsyncPaymentTransactionStruct;
 use Shopware\Core\Checkout\Payment\Cart\PaymentHandler\AsynchronousPaymentHandlerInterface;
-use Shopware\Core\Checkout\Payment\Exception\CustomerCanceledAsyncPaymentException;
-use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
-use Shopware\Core\Checkout\Payment\Exception\PaymentProcessException;
+use Shopware\Core\Checkout\Payment\PaymentException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
@@ -62,8 +60,9 @@ class PaymentFinalizeController extends AbstractController
     }
 
     /**
-     * @throws InvalidTransactionException
-     * @throws CustomerCanceledAsyncPaymentException
+     * @param Request $request
+     * @param SalesChannelContext $salesChannelContext
+     * @return RedirectResponse
      */
     #[Route(
         path: '/worldline/payment/finalize-transaction',
@@ -131,17 +130,16 @@ class PaymentFinalizeController extends AbstractController
             $logger = new LogHelper($adapter);
             $logger->log(AdminTranslate::trans($this->translator->getLocale(), 'forwardToPaymentHandler'));
             $this->paymentHandler->finalize($paymentTransactionStruct, $request, $salesChannelContext);
-        } catch (PaymentProcessException $paymentProcessException) {
+        } catch (PaymentException $paymentException) {
             LogHelper::addLog(
                 Level::Error,
                 AdminTranslate::trans($this->translator->getLocale(), 'errorWithConfirmRedirect'),
-                ['message' => $paymentProcessException->getMessage(), 'error' => $paymentProcessException]
+                ['message' => $paymentException->getMessage(), 'error' => $paymentException]
             );
             $finishUrl = $this->redirectToConfirmPageWorkflow(
-                $paymentProcessException,
+                $paymentException,
                 $context,
-                $orderId,
-                $order->getSalesChannelId()
+                $orderId
             );
         }
 
@@ -149,37 +147,35 @@ class PaymentFinalizeController extends AbstractController
     }
 
     /**
-     * @param PaymentProcessException $paymentProcessException
+     * @param PaymentException $paymentException
      * @param Context $context
      * @param string $orderId
-     * @param string $salesChannelId
      * @return string
      */
     private function redirectToConfirmPageWorkflow(
-        PaymentProcessException $paymentProcessException,
-        Context                 $context,
-        string                  $orderId,
-        string                  $salesChannelId
+        PaymentException $paymentException,
+        Context          $context,
+        string           $orderId
     ): string
     {
         $errorUrl = $this->router->generate('frontend.account.edit-order.page', ['orderId' => $orderId]);
 
-        if ($paymentProcessException instanceof CustomerCanceledAsyncPaymentException) {
+        if ($paymentException->getStatusCode() == PaymentException::PAYMENT_CUSTOMER_CANCELED_EXTERNAL) {
             $this->transactionStateHandler->cancel(
-                $paymentProcessException->getOrderTransactionId(),
+                $paymentException->getOrderTransactionId(),
                 $context
             );
             $urlQuery = \parse_url($errorUrl, \PHP_URL_QUERY) ? '&' : '?';
 
-            return \sprintf('%s%serror-code=%s', $errorUrl, $urlQuery, $paymentProcessException->getErrorCode());
+            return \sprintf('%s%serror-code=%s', $errorUrl, $urlQuery, $paymentException->getErrorCode());
         }
 
-        $transactionId = $paymentProcessException->getOrderTransactionId();
+        $transactionId = $paymentException->getOrderTransactionId();
 
         LogHelper::addLog(
             Level::Error,
-            $paymentProcessException->getMessage(),
-            ['orderTransactionId' => $transactionId, 'error' => $paymentProcessException]
+            $paymentException->getMessage(),
+            ['orderTransactionId' => $transactionId, 'error' => $paymentException]
         );
         $this->transactionStateHandler->fail(
             $transactionId,
@@ -187,6 +183,6 @@ class PaymentFinalizeController extends AbstractController
         );
         $urlQuery = \parse_url($errorUrl, \PHP_URL_QUERY) ? '&' : '?';
 
-        return \sprintf('%s%serror-code=%s', $errorUrl, $urlQuery, $paymentProcessException->getErrorCode());
+        return \sprintf('%s%serror-code=%s', $errorUrl, $urlQuery, $paymentException->getErrorCode());
     }
 }
