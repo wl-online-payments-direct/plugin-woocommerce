@@ -119,5 +119,20 @@
             <argument type="service" id="sales_channel.payment_method.repository"/>
             <argument type="service" id="customer.repository"/>
         </service>
+        <service id="MoptWorldline\Controller\SupportForm\SupportFormController" public="true">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <argument type="service" id="sales_channel.repository" />
+            <argument type="service" id="payment_method.repository" />
+            <argument type="service" id="sales_channel_payment_method.repository" />
+            <argument type="service" id="Shopware\Core\Framework\Plugin\Util\PluginIdProvider"  />
+            <argument type="service" id="media.repository"/>
+            <argument type="service" id="Shopware\Core\Content\Media\MediaService" />
+            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver" />
+            <argument type="service" id="Shopware\Core\Framework\Api\Controller\UserController" />
+            <argument type="service" id="Shopware\Core\Framework\Api\Response\Type\Api\JsonType"/>
+            <call method="setContainer">
+                <argument type="service" id="service_container"/>
+            </call>
+        </service>
     </services>
 </container>

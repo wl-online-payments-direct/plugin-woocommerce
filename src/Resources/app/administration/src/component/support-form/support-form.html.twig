@@ -1,0 +1,26 @@
+<div class="component">
+    <div class="headline">
+        <label>{{ $tc('worldline.support-form.name') }}</label>
+    </div>
+
+    <div class="border">
+        <div class="border-inner">
+            <input id="mo-support-attachLog" type="checkbox" checked="checked">
+            <label for="mo-support-attachLog">Attach log</label>
+            <br/>
+            <input id="mo-support-createAccount" type="checkbox">
+            <label for="mo-support-createAccount">Create account</label>
+            <br/>
+            <label for="mo-support-description">Description</label>
+            <br/>
+            <textarea id="mo-support-description"></textarea>
+            <br/>
+            <sw-button-process
+                    :isLoading="isLoading"
+                    :processSuccess="isSaveSuccessful"
+                    @process-finish="saveFinish"
+                    @click="send"
+            >{{ $tc('worldline.support-form.button') }}</sw-button-process>
+        </div>
+    </div>
+</div>

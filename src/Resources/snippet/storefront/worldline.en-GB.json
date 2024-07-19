@@ -156,6 +156,10 @@
         },
         "payment-methods": {
             "oney-label": "Oney custom field"
+        },
+        "support-form": {
+            "name": "Support form",
+            "button": "Send"
         }
     }
 }

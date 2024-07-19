@@ -187,5 +187,8 @@
             </options>
             <defaultValue>INFO</defaultValue>
         </input-field>
+        <component name="support-form">
+            <name>supportForm</name>
+        </component>
     </card>
 </config>

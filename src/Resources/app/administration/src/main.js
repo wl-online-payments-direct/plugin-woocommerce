@@ -1,5 +1,6 @@
 import './service/apiTestService';
 import './service/transactionsControlService';
+import './service/supportFormService';
 
 import './component/api-test-button';
 import './component/payment-method-button';
@@ -9,6 +10,7 @@ import './component/orders-refunded';
 import './component/orders-canceled';
 import './component/config-tabs';
 import './component/order-buttons'
+import './component/support-form'
 
 import './extension/sw-order/view/sw-order-detail-details';
 import './extension/sw-settings-payment/page/sw-settings-payment-detail';
