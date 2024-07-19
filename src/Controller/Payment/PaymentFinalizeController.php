@@ -79,7 +79,7 @@ class PaymentFinalizeController extends AbstractController
 
         $order = OrderHelper::getOrder($context, $this->orderRepository, $hostedCheckoutId);
 
-        $finishUrl = $this->buildFinishUrl($request, $order, $salesChannelContext, $context);
+        $finishUrl = $this->buildFinishUrl($request, $order, $salesChannelContext);
 
         return new RedirectResponse($finishUrl);
     }
@@ -104,14 +104,12 @@ class PaymentFinalizeController extends AbstractController
      * @param Request $request
      * @param OrderEntity|null $order
      * @param SalesChannelContext $salesChannelContext
-     * @param Context $context
      * @return string
      */
     private function buildFinishUrl(
         Request                $request,
         ?OrderEntity           $order,
-        SalesChannelContext    $salesChannelContext,
-        Context                $context
+        SalesChannelContext    $salesChannelContext
     ): string
     {
         $orderTransaction = $order->getTransactions()->last();
@@ -138,7 +136,6 @@ class PaymentFinalizeController extends AbstractController
             );
             $finishUrl = $this->redirectToConfirmPageWorkflow(
                 $paymentException,
-                $context,
                 $orderId
             );
         }
@@ -148,41 +145,27 @@ class PaymentFinalizeController extends AbstractController
 
     /**
      * @param PaymentException $paymentException
-     * @param Context $context
      * @param string $orderId
      * @return string
      */
     private function redirectToConfirmPageWorkflow(
         PaymentException $paymentException,
-        Context          $context,
         string           $orderId
     ): string
     {
-        $errorUrl = $this->router->generate('frontend.account.edit-order.page', ['orderId' => $orderId]);
+        // Shopware cancel order by itself, no need to cancel it here
+        if ($paymentException->getErrorCode() != PaymentException::PAYMENT_CUSTOMER_CANCELED_EXTERNAL) {
+            $transactionId = $paymentException->getOrderTransactionId();
 
-        if ($paymentException->getStatusCode() == PaymentException::PAYMENT_CUSTOMER_CANCELED_EXTERNAL) {
-            $this->transactionStateHandler->cancel(
-                $paymentException->getOrderTransactionId(),
-                $context
+            LogHelper::addLog(
+                Level::Error,
+                $paymentException->getMessage(),
+                ['orderTransactionId' => $transactionId, 'error' => $paymentException]
             );
-            $urlQuery = \parse_url($errorUrl, \PHP_URL_QUERY) ? '&' : '?';
-
-            return \sprintf('%s%serror-code=%s', $errorUrl, $urlQuery, $paymentException->getErrorCode());
         }
 
-        $transactionId = $paymentException->getOrderTransactionId();
-
-        LogHelper::addLog(
-            Level::Error,
-            $paymentException->getMessage(),
-            ['orderTransactionId' => $transactionId, 'error' => $paymentException]
-        );
-        $this->transactionStateHandler->fail(
-            $transactionId,
-            $context
-        );
+        $errorUrl = $this->router->generate('frontend.account.edit-order.page', ['orderId' => $orderId]);
         $urlQuery = \parse_url($errorUrl, \PHP_URL_QUERY) ? '&' : '?';
-
         return \sprintf('%s%serror-code=%s', $errorUrl, $urlQuery, $paymentException->getErrorCode());
     }
 }
