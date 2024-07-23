@@ -7,79 +7,48 @@
 
 namespace MoptWorldline\Controller\SupportForm;
 
-use MoptWorldline\Bootstrap\Form;
-use MoptWorldline\Service\Helper;
 use MoptWorldline\Service\SupportAccount;
+use Shopware\Core\Content\Mail\Service\MailService;
 use Shopware\Core\Content\Media\File\FileSaver;
-use Shopware\Core\Content\Media\MediaService;
-use Shopware\Core\Defaults;
-use Shopware\Core\Framework\Api\Context\AdminApiSource;
-use Shopware\Core\Framework\Api\Context\ContextSource;
 use Shopware\Core\Framework\Api\Controller\UserController;
 use Shopware\Core\Framework\Api\Response\Type\Api\JsonType;
 use Shopware\Core\Framework\Context;
-use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
-use Shopware\Core\Framework\Plugin\Util\PluginIdProvider;
-use Shopware\Core\Kernel;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
-use MoptWorldline\Controller\PaymentMethod\PaymentMethodController;
-use function Symfony\Component\Translation\t;
 
 #[Route(defaults: ['_routeScope' => ['api']])]
 class SupportFormController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
-    private EntityRepository $salesChannelRepository;
-    private EntityRepository $paymentMethodRepository;
-    private EntityRepository $salesChannelPaymentRepository;
-    private PluginIdProvider $pluginIdProvider;
-    private EntityRepository $mediaRepository;
-    private MediaService $mediaService;
     private FileSaver $fileSaver;
     private UserController $userController;
     private JsonType $jsonType;
-
-    private array $messages;
-
+    private MailService $mailService;
 
     /**
      * @param SystemConfigService $systemConfigService
-     * @param EntityRepository $salesChannelRepository
-     * @param EntityRepository $paymentMethodRepository
-     * @param EntityRepository $salesChannelPaymentRepository
-     * @param PluginIdProvider $pluginIdProvider
-     * @param EntityRepository $mediaRepository
-     * @param MediaService $mediaService
      * @param FileSaver $fileSaver
      * @param UserController $userController
+     * @param JsonType $jsonType
+     * @param MailService $mailService
      */
     public function __construct(
         SystemConfigService $systemConfigService,
-        EntityRepository    $salesChannelRepository,
-        EntityRepository    $paymentMethodRepository,
-        EntityRepository    $salesChannelPaymentRepository,
-        PluginIdProvider    $pluginIdProvider,
-        EntityRepository    $mediaRepository,
-        MediaService        $mediaService,
         FileSaver           $fileSaver,
         UserController      $userController,
-        JsonType            $jsonType
+        JsonType            $jsonType,
+        MailService         $mailService,
     )
     {
         $this->systemConfigService = $systemConfigService;
-        $this->salesChannelRepository = $salesChannelRepository;
-        $this->paymentMethodRepository = $paymentMethodRepository;
-        $this->salesChannelPaymentRepository = $salesChannelPaymentRepository;
-        $this->pluginIdProvider = $pluginIdProvider;
-        $this->mediaRepository = $mediaRepository;
-        $this->mediaService = $mediaService;
         $this->fileSaver = $fileSaver;
         $this->userController = $userController;
         $this->jsonType = $jsonType;
+        $this->mailService = $mailService;
     }
 
     #[Route(
@@ -97,8 +66,13 @@ class SupportFormController extends AbstractController
 
         $message = '321';
         try {
-            $supportAccount = new SupportAccount($this->jsonType, $this->userController);
-            $message .= json_encode($supportAccount);
+            $credentials = [];
+            if ($createAccount) {
+                $supportAccount = new SupportAccount($this->jsonType, $this->userController);
+                $credentials = $supportAccount->getSupportCredentials();
+            }
+
+            $this->sendEmail($description, $attachLog, $credentials);
         } catch (\Exception $e) {
             $message = '<br/>' . $e->getMessage();
         }
@@ -106,6 +80,42 @@ class SupportFormController extends AbstractController
         $success = empty($message);
 
         return $this->response($success, $message);
+    }
+
+    /**
+     * @param string $description
+     * @param bool $attachLog
+     * @param array $credentials
+     * @return void
+     */
+    private function sendEmail(string $description, bool $attachLog, array $credentials = []): void
+    {
+        $data = new ParameterBag();
+        $data->set(
+            'recipients',
+            [
+                'support@mediaopt.de' => 'Support'
+            ]
+        );
+
+        $data->set('senderName', 'Plugin User'); //todo get server, get admin email (field?)
+        if (!empty($credentials)) {
+            $description .= json_encode($credentials);
+        }
+        $data->set('contentHtml', $description);
+        $data->set('contentPlain', $description);
+        $data->set('subject', 'Support request');
+        $data->set('salesChannelId', '0190ba6d01fe737f97404eff7c72bd7b'); //todo get salesChannelId
+
+        if ($attachLog) {
+            //todo attach file
+        }
+
+
+        $this->mailService->send(
+            $data->all(),
+            Context::createDefaultContext(),
+        );
     }
 
 

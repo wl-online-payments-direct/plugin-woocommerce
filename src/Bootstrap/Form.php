@@ -91,4 +91,7 @@ class Form
     const SESSION_OPERATIONS_LOCK = 'order_locked';
     const SESSION_IFRAME_DATA = 'worldline_iframe_data';
     const SESSION_SERVER_URL = 'worldline_server_url';
+
+    const LOG_FILE_PATH = '/var/log/worldline/log';
+    const LOG_FILE_MAX = 1;
 }
