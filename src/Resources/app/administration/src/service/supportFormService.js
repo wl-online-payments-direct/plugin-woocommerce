@@ -16,6 +16,18 @@ class supportForm extends ApiService {
                 return ApiService.handleResponse(response);
             });
     }
+
+    downloadLog(values) {
+        const headers = this.getBasicHeaders({});
+        return this.httpClient
+            .get(`_action/${this.getApiBasePath()}/download_log`, values,{
+                headers
+            })
+            .then((response) => {
+                return ApiService.handleResponse(response);
+            });
+
+    }
 }
 
 Application.addServiceProvider('supportForm', (container) => {

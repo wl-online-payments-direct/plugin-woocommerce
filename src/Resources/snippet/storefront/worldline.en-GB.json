@@ -159,7 +159,10 @@
         },
         "support-form": {
             "name": "Support form",
-            "button": "Send"
+            "button": "Send",
+            "download": "Download",
+            "title": "Support request",
+            "success": "Successfully sent!"
         }
     }
 }

@@ -92,6 +92,7 @@ class Form
     const SESSION_IFRAME_DATA = 'worldline_iframe_data';
     const SESSION_SERVER_URL = 'worldline_server_url';
 
-    const LOG_FILE_PATH = '/var/log/worldline/log';
-    const LOG_FILE_MAX = 1;
+    const LOG_DIR_PATH = '/var/log/worldline/';
+    const LOG_ARCHIVE_PATH = '/var/log/worldline.zip';
+    const LOG_FILE_MAX = 14;
 }

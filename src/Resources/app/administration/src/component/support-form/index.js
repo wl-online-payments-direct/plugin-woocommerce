@@ -27,6 +27,7 @@ Component.register('support-form', {
                 {
                     'createAccount': document.getElementById('mo-support-createAccount').checked,
                     'attachLog': document.getElementById('mo-support-attachLog').checked,
+                    'contact': document.getElementById('mo-support-contact').value,
                     'description': document.getElementById('mo-support-description').value,
                 }
             ).then((res) => {
@@ -44,6 +45,19 @@ Component.register('support-form', {
                 }
 
                 this.isLoading = false;
+            });
+        },
+        downloadLog() {
+            this.supportForm.downloadLog(
+            ).then((response) => {
+                if (response.data) {
+                    const filename = response.headers['content-disposition'].split('filename=')[1];
+                    const link = document.createElement('a');
+                    link.href = URL.createObjectURL(response.data);
+                    link.download = filename;
+                    link.dispatchEvent(new MouseEvent('click'));
+                    link.parentNode.removeChild(link);
+                }
             });
         }
     }

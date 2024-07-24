@@ -7,45 +7,38 @@
 
 namespace MoptWorldline\Controller\SupportForm;
 
+use MoptWorldline\Service\LogHelper;
 use MoptWorldline\Service\SupportAccount;
 use Shopware\Core\Content\Mail\Service\MailService;
-use Shopware\Core\Content\Media\File\FileSaver;
 use Shopware\Core\Framework\Api\Controller\UserController;
 use Shopware\Core\Framework\Api\Response\Type\Api\JsonType;
 use Shopware\Core\Framework\Context;
+use Shopware\Core\Framework\Validation\Exception\ConstraintViolationException;
+use Shopware\Core\Kernel;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBag;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-use Shopware\Core\System\SystemConfig\SystemConfigService;
 
 #[Route(defaults: ['_routeScope' => ['api']])]
 class SupportFormController extends AbstractController
 {
-    private SystemConfigService $systemConfigService;
-    private FileSaver $fileSaver;
     private UserController $userController;
     private JsonType $jsonType;
     private MailService $mailService;
 
     /**
-     * @param SystemConfigService $systemConfigService
-     * @param FileSaver $fileSaver
      * @param UserController $userController
      * @param JsonType $jsonType
      * @param MailService $mailService
      */
     public function __construct(
-        SystemConfigService $systemConfigService,
-        FileSaver           $fileSaver,
-        UserController      $userController,
-        JsonType            $jsonType,
-        MailService         $mailService,
+        UserController $userController,
+        JsonType       $jsonType,
+        MailService    $mailService,
     )
     {
-        $this->systemConfigService = $systemConfigService;
-        $this->fileSaver = $fileSaver;
         $this->userController = $userController;
         $this->jsonType = $jsonType;
         $this->mailService = $mailService;
@@ -58,59 +51,75 @@ class SupportFormController extends AbstractController
     )]
     public function send(Request $request, Context $context): JsonResponse
     {
-        //todo snippets acc create
-
         $createAccount = $request->request->get('createAccount');
         $attachLog = $request->request->get('attachLog');
+        $contact = $request->request->get('contact');
         $description = $request->request->get('description');
 
-        $message = '321';
+        $errorMessage = '';
         try {
-            $credentials = [];
+            $message = "$description<br/>contact email: $contact";
             if ($createAccount) {
                 $supportAccount = new SupportAccount($this->jsonType, $this->userController);
                 $credentials = $supportAccount->getSupportCredentials();
+                $message .= '<br/> support account: ' . json_encode($credentials);
             }
-
-            $this->sendEmail($description, $attachLog, $credentials);
+            $this->sendEmail($message, $attachLog);
+        } catch (ConstraintViolationException $e) {
+            foreach ($e->getErrors() as $error) {
+                $errorMessage .= '<br/>' . json_encode($error);
+            }
         } catch (\Exception $e) {
-            $message = '<br/>' . $e->getMessage();
+            $errorMessage = '<br/>' . $e->getMessage();
         }
 
-        $success = empty($message);
-
-        return $this->response($success, $message);
+        return $this->response(empty($errorMessage), $errorMessage);
     }
 
+    #[Route(
+        path: '/api/_action/support-form/download_log',
+        name: 'api.action.support-form.download_log',
+        methods: ['GET']
+    )]
+    public function downloadLog(): JsonResponse
+    {
+        $archivePath = LogHelper::getArchive();
+        $content = file_get_contents($archivePath);
+        $response = new JsonResponse();
+        $response->setContent($content);
+
+        return $response;
+    }
+
+
     /**
-     * @param string $description
+     * @param string $message
      * @param bool $attachLog
-     * @param array $credentials
      * @return void
+     * @throws \Doctrine\DBAL\Exception
      */
-    private function sendEmail(string $description, bool $attachLog, array $credentials = []): void
+    private function sendEmail(string $message, bool $attachLog): void
     {
         $data = new ParameterBag();
-        $data->set(
-            'recipients',
-            [
-                'support@mediaopt.de' => 'Support'
-            ]
-        );
+        $data->set('recipients', ['support@mediaopt.de' => 'Support']);
 
-        $data->set('senderName', 'Plugin User'); //todo get server, get admin email (field?)
-        if (!empty($credentials)) {
-            $description .= json_encode($credentials);
-        }
-        $data->set('contentHtml', $description);
-        $data->set('contentPlain', $description);
+        $data->set('senderName', 'Plugin User');
+        $data->set('contentHtml', $message);
+        $data->set('contentPlain', $message);
         $data->set('subject', 'Support request');
-        $data->set('salesChannelId', '0190ba6d01fe737f97404eff7c72bd7b'); //todo get salesChannelId
+        $data->set('salesChannelId', $this->getSalesChannelId());
 
         if ($attachLog) {
-            //todo attach file
+            $archivePath = LogHelper::getArchive();
+            $attachment = [
+                [
+                    'content' => file_get_contents($archivePath),
+                    'fileName' => 'log.zip',
+                    'mimeType' => 'application/zip',
+                ],
+            ];
+            $data->set('binAttachments', $attachment);
         }
-
 
         $this->mailService->send(
             $data->all(),
@@ -130,5 +139,19 @@ class SupportFormController extends AbstractController
             'success' => $success,
             'message' => $message,
         ]);
+    }
+
+    /**
+     * @return string
+     * @throws \Doctrine\DBAL\Exception
+     */
+    private function getSalesChannelId(): string
+    {
+        $connection = Kernel::getConnection();
+        $qb = $connection->createQueryBuilder();
+        $qb->select('lower(hex(id)) as id')
+            ->from('sales_channel');
+
+        return $qb->fetchOne();
     }
 }

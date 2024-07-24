@@ -7,18 +7,22 @@
         <div class="border-inner">
             <input id="mo-support-attachLog" type="checkbox" checked="checked">
             <label for="mo-support-attachLog">Attach log</label>
+            <sw-button-process
+                    @click="downloadLog"
+            >{{ $tc('worldline.support-form.download') }}</sw-button-process>
             <br/>
             <input id="mo-support-createAccount" type="checkbox">
             <label for="mo-support-createAccount">Create account</label>
+            <br/>
+            <label for="mo-support-contact">Contact email</label>
+            <br/>
+            <input id="mo-support-contact" type="email"/>
             <br/>
             <label for="mo-support-description">Description</label>
             <br/>
             <textarea id="mo-support-description"></textarea>
             <br/>
             <sw-button-process
-                    :isLoading="isLoading"
-                    :processSuccess="isSaveSuccessful"
-                    @process-finish="saveFinish"
                     @click="send"
             >{{ $tc('worldline.support-form.button') }}</sw-button-process>
         </div>

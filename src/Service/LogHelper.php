@@ -13,6 +13,7 @@ use Monolog\Handler\RotatingFileHandler;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Composer\Package\Archiver\ZipArchiver;
 
 class LogHelper
 {
@@ -107,7 +108,7 @@ class LogHelper
      */
     public static function addPluginLog(int|Level $logLevel, string $message, mixed $additionalData = ''): void
     {
-        $fullPath = dirname(__DIR__, 5) . Form::LOG_FILE_PATH;
+        $fullPath = dirname(__DIR__, 5) . Form::LOG_DIR_PATH . 'log';
         $streamHandler = new RotatingFileHandler($fullPath, Form::LOG_FILE_MAX, $logLevel);
         $logger = new Logger('worldline', [$streamHandler]);
         self::addRecord($logger, $logLevel, $message, $additionalData);
@@ -130,5 +131,21 @@ class LogHelper
                 'additionalData' => json_encode($additionalData),
             ]
         );
+    }
+
+    /**
+     * @return string
+     */
+    public static function getArchive(): string
+    {
+        $zip = new ZipArchiver();
+        $archivePath = dirname(__DIR__, 5) . Form::LOG_ARCHIVE_PATH;
+        $zip->archive(
+            dirname(__DIR__, 5) . Form::LOG_DIR_PATH,
+            $archivePath,
+            'zip'
+        );
+
+        return $archivePath;
     }
 }

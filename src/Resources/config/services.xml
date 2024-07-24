@@ -120,8 +120,6 @@
             <argument type="service" id="customer.repository"/>
         </service>
         <service id="MoptWorldline\Controller\SupportForm\SupportFormController" public="true">
-            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
-            <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver" />
             <argument type="service" id="Shopware\Core\Framework\Api\Controller\UserController" />
             <argument type="service" id="Shopware\Core\Framework\Api\Response\Type\Api\JsonType"/>
             <argument type="service" id="Shopware\Core\Content\Mail\Service\MailService"/>

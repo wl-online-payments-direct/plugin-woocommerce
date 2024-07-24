@@ -76,6 +76,7 @@
         <input-field>
             <name>fullRedirectTemplateName</name>
             <label>Full Redirect template name</label>
+            <defaultValue>SimplifiedCustomPaymentPage</defaultValue>
         </input-field>
         <input-field>
             <name>iframeTemplateName</name>
