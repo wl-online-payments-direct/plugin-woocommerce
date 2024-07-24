@@ -1,4 +1,4 @@
-# 3.0.0
+# 3.0.1
 - Shopware 6.5 exception replacement
 
 # 3.0.0
