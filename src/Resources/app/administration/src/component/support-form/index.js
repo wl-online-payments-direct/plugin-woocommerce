@@ -50,14 +50,15 @@ Component.register('support-form', {
         downloadLog() {
             this.supportForm.downloadLog(
             ).then((response) => {
-                if (response.data) {
-                    const filename = response.headers['content-disposition'].split('filename=')[1];
-                    const link = document.createElement('a');
-                    link.href = URL.createObjectURL(response.data);
-                    link.download = filename;
-                    link.dispatchEvent(new MouseEvent('click'));
-                    link.parentNode.removeChild(link);
-                }
+                const link = document.createElement('a');
+                var file = new Blob([response], {type: 'application/zip'});
+                link.href = URL.createObjectURL(file);
+                link.download = 'log.zip';
+                document.body.appendChild(link);
+                link.click();
+                setTimeout(function() {
+                    document.body.removeChild(link);
+                }, 0);
             });
         }
     }

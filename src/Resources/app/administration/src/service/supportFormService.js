@@ -20,13 +20,12 @@ class supportForm extends ApiService {
     downloadLog(values) {
         const headers = this.getBasicHeaders({});
         return this.httpClient
-            .get(`_action/${this.getApiBasePath()}/download_log`, values,{
+            .post(`_action/${this.getApiBasePath()}/download_log`, values,{
                 headers
             })
             .then((response) => {
                 return ApiService.handleResponse(response);
             });
-
     }
 }
 

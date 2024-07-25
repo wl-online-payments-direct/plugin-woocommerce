@@ -79,7 +79,7 @@ class SupportFormController extends AbstractController
     #[Route(
         path: '/api/_action/support-form/download_log',
         name: 'api.action.support-form.download_log',
-        methods: ['GET']
+        methods: ['POST']
     )]
     public function downloadLog(): JsonResponse
     {
