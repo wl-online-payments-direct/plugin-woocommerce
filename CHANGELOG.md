@@ -1,3 +1,6 @@
+# 3.0.2
+- Correct language for redirect page
+
 # 3.0.1
 - Shopware 6.5 exception replacement
 

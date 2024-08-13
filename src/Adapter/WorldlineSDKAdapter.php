@@ -11,6 +11,7 @@ use Monolog\Level;
 use MoptWorldline\Controller\Payment\ReturnUrlController;
 use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\LogHelper;
+use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
@@ -192,6 +193,7 @@ class WorldlineSDKAdapter
         $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
         $returnUrl = $ReturnUrlController->getReturnUrl($this, $this->isLiveMode());
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
+        $hostedCheckoutSpecificInput->setLocale(OrderHelper::getLocale($orderEntity));
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
         if ($this->isDirectSales()) {
@@ -404,6 +406,7 @@ class WorldlineSDKAdapter
         // Get the response for the PaymentsClient
         $paymentsClient = $merchantClient->payments();
         $createPaymentResponse = $paymentsClient->createPayment($createPaymentRequest);
+        debug($createPaymentRequest->toJson());
         $this->setRedirectUrl($createPaymentResponse, $returnUrl);
         return $createPaymentResponse;
     }
@@ -669,12 +672,7 @@ class WorldlineSDKAdapter
             )
         );
 
-        $locale = $orderEntity->getLanguage()->getLocale();
-        if (!is_null($locale)) {
-            $locale = str_replace('-', '_', $locale->getCode());
-        }
         $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
-        $hostedCheckoutSpecificInput->setLocale($locale);
         $hostedCheckoutSpecificInput->setVariant(null);
 
         $cardPaymentMethodSpecificInput = null;

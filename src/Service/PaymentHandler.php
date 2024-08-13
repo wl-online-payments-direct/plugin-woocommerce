@@ -98,14 +98,12 @@ class PaymentHandler
      * @param int $worldlinePaymentMethodId
      * @param string $token
      * @return CreateHostedCheckoutResponse
-     * @throws \Doctrine\DBAL\Driver\Exception
-     * @throws \Doctrine\DBAL\Exception
+     * @throws \Exception
      */
     public function createPayment(int $worldlinePaymentMethodId, string $token = ''): CreateHostedCheckoutResponse
     {
-        $orderObject = null;
+        $criteria = new Criteria([$this->order->getId()]);
         if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
-            $criteria = new Criteria([$this->order->getId()]);
             $criteria->addAssociation('lineItems')
                 ->addAssociation('deliveries.positions.orderLineItem')
                 ->addAssociation('orderCustomer.customer')
@@ -115,8 +113,10 @@ class PaymentHandler
                 ->addAssociation('billingAddress.country')
                 ->addAssociation('deliveries.shippingOrderAddress')
                 ->addAssociation('deliveries.shippingOrderAddress.country');
-            $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
+        } else {
+            $criteria->addAssociation('language.locale');
         }
+        $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
 
         $amountTotal = (int)round($this->order->getAmountTotal() * 100);
         $currencyISO = OrderHelper::getCurrencyISO($this->order, $this->logger);
@@ -158,6 +158,12 @@ class PaymentHandler
         $currencyISO = OrderHelper::getCurrencyISO($this->order, $this->logger);
 
         $this->logger->paymentLog($this->order->getOrderNumber(), 'buildingHostdTokenizationOrder');
+
+        // Change local from browser to website
+        $criteria = new Criteria([$this->order->getId()]);
+        $criteria->addAssociation('language.locale');
+        $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
+        $iframeData[Form::WORLDLINE_CART_FORM_LOCALE] = OrderHelper::getLocale($orderObject);
 
         $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
