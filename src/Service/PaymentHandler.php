@@ -162,9 +162,8 @@ class PaymentHandler
         // Change local from browser to website
         $criteria = new Criteria([$this->order->getId()]);
         $criteria->addAssociation('language.locale');
-        $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
-        $iframeData[Form::WORLDLINE_CART_FORM_LOCALE] = OrderHelper::getLocale($orderObject);
 
+        $iframeData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($iframeData[Form::WORLDLINE_CART_FORM_LOCALE]);
         $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
             $amountTotal,
