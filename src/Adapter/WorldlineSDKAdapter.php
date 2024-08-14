@@ -410,7 +410,6 @@ class WorldlineSDKAdapter
         // Get the response for the PaymentsClient
         $paymentsClient = $merchantClient->payments();
         $createPaymentResponse = $paymentsClient->createPayment($createPaymentRequest);
-        debug($createPaymentRequest->toJson());
         $this->setRedirectUrl($createPaymentResponse, $returnUrl);
         return $createPaymentResponse;
     }
