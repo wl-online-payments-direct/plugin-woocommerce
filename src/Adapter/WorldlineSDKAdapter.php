@@ -11,7 +11,9 @@ use Monolog\Level;
 use MoptWorldline\Controller\Payment\ReturnUrlController;
 use MoptWorldline\MoptWorldline;
 use MoptWorldline\Service\DiscountHelper;
+use MoptWorldline\Service\LocaleHelper;
 use MoptWorldline\Service\LogHelper;
+use MoptWorldline\Service\OrderHelper;
 use MoptWorldline\Service\Payment;
 use MoptWorldline\Service\PaymentProducts;
 use OnlinePayments\Sdk\DataObject;
@@ -193,6 +195,7 @@ class WorldlineSDKAdapter
         $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
         $returnUrl = $ReturnUrlController->getReturnUrl($this, $this->isLiveMode());
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
+        $hostedCheckoutSpecificInput->setLocale(OrderHelper::getLocale($orderEntity));
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
         if ($this->isDirectSales()) {
@@ -303,10 +306,11 @@ class WorldlineSDKAdapter
 
     /**
      * @param string|null $token
+     * @param string|null $localeId
      * @return string
      * @throws \Exception
      */
-    public function createHostedTokenizationUrl(?string $token = null): string
+    public function createHostedTokenizationUrl(?string $token = null, ?string $localeId = ''): string
     {
         $iframeTemplateName = $this->getPluginConfig(Form::IFRAME_TEMPLATE_NAME);
 
@@ -314,6 +318,8 @@ class WorldlineSDKAdapter
         $hostedTokenizationClient = $merchantClient->hostedTokenization();
         $createHostedTokenizationRequest = new CreateHostedTokenizationRequest();
         $createHostedTokenizationRequest->setVariant($iframeTemplateName);
+        $localeCode = LocaleHelper::getCode($localeId);
+        $createHostedTokenizationRequest->setLocale($localeCode);
         if ($token) {
             $createHostedTokenizationRequest->setTokens($token);
         }
@@ -670,12 +676,7 @@ class WorldlineSDKAdapter
             )
         );
 
-        $locale = $orderEntity->getLanguage()->getLocale();
-        if (!is_null($locale)) {
-            $locale = str_replace('-', '_', $locale->getCode());
-        }
         $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
-        $hostedCheckoutSpecificInput->setLocale($locale);
         $hostedCheckoutSpecificInput->setVariant(null);
 
         $cardPaymentMethodSpecificInput = null;

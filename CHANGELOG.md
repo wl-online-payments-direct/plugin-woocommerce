@@ -1,6 +1,12 @@
 # 3.1.0
 - Support form
 
+# 3.0.3
+- iFrame save card fix
+
+# 3.0.2
+- Correct language for redirect page
+
 # 3.0.1
 - Shopware 6.5 exception replacement
 
