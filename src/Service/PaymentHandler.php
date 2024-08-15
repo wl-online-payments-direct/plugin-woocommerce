@@ -159,10 +159,7 @@ class PaymentHandler
 
         $this->logger->paymentLog($this->order->getOrderNumber(), 'buildingHostdTokenizationOrder');
 
-        // Change local from browser to website
-        $criteria = new Criteria([$this->order->getId()]);
-        $criteria->addAssociation('language.locale');
-
+        // Change localeId with locale code (hex to de_DE, for example)
         $iframeData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($iframeData[Form::WORLDLINE_CART_FORM_LOCALE]);
         $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
