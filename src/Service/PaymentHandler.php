@@ -774,7 +774,7 @@ class PaymentHandler
         }
 
         // We don't need to save card if token was temporary
-        if ($token == $customFields[$tmpTokenKey]) {
+        if (is_array($customFields) && array_key_exists($tmpTokenKey, $customFields) && $token == $customFields[$tmpTokenKey]) {
             unset($customFields[$tmpTokenKey]);
             $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
             return;
