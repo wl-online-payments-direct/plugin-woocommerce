@@ -1,0 +1,14 @@
+.support-form--logs {
+    display: flex;
+    align-items: center;
+}
+
+.support-form--logs .sw-field--checkbox {
+    margin-bottom: 0;
+    margin-right: 10px;
+    height: max-content;
+}
+
+.support-form--send {
+    text-align: right;
+}

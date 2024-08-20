@@ -1,5 +1,6 @@
 const { Component, Mixin } = Shopware;
 import template from './support-form.html.twig';
+import '../../assets/support-form.css';
 
 Component.register('support-form', {
     template,
@@ -15,6 +16,10 @@ Component.register('support-form', {
         return {
             isLoading: false,
             isSaveSuccessful: false,
+            createAccountCheck: false,
+            attachLogCheck: false,
+            emailField: '',
+            descriptionField: '',
         };
     },
 
@@ -25,10 +30,10 @@ Component.register('support-form', {
         send() {
             this.supportForm.send(
                 {
-                    'createAccount': document.getElementById('mo-support-createAccount').checked,
-                    'attachLog': document.getElementById('mo-support-attachLog').checked,
-                    'contact': document.getElementById('mo-support-contact').value,
-                    'description': document.getElementById('mo-support-description').value,
+                    'createAccount': this.createAccountCheck,
+                    'attachLog': this.attachLogCheck,
+                    'contact': this.emailField,
+                    'description': this.descriptionField,
                 }
             ).then((res) => {
                 if (res.success) {
@@ -60,6 +65,6 @@ Component.register('support-form', {
                     document.body.removeChild(link);
                 }, 0);
             });
-        }
+        },
     }
 })

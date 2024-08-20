@@ -103,7 +103,8 @@
             "success": "Changes successfully saved",
             "errorAPI": "There was an error on save",
             "APITitle": "Payment method saving",
-            "paymentName": "Payment method"
+            "paymentName": "Payment method",
+            "contact-email": "admin@your-shop.com"
         },
         "configFile": {
             "merchantId": "Merchant Id",

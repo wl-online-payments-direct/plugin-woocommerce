@@ -4,29 +4,23 @@
     </div>
 
     <div class="border">
-        {{ $tc('worldline.support-form.top-description') }}
-        <div class="border-inner">
-            <input id="mo-support-attachLog" type="checkbox" checked="checked">
-            <label for="mo-support-attachLog">{{ $tc('worldline.support-form.attach-logs') }}</label>
-            <sw-button-process
-                    @click="downloadLog"
-            >{{ $tc('worldline.support-form.download') }}</sw-button-process>
-            <br/>
-            <input id="mo-support-createAccount" type="checkbox">
-            <label for="mo-support-createAccount">{{ $tc('worldline.support-form.create-account') }}
-                {{ $tc('worldline.support-form.create-account-help') }}</label>
-            <br/>
-            <label for="mo-support-contact">{{ $tc('worldline.support-form.contact-email') }}</label>
-            <br/>
-            <input id="mo-support-contact" type="email"/>
-            <br/>
-            <label for="mo-support-description">{{ $tc('worldline.support-form.description') }}</label>
-            <br/>
-            <textarea id="mo-support-description" style="width: 500px; height: 200px;">{{ $tc('worldline.support-form.description-default') }}</textarea>
-            <br/>
-            <sw-button-process
-                    @click="send"
-            >{{ $tc('worldline.support-form.button') }}</sw-button-process>
+        <div>
+            <sw-email-field v-model:value="emailField">
+                <template v-slot:label>{{ $tc('worldline.support-form.contact-email') }}</template>
+            </sw-email-field>
+            <sw-textarea-field type="textarea" label="Name" id="mo-support-description" v-model:value="descriptionField"
+                               :placeholder="$tc('worldline.support-form.description-default')">
+                <template v-slot:label>{{ $tc('worldline.support-form.description') }}</template>
+
+            </sw-textarea-field>
+            <sw-checkbox-field v-model="createAccountCheck" :label="$tc('worldline.support-form.create-account-help')"></sw-checkbox-field>
+            <div class="support-form--logs">
+                <sw-checkbox-field v-model="attachLogCheck" :label="$tc('worldline.support-form.attach-logs')"></sw-checkbox-field>
+                <sw-button @click="downloadLog" size="small">{{ $tc('worldline.support-form.download') }}</sw-button>
+            </div>
+            <div class="support-form--send">
+                <sw-button-process @click="send" variant="primary">{{ $tc('worldline.support-form.button') }}</sw-button-process>
+            </div>
         </div>
     </div>
 </div>
