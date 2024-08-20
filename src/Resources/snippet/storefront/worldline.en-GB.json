@@ -158,7 +158,14 @@
             "oney-label": "Oney custom field"
         },
         "support-form": {
-            "name": "Support form",
+            "name": "Create support ticket",
+            "top-description": "Top description",
+            "attach-logs": "Attach log",
+            "create-account": "Create account",
+            "create-account-help": "Create Shopware backend account for Mediaopt support",
+            "contact-email": "Your contact email",
+            "description": "Description",
+            "description-default": "Hi Mediaopt support,\n\nWe love you plugin, but have a little issue.\nHope you can help us to solve it.\n\n\nKind regards,\nShop Manager",
             "button": "Send",
             "download": "Download",
             "title": "Support request",

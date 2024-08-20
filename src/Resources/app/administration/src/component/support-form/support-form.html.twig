@@ -4,23 +4,25 @@
     </div>
 
     <div class="border">
+        {{ $tc('worldline.support-form.top-description') }}
         <div class="border-inner">
             <input id="mo-support-attachLog" type="checkbox" checked="checked">
-            <label for="mo-support-attachLog">Attach log</label>
+            <label for="mo-support-attachLog">{{ $tc('worldline.support-form.attach-logs') }}</label>
             <sw-button-process
                     @click="downloadLog"
             >{{ $tc('worldline.support-form.download') }}</sw-button-process>
             <br/>
             <input id="mo-support-createAccount" type="checkbox">
-            <label for="mo-support-createAccount">Create account</label>
+            <label for="mo-support-createAccount">{{ $tc('worldline.support-form.create-account') }}
+                {{ $tc('worldline.support-form.create-account-help') }}</label>
             <br/>
-            <label for="mo-support-contact">Contact email</label>
+            <label for="mo-support-contact">{{ $tc('worldline.support-form.contact-email') }}</label>
             <br/>
             <input id="mo-support-contact" type="email"/>
             <br/>
-            <label for="mo-support-description">Description</label>
+            <label for="mo-support-description">{{ $tc('worldline.support-form.description') }}</label>
             <br/>
-            <textarea id="mo-support-description"></textarea>
+            <textarea id="mo-support-description" style="width: 500px; height: 200px;">{{ $tc('worldline.support-form.description-default') }}</textarea>
             <br/>
             <sw-button-process
                     @click="send"
