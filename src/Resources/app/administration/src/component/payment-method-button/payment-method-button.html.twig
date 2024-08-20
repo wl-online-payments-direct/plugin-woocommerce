@@ -10,29 +10,12 @@
                 <span @click="selectAllCheckbox(false)">{{ $tc('worldline.payment-method-button.deselectAll') }}</span>
             </p>
         </div>
-        <table>
-            <thead>
-            <tr>
-                <th>
-                    <span >{{ $tc('worldline.payment-method-button.activeLabel') }}</span>
-                </th>
-                <th>
-                    <span >{{ $tc('worldline.payment-method-button.linkLabel') }}</span>
-                </th>
-                <th>
-                    <span>{{ $tc('worldline.payment-method-button.paymentName') }}</span>
-                </th>
-            </tr>
-            </thead>
-            <tbody class="payment-method--container">
-            <tr v-if="displayMessage">
-                <td>
-                    <p class="innerText">{{ displayMessage }}</p>
-                </td>
-            </tr>
-
-            <tr v-else v-for="item in paymentMethodData">
-                <td>
+        <div v-if="displayMessage">
+            <p class="innerText">{{ displayMessage }}</p>
+        </div>
+        <sw-grid v-else class="payment-method--grid" :table="true" :selectable="false" :allowInlineEdit="false" :items="paymentMethodData">
+            <template #columns="{ item }">
+                <sw-grid-column flex="100px" :label="$tc('worldline.payment-method-button.activeLabel')">
                     <label class="switch">
                         <input @click="selectSingleCheckbox(item.id)"
                                type="checkbox"
@@ -42,8 +25,9 @@
                                :checked="item.isActive">
                         <span class="slider round"></span>
                     </label>
-                </td>
-                <td>
+                </sw-grid-column>
+
+                <sw-grid-column flex="200px" :label="$tc('worldline.payment-method-button.linkLabel')">
                     <label class="switch">
                         <input @click="selectSingleCheckboxIsLinked(item.id)"
                                type="checkbox"
@@ -53,15 +37,15 @@
                                :checked="item.isLinked">
                         <span class="slider round"></span>
                     </label>
-                </td>
-                <td class="payment--method--name">
-                    <div>
+                </sw-grid-column>
+
+                <sw-grid-column flex="1fr" :label="$tc('worldline.payment-method-button.paymentName')">
+                    <div class="payment--method--name">
                         <img :src="item.logo">
-                        <label :for="item.label">{{item.label}}</label>
+                        {{ item.label }}
                     </div>
-                </td>
-            </tr>
-            </tbody>
-        </table>
+                </sw-grid-column>
+            </template>
+        </sw-grid>
     </div>
 </div>
