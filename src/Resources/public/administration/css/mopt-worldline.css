@@ -39,12 +39,7 @@ div.component {
             }
         }
 
-        div.border-inner {
-            border: 1px solid #d1d9e0;
-            background-color: #f9fafb;
-            border-radius: 3px;
-            margin: 10px 0;
-            padding: 5px;
+        table {
 
             p.innerText {
                 font-size: 14px;
@@ -53,11 +48,24 @@ div.component {
                 color: #748494;
             }
 
+            th {
+                padding: 5px 8px;
+            }
+
+            td {
+                text-align: center;
+
+                &.payment--method--name {
+                    text-align: left;
+
+                    div {
+                        display: grid;
+                        grid-template-columns: 40px 1fr;
+                    }
+                }
+            }
+
             .payment-method--container {
-                display: flex;
-                margin: 8px 0;
-                gap: 10px;
-                align-items: center;
 
                 .switch {
                     position: relative;

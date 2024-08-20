@@ -10,14 +10,29 @@
                 <span @click="selectAllCheckbox(false)">{{ $tc('worldline.payment-method-button.deselectAll') }}</span>
             </p>
         </div>
-        <span >{{ $tc('worldline.payment-method-button.activeLabel') }}</span> |
-        <span >{{ $tc('worldline.payment-method-button.linkLabel') }}</span>
-        <div class="border-inner">
-            <div v-if="displayMessage">
-                <p class="innerText">{{ displayMessage }}</p>
-            </div>
-            <div v-else v-for="item in paymentMethodData">
-                <div class="payment-method--container">
+        <table>
+            <thead>
+            <tr>
+                <th>
+                    <span >{{ $tc('worldline.payment-method-button.activeLabel') }}</span>
+                </th>
+                <th>
+                    <span >{{ $tc('worldline.payment-method-button.linkLabel') }}</span>
+                </th>
+                <th>
+                    <span>{{ $tc('worldline.payment-method-button.paymentName') }}</span>
+                </th>
+            </tr>
+            </thead>
+            <tbody class="payment-method--container">
+            <tr v-if="displayMessage">
+                <td>
+                    <p class="innerText">{{ displayMessage }}</p>
+                </td>
+            </tr>
+
+            <tr v-else v-for="item in paymentMethodData">
+                <td>
                     <label class="switch">
                         <input @click="selectSingleCheckbox(item.id)"
                                type="checkbox"
@@ -27,8 +42,8 @@
                                :checked="item.isActive">
                         <span class="slider round"></span>
                     </label>
-                    <tab></tab>
-                    <tab></tab>
+                </td>
+                <td>
                     <label class="switch">
                         <input @click="selectSingleCheckboxIsLinked(item.id)"
                                type="checkbox"
@@ -38,12 +53,15 @@
                                :checked="item.isLinked">
                         <span class="slider round"></span>
                     </label>
-                    <tab></tab>
-                    <img :src="item.logo">
-                    <tab></tab>
-                    <label :for="item.label">{{item.label}}</label>
-                </div>
-            </div>
-        </div>
+                </td>
+                <td class="payment--method--name">
+                    <div>
+                        <img :src="item.logo">
+                        <label :for="item.label">{{item.label}}</label>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
     </div>
 </div>
