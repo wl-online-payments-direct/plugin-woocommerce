@@ -17,7 +17,7 @@ Component.register('support-form', {
             isLoading: false,
             isSaveSuccessful: false,
             createAccountCheck: false,
-            attachLogCheck: false,
+            attachLogCheck: true,
             emailField: '',
             descriptionField: '',
         };

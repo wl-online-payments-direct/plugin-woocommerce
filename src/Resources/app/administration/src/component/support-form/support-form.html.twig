@@ -5,6 +5,8 @@
 
     <div class="border">
         <div>
+            <p>{{ $tc('worldline.support-form.top-description') }}</p>
+            <br />
             <sw-email-field v-model:value="emailField">
                 <template v-slot:label>{{ $tc('worldline.support-form.contact-email') }}</template>
             </sw-email-field>
@@ -13,9 +15,14 @@
                 <template v-slot:label>{{ $tc('worldline.support-form.description') }}</template>
 
             </sw-textarea-field>
-            <sw-checkbox-field v-model="createAccountCheck" :label="$tc('worldline.support-form.create-account-help')"></sw-checkbox-field>
+            <div class="support-form--account">
+                <sw-checkbox-field v-model:value="createAccountCheck" :label="$tc('worldline.support-form.create-account')"></sw-checkbox-field>
+                <sw-help-text :width="200" tooltipPosition="top" :showDelay="100" :hideDelay="100"
+                              :text="$tc('worldline.support-form.create-account-help')">
+                </sw-help-text>
+            </div>
             <div class="support-form--logs">
-                <sw-checkbox-field v-model="attachLogCheck" :label="$tc('worldline.support-form.attach-logs')"></sw-checkbox-field>
+                <sw-checkbox-field v-model:value="attachLogCheck" :label="$tc('worldline.support-form.attach-logs')"></sw-checkbox-field>
                 <sw-button @click="downloadLog" size="small">{{ $tc('worldline.support-form.download') }}</sw-button>
             </div>
             <div class="support-form--send">
