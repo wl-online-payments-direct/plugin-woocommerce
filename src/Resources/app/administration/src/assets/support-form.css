@@ -16,3 +16,7 @@
 .support-form--send {
     text-align: right;
 }
+
+#mo-support-description textarea {
+    min-height: 155px;
+}

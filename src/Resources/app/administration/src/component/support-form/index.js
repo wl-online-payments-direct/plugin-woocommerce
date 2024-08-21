@@ -55,15 +55,13 @@ Component.register('support-form', {
         downloadLog() {
             this.supportForm.downloadLog(
             ).then((response) => {
-                const link = document.createElement('a');
-                var file = new Blob([response], {type: 'application/zip'});
-                link.href = URL.createObjectURL(file);
-                link.download = 'log.zip';
+                var url = window.location.origin + '/'+response.mediaUrl;
+                const link = document.createElement("a");
+                link.download = response.mediaName;
+                link.href = url;
                 document.body.appendChild(link);
                 link.click();
-                setTimeout(function() {
-                    document.body.removeChild(link);
-                }, 0);
+                document.body.removeChild(link);
             });
         },
     }

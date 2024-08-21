@@ -121,4 +121,9 @@ div.component {
     .slider.round:before {
         border-radius: 50%;
     }
+
+    .payment--method--label {
+        margin-left: 20px;
+        margin-top: 5px;
+    }
 }

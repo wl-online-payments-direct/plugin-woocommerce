@@ -42,7 +42,7 @@
                 <sw-grid-column flex="1fr" :label="$tc('worldline.payment-method-button.paymentName')">
                     <div class="payment--method--name">
                         <img :src="item.logo">
-                        {{ item.label }}
+                        <div class="payment--method--label">{{ item.label }}</div>
                     </div>
                 </sw-grid-column>
             </template>

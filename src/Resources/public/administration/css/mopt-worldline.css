@@ -121,6 +121,11 @@ div.component {
     .slider.round:before {
         border-radius: 50%;
     }
+
+    .payment--method--label {
+        margin-left: 20px;
+        margin-top: 5px;
+    }
 }
 
 .support-form--logs, .support-form--account {
@@ -140,5 +145,9 @@ div.component {
 
 .support-form--send {
     text-align: right;
+}
+
+#mo-support-description textarea {
+    min-height: 155px;
 }
 .moptWorldlineAmountToProcess{margin-bottom:0}.table--no-content{text-align:center;font-weight:bold}.sw-tabs .sw-tabs__custom-content{padding-bottom:0}

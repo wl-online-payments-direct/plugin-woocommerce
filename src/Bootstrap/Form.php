@@ -95,5 +95,8 @@ class Form
 
     const LOG_DIR_PATH = '/var/log/worldline/';
     const LOG_ARCHIVE_PATH = '/var/log/worldline.zip';
+    const LOG_FILENAME = 'worldline';
+    const LOG_FILE_EXT = 'zip';
+    const LOG_FILE_MIME_TYPE = 'application/zip';
     const LOG_FILE_MAX = 14;
 }

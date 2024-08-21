@@ -160,18 +160,19 @@
             "oney-label": "Oney custom field"
         },
         "support-form": {
-            "name": "Create support ticket",
-            "top-description": "Top description",
+            "name": "Contact development team",
+            "top-description": "Please use this form to briefly describe your inquiry and send it to our development team.",
             "attach-logs": "Attach log",
             "create-account": "Create account",
             "create-account-help": "Create Shopware backend account for Mediaopt support",
             "contact-email": "Your contact email",
             "description": "Description",
-            "description-default": "Hi Mediaopt support,\n\nWe love you plugin, but have a little issue.\nHope you can help us to solve it.\n\n\nKind regards,\nShop Manager",
+            "description-default": "Dear Mediaopt support,\n\nWe would like to offer the following recommendations to improve the functionality and user experience of your plugin.\n\nKind regards,\nShop Manager",
             "button": "Send",
             "download": "Download",
             "title": "Support request",
-            "success": "Successfully sent!"
+            "success": "Successfully sent!",
+            "error": "Error!"
         }
     }
 }
