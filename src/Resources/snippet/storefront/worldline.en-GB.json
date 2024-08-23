@@ -172,7 +172,8 @@
             "download": "Download",
             "title": "Support request",
             "success": "Successfully sent!",
-            "error": "Error!"
+            "error": "Error!",
+            "user-have-no-rights": "Looks like you don’t have permission to create a support account. Reach out to an administrator to gain access."
         }
     }
 }

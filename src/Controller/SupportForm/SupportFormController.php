@@ -64,6 +64,21 @@ class SupportFormController extends AbstractController
     }
 
     #[Route(
+        path: '/api/_action/support-form/check-user-rights',
+        name: 'api.action.support-form.check-user-rights',
+        methods: ['POST']
+    )]
+    public function checkUserRights(Request $request): JsonResponse
+    {
+        $userId = $request->request->get('userId');
+        // todo get user rules and email by userID
+        return new JsonResponse([
+            'createUser' => true,
+            'userEmail' => 'user@example.com',
+        ]);
+    }
+
+    #[Route(
         path: '/api/_action/support-form/send',
         name: 'api.action.support-form.send',
         methods: ['POST']

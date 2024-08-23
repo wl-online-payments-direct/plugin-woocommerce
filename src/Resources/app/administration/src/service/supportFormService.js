@@ -6,6 +6,16 @@ class supportForm extends ApiService {
         super(httpClient, loginService, apiEndpoint);
     }
 
+    checkUserRights(values) {
+        const headers = this.getBasicHeaders({});
+        return this.httpClient
+            .post(`_action/${this.getApiBasePath()}/check-user-rights`, values,{
+                headers
+            })
+            .then((response) => {
+                return ApiService.handleResponse(response);
+            });
+    }
     send(values) {
         const headers = this.getBasicHeaders({});
         return this.httpClient
@@ -16,7 +26,6 @@ class supportForm extends ApiService {
                 return ApiService.handleResponse(response);
             });
     }
-
     downloadLog(values) {
         const headers = this.getBasicHeaders({});
         return this.httpClient

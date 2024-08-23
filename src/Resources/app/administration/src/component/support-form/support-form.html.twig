@@ -16,9 +16,9 @@
 
             </sw-textarea-field>
             <div class="support-form--account">
-                <sw-checkbox-field v-model:value="createAccountCheck" :label="$tc('worldline.support-form.create-account')"></sw-checkbox-field>
+                <sw-checkbox-field v-model:value="createAccountCheck" :disabled=true :label="$tc('worldline.support-form.create-account')"></sw-checkbox-field>
                 <sw-help-text :width="200" tooltipPosition="top" :showDelay="100" :hideDelay="100"
-                              :text="$tc('worldline.support-form.create-account-help')">
+                              :text="$tc('worldline.support-form.user-have-no-rights')">
                 </sw-help-text>
             </div>
             <div class="support-form--logs">
