@@ -7,18 +7,17 @@
         <div>
             <p>{{ $tc('worldline.support-form.top-description') }}</p>
             <br />
-            <sw-email-field v-model:value="emailField">
+            <sw-email-field v-model:value="emailField" :placeholder="emailPlaceholder">
                 <template v-slot:label>{{ $tc('worldline.support-form.contact-email') }}</template>
             </sw-email-field>
             <sw-textarea-field type="textarea" label="Name" id="mo-support-description" v-model:value="descriptionField"
                                :placeholder="$tc('worldline.support-form.description-default')">
                 <template v-slot:label>{{ $tc('worldline.support-form.description') }}</template>
-
             </sw-textarea-field>
             <div class="support-form--account">
-                <sw-checkbox-field v-model:value="createAccountCheck" :disabled=true :label="$tc('worldline.support-form.create-account')"></sw-checkbox-field>
+                <sw-checkbox-field v-model:value="createAccountCheck" :disabled="createUserFormIsDisabled" :label="$tc('worldline.support-form.create-account')"></sw-checkbox-field>
                 <sw-help-text :width="200" tooltipPosition="top" :showDelay="100" :hideDelay="100"
-                              :text="$tc('worldline.support-form.user-have-no-rights')">
+                              :text="createUserHelpText">
                 </sw-help-text>
             </div>
             <div class="support-form--logs">

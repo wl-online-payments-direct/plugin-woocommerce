@@ -20,6 +20,9 @@ Component.register('support-form', {
             attachLogCheck: true,
             emailField: '',
             descriptionField: '',
+            emailPlaceholder: '',
+            createUserFormIsDisabled: true,
+            createUserHelpText: this.$tc('worldline.support-form.user-have-no-rights'),
         };
     },
 
@@ -30,16 +33,12 @@ Component.register('support-form', {
     methods: {
         checkUserRights() {
             this.supportForm.checkUserRights(
-                {
-                    'userId': 'userIddd',
-                }
             ).then((res) => {
-                //todo if res.createUser = true
-                // 1. change text of help to: this.$tc('worldline.support-form.create-account-help')
-                // 2. enable checkbox
-                // 3. set res.userEmail as placeholder for email field
-                console.log(this.$tc('worldline.support-form.create-account-help'))
-                console.log(res);
+                if (res.createUser) {
+                    this.createUserFormIsDisabled = false;
+                    this.createUserHelpText = this.$tc('worldline.support-form.create-account-help');
+                }
+                this.emailPlaceholder = res.userEmail;
                 this.isLoading = false;
             });
         },
@@ -50,7 +49,6 @@ Component.register('support-form', {
                     'attachLog': this.attachLogCheck,
                     'contact': this.emailField,
                     'description': this.descriptionField,
-                    //todo user id should also be sent here
                 }
             ).then((res) => {
                 if (res.success) {

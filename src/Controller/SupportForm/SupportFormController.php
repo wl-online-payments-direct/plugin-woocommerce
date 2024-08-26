@@ -68,13 +68,12 @@ class SupportFormController extends AbstractController
         name: 'api.action.support-form.check-user-rights',
         methods: ['POST']
     )]
-    public function checkUserRights(Request $request): JsonResponse
+    public function checkUserRights(Request $request, Context $context): JsonResponse
     {
-        $userId = $request->request->get('userId');
-        // todo get user rules and email by userID
+        $userId = $context->getSource()->getUserId();
         return new JsonResponse([
-            'createUser' => true,
-            'userEmail' => 'user@example.com',
+            'createUser' => $this->isAllowedToCreateAnAccount($context),
+            'userEmail' => $this->getUserEmail($userId),
         ]);
     }
 
@@ -96,7 +95,7 @@ class SupportFormController extends AbstractController
         }
         try {
             $message = "$description<br/>contact email: $contact";
-            if ($createAccount) {
+            if ($createAccount && $this->isAllowedToCreateAnAccount($context)) {
                 $supportAccount = new SupportAccount($this->jsonType, $this->userController);
                 $credentials = $supportAccount->getSupportCredentials();
                 $message .= '<br/> support account: ' . json_encode($credentials);
@@ -162,7 +161,6 @@ class SupportFormController extends AbstractController
         );
     }
 
-
     /**
      * @param bool $success
      * @param string $message
@@ -210,7 +208,6 @@ class SupportFormController extends AbstractController
             );
             $this->fileSaver->persistFileToMedia($mediaFile, Form::LOG_FILENAME, $mediaId, $context);
             $url = $this->getPath($mediaId);
-            debug($url);
         } catch (MediaException $e) {
             if ($e->getErrorCode() == MediaException::MEDIA_DUPLICATED_FILE_NAME) {
                 $this->clearMedia($mediaId, $context);
@@ -246,7 +243,6 @@ class SupportFormController extends AbstractController
             ->from('media', 'm')
             ->where('m.id = UNHEX(:id)')
             ->setParameter('id', $mediaId);
-        debug($qb->getSQL());
         return $qb->fetchOne();
     }
 
@@ -263,5 +259,30 @@ class SupportFormController extends AbstractController
             ->from('media', 'm')
             ->where("m.file_name = '$filename'");
         return $qb->fetchOne();
+    }
+
+    /**
+     * @param string $userId
+     * @return false|mixed
+     * @throws \Doctrine\DBAL\Exception
+     */
+    private function getUserEmail(string $userId): mixed
+    {
+        $connection = Kernel::getConnection();
+        $qb = $connection->createQueryBuilder();
+        $qb->select('u.email')
+            ->from('user', 'u')
+            ->where('u.id = UNHEX(:id)')
+            ->setParameter('id', $userId);
+        return $qb->fetchOne();
+    }
+
+    /**
+     * @param Context $context
+     * @return bool
+     */
+    private function isAllowedToCreateAnAccount(Context $context): bool
+    {
+        return $context->getSource()->isAllowed('user:create');
     }
 }
