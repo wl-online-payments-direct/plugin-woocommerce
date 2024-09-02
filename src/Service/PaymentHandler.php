@@ -777,7 +777,10 @@ class PaymentHandler
         }
 
         // We don't need to save card if token was temporary
-        if ($token == $customFields[$tmpTokenKey]) {
+        if (is_array($customFields)
+            && array_key_exists($tmpTokenKey, $customFields)
+            && $token == $customFields[$tmpTokenKey])
+        {
             unset($customFields[$tmpTokenKey]);
             $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
             return;
@@ -797,6 +800,11 @@ class PaymentHandler
             && array_key_exists($savedCardKey, $customFields)
             && array_key_exists($token, $customFields[$savedCardKey])) {
             return;
+        }
+
+        // Make same mask style
+        if (stripos($paymentProduct['paymentCard'], 'XXXX')) {
+            $paymentProduct['paymentCard'] = str_replace('XXXX', '******', $paymentProduct['paymentCard']);
         }
 
         $customFields[$savedCardKey][$token] = $paymentProduct;
