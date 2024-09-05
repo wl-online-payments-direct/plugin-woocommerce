@@ -803,8 +803,8 @@ class PaymentHandler
         }
 
         // Make same mask style
-        if (stripos($paymentProduct['paymentCard'], 'XXXX')) {
-            $paymentProduct['paymentCard'] = str_replace('XXXX', '******', $paymentProduct['paymentCard']);
+        if (stripos($paymentProduct['paymentCard'], 'X')) {
+            $paymentProduct['paymentCard'] = str_replace('X', '*', $paymentProduct['paymentCard']);
         }
 
         $customFields[$savedCardKey][$token] = $paymentProduct;
