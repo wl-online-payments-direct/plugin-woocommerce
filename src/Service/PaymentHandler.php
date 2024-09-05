@@ -797,6 +797,11 @@ class PaymentHandler
             return;
         }
 
+        // Make same mask style
+        if (stripos($paymentProduct['paymentCard'], 'X')) {
+            $paymentProduct['paymentCard'] = str_replace('X', '*', $paymentProduct['paymentCard']);
+        }
+
         $customFields[$savedCardKey][$token] = $paymentProduct;
 
         $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
