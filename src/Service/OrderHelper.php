@@ -107,4 +107,17 @@ class OrderHelper
         $logger->paymentLog($orderEntity->getOrderNumber(), 'cantFindCurrencyOfOrder' . $currencyId, Level::Error);
         return false;
     }
+
+    /**
+     * @param OrderEntity $orderEntity
+     * @return string
+     */
+    public static function getLocale(OrderEntity $orderEntity): string
+    {
+        $locale = $orderEntity->getLanguage()->getLocale();
+        if (!is_null($locale)) {
+            $locale = str_replace('-', '_', $locale->getCode());
+        }
+        return $locale;
+    }
 }

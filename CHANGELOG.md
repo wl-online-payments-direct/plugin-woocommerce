@@ -1,3 +1,6 @@
+# 2.1.8
+- Correct language for redirect page
+
 # 2.1.7
 - Subshop iframe fix
 
