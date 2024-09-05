@@ -194,8 +194,8 @@ class WorldlineSDKAdapter
         $hostedCheckoutSpecificInput = new HostedCheckoutSpecificInput();
         $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
         $returnUrl = $ReturnUrlController->getReturnUrl($this, $this->isLiveMode());
-        $hostedCheckoutSpecificInput->setLocale(OrderHelper::getLocale($orderEntity));
         $hostedCheckoutSpecificInput->setReturnUrl($returnUrl);
+        $hostedCheckoutSpecificInput->setLocale(OrderHelper::getLocale($orderEntity));
         $hostedCheckoutSpecificInput->setVariant($fullRedirectTemplateName);
         $cardPaymentMethodSpecificInput = new CardPaymentMethodSpecificInput();
         if ($this->isDirectSales()) {
