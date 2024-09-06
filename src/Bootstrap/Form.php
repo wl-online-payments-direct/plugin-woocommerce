@@ -92,4 +92,11 @@ class Form
     const SESSION_OPERATIONS_LOCK = 'order_locked';
     const SESSION_IFRAME_DATA = 'worldline_iframe_data';
     const SESSION_SERVER_URL = 'worldline_server_url';
+
+    const LOG_DIR_PATH = '/var/log/worldline/';
+    const LOG_ARCHIVE_PATH = '/var/log/worldline.zip';
+    const LOG_FILENAME = 'worldline';
+    const LOG_FILE_EXT = 'zip';
+    const LOG_FILE_MIME_TYPE = 'application/zip';
+    const LOG_FILE_MAX = 14;
 }
