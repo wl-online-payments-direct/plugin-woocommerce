@@ -1,3 +1,12 @@
+# 2.2.0
+- Support form
+
+# 2.1.9
+- iFrame save card fix
+
+# 2.1.8
+- Correct language for redirect page
+
 # 2.1.7
 - Subshop iframe fix
 

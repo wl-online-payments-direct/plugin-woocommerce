@@ -103,9 +103,8 @@ class PaymentHandler
      */
     public function createPayment(int $worldlinePaymentMethodId, string $token = ''): CreateHostedCheckoutResponse
     {
-        $orderObject = null;
+        $criteria = new Criteria([$this->order->getId()]);
         if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
-            $criteria = new Criteria([$this->order->getId()]);
             $criteria->addAssociation('lineItems')
                 ->addAssociation('deliveries.positions.orderLineItem')
                 ->addAssociation('orderCustomer.customer')
@@ -115,8 +114,10 @@ class PaymentHandler
                 ->addAssociation('billingAddress.country')
                 ->addAssociation('deliveries.shippingOrderAddress')
                 ->addAssociation('deliveries.shippingOrderAddress.country');
-            $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
+        } else {
+            $criteria->addAssociation('language.locale');
         }
+        $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
 
         $amountTotal = (int)round($this->order->getAmountTotal() * 100);
         $currencyISO = OrderHelper::getCurrencyISO($this->order, $this->logger);
@@ -159,6 +160,8 @@ class PaymentHandler
 
         $this->logger->paymentLog($this->order->getOrderNumber(), 'buildingHostdTokenizationOrder');
 
+        // Change localeId with locale code (hex to de_DE, for example)
+        $iframeData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($iframeData[Form::WORLDLINE_CART_FORM_LOCALE]);
         $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
             $amountTotal,
@@ -758,7 +761,23 @@ class PaymentHandler
         array                          $paymentProduct = []
     )
     {
+        $customerId = $this->order->getOrderCustomer()->getCustomerId();
+        $customer = $this->customerRepository->search(new Criteria([$customerId]), $this->context);
+        $customFields = $customer->first()->getCustomFields();
+        $tmpTokenKey = Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_TMP_TOKEN;
+
+        // On payment finalize we don't know was token tmp or not so we save it here
         if (!is_null($hostedTokenization) && $hostedTokenization->getToken()->getIsTemporary()) {
+            $tmpToken = $hostedTokenization->getToken()->getId();
+            $customFields[$tmpTokenKey] = $tmpToken;
+            $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
+            return;
+        }
+
+        // We don't need to save card if token was temporary
+        if (is_array($customFields) && array_key_exists($tmpTokenKey, $customFields) && $token == $customFields[$tmpTokenKey]) {
+            unset($customFields[$tmpTokenKey]);
+            $this->customerRepository->update([['id' => $customerId, 'customFields' => $customFields]], $this->context);
             return;
         }
 
@@ -770,10 +789,6 @@ class PaymentHandler
             $paymentProduct['redirectToken'] = true;
         }
 
-        $customerId = $this->order->getOrderCustomer()->getCustomerId();
-        $customer = $this->customerRepository->search(new Criteria([$customerId]), $this->context);
-        $customFields = $customer->first()->getCustomFields();
-
         // Token already exist
         $savedCardKey = Form::CUSTOM_FIELD_WORLDLINE_CUSTOMER_SAVED_PAYMENT_CARD_TOKEN;
         if (!is_null($customFields)
@@ -782,13 +797,13 @@ class PaymentHandler
             return;
         }
 
+        // Make same mask style
+        if (stripos($paymentProduct['paymentCard'], 'X')) {
+            $paymentProduct['paymentCard'] = str_replace('X', '*', $paymentProduct['paymentCard']);
+        }
+
         $customFields[$savedCardKey][$token] = $paymentProduct;
 
-        $this->customerRepository->update([
-            [
-                'id' => $customerId,
-                'customFields' => $customFields
-            ]
-        ], $this->context);
+        $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
     }
 }

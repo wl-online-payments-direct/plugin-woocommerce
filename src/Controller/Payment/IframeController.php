@@ -53,8 +53,9 @@ class IframeController extends AbstractController
     {
         $salesChannelId = $request->get('salesChannelId');
         $token = $request->get('token');
+        $localeId = $request->get('localeId');
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
-        $tokenizationUrl = $adapter->createHostedTokenizationUrl($token);
+        $tokenizationUrl = $adapter->createHostedTokenizationUrl($token, $localeId);
 
         return new JsonResponse([
             'url' => $tokenizationUrl
