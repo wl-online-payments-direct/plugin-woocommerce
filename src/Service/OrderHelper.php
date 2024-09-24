@@ -10,7 +10,7 @@ namespace MoptWorldline\Service;
 use Monolog\Level;
 use MoptWorldline\Bootstrap\Form;
 use Shopware\Core\Checkout\Order\OrderEntity;
-use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
+use Shopware\Core\Checkout\Payment\PaymentException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -61,7 +61,7 @@ class OrderHelper
 
         if ($order === null) {
             LogHelper::addLog(Level::Error, "The order with hostedCheckoutId $hostedCheckoutId could not be found.");
-            throw new InvalidTransactionException('');
+            throw PaymentException::invalidTransaction ('');
         }
 
         return $order;
@@ -106,5 +106,18 @@ class OrderHelper
 
         $logger->paymentLog($orderEntity->getOrderNumber(), 'cantFindCurrencyOfOrder' . $currencyId, Level::Error);
         return false;
+    }
+
+    /**
+     * @param OrderEntity $orderEntity
+     * @return string
+     */
+    public static function getLocale(OrderEntity $orderEntity): string
+    {
+        $locale = $orderEntity->getLanguage()->getLocale();
+        if (!is_null($locale)) {
+            $locale = str_replace('-', '_', $locale->getCode());
+        }
+        return $locale;
     }
 }

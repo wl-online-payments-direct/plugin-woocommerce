@@ -14,7 +14,7 @@ use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\LogHelper;
 use Shopware\Core\Checkout\Customer\CustomerEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
-use Shopware\Core\Framework\Routing\Exception\MissingRequestParameterException;
+use Shopware\Core\Framework\Routing\RoutingException;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -56,8 +56,9 @@ class IframeController extends AbstractController
     {
         $salesChannelId = $request->get('salesChannelId');
         $token = $request->get('token');
+        $localeId = $request->get('localeId');
         $adapter = new WorldlineSDKAdapter($this->systemConfigService, $salesChannelId);
-        $tokenizationUrl = $adapter->createHostedTokenizationUrl($token);
+        $tokenizationUrl = $adapter->createHostedTokenizationUrl($token, $localeId);
 
         return new JsonResponse([
             'url' => $tokenizationUrl
@@ -112,14 +113,14 @@ class IframeController extends AbstractController
         path: '/worldline/card/delete/{tokenId}',
         name: 'worldline.card.delete',
         options: ['seo' => false],
-        methods: ['POST'],
-        defaults: ['_loginRequired' => true]
+        defaults: ['_loginRequired' => true],
+        methods: ['POST']
     )]
     public function deleteCard(string $tokenId, SalesChannelContext $context, CustomerEntity $customer): RedirectResponse
     {
         $success = true;
         if (!$tokenId) {
-            throw new MissingRequestParameterException('tokenId');
+            throw RoutingException::missingRequestParameter ('tokenId');
         }
 
         try {

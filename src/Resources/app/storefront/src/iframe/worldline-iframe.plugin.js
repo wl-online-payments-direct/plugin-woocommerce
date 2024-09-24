@@ -19,6 +19,7 @@ export default class WorldlineIframePlugin extends Plugin {
             });
 
             this.moptWorldlineSalesChannel = document.getElementById("moptWorldlineSalesChannelId");
+            this.moptWorldlineLocaleId = document.getElementById("moptWorldlineLocaleId");
             this._client.get('/worldline_serverUrl?serverUrl='+document.URL);
             var showIframe = document.getElementById("moptWorldlineShowIframe");
             if (showIframe !== null && showIframe.value) {
@@ -48,10 +49,11 @@ export default class WorldlineIframePlugin extends Plugin {
         this.tokenizationDiv = "div-hosted-tokenization";
         this.savePaymentCardCheckbox = document.getElementById("moptWorldlineSavePaymentCard");
         this.salesChannelId = this.moptWorldlineSalesChannel.value;
+        this.localeId = this.moptWorldlineLocaleId.value;
         this.confirmForm = document.getElementById("confirmOrderForm");
         var token = this._getCurrentToken();
         this._client.get(
-            '/worldline_iframe?salesChannelId='+this.salesChannelId+'&token='+token,
+            '/worldline_iframe?salesChannelId='+this.salesChannelId+'&token='+token+'&localeId='+this.localeId,
             this._setContent.bind(this),
             'application/json',
             true
@@ -83,7 +85,7 @@ export default class WorldlineIframePlugin extends Plugin {
                 this._createHiddenInput(this.confirmForm, "moptWorldlineBrowserDataScreenHeight", screen.height);
                 this._createHiddenInput(this.confirmForm, "moptWorldlineBrowserDataScreenWidth", screen.width);
                 this._createHiddenInput(this.confirmForm, "moptWorldlineBrowserDataJavaEnabled", navigator.javaEnabled());
-                this._createHiddenInput(this.confirmForm, "moptWorldlineLocale", navigator.language);
+                this._createHiddenInput(this.confirmForm, "moptWorldlineLocale", this.moptWorldlineLocaleId.value);
                 this._createHiddenInput(this.confirmForm, "moptWorldlineUserAgent", navigator.userAgent);
                 this._createHiddenInput(this.confirmForm, "moptWorldlineTimezoneOffsetUtcMinutes", new Date().getTimezoneOffset());
                 this.confirmForm.submit();

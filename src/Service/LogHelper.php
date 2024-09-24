@@ -9,9 +9,11 @@ namespace MoptWorldline\Service;
 
 use Monolog\Level;
 use Monolog\Logger;
+use Monolog\Handler\RotatingFileHandler;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use Symfony\Contracts\Translation\TranslatorInterface;
+use Composer\Package\Archiver\ZipArchiver;
 
 class LogHelper
 {
@@ -94,6 +96,33 @@ class LogHelper
     public static function addLog(int|Level $logLevel, string $message, mixed $additionalData = ''): void
     {
         $logger = new Logger('Worldline');
+        self::addRecord($logger, $logLevel, $message, $additionalData);
+        self::addPluginLog($logLevel, $message, $additionalData);
+    }
+
+    /**
+     * @param int|Level $logLevel
+     * @param string $message
+     * @param mixed $additionalData
+     * @return void
+     */
+    public static function addPluginLog(int|Level $logLevel, string $message, mixed $additionalData = ''): void
+    {
+        $fullPath = dirname(__DIR__, 5) . Form::LOG_DIR_PATH . 'log';
+        $streamHandler = new RotatingFileHandler($fullPath, Form::LOG_FILE_MAX, $logLevel);
+        $logger = new Logger('worldline', [$streamHandler]);
+        self::addRecord($logger, $logLevel, $message, $additionalData);
+    }
+
+    /**
+     * @param Logger $logger
+     * @param int|Level $logLevel
+     * @param string $message
+     * @param mixed $additionalData
+     * @return void
+     */
+    public static function addRecord(Logger $logger, int|Level $logLevel, string $message, mixed $additionalData = '')
+    {
         $logger->addRecord(
             $logLevel,
             $message,
@@ -102,5 +131,21 @@ class LogHelper
                 'additionalData' => json_encode($additionalData),
             ]
         );
+    }
+
+    /**
+     * @return string
+     */
+    public static function getArchive(): string
+    {
+        $zip = new ZipArchiver();
+        $archivePath = dirname(__DIR__, 5) . Form::LOG_ARCHIVE_PATH;
+        $zip->archive(
+            dirname(__DIR__, 5) . Form::LOG_DIR_PATH,
+            $archivePath,
+            'zip'
+        );
+
+        return $archivePath;
     }
 }
