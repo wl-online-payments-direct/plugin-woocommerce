@@ -2,6 +2,7 @@
 {% block component_payment_method %}
     <input type="hidden" id="moptWorldlinePageId" value="{{ moptPageId }}">
     <input type="hidden" id="moptWorldlineSalesChannelId" value="{{ context.salesChannel.id }}">
+    <input type="hidden" id="moptWorldlineLocaleId" value="{{ page.header.activeLanguage.localeId }}">
     <input type="hidden" id="moptWorldlineCustomerId" value="{{ context.customer.id }}">
     <input type="hidden" id="moptWorldlineShowIframe" value="{{
     moptPageId == 'cartConfirm'
