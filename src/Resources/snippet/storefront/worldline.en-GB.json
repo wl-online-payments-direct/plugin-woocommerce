@@ -102,7 +102,9 @@
             "error": "Connection could not be established. Please check the access data.",
             "success": "Changes successfully saved",
             "errorAPI": "There was an error on save",
-            "APITitle": "Payment method saving"
+            "APITitle": "Payment method saving",
+            "paymentName": "Payment method",
+            "contact-email": "admin@your-shop.com"
         },
         "configFile": {
             "merchantId": "Merchant Id",
@@ -156,6 +158,22 @@
         },
         "payment-methods": {
             "oney-label": "Oney custom field"
+        },
+        "support-form": {
+            "name": "Contact development team",
+            "top-description": "Please use this form to briefly describe your inquiry and send it to our development team.",
+            "attach-logs": "Attach log",
+            "create-account": "Create account",
+            "create-account-help": "Create Shopware backend account for Mediaopt support",
+            "contact-email": "Your contact email",
+            "description": "Description",
+            "description-default": "Dear Mediaopt support,\n\nWe would like to offer the following recommendations to improve the functionality and user experience of your plugin.\n\nKind regards,\nShop Manager",
+            "button": "Send",
+            "download": "Download",
+            "title": "Support request",
+            "success": "Successfully sent!",
+            "error": "Error!",
+            "user-have-no-rights": "Looks like you don’t have permission to create a support account. Reach out to an administrator to gain access."
         }
     }
 }
