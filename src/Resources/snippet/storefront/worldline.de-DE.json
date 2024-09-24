@@ -17,7 +17,9 @@
             "request": "Verfügbare Zahlungsarten werden abgerufen...",
             "requestEmpty": "Keine Zahlungsarten zum Anzeigen gefunden",
             "title": "Verfügbare Zahlungsmittel abrufen",
-            "error": "Verbindung konnte nicht hergestellt werden. Bitte überprüfen Sie die Zugangsdaten."
+            "error": "Verbindung konnte nicht hergestellt werden. Bitte überprüfen Sie die Zugangsdaten.",
+            "paymentName": "Zahlart",
+            "contact-email": "admin@dein-shop.de"
         }
     }
 }

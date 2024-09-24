@@ -1,3 +1,6 @@
+# 2.2.0
+- Support form
+
 # 2.1.9
 - iFrame save card fix
 
