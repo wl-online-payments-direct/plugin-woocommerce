@@ -96,7 +96,7 @@ class PaymentProducts
         // Make masked card number from bin (123456) and last 4 digs (************1234) - 123456******1234
         $bin = $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getBin();
         $card = $paymentDetailsResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber();
-        $paymentCard = substr_replace($card, $bin, 0, 6);
+        $paymentCard = substr_replace($card, $bin, 0, strlen($bin));
         return array_merge(
             [
                 'paymentProductId' => $paymentProductId,
