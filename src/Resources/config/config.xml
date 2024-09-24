@@ -76,6 +76,7 @@
         <input-field>
             <name>fullRedirectTemplateName</name>
             <label>Full Redirect template name</label>
+            <defaultValue>SimplifiedCustomPaymentPage</defaultValue>
         </input-field>
         <input-field>
             <name>iframeTemplateName</name>
@@ -187,5 +188,8 @@
             </options>
             <defaultValue>INFO</defaultValue>
         </input-field>
+        <component name="support-form">
+            <name>supportForm</name>
+        </component>
     </card>
 </config>

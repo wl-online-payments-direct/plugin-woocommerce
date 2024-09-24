@@ -1,3 +1,6 @@
+# 3.1.0
+- Support form
+
 # 3.0.3
 - iFrame save card fix
 

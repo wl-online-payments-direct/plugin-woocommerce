@@ -9,6 +9,7 @@ namespace MoptWorldline\Adapter;
 
 use Monolog\Level;
 use MoptWorldline\Controller\Payment\ReturnUrlController;
+use MoptWorldline\MoptWorldline;
 use MoptWorldline\Service\DiscountHelper;
 use MoptWorldline\Service\LocaleHelper;
 use MoptWorldline\Service\LogHelper;
@@ -122,7 +123,7 @@ class WorldlineSDKAdapter
             $credentials['apiKey'],
             $credentials['apiSecret'],
             $credentials['endpoint'],
-            self::INTEGRATOR_NAME,
+            self::INTEGRATOR_NAME . ' ' . MoptWorldline::PLUGIN_VERSION,
             null
         );
 
