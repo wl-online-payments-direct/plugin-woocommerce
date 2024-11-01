@@ -1,3 +1,6 @@
+# 3.1.2
+- Webhook fix
+
 # 3.1.1
 - Shopware 6.6.6.0 update
 
