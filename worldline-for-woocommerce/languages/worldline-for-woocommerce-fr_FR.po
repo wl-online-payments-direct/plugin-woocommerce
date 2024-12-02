@@ -1,0 +1,418 @@
+# Translation of Worldline for WooCommerce in French (France)
+# This file is distributed under the same license as the Worldline for WooCommerce package.
+msgid ""
+msgstr ""
+"PO-Revision-Date: 2024-09-16 07:30:40+0000\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n > 1;\n"
+"X-Generator: GlotPress/4.0.1\n"
+"Language: fr\n"
+"Project-Id-Version: Worldline for WooCommerce\n"
+
+#: modules.local/worldline-payment-gateway/inc/services.php:141
+#: modules.local/worldline-payment-gateway/inc/services.php:143
+msgid "Worldline for WooCommerce"
+msgstr "Worldline for WooCommerce"
+
+#: modules.local/webhooks/inc/fields.php:46
+msgid "Live Secret webhook key"
+msgstr "Secret du webhook en direct"
+
+#: modules.local/webhooks/inc/fields.php:34
+msgid "Live Webhook ID"
+msgstr "Clé Live Webhook"
+
+#: modules.local/webhooks/inc/fields.php:25
+msgid "Test Secret webhook key"
+msgstr "Tester le secret du webhook"
+
+#: modules.local/webhooks/inc/fields.php:13
+msgid "Test Webhook ID"
+msgstr "Clé de test Webhook"
+
+#: modules.local/config/inc/fields.php:152
+msgid "Please make sure that Surcharging is active on your Worldline account. If it is not configured properly, the payments will not be processed."
+msgstr "Veuillez vous assurer que la surtaxe est active sur votre compte Worldline. S'il n'est pas configuré correctement, les paiements ne seront pas traités."
+
+#: modules.local/config/inc/fields.php:132
+msgid "Show tokenized cards"
+msgstr "Afficher les cartes enregistrées"
+
+#: modules.local/webhooks/inc/fields.php:28
+#: modules.local/webhooks/inc/fields.php:49
+msgid "Find/create the Webhook Secret in Developer tab > Webhooks on your Worldline Merchant Portal Dashboard."
+msgstr "Trouvez/créez le Webhook Secret dans l'onglet Developer > Webhooks sur votre tableau de bord Worldline Merchant Portal."
+
+#: modules.local/webhooks/inc/fields.php:16
+#: modules.local/webhooks/inc/fields.php:37
+msgid "Find/create the Webhook Key in Developer tab > Webhooks on your Worldline Merchant Portal Dashboard."
+msgstr "Trouvez/créez la clé Webhook dans l'onglet Développeur > Webhooks sur votre tableau de bord Worldline Merchant Portal."
+
+#: modules.local/config/inc/fields.php:183
+msgid "Use authorization to block the funds of your customers for a period of 7 days. Those can't be reversed and need to be captured for the full amount. Use a preauthorization to block the funds of your customers for a period of 30 days. The amount captured can be lower than the authorized amount. Note that all acquirers and activity sectors do not support preauthorizations."
+msgstr "Utilisez l'autorisation pour bloquer les fonds de vos clients pendant une période de 7 jours. Celles-ci ne peuvent être annulées et doivent être saisies pour le montant total. Utilisez une préautorisation pour bloquer les fonds de vos clients pendant une période de 30 jours. Le montant saisi peut être inférieur au montant autorisé. Il est à noter que tous les acquéreurs et tous les secteurs d'activité ne prennent pas en charge les autorisations préalables."
+
+#: modules.local/config/inc/fields.php:169
+msgid "Define whether you want to work in one step (money captured directly; SALE) or in two steps (authorization followed by a capture; Authorization)."
+msgstr "Définissez si vous souhaitez travailler en une seule étape (argent capturé directement ; VENTE) ou en deux étapes (autorisation suivie d'une capture ; autorisation)."
+
+#: modules.local/config/inc/fields.php:86
+msgid "Enter Endpoint URL congifured on your live account."
+msgstr "Saisissez l'URL du point de terminaison défini sur votre compte réel."
+
+#: modules.local/config/inc/fields.php:73
+msgid "Find/create the API Secret in Developer tab > Payment API on your Worldline Merchant Portal Dashboard."
+msgstr "Trouvez/créez le secret API dans l'onglet Développeur > Payment API sur votre tableau de bord Worldline Merchant Portal."
+
+#: modules.local/config/inc/fields.php:64
+msgid "Find/create the API Key in Developer tab > Payment API on your Worldline Merchant Portal Dashboard."
+msgstr "Trouvez/créez la clé API dans l'onglet Développeur > API de paiement sur le tableau de bord de votre portail marchand Worldline."
+
+#: modules.local/config/inc/fields.php:58
+msgid "Enter Endpoint URL congifured on your test account."
+msgstr "Saisissez l'URL du point de terminaison défini sur votre compte de test."
+
+#: modules.local/config/inc/fields.php:45
+msgid "Find/create the API Secret in Developer tab > Payment API on your Worldline Merchant Portal Dashboard(Test)."
+msgstr "Trouvez/créez le secret API dans l'onglet Développeur > Payment API sur votre tableau de bord Worldline Merchant Portal (Test)."
+
+#: modules.local/config/inc/fields.php:36
+msgid "Find/create the API Key in Developer tab > Payment API on your Worldline Merchant Portal Dashboard(Test)."
+msgstr "Trouvez/créez la clé API dans l'onglet Développeur > Payment API sur votre tableau de bord Worldline Merchant Portal (Test)."
+
+#: modules.local/config/inc/fields.php:24
+msgid "Enter your Merchant ID or your Worldline Login Name."
+msgstr "Saisissez votre identifiant marchand ou votre nom de connexion Worldline."
+
+#. translators: %1$s, %2$s - <a> link tags.
+#: modules.local/documentation/src/Renderer/LinksRenderer.php:50
+msgid "%1$sView Account%2$s"
+msgstr "%1$sVoir le compte%2$s"
+
+#. translators: %1$s, %2$s - <a> link tags.
+#: modules.local/documentation/src/Renderer/LinksRenderer.php:44
+msgid "%1$sCreate Account%2$s"
+msgstr "%1$sCréer un compte%2$s"
+
+#. translators: %1$s, %2$s - <a> link tags.
+#: modules.local/documentation/src/Renderer/LinksRenderer.php:38
+msgid "%1$sDocumentation%2$s"
+msgstr "%1$sDocumentation%2$s"
+
+#. translators: %1$s, %2$s - <a> link tags.
+#: modules.local/documentation/src/Renderer/LinksRenderer.php:32
+msgid "%1$sContact Us%2$s"
+msgstr "%1$sContactez-nous%2$s"
+
+#: modules.local/worldline-payment-gateway/src/WorldlinePaymentGatewayModule.php:207
+msgid "The currency currently used by your store is not enabled in your Worldline account."
+msgstr "La devise actuellement utilisée par votre magasin n'est pas activée dans votre compte Worldline."
+
+#. translators: %s - refund amount (like "123.45 EUR")
+#: modules.local/worldline-payment-gateway/src/WorldlinePaymentGatewayModule.php:143
+msgid "Your refund request for %s has been submitted and is pending approval."
+msgstr "Votre demande de remboursement pour %s a été soumise et est en attente d'approbation."
+
+#: modules.local/worldline-payment-gateway/src/Refund/RefundProcessor.php:58
+msgid "Failed to submit a refund request. Please try again."
+msgstr "Échec de la demande de remboursement. Veuillez réessayer."
+
+#: modules.local/worldline-payment-gateway/src/Refund/RefundProcessor.php:50
+msgid "This order doesn't meet the requirements to issue a refund."
+msgstr "Cette commande ne remplit pas les conditions requises pour faire l'objet d'un remboursement."
+
+#: modules.local/worldline-payment-gateway/src/Payment/HostedPaymentProcessor.php:87
+msgid "Failed to process checkout. Please try again or contact the shop admin."
+msgstr "Échec du traitement de la commande. Veuillez réessayer ou contacter l'administrateur de la boutique."
+
+#: modules.local/worldline-payment-gateway/src/OrderUpdater.php:249
+msgid "Payment authorization accepted, funds can be captured."
+msgstr "L'autorisation de paiement est acceptée, les fonds peuvent être saisis."
+
+#: modules.local/worldline-payment-gateway/src/Notice/OrderActionNotice.php:62
+msgid "This order doesn't meet the requirements to capture the funds."
+msgstr "Cet ordre ne remplit pas les conditions requises pour capturer les fonds."
+
+#: modules.local/worldline-payment-gateway/src/Notice/OrderActionNotice.php:55
+msgid "Failed to submit funds capture request. Please try again."
+msgstr "La demande de capture de fonds n'a pas été soumise. Veuillez réessayer."
+
+#: modules.local/worldline-payment-gateway/src/AuthorizedPaymentProcessor.php:57
+msgid "Your fund capture request is submitted. You will receive a notification in the order notes upon completion."
+msgstr "Votre demande de capture de fonds est soumise. Vous recevrez une notification dans les notes de commande une fois la procédure terminée."
+
+#: modules.local/worldline-payment-gateway/src/Admin/StatusUpdateAction.php:34
+msgid "Refresh Worldline status"
+msgstr "Actualiser l'état de la ligne mondiale"
+
+#: modules.local/worldline-payment-gateway/src/Admin/RenderCaptureAction.php:28
+msgid "Capture authorized Worldline payment"
+msgstr "Saisir le paiement autorisé par Worldline"
+
+#: modules.local/worldline-payment-gateway/inc/services.php:159
+msgid "Accepting all major and local payment options."
+msgstr "Nous acceptons toutes les options de paiement majeures et locales."
+
+#: modules.local/worldline-payment-gateway/inc/services.php:153
+msgid "Accepting all major and local payment options. Final price may differ at checkout due to possible surcharges."
+msgstr "Nous acceptons toutes les options de paiement majeures et locales. Le prix final peut être différent au moment du paiement en raison d'éventuels surtaxe."
+
+#: modules.local/worldline-payment-gateway/inc/services.php:145
+msgid "Accept payments with all major and local payment methods."
+msgstr "Nous acceptons les paiements avec tous les moyens de paiement majeurs et locaux."
+
+#. Author of the plugin
+#: worldline-for-woocommerce.php
+msgid "Worldline"
+msgstr "Worldline"
+
+#: modules.local/webhooks/src/Helper/WebhookHelper.php:78
+msgid "Unknown transaction ID"
+msgstr "ID de transaction inconnu"
+
+#: modules.local/webhooks/src/Handler/PaymentRejectedHandler.php:24
+msgid "Payment rejected."
+msgstr "Paiement refusé."
+
+#. translators: %s transaction ID
+#: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:91
+msgid "%1$s Worldline transaction ID: %2$s"
+msgstr "%1$s ID de la transaction Worldline : %2$s"
+
+#. translators: 1 Amount of money
+#: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:83
+msgid "%s was cancelled."
+msgstr "%s a été annulé."
+
+#: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:81
+msgid "Authorization cancelled."
+msgstr "Autorisation annulée."
+
+#. translators: 1 Amount of money
+#: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:79
+msgid "%s was refunded."
+msgstr "%s a été remboursé."
+
+#: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:77
+msgid "Refund processed."
+msgstr "Remboursement traité."
+
+#. translators: 1 Worldline transaction ID
+#: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:43
+msgid "Failed to issue a refund in the Woocommerce. Transaction ID: %s"
+msgstr "Échec de l'émission d'un remboursement dans l'application Woocommerce. ID de la transaction : %s"
+
+#. translators: %s refers to the capture amount
+#: modules.local/webhooks/src/Handler/PaymentCapturedHandler.php:39
+msgid "Payment of %s successfully captured."
+msgstr "Paiement de %s capturé avec succès."
+
+#: modules.local/webhooks/inc/fields.php:69
+msgid "Copy"
+msgstr "Copie"
+
+#: modules.local/webhooks/inc/fields.php:64
+msgid "Copied to clipboard"
+msgstr "Copié dans le presse-papiers"
+
+#: modules.local/webhooks/inc/fields.php:55
+msgid "Webhook endpoint"
+msgstr "Point de terminaison du webhook"
+
+#. translators: %1$s - last digits of the card.
+#: modules.local/vaulting/src/CardButtonRenderer.php:16
+msgid "Pay with your stored card xxxx-%1$s"
+msgstr "Payez avec votre carte stockée xxxx-%1$s"
+
+#. translators: %s - URL.
+#: modules.local/config/src/Sanitizer/ApiEndpointSanitizer.php:23
+msgid "Invalid API endpoint URL. Should be similar to \"%s\"."
+msgstr "L'URL du point de terminaison de l'API n'est pas valide. Devrait être similaire à \"%s\"."
+
+#: modules.local/config/inc/services.php:54
+#: modules.local/config/src/ConfigModule.php:67
+msgid "Connection to the Worldline API failed. Check the credentials."
+msgstr "La connexion à l'API Worldline a échoué. Vérifier les références."
+
+#: modules.local/config/inc/fields.php:202
+msgid "Enable Worldline Payments"
+msgstr "Activer les paiements en ligne"
+
+#: modules.local/config/inc/fields.php:200
+msgid "Enable/Disable"
+msgstr "Activer/Désactiver"
+
+#: modules.local/config/inc/fields.php:192
+msgid "Enforce 3DSv2"
+msgstr "Appliquer 3DSv2"
+
+#: modules.local/config/inc/fields.php:190
+msgid "Strong customer authentication"
+msgstr "Authentification forte du client"
+
+#: modules.local/config/inc/fields.php:181
+msgid "Pre-authorization"
+msgstr "Autorisation préalable"
+
+#: modules.local/config/inc/fields.php:180
+msgid "Final authorization"
+msgstr "Autorisation finale"
+
+#: modules.local/config/inc/fields.php:176
+msgid "Authorization mode for credit cards"
+msgstr "Mode d'autorisation pour les cartes de crédit"
+
+#: modules.local/config/inc/fields.php:167
+msgid "Sale"
+msgstr "Vente"
+
+#: modules.local/config/inc/fields.php:166
+msgid "Authorization"
+msgstr "Autorisation"
+
+#: modules.local/config/inc/fields.php:162
+msgid "Authorization mode"
+msgstr "Mode d'autorisation"
+
+#: modules.local/config/inc/fields.php:158
+msgid "Advanced settings"
+msgstr "Paramètres avancés"
+
+#: modules.local/config/inc/fields.php:150
+msgid "Instruct the payment platform to calculate and apply a surcharge amount to a transaction, based on the merchant’s surcharge configuration, net amount, and payment product type."
+msgstr "Demander à la plateforme de paiement de calculer et d'appliquer un montant de surtaxe à une transaction, en fonction de la configuration de la surtaxe du commerçant, du montant net et du type de produit de paiement."
+
+#: modules.local/config/inc/fields.php:134
+#: modules.local/config/inc/fields.php:149
+msgid "Enable"
+msgstr "Activer"
+
+#: modules.local/config/inc/fields.php:147
+#: modules.local/worldline-payment-gateway/src/OrderUpdater.php:282
+msgid "Surcharge"
+msgstr "Supplément"
+
+#: modules.local/config/inc/fields.php:143
+msgid "Surcharge settings"
+msgstr "Paramètres de la surtaxe"
+
+#: modules.local/config/inc/fields.php:135
+msgid "When a customer has stored cards, additional \"Pay with your stored card ...\" buttons will be displayed in checkout."
+msgstr "Lorsqu'un client possède des cartes stockées, des boutons supplémentaires \"Payez avec votre carte stockée ...\" s'affichent à la caisse."
+
+#: modules.local/config/inc/fields.php:126
+msgid "Enable card grouping"
+msgstr "Activer le regroupement des cartes"
+
+#: modules.local/config/inc/fields.php:125
+msgid "Grouped Cards"
+msgstr "Cartes groupées"
+
+#: modules.local/config/inc/fields.php:121
+msgid "Full redirection to Worldline Payment Page"
+msgstr "Redirection complète vers la page de paiement de Worldline"
+
+#: modules.local/config/inc/fields.php:117
+msgid "Checkout type"
+msgstr "Type d'encaissement"
+
+#: modules.local/config/inc/fields.php:113
+msgid "Personalize the Checkout Button text."
+msgstr "Personnalisez le texte du bouton de paiement."
+
+#: modules.local/config/inc/fields.php:111
+msgid "Payment button title"
+msgstr "Titre du bouton de paiement"
+
+#: modules.local/config/inc/fields.php:107
+msgid "Checkout appearance"
+msgstr "Apparence de la caisse"
+
+#: modules.local/config/inc/fields.php:98
+msgid "Write more details into the logs, such as HTTP requests."
+msgstr "Inscrire plus de détails dans les journaux, tels que les requêtes HTTP."
+
+#: modules.local/config/inc/fields.php:95
+msgid "Enable debug logging"
+msgstr "Activer la journalisation de débogage"
+
+#: modules.local/config/inc/fields.php:93
+msgid "Advanced logging"
+msgstr "Journalisation avancée"
+
+#: modules.local/config/inc/fields.php:83
+msgid "Live API Endpoint"
+msgstr "Point final de l'API en direct"
+
+#: modules.local/config/inc/fields.php:71
+msgid "Live API Secret"
+msgstr "Secret de l'API en direct"
+
+#: modules.local/config/inc/fields.php:62
+msgid "Live API Key"
+msgstr "Clé API Live"
+
+#: modules.local/config/inc/fields.php:55
+msgid "Test API Endpoint"
+msgstr "Test du point final de l'API"
+
+#: modules.local/config/inc/fields.php:43
+msgid "Test API Secret"
+msgstr "Secret de l'API de test"
+
+#: modules.local/config/inc/fields.php:34
+msgid "Test API Key"
+msgstr "Clé API de test"
+
+#: modules.local/config/inc/fields.php:30
+msgid "Use the live environment"
+msgstr "Utiliser l'environnement réel"
+
+#: modules.local/config/inc/fields.php:28
+msgid "Live mode"
+msgstr "Mode en direct"
+
+#: modules.local/config/inc/fields.php:22
+msgid "PSPID"
+msgstr "PSPID"
+
+#: modules.local/checkout/inc/services.php:35
+msgid "You cancelled the checkout."
+msgstr "Vous avez annulé la commande."
+
+#: modules.local/checkout/inc/services.php:30
+msgid "We apologize for the delay. Your payment is still processing."
+msgstr "Nous nous excusons pour ce retard. Votre paiement est en cours de traitement."
+
+#: modules.local/checkout/inc/services.php:26
+msgid "Processing your payment. Please wait..."
+msgstr "Traitement de votre paiement. Veuillez patienter..."
+
+#: inc/services.php:229
+msgid "Contact us"
+msgstr "Contactez nous"
+
+#: inc/services.php:218
+msgid "Settings"
+msgstr "Paramètres"
+
+#: inc/error.php:36
+msgid "Worldline payments failed to initialize"
+msgstr "Les paiements Worldline n'ont pas réussi à s'initialiser"
+
+#. Description of the plugin
+#: worldline-for-woocommerce.php
+msgid "Worldline payment Gateway for WooCommerce."
+msgstr "Passerelle de paiement Worldline pour WooCommerce."
+
+#. Author URI of the plugin
+#: worldline-for-woocommerce.php
+msgid "https://syde.com"
+msgstr "https://syde.com"
+
+#. Plugin Name of the plugin
+#: worldline-for-woocommerce.php
+msgid "Worldline Payments for WooCommerce"
+msgstr "Worldline Payments pour WooCommerce"

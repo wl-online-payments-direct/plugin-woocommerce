@@ -1,0 +1,36 @@
+{
+    "name": "@inpsyde/worldline-for-woocommerce",
+    "version": "0.1.0",
+    "engines": {
+        "node": ">=16"
+    },
+    "license": "GPL-2.0-or-later",
+    "devDependencies": {
+        "@wordpress/scripts": "^26.19.0",
+        "npm-run-all": "^4.1.5",
+        "ts-loader": "^9.0.0",
+        "typescript": "^4.9.4"
+    },
+    "scripts": {
+        "ddev:setup": "ddev start && ddev orchestrate",
+        "ddev:reset": "ddev orchestrate -f",
+        "assets": "composer compile-assets --ignore-lock=*",
+        "install-deps": "composer install && yarn install",
+        "build": "wp-scripts build",
+        "build:dev": "wp-scripts build --mode development",
+        "watch": "yarn watch:modules",
+        "watch:modules:config": "cd modules.local/config && yarn watch",
+        "watch:modules:return-page": "cd modules.local/return-page && yarn watch",
+        "watch:modules:checkout": "cd modules.local/checkout && yarn watch",
+        "watch:modules": "run-p watch:modules:*",
+        "lint:md": "wp-scripts lint-md-docs *.md",
+        "lint:js": "wp-scripts lint-js modules.local/*/resources/*",
+        "lint:style": "wp-scripts lint-style modules.local/*/resources/**/*.scss",
+        "lint:php": "yarn phpcs && yarn psalm",
+        "lint:php-fix": "vendor/bin/phpcbf --parallel=8",
+        "phpcs": "vendor/bin/phpcs --parallel=8 -s",
+        "psalm": "vendor/bin/psalm --show-info=false --threads=8 --diff",
+        "test": "yarn test:php:unit",
+        "test:php:unit": "vendor/bin/phpunit"
+    }
+}

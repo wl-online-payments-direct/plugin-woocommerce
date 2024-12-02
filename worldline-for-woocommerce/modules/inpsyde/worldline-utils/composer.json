@@ -1,0 +1,34 @@
+{
+    "name": "inpsyde\/worldline-utils",
+    "description": "Worldline Utils",
+    "type": "inpsyde-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Utils\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Utils\\Tests\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "email": "hello@syde.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "dhii\/services": "^0.1.0-alpha2"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^8.0 | ^9.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    }
+}

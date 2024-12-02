@@ -1,0 +1,27 @@
+{
+    "name": "inpsyde\/transformer",
+    "description": "Transforms object types using middleware-enabled transformation functions",
+    "license": "MIT",
+    "type": "library",
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\Transformer\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\Transformer\\Tests\\": "tests\/PHPUnit\/Helper"
+        }
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "require-dev": {
+        "brianium\/paratest": "^6.0",
+        "inpsyde\/monkery-test-case": "^6.0",
+        "phpunit\/phpunit": "^9.5",
+        "spatie\/phpunit-watcher": "^1.10"
+    }
+}

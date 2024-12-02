@@ -1,0 +1,33 @@
+{
+    "name": "inpsyde\/worldline-config",
+    "description": "Worldline module",
+    "type": "inpsyde-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Config\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Config\\Tests\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "email": "hello@syde.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "psr\/container": "^1.0",
+        "inpsyde\/modularity": "^1.3.0",
+        "dhii\/services": "^0.1.0-alpha2"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^9.0",
+        "php-stubs\/wordpress-stubs": "^5.0",
+        "php-stubs\/woocommerce-stubs": "^5.0"
+    }
+}

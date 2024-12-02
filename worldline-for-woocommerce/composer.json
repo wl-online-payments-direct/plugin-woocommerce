@@ -1,0 +1,167 @@
+{
+    "name": "inpsyde\/worldline-for-woocommerce",
+    "type": "wordpress-plugin",
+    "description": "",
+    "license": "GPL-2.0",
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "homepage": "https:\/\/syde.com",
+            "email": "hello@syde.com",
+            "role": "Company"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": ".\/modules.local\/*",
+            "canonical": true
+        },
+        {
+            "type": "composer",
+            "url": "https:\/\/repo.packagist.com\/inpsyde\/"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "dhii\/services": "^0.1.1-alpha3",
+        "dhii\/validator": "^0.1.0@alpha",
+        "dhii\/versions": "^0.1.0@alpha",
+        "inpsyde\/logger": "2.0.1",
+        "inpsyde\/modularity": "^1.7",
+        "inpsyde\/payment-gateway": "*",
+        "inpsyde\/psr-18-wp-http-client": "^0.1.0@alpha",
+        "inpsyde\/transformer": "*",
+        "inpsyde\/worldline-checkout": "*",
+        "inpsyde\/worldline-config": "*",
+        "inpsyde\/worldline-documentation": "*",
+        "inpsyde\/worldline-logging": "*",
+        "inpsyde\/worldline-payment-gateway": "*",
+        "inpsyde\/worldline-return-page": "*",
+        "inpsyde\/worldline-uri": "*",
+        "inpsyde\/worldline-utils": "*",
+        "inpsyde\/worldline-vaulting": "*",
+        "inpsyde\/worldline-wc-support": "*",
+        "inpsyde\/worldline-webhooks": "*",
+        "oomphinc\/composer-installers-extender": "^2.0",
+        "psr\/container": "^1.1",
+        "psr\/log": "^1.1",
+        "sniccowp\/php-scoper-wordpress-excludes": "^6.4",
+        "symfony\/polyfill-php80": "^1.29",
+        "wl-online-payments-direct\/sdk-php": "^5.12"
+    },
+    "require-dev": {
+        "brain\/monkey": "^2.6",
+        "brainmaestro\/composer-git-hooks": "^2.8",
+        "inpsyde\/composer-assets-compiler": "^2.5",
+        "inpsyde\/ddev-tools": "dev-main",
+        "inpsyde\/modularity-test-case": "*",
+        "inpsyde\/module-ide-helper": "*",
+        "inpsyde\/php-coding-standards": "^2.0",
+        "inpsyde\/wp-translation-downloader": "^2.4",
+        "mockery\/mockery": "^1.3",
+        "php-stubs\/woocommerce-stubs": "^5.0",
+        "php-stubs\/wordpress-stubs": "^5.3",
+        "phpunit\/phpunit": "^9.0",
+        "symfony\/var-dumper": "^5.0",
+        "vimeo\/psalm": "^5.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Test\\": "tests\/PHPUnit\/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "phpcs": "@php .\/vendor\/bin\/phpcs -n -s --parallel=24",
+        "phpcs:phpcbf": "@php .\/vendor\/bin\/phpcbf  --parallel=24;exit 0",
+        "phpcs:interactive": "@php .\/vendor\/bin\/phpcs -a",
+        "phpcs:dev": [
+            "@cs:phpcbf",
+            "@cs:interactive"
+        ],
+        "phpunit": "vendor\/bin\/phpunit",
+        "test": [
+            "@phpunit"
+        ],
+        "cghooks": "vendor\/bin\/cghooks",
+        "post-install-cmd": [
+            "command -v vendor\/bin\/cghooks >\/dev\/null 2>&1 || exit 0; vendor\/bin\/cghooks add --ignore-lock"
+        ],
+        "post-update-cmd": [
+            "command -v vendor\/bin\/cghooks >\/dev\/null 2>&1 || exit 0; vendor\/bin\/cghooks  update"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true,
+            "inpsyde\/composer-assets-compiler": true,
+            "composer\/installers": true,
+            "inpsyde\/wp-translation-downloader": true,
+            "oomphinc\/composer-installers-extender": true,
+            "inpsyde\/module-ide-helper": true
+        },
+        "preferred-install": {
+            "inpsyde\/*": "source",
+            "*": "dist"
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "modules\/{$vendor}\/{$name}": [
+                "type:inpsyde-module"
+            ]
+        },
+        "installer-types": [
+            "inpsyde-module"
+        ],
+        "hooks": {
+            "pre-commit": [
+                "vendor\/bin\/phpcbf -q --parallel=24; exit 0"
+            ]
+        },
+        "wp-translation-downloader": {
+            "auto-run": false,
+            "languageRootDir": ".\/",
+            "languages": [
+                "de_DE",
+                "de_DE_formal",
+                "nl_NL",
+                "fr_FR",
+                "it_IT",
+                "es_ES"
+            ],
+            "api": {
+                "names": {
+                    "inpsyde\/*": "https:\/\/translate.inpsyde.com\/products\/api\/translations\/%projectName%"
+                }
+            },
+            "directories": {
+                "names": {
+                    "inpsyde\/*": "languages\/"
+                }
+            }
+        },
+        "composer-asset-compiler": {
+            "auto-run": false,
+            "packages": {
+                "inpsyde\/*": {
+                    "dependencies": "install",
+                    "script": "build"
+                }
+            },
+            "default-env": {
+                "WEBPACK_ENV": "production"
+            }
+        }
+    }
+}
