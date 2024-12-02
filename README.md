@@ -54,10 +54,6 @@ Automatic updates should work generally smoothly, but we still recommend you bac
 
 If you encounter issues with the Worldline buttons not appearing after an update, purge your website cache.
 
-# Screenshots
-
-1. tbc by Worldline
-
 # Changelog
 
 ## 1.0.1 - 2024-10-02
