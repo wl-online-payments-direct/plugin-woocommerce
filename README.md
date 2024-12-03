@@ -53,13 +53,3 @@ Follow the steps below to connect the plugin to your Worldline account:
 Automatic updates should work generally smoothly, but we still recommend you back up your site.
 
 If you encounter issues with the Worldline buttons not appearing after an update, purge your website cache.
-
-# Changelog
-
-## 1.0.1 - 2024-10-02
-- Allow to set test and live webhook credentials separately.
-- Improve refunding, mark refunded items.
-- Fixed Payment Method title.
-
-## 1.0.0 - 2024-08-01
-- Initial release.
