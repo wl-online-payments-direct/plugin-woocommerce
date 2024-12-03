@@ -1,0 +1,17 @@
+.woocommerce-order-received.syde-return-page-active {
+
+	.woocommerce-order > *:not(.syde-return-page-order-payment-status) {
+		display: none !important;
+	}
+
+	&.woocommerce-uses-block-theme {
+
+		main > *:not(.wc-block-order-confirmation-status) {
+			display: none !important;
+		}
+
+		.wc-block-order-confirmation-status > *:not(.syde-return-page-order-payment-status) {
+			display: none !important;
+		}
+	}
+}

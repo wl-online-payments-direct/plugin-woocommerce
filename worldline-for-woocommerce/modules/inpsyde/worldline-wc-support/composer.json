@@ -1,0 +1,31 @@
+{
+    "name": "inpsyde\/worldline-wc-support",
+    "description": "WooCommerce support features",
+    "type": "inpsyde-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\Tests\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "email": "hello@syde.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "dhii\/services": "^0.1.0",
+        "psr\/container": "^1.1",
+        "inpsyde\/modularity": "^1.7"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^9.0"
+    }
+}

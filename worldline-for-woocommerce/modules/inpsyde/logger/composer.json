@@ -1,0 +1,65 @@
+{
+    "name": "inpsyde\/logger",
+    "type": "inpsyde-module",
+    "description": "Logger module for inpsyde\/modularity based on WooCommerce logger",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Inpsyde GmbH",
+            "homepage": "https:\/\/inpsyde.com\/",
+            "email": "hello@inpsyde.com",
+            "role": "Company"
+        },
+        {
+            "name": "Aleksas Pantechovskis",
+            "email": "alex.pantec@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Kirill Braslavskyi",
+            "email": "strangerkir@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https:\/\/repo.packagist.com\/inpsyde\/"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "composer\/package-versions-deprecated": true,
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require": {
+        "php": "^7.2 | ^8.0",
+        "psr\/container": "^1.0 | ^2.0",
+        "psr\/log": "^1.1",
+        "inpsyde\/modularity": "^1.3.0"
+    },
+    "require-dev": {
+        "inpsyde\/php-coding-standards": "^1.0-beta.9",
+        "vimeo\/psalm": "^4.6",
+        "phpunit\/phpunit": "^8.0",
+        "brain\/monkey": "^2",
+        "php-stubs\/wordpress-stubs": ">=5.0",
+        "php-stubs\/woocommerce-stubs": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\Logger\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Inpsyde\\Logger\\Tests\\": "tests\/php"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "installer-disable": true
+    }
+}
