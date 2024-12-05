@@ -1,3 +1,6 @@
+# 2.2.1
+- Webhook fix
+
 # 2.2.0
 - Support form
 

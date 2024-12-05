@@ -104,6 +104,7 @@ class PaymentWebhookController extends AbstractController
         $logger = new LogHelper(
             new WorldlineSDKAdapter($this->systemConfigService, $salesChannelContext->getSalesChannelId())
         );
+        $logger->setTranslator($this->translator);
         $logger->paymentLog($order->getOrderNumber(), 'webhook', 0, $request->request->all());
 
         $paymentHandler->updatePaymentStatus($data['hostedCheckoutId']);
