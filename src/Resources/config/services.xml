@@ -4,7 +4,7 @@
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
     <services>
-        <service id="MoptWorldline\Controller\Api\ApiTestController" public="true">
+        <service id="MoptWorldline\Controller\Api\PluginConfigController" public="true">
             <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
             <argument type="service" id="sales_channel.repository" />
             <argument type="service" id="payment_method.repository" />
@@ -13,6 +13,8 @@
             <argument type="service" id="media.repository"/>
             <argument type="service" id="Shopware\Core\Content\Media\MediaService" />
             <argument type="service" id="Shopware\Core\Content\Media\File\FileSaver" />
+            <argument type="service" id="rule.repository"/>
+            <argument type="service" id="rule_condition.repository"/>
             <call method="setContainer">
                 <argument type="service" id="service_container"/>
             </call>

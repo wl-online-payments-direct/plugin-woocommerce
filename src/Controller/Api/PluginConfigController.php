@@ -22,7 +22,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Controller\PaymentMethod\PaymentMethodController;
 
 #[Route(defaults: ['_routeScope' => ['api']])]
-class ApiTestController extends AbstractController
+class PluginConfigController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
     private EntityRepository $salesChannelRepository;
@@ -32,6 +32,8 @@ class ApiTestController extends AbstractController
     private EntityRepository $mediaRepository;
     private MediaService $mediaService;
     private FileSaver $fileSaver;
+    private EntityRepository $ruleRepository;
+    private EntityRepository $ruleConditionRepository;
 
     private array $credentialKeys = [
         'sandbox' => [
@@ -57,6 +59,8 @@ class ApiTestController extends AbstractController
      * @param EntityRepository $mediaRepository
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
+     * @param EntityRepository $ruleRepository
+     * @param EntityRepository $ruleConditionRepository
      */
     public function __construct(
         SystemConfigService $systemConfigService,
@@ -66,7 +70,9 @@ class ApiTestController extends AbstractController
         PluginIdProvider    $pluginIdProvider,
         EntityRepository    $mediaRepository,
         MediaService        $mediaService,
-        FileSaver           $fileSaver
+        FileSaver           $fileSaver,
+        EntityRepository    $ruleRepository,
+        EntityRepository    $ruleConditionRepository,
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -77,6 +83,8 @@ class ApiTestController extends AbstractController
         $this->mediaRepository = $mediaRepository;
         $this->mediaService = $mediaService;
         $this->fileSaver = $fileSaver;
+        $this->ruleRepository = $ruleRepository;
+        $this->ruleConditionRepository = $ruleConditionRepository;
     }
 
     #[Route(
@@ -146,7 +154,9 @@ class ApiTestController extends AbstractController
             $this->mediaRepository,
             $this->mediaService,
             $this->fileSaver,
-            $this->salesChannelRepository
+            $this->salesChannelRepository,
+            $this->ruleRepository,
+            $this->ruleConditionRepository,
         );
     }
 

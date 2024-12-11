@@ -47,6 +47,7 @@ class Form
     const AUTO_CAPTURE_5_DAYS = '5_days';
     const GROUP_CARDS = 'MoptWorldline.config.groupCards';
     const PARTIAL_OPERATIONS_ENABLED = 'MoptWorldline.config.partialOperationsEnabled';
+    const BANK_TRANSFER_INSTANT_PAYMENT_FIELD = 'MoptWorldline.config.bankTransferInstantPayment';
 
     /** @var string Fieldset name for the plugin custom field */
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_FIELDSET = 'payment_transaction_fieldset';

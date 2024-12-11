@@ -211,14 +211,15 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/getOneyPaymentOption',
-        name: 'api.action.transactions.control.getOneyPaymentOption',
+        path: '/api/_action/transactions-control/getPaymentPluginOption',
+        name: 'api.action.transactions.control.getPaymentPluginOption',
         methods: ['POST']
     )]
-    public function getOneyPaymentOption(): JsonResponse
+    public function getPaymentPluginOption(): JsonResponse
     {
         return new JsonResponse([
-            'value' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD)
+            'oneyValue' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD),
+            'bankTransferValue' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD)
         ]);
     }
 
@@ -233,6 +234,20 @@ class TransactionsControlController extends AbstractController
         $this->systemConfigService->set(Form::ONEY_PAYMENT_OPTION_FIELD, $oneyPaymentOption);
         return new JsonResponse([
             'value' => $oneyPaymentOption
+        ]);
+    }
+
+    #[Route(
+        path: '/api/_action/transactions-control/setBankTransferPaymentOption',
+        name: 'api.action.transactions.control.setBankTransferPaymentOption',
+        methods: ['POST']
+    )]
+    public function setBankTransferPaymentOption(Request $request): JsonResponse
+    {
+        $bankTransferPaymentOption = $request->request->get('bankTransferPaymentOption');
+        $this->systemConfigService->set(Form::BANK_TRANSFER_INSTANT_PAYMENT_FIELD, $bankTransferPaymentOption);
+        return new JsonResponse([
+            'value' => $bankTransferPaymentOption
         ]);
     }
 

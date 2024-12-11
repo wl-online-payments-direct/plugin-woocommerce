@@ -12,4 +12,16 @@
                 :label="$tc('worldline.payment-methods.oney-label')"
         />
     </sw-container>
+    <sw-container v-if="showBankTransferField">
+        <sw-field
+                id="bankTransferPaymentOption"
+                name="bankTransferPaymentOption"
+                @change="setBankTransferPaymentOption"
+                :value="bankTransferPaymentOptionValue"
+                type="text"
+                class="sw-settings-payment-detail__field-position"
+                :disabled="!acl.can('payment.editor')"
+                :label="$tc('paymentPlugin.payment-methods.bank-transfer-label')"
+        />
+    </sw-container>
 {% endblock %}

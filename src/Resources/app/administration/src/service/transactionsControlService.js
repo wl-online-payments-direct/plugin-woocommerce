@@ -68,10 +68,10 @@ class transactionsControlService extends ApiService {
             });
     }
 
-    getOneyPaymentConfig(values) {
+    getPaymentPluginOption(values) {
         const headers = this.getBasicHeaders({});
         return this.httpClient
-            .post(`_action/${this.getApiBasePath()}/getOneyPaymentOption`, values,{
+            .post(`_action/${this.getApiBasePath()}/getPaymentPluginOption`, values,{
                 headers
             })
             .then((response) => {
@@ -83,6 +83,14 @@ class transactionsControlService extends ApiService {
         const headers = this.getBasicHeaders({});
         return this.httpClient
             .post(`_action/${this.getApiBasePath()}/setOneyPaymentOption`, values,{
+                headers
+            });
+    }
+
+    setBankTransferPaymentOption(values) {
+        const headers = this.getBasicHeaders({});
+        return this.httpClient
+            .post(`_action/${this.getApiBasePath()}/setBankTransferPaymentOption`, values,{
                 headers
             });
     }

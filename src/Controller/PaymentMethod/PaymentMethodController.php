@@ -32,6 +32,8 @@ class PaymentMethodController
     private MediaService $mediaService;
     private FileSaver $fileSaver;
     private EntityRepository $salesChannelRepository;
+    private EntityRepository $ruleRepository;
+    private EntityRepository $ruleConditionRepository;
 
     /**
      * @param SystemConfigService $systemConfigService
@@ -42,6 +44,8 @@ class PaymentMethodController
      * @param MediaService $mediaService
      * @param FileSaver $fileSaver
      * @param EntityRepository $salesChannelRepository
+     * @param EntityRepository $ruleRepository
+     * @param EntityRepository $ruleConditionRepository
      */
     public function __construct(
         SystemConfigService $systemConfigService,
@@ -51,7 +55,9 @@ class PaymentMethodController
         EntityRepository    $mediaRepository,
         MediaService        $mediaService,
         FileSaver           $fileSaver,
-        EntityRepository    $salesChannelRepository
+        EntityRepository    $salesChannelRepository,
+        EntityRepository    $ruleRepository,
+        EntityRepository    $ruleConditionRepository,
     )
     {
         $this->systemConfigService = $systemConfigService;
@@ -62,6 +68,8 @@ class PaymentMethodController
         $this->mediaService = $mediaService;
         $this->fileSaver = $fileSaver;
         $this->salesChannelRepository = $salesChannelRepository;
+        $this->ruleRepository = $ruleRepository;
+        $this->ruleConditionRepository = $ruleConditionRepository;
     }
 
     /**
@@ -80,6 +88,7 @@ class PaymentMethodController
         $toCreate = [];
         $toLink = [];
         $toStatusChange = [];
+        $toApplyRule = [];
 
         foreach ($data as $method) {
             if (empty($method['internalId']) && ($method['status'] || $method['isLinked'])) {
@@ -93,12 +102,14 @@ class PaymentMethodController
             if (!empty($method['internalId'])) {
                 $toLink[$method['internalId']] = $method['isLinked'];
                 $toStatusChange[$method['internalId']] = $method['status'];
+                $toApplyRule[$method['internalId']] = (string)$method['id'];
             }
         }
 
         $this->createMethods($toCreate, $salesChannelId, $countryIso3, $currencyIsoCode, $context);
         $this->linkMethods($toLink, $salesChannelId, $context);
         $this->changeStatus($toStatusChange, $context);
+        $this->applyRule($toApplyRule);
 
         return $this->response();
     }
@@ -208,10 +219,11 @@ class PaymentMethodController
     }
 
     /**
+     * @param array $methods
      * @param string $salesChannelId
      * @param string|null $countryIso3
      * @param string|null $currencyIsoCode
-     * @param array $methods
+     * @param Context $context
      * @return void
      * @throws \Exception
      */
@@ -254,6 +266,14 @@ class PaymentMethodController
                     $this->salesChannelPaymentRepository,
                     $context
                 );
+
+                PaymentMethodHelper::applyRuleToMethod(
+                    $this->paymentMethodRepository,
+                    $this->ruleRepository,
+                    $this->ruleConditionRepository,
+                    $newMethodId,
+                    (string)$product->getId()
+                );
             }
         }
     }
@@ -275,14 +295,13 @@ class PaymentMethodController
         }
     }
 
-
     /**
      * @param array $methods
      * @param string|null $salesChannel
      * @param Context $context
      * @return void
      */
-    private function linkMethods(array $methods, ?string $salesChannel, Context $context)
+    private function linkMethods(array $methods, ?string $salesChannel, Context $context): void
     {
         if (empty($methods)) {
             return;
@@ -295,6 +314,26 @@ class PaymentMethodController
                 $this->salesChannelRepository,
                 $this->salesChannelPaymentRepository,
                 $context
+            );
+        }
+    }
+
+    /**
+     * @param array $methods
+     * @return void
+     */
+    private function applyRule(array $methods): void
+    {
+        if (empty($methods)) {
+            return;
+        }
+        foreach ($methods as $internalMethodId => $methodId) {
+            PaymentMethodHelper::applyRuleToMethod(
+                $this->paymentMethodRepository,
+                $this->ruleRepository,
+                $this->ruleConditionRepository,
+                $internalMethodId,
+                $methodId
             );
         }
     }
