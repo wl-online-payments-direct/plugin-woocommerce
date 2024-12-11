@@ -25,6 +25,7 @@ use Shopware\Core\System\SystemConfig\SystemConfigService;
 use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
+
 class PaymentHandler
 {
     private WorldlineSDKAdapter $adapter;
@@ -103,19 +104,30 @@ class PaymentHandler
     public function createPayment(int $worldlinePaymentMethodId, string $token = ''): CreateHostedCheckoutResponse
     {
         $criteria = new Criteria([$this->order->getId()]);
-        if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
-            $criteria->addAssociation('lineItems')
-                ->addAssociation('deliveries.positions.orderLineItem')
-                ->addAssociation('orderCustomer.customer')
-                ->addAssociation('orderCustomer.customer.group')
-                ->addAssociation('language.locale')
-                ->addAssociation('billingAddress')
-                ->addAssociation('billingAddress.country')
-                ->addAssociation('deliveries.shippingOrderAddress')
-                ->addAssociation('deliveries.shippingOrderAddress.country');
-        } else {
-            $criteria->addAssociation('language.locale');
+        switch ($worldlinePaymentMethodId) {
+            case in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS):
+            {
+                $criteria->addAssociation('lineItems')
+                    ->addAssociation('deliveries.positions.orderLineItem')
+                    ->addAssociation('orderCustomer.customer')
+                    ->addAssociation('orderCustomer.customer.group')
+                    ->addAssociation('language.locale')
+                    ->addAssociation('billingAddress')
+                    ->addAssociation('billingAddress.country')
+                    ->addAssociation('deliveries.shippingOrderAddress')
+                    ->addAssociation('deliveries.shippingOrderAddress.country');
+            }
+            case $worldlinePaymentMethodId === PaymentProducts::PAYMENT_PRODUCT_CARTE_BANCAIRE: {
+                $criteria->addAssociation('language.locale')
+                    ->addAssociation('lineItems');
+            }
+            default:
+            {
+                $criteria->addAssociation('language.locale')
+                    ->addAssociation('orderCustomer.customer');
+            }
         }
+
         $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
 
         $amountTotal = (int)round($this->order->getAmountTotal() * 100);
@@ -162,11 +174,21 @@ class PaymentHandler
         // Change localeId with locale code (hex to de_DE, for example)
         $iframeData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($iframeData[Form::WORLDLINE_CART_FORM_LOCALE]);
         $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
+
+        $orderObject = null;
+        $productId = $hostedTokenization->getToken()->getPaymentProductId();
+        if ($productId == PaymentProducts::PAYMENT_PRODUCT_CARTE_BANCAIRE) {
+            $criteria = new Criteria([$this->order->getId()]);
+            $criteria->addAssociation('lineItems');
+            $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
+        }
+
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
             $amountTotal,
             $currencyISO,
             $iframeData,
-            $hostedTokenization
+            $hostedTokenization,
+            $orderObject
         );
         $this->saveCustomerCustomFields($hostedTokenization);
 

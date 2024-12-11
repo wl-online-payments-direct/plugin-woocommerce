@@ -52,7 +52,7 @@ Component.override('sw-settings-payment-detail', {
         setOneyPaymentOption(value) {
             this.loading = true;
             this.oneyPaymentOptionValue = value;
-            this.transactionsControl.setOneyPaymentConfig({oneyPaymentOption: this.oneyPaymentOptionValue})
+            this.transactionsControl.setOneyPaymentOption({oneyPaymentOption: this.oneyPaymentOptionValue})
                 .then((res) => {
                 })
                 .finally(() => {
@@ -64,7 +64,7 @@ Component.override('sw-settings-payment-detail', {
         setBankTransferPaymentOption(value) {
             this.loading = true;
             this.bankTransferPaymentOptionValue = value;
-            this.transactionsControl.setBankTransferPaymentConfig({bankTransferPaymentOption: this.bankTransferPaymentOptionValue})
+            this.transactionsControl.setBankTransferPaymentOption({bankTransferPaymentOption: this.bankTransferPaymentOptionValue})
                 .then((res) => {
                 })
                 .finally(() => {

@@ -219,7 +219,7 @@ class TransactionsControlController extends AbstractController
     {
         return new JsonResponse([
             'oneyValue' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD),
-            'bankTransferValue' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD)
+            'bankTransferValue' => $this->systemConfigService->get(Form::BANK_TRANSFER_INSTANT_PAYMENT_FIELD)
         ]);
     }
 

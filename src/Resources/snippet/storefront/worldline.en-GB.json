@@ -86,7 +86,8 @@
             "pendingCapture": "Pending capture",
             "authorizationRequested": "Authorization requested",
             "captureRequested": "Capture requested",
-            "refundRequested": "Refund requested"
+            "refundRequested": "Refund requested",
+            "unknown": "Authorisation not known"
         },
         "payment-method-button": {
             "headline": "Payment Methods",
@@ -157,7 +158,8 @@
             }
         },
         "payment-methods": {
-            "oney-label": "Oney custom field"
+            "oney-label": "Oney custom field",
+            "bank-transfer-label": "Bank Transfer instant payment"
         },
         "support-form": {
             "name": "Contact development team",

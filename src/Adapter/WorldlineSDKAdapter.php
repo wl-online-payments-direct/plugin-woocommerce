@@ -303,8 +303,7 @@ class WorldlineSDKAdapter
             {
                 $this->addCustomerEmail($orderEntity, $order);
                 $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
-                $redirectPaymentMethodSpecificInput->setPaymentProductId($paymentProductId);
-                $hostedCheckoutSpecificInput = null;
+                $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 $cardPaymentMethodSpecificInput = null;
                 break;
             }
