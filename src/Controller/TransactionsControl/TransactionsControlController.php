@@ -277,11 +277,13 @@ class TransactionsControlController extends AbstractController
         $handler = $this->getHandler($hostedCheckoutId, $context);
 
         Payment::lockOrder($this->requestStack->getSession(), $handler->getOrderId());
-        $message = AdminTranslate::trans($this->translator->getLocale(), "failed");
+        $warning = false;
         try {
-            if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
-                $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+            [$result, $message] = $handler->$action($hostedCheckoutId, $amount, $itemsChanges);
+            if ($message !== 'success') {
+                $warning = true;
             }
+            $message = AdminTranslate::trans($this->translator->getLocale(), $message);
         } catch (ValidationException $e) {
             $result = false;
             $errors = $e->getErrors();
@@ -294,19 +296,21 @@ class TransactionsControlController extends AbstractController
         }
         Payment::unlockOrder($this->requestStack->getSession(), $handler->getOrderId());
 
-        return $this->response($result, $message);
+        return $this->response($result, $message, $warning);
     }
 
     /**
      * @param bool $success
      * @param string $message
+     * @param bool $warning
      * @return JsonResponse
      */
-    private function response(bool $success, string $message): JsonResponse
+    private function response(bool $success, string $message, bool $warning = false): JsonResponse
     {
         return new JsonResponse([
             'success' => $success,
-            'message' => $message
+            'message' => $message,
+            'warning' => $warning,
         ]);
     }
 

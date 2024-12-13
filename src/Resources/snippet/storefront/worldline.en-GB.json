@@ -176,6 +176,9 @@
             "success": "Successfully sent!",
             "error": "Error!",
             "user-have-no-rights": "Looks like you don’t have permission to create a support account. Reach out to an administrator to gain access."
+        },
+        "custom-messages": {
+            "twintPartialCaptureWarning": "Please avoid to make partial capture requests with Twint!"
         }
     }
 }

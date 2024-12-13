@@ -203,14 +203,12 @@ class WorldlineSDKAdapter
         if ($this->isDirectSales()) {
             $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
         }
-
         $groupCardsConfig = $this->getPluginConfig(Form::GROUP_CARDS);
         if ($groupCardsConfig) {
             $cardPaymentMethodSpecificInputForHostedCheckout = new CardPaymentMethodSpecificInputForHostedCheckout();
             $cardPaymentMethodSpecificInputForHostedCheckout->setGroupCards(true);
             $hostedCheckoutSpecificInput->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInputForHostedCheckout);
         }
-
         $hostedCheckoutRequest = new CreateHostedCheckoutRequest();
         if ($worldlinePaymentProductId != 0) {
             $paymentProductFilter = new PaymentProductFilter();
@@ -238,7 +236,6 @@ class WorldlineSDKAdapter
         $hostedCheckoutRequest->setHostedCheckoutSpecificInput($hostedCheckoutSpecificInput);
         $hostedCheckoutRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
         $hostedCheckoutClient = $merchantClient->hostedCheckout();
-
         return $hostedCheckoutClient->createHostedCheckout($hostedCheckoutRequest);
     }
 
@@ -324,7 +321,7 @@ class WorldlineSDKAdapter
                 $cardPaymentMethodSpecificInput = null;
 
                 $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
-                $redirectPaymentMethodSpecificInput->setPaymentProductId($paymentProductId);
+                $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 $redirectPaymentMethodSpecificInput->setPaymentProduct5408SpecificInput($specificInput);
                 $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
             }

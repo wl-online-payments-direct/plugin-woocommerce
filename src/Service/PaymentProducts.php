@@ -7,8 +7,12 @@
 
 namespace MoptWorldline\Service;
 
+use Doctrine\DBAL\ParameterType;
+use Monolog\Level;
+use MoptWorldline\Bootstrap\Form;
 use OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
+use Shopware\Core\Kernel;
 
 class PaymentProducts
 {
@@ -157,5 +161,32 @@ class PaymentProducts
                 self::getPaymentProductDetails($paymentProductId)
             )
         ];
+    }
+
+    /**
+     * @param string $hostedCheckoutId
+     * @return string
+     */
+    public static function getPaymentProductIdByTransactionId(string $hostedCheckoutId): string
+    {
+        $connection = Kernel::getConnection();
+        $qb = $connection->createQueryBuilder();
+        $hostedCheckoutId = (int) $hostedCheckoutId;
+        $qb->select('DISTINCT pmt.custom_fields')
+            ->from('`order`', 'o')
+            ->leftJoin('o', 'order_transaction', 'ot', 'o.id = ot.order_id')
+            ->leftJoin('ot', 'payment_method_translation', 'pmt', 'pmt.payment_method_id= ot.payment_method_id')
+            ->where("o.custom_fields like '%payment_transaction_id\"\: \"$hostedCheckoutId\"%'");
+
+        $result = '';
+        try {
+            $result = $qb->fetchOne();
+            $parsed = json_decode($result, true);
+            $result = (string) $parsed[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
+        } catch (\Exception $e) {
+            LogHelper::addLog(Level::Error, "The order with hostedCheckoutId $hostedCheckoutId could not be found.");
+        }
+
+        return $result;
     }
 }
