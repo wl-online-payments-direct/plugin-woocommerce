@@ -307,6 +307,7 @@ class WorldlineSDKAdapter
             case PaymentProducts::PAYMENT_PRODUCT_CARTE_BANCAIRE:
             {
                 $this->addCarteBancaireData($orderEntity, $cardPaymentMethodSpecificInput);
+                break;
             }
             case PaymentProducts::PAYMENT_PRODUCT_BANK_TRANSFER:
             {
@@ -324,6 +325,7 @@ class WorldlineSDKAdapter
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 $redirectPaymentMethodSpecificInput->setPaymentProduct5408SpecificInput($specificInput);
                 $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
+                break;
             }
         }
 
