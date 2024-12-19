@@ -90,7 +90,7 @@ class Form
     const WORLDLINE_CART_FORM_REDIRECT_TOKEN = 'moptWorldlineRedirectToken';
 
     /** @var string Field name for the plugin session key */
-    const SESSION_OPERATIONS_LOCK = 'order_locked';
+    const SESSION_OPERATIONS_LOCK = 'worldline_order_locked';
     const SESSION_IFRAME_DATA = 'worldline_iframe_data';
     const SESSION_SERVER_URL = 'worldline_server_url';
 

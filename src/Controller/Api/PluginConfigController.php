@@ -88,8 +88,8 @@ class PluginConfigController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/api-test/test-connection',
-        name: 'api.action.test.connection',
+        path: '/api/_action/worldline/api-test/test-connection',
+        name: 'api.action.worldline.test.connection',
         methods: ['POST']
     )]
     public function testConnection(Request $request, Context $context): JsonResponse
@@ -128,8 +128,8 @@ class PluginConfigController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/api-test/savemethod',
-        name: 'api.action.test.savemethod',
+        path: '/api/_action/worldline/api-test/savemethod',
+        name: 'api.action.worldline.test.savemethod',
         methods: ['POST']
     )]
     public function saveMethod(Request $request, Context $context): JsonResponse

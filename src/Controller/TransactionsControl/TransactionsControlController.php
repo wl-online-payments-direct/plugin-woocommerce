@@ -71,8 +71,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/status',
-        name: 'api.action.transactions.control.status',
+        path: '/api/_action/worldline/transactions-control/status',
+        name: 'api.action.worldline.transactions.control.status',
         methods: ['POST']
     )]
     public function status(Request $request, Context $context): JsonResponse
@@ -93,8 +93,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/capture',
-        name: 'api.action.transactions.control.capture',
+        path: '/api/_action/worldline/transactions-control/capture',
+        name: 'api.action.worldline.transactions.control.capture',
         methods: ['POST']
     )]
     public function capture(Request $request, Context $context): JsonResponse
@@ -103,8 +103,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/cancel',
-        name: 'api.action.transactions.control.cancel',
+        path: '/api/_action/worldline/transactions-control/cancel',
+        name: 'api.action.worldline.transactions.control.cancel',
         methods: ['POST']
     )]
     public function cancel(Request $request, Context $context): JsonResponse
@@ -113,8 +113,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/refund',
-        name: 'api.action.transactions.control.refund',
+        path: '/api/_action/worldline/transactions-control/refund',
+        name: 'api.action.worldline.transactions.control.refund',
         methods: ['POST']
     )]
     public function refund(Request $request, Context $context): JsonResponse
@@ -123,8 +123,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/getConfig',
-        name: 'api.action.transactions.control.getConfig',
+        path: '/api/_action/worldline/transactions-control/getConfig',
+        name: 'api.action.worldline.transactions.control.getConfig',
         methods: ['POST']
     )]
     public function getConfig(Request $request, Context $context): JsonResponse
@@ -161,8 +161,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/enableButtons',
-        name: 'api.action.transactions.control.enableButtons',
+        path: '/api/_action/worldline/transactions-control/enableButtons',
+        name: 'api.action.worldline.transactions.control.enableButtons',
         methods: ['POST']
     )]
     public function enableButtons(Request $request, Context $context): JsonResponse
@@ -211,8 +211,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/getPaymentPluginOption',
-        name: 'api.action.transactions.control.getPaymentPluginOption',
+        path: '/api/_action/worldline/transactions-control/getPaymentPluginOption',
+        name: 'api.action.worldline.transactions.control.getPaymentPluginOption',
         methods: ['POST']
     )]
     public function getPaymentPluginOption(): JsonResponse
@@ -224,8 +224,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/setOneyPaymentOption',
-        name: 'api.action.transactions.control.setOneyPaymentOption',
+        path: '/api/_action/worldline/transactions-control/setOneyPaymentOption',
+        name: 'api.action.worldline.transactions.control.setOneyPaymentOption',
         methods: ['POST']
     )]
     public function setOneyPaymentOption(Request $request): JsonResponse
@@ -238,8 +238,8 @@ class TransactionsControlController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/transactions-control/setBankTransferPaymentOption',
-        name: 'api.action.transactions.control.setBankTransferPaymentOption',
+        path: '/api/_action/worldline/transactions-control/setBankTransferPaymentOption',
+        name: 'api.action.worldline.transactions.control.setBankTransferPaymentOption',
         methods: ['POST']
     )]
     public function setBankTransferPaymentOption(Request $request): JsonResponse

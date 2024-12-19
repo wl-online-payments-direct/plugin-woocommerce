@@ -2,7 +2,7 @@ const ApiService = Shopware.Classes.ApiService;
 const { Application } = Shopware;
 
 class transactionsControlService extends ApiService {
-    constructor(httpClient, loginService, apiEndpoint = 'transactions-control') {
+    constructor(httpClient, loginService, apiEndpoint = 'worldline/transactions-control') {
         super(httpClient, loginService, apiEndpoint);
     }
 
