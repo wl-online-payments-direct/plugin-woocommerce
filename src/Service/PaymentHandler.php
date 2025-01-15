@@ -245,7 +245,7 @@ class PaymentHandler
         $amounts = [];
         $log = [];
         $isFinal = ($amount == $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_CAPTURE_AMOUNT]);
-       /* if ($amount != 0 && !OrderHelper::isOrderLocked($customFields)) {
+        if ($amount != 0 && !OrderHelper::isOrderLocked($customFields)) {
             $captureResponse = $this->adapter->capturePayment($hostedCheckoutId, $amount, $isFinal);
             $this->logger->paymentLog($this->order->getOrderNumber(), 'capturePayment', 0, $captureResponse->toJson());
             $newStatus = $captureResponse->getStatusOutput()->getStatusCode();
@@ -264,14 +264,14 @@ class PaymentHandler
             $log,
             $orderItemsStatus
         );
-        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId, $isFinal);*/
+        $this->updateOrderTransactionState($newStatus, $hostedCheckoutId, $isFinal);
         $message = $this->getSuccessMessage($isFinal, $hostedCheckoutId, 'capturePayment');
 
-        /*if ((!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED)
+        if ((!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED)
             && !in_array($newStatus, Payment::STATUS_CAPTURED))
             && $amount > 0) {
             return [false, 'failed'];
-        }*/
+        }
         return [true, $message];
     }
 

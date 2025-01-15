@@ -59,7 +59,7 @@ class CheckoutSubscriber implements EventSubscriberInterface
     private function isCheckoutPage($event): bool
     {
         $route = $event->getRequest()->attributes->get('_route');
-        if (in_array($route, ['frontend.checkout.confirm.page', 'frontend.checkout.cart.page'])) {
+        if (in_array($route, ['frontend.checkout.confirm.page', 'frontend.checkout.cart.page',  'frontend.account.edit-order.page'])) {
             return true;
         }
         return false;
