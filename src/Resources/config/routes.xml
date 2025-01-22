@@ -4,7 +4,7 @@
         xsi:schemaLocation="http://symfony.com/schema/routing
         https://symfony.com/schema/routing/routing-1.0.xsd">
 
-    <import resource="../../Controller/Api/ApiTestController.php" type="attribute"/>
+    <import resource="../../Controller/Api/PluginConfigController.php" type="attribute"/>
     <import resource="../../Controller/SupportForm/SupportFormController.php" type="attribute"/>
     <import resource="../../Controller/Payment/PaymentFinalizeController.php" type="attribute"/>
     <import resource="../../Controller/Payment/PaymentWebhookController.php" type="attribute"/>

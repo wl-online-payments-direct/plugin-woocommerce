@@ -2,7 +2,7 @@ const ApiService = Shopware.Classes.ApiService;
 const { Application } = Shopware;
 
 class transactionsControlService extends ApiService {
-    constructor(httpClient, loginService, apiEndpoint = 'transactions-control') {
+    constructor(httpClient, loginService, apiEndpoint = 'worldline/transactions-control') {
         super(httpClient, loginService, apiEndpoint);
     }
 
@@ -68,10 +68,10 @@ class transactionsControlService extends ApiService {
             });
     }
 
-    getOneyPaymentConfig(values) {
+    getPaymentPluginOption(values) {
         const headers = this.getBasicHeaders({});
         return this.httpClient
-            .post(`_action/${this.getApiBasePath()}/getOneyPaymentOption`, values,{
+            .post(`_action/${this.getApiBasePath()}/getPaymentPluginOption`, values,{
                 headers
             })
             .then((response) => {
@@ -79,10 +79,18 @@ class transactionsControlService extends ApiService {
             });
     }
 
-    setOneyPaymentConfig(values) {
+    setOneyPaymentOption(values) {
         const headers = this.getBasicHeaders({});
         return this.httpClient
             .post(`_action/${this.getApiBasePath()}/setOneyPaymentOption`, values,{
+                headers
+            });
+    }
+
+    setBankTransferPaymentOption(values) {
+        const headers = this.getBasicHeaders({});
+        return this.httpClient
+            .post(`_action/${this.getApiBasePath()}/setBankTransferPaymentOption`, values,{
                 headers
             });
     }

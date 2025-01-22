@@ -39,6 +39,7 @@ use OnlinePayments\Sdk\Domain\LineItem;
 use OnlinePayments\Sdk\Domain\MerchantAction;
 use OnlinePayments\Sdk\Domain\Order;
 use OnlinePayments\Sdk\Domain\OrderLineDetails;
+use OnlinePayments\Sdk\Domain\OrderReferences;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use OnlinePayments\Sdk\Domain\PaymentProductFilter;
 use OnlinePayments\Sdk\Domain\PaymentProductFiltersHostedCheckout;
@@ -52,6 +53,7 @@ use OnlinePayments\Sdk\Domain\RefundRequest;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use OnlinePayments\Sdk\Domain\Shipping;
 use OnlinePayments\Sdk\Domain\ShoppingCart;
+use OnlinePayments\Sdk\Domain\ShoppingCartExtension;
 use OnlinePayments\Sdk\Domain\ThreeDSecure;
 use OnlinePayments\Sdk\Merchant\MerchantClient;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
@@ -69,6 +71,8 @@ use OnlinePayments\Sdk\Client;
 use OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
 use OnlinePayments\Sdk\Domain\GetPaymentProductsResponse;
 use OnlinePayments\Sdk\Domain\CreateHostedCheckoutResponse;
+use OnlinePayments\Sdk\Domain\PaymentProduct130SpecificThreeDSecure;
+use OnlinePayments\Sdk\Domain\RedirectPaymentProduct5408SpecificInput;
 
 /**
  * This is the adaptor for Worldline's API
@@ -119,6 +123,13 @@ class WorldlineSDKAdapter
             $credentials = $this->getCredentials();
         }
 
+        $shoppingCartExtension = new ShoppingCartExtension(
+            MoptWorldline::PLUGIN_CREATOR,
+            MoptWorldline::PLUGIN_NAME,
+            MoptWorldline::PLUGIN_VERSION,
+            MoptWorldline::PLUGIN_ID
+        );
+
         $communicatorConfiguration = new CommunicatorConfiguration(
             $credentials['apiKey'],
             $credentials['apiSecret'],
@@ -126,6 +137,8 @@ class WorldlineSDKAdapter
             self::INTEGRATOR_NAME . ' ' . MoptWorldline::PLUGIN_VERSION,
             null
         );
+
+        $communicatorConfiguration->setShoppingCartExtension($shoppingCartExtension);
 
         $connection = new DefaultConnection();
         $communicator = new Communicator($connection, $communicatorConfiguration);
@@ -190,6 +203,9 @@ class WorldlineSDKAdapter
 
         $order = new Order();
         $order->setAmountOfMoney($amountOfMoney);
+        $orderRef = new OrderReferences();
+        $orderRef->setMerchantReference($orderEntity->getOrderNumber());
+        $order->setReferences($orderRef);
 
         $hostedCheckoutSpecificInput = new HostedCheckoutSpecificInput();
         $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
@@ -201,14 +217,12 @@ class WorldlineSDKAdapter
         if ($this->isDirectSales()) {
             $cardPaymentMethodSpecificInput->setAuthorizationMode(Payment::DIRECT_SALE);
         }
-
         $groupCardsConfig = $this->getPluginConfig(Form::GROUP_CARDS);
         if ($groupCardsConfig) {
             $cardPaymentMethodSpecificInputForHostedCheckout = new CardPaymentMethodSpecificInputForHostedCheckout();
             $cardPaymentMethodSpecificInputForHostedCheckout->setGroupCards(true);
             $hostedCheckoutSpecificInput->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInputForHostedCheckout);
         }
-
         $hostedCheckoutRequest = new CreateHostedCheckoutRequest();
         if ($worldlinePaymentProductId != 0) {
             $paymentProductFilter = new PaymentProductFilter();
@@ -236,12 +250,11 @@ class WorldlineSDKAdapter
         $hostedCheckoutRequest->setHostedCheckoutSpecificInput($hostedCheckoutSpecificInput);
         $hostedCheckoutRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
         $hostedCheckoutClient = $merchantClient->hostedCheckout();
-
         return $hostedCheckoutClient->createHostedCheckout($hostedCheckoutRequest);
     }
 
     /**
-     * @param string $worldlinePaymentProductId
+     * @param int $worldlinePaymentProductId
      * @param string $currencyISO
      * @param OrderEntity|null $orderEntity
      * @param CardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput
@@ -297,6 +310,37 @@ class WorldlineSDKAdapter
                 $redirectPaymentMethodSpecificInput->setPaymentOption($this->getPluginConfig(Form::ONEY_PAYMENT_OPTION_FIELD));
                 break;
             }
+            case PaymentProducts::PAYMENT_PRODUCT_PRZELEWY24:
+            {
+                $this->addCustomerEmail($orderEntity, $order);
+                $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
+                $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
+                $cardPaymentMethodSpecificInput = null;
+                break;
+            }
+            case PaymentProducts::PAYMENT_PRODUCT_CARTE_BANCAIRE:
+            {
+                $this->addCarteBancaireData($orderEntity, $cardPaymentMethodSpecificInput);
+                break;
+            }
+            case PaymentProducts::PAYMENT_PRODUCT_BANK_TRANSFER:
+            {
+                $instantPayment = $this->getPluginConfig(Form::BANK_TRANSFER_INSTANT_PAYMENT_FIELD);
+
+                $specificInput = new RedirectPaymentProduct5408SpecificInput();
+                $specificInput->setInstantPaymentOnly($instantPayment);
+
+                $redirectionData = new RedirectionData();
+                $redirectionData->setReturnUrl($hostedCheckoutSpecificInput->getReturnUrl());
+
+                $cardPaymentMethodSpecificInput = null;
+
+                $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
+                $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
+                $redirectPaymentMethodSpecificInput->setPaymentProduct5408SpecificInput($specificInput);
+                $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
+                break;
+            }
         }
 
         if (isset($redirectPaymentMethodSpecificInput)) {
@@ -342,10 +386,11 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param float $amountTotal
+     * @param int $amountTotal
      * @param string $currencyISO
      * @param array $iframeData
      * @param GetHostedTokenizationResponse $hostedTokenization
+     * @param ?OrderEntity $orderEntity
      * @return CreatePaymentResponse
      * @throws \Exception
      */
@@ -353,7 +398,8 @@ class WorldlineSDKAdapter
         int                           $amountTotal,
         string                        $currencyISO,
         array                         $iframeData,
-        GetHostedTokenizationResponse $hostedTokenization
+        GetHostedTokenizationResponse $hostedTokenization,
+        ?OrderEntity                   $orderEntity
     ): CreatePaymentResponse
     {
         $token = $hostedTokenization->getToken()->getId();
@@ -407,6 +453,10 @@ class WorldlineSDKAdapter
         $createPaymentRequest = new CreatePaymentRequest();
         $createPaymentRequest->setOrder($order);
         $createPaymentRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
+
+        if ($paymentProductId == PaymentProducts::PAYMENT_PRODUCT_CARTE_BANCAIRE) {
+            $this->addCarteBancaireData($orderEntity, $cardPaymentMethodSpecificInput);
+        }
 
         // Get the response for the PaymentsClient
         $paymentsClient = $merchantClient->payments();
@@ -666,6 +716,7 @@ class WorldlineSDKAdapter
                 $isNetPrice
             )
         );
+        $shipping->setShippingCost($orderEntity->getShippingCosts()->getTotalPrice() * 100);
 
         $order->setShoppingCart($shoppingCart);
         $order->setShipping($shipping);
@@ -680,6 +731,46 @@ class WorldlineSDKAdapter
         $hostedCheckoutSpecificInput->setVariant(null);
 
         $cardPaymentMethodSpecificInput = null;
+    }
+
+    /**
+     * @param OrderEntity $orderEntity
+     * @param Order $order
+     * @return void
+     */
+    private function addCustomerEmail(OrderEntity $orderEntity, Order $order): void
+    {
+        $orderCustomer = $orderEntity->getOrderCustomer();
+        $contactDetails = new ContactDetails();
+        $contactDetails->setEmailAddress($orderCustomer->getEmail());
+
+        $customer = new Customer();
+        $customer->setContactDetails($contactDetails);
+
+        $order->setCustomer($customer);
+    }
+
+    /**
+     * @param OrderEntity $orderEntity
+     * @param CardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput
+     * @return void
+     */
+    private function addCarteBancaireData(
+        OrderEntity $orderEntity,
+        CardPaymentMethodSpecificInput &$cardPaymentMethodSpecificInput
+    ): void
+    {
+        $count = 0;
+        foreach ($orderEntity->getLineItems() as $lineItem) {
+            $count += $lineItem->getQuantity();
+        }
+        $useCase = $this->isDirectSales() ? 'single-amount' : 'payment-upon-shipment';
+        $threeDSecure = new PaymentProduct130SpecificThreeDSecure();
+        $threeDSecure->setUsecase($useCase);
+        $threeDSecure->setNumberOfItems(min($count, 99));
+        $cardPaymentMethodSpecificInput->setPaymentProduct130SpecificInput(
+            $threeDSecure
+        );
     }
 
     /**
@@ -730,12 +821,6 @@ class WorldlineSDKAdapter
         if ($shippingPrice > 0) {
             $grandPrice += $shippingPrice;
             $grandCount++;
-            $shippingElementId = 'shipping_element';
-            if ($maxPrices['unit']['price'] < $shippingPrice) {
-                $maxPrices['unit']['price'] = $shippingPrice;
-                $maxPrices['unit']['id'] = $shippingElementId;
-            }
-            $requestLineItems[$shippingElementId] = self::createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
         }
 
         if ($discount > 0) {

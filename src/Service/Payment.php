@@ -76,18 +76,20 @@ class Payment implements AsynchronousPaymentHandlerInterface
     private Session $session;
     private StateMachineRegistry $stateMachineRegistry;
 
-    public const STATUS_PAYMENT_CREATED = [0];                  //open
+    public const STATUS_PAYMENT_CREATED = [0];                      //open
+    public const STATUS_PENDING_CAPTURE = [4, 5, 56];               //open
     public const STATUS_PAYMENT_CANCELLED = [1, 6, 61, 62, 64, 75]; //cancelled
-    public const STATUS_PAYMENT_CANCELLATION_DECLINED = [63];   //cancellation declined
-    public const STATUS_PAYMENT_REJECTED = [2, 57, 59, 73, 83]; //failed
-    public const STATUS_REJECTED_CAPTURE = [93];                //fail
-    public const STATUS_REDIRECTED = [46];                      //
-    public const STATUS_PENDING_CAPTURE = [5, 56];              //open
-    public const STATUS_AUTHORIZATION_REQUESTED = [50, 51, 55]; //
-    public const STATUS_CAPTURE_REQUESTED = [4, 91, 92, 99];    //in progress
-    public const STATUS_CAPTURED = [9];                         //paid
-    public const STATUS_REFUND_REQUESTED = [81, 82];            //in progress
-    public const STATUS_REFUNDED = [7, 8, 85];                  //refunded
+    public const STATUS_PAYMENT_REJECTED = [2, 57, 59, 73, 83];     //cancelled
+    public const STATUS_CAPTURE_REQUESTED = [91, 92, 99];           //paid / paid partially
+    public const STATUS_CAPTURED = [9];                             //paid / paid partially
+    public const STATUS_REFUND_REQUESTED = [81, 82];                //refunded /refunded partially
+    public const STATUS_REFUNDED = [7, 8, 85];                      //refunded
+
+    // Not used
+    public const STATUS_PAYMENT_CANCELLATION_DECLINED = [63];
+    public const STATUS_REJECTED_CAPTURE = [93];
+    public const STATUS_REDIRECTED = [46];
+    public const STATUS_AUTHORIZATION_REQUESTED = [50, 51, 55];
 
     public const POSSIBLE_STATUSES = [
         OrderTransactionStates::STATE_OPEN => [
@@ -159,6 +161,8 @@ class Payment implements AsynchronousPaymentHandlerInterface
         7  => 'refunded',
         8  => 'refunded',
         85 => 'refunded',
+
+        52 => 'unknown',
     ];
 
     /**

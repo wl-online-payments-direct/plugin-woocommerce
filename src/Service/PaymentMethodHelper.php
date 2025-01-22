@@ -297,4 +297,26 @@ class PaymentMethodHelper
             }
         }
     }
+
+    /**
+     * @param EntityRepository $paymentMethodRepository
+     * @param EntityRepository $ruleRepository
+     * @param EntityRepository $ruleConditionRepository
+     * @param string $internalMethodId
+     * @param string $methodId
+     * @return void
+     */
+    public static function applyRuleToMethod(
+        EntityRepository $paymentMethodRepository,
+        EntityRepository $ruleRepository,
+        EntityRepository $ruleConditionRepository,
+        string $internalMethodId,
+        string $methodId
+    ): void
+    {
+        $ruleHelper = new RuleHelper($ruleRepository,$paymentMethodRepository, $ruleConditionRepository);
+        if (array_key_exists($methodId, PaymentProducts::PAYMENT_PRODUCT_RULES)) {
+            $ruleHelper->applyRule($methodId, $internalMethodId);
+        }
+    }
 }
