@@ -2,7 +2,7 @@ const ApiService = Shopware.Classes.ApiService;
 const { Application } = Shopware;
 
 class ApiClient extends ApiService {
-    constructor(httpClient, loginService, apiEndpoint = 'api-test') {
+    constructor(httpClient, loginService, apiEndpoint = 'worldline/api-test') {
         super(httpClient, loginService, apiEndpoint);
     }
 

@@ -138,5 +138,9 @@
         <service id="MoptWorldline\Subscriber\SupportFormSubscriber">
             <tag name="kernel.event_subscriber" priority="-5100"/>
         </service>
+        <service id="MoptWorldline\Subscriber\CheckoutSubscriber">
+            <argument type="service" id="Shopware\Core\System\SystemConfig\SystemConfigService" />
+            <tag name="kernel.event_subscriber" priority="-5100"/>
+        </service>
     </services>
 </container>

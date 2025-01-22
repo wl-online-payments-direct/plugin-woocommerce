@@ -39,6 +39,7 @@ use OnlinePayments\Sdk\Domain\LineItem;
 use OnlinePayments\Sdk\Domain\MerchantAction;
 use OnlinePayments\Sdk\Domain\Order;
 use OnlinePayments\Sdk\Domain\OrderLineDetails;
+use OnlinePayments\Sdk\Domain\OrderReferences;
 use OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
 use OnlinePayments\Sdk\Domain\PaymentProductFilter;
 use OnlinePayments\Sdk\Domain\PaymentProductFiltersHostedCheckout;
@@ -52,6 +53,7 @@ use OnlinePayments\Sdk\Domain\RefundRequest;
 use OnlinePayments\Sdk\Domain\RefundResponse;
 use OnlinePayments\Sdk\Domain\Shipping;
 use OnlinePayments\Sdk\Domain\ShoppingCart;
+use OnlinePayments\Sdk\Domain\ShoppingCartExtension;
 use OnlinePayments\Sdk\Domain\ThreeDSecure;
 use OnlinePayments\Sdk\Merchant\MerchantClient;
 use Shopware\Core\Checkout\Cart\Price\Struct\CalculatedPrice;
@@ -121,6 +123,13 @@ class WorldlineSDKAdapter
             $credentials = $this->getCredentials();
         }
 
+        $shoppingCartExtension = new ShoppingCartExtension(
+            MoptWorldline::PLUGIN_CREATOR,
+            MoptWorldline::PLUGIN_NAME,
+            MoptWorldline::PLUGIN_VERSION,
+            MoptWorldline::PLUGIN_ID
+        );
+
         $communicatorConfiguration = new CommunicatorConfiguration(
             $credentials['apiKey'],
             $credentials['apiSecret'],
@@ -128,6 +137,8 @@ class WorldlineSDKAdapter
             self::INTEGRATOR_NAME . ' ' . MoptWorldline::PLUGIN_VERSION,
             null
         );
+
+        $communicatorConfiguration->setShoppingCartExtension($shoppingCartExtension);
 
         $connection = new DefaultConnection();
         $communicator = new Communicator($connection, $communicatorConfiguration);
@@ -192,6 +203,9 @@ class WorldlineSDKAdapter
 
         $order = new Order();
         $order->setAmountOfMoney($amountOfMoney);
+        $orderRef = new OrderReferences();
+        $orderRef->setMerchantReference($orderEntity->getOrderNumber());
+        $order->setReferences($orderRef);
 
         $hostedCheckoutSpecificInput = new HostedCheckoutSpecificInput();
         $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
@@ -376,7 +390,7 @@ class WorldlineSDKAdapter
      * @param string $currencyISO
      * @param array $iframeData
      * @param GetHostedTokenizationResponse $hostedTokenization
-     * @param OrderEntity $orderEntity
+     * @param ?OrderEntity $orderEntity
      * @return CreatePaymentResponse
      * @throws \Exception
      */
@@ -385,7 +399,7 @@ class WorldlineSDKAdapter
         string                        $currencyISO,
         array                         $iframeData,
         GetHostedTokenizationResponse $hostedTokenization,
-        OrderEntity                   $orderEntity
+        ?OrderEntity                   $orderEntity
     ): CreatePaymentResponse
     {
         $token = $hostedTokenization->getToken()->getId();
@@ -702,6 +716,7 @@ class WorldlineSDKAdapter
                 $isNetPrice
             )
         );
+        $shipping->setShippingCost($orderEntity->getShippingCosts()->getTotalPrice() * 100);
 
         $order->setShoppingCart($shoppingCart);
         $order->setShipping($shipping);
@@ -806,12 +821,6 @@ class WorldlineSDKAdapter
         if ($shippingPrice > 0) {
             $grandPrice += $shippingPrice;
             $grandCount++;
-            $shippingElementId = 'shipping_element';
-            if ($maxPrices['unit']['price'] < $shippingPrice) {
-                $maxPrices['unit']['price'] = $shippingPrice;
-                $maxPrices['unit']['id'] = $shippingElementId;
-            }
-            $requestLineItems[$shippingElementId] = self::createLineItem(self::SHIPPING_LABEL, $currencyISO, $shippingPrice, $shippingPrice, 1);
         }
 
         if ($discount > 0) {
