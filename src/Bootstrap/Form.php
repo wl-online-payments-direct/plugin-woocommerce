@@ -47,6 +47,7 @@ class Form
     const AUTO_CAPTURE_5_DAYS = '5_days';
     const GROUP_CARDS = 'MoptWorldline.config.groupCards';
     const PARTIAL_OPERATIONS_ENABLED = 'MoptWorldline.config.partialOperationsEnabled';
+    const BANK_TRANSFER_INSTANT_PAYMENT_FIELD = 'MoptWorldline.config.bankTransferInstantPayment';
 
     /** @var string Fieldset name for the plugin custom field */
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_FIELDSET = 'payment_transaction_fieldset';
@@ -89,7 +90,7 @@ class Form
     const WORLDLINE_CART_FORM_REDIRECT_TOKEN = 'moptWorldlineRedirectToken';
 
     /** @var string Field name for the plugin session key */
-    const SESSION_OPERATIONS_LOCK = 'order_locked';
+    const SESSION_OPERATIONS_LOCK = 'worldline_order_locked';
     const SESSION_IFRAME_DATA = 'worldline_iframe_data';
     const SESSION_SERVER_URL = 'worldline_server_url';
 

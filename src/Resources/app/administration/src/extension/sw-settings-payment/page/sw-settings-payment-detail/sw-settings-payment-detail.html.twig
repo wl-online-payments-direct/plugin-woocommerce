@@ -1,15 +1,25 @@
 {% block sw_settings_payment_detail_base_content_media_upload %}
     {% parent() %}
     <sw-container v-if="showOneyField">
-        <sw-field
-                id="oneyPaymentOption"
+        <sw-text-field
+                :id="oneyPaymentOption"
                 name="oneyPaymentOption"
-                @change="setOneyPaymentOption"
+                @update:value="setOneyPaymentOption"
                 :value="oneyPaymentOptionValue"
-                type="text"
                 class="sw-settings-payment-detail__field-position"
                 :disabled="!acl.can('payment.editor')"
                 :label="$tc('worldline.payment-methods.oney-label')"
+        />
+    </sw-container>
+    <sw-container v-if="showBankTransferField">
+        <sw-switch-field
+                :id="bankTransferPaymentOption"
+                name="bankTransferPaymentOption"
+                @update:value="setBankTransferPaymentOption"
+                :value="bankTransferPaymentOptionValue"
+                class="sw-settings-payment-detail__field-position"
+                :disabled="!acl.can('payment.editor')"
+                :label="$tc('worldline.payment-methods.bank-transfer-label')"
         />
     </sw-container>
 {% endblock %}

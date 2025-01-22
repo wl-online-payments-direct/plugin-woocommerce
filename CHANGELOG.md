@@ -1,3 +1,9 @@
+# 3.2.1
+- Shipping cost as separated parameter
+
+# 3.2.0
+- New payment methods: Bank Transfer, P24, Twint, Carte Bancaire, PostFinane
+
 # 3.1.2
 - Webhook fix
 

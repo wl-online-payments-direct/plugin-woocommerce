@@ -86,7 +86,8 @@
             "pendingCapture": "Pending capture",
             "authorizationRequested": "Authorization requested",
             "captureRequested": "Capture requested",
-            "refundRequested": "Refund requested"
+            "refundRequested": "Refund requested",
+            "unknown": "Authorisation not known"
         },
         "payment-method-button": {
             "headline": "Payment Methods",
@@ -157,7 +158,8 @@
             }
         },
         "payment-methods": {
-            "oney-label": "Oney custom field"
+            "oney-label": "Oney custom field",
+            "bank-transfer-label": "Bank Transfer instant payment"
         },
         "support-form": {
             "name": "Contact development team",
@@ -174,6 +176,9 @@
             "success": "Successfully sent!",
             "error": "Error!",
             "user-have-no-rights": "Looks like you don’t have permission to create a support account. Reach out to an administrator to gain access."
+        },
+        "custom-messages": {
+            "twintPartialCaptureWarning": "Please avoid to make partial capture requests with Twint!"
         }
     }
 }
