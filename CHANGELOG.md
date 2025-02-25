@@ -1,3 +1,8 @@
+# 1.8.7
+- Add default api endpoints (in case no endpoint is specified in config)
+    - LIVE: https://payment.direct.worldline-solutions.com
+    - SANDBOX: https://payment.preprod.direct.worldline-solutions.com
+
 # 1.8.6
 - Shopware 6.4.1 compatibility
 
