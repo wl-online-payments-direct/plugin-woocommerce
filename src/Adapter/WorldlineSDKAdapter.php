@@ -72,6 +72,9 @@ class WorldlineSDKAdapter
 {
     const HOSTED_TOKENIZATION_URL_PREFIX = 'https://payment.';
 
+    const LIVE_ENDPOINT = "https://payment.direct.worldline-solutions.com";
+    const TEST_ENDPOINT = "https://payment.preprod.direct.worldline-solutions.com";
+
     /** @var string */
     const INTEGRATOR_NAME = 'Mediaopt';
     const SHIPPING_LABEL = 'Shipping';
@@ -118,7 +121,7 @@ class WorldlineSDKAdapter
         $communicatorConfiguration = new CommunicatorConfiguration(
             $credentials['apiKey'],
             $credentials['apiSecret'],
-            $credentials['endpoint'],
+            $credentials['endpoint'] ?: ($credentials['isLiveMode'] ? self::LIVE_ENDPOINT : self::TEST_ENDPOINT),
             self::INTEGRATOR_NAME,
             null
         );
