@@ -7,6 +7,7 @@
 
 namespace MoptWorldline\Controller\Api;
 
+use MoptWorldline\Adapter\WorldlineSDKAdapter;
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\Service\Helper;
 use Shopware\Core\Content\Media\File\FileSaver;
@@ -194,6 +195,9 @@ class ApiTestController extends AbstractController
             }
         }
 
+        if (!$credentials['endpoint']) {
+            $credentials['endpoint'] = $mode === 'live' ? WorldlineSDKAdapter::LIVE_ENDPOINT : WorldlineSDKAdapter::TEST_ENDPOINT;
+        }
         return $credentials;
     }
 
