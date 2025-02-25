@@ -1,3 +1,8 @@
+# 2.2.2
+- Add default api endpoints (in case no endpoint is specified in config)
+    - LIVE: https://payment.direct.worldline-solutions.com
+    - SANDBOX: https://payment.preprod.direct.worldline-solutions.com
+
 # 2.2.1
 - Webhook fix
 
