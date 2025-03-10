@@ -2,17 +2,16 @@
 
 /**
  * Plugin Name: Worldline Payments for WooCommerce
- * Description: Worldline payment Gateway for WooCommerce.
- * Version: 1.0.1
- * SHA: 014ea2e3dcc562d065dfca240b9155d6724e2d57
+ * Description: Worldline payment gateway for WooCommerce.
+ * Version: 2.0.0
+ * SHA: 337fb5993db7003a5e31d2aed9fbe279b9955fd6
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  * WC requires at least: 8.6
- * WC tested up to: 8.9.1
+ * WC tested up to: 9.5
  * Author:      Worldline
  * Author URI:  https://syde.com
- * License:     GPL-2.0
  * Text Domain: worldline-for-woocommerce
  * Domain Path: /languages
  */

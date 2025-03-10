@@ -1,8 +1,8 @@
 {
     "name": "inpsyde\/worldline-for-woocommerce",
     "type": "wordpress-plugin",
-    "description": "",
-    "license": "GPL-2.0",
+    "description": "Worldline payment gateway for WooCommerce.",
+    "license": "GPL-2.0-or-later",
     "authors": [
         {
             "name": "Syde GmbH",
@@ -30,15 +30,21 @@
         "dhii\/versions": "^0.1.0@alpha",
         "inpsyde\/logger": "2.0.1",
         "inpsyde\/modularity": "^1.7",
-        "inpsyde\/payment-gateway": "*",
+        "inpsyde\/payment-gateway": "^2.2.2",
         "inpsyde\/psr-18-wp-http-client": "^0.1.0@alpha",
         "inpsyde\/transformer": "*",
+        "inpsyde\/worldline-apple-pay-gateway": "*",
+        "inpsyde\/worldline-bank-transfer-gateway": "*",
         "inpsyde\/worldline-checkout": "*",
         "inpsyde\/worldline-config": "*",
         "inpsyde\/worldline-documentation": "*",
+        "inpsyde\/worldline-google-pay-gateway": "*",
+        "inpsyde\/worldline-hosted-tokenization-gateway": "*",
+        "inpsyde\/worldline-ideal-gateway": "*",
         "inpsyde\/worldline-logging": "*",
         "inpsyde\/worldline-payment-gateway": "*",
         "inpsyde\/worldline-return-page": "*",
+        "inpsyde\/worldline-uninstall": "*",
         "inpsyde\/worldline-uri": "*",
         "inpsyde\/worldline-utils": "*",
         "inpsyde\/worldline-vaulting": "*",
@@ -153,6 +159,8 @@
         },
         "composer-asset-compiler": {
             "auto-run": false,
+            "dependencies": "install",
+            "script": "build",
             "packages": {
                 "inpsyde\/*": {
                     "dependencies": "install",

@@ -1,25 +1,37 @@
-import {sprintf, __} from '@wordpress/i18n';
+import {__} from '@wordpress/i18n';
 import {registerPaymentMethod} from '@woocommerce/blocks-registry';
 import {decodeEntities} from '@wordpress/html-entities';
 import {getSetting} from '@woocommerce/settings';
-
-console.log('global settings', inpsydeGateways)
+import {defaultHooks} from '@wordpress/hooks';
+import { useEffect, useState, useCallback } from 'react';
 
 inpsydeGateways.forEach((name) => {
     const settings = getSetting(`${name}_data`, {});
-    console.log('gateway settings:' + name, settings)
-
+    const hookName = `${name}_checkout_fields`;
     const defaultLabel = __(
-        'Inpsyde Dummy Payments',
-        'woo-gutenberg-products-block'
+        'Syde Payment Gateway',
+        'syde-payment-gateway'
     );
 
     const label = decodeEntities(settings.title) || defaultLabel;
-    /**
-     * Content component
-     */
-    const Content = () => {
-        return decodeEntities(settings.description || '');
+
+    const Content = (props) => {
+        const [components, setComponents] = useState([])
+        useEffect(() => {
+            setComponents(defaultHooks.applyFilters(hookName, []))
+        }, []);
+        /**
+         * If no external plugins/slot-fills are configured,
+         * we default to displaying the method description
+         */
+        if (!Array.isArray(components) || !components.length) {
+            const DefaultPlugin = () => decodeEntities(settings.description || '');
+            return <DefaultPlugin />
+        }
+
+        return (
+            <>{components.map((Component) => <Component {...props} />)}</>
+        );
     };
     /**
      * Label component
@@ -27,30 +39,33 @@ inpsydeGateways.forEach((name) => {
      * @param {*} props Props from payment API.
      */
     const Label = (props) => {
-        const {PaymentMethodLabel} = props.components;
-        return <PaymentMethodLabel text={label} />;
+        const {PaymentMethodLabel, PaymentMethodIcons} = props.components;
+        return <><PaymentMethodLabel text={label} /><PaymentMethodIcons icons={settings.icons} /></>;
     };
 
     /**
-     * Dummy payment method config object.
+     * Payment method config object.
      */
-    const Dummy = {
+    const PaymentMethodArgs = {
         name: name,
         label: <Label />,
         content: <Content />,
         edit: <Content />,
+        icons: settings.icons,
         canMakePayment: () => true,
         ariaLabel: label,
         supports: {
             features: settings.supports,
-        },
-    };
-
-    if (settings.placeOrderButtonLabel) {
-        Dummy.placeOrderButtonLabel = settings.placeOrderButtonLabel;
+        }
     }
 
-    registerPaymentMethod(Dummy);
+    if (settings.placeOrderButtonLabel) {
+        PaymentMethodArgs.placeOrderButtonLabel = settings.placeOrderButtonLabel;
+    }
+
+    registerPaymentMethod(PaymentMethodArgs);
 
 })
+
+
 

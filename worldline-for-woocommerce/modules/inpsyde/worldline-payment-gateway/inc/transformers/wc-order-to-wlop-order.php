@@ -3,22 +3,26 @@
 declare (strict_types=1);
 namespace Syde\Vendor;
 
+use Syde\Vendor\Dhii\Services\Factory;
 use Syde\Vendor\Inpsyde\Transformer\ConfigurableTransformer;
 use Syde\Vendor\Inpsyde\Transformer\Transformer;
-use Syde\Vendor\Dhii\Services\Factory;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AmountOfMoneyFactory;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\LineItemFactory;
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Customer\AccountTypeHandler;
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Shipping\AddressIndicatorHandler;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Struct\WcPriceStruct;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\Address;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\AddressPersonal;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\OnlinePayments\Sdk\Domain\BrowserData;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\ContactDetails;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\Customer;
+use Syde\Vendor\OnlinePayments\Sdk\Domain\CustomerDevice;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\LineItem;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\PersonalInformation;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\PersonalName;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\Shipping;
-return new Factory(['worldline_payment_gateway.amount_of_money_factory'], static function (AmountOfMoneyFactory $amountOfMoneyFactory): Transformer {
+return new Factory(['worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.account_type_handler', 'worldline_payment_gateway.address_indicator_handler', 'utils.client_ip_address', 'utils.client_user_agent', 'utils.client_accept', 'worldline_payment_gateway.customer_screen_height', 'worldline_payment_gateway.customer_screen_width'], static function (AmountOfMoneyFactory $amountOfMoneyFactory, AccountTypeHandler $accountTypeHandler, AddressIndicatorHandler $addressIndicatorHandler, ?string $ipAddress, ?string $userAgent, ?string $acceptHeader, ?int $screenHeight, ?int $screenWidth): Transformer {
     $transformer = new ConfigurableTransformer();
     $transformer->addTransformer(static function (WcPriceStruct $priceStruct) use ($amountOfMoneyFactory): AmountOfMoney {
         return $amountOfMoneyFactory->create($priceStruct);
@@ -27,8 +31,9 @@ return new Factory(['worldline_payment_gateway.amount_of_money_factory'], static
         $lineItemFactory = new LineItemFactory();
         return $lineItemFactory->create($wcLineItem, $transformer);
     });
-    $transformer->addTransformer(static function (\WC_Order $wcOrder, Transformer $transformer): Customer {
+    $transformer->addTransformer(static function (\WC_Order $wcOrder, Transformer $transformer) use ($ipAddress, $userAgent, $acceptHeader, $accountTypeHandler, $screenHeight, $screenWidth): Customer {
         $customer = new Customer();
+        $accountType = $accountTypeHandler->determineAccountType($wcOrder);
         $personalInfo = new PersonalInformation();
         if ($wcOrder->get_billing_first_name()) {
             $name = new PersonalName();
@@ -37,6 +42,24 @@ return new Factory(['worldline_payment_gateway.amount_of_money_factory'], static
             $personalInfo->setName($name);
         }
         $customer->setPersonalInformation($personalInfo);
+        $customer->setAccountType($accountType);
+        $customerDevice = new CustomerDevice();
+        if (!\is_null($acceptHeader)) {
+            $customerDevice->setAcceptHeader($acceptHeader);
+        }
+        if (!\is_null($ipAddress)) {
+            $customerDevice->setIpAddress($ipAddress);
+        }
+        if (!\is_null($userAgent)) {
+            $customerDevice->setUserAgent($userAgent);
+        }
+        if ($screenHeight !== null && $screenWidth !== null) {
+            $browserData = new BrowserData();
+            $browserData->setScreenHeight($screenHeight);
+            $browserData->setScreenWidth($screenWidth);
+            $customerDevice->setBrowserData($browserData);
+        }
+        $customer->setDevice($customerDevice);
         $contact = new ContactDetails();
         if ($wcOrder->get_billing_email()) {
             $contact->setEmailAddress($wcOrder->get_billing_email());
@@ -72,7 +95,7 @@ return new Factory(['worldline_payment_gateway.amount_of_money_factory'], static
         $customer->setBillingAddress($address);
         return $customer;
     });
-    $transformer->addTransformer(static function (\WC_Order $wcOrder, Transformer $transformer) use ($amountOfMoneyFactory): Shipping {
+    $transformer->addTransformer(static function (\WC_Order $wcOrder, Transformer $transformer) use ($amountOfMoneyFactory, $addressIndicatorHandler): Shipping {
         $shipping = new Shipping();
         if ($wcOrder->get_billing_email()) {
             // only one email in WC, no separate shipping email
@@ -108,6 +131,7 @@ return new Factory(['worldline_payment_gateway.amount_of_money_factory'], static
         $tax = $amountOfMoneyFactory->create(new WcPriceStruct($wcOrder->get_shipping_tax(), $wcOrder->get_currency()));
         $shipping->setShippingCost($cost->getAmount());
         $shipping->setShippingCostTax($tax->getAmount());
+        $shipping->setAddressIndicator($addressIndicatorHandler->determineAddressType($wcOrder));
         return $shipping;
     });
     return $transformer;

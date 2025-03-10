@@ -3,6 +3,7 @@
 declare (strict_types=1);
 namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cli;
 
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
 use WC_Order;
@@ -10,11 +11,9 @@ use Syde\Vendor\WP_CLI;
 class StatusUpdateCommand
 {
     private OrderUpdater $orderUpdater;
-    private string $gatewayId;
-    public function __construct(OrderUpdater $orderUpdater, string $gatewayId)
+    public function __construct(OrderUpdater $orderUpdater)
     {
         $this->orderUpdater = $orderUpdater;
-        $this->gatewayId = $gatewayId;
     }
     /**
      * Updates the order status from Worldline API.
@@ -38,7 +37,7 @@ class StatusUpdateCommand
             WP_CLI::error("Order {$id} not found.");
             return;
         }
-        if ($wcOrder->get_payment_method() !== $this->gatewayId) {
+        if ($wcOrder->get_payment_method() !== GatewayIds::HOSTED_CHECKOUT) {
             WP_CLI::error("Order {$id} is not from the Worldline gateway.");
             return;
         }

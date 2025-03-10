@@ -24,12 +24,14 @@ class WcOrderBasedOrderFactory implements WcOrderBasedOrderFactoryInterface
     private PaymentMismatchValidator $paymentMismatchValidator;
     private MismatchHandlerInterface $mismatchHandler;
     private bool $surchargeEnabled;
-    public function __construct(Transformer $transformer, PaymentMismatchValidator $paymentMismatchValidator, MismatchHandlerInterface $mismatchHandler, bool $surchargeEnabled)
+    private bool $sendShoppingCart;
+    public function __construct(Transformer $transformer, PaymentMismatchValidator $paymentMismatchValidator, MismatchHandlerInterface $mismatchHandler, bool $surchargeEnabled, bool $sendShoppingCart)
     {
         $this->transformer = $transformer;
         $this->paymentMismatchValidator = $paymentMismatchValidator;
         $this->mismatchHandler = $mismatchHandler;
         $this->surchargeEnabled = $surchargeEnabled;
+        $this->sendShoppingCart = $sendShoppingCart;
     }
     /**
      * @throws TransformerException
@@ -37,14 +39,16 @@ class WcOrderBasedOrderFactory implements WcOrderBasedOrderFactoryInterface
     public function create(WC_Order $wcOrder): Order
     {
         $amountOfMoney = $this->transformer->create(AmountOfMoney::class, new WcPriceStruct((string) $wcOrder->get_total(), $wcOrder->get_currency()));
-        $lineItems = array_map(function (WC_Order_Item_Product $lineItem): LineItem {
-            return $this->transformer->create(LineItem::class, $lineItem);
-        }, $wcOrder->get_items());
-        $shoppingCart = new ShoppingCart();
-        $shoppingCart->setItems($lineItems);
         $wlopOrder = new Order();
         $wlopOrder->setAmountOfMoney($amountOfMoney);
-        $wlopOrder->setShoppingCart($shoppingCart);
+        if ($this->sendShoppingCart) {
+            $lineItems = array_map(function (WC_Order_Item_Product $lineItem): LineItem {
+                return $this->transformer->create(LineItem::class, $lineItem);
+            }, $wcOrder->get_items());
+            $shoppingCart = new ShoppingCart();
+            $shoppingCart->setItems($lineItems);
+            $wlopOrder->setShoppingCart($shoppingCart);
+        }
         $ref = new OrderReferences();
         $ref->setMerchantReference((string) $wcOrder->get_id());
         $wlopOrder->setReferences($ref);

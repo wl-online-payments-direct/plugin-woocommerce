@@ -67,7 +67,10 @@ class WpContext implements \JsonSerializable
      */
     private static function isRestRequest(): bool
     {
-        if (defined('REST_REQUEST') && \REST_REQUEST || !empty($_GET['rest_route'])) {
+        /** @psalm-suppress RedundantCondition */
+        $isRestRequest = defined('REST_REQUEST') && \REST_REQUEST;
+        if ($isRestRequest || !empty($_GET['rest_route'])) {
+            // phpcs:ignore
             return \true;
         }
         if (!get_option('permalink_structure')) {
@@ -287,6 +290,7 @@ class WpContext implements \JsonSerializable
             $screen->in_admin() and $this->resetAndForce(self::BACKOFFICE);
         }];
         foreach ($this->actionCallbacks as $action => $callback) {
+            /** @psalm-suppress MixedArgument */
             add_action($action, $callback, \PHP_INT_MIN);
         }
     }
@@ -299,6 +303,7 @@ class WpContext implements \JsonSerializable
     private function removeActionHooks(): void
     {
         foreach ($this->actionCallbacks as $action => $callback) {
+            /** @psalm-suppress MixedArgument */
             remove_action($action, $callback, \PHP_INT_MIN);
         }
         $this->actionCallbacks = [];

@@ -11,31 +11,16 @@ use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
  */
 class ReadOnlyContainer implements ContainerInterface
 {
+    /** @var array<string, Service> */
+    private array $services;
+    /** @var array<string, bool> */
+    private array $factoryIds;
+    private ServiceExtensions $extensions;
+    /** @var ContainerInterface[] */
+    private array $containers;
+    /** @var array<string, mixed> */
+    private array $resolvedServices = [];
     /**
-     * @var array<string, Service>
-     */
-    private $services;
-    /**
-     * @var array<string, bool>
-     */
-    private $factoryIds;
-    /**
-     * @var ServiceExtensions
-     */
-    private $extensions;
-    /**
-     * Resolved factories.
-     *
-     * @var array<string, mixed>
-     */
-    private $resolvedServices = [];
-    /**
-     * @var ContainerInterface[]
-     */
-    private $containers;
-    /**
-     * ReadOnlyContainer constructor.
-     *
      * @param array<string, Service> $services
      * @param array<string, bool> $factoryIds
      * @param ServiceExtensions|array $extensions
@@ -50,7 +35,6 @@ class ReadOnlyContainer implements ContainerInterface
     }
     /**
      * @param string $id
-     *
      * @return mixed
      */
     public function get(string $id)
@@ -73,13 +57,13 @@ class ReadOnlyContainer implements ContainerInterface
                 return $this->extensions->resolve($service, $id, $this);
             }
         }
-        throw new class("Service with ID {$id} not found.") extends \Exception implements NotFoundExceptionInterface
+        $error = "Service with ID {$id} not found.";
+        throw new class(esc_html($error)) extends \Exception implements NotFoundExceptionInterface
         {
         };
     }
     /**
      * @param string $id
-     *
      * @return bool
      */
     public function has(string $id): bool
@@ -113,7 +97,8 @@ class ReadOnlyContainer implements ContainerInterface
             return $extensions;
         }
         if (!is_array($extensions)) {
-            throw new \TypeError(sprintf('%s::%s(): Argument #3 ($extensions) must be of type %s|array, %s given', __CLASS__, '__construct', ServiceExtensions::class, gettype($extensions)));
+            $type = is_object($extensions) ? get_class($extensions) : gettype($extensions);
+            throw new \TypeError(sprintf('%s::%s(): Argument #3 ($extensions) must be of type %s|array, %s given', __CLASS__, '__construct', ServiceExtensions::class, esc_html($type)));
         }
         $servicesExtensions = new ServiceExtensions();
         foreach ($extensions as $id => $callback) {

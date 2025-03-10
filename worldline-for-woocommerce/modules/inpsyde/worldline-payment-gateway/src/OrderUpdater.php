@@ -139,13 +139,13 @@ class OrderUpdater
             return null;
         }
         switch ($statusCode) {
+            case 4:
             case 46:
             case 51:
                 return 'pending';
             // authorized
             case 5:
             case 56:
-            case 4:
             case 91:
             case 92:
             case 99:

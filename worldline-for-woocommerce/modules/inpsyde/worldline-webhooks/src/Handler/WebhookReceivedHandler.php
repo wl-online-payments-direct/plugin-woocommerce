@@ -5,11 +5,9 @@ namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler;
 
 use Exception;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper\WebhookHelper;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 class WebhookReceivedHandler implements WebhookHandlerInterface
 {
     private OrderUpdater $orderUpdater;
@@ -29,13 +27,42 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
      */
     public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder): void
     {
-        $transactionId = (string) $wlopWcOrder->order()->get_meta(OrderMetaKeys::TRANSACTION_ID);
-        if (!$transactionId) {
-            $transactionId = WebhookHelper::transactionId($webhook);
-            if (!is_null($transactionId)) {
-                $wlopWcOrder->setTransactionId($transactionId);
-            }
+        $transactionId = WebhookHelper::transactionId($webhook);
+        if (!is_null($transactionId) && $this->shouldSetTransactionId($transactionId, $webhook, $wlopWcOrder)) {
+            $wlopWcOrder->setTransactionId($transactionId);
         }
         $this->orderUpdater->update($wlopWcOrder);
+    }
+    protected function shouldSetTransactionId(string $newTransactionId, WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder): bool
+    {
+        $wcTransactionId = $wlopWcOrder->transactionId();
+        if (!$wcTransactionId) {
+            return \true;
+        }
+        $payment = $webhook->getPayment();
+        if (!$payment) {
+            return \false;
+        }
+        $statusOutput = $payment->getStatusOutput();
+        if (!$statusOutput) {
+            return \false;
+        }
+        $statusCategory = $statusOutput->getStatusCategory();
+        if (in_array($statusCategory, ['UNSUCCESSFUL', 'REFUNDED'], \true)) {
+            return \false;
+        }
+        if ($this->cleanupId($newTransactionId) === $this->cleanupId($newTransactionId)) {
+            return \false;
+        }
+        return \true;
+    }
+    protected function cleanupId(string $id): string
+    {
+        $parts = explode('_', $id);
+        if (count($parts) !== 2) {
+            // not an ID like 123456_1
+            return $id;
+        }
+        return $parts[0];
     }
 }

@@ -3,21 +3,20 @@
 declare (strict_types=1);
 namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin;
 
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
 use WC_Order;
 class StatusUpdateAction
 {
     private OrderUpdater $orderUpdater;
-    private string $gatewayId;
-    public function __construct(OrderUpdater $orderUpdater, string $gatewayId)
+    public function __construct(OrderUpdater $orderUpdater)
     {
         $this->orderUpdater = $orderUpdater;
-        $this->gatewayId = $gatewayId;
     }
     public function isAvailable(WC_Order $wcOrder): bool
     {
-        return $wcOrder->get_payment_method() === $this->gatewayId;
+        return in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true);
     }
     public function render(array $orderActions, WC_Order $wcOrder): array
     {

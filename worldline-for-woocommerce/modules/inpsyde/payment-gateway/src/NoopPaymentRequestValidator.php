@@ -5,7 +5,7 @@ namespace Syde\Vendor\Inpsyde\PaymentGateway;
 
 class NoopPaymentRequestValidator implements PaymentRequestValidatorInterface
 {
-    public function assertIsValid(\WC_Order $order, PaymentGateway $param): void
+    public function assertIsValid(\WC_Order $order, PaymentGateway $gateway): void
     {
         // TODO: Implement assertIsValid() method.
     }

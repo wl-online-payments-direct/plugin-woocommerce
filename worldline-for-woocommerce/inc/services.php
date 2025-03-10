@@ -23,16 +23,15 @@ use Syde\Vendor\Psr\Container\ContainerInterface;
 use Syde\Vendor\Psr\Http\Message\UriFactoryInterface;
 use Syde\Vendor\Psr\Http\Message\UriInterface;
 return static function (string $rootPath): array {
-    return ['assets.module_url' => static function (ContainerInterface $container): callable {
-        return static function (string $moduleFolder): string {
-            $currentFilePath = \realpath(__FILE__);
-            // This should never happen if we don't move files around
-            if ($currentFilePath === \false) {
-                return '';
-            }
-            return \plugins_url("modules/inpsyde/{$moduleFolder}/assets", \dirname($currentFilePath, 2) . '/worldline-for-woocommerce.php');
+    return ['assets.get_module_asset_url' => new Factory([Package::PROPERTIES], static function (PluginProperties $props): callable {
+        return static function (string $moduleName, string $assetName) use ($props): string {
+            return $props->baseUrl() . "assets/{$moduleName}-{$assetName}";
         };
-    }, 'core.environment_validator' => static function (ContainerInterface $container): ValidatorInterface {
+    }), 'assets.get_module_static_asset_url' => new Factory([Package::PROPERTIES], static function (PluginProperties $props): callable {
+        return static function (string $packageName, string $assetName) use ($props): string {
+            return $props->baseUrl() . "modules/inpsyde/{$packageName}/assets/{$assetName}";
+        };
+    }), 'core.environment_validator' => static function (ContainerInterface $container): ValidatorInterface {
         /** @var ValidatorInterface $phpVersionValidator */
         $phpVersionValidator = $container->get('core.php_version_validator');
         /** @var ValidatorInterface $wpVersionValidator */
@@ -107,7 +106,7 @@ return static function (string $rootPath): array {
         return [new PluginActionLink('contact_us', \__('Contact us', 'worldline-for-woocommerce'), $contactUsUrlBuilder, \true)];
     }), 'core.http.settings_url' => new Factory(['core.uri.factory'], static function (UriFactoryInterface $factory): UriInterface {
         return $factory->createUri(\sprintf('%s?%s', \admin_url('admin.php'), \http_build_query(['page' => 'wc-settings', 'tab' => 'checkout', 'section' => 'worldline-for-woocommerce'])));
-    }), 'core.contact_us_url' => new Value('https://docs.direct.worldline-solutions.com/en/about/contact/'), 'core.documentation_url' => new Value('https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/index'), 'core.create_account_url' => new Value('https://signup.direct.preprod.worldline-solutions.com/'), 'core.view_account_url' => new Value('https://merchant-portal.preprod.worldline-solutions.com/dashboard'), 'core.contact_us_url_builder' => new Factory(['core.uri.factory', 'core.contact_us_url'], static function (UriFactoryInterface $uriFactory, string $contactUsUrl): UriInterface {
+    }), 'core.contact_us_url' => new Value('https://docs.direct.worldline-solutions.com/en/about/contact/'), 'core.documentation_url' => new Value('https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/woocommerce'), 'core.test_create_account_url' => new Value('https://signup.direct.preprod.worldline-solutions.com/'), 'core.live_create_account_url' => new Value('https://worldline.com/en/home/main-navigation/git/contact'), 'core.test_view_account_url' => new Value('https://merchant-portal.preprod.worldline-solutions.com/dashboard'), 'core.live_view_account_url' => new Value('https://merchant-portal.worldline-solutions.com/dashboard'), 'core.contact_us_url_builder' => new Factory(['core.uri.factory', 'core.contact_us_url'], static function (UriFactoryInterface $uriFactory, string $contactUsUrl): UriInterface {
         return $uriFactory->createUri($contactUsUrl);
     }), 'core.uri.factory' => new Alias('uri.factory'), 'core.webhooks.namespace' => new Value('inpsyde/worldline-for-woocommerce'), 'core.webhooks.route' => new Value('/listener/notifications'), 'core.webhooks.notification_url' => new Factory(['webhooks.namespace', 'webhooks.rest_route', 'core.uri.factory'], static function (string $restNamespace, string $restRoute, UriFactoryInterface $uriFactory): ?UriInterface {
         $blogId = \get_current_blog_id();

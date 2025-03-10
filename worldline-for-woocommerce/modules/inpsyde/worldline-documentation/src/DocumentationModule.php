@@ -7,6 +7,7 @@ use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
 use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Documentation\Renderer\LinksRenderer;
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
 use Syde\Vendor\Psr\Container\ContainerInterface;
 class DocumentationModule implements ExecutableModule, ServiceModule
@@ -24,8 +25,7 @@ class DocumentationModule implements ExecutableModule, ServiceModule
             // phpcs:disable Inpsyde.CodeQuality.VariablesName.SnakeCaseVar
             static function () use ($container): void {
                 global $current_section;
-                $paymentGatewayId = $container->get('worldline_payment_gateway.id');
-                if ($paymentGatewayId !== $current_section) {
+                if (GatewayIds::HOSTED_CHECKOUT !== $current_section) {
                     return;
                 }
                 $documentationLinksRenderer = $container->get('documentation.links_renderer');

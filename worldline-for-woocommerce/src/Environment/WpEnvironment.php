@@ -8,22 +8,10 @@ namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Environment;
  */
 class WpEnvironment implements WpEnvironmentInterface
 {
-    /**
-     * @var string
-     */
-    protected $phpVersion;
-    /**
-     * @var string
-     */
-    protected $wpVersion;
-    /**
-     * @var string
-     */
-    protected $wcVersion;
-    /**
-     * @var bool
-     */
-    protected $isWcActive;
+    protected string $phpVersion;
+    protected string $wpVersion;
+    protected string $wcVersion;
+    protected bool $isWcActive;
     /**
      * @param string $phpVersion
      * @param string $wpVersion

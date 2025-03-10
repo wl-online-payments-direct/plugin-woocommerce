@@ -18,13 +18,17 @@ class MandateResponse extends DataObject
      */
     private $alias;
     /**
-     * @var MandateCustomer
+     * @var MandateCustomerResponse
      */
     private $customer;
     /**
      * @var string
      */
     private $customerReference;
+    /**
+     * @var string
+     */
+    private $mandatePdf;
     /**
      * @var string
      */
@@ -53,14 +57,14 @@ class MandateResponse extends DataObject
         $this->alias = $value;
     }
     /**
-     * @return MandateCustomer
+     * @return MandateCustomerResponse
      */
     public function getCustomer()
     {
         return $this->customer;
     }
     /**
-     * @var MandateCustomer
+     * @var MandateCustomerResponse
      */
     public function setCustomer($value)
     {
@@ -79,6 +83,20 @@ class MandateResponse extends DataObject
     public function setCustomerReference($value)
     {
         $this->customerReference = $value;
+    }
+    /**
+     * @return string
+     */
+    public function getMandatePdf()
+    {
+        return $this->mandatePdf;
+    }
+    /**
+     * @var string
+     */
+    public function setMandatePdf($value)
+    {
+        $this->mandatePdf = $value;
     }
     /**
      * @return string
@@ -137,6 +155,9 @@ class MandateResponse extends DataObject
         if ($this->customerReference !== null) {
             $object->customerReference = $this->customerReference;
         }
+        if ($this->mandatePdf !== null) {
+            $object->mandatePdf = $this->mandatePdf;
+        }
         if ($this->recurrenceType !== null) {
             $object->recurrenceType = $this->recurrenceType;
         }
@@ -163,11 +184,14 @@ class MandateResponse extends DataObject
             if (!is_object($object->customer)) {
                 throw new UnexpectedValueException('value \'' . print_r($object->customer, \true) . '\' is not an object');
             }
-            $value = new MandateCustomer();
+            $value = new MandateCustomerResponse();
             $this->customer = $value->fromObject($object->customer);
         }
         if (property_exists($object, 'customerReference')) {
             $this->customerReference = $object->customerReference;
+        }
+        if (property_exists($object, 'mandatePdf')) {
+            $this->mandatePdf = $object->mandatePdf;
         }
         if (property_exists($object, 'recurrenceType')) {
             $this->recurrenceType = $object->recurrenceType;

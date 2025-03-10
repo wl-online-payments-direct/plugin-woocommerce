@@ -3,15 +3,11 @@
 declare (strict_types=1);
 namespace Syde\Vendor\Inpsyde\Modularity\Module;
 
-/**
- * Trait ModuleClassNameIdTrait
- *
- * @package Inpsyde\Modularity\Module
- */
 trait ModuleClassNameIdTrait
 {
     /**
      * @return string
+     *
      * @see Module::id()
      */
     public function id(): string

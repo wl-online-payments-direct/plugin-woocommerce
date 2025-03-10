@@ -11,8 +11,8 @@ use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
 use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice\OrderActionNotice;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund\RefundProcessor;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
+use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
 use Syde\Vendor\Psr\Container\ContainerInterface;
 use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
@@ -32,6 +32,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
         $this->registerCurrencyValidator($container);
         $this->registerCliCommands($container);
         $this->registerRefundSaving($container);
+        $this->registerCheckoutCompletionHandler($container);
         return \true;
     }
     public function services(): array
@@ -139,12 +140,47 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             if (!$wcOrder instanceof WC_Order) {
                 return;
             }
-            if ($wcOrder->get_payment_method() !== $container->get('worldline_payment_gateway.id')) {
+            if ($wcOrder->get_payment_method() !== GatewayIds::HOSTED_CHECKOUT) {
                 return;
             }
             $refundData = array_merge($args, ['wlop_created_time' => time()]);
             $wcOrder->add_meta_data(OrderMetaKeys::PENDING_REFUNDS, $refundData);
             $wcOrder->save();
         }, 10, 2);
+    }
+    public function registerCheckoutCompletionHandler(ContainerInterface $container): void
+    {
+        add_filter('query_vars', static function (array $publicQueryVars): array {
+            $publicQueryVars[] = 'hostedCheckoutId';
+            return $publicQueryVars;
+        });
+        add_action('wlop_order_received_page', static function (WC_Order $wcOrder) use ($container): void {
+            if (!in_array($wcOrder->get_payment_method(), GatewayIds::HOSTED_CHECKOUT_GATEWAYS, \true)) {
+                return;
+            }
+            $hostedCheckoutId = (string) get_query_var('hostedCheckoutId');
+            $apiClient = $container->get('worldline_payment_gateway.api.client');
+            assert($apiClient instanceof MerchantClientInterface);
+            if (!$hostedCheckoutId) {
+                throw new Exception("Unable to retrieve hostedCheckoutId for the order {$wcOrder->get_id()}");
+            }
+            $hostedCheckout = $apiClient->hostedCheckout()->getHostedCheckout($hostedCheckoutId);
+            $payment = $hostedCheckout->getCreatedPaymentOutput()->getPayment();
+            $paymentOutput = $payment->getPaymentOutput();
+            $refs = $paymentOutput->getReferences();
+            $merchantReference = (int) $refs->getMerchantReference();
+            if ($merchantReference !== $wcOrder->get_id()) {
+                throw new Exception("Unexpected merchantReference {$refs->getMerchantReference()}");
+            }
+            $transactionId = $payment->getId();
+            $wlopWcOrder = new WlopWcOrder($wcOrder);
+            $savedTransactionId = $wlopWcOrder->transactionId();
+            if (empty($savedTransactionId)) {
+                $wlopWcOrder->setTransactionId($transactionId);
+            }
+            $orderUpdater = $container->get('worldline_payment_gateway.order_updater');
+            assert($orderUpdater instanceof OrderUpdater);
+            $orderUpdater->updateFromResponse($wlopWcOrder, $payment->getStatusOutput(), $payment->getPaymentOutput());
+        });
     }
 }

@@ -1,10 +1,10 @@
 === Worldline Payments for WooCommerce ===
-Contributors: woocommerce, automattic, syde
+Contributors: syde
 Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
-Tested up to: 6.6
+Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 1.0.1
+Stable tag: 2.0.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -31,12 +31,12 @@ Our plugin is crafted to integrate seamlessly into your WooCommerce store withou
 
 = Where can I find the WooCommerce Worldline Payments documentation and setup guide? =
 
-For help setting up and configuring Worldline Payments for WooCommerce, please refer to the documentation. [tbc](https://tbc)
+For help setting up and configuring Worldline Payments for WooCommerce, please refer to the [documentation](https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/woocommerce).
 
 = Where can I get help for Worldline Payments for WooCommerce? =
 
-For questions regarding the plugin setup, we recommend reviewing our [documentation](https://woocommerce.com/document/tbc) if you encounter any issues.
-If the question or problem persists after reviewing the documentation, kindly create a new thread in the [support forums](https://wordpress.org/support/plugin/tbc/#new-topic-0) or open a support ticket via [our helpdesk](https://woocommerce.com/document/tbc/#get-help).
+For questions regarding the plugin setup, we recommend reviewing our [documentation](https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/woocommerce) if you encounter any issues.
+If the question or problem persists after reviewing the documentation, kindly create a new thread in the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or open a support ticket via [our helpdesk](https://worldline.inpsyde.com/how-to-request-support-via-widget-on-the-website/).
 
 == Installation ==
 
@@ -64,8 +64,8 @@ Follow the steps below to connect the plugin to your Worldline account:
 1. After you have activated the Worldline Payments for WooCommerce plugin, go to **WooCommerce  > Settings**.
 2. Click the **Payments** tab.
 3. Click on **Worldline**.
-4. Enter the details for PSPID, Live API Key and Test API Secret from your Worldline account page under "Developer" > "Payment API" page.
-5. Click on "Save" to store these settings in the plugin. 
+4. Enter the details for PSPID, API Key and Secret (live/test depending on the environment) from your Worldline Merchant Portal (Developer>Payment API).
+5. Click on "Save" to store these settings in the plugin.
 6. Copy the "Webhook endpoint".
 6. Add the webhook endpoint in the Worldline back office page "Developer" > "Webhooks" by clicking "add webhook endpoint".
 7. Generate the webhook keys on the back office page and copy the details into the plugin settings page into the fields "Webhook ID" and "Secret Webhook key".
@@ -85,10 +85,18 @@ If you encounter issues with the Worldline buttons not appearing after an update
 
 == Changelog ==
 
+= 2.0.0 - 2025-03-10 =
+* Added Hosted Tokenization (credit cards) payment method.
+* Added single payment methods (ApplePay, BankTransfer, GooglePay, iDeal).
+* 3DS improvements (Frictionless Flow, Exempt Flow & Challenge Flow).
+* Allow to specify templates of hosted tokenization and hosted checkout pages.
+* Allow to change the payment method title.
+* Allow to disable submission of the cart data.
+
 = 1.0.1 - 2024-10-02 =
 * Allow to set test and live webhook credentials separately.
 * Improve refunding, mark refunded items.
-* Fixed Payment Method title.
+* Fix payment method title.
 
 = 1.0.0 - 2024-08-01 =
 * Initial release.

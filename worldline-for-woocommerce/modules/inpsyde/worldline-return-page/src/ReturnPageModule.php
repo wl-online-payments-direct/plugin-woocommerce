@@ -28,11 +28,12 @@ class ReturnPageModule implements ExecutableModule, ServiceModule, ExtendingModu
     public function run(ContainerInterface $container): bool
     {
         add_action(AssetManager::ACTION_SETUP, static function (AssetManager $assetManager) use ($container) {
-            $moduleDirName = 'worldline-return-page';
-            $assetsBaseUrl = $container->get('assets.module_url')($moduleDirName);
+            $moduleName = 'return-page';
+            /** @var callable(string,string):string $getModuleAssetUrl */
+            $getModuleAssetUrl = $container->get('assets.get_module_asset_url');
             $isOrderReceivedPage = $container->get('return_page.is_order_received_page');
             if ($isOrderReceivedPage) {
-                $assetManager->register(new Script((string) $container->get('return_page.assets.handle'), "{$assetsBaseUrl}/frontend-main.js", Asset::FRONTEND), new Style("worldline-{$moduleDirName}", "{$assetsBaseUrl}/frontend-main.css", Asset::FRONTEND));
+                $assetManager->register(new Script((string) $container->get('return_page.assets.handle'), $getModuleAssetUrl($moduleName, 'frontend-main.js'), Asset::FRONTEND), new Style("worldline-{$moduleName}", $getModuleAssetUrl($moduleName, 'frontend-main.css'), Asset::FRONTEND));
             }
         });
         add_action('init', static function () use ($container) {

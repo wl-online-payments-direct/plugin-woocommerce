@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
+class ComposerStaticInitd95c1db6255939979a54e1ac05a7309e
 {
     public static $files = array (
         '75224de648373daee048deff719e279d' => __DIR__ . '/..' . '/inpsyde/assets/inc/functions.php',
@@ -31,10 +31,16 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Vaulting\\' => 53,
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Utils\\' => 50,
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uri\\' => 48,
+            'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' => 54,
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => 55,
+            'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' => 57,
+            'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\' => 70,
+            'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\' => 61,
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\' => 58,
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Config\\' => 51,
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\' => 53,
+            'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' => 64,
+            'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\' => 60,
             'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\' => 44,
             'Syde\\Vendor\\Inpsyde\\Transformer\\' => 32,
             'Syde\\Vendor\\Inpsyde\\PaymentGateway\\' => 35,
@@ -76,8 +82,8 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         ),
         'Syde\\Vendor\\Psr\\Http\\Server\\' => 
         array (
-            0 => __DIR__ . '/..' . '/psr/http-server-handler/src',
-            1 => __DIR__ . '/..' . '/psr/http-server-middleware/src',
+            0 => __DIR__ . '/..' . '/psr/http-server-middleware/src',
+            1 => __DIR__ . '/..' . '/psr/http-server-handler/src',
         ),
         'Syde\\Vendor\\Psr\\Http\\Message\\' => 
         array (
@@ -129,9 +135,25 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uri/src',
         ),
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uninstall/src',
+        ),
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => 
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src',
+        ),
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-ideal-gateway/src',
+        ),
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src',
+        ),
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src',
         ),
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\' => 
         array (
@@ -144,6 +166,14 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\' => 
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src',
+        ),
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src',
+        ),
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\' => 
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-apple-pay-gateway/src',
         ),
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\' => 
         array (
@@ -398,9 +428,16 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\Inpsyde\\Modularity\\Properties\\PluginProperties' => __DIR__ . '/..' . '/inpsyde/modularity/src/Properties/PluginProperties.php',
         'Syde\\Vendor\\Inpsyde\\Modularity\\Properties\\Properties' => __DIR__ . '/..' . '/inpsyde/modularity/src/Properties/Properties.php',
         'Syde\\Vendor\\Inpsyde\\Modularity\\Properties\\ThemeProperties' => __DIR__ . '/..' . '/inpsyde/modularity/src/Properties/ThemeProperties.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\DefaultIconsRenderer' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/DefaultIconsRenderer.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\Fields\\ContentField' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/Fields/ContentField.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\GatewayIconsRendererInterface' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/GatewayIconsRendererInterface.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\I18n' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/I18n.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\Icon' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/Icon.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\IconProviderInterface' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/IconProviderInterface.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\Method\\CustomSettingsFields' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/Method/CustomSettingsFields.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\Method\\CustomSettingsFieldsDefinition' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/Method/CustomSettingsFieldsDefinition.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\Method\\DefaultPaymentMethodDefinitionTrait' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/Method/DefaultPaymentMethodDefinitionTrait.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\Method\\PaymentMethodDefinition' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/Method/PaymentMethodDefinition.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\NoopPaymentProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/NoopPaymentProcessor.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\NoopPaymentRequestValidator' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/NoopPaymentRequestValidator.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\NoopRefundProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/NoopRefundProcessor.php',
@@ -409,11 +446,14 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\PaymentGatewayBlocks' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/PaymentGatewayBlocks.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\PaymentGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/PaymentGatewayModule.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\PaymentGatewayValidator' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/PaymentGatewayValidator.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\PaymentMethodServiceProviderTrait' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/PaymentMethodServiceProviderTrait.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\PaymentProcessorInterface' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/PaymentProcessorInterface.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\PaymentRequestValidatorInterface' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/PaymentRequestValidatorInterface.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\RefundProcessorInterface' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/RefundProcessorInterface.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\ServiceKeyGenerator' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/ServiceKeyGenerator.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\SettingsFieldRendererInterface' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/SettingsFieldRendererInterface.php',
         'Syde\\Vendor\\Inpsyde\\PaymentGateway\\SettingsFieldSanitizerInterface' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/SettingsFieldSanitizerInterface.php',
+        'Syde\\Vendor\\Inpsyde\\PaymentGateway\\StaticIconProvider' => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src/StaticIconProvider.php',
         'Syde\\Vendor\\Inpsyde\\Transformer\\BuilderLibrary' => __DIR__ . '/..' . '/inpsyde/transformer/src/BuilderLibrary.php',
         'Syde\\Vendor\\Inpsyde\\Transformer\\BuilderModule' => __DIR__ . '/..' . '/inpsyde/transformer/src/BuilderModule.php',
         'Syde\\Vendor\\Inpsyde\\Transformer\\ConfigurableTransformer' => __DIR__ . '/..' . '/inpsyde/transformer/src/ConfigurableTransformer.php',
@@ -425,6 +465,10 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\Inpsyde\\Transformer\\MutableTransformer' => __DIR__ . '/..' . '/inpsyde/transformer/src/MutableTransformer.php',
         'Syde\\Vendor\\Inpsyde\\Transformer\\ReadOnlyTransformer' => __DIR__ . '/..' . '/inpsyde/transformer/src/ReadOnlyTransformer.php',
         'Syde\\Vendor\\Inpsyde\\Transformer\\Transformer' => __DIR__ . '/..' . '/inpsyde/transformer/src/Transformer.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\ApplePayGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-apple-pay-gateway/src/ApplePayGatewayModule.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\Payment\\ApplePayRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-apple-pay-gateway/src/Payment/ApplePayRequestModifier.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\BankTransferGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src/BankTransferGatewayModule.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\Payment\\BankTransferRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src/Payment/BankTransferRequestModifier.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\CheckoutModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/CheckoutModule.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusChecker' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusChecker.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusUpdater' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusUpdater.php',
@@ -444,6 +488,12 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Environment\\WpEnvironmentFactory' => __DIR__ . '/../..' . '/src/Environment/WpEnvironmentFactory.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Environment\\WpEnvironmentFactoryInterface' => __DIR__ . '/../..' . '/src/Environment/WpEnvironmentFactoryInterface.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Environment\\WpEnvironmentInterface' => __DIR__ . '/../..' . '/src/Environment/WpEnvironmentInterface.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\GooglePayGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src/GooglePayGatewayModule.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\Payment\\GooglePayRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src/Payment/GooglePayRequestModifier.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\HostedTokenizationGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/HostedTokenizationGatewayModule.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\Payment\\HostedTokenizationPaymentProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/Payment/HostedTokenizationPaymentProcessor.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\IdealGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-ideal-gateway/src/IdealGatewayModule.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\Payment\\IdealRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-ideal-gateway/src/Payment/IdealRequestModifier.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\PayOrderRedirectAction' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/PayOrderRedirectAction.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\ReturnPage' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/ReturnPage.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\ReturnPageModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/ReturnPageModule.php',
@@ -454,6 +504,8 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\StatusCheckerInterface' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/StatusCheckerInterface.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\StatusUpdaterInterface' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/StatusUpdaterInterface.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\WcOrderStatusChecker' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/WcOrderStatusChecker.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\DatabaseCleaner' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uninstall/src/DatabaseCleaner.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\UninstallModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uninstall/src/UninstallModule.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uri\\RegexTrait' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uri/src/RegexTrait.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uri\\Uri' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uri/src/Uri.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uri\\UriBuilderInterface' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uri/src/UriBuilderInterface.php',
@@ -500,18 +552,24 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Api\\WlopWcOrderFactory' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Api/WlopWcOrderFactory.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\AuthorizedPaymentProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/AuthorizedPaymentProcessor.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Cli\\StatusUpdateCommand' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Cli/StatusUpdateCommand.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Customer\\AccountTypeHandler' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Customer/AccountTypeHandler.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Fee\\FeeFactory' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Fee/FeeFactory.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\GatewayIds' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/GatewayIds.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Helper\\MoneyAmountConverter' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Helper/MoneyAmountConverter.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Notice\\OrderActionNotice' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Notice/OrderActionNotice.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\OrderMetaKeys' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/OrderMetaKeys.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\OrderUpdater' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/OrderUpdater.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\AbstractHostedPaymentRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/AbstractHostedPaymentRequestModifier.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\DetailsDroppingMismatchHandler' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/DetailsDroppingMismatchHandler.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\HostedPaymentProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/HostedPaymentProcessor.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\HostedPaymentRequestModifierInterface' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/HostedPaymentRequestModifierInterface.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\MismatchHandlerInterface' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/MismatchHandlerInterface.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\PaymentCaptureValidator' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/PaymentCaptureValidator.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\PaymentMismatchValidator' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/PaymentMismatchValidator.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\ThreeDSecureFactory' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/ThreeDSecureFactory.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Refund\\RefundProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Refund/RefundProcessor.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Refund\\RefundValidator' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Refund/RefundValidator.php',
+        'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Shipping\\AddressIndicatorHandler' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Shipping/AddressIndicatorHandler.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Struct\\WcPriceStruct' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Struct/WcPriceStruct.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Validator\\CurrencySupportValidator' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Validator/CurrencySupportValidator.php',
         'Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Validator\\CurrencyValidatorProperties' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Validator/CurrencyValidatorProperties.php',
@@ -648,11 +706,15 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\LoanRecipient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/LoanRecipient.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\LodgingData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/LodgingData.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateAddress' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateAddress.php',
+        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateAddressResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateAddressResponse.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateContactDetails' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateContactDetails.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateCustomer' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateCustomer.php',
+        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateCustomerResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateCustomerResponse.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateMerchantAction' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateMerchantAction.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandatePersonalInformation' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandatePersonalInformation.php',
+        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandatePersonalInformationResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandatePersonalInformationResponse.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandatePersonalName' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandatePersonalName.php',
+        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandatePersonalNameResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandatePersonalNameResponse.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateRedirectData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateRedirectData.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MandateResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MandateResponse.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MerchantAction' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MerchantAction.php',
@@ -661,7 +723,7 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MobilePaymentMethodSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentMethodSpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MobilePaymentMethodSpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentMethodSpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MobilePaymentProduct320SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentProduct320SpecificInput.php',
-        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\NetworkTokenEssentials' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/NetworkTokenEssentials.php',
+        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\MultiplePaymentInformation' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MultiplePaymentInformation.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\OmnichannelPayoutSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OmnichannelPayoutSpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\OperationOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OperationOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\Order' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/Order.php',
@@ -669,7 +731,6 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\OrderReferences' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OrderReferences.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\OrderStatusOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OrderStatusOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\OrderTypeInformation' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OrderTypeInformation.php',
-        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PageCustomization' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PageCustomization.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentAccountOnFile' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentAccountOnFile.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentContext' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentContext.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentCreationOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentCreationOutput.php',
@@ -685,22 +746,20 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct130SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct130SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct130SpecificThreeDSecure' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct130SpecificThreeDSecure.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3012' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3012.php',
-        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3012SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3012SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct302SpecificData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct302SpecificData.php',
+        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3203SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3203SpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3208SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3208SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3208SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3208SpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3209SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3209SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3209SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3209SpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct320SpecificData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct320SpecificData.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct5001SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct5001SpecificOutput.php',
-        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct5002SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct5002SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct5100SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct5100SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct5402SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct5402SpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct5404' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct5404.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct5407' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct5407.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct5500SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct5500SpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct771SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct771SpecificOutput.php',
-        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct840' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct840.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct840CustomerAccount' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct840CustomerAccount.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProduct840SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct840SpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProductDisplayHints' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProductDisplayHints.php',
@@ -736,6 +795,7 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\RedirectData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectData.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentMethodSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentMethodSpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentMethodSpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentMethodSpecificOutput.php',
+        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct3203SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct3203SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct3306SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct3306SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5001SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5001SpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5406SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5406SpecificInput.php',
@@ -778,7 +838,6 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\SurchargeSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SurchargeSpecificInput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\SurchargeSpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SurchargeSpecificOutput.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\TestConnection' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/TestConnection.php',
-        'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\ThreeDSWhitelist' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ThreeDSWhitelist.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\ThreeDSecure' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ThreeDSecure.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\ThreeDSecureBase' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ThreeDSecureBase.php',
         'Syde\\Vendor\\OnlinePayments\\Sdk\\Domain\\ThreeDSecureData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ThreeDSecureData.php',
@@ -903,9 +962,9 @@ class ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitbe12e9e114e6b4aaebce4819552f3351::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd95c1db6255939979a54e1ac05a7309e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd95c1db6255939979a54e1ac05a7309e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd95c1db6255939979a54e1ac05a7309e::$classMap;
 
         }, null, ClassLoader::class);
     }

@@ -13,6 +13,7 @@ use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
 use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
 use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
 use Syde\Vendor\Psr\Container\ContainerInterface;
 use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
@@ -28,11 +29,12 @@ class ConfigModule implements ExecutableModule, ServiceModule
     public function run(ContainerInterface $container): bool
     {
         add_action(AssetManager::ACTION_SETUP, static function (AssetManager $assetManager) use ($container) {
-            $moduleDirName = 'worldline-config';
-            $assetsBaseUrl = $container->get('assets.module_url')($moduleDirName);
-            $assetManager->register(new Script("worldline-{$moduleDirName}", "{$assetsBaseUrl}/backend-main.js", Asset::BACKEND), new Style("worldline-{$moduleDirName}", "{$assetsBaseUrl}/backend-main.css", Asset::BACKEND));
+            $moduleName = 'config';
+            /** @var callable(string,string):string $getModuleAssetUrl */
+            $getModuleAssetUrl = $container->get('assets.get_module_asset_url');
+            $assetManager->register(new Script("worldline-{$moduleName}", $getModuleAssetUrl($moduleName, 'backend-main.js'), Asset::BACKEND), new Style("worldline-{$moduleName}", $getModuleAssetUrl($moduleName, 'backend-main.css'), Asset::BACKEND));
         });
-        add_filter('woocommerce_settings_api_sanitized_fields_' . $container->get('worldline_payment_gateway.id'), static function (array $settings) use ($container): array {
+        add_filter('woocommerce_settings_api_sanitized_fields_' . GatewayIds::HOSTED_CHECKOUT, static function (array $settings) use ($container): array {
             $connectionValidator = $container->get('config.connection_validator');
             assert($connectionValidator instanceof CallbackValidator);
             try {

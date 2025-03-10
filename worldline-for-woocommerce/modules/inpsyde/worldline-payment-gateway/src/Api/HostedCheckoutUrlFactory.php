@@ -24,6 +24,10 @@ class HostedCheckoutUrlFactory
     {
         $request = $this->requestTransformer->create(CreateHostedCheckoutRequest::class, $input);
         assert($request instanceof CreateHostedCheckoutRequest);
+        $modifier = $input->hostedCheckoutRequestModifier();
+        if (!is_null($modifier)) {
+            $request = $modifier->modify($request, $input);
+        }
         $hostedCheckoutClient = $this->apiClient->hostedCheckout();
         return $hostedCheckoutClient->createHostedCheckout($request);
     }

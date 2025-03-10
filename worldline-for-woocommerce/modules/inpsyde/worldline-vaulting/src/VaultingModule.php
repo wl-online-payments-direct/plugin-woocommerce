@@ -8,8 +8,10 @@ use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
 use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
 use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentOutput;
+use Syde\Vendor\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Psr\Container\ContainerInterface;
 use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Throwable;
@@ -46,6 +48,7 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
         }
         return $extensions();
     }
+    // phpcs:ignore Inpsyde.CodeQuality.FunctionLength.TooLong
     private function addNewTokenHandler(ContainerInterface $container): void
     {
         add_action('wlop.wc_order_status_updated', static function (array $args) use ($container): void {
@@ -74,6 +77,20 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
             if (!$token || !$card) {
                 return;
             }
+            $apiClient = $container->get('worldline_payment_gateway.api.client');
+            assert($apiClient instanceof MerchantClientInterface);
+            try {
+                $tokenInfo = $apiClient->tokens()->getToken($token);
+            } catch (ReferenceException $exception) {
+                // seems to happen when HT token is not supposed to be saved
+                return;
+            } catch (Throwable $exception) {
+                do_action('wlop.card_token_get_info_error', ['token' => $token, 'userId' => $userId, 'exception' => $exception]);
+                return;
+            }
+            if ($tokenInfo->getIsTemporary()) {
+                return;
+            }
             $wcTokenRepo = $container->get('vaulting.repository.wc.tokens');
             assert($wcTokenRepo instanceof WcTokenRepository);
             $wcTokenRepo->addCard($token, $userId, $card, $cardOutput->getPaymentProductId());
@@ -93,8 +110,7 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
                     if (!$token instanceof WC_Payment_Token_CC) {
                         return;
                     }
-                    $gatewayId = $container->get('worldline_payment_gateway.id');
-                    if ($token->get_gateway_id() !== $gatewayId) {
+                    if ($token->get_gateway_id() !== GatewayIds::HOSTED_CHECKOUT) {
                         return;
                     }
                     $apiClient = $container->get('worldline_payment_gateway.api.client');
@@ -155,9 +171,8 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
             if ($container->get('config.stored_card_buttons')) {
                 return $methods;
             }
-            $wlopPaymentGatewayId = $container->get('worldline_payment_gateway.id');
             foreach ($methods['cc'] as $index => $method) {
-                if ($method['method']['gateway'] === $wlopPaymentGatewayId) {
+                if ($method['method']['gateway'] === GatewayIds::HOSTED_CHECKOUT) {
                     unset($methods['cc'][$index]);
                 }
             }

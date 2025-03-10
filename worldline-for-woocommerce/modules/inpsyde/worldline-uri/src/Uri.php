@@ -24,38 +24,14 @@ class Uri implements UriInterface
     protected const MAX_PORT = 65535;
     /** @var int */
     protected const MIN_PORT = 0;
-    /**
-     * @var string|null
-     */
-    protected $scheme;
-    /**
-     * @var string|null
-     */
-    protected $user;
-    /**
-     * @var string|null
-     */
-    protected $host;
-    /**
-     * @var int|null
-     */
-    protected $port;
-    /**
-     * @var string|null
-     */
-    protected $path;
-    /**
-     * @var string|null
-     */
-    protected $query;
-    /**
-     * @var string|null
-     */
-    protected $fragment;
-    /**
-     * @var string|null
-     */
-    protected $password;
+    protected ?string $scheme = null;
+    protected ?string $user = null;
+    protected ?string $host = null;
+    protected ?int $port = null;
+    protected ?string $path = null;
+    protected ?string $query = null;
+    protected ?string $fragment = null;
+    protected ?string $password = null;
     public function __construct(?string $scheme, ?string $user, ?string $password, ?string $host, ?int $port, ?string $path, ?string $query, ?string $fragment)
     {
         $this->scheme = $scheme;

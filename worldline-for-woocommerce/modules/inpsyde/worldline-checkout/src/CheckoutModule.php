@@ -12,6 +12,7 @@ use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
 use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
 use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
 use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
@@ -31,9 +32,10 @@ class CheckoutModule implements ExecutableModule, ServiceModule, ExtendingModule
     public function run(ContainerInterface $container): bool
     {
         add_action(AssetManager::ACTION_SETUP, static function (AssetManager $assetManager) use ($container) {
-            $moduleDirName = 'worldline-checkout';
-            $assetsBaseUrl = $container->get('assets.module_url')($moduleDirName);
-            $assetManager->register(new Script("worldline-{$moduleDirName}", "{$assetsBaseUrl}/frontend-main.js", Asset::FRONTEND), new Style("worldline-{$moduleDirName}", "{$assetsBaseUrl}/frontend-main.css", Asset::FRONTEND));
+            $moduleName = 'checkout';
+            /** @var callable(string,string):string $getModuleAssetUrl */
+            $getModuleAssetUrl = $container->get('assets.get_module_asset_url');
+            $assetManager->register(new Script("worldline-{$moduleName}", $getModuleAssetUrl($moduleName, 'frontend-main.js'), Asset::FRONTEND), new Style("worldline-{$moduleName}", $getModuleAssetUrl($moduleName, 'frontend-main.css'), Asset::FRONTEND));
         });
         $this->registerScheduledStatusUpdateHandler($container);
         $this->registerCheckoutCompletionHandling($container);
@@ -60,10 +62,6 @@ class CheckoutModule implements ExecutableModule, ServiceModule, ExtendingModule
     }
     protected function registerCheckoutCompletionHandling(ContainerInterface $container): void
     {
-        add_filter('query_vars', static function (array $publicQueryVars): array {
-            $publicQueryVars[] = 'hostedCheckoutId';
-            return $publicQueryVars;
-        });
         add_action('wp', function () use ($container): void {
             if (!is_order_received_page()) {
                 return;
@@ -79,10 +77,16 @@ class CheckoutModule implements ExecutableModule, ServiceModule, ExtendingModule
             if (!$wcOrder instanceof WC_Order) {
                 return;
             }
-            if ($wcOrder->get_payment_method() !== $container->get('worldline_payment_gateway.id')) {
+            if (!in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true)) {
                 return;
             }
-            $this->handleCheckoutCompletion($wcOrder, $container);
+            $this->scheduledStatusUpdate($wcOrder->get_id());
+            /**
+             * Fires immediately after an order is confirmed on the order received page.
+             *
+             * @param WC_Order $wcOrder The order object.
+             */
+            do_action('wlop_order_received_page', $wcOrder);
         }, 5);
     }
     private function scheduledStatusUpdate(int $wcOrderId): void
@@ -107,31 +111,5 @@ class CheckoutModule implements ExecutableModule, ServiceModule, ExtendingModule
                 $this->scheduledStatusUpdate($wcOrderId);
             }
         });
-    }
-    /**
-     * @throws NotFoundExceptionInterface
-     * @throws ContainerExceptionInterface
-     * @throws Exception
-     */
-    public function handleCheckoutCompletion(WC_Order $wcOrder, ContainerInterface $container): void
-    {
-        $this->scheduledStatusUpdate($wcOrder->get_id());
-        $hostedCheckoutId = (string) get_query_var('hostedCheckoutId');
-        $apiClient = $container->get('worldline_payment_gateway.api.client');
-        assert($apiClient instanceof MerchantClientInterface);
-        if (!$hostedCheckoutId) {
-            throw new Exception("Unable to retrieve hostedCheckoutId for the order {$wcOrder->get_id()}");
-        }
-        $hostedCheckout = $apiClient->hostedCheckout()->getHostedCheckout($hostedCheckoutId);
-        $payment = $hostedCheckout->getCreatedPaymentOutput()->getPayment();
-        $transactionId = $payment->getId();
-        $wlopWcOrder = new WlopWcOrder($wcOrder);
-        $savedTransactionId = $wlopWcOrder->transactionId();
-        if (empty($savedTransactionId)) {
-            $wlopWcOrder->setTransactionId($transactionId);
-        }
-        $orderUpdater = $container->get('worldline_payment_gateway.order_updater');
-        assert($orderUpdater instanceof OrderUpdater);
-        $orderUpdater->updateFromResponse($wlopWcOrder, $payment->getStatusOutput(), $payment->getPaymentOutput());
     }
 }

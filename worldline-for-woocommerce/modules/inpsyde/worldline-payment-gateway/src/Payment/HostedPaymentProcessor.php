@@ -23,12 +23,14 @@ class HostedPaymentProcessor implements PaymentProcessorInterface
     private WcOrderBasedOrderFactoryInterface $wcOrderBasedFactory;
     private WcTokenRepository $wcTokenRepository;
     private ?string $hostedCheckoutLanguage;
-    public function __construct(HostedCheckoutUrlFactory $hostedCheckoutUrlFactory, WcOrderBasedOrderFactoryInterface $wcOrderBasedOrderFactory, WcTokenRepository $wcTokenRepository, ?string $hostedCheckoutLanguage)
+    private ?AbstractHostedPaymentRequestModifier $modifier;
+    public function __construct(HostedCheckoutUrlFactory $hostedCheckoutUrlFactory, WcOrderBasedOrderFactoryInterface $wcOrderBasedOrderFactory, WcTokenRepository $wcTokenRepository, ?string $hostedCheckoutLanguage, ?AbstractHostedPaymentRequestModifier $modifier = null)
     {
         $this->hostedCheckoutUrlFactory = $hostedCheckoutUrlFactory;
         $this->wcOrderBasedFactory = $wcOrderBasedOrderFactory;
         $this->wcTokenRepository = $wcTokenRepository;
         $this->hostedCheckoutLanguage = $hostedCheckoutLanguage;
+        $this->modifier = $modifier;
     }
     /**
      * @throws Throwable
@@ -47,7 +49,7 @@ class HostedPaymentProcessor implements PaymentProcessorInterface
             }
             $wlopOrder = $this->wcOrderBasedFactory->create($wcOrder);
             $this->initWlopWcOrder($wcOrder);
-            $hostedCheckoutResponse = $this->hostedCheckoutUrlFactory->create(new HostedCheckoutInput($wlopOrder, $wcOrder->get_checkout_order_received_url(), $this->hostedCheckoutLanguage, $token));
+            $hostedCheckoutResponse = $this->hostedCheckoutUrlFactory->create(new HostedCheckoutInput($wlopOrder, $wcOrder, $wcOrder->get_checkout_order_received_url(), $this->hostedCheckoutLanguage, $token, $this->modifier));
             $wcOrder->add_meta_data(OrderMetaKeys::HOSTED_CHECKOUT_ID, $hostedCheckoutResponse->getHostedCheckoutId());
             $wcOrder->save();
         } catch (Throwable $exception) {

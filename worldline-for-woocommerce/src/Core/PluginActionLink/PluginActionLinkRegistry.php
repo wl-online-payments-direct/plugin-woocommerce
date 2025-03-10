@@ -5,9 +5,6 @@ namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink;
 
 class PluginActionLinkRegistry
 {
-    /**
-     * @var string
-     */
     private string $pluginMainFile;
     /**
      * @var PluginActionLink[]

@@ -29,6 +29,7 @@ class WlopWcOrder
         $this->order->update_meta_data(OrderMetaKeys::TRANSACTION_ID, $value);
         $this->order->set_transaction_id($value);
         $this->order->save();
+        do_action('wlop.transaction_id_changed', ['id' => $value, 'wcOrderId' => $this->order->get_id()]);
     }
     public function transactionId(): string
     {

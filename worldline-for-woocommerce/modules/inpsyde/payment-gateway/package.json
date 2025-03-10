@@ -2,7 +2,7 @@
     "name": "@inpsyde/generic-payment-gateway",
     "version": "0.1.0",
     "engines": {
-        "node": "^16 || ^18 || ^20"
+        "node": "^16 || ^18 || ^20 || ^22"
     },
     "devDependencies": {
         "@semantic-release/changelog": "^6.0.3",
@@ -14,6 +14,7 @@
         "@semantic-release/release-notes-generator": "^13.0.0",
         "@woocommerce/dependency-extraction-webpack-plugin": "3.0.0",
         "@woocommerce/settings": "^1.0.0",
+        "@wordpress/hooks": "^4.11.0",
         "@wordpress/html-entities": "^3.39.0",
         "@wordpress/i18n": "^4.39.0",
         "@wordpress/scripts": "^26.10.0",
@@ -29,5 +30,8 @@
         "lint:md": "wp-scripts lint-md-docs docs/**/*.md",
         "lint:js": "wp-scripts lint-js resources/js/**/*",
         "lint:style": "wp-scripts lint-style resources/scss/**/*.scss"
+    },
+    "dependencies": {
+        "react": "^18.3.1"
     }
 }

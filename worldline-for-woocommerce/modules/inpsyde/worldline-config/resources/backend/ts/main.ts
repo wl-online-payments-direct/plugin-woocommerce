@@ -1,5 +1,5 @@
 import '../scss/main.scss';
-import { setVisibleByClass } from './utils/visibility';
+import { setVisibleByClass, setVisible } from '#shared/utils/visibility';
 
 interface CopyHTMLButtonElement extends HTMLButtonElement {
 	disabled: boolean;
@@ -21,6 +21,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 
 	const lstAuthorizationMode = document.querySelector(
 		'#woocommerce_worldline-for-woocommerce_authorization_mode'
+	) as HTMLInputElement | null;
+
+	const chkIs3dsAuthentication = document.querySelector(
+		'#woocommerce_worldline-for-woocommerce_enable_3ds'
 	) as HTMLInputElement | null;
 
 	function updateLiveTestFields() {
@@ -100,6 +104,15 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			! isLive,
 			'wlop-hidden'
 		);
+		setVisibleByClass(
+			getFieldRow( '#wlopLiveAccountNote' ),
+			isLive,
+			'wlop-hidden'
+		);
+		setVisible( '#wlopTestCreateAccountLink', ! isLive );
+		setVisible( '#wlopLiveCreateAccountLink', isLive );
+		setVisible( '#wlopTestViewAccountLink', ! isLive );
+		setVisible( '#wlopLiveViewAccountLink', isLive );
 	}
 
 	function updateAuthorizationFields() {
@@ -112,6 +125,23 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				'#woocommerce_worldline-for-woocommerce_credit_card_authorization_mode'
 			),
 			lstAuthorizationMode.value === 'authorization',
+			'wlop-hidden'
+		);
+	}
+
+	function update3dsFields() {
+		setVisibleByClass(
+			getFieldRow(
+				'#woocommerce_worldline-for-woocommerce_enforce_3dsv2'
+			),
+			chkIs3dsAuthentication?.checked,
+			'wlop-hidden'
+		);
+		setVisibleByClass(
+			getFieldRow(
+				'#woocommerce_worldline-for-woocommerce_request_3ds_exemption'
+			),
+			chkIs3dsAuthentication?.checked,
 			'wlop-hidden'
 		);
 	}
@@ -168,8 +198,10 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		'change',
 		updateAuthorizationFields
 	);
+	chkIs3dsAuthentication?.addEventListener( 'click', update3dsFields );
 
 	updateLiveTestFields();
 	updateAuthorizationFields();
+	update3dsFields();
 	initCopyButtons();
 } );

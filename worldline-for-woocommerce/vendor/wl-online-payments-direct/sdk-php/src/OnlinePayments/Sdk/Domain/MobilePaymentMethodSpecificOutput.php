@@ -14,10 +14,6 @@ class MobilePaymentMethodSpecificOutput extends DataObject
 {
     // Properties
     /**
-     * @var AcquirerInformation
-     */
-    private $acquirerInformation;
-    /**
      * @var string
      */
     private $authorisationCode;
@@ -42,20 +38,6 @@ class MobilePaymentMethodSpecificOutput extends DataObject
      */
     private $threeDSecureResults;
     // Methods
-    /**
-     * @return AcquirerInformation
-     */
-    public function getAcquirerInformation()
-    {
-        return $this->acquirerInformation;
-    }
-    /**
-     * @var AcquirerInformation
-     */
-    public function setAcquirerInformation($value)
-    {
-        $this->acquirerInformation = $value;
-    }
     /**
      * @return string
      */
@@ -146,9 +128,6 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->acquirerInformation !== null) {
-            $object->acquirerInformation = $this->acquirerInformation->toObject();
-        }
         if ($this->authorisationCode !== null) {
             $object->authorisationCode = $this->authorisationCode;
         }
@@ -177,13 +156,6 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'acquirerInformation')) {
-            if (!is_object($object->acquirerInformation)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->acquirerInformation, \true) . '\' is not an object');
-            }
-            $value = new AcquirerInformation();
-            $this->acquirerInformation = $value->fromObject($object->acquirerInformation);
-        }
         if (property_exists($object, 'authorisationCode')) {
             $this->authorisationCode = $object->authorisationCode;
         }

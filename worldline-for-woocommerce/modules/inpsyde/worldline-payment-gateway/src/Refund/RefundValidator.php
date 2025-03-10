@@ -4,15 +4,11 @@ declare (strict_types=1);
 namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund;
 
 use Exception;
+use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use WC_Order;
 class RefundValidator
 {
-    private string $wlopPaymentGatewayId;
-    public function __construct(string $wlopPaymentGatewayId)
-    {
-        $this->wlopPaymentGatewayId = $wlopPaymentGatewayId;
-    }
     /**
      * @throws Exception
      */
@@ -31,6 +27,6 @@ class RefundValidator
     }
     public function isWlopPaymentMethod(WC_Order $wcOrder): bool
     {
-        return $wcOrder->get_payment_method() === $this->wlopPaymentGatewayId;
+        return in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true);
     }
 }

@@ -25,10 +25,6 @@ class ShowFormData extends DataObject
      * @var PaymentProduct5407
      */
     private $paymentProduct5407;
-    /**
-     * @var PaymentProduct840
-     */
-    private $paymentProduct840;
     // Methods
     /**
      * @return PaymentProduct3012
@@ -73,20 +69,6 @@ class ShowFormData extends DataObject
         $this->paymentProduct5407 = $value;
     }
     /**
-     * @return PaymentProduct840
-     */
-    public function getPaymentProduct840()
-    {
-        return $this->paymentProduct840;
-    }
-    /**
-     * @var PaymentProduct840
-     */
-    public function setPaymentProduct840($value)
-    {
-        $this->paymentProduct840 = $value;
-    }
-    /**
      * @return object
      */
     public function toObject()
@@ -100,9 +82,6 @@ class ShowFormData extends DataObject
         }
         if ($this->paymentProduct5407 !== null) {
             $object->paymentProduct5407 = $this->paymentProduct5407->toObject();
-        }
-        if ($this->paymentProduct840 !== null) {
-            $object->paymentProduct840 = $this->paymentProduct840->toObject();
         }
         return $object;
     }
@@ -134,13 +113,6 @@ class ShowFormData extends DataObject
             }
             $value = new PaymentProduct5407();
             $this->paymentProduct5407 = $value->fromObject($object->paymentProduct5407);
-        }
-        if (property_exists($object, 'paymentProduct840')) {
-            if (!is_object($object->paymentProduct840)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct840, \true) . '\' is not an object');
-            }
-            $value = new PaymentProduct840();
-            $this->paymentProduct840 = $value->fromObject($object->paymentProduct840);
         }
         return $this;
     }

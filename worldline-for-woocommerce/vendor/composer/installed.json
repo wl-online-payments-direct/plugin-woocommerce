@@ -447,17 +447,17 @@
         },
         {
             "name": "inpsyde\/assets",
-            "version": "2.8.3",
-            "version_normalized": "2.8.3.0",
+            "version": "2.9.0",
+            "version_normalized": "2.9.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/inpsyde\/assets.git",
-                "reference": "f198d7d8b726132851413a6a9b4918e02c077a4b"
+                "reference": "2b2d2ac359383e24284388bf54a6ff4f122d3c67"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/inpsyde\/assets\/zipball\/f198d7d8b726132851413a6a9b4918e02c077a4b",
-                "reference": "f198d7d8b726132851413a6a9b4918e02c077a4b",
+                "url": "https:\/\/api.github.com\/repos\/inpsyde\/assets\/zipball\/2b2d2ac359383e24284388bf54a6ff4f122d3c67",
+                "reference": "2b2d2ac359383e24284388bf54a6ff4f122d3c67",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -475,13 +475,13 @@
             "require-dev": {
                 "brain\/monkey": "^2.5.0",
                 "inpsyde\/php-coding-standards": "^1",
-                "johnpbloch\/wordpress-core": ">=6.0",
+                "johnpbloch\/wordpress-core": ">=6.2",
                 "mikey179\/vfsstream": "^1.6.8",
-                "php-stubs\/wordpress-stubs": ">=6.0@stable",
+                "php-stubs\/wordpress-stubs": ">=6.2@stable",
                 "phpunit\/phpunit": "^8.5.14 || ^9.0",
                 "vimeo\/psalm": "@stable"
             },
-            "time": "2022-12-16T13:23:02+00:00",
+            "time": "2024-11-28T11:55:20+00:00",
             "type": "library",
             "extra": {
                 "wordpress-install-dir": "vendor\/wordpress\/wordpress"
@@ -517,7 +517,7 @@
             "description": "Package to manage assets in WordPress.",
             "support": {
                 "issues": "https:\/\/github.com\/inpsyde\/assets\/issues",
-                "source": "https:\/\/github.com\/inpsyde\/assets\/tree\/2.8.3"
+                "source": "https:\/\/github.com\/inpsyde\/assets\/tree\/2.9.0"
             },
             "install-path": "..\/inpsyde\/assets"
         },
@@ -603,17 +603,17 @@
         },
         {
             "name": "inpsyde\/modularity",
-            "version": "1.8.0",
-            "version_normalized": "1.8.0.0",
+            "version": "1.11.0",
+            "version_normalized": "1.11.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/inpsyde\/modularity.git",
-                "reference": "c6855a6d9c4ce6f090d031e820f176bddf2a0b1c"
+                "reference": "c79bb3682f55e1a2ece67f36e70d04fa2ab8c65d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/inpsyde\/modularity\/zipball\/c6855a6d9c4ce6f090d031e820f176bddf2a0b1c",
-                "reference": "c6855a6d9c4ce6f090d031e820f176bddf2a0b1c",
+                "url": "https:\/\/api.github.com\/repos\/inpsyde\/modularity\/zipball\/c79bb3682f55e1a2ece67f36e70d04fa2ab8c65d",
+                "reference": "c79bb3682f55e1a2ece67f36e70d04fa2ab8c65d",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -624,19 +624,19 @@
             },
             "require": {
                 "ext-json": "*",
-                "php": ">=7.2",
+                "php": ">=7.4 <8.4",
                 "psr\/container": "^1.1.0 || ^2"
             },
             "require-dev": {
                 "brain\/monkey": "^2.6.1",
-                "inpsyde\/php-coding-standards": "^1",
-                "johnpbloch\/wordpress-core": ">=5.8",
-                "mikey179\/vfsstream": "^v1.6.10",
-                "php-stubs\/wordpress-stubs": ">=5.8@stable",
-                "phpunit\/phpunit": "^8.5.21 || ^9.6.7",
-                "vimeo\/psalm": "^4.13.1"
+                "inpsyde\/php-coding-standards": "^2@dev",
+                "inpsyde\/wp-stubs-versions": "dev-latest",
+                "mikey179\/vfsstream": "^v1.6.11",
+                "phpunit\/phpunit": "^9.6.19",
+                "roots\/wordpress-no-content": "@dev",
+                "vimeo\/psalm": "^5.24.0"
             },
-            "time": "2024-05-14T06:07:35+00:00",
+            "time": "2024-11-28T09:34:00+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -655,42 +655,32 @@
             ],
             "authors": [
                 {
-                    "name": "Inpsyde GmbH",
-                    "email": "hello@inpsyde.com",
-                    "homepage": "https:\/\/inpsyde.com\/",
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com",
+                    "homepage": "https:\/\/syde.com\/",
                     "role": "Company"
-                },
-                {
-                    "name": "Christian Leucht",
-                    "email": "c.leucht@inpsyde.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Giuseppe Mazzapica",
-                    "email": "g.mazzapica@inpsyde.com",
-                    "role": "Developer"
                 }
             ],
             "description": "Modular PSR-11 implementation for WordPress plugins, themes or libraries.",
             "support": {
                 "issues": "https:\/\/github.com\/inpsyde\/modularity\/issues",
-                "source": "https:\/\/github.com\/inpsyde\/modularity\/tree\/1.8.0"
+                "source": "https:\/\/github.com\/inpsyde\/modularity\/tree\/1.11.0"
             },
             "install-path": "..\/inpsyde\/modularity"
         },
         {
             "name": "inpsyde\/payment-gateway",
-            "version": "1.5.1",
-            "version_normalized": "1.5.1.0",
+            "version": "2.2.2",
+            "version_normalized": "2.2.2.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:inpsyde\/payment-gateway.git",
-                "reference": "25305a9db08dd991fa9306f9648a3fbe6d87f524"
+                "reference": "8477589d88746bfa2997b392d4c5db6677023ccf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/inpsyde\/payment-gateway\/zipball\/25305a9db08dd991fa9306f9648a3fbe6d87f524",
-                "reference": "25305a9db08dd991fa9306f9648a3fbe6d87f524",
+                "url": "https:\/\/api.github.com\/repos\/inpsyde\/payment-gateway\/zipball\/8477589d88746bfa2997b392d4c5db6677023ccf",
+                "reference": "8477589d88746bfa2997b392d4c5db6677023ccf",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -700,7 +690,7 @@
                 ]
             },
             "require": {
-                "inpsyde\/modularity": "^1.5",
+                "inpsyde\/modularity": "@stable",
                 "php": "^7.4 | ^8.0"
             },
             "require-dev": {
@@ -716,7 +706,7 @@
                 "phpunit\/phpunit": "^8.0 | ^9.0",
                 "vimeo\/psalm": "^4.3"
             },
-            "time": "2024-09-23T08:52:14+00:00",
+            "time": "2025-01-22T18:46:49+00:00",
             "type": "inpsyde-module",
             "extra": {
                 "hooks": {
@@ -805,7 +795,7 @@
                 }
             ],
             "support": {
-                "source": "https:\/\/github.com\/inpsyde\/payment-gateway\/tree\/1.5.1",
+                "source": "https:\/\/github.com\/inpsyde\/payment-gateway\/tree\/2.2.2",
                 "issues": "https:\/\/github.com\/inpsyde\/payment-gateway\/issues"
             },
             "install-path": "..\/..\/modules\/inpsyde\/payment-gateway"
@@ -942,9 +932,101 @@
             "install-path": "..\/inpsyde\/transformer"
         },
         {
+            "name": "inpsyde\/worldline-apple-pay-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/apple-pay-gateway",
+                "reference": "3c4ad0004693bbb03f059ac6d6d1aa874521263f"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "*",
+                "inpsyde\/modularity": "^1.7",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-apple-pay-gateway"
+        },
+        {
+            "name": "inpsyde\/worldline-bank-transfer-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/bank-transfer-gateway",
+                "reference": "b3ae6d6e0d37552dd3cfe6d0f9e016b9196d0bbd"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "*",
+                "inpsyde\/modularity": "^1.7",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-bank-transfer-gateway"
+        },
+        {
             "name": "inpsyde\/worldline-checkout",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/checkout",
@@ -989,8 +1071,8 @@
         },
         {
             "name": "inpsyde\/worldline-config",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/config",
@@ -1036,8 +1118,8 @@
         },
         {
             "name": "inpsyde\/worldline-documentation",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/documentation",
@@ -1081,9 +1163,147 @@
             "install-path": "..\/..\/modules\/inpsyde\/worldline-documentation"
         },
         {
+            "name": "inpsyde\/worldline-google-pay-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/google-pay-gateway",
+                "reference": "d0513d33ee13164f262c7dbcf67d104ce47ae4a3"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "*",
+                "inpsyde\/modularity": "^1.7",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-google-pay-gateway"
+        },
+        {
+            "name": "inpsyde\/worldline-hosted-tokenization-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/hosted-tokenization-gateway",
+                "reference": "4d0c21e2aac892b8273db8d18a432df60b16454d"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "*",
+                "inpsyde\/modularity": "^1.7",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-hosted-tokenization-gateway"
+        },
+        {
+            "name": "inpsyde\/worldline-ideal-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/ideal-gateway",
+                "reference": "19bc248a5330f2089ecc55d9d59209d00510ceb1"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "*",
+                "inpsyde\/modularity": "^1.7",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-ideal-gateway"
+        },
+        {
             "name": "inpsyde\/worldline-logging",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/worldline-logging",
@@ -1127,8 +1347,8 @@
         },
         {
             "name": "inpsyde\/worldline-payment-gateway",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/worldline-payment-gateway",
@@ -1172,8 +1392,8 @@
         },
         {
             "name": "inpsyde\/worldline-return-page",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/return-page",
@@ -1217,9 +1437,54 @@
             "install-path": "..\/..\/modules\/inpsyde\/worldline-return-page"
         },
         {
+            "name": "inpsyde\/worldline-uninstall",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/uninstall",
+                "reference": "af7db6c8f311fd6748c09c4da00bd807ea9dd13d"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "inpsyde\/modularity": "^1.7",
+                "php": ">=7.4",
+                "psr\/container": "^1.0"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^8.0 | ^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline Uninstall Module",
+            "transport-options": {
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-uninstall"
+        },
+        {
             "name": "inpsyde\/worldline-uri",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/uri",
@@ -1264,8 +1529,8 @@
         },
         {
             "name": "inpsyde\/worldline-utils",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/utils",
@@ -1307,8 +1572,8 @@
         },
         {
             "name": "inpsyde\/worldline-vaulting",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/vaulting",
@@ -1352,8 +1617,8 @@
         },
         {
             "name": "inpsyde\/worldline-wc-support",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/wc-support",
@@ -1397,8 +1662,8 @@
         },
         {
             "name": "inpsyde\/worldline-webhooks",
-            "version": "dev-fix\/WOL-416",
-            "version_normalized": "dev-fix\/WOL-416",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/webhooks",
@@ -1450,17 +1715,17 @@
         },
         {
             "name": "inpsyde\/wp-context",
-            "version": "1.5.0",
-            "version_normalized": "1.5.0.0",
+            "version": "1.5.1",
+            "version_normalized": "1.5.1.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/inpsyde\/wp-context.git",
-                "reference": "1f61ccb539e287e2688dfdf86dea0448c18fc8c6"
+                "reference": "1350ada72517f5d374bff9409b4ea5a02377ec1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/inpsyde\/wp-context\/zipball\/1f61ccb539e287e2688dfdf86dea0448c18fc8c6",
-                "reference": "1f61ccb539e287e2688dfdf86dea0448c18fc8c6",
+                "url": "https:\/\/api.github.com\/repos\/inpsyde\/wp-context\/zipball\/1350ada72517f5d374bff9409b4ea5a02377ec1a",
+                "reference": "1350ada72517f5d374bff9409b4ea5a02377ec1a",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -1480,7 +1745,7 @@
                 "phpunit\/phpunit": "~7.5.20 || ^8",
                 "vimeo\/psalm": "^4.27.0"
             },
-            "time": "2023-01-09T06:27:09+00:00",
+            "time": "2024-10-16T10:44:18+00:00",
             "type": "library",
             "extra": {
                 "branch-alias": {
@@ -1540,7 +1805,7 @@
             ],
             "description": "A single-class utility to check the running context in WordPress sites.",
             "support": {
-                "source": "https:\/\/github.com\/inpsyde\/wp-context\/tree\/1.5.0",
+                "source": "https:\/\/github.com\/inpsyde\/wp-context\/tree\/1.5.1",
                 "issues": "https:\/\/github.com\/inpsyde\/wp-context\/issues"
             },
             "install-path": "..\/inpsyde\/wp-context"
@@ -2106,17 +2371,17 @@
         },
         {
             "name": "sniccowp\/php-scoper-wordpress-excludes",
-            "version": "6.5.3",
-            "version_normalized": "6.5.3.0",
+            "version": "6.7.1",
+            "version_normalized": "6.7.1.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/snicco\/php-scoper-wordpress-excludes.git",
-                "reference": "254c0e1107c1259c59da0250047f55e77af5b0d9"
+                "reference": "d8e6b5fdc9e42300a8ab18b44b775836a7b52363"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/snicco\/php-scoper-wordpress-excludes\/zipball\/254c0e1107c1259c59da0250047f55e77af5b0d9",
-                "reference": "254c0e1107c1259c59da0250047f55e77af5b0d9",
+                "url": "https:\/\/api.github.com\/repos\/snicco\/php-scoper-wordpress-excludes\/zipball\/d8e6b5fdc9e42300a8ab18b44b775836a7b52363",
+                "reference": "d8e6b5fdc9e42300a8ab18b44b775836a7b52363",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2128,10 +2393,10 @@
             "require-dev": {
                 "php": "^7.4",
                 "php-stubs\/wordpress-globals": "0.2.0",
-                "php-stubs\/wordpress-stubs": "6.5.3",
+                "php-stubs\/wordpress-stubs": "6.7.1",
                 "sniccowp\/php-scoper-excludes": "dev-master"
             },
-            "time": "2024-05-09T00:02:32+00:00",
+            "time": "2024-11-25T00:31:50+00:00",
             "type": "library",
             "installation-source": "dist",
             "notification-url": "https:\/\/repo.packagist.com\/inpsyde\/downloads\/",
@@ -2156,23 +2421,23 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/snicco\/php-scoper-wordpress-excludes\/issues",
-                "source": "https:\/\/github.com\/snicco\/php-scoper-wordpress-excludes\/tree\/6.5.3"
+                "source": "https:\/\/github.com\/snicco\/php-scoper-wordpress-excludes\/tree\/6.7.1"
             },
             "install-path": "..\/sniccowp\/php-scoper-wordpress-excludes"
         },
         {
             "name": "symfony\/polyfill-php80",
-            "version": "v1.30.0",
-            "version_normalized": "1.30.0.0",
+            "version": "v1.31.0",
+            "version_normalized": "1.31.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/symfony\/polyfill-php80.git",
-                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433"
+                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php80\/zipball\/77fa7995ac1b21ab60769b7323d600a991a90433",
-                "reference": "77fa7995ac1b21ab60769b7323d600a991a90433",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-php80\/zipball\/60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
+                "reference": "60328e362d4c2c802a54fcbf04f9d3fb892b4cf8",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2182,9 +2447,9 @@
                 ]
             },
             "require": {
-                "php": ">=7.1"
+                "php": ">=7.2"
             },
-            "time": "2024-05-31T15:07:36+00:00",
+            "time": "2024-09-09T11:45:10+00:00",
             "type": "library",
             "extra": {
                 "thanks": {
@@ -2231,7 +2496,7 @@
                 "shim"
             ],
             "support": {
-                "source": "https:\/\/github.com\/symfony\/polyfill-php80\/tree\/v1.30.0"
+                "source": "https:\/\/github.com\/symfony\/polyfill-php80\/tree\/v1.31.0"
             },
             "funding": [
                 {
@@ -2251,17 +2516,17 @@
         },
         {
             "name": "wl-online-payments-direct\/sdk-php",
-            "version": "5.16.0",
-            "version_normalized": "5.16.0.0",
+            "version": "5.17.0",
+            "version_normalized": "5.17.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php.git",
-                "reference": "b2a8264ddf7a5cb434c622537eb98a079387cccd"
+                "reference": "efebff5abe1d961bc80dc8f6faff8146a785d678"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/wl-online-payments-direct\/sdk-php\/zipball\/b2a8264ddf7a5cb434c622537eb98a079387cccd",
-                "reference": "b2a8264ddf7a5cb434c622537eb98a079387cccd",
+                "url": "https:\/\/api.github.com\/repos\/wl-online-payments-direct\/sdk-php\/zipball\/efebff5abe1d961bc80dc8f6faff8146a785d678",
+                "reference": "efebff5abe1d961bc80dc8f6faff8146a785d678",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -2271,14 +2536,14 @@
                 ]
             },
             "require": {
-                "php": "~7.4||~8.0||~8.1||~8.2",
+                "php": ">=7.4",
                 "robtimus\/multipart": "^1.0"
             },
             "require-dev": {
                 "phpstan\/phpstan": "^1.9",
                 "phpunit\/phpunit": "^9.0"
             },
-            "time": "2024-06-13T15:38:59+00:00",
+            "time": "2024-09-11T14:25:41+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -2304,7 +2569,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php\/issues",
-                "source": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php\/tree\/5.16.0"
+                "source": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php\/tree\/5.17.0"
             },
             "install-path": "..\/wl-online-payments-direct\/sdk-php"
         }

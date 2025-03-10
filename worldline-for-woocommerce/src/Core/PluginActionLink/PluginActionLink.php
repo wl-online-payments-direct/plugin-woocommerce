@@ -6,18 +6,9 @@ namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink;
 use Syde\Vendor\Psr\Http\Message\UriInterface;
 class PluginActionLink
 {
-    /**
-     * @var string
-     */
-    private $slug;
-    /**
-     * @var string
-     */
-    private $label;
-    /**
-     * @var UriInterface
-     */
-    private $uri;
+    private string $slug;
+    private string $label;
+    private UriInterface $uri;
     private bool $newTab;
     public function __construct(string $slug, string $label, UriInterface $uri, bool $newTab = \false)
     {
