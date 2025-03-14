@@ -27,6 +27,7 @@ class PaymentProducts
     const PAYMENT_PRODUCT_PRZELEWY24 = 3124;
     const PAYMENT_PRODUCT_BANK_TRANSFER = 5408;
     const PAYMENT_PRODUCT_CARTE_BANCAIRE = 130;
+    const PAYMENT_PRODUCT_VISA = 1;
     const PAYMENT_PRODUCT_NEED_DETAILS = [
         self::PAYMENT_PRODUCT_ONEY_3X_4X,
         self::PAYMENT_PRODUCT_ONEY_FINANCEMENT_LONG,
@@ -34,6 +35,13 @@ class PaymentProducts
         self::PAYMENT_PRODUCT_KLARNA_PAY_NOW,
         self::PAYMENT_PRODUCT_KLARNA_PAY_LATER,
         self::PAYMENT_PRODUCT_TWINTWL,
+        self::PAYMENT_PRODUCT_CARTE_BANCAIRE,
+        Payment::FULL_REDIRECT_PAYMENT_METHOD_ID,
+    ];
+    const INTERNAL_PAYMENT_METHODS = [
+        Payment::FULL_REDIRECT_PAYMENT_METHOD_ID,
+        Payment::SAVED_CARD_PAYMENT_METHOD_ID,
+        Payment::IFRAME_PAYMENT_METHOD_ID
     ];
     public const PAYMENT_PRODUCT_MEDIA_DIR = 'bundles/moptworldline/static/img';
     private const PAYMENT_PRODUCT_MEDIA_PREFIX = 'pp_logo_';
@@ -73,7 +81,7 @@ class PaymentProducts
         3 => 'Mastercard',
         5500 => 'Multibanco',
         840 => 'Paypal',
-        1 => 'Visa',
+        self::PAYMENT_PRODUCT_VISA => 'Visa',
         5404 => 'WeChat Pay',
     ];
 

@@ -183,18 +183,20 @@ class WorldlineSDKAdapter
     /**
      * @param int $amountTotal
      * @param string $currencyISO
-     * @param int $worldlinePaymentProductId
+     * @param string $worldlinePaymentProductId
      * @param OrderEntity|null $orderEntity
      * @param string $token
+     * @param array $customerData
      * @return CreateHostedCheckoutResponse
      * @throws \Exception
      */
     public function createPayment(
         int          $amountTotal,
         string       $currencyISO,
-        int          $worldlinePaymentProductId,
+        string       $worldlinePaymentProductId,
         ?OrderEntity $orderEntity,
-        string       $token
+        string       $token,
+        array        $customerData
     ): CreateHostedCheckoutResponse
     {
         $fullRedirectTemplateName = $this->getPluginConfig(Form::FULL_REDIRECT_TEMPLATE_NAME);
@@ -206,9 +208,12 @@ class WorldlineSDKAdapter
 
         $order = new Order();
         $order->setAmountOfMoney($amountOfMoney);
-        $orderRef = new OrderReferences();
-        $orderRef->setMerchantReference($orderEntity->getOrderNumber());
-        $order->setReferences($orderRef);
+
+        if ($this->getPluginConfig(Form::ORDER_NUMBER_AS_REFERENCE_FIELD)) {
+            $orderRef = new OrderReferences();
+            $orderRef->setMerchantReference($orderEntity->getOrderNumber());
+            $order->setReferences($orderRef);
+        }
 
         $hostedCheckoutSpecificInput = new HostedCheckoutSpecificInput();
         $ReturnUrlController = new ReturnUrlController($this->systemConfigService);
@@ -227,23 +232,25 @@ class WorldlineSDKAdapter
             $hostedCheckoutSpecificInput->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInputForHostedCheckout);
         }
         $hostedCheckoutRequest = new CreateHostedCheckoutRequest();
-        if ($worldlinePaymentProductId != 0) {
+        if (!in_array($worldlinePaymentProductId, PaymentProducts::INTERNAL_PAYMENT_METHODS)) {
             $paymentProductFilter = new PaymentProductFilter();
             $paymentProductFilter->setProducts([$worldlinePaymentProductId]);
 
             $paymentProductFiltersHostedCheckout = new PaymentProductFiltersHostedCheckout();
             $paymentProductFiltersHostedCheckout->setRestrictTo($paymentProductFilter);
             $hostedCheckoutSpecificInput->setPaymentProductFilters($paymentProductFiltersHostedCheckout);
-            $this->setCustomProperties(
-                $worldlinePaymentProductId,
-                $currencyISO,
-                $orderEntity,
-                $cardPaymentMethodSpecificInput,
-                $hostedCheckoutSpecificInput,
-                $order,
-                $hostedCheckoutRequest
-            );
         }
+
+        $this->setCustomProperties(
+            $worldlinePaymentProductId,
+            $currencyISO,
+            $orderEntity,
+            $cardPaymentMethodSpecificInput,
+            $hostedCheckoutSpecificInput,
+            $order,
+            $hostedCheckoutRequest,
+            $customerData,
+        );
 
         if (!empty($token)) {
             $cardPaymentMethodSpecificInput->setToken($token);
@@ -257,24 +264,26 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param int $worldlinePaymentProductId
+     * @param string $worldlinePaymentProductId
      * @param string $currencyISO
      * @param OrderEntity|null $orderEntity
      * @param CardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput
      * @param HostedCheckoutSpecificInput $hostedCheckoutSpecificInput
      * @param Order $order
      * @param CreateHostedCheckoutRequest $hostedCheckoutRequest
+     * @param array $customerData
      * @return void
      * @throws \Exception
      */
     private function setCustomProperties(
-        int                            $worldlinePaymentProductId,
+        string                         $worldlinePaymentProductId,
         string                         $currencyISO,
         ?OrderEntity                   $orderEntity,
         CardPaymentMethodSpecificInput &$cardPaymentMethodSpecificInput,
         HostedCheckoutSpecificInput    &$hostedCheckoutSpecificInput,
         Order                          &$order,
-        CreateHostedCheckoutRequest    &$hostedCheckoutRequest
+        CreateHostedCheckoutRequest    &$hostedCheckoutRequest,
+        array $customerData,
     ): void
     {
         switch ($worldlinePaymentProductId) {
@@ -292,11 +301,7 @@ class WorldlineSDKAdapter
                     $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput, $order
                 );
                 $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
-                if ($this->isDirectSales()) {
-                    $redirectPaymentMethodSpecificInput->setRequiresApproval(false);
-                } else {
-                    $redirectPaymentMethodSpecificInput->setRequiresApproval(true);
-                }
+                $redirectPaymentMethodSpecificInput->setRequiresApproval(!$this->isDirectSales());
                 $redirectPaymentMethodSpecificInput->setPaymentProductId($worldlinePaymentProductId);
                 break;
             }
@@ -344,6 +349,21 @@ class WorldlineSDKAdapter
                 $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
                 break;
             }
+            case Payment::FULL_REDIRECT_PAYMENT_METHOD_ID:
+            case PaymentProducts::PAYMENT_PRODUCT_VISA: {
+                $this->addCartToRequest(
+                    $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput, $order
+                );
+                $customer = $order->getCustomer();
+                $customer->setDevice($this->getCustomerDevice($customerData));
+                $order->setCustomer($customer);
+                break;
+            }
+            default:
+            {
+                $this->addCustomerEmail($orderEntity, $order);
+                break;
+            }
         }
 
         if (isset($redirectPaymentMethodSpecificInput)) {
@@ -378,20 +398,20 @@ class WorldlineSDKAdapter
     }
 
     /**
-     * @param array $iframeData
+     * @param array $customerData
      * @return GetHostedTokenizationResponse
      * @throws \Exception
      */
-    public function createHostedTokenization(array $iframeData): GetHostedTokenizationResponse
+    public function createHostedTokenization(array $customerData): GetHostedTokenizationResponse
     {
         $merchantClient = $this->getMerchantClient();
-        return $merchantClient->hostedTokenization()->getHostedTokenization($iframeData[Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID]);
+        return $merchantClient->hostedTokenization()->getHostedTokenization($customerData[Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID]);
     }
 
     /**
      * @param int $amountTotal
      * @param string $currencyISO
-     * @param array $iframeData
+     * @param array $customerData
      * @param GetHostedTokenizationResponse $hostedTokenization
      * @param ?OrderEntity $orderEntity
      * @return CreatePaymentResponse
@@ -400,30 +420,17 @@ class WorldlineSDKAdapter
     public function createHostedTokenizationPayment(
         int                           $amountTotal,
         string                        $currencyISO,
-        array                         $iframeData,
+        array                         $customerData,
         GetHostedTokenizationResponse $hostedTokenization,
-        ?OrderEntity                   $orderEntity
+        ?OrderEntity                  $orderEntity
     ): CreatePaymentResponse
     {
         $token = $hostedTokenization->getToken()->getId();
         $paymentProductId = $hostedTokenization->getToken()->getPaymentProductId();
         $merchantClient = $this->getMerchantClient();
 
-        $browserData = new BrowserData();
-        $browserData->setColorDepth($iframeData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_COLOR_DEPTH]);
-        $browserData->setJavaEnabled($iframeData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_JAVA_ENABLED]);
-        $browserData->setScreenHeight($iframeData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_SCREEN_HEIGHT]);
-        $browserData->setScreenWidth($iframeData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_SCREEN_WIDTH]);
-
-        $customerDevice = new CustomerDevice();
-        $customerDevice->setLocale($iframeData[Form::WORLDLINE_CART_FORM_LOCALE]);
-        $customerDevice->setTimezoneOffsetUtcMinutes($iframeData[Form::WORLDLINE_CART_FORM_TIMEZONE_OFFSET_MINUTES]);
-        $customerDevice->setAcceptHeader("*\/*");
-        $customerDevice->setUserAgent($iframeData[Form::WORLDLINE_CART_FORM_USER_AGENT]);
-        $customerDevice->setBrowserData($browserData);
-
         $customer = new Customer();
-        $customer->setDevice($customerDevice);
+        $customer->setDevice($this->getCustomerDevice($customerData));
 
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setCurrencyCode($currencyISO);
@@ -965,5 +972,40 @@ class WorldlineSDKAdapter
         }
 
         return (int)(round(($shippingPrice->getTotalPrice() + $shippingTaxTotal) * 100));
+    }
+
+    /**
+     * @param array $customerData
+     * @return CustomerDevice
+     */
+    private function getCustomerDevice(array $customerData): CustomerDevice
+    {
+        $browserData = new BrowserData();
+        $browserData->setColorDepth($customerData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_COLOR_DEPTH]);
+        $browserData->setJavaEnabled($customerData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_JAVA_ENABLED]);
+        $browserData->setScreenHeight($customerData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_SCREEN_HEIGHT]);
+        $browserData->setScreenWidth($customerData[Form::WORLDLINE_CART_FORM_BROWSER_DATA_SCREEN_WIDTH]);
+
+        $customerDevice = new CustomerDevice();
+        $customerDevice->setLocale($customerData[Form::WORLDLINE_CART_FORM_LOCALE]);
+        $customerDevice->setTimezoneOffsetUtcMinutes($customerData[Form::WORLDLINE_CART_FORM_TIMEZONE_OFFSET_MINUTES]);
+        $customerDevice->setAcceptHeader("*\/*");
+        $customerDevice->setUserAgent($customerData[Form::WORLDLINE_CART_FORM_USER_AGENT]);
+        $customerDevice->setBrowserData($browserData);
+        $customerDevice->setIpAddress($this->getIp());
+
+        return $customerDevice;
+    }
+
+
+    private function getIp()
+    {
+        $ip = '0.0.0.0';
+        if (array_key_exists('HTTP_X_REAL_IP', $_SERVER)) {
+            $ip = explode(':', $_SERVER['HTTP_X_REAL_IP'])[0];
+        } elseif(array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+            $ip = explode(':', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
+        }
+        return $ip;
     }
 }

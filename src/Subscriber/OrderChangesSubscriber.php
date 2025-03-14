@@ -21,12 +21,10 @@ use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\StateMachine\Aggregation\StateMachineTransition\StateMachineTransitionActions;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
-use Shopware\Storefront\Event\RouteRequest\HandlePaymentMethodRouteRequestEvent;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Shopware\Core\Framework\Context;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Contracts\Translation\TranslatorInterface;
-use Symfony\Component\HttpFoundation\Session\Session;
 
 class OrderChangesSubscriber implements EventSubscriberInterface
 {
@@ -36,7 +34,6 @@ class OrderChangesSubscriber implements EventSubscriberInterface
     private RequestStack $requestStack;
     private TranslatorInterface $translator;
     private OrderTransactionStateHandler $transactionStateHandler;
-    private Session $session;
     private StateMachineRegistry $stateMachineRegistry;
 
     /**
@@ -65,42 +62,14 @@ class OrderChangesSubscriber implements EventSubscriberInterface
         $this->translator = $translator;
         $this->transactionStateHandler = $transactionStateHandler;
         $this->stateMachineRegistry = $stateMachineRegistry;
-        $this->session = new Session();
     }
 
     public static function getSubscribedEvents(): array
     {
         return [
-            HandlePaymentMethodRouteRequestEvent::class => 'setIframeFields',
             // 22.03.2023 - should be disabled before Worldline will fix status notifications.
             //OrderEvents::ORDER_WRITTEN_EVENT => 'onOrderWritten',
         ];
-    }
-
-    /**
-     * @param HandlePaymentMethodRouteRequestEvent $event
-     * @return void
-     */
-    public function setIframeFields(HandlePaymentMethodRouteRequestEvent $event)
-    {
-        $iframeData = [];
-        $request = $event->getStorefrontRequest()->request;
-        if (!is_null($request->get(Form::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID))) {
-            foreach (Form::WORLDLINE_CART_FORM_KEYS as $key) {
-                $iframeData[$key] = $request->get($key);
-                if (is_null($iframeData[$key])) {
-                    return;
-                }
-            }
-            $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
-            return;
-        }
-
-        $tokenField = Form::WORLDLINE_CART_FORM_REDIRECT_TOKEN;
-        if (!is_null($request->get($tokenField))) {
-            $iframeData[$tokenField] = $request->get($tokenField);
-            $this->session->set(Form::SESSION_IFRAME_DATA, $iframeData);
-        }
     }
 
     /**
@@ -131,7 +100,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
             if (is_null($orderId)) {
                 continue;
             }
-            if (Payment::isOrderLocked($this->requestStack->getSession(), $orderId)) {
+            if (Payment::isOrderLocked($this->requestdebugStack->getSession(), $orderId)) {
                 continue;
             }
 

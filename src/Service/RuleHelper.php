@@ -8,15 +8,10 @@
 namespace MoptWorldline\Service;
 
 use Monolog\Level;
-use Monolog\Logger;
-use OstSixColorEmotion\Services\PluginConfig;
-use Shopware\Core\Checkout\Cart\Rule\LineItemRule;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
-use Shopware\Core\Framework\Rule\Rule;
 use Shopware\Core\Kernel;
 use Shopware\Core\Framework\Uuid\Uuid;
-use Shopware\Core\System\Currency\Rule\CurrencyRule;
 
 class RuleHelper
 {

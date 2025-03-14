@@ -44,7 +44,7 @@ class OrderTransactionHelper
      * @param OrderTransactionEntity $transaction
      * @return mixed
      */
-    public static function getWorldlinePaymentMethodId(OrderTransactionEntity $transaction): mixed
+    public static function getWorldlinePaymentMethodId(OrderTransactionEntity $transaction): string
     {
         $customFields = $transaction->getPaymentMethod()->getCustomFields();
 
@@ -55,7 +55,7 @@ class OrderTransactionHelper
             return self::getCustomFieldFromTransaction($transaction);
         }
 
-        return $customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
+        return (string)$customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];
     }
 
     /**

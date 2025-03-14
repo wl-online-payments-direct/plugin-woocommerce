@@ -96,6 +96,11 @@
             <defaultValue>false</defaultValue>
             <label>Use partial capture/cancel/refund operations</label>
         </input-field>
+        <input-field type="bool">
+            <name>orderNumberAsReference</name>
+            <defaultValue>false</defaultValue>
+            <label>Use order number as merchant reference</label>
+        </input-field>
         <input-field type="single-select">
             <name>autoCapture</name>
             <label>Automatic capture</label>

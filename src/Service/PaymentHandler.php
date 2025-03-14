@@ -96,36 +96,32 @@ class PaymentHandler
     }
 
     /**
-     * @param int $worldlinePaymentMethodId
+     * @param string $worldlinePaymentMethodId
      * @param string $token
+     * @param array $customerData
      * @return CreateHostedCheckoutResponse
      * @throws \Exception
      */
-    public function createPayment(int $worldlinePaymentMethodId, string $token = ''): CreateHostedCheckoutResponse
+    public function createPayment(string $worldlinePaymentMethodId, array $customerData, string $token = ''): CreateHostedCheckoutResponse
     {
         $criteria = new Criteria([$this->order->getId()]);
-        switch ($worldlinePaymentMethodId) {
-            case in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS):
-            {
-                $criteria->addAssociation('lineItems')
-                    ->addAssociation('deliveries.positions.orderLineItem')
-                    ->addAssociation('orderCustomer.customer')
-                    ->addAssociation('orderCustomer.customer.group')
-                    ->addAssociation('language.locale')
-                    ->addAssociation('billingAddress')
-                    ->addAssociation('billingAddress.country')
-                    ->addAssociation('deliveries.shippingOrderAddress')
-                    ->addAssociation('deliveries.shippingOrderAddress.country');
-            }
-            case $worldlinePaymentMethodId === PaymentProducts::PAYMENT_PRODUCT_CARTE_BANCAIRE: {
-                $criteria->addAssociation('language.locale')
-                    ->addAssociation('lineItems');
-            }
-            default:
-            {
-                $criteria->addAssociation('language.locale')
-                    ->addAssociation('orderCustomer.customer');
-            }
+        $criteria->addAssociation('language.locale')
+            ->addAssociation('orderCustomer.customer');
+
+        if (empty($worldlinePaymentMethodId)) {
+            $worldlinePaymentMethodId = Payment::SAVED_CARD_PAYMENT_METHOD_ID;
+        }
+
+        if (in_array($worldlinePaymentMethodId, PaymentProducts::PAYMENT_PRODUCT_NEED_DETAILS)) {
+            $criteria->addAssociation('lineItems')
+                ->addAssociation('deliveries.positions.orderLineItem')
+                ->addAssociation('orderCustomer.customer')
+                ->addAssociation('orderCustomer.customer.group')
+                ->addAssociation('language.locale')
+                ->addAssociation('billingAddress')
+                ->addAssociation('billingAddress.country')
+                ->addAssociation('deliveries.shippingOrderAddress')
+                ->addAssociation('deliveries.shippingOrderAddress.country');
         }
 
         $orderObject = $this->orderRepository->search($criteria, $this->context)->first();
@@ -139,7 +135,8 @@ class PaymentHandler
             $currencyISO,
             $worldlinePaymentMethodId,
             $orderObject,
-            $token
+            $token,
+            $customerData
         );
         $hostedCheckoutId = $hostedCheckoutResponse->getHostedCheckoutId();
         $this->saveOrderCustomFields(
@@ -159,12 +156,12 @@ class PaymentHandler
     }
 
     /**
-     * @param array $iframeData
+     * @param array $customerData
      * @return CreatePaymentResponse
      * @throws \Doctrine\DBAL\Driver\Exception
      * @throws \Doctrine\DBAL\Exception
      */
-    public function createHostedTokenizationPayment(array $iframeData): CreatePaymentResponse
+    public function createHostedTokenizationPayment(array $customerData): CreatePaymentResponse
     {
         $amountTotal = (int)round($this->order->getAmountTotal() * 100);
         $currencyISO = OrderHelper::getCurrencyISO($this->order, $this->logger);
@@ -172,8 +169,8 @@ class PaymentHandler
         $this->logger->paymentLog($this->order->getOrderNumber(), 'buildingHostdTokenizationOrder');
 
         // Change localeId with locale code (hex to de_DE, for example)
-        $iframeData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($iframeData[Form::WORLDLINE_CART_FORM_LOCALE]);
-        $hostedTokenization = $this->adapter->createHostedTokenization($iframeData);
+        $customerData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($customerData[Form::WORLDLINE_CART_FORM_LOCALE]);
+        $hostedTokenization = $this->adapter->createHostedTokenization($customerData);
 
         $orderObject = null;
         $productId = $hostedTokenization->getToken()->getPaymentProductId();
@@ -186,7 +183,7 @@ class PaymentHandler
         $hostedTokenizationPaymentResponse = $this->adapter->createHostedTokenizationPayment(
             $amountTotal,
             $currencyISO,
-            $iframeData,
+            $customerData,
             $hostedTokenization,
             $orderObject
         );
