@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Modularity\Module;
+namespace Syde\Vendor\Worldline\Inpsyde\Modularity\Module;
 
 trait ModuleClassNameIdTrait
 {

@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway;
 
 use Exception;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Utils\LockerFactoryInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Fee\FeeFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentOutput;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentStatusOutput;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Utils\LockerFactoryInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Fee\FeeFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentOutput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentStatusOutput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 class OrderUpdater
 {
     protected MerchantClientInterface $apiClient;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
 use RuntimeException;
 /**

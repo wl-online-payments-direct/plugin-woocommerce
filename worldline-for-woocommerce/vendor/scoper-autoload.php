@@ -29,20 +29,20 @@ if (!function_exists('humbug_phpscoper_expose_class')) {
         }
     }
 }
-humbug_phpscoper_expose_class('Attribute', 'Syde\Vendor\Attribute');
-humbug_phpscoper_expose_class('Stringable', 'Syde\Vendor\Stringable');
-humbug_phpscoper_expose_class('UnhandledMatchError', 'Syde\Vendor\UnhandledMatchError');
-humbug_phpscoper_expose_class('PhpToken', 'Syde\Vendor\PhpToken');
-humbug_phpscoper_expose_class('ValueError', 'Syde\Vendor\ValueError');
+humbug_phpscoper_expose_class('Attribute', 'Syde\Vendor\Worldline\Attribute');
+humbug_phpscoper_expose_class('Stringable', 'Syde\Vendor\Worldline\Stringable');
+humbug_phpscoper_expose_class('UnhandledMatchError', 'Syde\Vendor\Worldline\UnhandledMatchError');
+humbug_phpscoper_expose_class('PhpToken', 'Syde\Vendor\Worldline\PhpToken');
+humbug_phpscoper_expose_class('ValueError', 'Syde\Vendor\Worldline\ValueError');
 
 // Function aliases. For more information see:
 // https://github.com/humbug/php-scoper/blob/master/docs/further-reading.md#function-aliases
-if (!function_exists('fdiv')) { function fdiv() { return \Syde\Vendor\fdiv(...func_get_args()); } }
-if (!function_exists('get_debug_type')) { function get_debug_type() { return \Syde\Vendor\get_debug_type(...func_get_args()); } }
-if (!function_exists('get_resource_id')) { function get_resource_id() { return \Syde\Vendor\get_resource_id(...func_get_args()); } }
-if (!function_exists('preg_last_error_msg')) { function preg_last_error_msg() { return \Syde\Vendor\preg_last_error_msg(...func_get_args()); } }
-if (!function_exists('str_contains')) { function str_contains() { return \Syde\Vendor\str_contains(...func_get_args()); } }
-if (!function_exists('str_ends_with')) { function str_ends_with() { return \Syde\Vendor\str_ends_with(...func_get_args()); } }
-if (!function_exists('str_starts_with')) { function str_starts_with() { return \Syde\Vendor\str_starts_with(...func_get_args()); } }
+if (!function_exists('fdiv')) { function fdiv() { return \Syde\Vendor\Worldline\fdiv(...func_get_args()); } }
+if (!function_exists('get_debug_type')) { function get_debug_type() { return \Syde\Vendor\Worldline\get_debug_type(...func_get_args()); } }
+if (!function_exists('get_resource_id')) { function get_resource_id() { return \Syde\Vendor\Worldline\get_resource_id(...func_get_args()); } }
+if (!function_exists('preg_last_error_msg')) { function preg_last_error_msg() { return \Syde\Vendor\Worldline\preg_last_error_msg(...func_get_args()); } }
+if (!function_exists('str_contains')) { function str_contains() { return \Syde\Vendor\Worldline\str_contains(...func_get_args()); } }
+if (!function_exists('str_ends_with')) { function str_ends_with() { return \Syde\Vendor\Worldline\str_ends_with(...func_get_args()); } }
+if (!function_exists('str_starts_with')) { function str_starts_with() { return \Syde\Vendor\Worldline\str_starts_with(...func_get_args()); } }
 
 return $loader;

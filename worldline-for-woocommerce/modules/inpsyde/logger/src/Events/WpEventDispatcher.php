@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Logger\Events;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger\Events;
 
 class WpEventDispatcher implements EventDispatcherInterface
 {

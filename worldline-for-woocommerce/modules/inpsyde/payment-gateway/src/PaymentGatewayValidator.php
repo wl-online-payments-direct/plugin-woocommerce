@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway;
 
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class PaymentGatewayValidator
 {
     /** @var string[] */

@@ -3,20 +3,20 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk\Merchant;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant;
 
-use Syde\Vendor\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Mandates\MandatesClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Payments\PaymentsClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Payouts\PayoutsClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Products\ProductsClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Services\ServicesClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Sessions\SessionsClient;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Tokens\TokensClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Mandates\MandatesClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payments\PaymentsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payouts\PayoutsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\ProductsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services\ServicesClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Sessions\SessionsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokens\TokensClient;
 class MerchantClient extends ApiResource implements MerchantClientInterface
 {
     /**

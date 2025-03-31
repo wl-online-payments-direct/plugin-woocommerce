@@ -1,24 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-use Syde\Vendor\Dhii\Services\Factory;
-use Syde\Vendor\Inpsyde\Transformer\ConfigurableTransformer;
-use Syde\Vendor\Inpsyde\Transformer\Transformer;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputForHostedCheckout;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentProduct130SpecificInput;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentProduct130SpecificThreeDSecure;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
-return new Factory(['config.authorization_mode', 'worldline_payment_gateway.three_d_secure_factory', 'config.card_brands_grouped', 'config.stored_card_buttons', 'vaulting.repository.wc.tokens', 'config.hosted_checkout_page_template'], static function (string $authorizationMode, ThreeDSecureFactory $threedSecureFactory, bool $cardBrandsGrouped, bool $showTokens, WcTokenRepository $wcTokenRepository, string $hostedCheckoutPageTemplate): Transformer {
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\ConfigurableTransformer;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Transformer;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputForHostedCheckout;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProduct130SpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProduct130SpecificThreeDSecure;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
+return new Factory(['config.authorization_mode', 'worldline_payment_gateway.three_d_secure_factory', 'config.card_brands_grouped', 'config.stored_card_buttons', 'vaulting.repository.wc.tokens.' . GatewayIds::HOSTED_CHECKOUT, 'config.hosted_checkout_page_template'], static function (string $authorizationMode, ThreeDSecureFactory $threedSecureFactory, bool $cardBrandsGrouped, bool $showTokens, WcTokenRepository $wcTokenRepository, string $hostedCheckoutPageTemplate): Transformer {
     $transformer = new ConfigurableTransformer();
     $transformer->addTransformer(static function (HostedCheckoutInput $input, Transformer $transformer): CreateHostedCheckoutRequest {
         $request = new CreateHostedCheckoutRequest();

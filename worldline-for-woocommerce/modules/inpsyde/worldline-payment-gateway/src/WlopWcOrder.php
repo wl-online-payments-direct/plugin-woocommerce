@@ -2,7 +2,7 @@
 
 declare (strict_types=1);
 // phpcs:disable Inpsyde.CodeQuality.NoAccessors.NoSetter
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway;
 
 use WC_Order;
 class WlopWcOrder

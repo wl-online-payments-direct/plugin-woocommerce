@@ -6,7 +6,7 @@
  * @package Inpsyde\WorldlineForWoocommerce\Uninstall
  */
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Uninstall;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Uninstall;
 
 use RuntimeException;
 class DatabaseCleaner

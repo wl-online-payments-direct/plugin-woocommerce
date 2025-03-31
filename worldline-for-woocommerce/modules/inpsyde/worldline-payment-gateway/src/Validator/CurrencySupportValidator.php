@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator;
 
 use Exception;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
 class CurrencySupportValidator
 {
     private MerchantClientInterface $apiClient;

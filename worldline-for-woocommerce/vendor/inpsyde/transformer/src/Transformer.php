@@ -1,8 +1,8 @@
 <?php
 
-namespace Syde\Vendor\Inpsyde\Transformer;
+namespace Syde\Vendor\Worldline\Inpsyde\Transformer;
 
-use Syde\Vendor\Inpsyde\Transformer\Exception\TransformerException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
 //phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType
 interface Transformer
 {

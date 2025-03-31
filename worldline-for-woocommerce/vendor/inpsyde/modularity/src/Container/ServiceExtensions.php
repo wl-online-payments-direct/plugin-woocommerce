@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Modularity\Container;
+namespace Syde\Vendor\Worldline\Inpsyde\Modularity\Container;
 
-use Syde\Vendor\Psr\Container\ContainerInterface as Container;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface as Container;
 /**
  * @psalm-import-type ExtendingService from \Inpsyde\Modularity\Module\ExtendingModule
  */

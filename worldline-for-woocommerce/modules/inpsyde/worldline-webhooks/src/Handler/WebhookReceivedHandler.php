@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler;
 
 use Exception;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper\WebhookHelper;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper\WebhookHelper;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
 class WebhookReceivedHandler implements WebhookHandlerInterface
 {
     private OrderUpdater $orderUpdater;

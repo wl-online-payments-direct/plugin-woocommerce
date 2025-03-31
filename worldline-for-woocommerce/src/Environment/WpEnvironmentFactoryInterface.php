@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Environment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment;
 
 /**
  * Service able to create WpEnvironmentInterface instance.

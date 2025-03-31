@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Robtimus\Multipart;
+namespace Syde\Vendor\Worldline\Robtimus\Multipart;
 
 /**
  * Base class of multipart types.

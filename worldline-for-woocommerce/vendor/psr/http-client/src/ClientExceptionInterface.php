@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Psr\Http\Client;
+namespace Syde\Vendor\Worldline\Psr\Http\Client;
 
 /**
  * Every HTTP client related exception MUST implement this interface.

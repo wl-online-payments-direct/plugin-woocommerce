@@ -3,20 +3,20 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk\Merchant\HostedTokenization;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedTokenization;
 
 use Exception;
-use Syde\Vendor\OnlinePayments\Sdk\ApiException;
-use Syde\Vendor\OnlinePayments\Sdk\AuthorizationException;
-use Syde\Vendor\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CreateHostedTokenizationRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CreateHostedTokenizationResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
-use Syde\Vendor\OnlinePayments\Sdk\IdempotenceException;
-use Syde\Vendor\OnlinePayments\Sdk\InvalidResponseException;
-use Syde\Vendor\OnlinePayments\Sdk\PaymentPlatformException;
-use Syde\Vendor\OnlinePayments\Sdk\ReferenceException;
-use Syde\Vendor\OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedTokenizationRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedTokenizationResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PaymentPlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 interface HostedTokenizationClientInterface
 {
     /**

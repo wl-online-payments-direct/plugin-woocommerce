@@ -27,7 +27,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Psr\\Http\\Message\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Psr\\Http\\Message\\": "src\/"
         }
     },
     "extra": {

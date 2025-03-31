@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Validator\Exception;
+namespace Syde\Vendor\Worldline\Dhii\Validator\Exception;
 
-use Syde\Vendor\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
-use Syde\Vendor\Dhii\Validation\ValidatorInterface;
+use Syde\Vendor\Worldline\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
+use Syde\Vendor\Worldline\Dhii\Validation\ValidatorInterface;
 use RuntimeException;
 use Stringable;
 use Throwable;

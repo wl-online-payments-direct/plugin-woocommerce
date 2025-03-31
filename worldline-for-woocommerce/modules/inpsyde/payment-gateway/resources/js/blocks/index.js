@@ -3,11 +3,13 @@ import {registerPaymentMethod} from '@woocommerce/blocks-registry';
 import {decodeEntities} from '@wordpress/html-entities';
 import {getSetting} from '@woocommerce/settings';
 import {defaultHooks} from '@wordpress/hooks';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 
 inpsydeGateways.forEach((name) => {
     const settings = getSetting(`${name}_data`, {});
-    const hookName = `${name}_checkout_fields`;
+    const checkoutFieldsHookName = `${name}_checkout_fields`;
+    const savedTokenFieldsHookName = `${name}_saved_token_fields`;
+    const iconsHookName = `${name}_payment_method_icons`;
     const defaultLabel = __(
         'Syde Payment Gateway',
         'syde-payment-gateway'
@@ -18,7 +20,7 @@ inpsydeGateways.forEach((name) => {
     const Content = (props) => {
         const [components, setComponents] = useState([])
         useEffect(() => {
-            setComponents(defaultHooks.applyFilters(hookName, []))
+            setComponents(defaultHooks.applyFilters(checkoutFieldsHookName, []))
         }, []);
         /**
          * If no external plugins/slot-fills are configured,
@@ -40,7 +42,29 @@ inpsydeGateways.forEach((name) => {
      */
     const Label = (props) => {
         const {PaymentMethodLabel, PaymentMethodIcons} = props.components;
-        return <><PaymentMethodLabel text={label} /><PaymentMethodIcons icons={settings.icons} /></>;
+        return <>
+            <PaymentMethodLabel text={label} />
+            <PaymentMethodIcons icons={defaultHooks.applyFilters(iconsHookName, settings.icons)} />
+        </>;
+    };
+
+
+    const SavedTokenContent = (props) => {
+        const [components, setComponents] = useState([])
+        useEffect(() => {
+            setComponents(defaultHooks.applyFilters(savedTokenFieldsHookName, []))
+        }, []);
+        /**
+         * If no external plugins/slot-fills are configured,
+         * we default to not displaying anything
+         */
+        if (!Array.isArray(components) || !components.length) {
+            return null;
+        }
+
+        return (
+            <>{components.map((Component) => <Component {...props} />)}</>
+        );
     };
 
     /**
@@ -51,6 +75,7 @@ inpsydeGateways.forEach((name) => {
         label: <Label />,
         content: <Content />,
         edit: <Content />,
+        savedTokenComponent: <SavedTokenContent />,
         icons: settings.icons,
         canMakePayment: () => true,
         ariaLabel: label,

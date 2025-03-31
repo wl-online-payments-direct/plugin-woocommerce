@@ -1,19 +1,20 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength
-use Syde\Vendor\Dhii\Services\Factories\Constructor;
-use Syde\Vendor\Dhii\Services\Factories\Value;
-use Syde\Vendor\Dhii\Services\Factory;
-use Syde\Vendor\Dhii\Services\Service;
-use Syde\Vendor\Dhii\Validator\CallbackValidator;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Config\ConfigContainer;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Config\Sanitizer\ApiEndpointSanitizer;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\MerchantClientFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Constructor;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Dhii\Services\Service;
+use Syde\Vendor\Worldline\Dhii\Validator\CallbackValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CaptureMode;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\ConfigContainer;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\Sanitizer\ApiEndpointSanitizer;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\MerchantClientFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
 return static function (): array {
     $moduleRoot = \dirname(__FILE__, 2);
     return ['payment_gateway.worldline-for-woocommerce.form_fields' => Service::fromFile("{$moduleRoot}/inc/fields.php"), 'config.container' => new Constructor(ConfigContainer::class, ['worldline_payment_gateway.gateway']), 'config.connection_validator.callback' => new Factory(['worldline_payment_gateway.api.client.factory'], static function (MerchantClientFactory $clientFactory): callable {
@@ -66,6 +67,12 @@ return static function (): array {
             return AuthorizationMode::FINAL_AUTHORIZATION;
         }
         return AuthorizationMode::SALE;
+    }), 'config.capture_mode' => new Factory(['config.container'], static function (ConfigContainer $config): string {
+        $captureMode = $config->get('capture_mode');
+        if (!$captureMode) {
+            return CaptureMode::MANUAL;
+        }
+        return $captureMode;
     }), 'config.enable_3ds' => new Factory(['config.container'], static function (ConfigContainer $config): bool {
         return $config->get('enable_3ds') === 'yes';
     }), 'config.enforce_3dsv2' => new Factory(['config.container'], static function (ConfigContainer $config): ?string {

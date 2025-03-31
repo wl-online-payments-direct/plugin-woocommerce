@@ -1,3 +1,51 @@
+# [2.6.0](https://github.com/inpsyde/payment-gateway/compare/2.5.0...2.6.0) (2025-03-14)
+
+
+### Features
+
+* Allow to override savedTokenComponent in blocks ([#48](https://github.com/inpsyde/payment-gateway/issues/48)) ([11d99eb](https://github.com/inpsyde/payment-gateway/commit/11d99ebf4fff9272884c87bac89055148d3b09a8))
+
+# [2.5.0](https://github.com/inpsyde/payment-gateway/compare/2.4.1...2.5.0) (2025-03-14)
+
+
+### Bug Fixes
+
+* 📝 Remove redundant `get_form_fields` method and streamline form fields handling ([#47](https://github.com/inpsyde/payment-gateway/issues/47)) ([0b17b89](https://github.com/inpsyde/payment-gateway/commit/0b17b89e26460ba0e02e10fe559e61823f1e5051)), closes [#123](https://github.com/inpsyde/payment-gateway/issues/123)
+
+
+### Features
+
+* Add support for plugin_slug property ([#45](https://github.com/inpsyde/payment-gateway/issues/45)) ([d7fd64c](https://github.com/inpsyde/payment-gateway/commit/d7fd64c96b649d14796368b76ca86fb4b7ece525))
+
+## [2.4.1](https://github.com/inpsyde/payment-gateway/compare/2.4.0...2.4.1) (2025-02-26)
+
+
+### Bug Fixes
+
+* ✨ Fix disabled payment methods appearing in block editor ([#44](https://github.com/inpsyde/payment-gateway/issues/44)) ([d225863](https://github.com/inpsyde/payment-gateway/commit/d225863654c6efbd1e1dad95fe0c877f9191bf8d))
+* 🛠️ Normalize file paths before comparison in `getPluginFileUrlFromAbsolutePath` ([#43](https://github.com/inpsyde/payment-gateway/issues/43)) ([3de5321](https://github.com/inpsyde/payment-gateway/commit/3de5321fb6dac121ec20940758e7d4edb4e64e6f))
+
+# [2.4.0](https://github.com/inpsyde/payment-gateway/compare/2.3.1...2.4.0) (2025-02-13)
+
+
+### Features
+
+* Add a filter for Label icons ([8030e3f](https://github.com/inpsyde/payment-gateway/commit/8030e3f1977fc552d77dfe3cab5f8e871ccb7bf9))
+
+## [2.3.1](https://github.com/inpsyde/payment-gateway/compare/2.3.0...2.3.1) (2025-02-05)
+
+
+### Bug Fixes
+
+* Make icon service optional, provide default icon value as fallback ([#41](https://github.com/inpsyde/payment-gateway/issues/41)) ([9d1a9b7](https://github.com/inpsyde/payment-gateway/commit/9d1a9b70e495250e19445e10be732f4d699fa945))
+
+# [2.3.0](https://github.com/inpsyde/payment-gateway/compare/2.2.2...2.3.0) (2025-01-31)
+
+
+### Features
+
+* Add service definition for icon property ([#40](https://github.com/inpsyde/payment-gateway/issues/40)) ([ef92746](https://github.com/inpsyde/payment-gateway/commit/ef927461518f027836c3f9a9230dd126b88c3ddb))
+
 ## [2.2.2](https://github.com/inpsyde/payment-gateway/compare/2.2.1...2.2.2) (2025-01-22)
 
 

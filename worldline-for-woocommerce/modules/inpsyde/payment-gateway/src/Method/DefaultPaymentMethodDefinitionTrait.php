@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway\Method;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Method;
 
-use Syde\Vendor\Inpsyde\PaymentGateway\GatewayIconsRendererInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\IconProviderInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\DefaultIconsRenderer;
-use Syde\Vendor\Inpsyde\PaymentGateway\NoopPaymentProcessor;
-use Syde\Vendor\Inpsyde\PaymentGateway\NoopPaymentRequestValidator;
-use Syde\Vendor\Inpsyde\PaymentGateway\NoopRefundProcessor;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentFieldsRendererInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentProcessorInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentRequestValidatorInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\RefundProcessorInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\ServiceKeyGenerator;
-use Syde\Vendor\Inpsyde\PaymentGateway\StaticIconProvider;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\GatewayIconsRendererInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\IconProviderInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\DefaultIconsRenderer;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\NoopPaymentProcessor;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\NoopPaymentRequestValidator;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\NoopRefundProcessor;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentFieldsRendererInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentProcessorInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentRequestValidatorInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\RefundProcessorInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\ServiceKeyGenerator;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\StaticIconProvider;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 /**
  * Trait providing default implementations for PaymentMethodDefinition interface methods.
  */

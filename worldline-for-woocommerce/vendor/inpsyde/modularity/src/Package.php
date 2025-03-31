@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Modularity;
+namespace Syde\Vendor\Worldline\Inpsyde\Modularity;
 
-use Syde\Vendor\Inpsyde\Modularity\Container\ContainerConfigurator;
-use Syde\Vendor\Inpsyde\Modularity\Container\PackageProxyContainer;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\FactoryModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\Module;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
-use Syde\Vendor\Inpsyde\Modularity\Properties\Properties;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Container\ContainerConfigurator;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Container\PackageProxyContainer;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\FactoryModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\Module;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\Properties;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 /**
  * @psalm-import-type Service from \Inpsyde\Modularity\Module\ServiceModule
  * @psalm-import-type ExtendingService from \Inpsyde\Modularity\Module\ExtendingModule

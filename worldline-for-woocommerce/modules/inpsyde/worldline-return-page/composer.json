@@ -5,12 +5,12 @@
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\": "src"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\": "tests\/php"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\": "tests\/php"
         }
     },
     "authors": [

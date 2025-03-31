@@ -1,8 +1,8 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use Syde\Vendor\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
 use UnexpectedValueException;
 /**
  * Class CommunicatorConfiguration
@@ -44,6 +44,7 @@ class CommunicatorConfiguration
      */
     public function __construct($apiKeyId, $apiSecret, $apiEndpoint, $integrator, ProxyConfiguration $proxyConfiguration = null)
     {
+        $apiEndpoint = rtrim($apiEndpoint, '/');
         $this->validateApiEndpoint($apiEndpoint);
         $this->apiKeyId = $apiKeyId;
         $this->apiSecret = $apiSecret;

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment;
 
-use Syde\Vendor\OnlinePayments\Sdk\Domain\RedirectionData;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\ThreeDSecure;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectionData;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ThreeDSecure;
 class ThreeDSecureFactory
 {
     public const EXEMPTION_LOW_VALUE = 'low-value';

@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.0.0
+Stable tag: 2.1.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -84,6 +84,16 @@ If you encounter issues with the Worldline buttons not appearing after an update
 1. tbc by Worldline
 
 == Changelog ==
+
+= 2.1.0 - 2025-03-31 =
+* Added single payment methods (Klarna, PostFinance, Twint).
+* Allow to capture payments automatically after the specified time.
+* Improve UI in WooCommerce 9.6+.
+* Show saved cards on the Pay for Order page.
+* Handle saved cards in Hosted Tokenization.
+* Add payment method icons in checkout.
+* Fix handling of orders that had multiple payment attempts.
+* Enable 3DS by default.
 
 = 2.0.0 - 2025-03-10 =
 * Added Hosted Tokenization (credit cards) payment method.

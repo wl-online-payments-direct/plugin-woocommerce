@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Utils;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Utils;
 
-use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
 class UtilsModule implements ServiceModule, ExtendingModule
 {
     use ModuleClassNameIdTrait;

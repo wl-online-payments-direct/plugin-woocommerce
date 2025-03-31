@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Services;
+namespace Syde\Vendor\Worldline\Dhii\Services;
 
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 /**
  * An extension service.
  *

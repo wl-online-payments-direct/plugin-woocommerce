@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Documentation\Renderer;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Documentation\Renderer;
 
 class LinksRenderer
 {

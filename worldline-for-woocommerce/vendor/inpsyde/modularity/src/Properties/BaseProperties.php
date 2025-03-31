@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Modularity\Properties;
+namespace Syde\Vendor\Worldline\Inpsyde\Modularity\Properties;
 
 class BaseProperties implements Properties
 {

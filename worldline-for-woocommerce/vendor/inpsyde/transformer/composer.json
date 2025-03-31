@@ -7,12 +7,12 @@
     "prefer-stable": true,
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Transformer\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Transformer\\Tests\\": "tests\/PHPUnit\/Helper"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\Tests\\": "tests\/PHPUnit\/Helper"
         }
     },
     "config": {

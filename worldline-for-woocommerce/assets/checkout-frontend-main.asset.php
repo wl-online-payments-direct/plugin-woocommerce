@@ -1,5 +1,5 @@
 <?php
 
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-return array('dependencies' => array(), 'version' => 'f26274dd6576c6909cce');
+return array('dependencies' => array(), 'version' => 'ee7936ca2cb1a90c9924');

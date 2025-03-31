@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Services\Factories;
+namespace Syde\Vendor\Worldline\Dhii\Services\Factories;
 
-use Syde\Vendor\Dhii\Services\Service;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Service;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 /**
  * A service that always returns the same value.
  *

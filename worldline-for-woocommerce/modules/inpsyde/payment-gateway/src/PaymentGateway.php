@@ -7,12 +7,12 @@
 // phpcs:disable Inpsyde.CodeQuality.NestingLevel.High
 // phpcs:disable NeutronStandard.Functions.DisallowCallUserFunc.CallUserFunc
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway;
 
 use Exception;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 use RangeException;
 use RuntimeException;
 use UnexpectedValueException;
@@ -53,6 +53,8 @@ class PaymentGateway extends WC_Payment_Gateway
         unset($this->order_button_text);
         unset($this->method_title);
         unset($this->method_description);
+        unset($this->icon);
+        unset($this->form_fields);
         add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
         add_action('woocommerce_settings_checkout', [$this, 'display_errors']);
         add_filter('woocommerce_settings_api_sanitized_fields_' . $this->id, [$this, 'filterVirtualFields'], -1000);
@@ -378,16 +380,6 @@ class PaymentGateway extends WC_Payment_Gateway
     /**
      * @inheritDoc
      */
-    public function get_form_fields()
-    {
-        if (!$this->form_fields) {
-            $this->form_fields = $this->locate('form_fields');
-        }
-        return parent::get_form_fields();
-    }
-    /**
-     * @inheritDoc
-     */
     public function get_option_key()
     {
         try {
@@ -471,6 +463,15 @@ class PaymentGateway extends WC_Payment_Gateway
         }
         if ($name === 'method_description') {
             return $this->locate($name);
+        }
+        if ($name === 'plugin_slug') {
+            return $this->locate($name);
+        }
+        if ($name === 'icon') {
+            return $this->locateWithFallback($name, null);
+        }
+        if ($name === 'form_fields') {
+            return $this->locate('form_fields');
         }
         return $this->{$name};
     }

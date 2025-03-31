@@ -10,7 +10,7 @@ use Composer\Package\Package;
 use Composer\Package\PackageInterface;
 use Composer\Repository\InstalledRepositoryInterface;
 use Composer\Util\Filesystem;
-use Syde\Vendor\React\Promise\PromiseInterface;
+use Syde\Vendor\Worldline\React\Promise\PromiseInterface;
 class Installer extends LibraryInstaller
 {
     /**

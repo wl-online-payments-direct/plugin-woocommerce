@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Uri;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Uri;
 
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
 /**
  * The Uri module.
  */

@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper;
 
-use Syde\Vendor\OnlinePayments\Sdk\Domain\AmountOfMoney;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
 class WebhookHelper
 {
     /**
@@ -43,7 +43,7 @@ class WebhookHelper
         }
         return null;
     }
-    public static function statusCode(WebhooksEvent $webhook): ?string
+    public static function statusCode(WebhooksEvent $webhook): ?int
     {
         $payment = $webhook->getPayment();
         $refund = $webhook->getRefund();
@@ -56,7 +56,7 @@ class WebhookHelper
         if (!$output) {
             return null;
         }
-        return (string) $output->getStatusCode();
+        return $output->getStatusCode();
     }
     public static function transactionIdForUi(WebhooksEvent $webhook): string
     {

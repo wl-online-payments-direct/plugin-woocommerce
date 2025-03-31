@@ -2,16 +2,16 @@
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Core;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core;
 
-use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 class CoreModule implements ExecutableModule, ServiceModule, ExtendingModule
 {
     use ModuleClassNameIdTrait;

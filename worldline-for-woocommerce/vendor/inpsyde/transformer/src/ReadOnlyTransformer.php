@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Transformer;
+namespace Syde\Vendor\Worldline\Inpsyde\Transformer;
 
-use Syde\Vendor\Inpsyde\Transformer\Exception\TransformerException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
 //phpcs:disable Inpsyde.CodeQuality.NoAccessors.NoGetter
 //phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType
 //phpcs:disable Inpsyde.CodeQuality.ReturnTypeDeclaration.NoReturnType

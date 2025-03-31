@@ -127,6 +127,13 @@ document.addEventListener( 'DOMContentLoaded', () => {
 			lstAuthorizationMode.value === 'authorization',
 			'wlop-hidden'
 		);
+		setVisibleByClass(
+			getFieldRow(
+				'#woocommerce_worldline-for-woocommerce_capture_mode'
+			),
+			lstAuthorizationMode.value === 'authorization',
+			'wlop-hidden'
+		);
 	}
 
 	function update3dsFields() {

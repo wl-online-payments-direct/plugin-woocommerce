@@ -1,27 +1,27 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-use Syde\Vendor\Dhii\Package\Version\StringVersionFactoryInterface;
-use Syde\Vendor\Dhii\Services\Factories\Alias;
-use Syde\Vendor\Dhii\Services\Factories\Value;
-use Syde\Vendor\Dhii\Services\Factory;
-use Syde\Vendor\Dhii\Validation\ValidatorInterface;
-use Syde\Vendor\Dhii\Validator\CallbackValidator;
-use Syde\Vendor\Dhii\Validator\CompositeValidator;
-use Syde\Vendor\Dhii\Versions\StringVersionFactory;
-use Syde\Vendor\Inpsyde\Modularity\Package;
-use Syde\Vendor\Inpsyde\Modularity\Properties\PluginProperties;
-use Syde\Vendor\Inpsyde\Modularity\Properties\Properties;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLink;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentFactoryInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Http\Message\UriFactoryInterface;
-use Syde\Vendor\Psr\Http\Message\UriInterface;
+use Syde\Vendor\Worldline\Dhii\Package\Version\StringVersionFactoryInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Alias;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Dhii\Validation\ValidatorInterface;
+use Syde\Vendor\Worldline\Dhii\Validator\CallbackValidator;
+use Syde\Vendor\Worldline\Dhii\Validator\CompositeValidator;
+use Syde\Vendor\Worldline\Dhii\Versions\StringVersionFactory;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\PluginProperties;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\Properties;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLink;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentFactoryInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\UriFactoryInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\UriInterface;
 return static function (string $rootPath): array {
     return ['assets.get_module_asset_url' => new Factory([Package::PROPERTIES], static function (PluginProperties $props): callable {
         return static function (string $moduleName, string $assetName) use ($props): string {

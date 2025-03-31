@@ -5,12 +5,12 @@
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\Tests\\": "tests\/php\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\Tests\\": "tests\/php\/"
         }
     },
     "authors": [

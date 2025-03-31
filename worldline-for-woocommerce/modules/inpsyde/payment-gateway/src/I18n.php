@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway;
 
 use Exception;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class I18n
 {
     protected ContainerInterface $serviceLocator;

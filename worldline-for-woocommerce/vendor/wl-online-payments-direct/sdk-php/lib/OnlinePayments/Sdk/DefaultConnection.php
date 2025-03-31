@@ -1,13 +1,13 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use CurlHandle;
 use CurlMultiHandle;
 use ErrorException;
 use Exception;
 use UnexpectedValueException;
-use Syde\Vendor\Robtimus\Multipart\MultipartFormData;
+use Syde\Vendor\Worldline\Robtimus\Multipart\MultipartFormData;
 /**
  * Class ApiException
  *

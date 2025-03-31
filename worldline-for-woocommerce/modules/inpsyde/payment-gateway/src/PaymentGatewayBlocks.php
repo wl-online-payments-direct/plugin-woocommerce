@@ -5,12 +5,12 @@
 // phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType
 // phpcs:disable Inpsyde.CodeQuality.ReturnTypeDeclaration.NoReturnType
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway;
 
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 use WC_Payment_Gateways;
 class PaymentGatewayBlocks extends AbstractPaymentMethodType
 {
@@ -35,7 +35,8 @@ class PaymentGatewayBlocks extends AbstractPaymentMethodType
     }
     public function is_active()
     {
-        return \true;
+        $gateway = $this->gateway();
+        return filter_var($gateway->get_option('enabled', \false), \FILTER_VALIDATE_BOOLEAN);
     }
     /**
      * Returns an array of scripts/handles to be registered for this payment method.

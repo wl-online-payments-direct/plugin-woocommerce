@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Services\Extensions;
+namespace Syde\Vendor\Worldline\Dhii\Services\Extensions;
 
-use Syde\Vendor\Dhii\Services\ResolveKeysCapableTrait;
-use Syde\Vendor\Dhii\Services\Service;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Services\ResolveKeysCapableTrait;
+use Syde\Vendor\Worldline\Dhii\Services\Service;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 /**
  * An extension implementation that extends an array service.
  *

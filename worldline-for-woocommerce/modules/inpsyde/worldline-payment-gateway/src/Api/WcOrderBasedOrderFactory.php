@@ -1,21 +1,21 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api;
 
-use Syde\Vendor\Inpsyde\Transformer\Exception\TransformerException;
-use Syde\Vendor\Inpsyde\Transformer\Transformer;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\MismatchHandlerInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentMismatchValidator;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Struct\WcPriceStruct;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\AmountOfMoney;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\Customer;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\LineItem;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\Order;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\OrderReferences;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\Shipping;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\ShoppingCart;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\SurchargeSpecificInput;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Transformer;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\MismatchHandlerInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentMismatchValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Struct\WcPriceStruct;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Customer;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\LineItem;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Order;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\OrderReferences;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Shipping;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCart;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SurchargeSpecificInput;
 use WC_Order;
 use WC_Order_Item_Product;
 class WcOrderBasedOrderFactory implements WcOrderBasedOrderFactoryInterface
@@ -53,9 +53,7 @@ class WcOrderBasedOrderFactory implements WcOrderBasedOrderFactoryInterface
         $ref->setMerchantReference((string) $wcOrder->get_id());
         $wlopOrder->setReferences($ref);
         $wlopOrder->setCustomer($this->transformer->create(Customer::class, $wcOrder));
-        if ($wcOrder->has_shipping_address()) {
-            $wlopOrder->setShipping($this->transformer->create(Shipping::class, $wcOrder));
-        }
+        $wlopOrder->setShipping($this->transformer->create(Shipping::class, $wcOrder));
         if ($this->surchargeEnabled) {
             $surchargeSpecificInput = new SurchargeSpecificInput();
             $surchargeSpecificInput->setMode('on-behalf-of');

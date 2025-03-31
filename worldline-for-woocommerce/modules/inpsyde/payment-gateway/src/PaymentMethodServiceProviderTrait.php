@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway;
 
 use Closure;
-use Syde\Vendor\Inpsyde\PaymentGateway\Method\PaymentMethodDefinition;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Method\PaymentMethodDefinition;
 /**
  * Trait providing functionality to register services for payment methods.
  *
@@ -35,7 +35,7 @@ trait PaymentMethodServiceProviderTrait
         $services = [];
         foreach ($paymentMethods as $paymentMethod) {
             $id = $paymentMethod->id();
-            $interfaceMethods = ['title' => 'title', 'description' => 'description', 'availabilityCallback' => 'availability_callback', 'methodTitle' => 'method_title', 'methodDescription' => 'method_description', 'paymentProcessor' => 'payment_processor', 'paymentRequestValidator' => 'payment_request_validator', 'supports' => 'supports', 'hasFields' => 'has_fields', 'refundProcessor' => 'refund_processor', 'gatewayIconsRenderer' => 'gateway_icons_renderer', 'paymentMethodIconProvider' => 'method_icon_provider', 'paymentFieldsRenderer' => 'payment_fields_renderer', 'formFields' => 'form_fields', 'optionKey' => 'option_key', 'orderButtonText' => 'order_button_text', 'registerBlocks' => 'register_blocks'];
+            $interfaceMethods = ['title' => 'title', 'description' => 'description', 'availabilityCallback' => 'availability_callback', 'methodTitle' => 'method_title', 'methodDescription' => 'method_description', 'paymentProcessor' => 'payment_processor', 'paymentRequestValidator' => 'payment_request_validator', 'supports' => 'supports', 'hasFields' => 'has_fields', 'refundProcessor' => 'refund_processor', 'gatewayIconsRenderer' => 'gateway_icons_renderer', 'paymentMethodIconProvider' => 'method_icon_provider', 'paymentFieldsRenderer' => 'payment_fields_renderer', 'formFields' => 'form_fields', 'optionKey' => 'option_key', 'orderButtonText' => 'order_button_text', 'registerBlocks' => 'register_blocks', 'icon' => 'icon'];
             foreach ($interfaceMethods as $method => $serviceKey) {
                 $services["payment_gateway.{$id}.{$serviceKey}"] = Closure::fromCallable([$paymentMethod, $method]);
             }

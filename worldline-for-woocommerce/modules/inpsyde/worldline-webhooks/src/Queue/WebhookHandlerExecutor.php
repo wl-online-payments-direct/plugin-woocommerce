@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue;
 
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\WebhookHandlerInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper\WebhookHelper;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WlopWcOrderFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\WebhookHandlerInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper\WebhookHelper;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WlopWcOrderFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
 use WC_Meta_Data;
 class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
 {
@@ -51,7 +51,7 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
     protected function wlopWebhookId(WebhooksEvent $webhook): string
     {
         $transactionId = WebhookHelper::transactionId($webhook);
-        $statusCode = WebhookHelper::statusCode($webhook);
+        $statusCode = (string) WebhookHelper::statusCode($webhook);
         return $webhook->getType() . '_' . $transactionId . '_' . $statusCode;
     }
     protected function addProcessedWebhook(WlopWcOrder $wlopWcOrder, WebhooksEvent $webhook): void

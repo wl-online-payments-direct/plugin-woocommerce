@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Modularity\Container;
+namespace Syde\Vendor\Worldline\Inpsyde\Modularity\Container;
 
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 /**
  * @psalm-import-type Service from \Inpsyde\Modularity\Module\ServiceModule
  * @psalm-import-type ExtendingService from \Inpsyde\Modularity\Module\ExtendingModule

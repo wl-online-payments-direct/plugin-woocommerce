@@ -5,12 +5,12 @@
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "src"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "tests\/php"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "tests\/php"
         }
     },
     "authors": [

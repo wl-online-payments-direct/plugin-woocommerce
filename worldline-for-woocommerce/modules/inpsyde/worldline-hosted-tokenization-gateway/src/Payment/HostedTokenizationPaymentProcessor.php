@@ -2,27 +2,29 @@
 
 declare (strict_types=1);
 // phpcs:disable WordPress.Security.NonceVerification
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\HostedTokenizationGateway\Payment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\HostedTokenizationGateway\Payment;
 
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentProcessorInterface;
-use Syde\Vendor\Inpsyde\Transformer\Transformer;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\APIError;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\ErrorResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentProcessorInterface;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Transformer;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\OrderInitTrait;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 use Throwable;
 use WC_Order;
 class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
 {
+    use OrderInitTrait;
     private HostedPaymentProcessor $hostedPaymentProcessor;
     private WcOrderBasedOrderFactoryInterface $wcOrderBasedFactory;
     private Transformer $requestTransformer;
@@ -96,17 +98,6 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
             return null;
         }
         return $hostedTokenizationId;
-    }
-    protected function initWlopWcOrder(WC_Order $wcOrder): void
-    {
-        /** Some webhooks arrive almost at the same time. There is a high possibility
-         * for 1st and 2nd webhook to create two separate meta fields with the same key,
-         * because they are both unaware that the data is about to be saved. We
-         * save empty values for these meta-fields, so that can't happen.
-         */
-        $wcOrder->add_meta_data(OrderMetaKeys::TRANSACTION_STATUS_CODE, '-1');
-        $wcOrder->add_meta_data(OrderMetaKeys::TRANSACTION_ID, '');
-        $wcOrder->save();
     }
     protected function extractErrors(ValidationException $exception): string
     {

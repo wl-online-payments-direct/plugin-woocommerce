@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Transformer;
+namespace Syde\Vendor\Worldline\Inpsyde\Transformer;
 
-use Syde\Vendor\Dhii\Container\ServiceProvider;
-use Syde\Vendor\Dhii\Modular\Module\Exception\ModuleExceptionInterface;
-use Syde\Vendor\Dhii\Modular\Module\ModuleInterface;
-use Syde\Vendor\Interop\Container\ServiceProviderInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Container\ServiceProvider;
+use Syde\Vendor\Worldline\Dhii\Modular\Module\Exception\ModuleExceptionInterface;
+use Syde\Vendor\Worldline\Dhii\Modular\Module\ModuleInterface;
+use Syde\Vendor\Worldline\Interop\Container\ServiceProviderInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 //phpcs:disable Inpsyde.CodeQuality.NoAccessors.NoGetter
 class BuilderModule implements ModuleInterface
 {

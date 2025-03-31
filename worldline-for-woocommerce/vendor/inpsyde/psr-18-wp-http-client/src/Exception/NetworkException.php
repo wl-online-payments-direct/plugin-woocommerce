@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Wp\HttpClient\Exception;
+namespace Syde\Vendor\Worldline\Inpsyde\Wp\HttpClient\Exception;
 
-use Syde\Vendor\Psr\Http\Client\NetworkExceptionInterface;
-use Syde\Vendor\Psr\Http\Message\RequestInterface;
+use Syde\Vendor\Worldline\Psr\Http\Client\NetworkExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\RequestInterface;
 use Throwable;
 /**
  * This exception is thrown when request cannot be done because of any network problems

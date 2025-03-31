@@ -1,9 +1,9 @@
 <?php
 
-namespace Syde\Vendor\Psr\Http\Client;
+namespace Syde\Vendor\Worldline\Psr\Http\Client;
 
-use Syde\Vendor\Psr\Http\Message\RequestInterface;
-use Syde\Vendor\Psr\Http\Message\ResponseInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\RequestInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\ResponseInterface;
 interface ClientInterface
 {
     /**

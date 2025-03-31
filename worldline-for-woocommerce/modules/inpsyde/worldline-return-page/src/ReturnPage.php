@@ -3,11 +3,11 @@
 declare (strict_types=1);
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
 // phpcs:disable Inpsyde.CodeQuality.NoAccessors.NoGetter
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage;
 
 use Exception;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 use WC_Order;
 class ReturnPage
 {

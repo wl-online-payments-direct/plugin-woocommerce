@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Package\Version;
+namespace Syde\Vendor\Worldline\Dhii\Package\Version;
 
 use Exception;
 use Stringable;

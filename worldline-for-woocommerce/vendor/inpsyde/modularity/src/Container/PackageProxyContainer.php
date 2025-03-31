@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Modularity\Container;
+namespace Syde\Vendor\Worldline\Inpsyde\Modularity\Container;
 
-use Syde\Vendor\Inpsyde\Modularity\Package;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class PackageProxyContainer implements ContainerInterface
 {
     private Package $package;

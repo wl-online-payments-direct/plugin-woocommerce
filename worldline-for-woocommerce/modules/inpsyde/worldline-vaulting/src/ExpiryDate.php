@@ -2,7 +2,7 @@
 
 declare (strict_types=1);
 // phpcs:disable Inpsyde.CodeQuality.ElementNameMinimalLength.TooShort
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Vaulting;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting;
 
 class ExpiryDate
 {

@@ -3,19 +3,19 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk\Merchant;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant;
 
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Mandates\MandatesClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Payments\PaymentsClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Payouts\PayoutsClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Products\ProductsClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Services\ServicesClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Sessions\SessionsClientInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\Tokens\TokensClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Mandates\MandatesClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payments\PaymentsClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payouts\PayoutsClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\ProductsClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services\ServicesClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Sessions\SessionsClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokens\TokensClientInterface;
 interface MerchantClientInterface
 {
     /**

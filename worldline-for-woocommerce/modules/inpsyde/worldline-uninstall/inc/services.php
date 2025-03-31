@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Uninstall\DatabaseCleaner;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Uninstall\UninstallModule;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Uninstall\DatabaseCleaner;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Uninstall\UninstallModule;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
 return static function (): array {
     return ['uninstall.worldline-all-option-names' => static function (ContainerInterface $container): array {
         $gatewaySettingOptions = \array_map(static function (string $gatewayId): string {

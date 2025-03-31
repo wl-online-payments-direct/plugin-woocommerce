@@ -36,12 +36,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\PaymentGateway\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\PaymentGateway\\Test\\": "tests\/PHPUnit\/Helper"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\Test\\": "tests\/PHPUnit\/Helper"
         }
     },
     "minimum-stability": "dev",

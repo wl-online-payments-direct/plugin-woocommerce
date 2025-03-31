@@ -1,22 +1,22 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Config;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config;
 
-use Syde\Vendor\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
-use Syde\Vendor\Dhii\Validator\CallbackValidator;
+use Syde\Vendor\Worldline\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
+use Syde\Vendor\Worldline\Dhii\Validator\CallbackValidator;
 use Inpsyde\Assets\Asset;
 use Inpsyde\Assets\AssetManager;
 use Inpsyde\Assets\Script;
 use Inpsyde\Assets\Style;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 class ConfigModule implements ExecutableModule, ServiceModule
 {
     use ModuleClassNameIdTrait;

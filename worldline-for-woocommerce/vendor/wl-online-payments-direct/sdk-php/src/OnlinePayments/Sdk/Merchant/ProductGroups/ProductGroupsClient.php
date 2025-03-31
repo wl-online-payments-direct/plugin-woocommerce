@@ -3,11 +3,11 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk\Merchant\ProductGroups;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups;
 
-use Syde\Vendor\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\OnlinePayments\Sdk\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ResponseClassMap;
 class ProductGroupsClient extends ApiResource implements ProductGroupsClientInterface
 {
     /**
@@ -15,7 +15,7 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
      */
     public function getProductGroups(GetProductGroupsParams $query, CallContext $callContext = null)
     {
-        $responseClassMap = new ResponseClassMap('Syde\Vendor\OnlinePayments\Sdk\Domain\GetPaymentProductGroupsResponse');
+        $responseClassMap = new ResponseClassMap('Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPaymentProductGroupsResponse');
         return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/productgroups'), $this->getClientMetaInfo(), $query, $callContext);
     }
     /**
@@ -24,7 +24,7 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
     public function getProductGroup($paymentProductGroupId, GetProductGroupParams $query, CallContext $callContext = null)
     {
         $this->context['paymentProductGroupId'] = $paymentProductGroupId;
-        $responseClassMap = new ResponseClassMap('Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentProductGroup');
+        $responseClassMap = new ResponseClassMap('Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductGroup');
         return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/productgroups/{paymentProductGroupId}'), $this->getClientMetaInfo(), $query, $callContext);
     }
 }

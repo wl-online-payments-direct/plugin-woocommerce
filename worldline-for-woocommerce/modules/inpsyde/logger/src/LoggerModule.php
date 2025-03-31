@@ -1,23 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Logger;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger;
 
-use Syde\Vendor\Inpsyde\Logger\Events\EventDispatcherInterface;
-use Syde\Vendor\Inpsyde\Logger\Events\WpEventDispatcher;
-use Syde\Vendor\Inpsyde\Logger\Events\HandlerAdderInterface;
-use Syde\Vendor\Inpsyde\Logger\Events\WpHandlerAdder;
-use Syde\Vendor\Inpsyde\Logger\Exception\LoggerException;
-use Syde\Vendor\Inpsyde\Logger\Formatter\DelegatingObjectFormatter;
-use Syde\Vendor\Inpsyde\Logger\Formatter\ExceptionFormatter;
-use Syde\Vendor\Inpsyde\Logger\Formatter\ObjectFormatter;
-use Syde\Vendor\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Log\LoggerInterface;
-use Syde\Vendor\Psr\Log\LogLevel;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Events\EventDispatcherInterface;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Events\WpEventDispatcher;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Events\HandlerAdderInterface;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Events\WpHandlerAdder;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Exception\LoggerException;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\DelegatingObjectFormatter;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ExceptionFormatter;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ObjectFormatter;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Log\LoggerInterface;
+use Syde\Vendor\Worldline\Psr\Log\LogLevel;
 use Throwable;
 use UnexpectedValueException;
 /**

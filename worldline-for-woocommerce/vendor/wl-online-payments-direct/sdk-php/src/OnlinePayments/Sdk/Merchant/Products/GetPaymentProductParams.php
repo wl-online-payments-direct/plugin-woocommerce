@@ -3,9 +3,9 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk\Merchant\Products;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products;
 
-use Syde\Vendor\OnlinePayments\Sdk\RequestObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\RequestObject;
 /**
  * Query parameters for Get payment product
  *

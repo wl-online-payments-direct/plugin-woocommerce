@@ -1,19 +1,19 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Vaulting;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting;
 
-use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentOutput;
-use Syde\Vendor\OnlinePayments\Sdk\ReferenceException;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentOutput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Throwable;
 use WC_Cart;
 use WC_Order;
@@ -25,7 +25,8 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
     {
         $this->addNewTokenHandler($container);
         $this->addStoredCardDeletionHandler($container);
-        $this->addStoredCardButtons($container);
+        $this->addCheckoutStoredCardButtons($container);
+        $this->addPayOrderStoredCardButtons($container);
         $this->filterStoredCardsOnBlockCheckout($container);
         return \true;
     }
@@ -58,12 +59,18 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
                 'on-hold',
                 // authorized
                 'processing',
+                // captured
+                'completed',
             ], \true) || wc_string_to_bool((string) $wcOrder->get_meta(OrderMetaKeys::SAVED_TOKEN))) {
                 return;
             }
             $userId = $wcOrder->get_user_id();
             // cannot save for guests
             if ($userId <= 0) {
+                return;
+            }
+            $gatewayId = $wcOrder->get_payment_method();
+            if (!in_array($gatewayId, [GatewayIds::HOSTED_CHECKOUT, GatewayIds::HOSTED_TOKENIZATION], \true)) {
                 return;
             }
             $paymentOutput = $args['paymentOutput'];
@@ -91,7 +98,7 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
             if ($tokenInfo->getIsTemporary()) {
                 return;
             }
-            $wcTokenRepo = $container->get('vaulting.repository.wc.tokens');
+            $wcTokenRepo = $container->get("vaulting.repository.wc.tokens.{$gatewayId}");
             assert($wcTokenRepo instanceof WcTokenRepository);
             $wcTokenRepo->addCard($token, $userId, $card, $cardOutput->getPaymentProductId());
             $wcOrder->update_meta_data(OrderMetaKeys::SAVED_TOKEN, wc_bool_to_string(\true));
@@ -124,10 +131,29 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
             2
         );
     }
-    private function addStoredCardButtons(ContainerInterface $container): void
+    private function renderStoredCardButtons(ContainerInterface $container): string
+    {
+        $gatewayId = GatewayIds::HOSTED_CHECKOUT;
+        $wcTokenRepo = $container->get("vaulting.repository.wc.tokens.{$gatewayId}");
+        assert($wcTokenRepo instanceof WcTokenRepository);
+        $renderer = $container->get('vaulting.card_button_renderer');
+        assert($renderer instanceof CardButtonRenderer);
+        $tokens = $wcTokenRepo->sortedCustomerTokens(get_current_user_id());
+        $tokens = array_slice($tokens, 0, 3);
+        if (empty($tokens)) {
+            return '';
+        }
+        $html = '<div class="wlop-saved-card-buttons-wrapper">';
+        foreach ($tokens as $token) {
+            $html .= $renderer->render($token);
+        }
+        $html .= '</div>';
+        return $html;
+    }
+    private function addCheckoutStoredCardButtons(ContainerInterface $container): void
     {
         $tokenButtonsHook = (string) apply_filters('wlop_checkout_saved_cards_renderer_hook', 'woocommerce_review_order_before_payment');
-        add_action($tokenButtonsHook, static function () use ($container): void {
+        add_action($tokenButtonsHook, function () use ($container): void {
             if (!$container->get('config.stored_card_buttons')) {
                 return;
             }
@@ -144,21 +170,37 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
             if ($total <= 0) {
                 return;
             }
-            $wcTokenRepo = $container->get('vaulting.repository.wc.tokens');
-            assert($wcTokenRepo instanceof WcTokenRepository);
-            $renderer = $container->get('vaulting.card_button_renderer');
-            assert($renderer instanceof CardButtonRenderer);
-            $tokens = $wcTokenRepo->sortedCustomerTokens(get_current_user_id());
-            $tokens = array_slice($tokens, 0, 3);
-            if (empty($tokens)) {
+            // phpcs:ignore WordPress.Security.EscapeOutput
+            echo $this->renderStoredCardButtons($container);
+        });
+    }
+    private function addPayOrderStoredCardButtons(ContainerInterface $container): void
+    {
+        $tokenButtonsHook = (string) apply_filters('wlop_pay_order_saved_cards_renderer_hook', 'woocommerce_pay_order_before_payment');
+        add_action($tokenButtonsHook, function () use ($container): void {
+            if (!$container->get('config.stored_card_buttons')) {
                 return;
             }
-            echo '<div class="wlop-saved-card-buttons-wrapper">';
-            foreach ($tokens as $token) {
-                // phpcs:ignore WordPress.Security.EscapeOutput
-                echo $renderer->render($token);
+            global $wp;
+            if (!isset($wp->query_vars['order-pay'])) {
+                return;
             }
-            echo '</div>';
+            $orderId = absint($wp->query_vars['order-pay']);
+            $order = wc_get_order($orderId);
+            if (!$order instanceof WC_Order) {
+                return;
+            }
+            $total = (float) $order->get_total();
+            if ($total <= 0) {
+                return;
+            }
+            $gateway = $container->get('worldline_payment_gateway.gateway');
+            assert($gateway instanceof PaymentGateway);
+            if (!$gateway->is_available()) {
+                return;
+            }
+            // phpcs:ignore WordPress.Security.EscapeOutput
+            echo $this->renderStoredCardButtons($container);
         });
     }
     // phpcs:ignore Inpsyde.CodeQuality.NestingLevel.High
@@ -172,7 +214,7 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
                 return $methods;
             }
             foreach ($methods['cc'] as $index => $method) {
-                if ($method['method']['gateway'] === GatewayIds::HOSTED_CHECKOUT) {
+                if (in_array($method['method']['gateway'], [GatewayIds::HOSTED_CHECKOUT, GatewayIds::HOSTED_TOKENIZATION], \true)) {
                     unset($methods['cc'][$index]);
                 }
             }

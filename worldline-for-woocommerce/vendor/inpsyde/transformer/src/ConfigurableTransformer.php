@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Transformer;
+namespace Syde\Vendor\Worldline\Inpsyde\Transformer;
 
-use Syde\Vendor\Inpsyde\Transformer\Exception\TransformerException;
-use Syde\Vendor\Inpsyde\Transformer\Exception\TransformerReflectionException;
-use Syde\Vendor\Inpsyde\Transformer\Exception\InvalidTransformerSignatureException;
-use Syde\Vendor\Inpsyde\Transformer\Exception\MissingTransformerException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerReflectionException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\InvalidTransformerSignatureException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\MissingTransformerException;
 use ReflectionNamedType;
 //phpcs:disable Inpsyde.CodeQuality.NoAccessors.NoGetter
 //phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType

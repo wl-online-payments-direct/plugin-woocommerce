@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2025-03-03 12:55:21+0000\n"
+"PO-Revision-Date: 2025-03-24 07:20:18+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -11,73 +11,323 @@ msgstr ""
 "Language: fr\n"
 "Project-Id-Version: Worldline for WooCommerce\n"
 
-#: modules.local/config/inc/fields.php:126
-#: modules/inpsyde/worldline-config/inc/fields.php:126
-msgid "Personalize the Worldline payment method title on checkout page."
-msgstr "Personnaliser le titre de la méthode de paiement Worldline sur la page de paiement."
+#: modules.local/worldline-payment-gateway/src/Cron/AutoCaptureHandler.php:117
+#: modules/inpsyde/worldline-payment-gateway/src/Cron/AutoCaptureHandler.php:117
+msgid "Automatic fund capture request is submitted. You will receive a notification in the order notes upon completion."
+msgstr "La demande de capture automatique de fonds est soumise. Vous recevrez une notification dans les notes de commande une fois la procédure terminée."
 
-#: modules.local/config/inc/fields.php:244
-#: modules/inpsyde/worldline-config/inc/fields.php:244
-msgid "When enabled, we ask the issuer not to trigger the SCA. Hence, merchants are liable in case of fraud for transactions below €30."
-msgstr "Lorsque cette option est activée, nous demandons à l'émetteur de ne pas déclencher le SCA. Les commerçants sont donc responsables en cas de fraude pour les transactions inférieures à €30."
+#: modules.local/config/inc/fields.php:238
+#: modules/inpsyde/worldline-config/inc/fields.php:238
+msgid "Allows to automatically capture orders after the specified time, using the Woo Action Scheduler. Depending on the Action Scheduler/WP Cron setup, sometimes captures may be delayed if the site does not receive traffic during that period."
+msgstr "Permet de saisir automatiquement les commandes après l'heure spécifiée, à l'aide du planificateur d'actions Woo. En fonction de la configuration du planificateur d'actions/WP Cron, les captures peuvent parfois être retardées si le site ne reçoit pas de trafic pendant cette période."
 
 #: modules.local/config/inc/fields.php:236
 #: modules/inpsyde/worldline-config/inc/fields.php:236
+msgid "After 7 days"
+msgstr "Après 7 jours"
+
+#: modules.local/config/inc/fields.php:235
+#: modules/inpsyde/worldline-config/inc/fields.php:235
+msgid "After 6 days"
+msgstr "Après 6 jours"
+
+#: modules.local/config/inc/fields.php:234
+#: modules/inpsyde/worldline-config/inc/fields.php:234
+msgid "After 5 days"
+msgstr "Après 5 jours"
+
+#: modules.local/config/inc/fields.php:233
+#: modules/inpsyde/worldline-config/inc/fields.php:233
+msgid "After 4 days"
+msgstr "Après 4 jours"
+
+#: modules.local/config/inc/fields.php:232
+#: modules/inpsyde/worldline-config/inc/fields.php:232
+msgid "After 3 days"
+msgstr "Après 3 jours"
+
+#: modules.local/config/inc/fields.php:231
+#: modules/inpsyde/worldline-config/inc/fields.php:231
+msgid "After 2 days"
+msgstr "Après 2 jours"
+
+#: modules.local/config/inc/fields.php:230
+#: modules/inpsyde/worldline-config/inc/fields.php:230
+msgid "After 1 day"
+msgstr "Après 1 jour"
+
+#: modules.local/config/inc/fields.php:229
+#: modules/inpsyde/worldline-config/inc/fields.php:229
+msgid "At the end of the day"
+msgstr "En fin de journée"
+
+#: modules.local/config/inc/fields.php:228
+#: modules/inpsyde/worldline-config/inc/fields.php:228
+msgid "Manual"
+msgstr "Manuel"
+
+#: modules.local/config/inc/fields.php:224
+#: modules/inpsyde/worldline-config/inc/fields.php:224
+msgid "Capture mode"
+msgstr "Mode capture"
+
+#: modules.local/twint-gateway/inc/services.php:33
+#: modules/inpsyde/worldline-twint-gateway/inc/services.php:33
+msgid "Accept payments with TWINT."
+msgstr "Accepter les paiements avec TWINT."
+
+#: modules.local/twint-gateway/inc/services.php:31
+#: modules/inpsyde/worldline-twint-gateway/inc/services.php:31
+msgid "TWINT"
+msgstr "TWINT"
+
+#: modules.local/twint-gateway/inc/services.php:29
+#: modules/inpsyde/worldline-twint-gateway/inc/services.php:29
+msgid "TWINT (Worldline)"
+msgstr "TWINT (Worldline)"
+
+#: modules.local/twint-gateway/inc/fields.php:15
+#: modules/inpsyde/worldline-twint-gateway/inc/fields.php:15
+msgid "Enable TWINT (Worldline)"
+msgstr "Activer TWINT (Worldline)"
+
+#: modules.local/postfinance/src/Postfinance.php:170
+#: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:170
+msgid "Enable PostFinance (Worldline)"
+msgstr "Enable PostFinance (Worldline)"
+
+#: modules.local/postfinance/src/Postfinance.php:101
+#: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:101
+msgid "Accept payments with PostFinance."
+msgstr "Accepter des paiements avec PostFinance."
+
+#: modules.local/postfinance/src/Postfinance.php:89
+#: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:89
+msgid "PostFinance (Worldline)"
+msgstr "PostFinance (Worldline)"
+
+#: modules.local/postfinance/src/Postfinance.php:84
+#: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:84
+msgid "PostFinance"
+msgstr "PostFinance"
+
+#: modules.local/klarna-gateway/inc/services.php:438
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:438
+msgid "Klarna - Financing (Pay in 3)"
+msgstr "Klarna - Financement (Pay in 3)"
+
+#: modules.local/klarna-gateway/inc/services.php:436
+#: modules.local/klarna-gateway/inc/services.php:437
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:436
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:437
+msgid "Klarna - Financing - Pay in 3 (Worldline)"
+msgstr "Klarna - Financement - Payez en 3 (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:388
+#: modules.local/klarna-gateway/inc/services.php:439
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:388
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:439
+msgid "Accept payments with Klarna - Financing."
+msgstr "Accepter les paiements avec Klarna - Financement."
+
+#: modules.local/klarna-gateway/inc/services.php:387
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:387
+msgid "Klarna - Financing"
+msgstr "Klarna - Financement"
+
+#: modules.local/klarna-gateway/inc/services.php:385
+#: modules.local/klarna-gateway/inc/services.php:386
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:385
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:386
+msgid "Klarna - Financing (Worldline)"
+msgstr "Klarna - Financement (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:363
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:363
+msgid "Klarna - Pay later (Bank transfer)"
+msgstr "Klarna - Pay later (Bank transfer)"
+
+#: modules.local/klarna-gateway/inc/services.php:361
+#: modules.local/klarna-gateway/inc/services.php:362
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:361
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:362
+msgid "Klarna - Pay later - Bank transfer (Worldline)"
+msgstr "Klarna - Pay later - Bank transfer (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:339
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:339
+msgid "Klarna - Pay later (Pay in 3)"
+msgstr "Klarna - Payez plus tard (Pay in 3)"
+
+#: modules.local/klarna-gateway/inc/services.php:337
+#: modules.local/klarna-gateway/inc/services.php:338
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:337
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:338
+msgid "Klarna - Pay later - Pay in 3 (Worldline)"
+msgstr "Klarna - Pay later - Pay in 3 (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:289
+#: modules.local/klarna-gateway/inc/services.php:340
+#: modules.local/klarna-gateway/inc/services.php:364
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:289
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:340
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:364
+msgid "Accept payments with Klarna - Pay later."
+msgstr "Acceptez les paiements avec Klarna - Payez plus tard."
+
+#: modules.local/klarna-gateway/inc/services.php:288
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:288
+msgid "Klarna - Pay later"
+msgstr "Klarna - Payez plus tard"
+
+#: modules.local/klarna-gateway/inc/services.php:286
+#: modules.local/klarna-gateway/inc/services.php:287
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:286
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:287
+msgid "Klarna - Pay later (Worldline)"
+msgstr "Klarna - Pay later (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:238
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:238
+msgid "Accept payments with Klarna - Direct debit."
+msgstr "Accepter les paiements avec Klarna - Débit direct."
+
+#: modules.local/klarna-gateway/inc/services.php:237
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:237
+msgid "Klarna - Direct debit"
+msgstr "Klarna - Débit direct"
+
+#: modules.local/klarna-gateway/inc/services.php:235
+#: modules.local/klarna-gateway/inc/services.php:236
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:235
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:236
+msgid "Klarna - Direct debit (Worldline)"
+msgstr "Klarna - Débit direct (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:186
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:186
+msgid "Accept payments with Klarna - Bank transfer."
+msgstr "Accepter les paiements avec Klarna - Virement bancaire."
+
+#: modules.local/klarna-gateway/inc/services.php:185
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:185
+msgid "Klarna - Bank transfer"
+msgstr "Klarna - Virement bancaire"
+
+#: modules.local/klarna-gateway/inc/services.php:181
+#: modules.local/klarna-gateway/inc/services.php:183
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:181
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:183
+msgid "Klarna - Bank transfer (Worldline)"
+msgstr "Klarna - Virement bancaire (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:132
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:132
+msgid "Accept payments with Klarna - Pay Now."
+msgstr "Acceptez les paiements avec Klarna - Pay Now."
+
+#: modules.local/klarna-gateway/inc/services.php:131
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:131
+msgid "Klarna - Pay Now"
+msgstr "Klarna - Payer maintenant"
+
+#: modules.local/klarna-gateway/inc/services.php:129
+#: modules.local/klarna-gateway/inc/services.php:130
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:129
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:130
+msgid "Klarna - Pay Now (Worldline)"
+msgstr "Klarna - Pay Now (Worldline)"
+
+#: modules.local/klarna-gateway/inc/services.php:80
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:80
+msgid "Accept payments with Klarna."
+msgstr "Accepter les paiements avec Klarna."
+
+#: modules.local/klarna-gateway/inc/services.php:79
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:79
+msgid "Pay with Klarna"
+msgstr "Payer avec Klarna"
+
+#: modules.local/klarna-gateway/inc/services.php:77
+#: modules.local/klarna-gateway/inc/services.php:78
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:77
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:78
+msgid "Pay with Klarna (Worldline)"
+msgstr "Payer avec Klarna (Worldline)"
+
+#. translators: %s: Name of the gateway.
+#: modules.local/klarna-gateway/inc/services.php:45
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:45
+msgid "Enable %s"
+msgstr "Activer %s"
+
+#: modules.local/config/inc/fields.php:127
+#: modules/inpsyde/worldline-config/inc/fields.php:127
+msgid "Personalize the Worldline payment method title on checkout page."
+msgstr "Personnaliser le titre de la méthode de paiement Worldline sur la page de paiement."
+
+#: modules.local/config/inc/fields.php:266
+#: modules/inpsyde/worldline-config/inc/fields.php:266
+msgid "When enabled, we ask the issuer not to trigger the SCA. Hence, merchants are liable in case of fraud for transactions below €30."
+msgstr "Lorsque cette option est activée, nous demandons à l'émetteur de ne pas déclencher le SCA. Les commerçants sont donc responsables en cas de fraude pour les transactions inférieures à €30."
+
+#: modules.local/config/inc/fields.php:258
+#: modules/inpsyde/worldline-config/inc/fields.php:258
 msgid "Enforce strong customer authentication for all transactions."
 msgstr "Appliquer une authentification forte du client pour toutes les transactions."
 
-#: modules.local/config/inc/fields.php:227
-#: modules/inpsyde/worldline-config/inc/fields.php:227
+#: modules.local/config/inc/fields.php:249
+#: modules/inpsyde/worldline-config/inc/fields.php:249
 msgid "Enforce 3DS for all transactions."
 msgstr "Appliquer le système 3DS à toutes les transactions."
 
-#: modules.local/config/inc/fields.php:124
-#: modules/inpsyde/worldline-config/inc/fields.php:124
+#: modules.local/config/inc/fields.php:125
+#: modules/inpsyde/worldline-config/inc/fields.php:125
 msgid "Primary gateway title"
 msgstr "Titre de la passerelle principale"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:127
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:127
+#: modules.local/hosted-tokenization-gateway/inc/services.php:129
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:129
 msgid "Visa"
 msgstr "Visa"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:126
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:126
+#: modules.local/hosted-tokenization-gateway/inc/services.php:128
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:128
 msgid "Mastercard"
-msgstr "Mastercard"
+msgstr "Carte Mastercard"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:125
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:125
+#: modules.local/hosted-tokenization-gateway/inc/services.php:127
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:127
 msgid "Maestro"
 msgstr "Maestro"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:124
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:124
+#: modules.local/hosted-tokenization-gateway/inc/services.php:126
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:126
 msgid "JCB"
 msgstr "JCB"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:123
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:123
+#: modules.local/hosted-tokenization-gateway/inc/services.php:125
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:125
 msgid "Discover"
-msgstr "Discover"
+msgstr "Découvrir"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:122
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:122
+#: modules.local/hosted-tokenization-gateway/inc/services.php:124
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:124
 msgid "Diners Club"
 msgstr "Diners Club"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:121
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:121
+#: modules.local/hosted-tokenization-gateway/inc/services.php:123
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:123
 msgid "Cartes Bancaires"
 msgstr "Cartes Bancaires"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:120
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:120
+#: modules.local/hosted-tokenization-gateway/inc/services.php:122
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:122
 msgid "Bancontact"
 msgstr "Bancontact"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:119
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:119
+#: modules.local/hosted-tokenization-gateway/inc/services.php:121
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:121
 msgid "American Express"
 msgstr "American Express"
 
@@ -91,19 +341,19 @@ msgstr "Choisissez les icônes de cartes qui seront affichées lors du paiement.
 msgid "Card icons"
 msgstr "Icônes de cartes"
 
-#: modules.local/config/inc/fields.php:267
-#: modules/inpsyde/worldline-config/inc/fields.php:267
+#: modules.local/config/inc/fields.php:289
+#: modules/inpsyde/worldline-config/inc/fields.php:289
 msgid "(Click here to reset the data now)"
 msgstr "(Cliquez ici pour réinitialiser les données maintenant)"
 
 #. translators: %s is a link for "Clear now"
-#: modules.local/config/inc/fields.php:263
-#: modules/inpsyde/worldline-config/inc/fields.php:263
+#: modules.local/config/inc/fields.php:285
+#: modules/inpsyde/worldline-config/inc/fields.php:285
 msgid "Delete plugin data from the database upon uninstallation. %s"
 msgstr "Supprimer les données du plugin de la base de données lors de la désinstallation. %s"
 
-#: modules.local/config/inc/fields.php:259
-#: modules/inpsyde/worldline-config/inc/fields.php:259
+#: modules.local/config/inc/fields.php:281
+#: modules/inpsyde/worldline-config/inc/fields.php:281
 msgid "Clear data on uninstall"
 msgstr "Effacer les données lors de la désinstallation"
 
@@ -122,18 +372,18 @@ msgstr "Activer Google Pay (Worldline)"
 msgid "Enable Bank transfer (Worldline)"
 msgstr "Activer le virement bancaire (Worldline)"
 
-#: modules.local/apple-pay-gateway/inc/services.php:33
-#: modules/inpsyde/worldline-apple-pay-gateway/inc/services.php:33
+#: modules.local/apple-pay-gateway/inc/services.php:37
+#: modules/inpsyde/worldline-apple-pay-gateway/inc/services.php:37
 msgid "Accept payments with Apple Pay."
 msgstr "Accepter les paiements avec Apple Pay."
 
-#: modules.local/apple-pay-gateway/inc/services.php:31
-#: modules/inpsyde/worldline-apple-pay-gateway/inc/services.php:31
+#: modules.local/apple-pay-gateway/inc/services.php:35
+#: modules/inpsyde/worldline-apple-pay-gateway/inc/services.php:35
 msgid "Apple Pay"
 msgstr "Apple Pay"
 
-#: modules.local/apple-pay-gateway/inc/services.php:29
-#: modules/inpsyde/worldline-apple-pay-gateway/inc/services.php:29
+#: modules.local/apple-pay-gateway/inc/services.php:33
+#: modules/inpsyde/worldline-apple-pay-gateway/inc/services.php:33
 msgid "Apple Pay (Worldline)"
 msgstr "Apple Pay (Worldline)"
 
@@ -142,18 +392,18 @@ msgstr "Apple Pay (Worldline)"
 msgid "Enable Apple Pay (Worldline)"
 msgstr "Activer Apple Pay (Worldline)"
 
-#: modules.local/ideal-gateway/inc/services.php:33
-#: modules/inpsyde/worldline-ideal-gateway/inc/services.php:33
+#: modules.local/ideal-gateway/inc/services.php:37
+#: modules/inpsyde/worldline-ideal-gateway/inc/services.php:37
 msgid "Accept payments with iDEAL."
 msgstr "Accepter les paiements avec iDEAL."
 
-#: modules.local/ideal-gateway/inc/services.php:31
-#: modules/inpsyde/worldline-ideal-gateway/inc/services.php:31
+#: modules.local/ideal-gateway/inc/services.php:35
+#: modules/inpsyde/worldline-ideal-gateway/inc/services.php:35
 msgid "iDEAL"
 msgstr "iDEAL"
 
-#: modules.local/ideal-gateway/inc/services.php:29
-#: modules/inpsyde/worldline-ideal-gateway/inc/services.php:29
+#: modules.local/ideal-gateway/inc/services.php:33
+#: modules/inpsyde/worldline-ideal-gateway/inc/services.php:33
 msgid "iDEAL (Worldline)"
 msgstr "iDEAL (Worldline)"
 
@@ -172,112 +422,112 @@ msgstr "Titre"
 msgid "Enable Credit cards (Worldline)"
 msgstr "Activer des cartes de crédit (Worldline)"
 
-#: modules.local/config/inc/fields.php:252
-#: modules/inpsyde/worldline-config/inc/fields.php:252
+#: modules.local/config/inc/fields.php:274
+#: modules/inpsyde/worldline-config/inc/fields.php:274
 msgid "When enabled, the shopping cart details will be included in the API request."
 msgstr "Si cette option est activée, les détails du panier d'achat seront inclus dans la demande d'API."
 
-#: modules.local/config/inc/fields.php:250
-#: modules/inpsyde/worldline-config/inc/fields.php:250
+#: modules.local/config/inc/fields.php:272
+#: modules/inpsyde/worldline-config/inc/fields.php:272
 msgid "Enable sending cart data"
 msgstr "Activer l'envoi des données du panier"
 
-#: modules.local/config/inc/fields.php:248
-#: modules/inpsyde/worldline-config/inc/fields.php:248
+#: modules.local/config/inc/fields.php:270
+#: modules/inpsyde/worldline-config/inc/fields.php:270
 msgid "Send shopping cart"
 msgstr "Envoyer le panier d'achat"
 
-#: modules.local/bank-transfer-gateway/inc/services.php:35
-#: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:35
+#: modules.local/bank-transfer-gateway/inc/services.php:39
+#: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:39
 msgid "Accept payments with Bank transfer."
 msgstr "Accepter les paiements par virement bancaire."
 
-#: modules.local/bank-transfer-gateway/inc/services.php:33
-#: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:33
+#: modules.local/bank-transfer-gateway/inc/services.php:37
+#: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:37
 msgid "Bank transfer"
 msgstr "Virement bancaire"
 
-#: modules.local/bank-transfer-gateway/inc/services.php:31
-#: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:31
+#: modules.local/bank-transfer-gateway/inc/services.php:35
+#: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:35
 msgid "Bank transfer (Worldline)"
 msgstr "Virement bancaire (Worldline)"
 
-#: modules.local/config/inc/fields.php:240
-#: modules/inpsyde/worldline-config/inc/fields.php:240
+#: modules.local/config/inc/fields.php:262
+#: modules/inpsyde/worldline-config/inc/fields.php:262
 msgid "Request 3DS Exemption"
 msgstr "Demande d'exemption 3DS"
 
-#: modules.local/config/inc/fields.php:232
-#: modules/inpsyde/worldline-config/inc/fields.php:232
+#: modules.local/config/inc/fields.php:254
+#: modules/inpsyde/worldline-config/inc/fields.php:254
 msgid "Enforce 3DS Challenge"
 msgstr "Enforce 3DS Challenge"
 
-#: modules.local/config/inc/fields.php:223
-#: modules/inpsyde/worldline-config/inc/fields.php:223
+#: modules.local/config/inc/fields.php:245
+#: modules/inpsyde/worldline-config/inc/fields.php:245
 msgid "3-D Secure authentication"
 msgstr "Authentification 3-D Secure"
 
 #. translators: %1$s, %2$s - <a> link tags.
-#: modules.local/config/inc/fields.php:41
-#: modules/inpsyde/worldline-config/inc/fields.php:41
+#: modules.local/config/inc/fields.php:42
+#: modules/inpsyde/worldline-config/inc/fields.php:42
 msgid "For creating a live account, please %1$scontact the sales team%2$s."
 msgstr "Pour créer un compte en direct, veuillez %1$scontacter l'équipe de vente%2$s."
 
-#: modules.local/google-pay-gateway/inc/services.php:33
-#: modules/inpsyde/worldline-google-pay-gateway/inc/services.php:33
+#: modules.local/google-pay-gateway/inc/services.php:37
+#: modules/inpsyde/worldline-google-pay-gateway/inc/services.php:37
 msgid "Accept payments with Google Pay."
 msgstr "Accepter les paiements avec Google Pay."
 
-#: modules.local/google-pay-gateway/inc/services.php:31
-#: modules/inpsyde/worldline-google-pay-gateway/inc/services.php:31
+#: modules.local/google-pay-gateway/inc/services.php:35
+#: modules/inpsyde/worldline-google-pay-gateway/inc/services.php:35
 msgid "Google Pay"
 msgstr "Google Pay"
 
-#: modules.local/google-pay-gateway/inc/services.php:29
-#: modules/inpsyde/worldline-google-pay-gateway/inc/services.php:29
+#: modules.local/google-pay-gateway/inc/services.php:33
+#: modules/inpsyde/worldline-google-pay-gateway/inc/services.php:33
 msgid "Google Pay (Worldline)"
 msgstr "Google Pay (Worldline)"
 
-#: modules.local/config/inc/fields.php:167
-#: modules/inpsyde/worldline-config/inc/fields.php:167
+#: modules.local/config/inc/fields.php:168
+#: modules/inpsyde/worldline-config/inc/fields.php:168
 msgid "Hosted tokenization page template"
 msgstr "Modèle de page sur la tokenisation hébergée"
 
-#: modules.local/config/inc/fields.php:162
-#: modules.local/config/inc/fields.php:169
-#: modules/inpsyde/worldline-config/inc/fields.php:162
-#: modules/inpsyde/worldline-config/inc/fields.php:169
+#: modules.local/config/inc/fields.php:163
+#: modules.local/config/inc/fields.php:170
+#: modules/inpsyde/worldline-config/inc/fields.php:163
+#: modules/inpsyde/worldline-config/inc/fields.php:170
 msgid "Leave it empty for the default template."
 msgstr "Laissez-le vide pour le modèle par défaut."
 
-#: modules.local/config/inc/fields.php:160
-#: modules/inpsyde/worldline-config/inc/fields.php:160
+#: modules.local/config/inc/fields.php:161
+#: modules/inpsyde/worldline-config/inc/fields.php:161
 msgid "Hosted checkout page template"
 msgstr "Modèle de page de paiement hébergée"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:64
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:64
+#: modules.local/hosted-tokenization-gateway/inc/services.php:65
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:65
 msgid "Accept payments with credit cards."
 msgstr "Accepter les paiements par carte de crédit."
 
 #: modules.local/hosted-tokenization-gateway/inc/fields.php:29
-#: modules.local/hosted-tokenization-gateway/inc/services.php:60
+#: modules.local/hosted-tokenization-gateway/inc/services.php:61
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/fields.php:29
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:60
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:61
 msgid "Credit cards"
 msgstr "Cartes de crédit"
 
-#: modules.local/hosted-tokenization-gateway/inc/services.php:51
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:51
+#: modules.local/hosted-tokenization-gateway/inc/services.php:52
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:52
 msgid "Credit cards (Worldline)"
 msgstr "Cartes de crédit (Worldline)"
 
-#: modules.local/config/inc/fields.php:127
-#: modules.local/worldline-payment-gateway/inc/services.php:146
+#: modules.local/config/inc/fields.php:128
 #: modules.local/worldline-payment-gateway/inc/services.php:154
-#: modules/inpsyde/worldline-config/inc/fields.php:127
-#: modules/inpsyde/worldline-payment-gateway/inc/services.php:146
+#: modules.local/worldline-payment-gateway/inc/services.php:162
+#: modules/inpsyde/worldline-config/inc/fields.php:128
 #: modules/inpsyde/worldline-payment-gateway/inc/services.php:154
+#: modules/inpsyde/worldline-payment-gateway/inc/services.php:162
 msgid "Worldline for WooCommerce"
 msgstr "Worldline pour WooCommerce"
 
@@ -301,13 +551,13 @@ msgstr "Tester le secret du webhook"
 msgid "Test Webhook ID"
 msgstr "Tester l'ID du Webhook"
 
-#: modules.local/config/inc/fields.php:185
-#: modules/inpsyde/worldline-config/inc/fields.php:185
+#: modules.local/config/inc/fields.php:186
+#: modules/inpsyde/worldline-config/inc/fields.php:186
 msgid "Please make sure that Surcharging is active on your Worldline account. If it is not configured properly, the payments will not be processed."
 msgstr "Veuillez vous assurer que la surtaxe est active sur votre compte Worldline. S'il n'est pas configuré correctement, les paiements ne seront pas traités."
 
-#: modules.local/config/inc/fields.php:152
-#: modules/inpsyde/worldline-config/inc/fields.php:152
+#: modules.local/config/inc/fields.php:153
+#: modules/inpsyde/worldline-config/inc/fields.php:153
 msgid "Show tokenized cards"
 msgstr "Afficher les cartes enregistrées"
 
@@ -325,48 +575,48 @@ msgstr "Trouvez/créez le Webhook Secret dans l'onglet Developer > Webhooks sur 
 msgid "Find/create the Webhook Key in Developer tab > Webhooks on your Worldline Merchant Portal Dashboard."
 msgstr "Trouvez/créez la clé Webhook dans l'onglet Développeur > Webhooks sur votre tableau de bord Worldline Merchant Portal."
 
-#: modules.local/config/inc/fields.php:216
-#: modules/inpsyde/worldline-config/inc/fields.php:216
+#: modules.local/config/inc/fields.php:217
+#: modules/inpsyde/worldline-config/inc/fields.php:217
 msgid "Use authorization to block the funds of your customers for a period of 7 days. Those can't be reversed and need to be captured for the full amount. Use a preauthorization to block the funds of your customers for a period of 30 days. The amount captured can be lower than the authorized amount. Note that all acquirers and activity sectors do not support preauthorizations."
 msgstr "Utilisez l'autorisation pour bloquer les fonds de vos clients pendant une période de 7 jours. Celles-ci ne peuvent être annulées et doivent être saisies pour le montant total. Utilisez une préautorisation pour bloquer les fonds de vos clients pendant une période de 30 jours. Le montant saisi peut être inférieur au montant autorisé. Il est à noter que tous les acquéreurs et tous les secteurs d'activité ne prennent pas en charge les autorisations préalables."
 
-#: modules.local/config/inc/fields.php:202
-#: modules/inpsyde/worldline-config/inc/fields.php:202
+#: modules.local/config/inc/fields.php:203
+#: modules/inpsyde/worldline-config/inc/fields.php:203
 msgid "Define whether you want to work in one step (money captured directly; SALE) or in two steps (authorization followed by a capture; Authorization)."
 msgstr "Définissez si vous souhaitez travailler en une seule étape (argent capturé directement ; VENTE) ou en deux étapes (autorisation suivie d'une capture ; autorisation)."
 
-#: modules.local/config/inc/fields.php:99
-#: modules/inpsyde/worldline-config/inc/fields.php:99
-msgid "Enter Endpoint URL congifured on your live account."
-msgstr "Saisissez l'URL du point de terminaison défini sur votre compte réel."
+#: modules.local/config/inc/fields.php:100
+#: modules/inpsyde/worldline-config/inc/fields.php:100
+msgid "Enter Endpoint URL configured on your live account."
+msgstr "Entrez l'URL du point de terminaison configuré sur votre compte en direct."
 
-#: modules.local/config/inc/fields.php:86
-#: modules/inpsyde/worldline-config/inc/fields.php:86
+#: modules.local/config/inc/fields.php:87
+#: modules/inpsyde/worldline-config/inc/fields.php:87
 msgid "Find/create the API Secret in Developer tab > Payment API on your Worldline Merchant Portal Dashboard."
 msgstr "Trouvez/créez le secret API dans l'onglet Développeur > Payment API sur votre tableau de bord Worldline Merchant Portal."
 
-#: modules.local/config/inc/fields.php:77
-#: modules/inpsyde/worldline-config/inc/fields.php:77
+#: modules.local/config/inc/fields.php:78
+#: modules/inpsyde/worldline-config/inc/fields.php:78
 msgid "Find/create the API Key in Developer tab > Payment API on your Worldline Merchant Portal Dashboard."
 msgstr "Trouvez/créez la clé API dans l'onglet Développeur > API de paiement sur le tableau de bord de votre portail marchand Worldline."
 
-#: modules.local/config/inc/fields.php:71
-#: modules/inpsyde/worldline-config/inc/fields.php:71
-msgid "Enter Endpoint URL congifured on your test account."
-msgstr "Saisissez l'URL du point de terminaison défini sur votre compte de test."
+#: modules.local/config/inc/fields.php:72
+#: modules/inpsyde/worldline-config/inc/fields.php:72
+msgid "Enter Endpoint URL configured on your test account."
+msgstr "Entrez l'URL du point de terminaison configuré sur votre compte de test."
 
-#: modules.local/config/inc/fields.php:58
-#: modules/inpsyde/worldline-config/inc/fields.php:58
+#: modules.local/config/inc/fields.php:59
+#: modules/inpsyde/worldline-config/inc/fields.php:59
 msgid "Find/create the API Secret in Developer tab > Payment API on your Worldline Merchant Portal Dashboard(Test)."
 msgstr "Trouvez/créez le secret API dans l'onglet Développeur > Payment API sur votre tableau de bord Worldline Merchant Portal (Test)."
 
-#: modules.local/config/inc/fields.php:49
-#: modules/inpsyde/worldline-config/inc/fields.php:49
+#: modules.local/config/inc/fields.php:50
+#: modules/inpsyde/worldline-config/inc/fields.php:50
 msgid "Find/create the API Key in Developer tab > Payment API on your Worldline Merchant Portal Dashboard(Test)."
 msgstr "Trouvez/créez la clé API dans l'onglet Développeur > Payment API sur votre tableau de bord Worldline Merchant Portal (Test)."
 
-#: modules.local/config/inc/fields.php:28
-#: modules/inpsyde/worldline-config/inc/fields.php:28
+#: modules.local/config/inc/fields.php:29
+#: modules/inpsyde/worldline-config/inc/fields.php:29
 msgid "Enter your Merchant ID or your Worldline Login Name."
 msgstr "Saisissez votre identifiant marchand ou votre nom de connexion Worldline."
 
@@ -398,8 +648,8 @@ msgstr "%1$sDocumentation%2$s"
 msgid "%1$sContact Us%2$s"
 msgstr "%1$sContactez-nous%2$s"
 
-#: modules.local/worldline-payment-gateway/src/WorldlinePaymentGatewayModule.php:165
-#: modules/inpsyde/worldline-payment-gateway/src/WorldlinePaymentGatewayModule.php:165
+#: modules.local/worldline-payment-gateway/src/WorldlinePaymentGatewayModule.php:172
+#: modules/inpsyde/worldline-payment-gateway/src/WorldlinePaymentGatewayModule.php:172
 msgid "The currency currently used by your store is not enabled in your Worldline account."
 msgstr "La devise actuellement utilisée par votre magasin n'est pas activée dans votre compte Worldline."
 
@@ -419,10 +669,10 @@ msgstr "Échec de la demande de remboursement. Veuillez réessayer."
 msgid "This order doesn't meet the requirements to issue a refund."
 msgstr "Cette commande ne remplit pas les conditions requises pour faire l'objet d'un remboursement."
 
-#: modules.local/hosted-tokenization-gateway/src/Payment/HostedTokenizationPaymentProcessor.php:127
-#: modules.local/worldline-payment-gateway/src/Payment/HostedPaymentProcessor.php:93
-#: modules/inpsyde/worldline-hosted-tokenization-gateway/src/Payment/HostedTokenizationPaymentProcessor.php:127
-#: modules/inpsyde/worldline-payment-gateway/src/Payment/HostedPaymentProcessor.php:93
+#: modules.local/hosted-tokenization-gateway/src/Payment/HostedTokenizationPaymentProcessor.php:130
+#: modules.local/worldline-payment-gateway/src/Payment/HostedPaymentProcessor.php:95
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/src/Payment/HostedTokenizationPaymentProcessor.php:130
+#: modules/inpsyde/worldline-payment-gateway/src/Payment/HostedPaymentProcessor.php:95
 msgid "Failed to process checkout. Please try again or contact the shop admin."
 msgstr "Échec du traitement de la commande. Veuillez réessayer ou contacter l'administrateur de la boutique."
 
@@ -456,18 +706,18 @@ msgstr "Actualiser le statut de Worldline"
 msgid "Capture authorized Worldline payment"
 msgstr "Saisir le paiement autorisé par Worldline"
 
-#: modules.local/worldline-payment-gateway/inc/services.php:172
-#: modules/inpsyde/worldline-payment-gateway/inc/services.php:172
+#: modules.local/worldline-payment-gateway/inc/services.php:180
+#: modules/inpsyde/worldline-payment-gateway/inc/services.php:180
 msgid "Accepting all major and local payment options."
 msgstr "Nous acceptons toutes les options de paiement majeures et locales."
 
-#: modules.local/worldline-payment-gateway/inc/services.php:166
-#: modules/inpsyde/worldline-payment-gateway/inc/services.php:166
+#: modules.local/worldline-payment-gateway/inc/services.php:174
+#: modules/inpsyde/worldline-payment-gateway/inc/services.php:174
 msgid "Accepting all major and local payment options. Final price may differ at checkout due to possible surcharges."
 msgstr "Nous acceptons toutes les options de paiement majeures et locales. Le prix final peut être différent au moment du paiement en raison d'éventuels surtaxe."
 
-#: modules.local/worldline-payment-gateway/inc/services.php:158
-#: modules/inpsyde/worldline-payment-gateway/inc/services.php:158
+#: modules.local/worldline-payment-gateway/inc/services.php:166
+#: modules/inpsyde/worldline-payment-gateway/inc/services.php:166
 msgid "Accept payments with all major and local payment methods."
 msgstr "Nous acceptons les paiements avec tous les moyens de paiement majeurs et locaux."
 
@@ -553,195 +803,201 @@ msgstr "Payez avec votre carte enregistrée xxxx-%1$s"
 msgid "Invalid API endpoint URL. Should be similar to \"%s\"."
 msgstr "L'URL du point de terminaison de l'API n'est pas valide. Devrait être similaire à \"%s\"."
 
-#: modules.local/config/inc/services.php:56
+#: modules.local/config/inc/services.php:57
 #: modules.local/config/src/ConfigModule.php:69
-#: modules/inpsyde/worldline-config/inc/services.php:56
+#: modules/inpsyde/worldline-config/inc/services.php:57
 #: modules/inpsyde/worldline-config/src/ConfigModule.php:69
 msgid "Connection to the Worldline API failed. Check the credentials."
 msgstr "La connexion à l'API Worldline a échoué. Vérifiez les informations d'identification."
 
-#: modules.local/config/inc/fields.php:279
-#: modules/inpsyde/worldline-config/inc/fields.php:279
+#: modules.local/config/inc/fields.php:301
+#: modules/inpsyde/worldline-config/inc/fields.php:301
 msgid "Enable Worldline Payments"
 msgstr "Activer les paiements en ligne"
 
 #: modules.local/apple-pay-gateway/inc/fields.php:15
 #: modules.local/bank-transfer-gateway/inc/fields.php:15
-#: modules.local/config/inc/fields.php:277
+#: modules.local/config/inc/fields.php:299
 #: modules.local/google-pay-gateway/inc/fields.php:15
 #: modules.local/hosted-tokenization-gateway/inc/fields.php:19
 #: modules.local/ideal-gateway/inc/fields.php:15
+#: modules.local/klarna-gateway/inc/services.php:42
+#: modules.local/postfinance/src/Postfinance.php:168
+#: modules.local/twint-gateway/inc/fields.php:13
 #: modules/inpsyde/worldline-apple-pay-gateway/inc/fields.php:15
 #: modules/inpsyde/worldline-bank-transfer-gateway/inc/fields.php:15
-#: modules/inpsyde/worldline-config/inc/fields.php:277
+#: modules/inpsyde/worldline-config/inc/fields.php:299
 #: modules/inpsyde/worldline-google-pay-gateway/inc/fields.php:15
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/fields.php:19
 #: modules/inpsyde/worldline-ideal-gateway/inc/fields.php:15
+#: modules/inpsyde/worldline-klarna-gateway/inc/services.php:42
+#: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:168
+#: modules/inpsyde/worldline-twint-gateway/inc/fields.php:13
 msgid "Enable/Disable"
 msgstr "Activer/Désactiver"
 
-#: modules.local/config/inc/fields.php:214
-#: modules/inpsyde/worldline-config/inc/fields.php:214
+#: modules.local/config/inc/fields.php:215
+#: modules/inpsyde/worldline-config/inc/fields.php:215
 msgid "Pre-authorization"
 msgstr "Pré-autorisation"
 
-#: modules.local/config/inc/fields.php:213
-#: modules/inpsyde/worldline-config/inc/fields.php:213
+#: modules.local/config/inc/fields.php:214
+#: modules/inpsyde/worldline-config/inc/fields.php:214
 msgid "Final authorization"
 msgstr "Autorisation finale"
 
-#: modules.local/config/inc/fields.php:209
-#: modules/inpsyde/worldline-config/inc/fields.php:209
+#: modules.local/config/inc/fields.php:210
+#: modules/inpsyde/worldline-config/inc/fields.php:210
 msgid "Authorization mode for credit cards"
 msgstr "Mode d'autorisation pour les cartes de crédit"
 
-#: modules.local/config/inc/fields.php:200
-#: modules/inpsyde/worldline-config/inc/fields.php:200
+#: modules.local/config/inc/fields.php:201
+#: modules/inpsyde/worldline-config/inc/fields.php:201
 msgid "Sale"
 msgstr "Vente"
 
-#: modules.local/config/inc/fields.php:199
-#: modules/inpsyde/worldline-config/inc/fields.php:199
+#: modules.local/config/inc/fields.php:200
+#: modules/inpsyde/worldline-config/inc/fields.php:200
 msgid "Authorization"
 msgstr "Autorisation"
 
-#: modules.local/config/inc/fields.php:195
-#: modules/inpsyde/worldline-config/inc/fields.php:195
+#: modules.local/config/inc/fields.php:196
+#: modules/inpsyde/worldline-config/inc/fields.php:196
 msgid "Authorization mode"
 msgstr "Mode d'autorisation"
 
-#: modules.local/config/inc/fields.php:191
-#: modules/inpsyde/worldline-config/inc/fields.php:191
+#: modules.local/config/inc/fields.php:192
+#: modules/inpsyde/worldline-config/inc/fields.php:192
 msgid "Advanced settings"
 msgstr "Paramètres avancés"
 
-#: modules.local/config/inc/fields.php:183
-#: modules/inpsyde/worldline-config/inc/fields.php:183
+#: modules.local/config/inc/fields.php:184
+#: modules/inpsyde/worldline-config/inc/fields.php:184
 msgid "Instruct the payment platform to calculate and apply a surcharge amount to a transaction, based on the merchant’s surcharge configuration, net amount, and payment product type."
 msgstr "Demander à la plateforme de paiement de calculer et d'appliquer un montant de surtaxe à une transaction, en fonction de la configuration de la surtaxe du commerçant, du montant net et du type de produit de paiement."
 
-#: modules.local/config/inc/fields.php:154
-#: modules.local/config/inc/fields.php:182
-#: modules.local/config/inc/fields.php:225
-#: modules.local/config/inc/fields.php:234
-#: modules.local/config/inc/fields.php:242
-#: modules/inpsyde/worldline-config/inc/fields.php:154
-#: modules/inpsyde/worldline-config/inc/fields.php:182
-#: modules/inpsyde/worldline-config/inc/fields.php:225
-#: modules/inpsyde/worldline-config/inc/fields.php:234
-#: modules/inpsyde/worldline-config/inc/fields.php:242
+#: modules.local/config/inc/fields.php:155
+#: modules.local/config/inc/fields.php:183
+#: modules.local/config/inc/fields.php:247
+#: modules.local/config/inc/fields.php:256
+#: modules.local/config/inc/fields.php:264
+#: modules/inpsyde/worldline-config/inc/fields.php:155
+#: modules/inpsyde/worldline-config/inc/fields.php:183
+#: modules/inpsyde/worldline-config/inc/fields.php:247
+#: modules/inpsyde/worldline-config/inc/fields.php:256
+#: modules/inpsyde/worldline-config/inc/fields.php:264
 msgid "Enable"
 msgstr "Activer"
 
-#: modules.local/config/inc/fields.php:180
+#: modules.local/config/inc/fields.php:181
 #: modules.local/worldline-payment-gateway/src/OrderUpdater.php:282
-#: modules/inpsyde/worldline-config/inc/fields.php:180
+#: modules/inpsyde/worldline-config/inc/fields.php:181
 #: modules/inpsyde/worldline-payment-gateway/src/OrderUpdater.php:282
 msgid "Surcharge"
 msgstr "Surtaxe"
 
-#: modules.local/config/inc/fields.php:176
-#: modules/inpsyde/worldline-config/inc/fields.php:176
+#: modules.local/config/inc/fields.php:177
+#: modules/inpsyde/worldline-config/inc/fields.php:177
 msgid "Surcharge settings"
 msgstr "Paramètres de la surtaxe"
 
-#: modules.local/config/inc/fields.php:155
-#: modules/inpsyde/worldline-config/inc/fields.php:155
+#: modules.local/config/inc/fields.php:156
+#: modules/inpsyde/worldline-config/inc/fields.php:156
 msgid "When a customer has stored cards, additional \"Pay with your stored card ...\" buttons will be displayed in checkout."
 msgstr "Lorsqu'un client a enregistré des cartes, des boutons supplémentaires « Payer avec votre carte enregistrée... » s'afficheront lors du paiement."
 
-#: modules.local/config/inc/fields.php:146
-#: modules/inpsyde/worldline-config/inc/fields.php:146
+#: modules.local/config/inc/fields.php:147
+#: modules/inpsyde/worldline-config/inc/fields.php:147
 msgid "Enable card grouping"
 msgstr "Activer le regroupement des cartes"
 
-#: modules.local/config/inc/fields.php:145
-#: modules/inpsyde/worldline-config/inc/fields.php:145
+#: modules.local/config/inc/fields.php:146
+#: modules/inpsyde/worldline-config/inc/fields.php:146
 msgid "Grouped Cards"
 msgstr "Cartes groupées"
 
-#: modules.local/config/inc/fields.php:141
-#: modules/inpsyde/worldline-config/inc/fields.php:141
+#: modules.local/config/inc/fields.php:142
+#: modules/inpsyde/worldline-config/inc/fields.php:142
 msgid "Full redirection to Worldline Payment Page"
 msgstr "Redirection complète vers la page de paiement de Worldline"
 
-#: modules.local/config/inc/fields.php:137
-#: modules/inpsyde/worldline-config/inc/fields.php:137
+#: modules.local/config/inc/fields.php:138
+#: modules/inpsyde/worldline-config/inc/fields.php:138
 msgid "Checkout type"
 msgstr "Type de paiement"
 
-#: modules.local/config/inc/fields.php:133
-#: modules/inpsyde/worldline-config/inc/fields.php:133
+#: modules.local/config/inc/fields.php:134
+#: modules/inpsyde/worldline-config/inc/fields.php:134
 msgid "Personalize the Checkout Button text."
 msgstr "Personnalisez le texte du bouton de paiement."
 
-#: modules.local/config/inc/fields.php:131
-#: modules/inpsyde/worldline-config/inc/fields.php:131
+#: modules.local/config/inc/fields.php:132
+#: modules/inpsyde/worldline-config/inc/fields.php:132
 msgid "Payment button title"
 msgstr "Titre du bouton de paiement"
 
-#: modules.local/config/inc/fields.php:120
-#: modules/inpsyde/worldline-config/inc/fields.php:120
+#: modules.local/config/inc/fields.php:121
+#: modules/inpsyde/worldline-config/inc/fields.php:121
 msgid "Checkout appearance"
 msgstr "Apparence de la caisse"
 
-#: modules.local/config/inc/fields.php:111
-#: modules/inpsyde/worldline-config/inc/fields.php:111
+#: modules.local/config/inc/fields.php:112
+#: modules/inpsyde/worldline-config/inc/fields.php:112
 msgid "Write more details into the logs, such as HTTP requests."
 msgstr "Inscrire plus de détails dans les journaux, tels que les requêtes HTTP."
 
-#: modules.local/config/inc/fields.php:108
-#: modules/inpsyde/worldline-config/inc/fields.php:108
+#: modules.local/config/inc/fields.php:109
+#: modules/inpsyde/worldline-config/inc/fields.php:109
 msgid "Enable debug logging"
 msgstr "Activer la journalisation de débogage"
 
-#: modules.local/config/inc/fields.php:106
-#: modules/inpsyde/worldline-config/inc/fields.php:106
+#: modules.local/config/inc/fields.php:107
+#: modules/inpsyde/worldline-config/inc/fields.php:107
 msgid "Advanced logging"
 msgstr "Journalisation avancée"
 
-#: modules.local/config/inc/fields.php:96
-#: modules/inpsyde/worldline-config/inc/fields.php:96
+#: modules.local/config/inc/fields.php:97
+#: modules/inpsyde/worldline-config/inc/fields.php:97
 msgid "Live API Endpoint"
 msgstr "Point final de l'API en direct"
 
-#: modules.local/config/inc/fields.php:84
-#: modules/inpsyde/worldline-config/inc/fields.php:84
+#: modules.local/config/inc/fields.php:85
+#: modules/inpsyde/worldline-config/inc/fields.php:85
 msgid "Live API Secret"
 msgstr "Secret de l'API en direct"
 
-#: modules.local/config/inc/fields.php:75
-#: modules/inpsyde/worldline-config/inc/fields.php:75
+#: modules.local/config/inc/fields.php:76
+#: modules/inpsyde/worldline-config/inc/fields.php:76
 msgid "Live API Key"
 msgstr "Clé API Live"
 
-#: modules.local/config/inc/fields.php:68
-#: modules/inpsyde/worldline-config/inc/fields.php:68
+#: modules.local/config/inc/fields.php:69
+#: modules/inpsyde/worldline-config/inc/fields.php:69
 msgid "Test API Endpoint"
 msgstr "Test du point final de l'API"
 
-#: modules.local/config/inc/fields.php:56
-#: modules/inpsyde/worldline-config/inc/fields.php:56
+#: modules.local/config/inc/fields.php:57
+#: modules/inpsyde/worldline-config/inc/fields.php:57
 msgid "Test API Secret"
 msgstr "Secret de l'API de test"
 
-#: modules.local/config/inc/fields.php:47
-#: modules/inpsyde/worldline-config/inc/fields.php:47
+#: modules.local/config/inc/fields.php:48
+#: modules/inpsyde/worldline-config/inc/fields.php:48
 msgid "Test API Key"
 msgstr "Clé API de test"
 
-#: modules.local/config/inc/fields.php:34
-#: modules/inpsyde/worldline-config/inc/fields.php:34
+#: modules.local/config/inc/fields.php:35
+#: modules/inpsyde/worldline-config/inc/fields.php:35
 msgid "Use the live environment"
 msgstr "Utiliser l'environnement réel"
 
-#: modules.local/config/inc/fields.php:32
-#: modules/inpsyde/worldline-config/inc/fields.php:32
+#: modules.local/config/inc/fields.php:33
+#: modules/inpsyde/worldline-config/inc/fields.php:33
 msgid "Live mode"
 msgstr "Mode en direct"
 
-#: modules.local/config/inc/fields.php:26
-#: modules/inpsyde/worldline-config/inc/fields.php:26
+#: modules.local/config/inc/fields.php:27
+#: modules/inpsyde/worldline-config/inc/fields.php:27
 msgid "PSPID"
 msgstr "PSPID"
 

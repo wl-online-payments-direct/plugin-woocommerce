@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Validator;
+namespace Syde\Vendor\Worldline\Dhii\Validator;
 
-use Syde\Vendor\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
-use Syde\Vendor\Dhii\Validation\ValidatorInterface;
-use Syde\Vendor\Dhii\Validator\Exception\ValidationFailedException;
+use Syde\Vendor\Worldline\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
+use Syde\Vendor\Worldline\Dhii\Validation\ValidatorInterface;
+use Syde\Vendor\Worldline\Dhii\Validator\Exception\ValidationFailedException;
 use Exception;
 use RuntimeException;
 class CallbackValidator implements ValidatorInterface

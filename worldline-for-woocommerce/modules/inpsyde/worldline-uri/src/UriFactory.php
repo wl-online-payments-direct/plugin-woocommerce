@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Uri;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Uri;
 
 use InvalidArgumentException;
-use Syde\Vendor\Psr\Http\Message\UriFactoryInterface;
-use Syde\Vendor\Psr\Http\Message\UriInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\UriFactoryInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\UriInterface;
 /**
  * Parses and creates a URI.
  */

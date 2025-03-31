@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Vaulting;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting;
 
 use WC_Payment_Token_CC;
 class CardButtonRenderer

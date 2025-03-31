@@ -3,9 +3,9 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClient;
 /**
  * API specifications
  */

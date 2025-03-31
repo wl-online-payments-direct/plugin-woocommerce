@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Config;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config;
 
 use Exception;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 /**
  * The wrapper for reading/writing the gateway settings.
  */

@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Environment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment;
 
-use Syde\Vendor\Dhii\Package\Version\StringVersionFactoryInterface;
+use Syde\Vendor\Worldline\Dhii\Package\Version\StringVersionFactoryInterface;
 use Exception;
 use WooCommerce;
 use function do_action;

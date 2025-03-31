@@ -6,7 +6,7 @@
  * @package WooCommerce\PayPalCommerce\WcGateway\Notice
  */
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice;
 
 class OrderActionNotice
 {

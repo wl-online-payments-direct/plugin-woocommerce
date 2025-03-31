@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Versions;
+namespace Syde\Vendor\Worldline\Dhii\Versions;
 
-use Syde\Vendor\Dhii\Package\Version\StringVersionFactoryInterface;
-use Syde\Vendor\Dhii\Package\Version\VersionInterface;
+use Syde\Vendor\Worldline\Dhii\Package\Version\StringVersionFactoryInterface;
+use Syde\Vendor\Worldline\Dhii\Package\Version\VersionInterface;
 use DomainException;
 use Exception;
 use RangeException;

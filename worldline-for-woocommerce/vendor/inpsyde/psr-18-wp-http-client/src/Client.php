@@ -1,17 +1,17 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Wp\HttpClient;
+namespace Syde\Vendor\Worldline\Inpsyde\Wp\HttpClient;
 
-use Syde\Vendor\Inpsyde\Wp\HttpClient\Exception\NetworkException;
-use Syde\Vendor\Inpsyde\Wp\HttpClient\Exception\RequestException;
-use Syde\Vendor\Psr\Http\Client\ClientInterface;
-use Syde\Vendor\Psr\Http\Message\RequestInterface;
-use Syde\Vendor\Psr\Http\Message\ResponseFactoryInterface;
-use Syde\Vendor\Psr\Http\Message\ResponseInterface;
-use Syde\Vendor\Psr\Http\Message\RequestFactoryInterface;
-use Syde\Vendor\Psr\Http\Message\StreamFactoryInterface;
-use Syde\Vendor\Psr\Http\Message\StreamInterface;
+use Syde\Vendor\Worldline\Inpsyde\Wp\HttpClient\Exception\NetworkException;
+use Syde\Vendor\Worldline\Inpsyde\Wp\HttpClient\Exception\RequestException;
+use Syde\Vendor\Worldline\Psr\Http\Client\ClientInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\RequestInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\ResponseFactoryInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\ResponseInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\RequestFactoryInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\StreamFactoryInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\StreamInterface;
 use WP_Http;
 use WP_Http_Cookie;
 use function wp_remote_retrieve_response_code;

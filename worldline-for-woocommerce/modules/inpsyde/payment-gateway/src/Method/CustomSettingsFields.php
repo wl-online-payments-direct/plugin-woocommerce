@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway\Method;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Method;
 
-use Syde\Vendor\Inpsyde\PaymentGateway\SettingsFieldRendererInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\SettingsFieldSanitizerInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\SettingsFieldRendererInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\SettingsFieldSanitizerInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class CustomSettingsFields implements CustomSettingsFieldsDefinition
 {
     /**

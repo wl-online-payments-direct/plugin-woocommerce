@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Logger;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger;
 
-use Syde\Vendor\Psr\Log\AbstractLogger;
-use Syde\Vendor\Psr\Log\LoggerInterface;
+use Syde\Vendor\Worldline\Psr\Log\AbstractLogger;
+use Syde\Vendor\Worldline\Psr\Log\LoggerInterface;
 /**
  * Logger that does not log on itself, but translates to internal loggers.
  */

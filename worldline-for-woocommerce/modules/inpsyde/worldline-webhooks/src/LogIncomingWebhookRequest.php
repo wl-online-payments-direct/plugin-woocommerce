@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks;
 
 use WP_REST_Request;
 /**

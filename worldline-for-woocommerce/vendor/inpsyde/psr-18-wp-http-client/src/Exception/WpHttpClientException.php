@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Wp\HttpClient\Exception;
+namespace Syde\Vendor\Worldline\Inpsyde\Wp\HttpClient\Exception;
 
-use Syde\Vendor\Psr\Http\Client\ClientExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Http\Client\ClientExceptionInterface;
 use RuntimeException;
 /**
  * General Http Client exception.

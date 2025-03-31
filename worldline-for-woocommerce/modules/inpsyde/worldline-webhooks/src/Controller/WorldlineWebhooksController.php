@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Controller;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Controller;
 
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\WebhookHandlerInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper\WebhookHelper;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue\WebhookQueueInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\WebhookEventFactory;
-use Syde\Vendor\OnlinePayments\Sdk\Webhooks\SignatureValidationException;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\WebhookHandlerInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Helper\WebhookHelper;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue\WebhookQueueInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\WebhookEventFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks\SignatureValidationException;
 use Throwable;
 use WP_REST_Request;
 use WP_REST_Response;

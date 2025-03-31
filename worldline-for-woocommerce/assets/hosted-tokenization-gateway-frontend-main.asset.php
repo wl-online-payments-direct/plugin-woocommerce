@@ -1,5 +1,5 @@
 <?php
 
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-return array('dependencies' => array('regenerator-runtime', 'wp-deprecated', 'wp-element', 'wp-hooks', 'wp-html-entities', 'wp-i18n'), 'version' => '1a0ac9f3f1f0e29739d1');
+return array('dependencies' => array('regenerator-runtime', 'wp-deprecated', 'wp-element', 'wp-hooks', 'wp-html-entities', 'wp-i18n'), 'version' => 'b5e5bf864e1f8fcda450');

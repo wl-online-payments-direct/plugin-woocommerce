@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway\Method;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Method;
 
-use Syde\Vendor\Inpsyde\PaymentGateway\GatewayIconsRendererInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\IconProviderInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentFieldsRendererInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentMethodServiceProviderTrait;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentProcessorInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentRequestValidatorInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\RefundProcessorInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\GatewayIconsRendererInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\IconProviderInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentFieldsRendererInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentMethodServiceProviderTrait;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentProcessorInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentRequestValidatorInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\RefundProcessorInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 use WC_Payment_Gateway;
 /**
  * This interface describes a payment method within the service locator paradigm
@@ -51,4 +51,5 @@ interface PaymentMethodDefinition
     public function registerBlocks(ContainerInterface $container): bool;
     public function orderButtonText(ContainerInterface $container): string;
     public function customSettings(): CustomSettingsFieldsDefinition;
+    public function icon(ContainerInterface $container): string;
 }

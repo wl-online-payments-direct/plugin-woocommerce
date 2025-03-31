@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks;
 
 use Exception;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Syde\Vendor\OnlinePayments\Sdk\Webhooks\InMemorySecretKeyStore;
-use Syde\Vendor\OnlinePayments\Sdk\Webhooks\SignatureValidationException;
-use Syde\Vendor\OnlinePayments\Sdk\Webhooks\WebhooksHelper;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks\InMemorySecretKeyStore;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks\SignatureValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks\WebhooksHelper;
 class WebhookEventFactory
 {
     private string $webhookId;

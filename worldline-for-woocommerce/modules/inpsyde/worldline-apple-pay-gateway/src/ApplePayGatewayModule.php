@@ -1,14 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ApplePayGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ApplePayGateway;
 
-use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
 class ApplePayGatewayModule implements ServiceModule, ExtendingModule
 {
     use ModuleClassNameIdTrait;
+    public const PACKAGE_NAME = 'worldline-apple-pay-gateway';
     public function services(): array
     {
         static $services;

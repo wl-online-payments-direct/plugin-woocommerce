@@ -23,15 +23,15 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Dhii\\Services\\": "src"
+            "Syde\\Vendor\\Worldline\\Dhii\\Services\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Dhii\\Services\\Tests\\Unit\\": "tests\/unit",
-            "Syde\\Vendor\\Dhii\\Services\\Tests\\Func\\": "tests\/functional",
-            "Syde\\Vendor\\Dhii\\Services\\Tests\\Stubs\\": "tests\/stubs",
-            "Syde\\Vendor\\Dhii\\Services\\Tests\\Helpers\\": "tests\/helpers"
+            "Syde\\Vendor\\Worldline\\Dhii\\Services\\Tests\\Unit\\": "tests\/unit",
+            "Syde\\Vendor\\Worldline\\Dhii\\Services\\Tests\\Func\\": "tests\/functional",
+            "Syde\\Vendor\\Worldline\\Dhii\\Services\\Tests\\Stubs\\": "tests\/stubs",
+            "Syde\\Vendor\\Worldline\\Dhii\\Services\\Tests\\Helpers\\": "tests\/helpers"
         }
     },
     "scripts": {

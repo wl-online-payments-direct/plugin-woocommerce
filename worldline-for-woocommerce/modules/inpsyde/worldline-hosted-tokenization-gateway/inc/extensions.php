@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Log\LogLevel;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Log\LogLevel;
 return static function (): array {
     return ['payment_gateways' => static function (array $gateways, ContainerInterface $container): array {
         $gateways[] = GatewayIds::HOSTED_TOKENIZATION;

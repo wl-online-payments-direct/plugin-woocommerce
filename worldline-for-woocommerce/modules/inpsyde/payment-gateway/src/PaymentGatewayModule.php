@@ -4,18 +4,20 @@
 //phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
 //phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway;
 
 use Automattic\WooCommerce\Blocks\Payments\Integrations\AbstractPaymentMethodType;
 use Automattic\WooCommerce\Blocks\Payments\PaymentMethodRegistry;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
-use Syde\Vendor\Inpsyde\PaymentGateway\Fields\ContentField;
-use Syde\Vendor\Inpsyde\PaymentGateway\Method\PaymentMethodDefinition;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\PluginProperties;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Fields\ContentField;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Method\PaymentMethodDefinition;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 class PaymentGatewayModule implements ServiceModule, ExecutableModule
 {
     use ModuleClassNameIdTrait;
@@ -30,49 +32,73 @@ class PaymentGatewayModule implements ServiceModule, ExecutableModule
     }
     public function services(): array
     {
-        return array_merge(['payment_gateways.assets_url' => function (): string {
-            return $this->getPluginFileUrlFromAbsolutePath(dirname(__DIR__) . '/assets');
-        }, 'payment_gateways.assets_path' => static function (): string {
-            return dirname(__DIR__) . '/assets';
-        }, 'payment_gateways.noop_payment_request_validator' => static function (): PaymentRequestValidatorInterface {
-            return new NoopPaymentRequestValidator();
-        }, 'payment_gateways.noop_payment_processor' => static function (): PaymentProcessorInterface {
-            return new NoopPaymentProcessor();
-        }, 'payment_gateways.noop_refund_processor' => static function (): RefundProcessorInterface {
-            return new NoopRefundProcessor();
-        }, 'payment_gateways.settings_field_renderer.content' => static function (): SettingsFieldRendererInterface {
-            return new ContentField();
-        }, 'payment_gateways' => function (): array {
-            $gateways = [];
-            foreach ($this->paymentMethods as $paymentMethod) {
-                $gateways[] = $paymentMethod->id();
-            }
-            return $gateways;
-        }, 'payment_gateways.methods_supporting_blocks' => static function (ContainerInterface $container): array {
-            $supported = [];
-            $allMethods = $container->get('payment_gateways');
-            foreach ($allMethods as $method) {
-                $registerBlocksKey = 'payment_gateway.' . $method . '.register_blocks';
-                $shouldRegister = \true;
-                if ($container->has($registerBlocksKey)) {
-                    $shouldRegister = (bool) $container->get($registerBlocksKey);
+        return array_merge([
+            /**
+             * WooCommerce (>= 9.6) derives the payment gateway plugin slug via reflection
+             * (see \Automattic\WooCommerce\Internal\Admin\Settings\PaymentProviders\PaymentGateway::get_plugin_slug)
+             * but first checks if the plugin_slug property is set. By setting it explicitly here, we
+             * prevent potential namespace conflicts when multiple plugins use this payment gateway library.
+             */
+            'payment_gateways.plugin_slug' => static function (ContainerInterface $container): string {
+                /** @var PluginProperties $properties */
+                $pluginProperties = $container->get(Package::PROPERTIES);
+                return $pluginProperties->baseName();
+            },
+            'payment_gateways.assets_url' => function (): string {
+                return $this->getPluginFileUrlFromAbsolutePath(dirname(__DIR__) . '/assets');
+            },
+            'payment_gateways.assets_path' => static function (): string {
+                return dirname(__DIR__) . '/assets';
+            },
+            'payment_gateways.noop_payment_request_validator' => static function (): PaymentRequestValidatorInterface {
+                return new NoopPaymentRequestValidator();
+            },
+            'payment_gateways.noop_payment_processor' => static function (): PaymentProcessorInterface {
+                return new NoopPaymentProcessor();
+            },
+            'payment_gateways.noop_refund_processor' => static function (): RefundProcessorInterface {
+                return new NoopRefundProcessor();
+            },
+            'payment_gateways.settings_field_renderer.content' => static function (): SettingsFieldRendererInterface {
+                return new ContentField();
+            },
+            'payment_gateways' => function (): array {
+                $gateways = [];
+                foreach ($this->paymentMethods as $paymentMethod) {
+                    $gateways[] = $paymentMethod->id();
                 }
-                if ($shouldRegister) {
-                    $supported[] = $method;
+                return $gateways;
+            },
+            'payment_gateways.methods_supporting_blocks' => static function (ContainerInterface $container): array {
+                $supported = [];
+                $allMethods = $container->get('payment_gateways');
+                foreach ($allMethods as $method) {
+                    $registerBlocksKey = 'payment_gateway.' . $method . '.register_blocks';
+                    $shouldRegister = \true;
+                    if ($container->has($registerBlocksKey)) {
+                        $shouldRegister = (bool) $container->get($registerBlocksKey);
+                    }
+                    if ($shouldRegister) {
+                        $supported[] = $method;
+                    }
                 }
-            }
-            return $supported;
-        }, 'payment_gateways.required_services' => static function (): array {
-            return ['payment_gateway.%s.payment_request_validator', 'payment_gateway.%s.payment_processor'];
-        }, 'payment_gateways.validator' => static function (ContainerInterface $container): PaymentGatewayValidator {
-            $requiredServices = $container->get('payment_gateways.required_services');
-            assert(is_array($requiredServices));
-            return new PaymentGatewayValidator($container, $requiredServices);
-        }, 'payment_gateways.i18n' => static fn(ContainerInterface $container): I18n => new I18n($container), 'payment_gateways.i18n.messages' => static fn(): array => ['refund_order_not_found' => static fn(array $params): string => sprintf(
-            /* translators: %1$s is replaced with the actual order ID. */
-            __('Failed to process the refund: the order with ID %1$s not found', 'syde-payment-gateway'),
-            (string) $params['orderId']
-        ), 'refund_failed' => __('Failed to refund the order payment', 'syde-payment-gateway'), 'payment_method_not_available' => __('Payment method not available. Please select another payment method.', 'syde-payment-gateway')]], $this->providePaymentMethodServices(...$this->paymentMethods));
+                return $supported;
+            },
+            'payment_gateways.required_services' => static function (): array {
+                return ['payment_gateway.%s.payment_request_validator', 'payment_gateway.%s.payment_processor'];
+            },
+            'payment_gateways.validator' => static function (ContainerInterface $container): PaymentGatewayValidator {
+                $requiredServices = $container->get('payment_gateways.required_services');
+                assert(is_array($requiredServices));
+                return new PaymentGatewayValidator($container, $requiredServices);
+            },
+            'payment_gateways.i18n' => static fn(ContainerInterface $container): I18n => new I18n($container),
+            'payment_gateways.i18n.messages' => static fn(): array => ['refund_order_not_found' => static fn(array $params): string => sprintf(
+                /* translators: %1$s is replaced with the actual order ID. */
+                __('Failed to process the refund: the order with ID %1$s not found', 'syde-payment-gateway'),
+                (string) $params['orderId']
+            ), 'refund_failed' => __('Failed to refund the order payment', 'syde-payment-gateway'), 'payment_method_not_available' => __('Payment method not available. Please select another payment method.', 'syde-payment-gateway')],
+        ], $this->providePaymentMethodServices(...$this->paymentMethods));
     }
     public function run(ContainerInterface $container): bool
     {
@@ -121,12 +147,21 @@ class PaymentGatewayModule implements ServiceModule, ExecutableModule
      */
     private function getPluginFileUrlFromAbsolutePath(string $absoluteFilePath): string
     {
+        /**
+         * We will be doing string comparisons, so we have to ensure we work with
+         * sanitized data
+         */
+        $absoluteFilePath = wp_normalize_path($absoluteFilePath);
         $activePlugins = wp_get_active_and_valid_plugins();
         $networkPlugins = function_exists('wp_get_active_network_plugins') ? wp_get_active_network_plugins() : [];
         $plugins = array_merge($activePlugins, $networkPlugins);
         // Iterate through active plugins to find the matching one
         foreach ($plugins as $plugin) {
             $pluginPath = \WP_PLUGIN_DIR . '/' . dirname(plugin_basename($plugin));
+            /**
+             * Again, ensure the path is sanitized before doing the comparison
+             */
+            $pluginPath = wp_normalize_path($pluginPath);
             if (0 === strpos($absoluteFilePath, $pluginPath)) {
                 $relativePath = (string) substr($absoluteFilePath, strlen($pluginPath) + 1);
                 $baseUrl = plugins_url('', $plugin);

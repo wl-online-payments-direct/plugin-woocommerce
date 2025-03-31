@@ -16,7 +16,7 @@ class MatomoInstaller extends \Composer\Installers\BaseInstaller
      */
     public function inflectPackageVars(array $vars): array
     {
-        $vars['name'] = strtolower($this->pregReplace('/(?<=\w)([A-Z])/', 'Syde\Vendor\_\1', $vars['name']));
+        $vars['name'] = strtolower($this->pregReplace('/(?<=\w)([A-Z])/', 'Syde\Vendor\Worldline\_\1', $vars['name']));
         $vars['name'] = str_replace(array('-', '_'), ' ', $vars['name']);
         $vars['name'] = str_replace(' ', '', ucwords($vars['name']));
         return $vars;

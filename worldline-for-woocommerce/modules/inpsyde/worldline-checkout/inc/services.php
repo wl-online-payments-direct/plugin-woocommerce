@@ -1,16 +1,16 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
-use Syde\Vendor\Dhii\Services\Factories\Alias;
-use Syde\Vendor\Dhii\Services\Factories\Constructor;
-use Syde\Vendor\Dhii\Services\Factories\Value;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Checkout\ReturnPageStatusChecker;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Checkout\ReturnPageStatusUpdater;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\ReturnPageRender;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Alias;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Constructor;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Checkout\ReturnPageStatusChecker;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Checkout\ReturnPageStatusUpdater;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\ReturnPageRender;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 return static function (): array {
     $returnPageServices = [];
     foreach (GatewayIds::ALL as $gatewayId) {

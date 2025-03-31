@@ -23,12 +23,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Dhii\\Validation\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Dhii\\Validation\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Dhii\\Validation\\UnitTest\\": "tests\/unit"
+            "Syde\\Vendor\\Worldline\\Dhii\\Validation\\UnitTest\\": "tests\/unit"
         }
     },
     "scripts": {

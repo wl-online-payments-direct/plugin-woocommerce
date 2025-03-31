@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Validator;
+namespace Syde\Vendor\Worldline\Dhii\Validator;
 
 use RuntimeException;
 /**

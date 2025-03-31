@@ -1,14 +1,14 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api;
 
-use Syde\Vendor\Inpsyde\Transformer\Exception\TransformerException;
-use Syde\Vendor\Inpsyde\Transformer\Transformer;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Struct\WcPriceStruct;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\AmountOfMoney;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\LineItem;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\OrderLineDetails;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
+use Syde\Vendor\Worldline\Inpsyde\Transformer\Transformer;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Struct\WcPriceStruct;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\LineItem;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\OrderLineDetails;
 class LineItemFactory
 {
     /**

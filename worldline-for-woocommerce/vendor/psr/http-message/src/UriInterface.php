@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Psr\Http\Message;
+namespace Syde\Vendor\Worldline\Psr\Http\Message;
 
 /**
  * Value object representing a URI.

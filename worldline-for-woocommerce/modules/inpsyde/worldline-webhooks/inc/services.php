@@ -1,25 +1,25 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Config\ConfigContainer;
-use Syde\Vendor\Dhii\Services\Factories\Alias;
-use Syde\Vendor\Dhii\Services\Factories\Constructor;
-use Syde\Vendor\Dhii\Services\Factories\ServiceList;
-use Syde\Vendor\Dhii\Services\Factories\Value;
-use Syde\Vendor\Dhii\Services\Factory;
-use Syde\Vendor\Dhii\Services\Service;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Controller\WorldlineWebhooksController;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Controller\WpRestApiControllerInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\PaymentCapturedHandler;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\PaymentRefundedHandler;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\PaymentRejectedHandler;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\WebhookReceivedHandler;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\LogIncomingWebhookRequest;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue\ShutdownWebhookQueue;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue\WebhookHandlerExecutor;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Webhooks\WebhookEventFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\ConfigContainer;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Alias;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Constructor;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\ServiceList;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Dhii\Services\Service;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Controller\WorldlineWebhooksController;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Controller\WpRestApiControllerInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\PaymentCapturedHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\PaymentRefundedHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\PaymentRejectedHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Handler\WebhookReceivedHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\LogIncomingWebhookRequest;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue\ShutdownWebhookQueue;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\Queue\WebhookHandlerExecutor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\WebhookEventFactory;
 return static function (): array {
     $moduleRoot = \dirname(__DIR__);
     return [

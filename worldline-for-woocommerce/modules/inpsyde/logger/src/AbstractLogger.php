@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Logger;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger;
 
-use Syde\Vendor\Inpsyde\Logger\Exception\InvalidLogLevelProvided;
-use Syde\Vendor\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
-use Syde\Vendor\Psr\Log\AbstractLogger as PsrAbstractLogger;
-use Syde\Vendor\Psr\Log\LogLevel;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Exception\InvalidLogLevelProvided;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
+use Syde\Vendor\Worldline\Psr\Log\AbstractLogger as PsrAbstractLogger;
+use Syde\Vendor\Worldline\Psr\Log\LogLevel;
 /**
  * Base functionality for loggers that use the PSR-3-based message format.
  *

@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Psr\Http\Message;
+namespace Syde\Vendor\Worldline\Psr\Http\Message;
 
 interface UriFactoryInterface
 {

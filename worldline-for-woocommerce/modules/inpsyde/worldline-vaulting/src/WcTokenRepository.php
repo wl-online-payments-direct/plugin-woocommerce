@@ -1,18 +1,23 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Vaulting;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting;
 
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CardEssentials;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardEssentials;
 use WC_Payment_Token;
 use WC_Payment_Token_CC;
 use WC_Payment_Tokens;
 class WcTokenRepository
 {
+    protected string $gatewayId;
     protected CardBinParser $cardBinParser;
-    public function __construct(CardBinParser $cardBinParser)
+    /**
+     * @param string $gatewayId The WC gateway ID.
+     * @param CardBinParser $cardBinParser
+     */
+    public function __construct(string $gatewayId, CardBinParser $cardBinParser)
     {
+        $this->gatewayId = $gatewayId;
         $this->cardBinParser = $cardBinParser;
     }
     /**
@@ -37,7 +42,7 @@ class WcTokenRepository
         $wcToken = new WC_Payment_Token_CC();
         $wcToken->set_token($token);
         $wcToken->set_user_id($userId);
-        $wcToken->set_gateway_id(GatewayIds::HOSTED_CHECKOUT);
+        $wcToken->set_gateway_id($this->gatewayId);
         $wcToken->set_meta_data($meta);
         $wcToken->set_card_type($this->determineCardType($card));
         $wcToken->set_last4($this->determineLast4($card));
@@ -55,7 +60,7 @@ class WcTokenRepository
      */
     public function customerTokens(int $userId): array
     {
-        return WC_Payment_Tokens::get_customer_tokens($userId, GatewayIds::HOSTED_CHECKOUT);
+        return WC_Payment_Tokens::get_customer_tokens($userId, $this->gatewayId);
     }
     /**
      * Returns the tokens sorted from last to first,

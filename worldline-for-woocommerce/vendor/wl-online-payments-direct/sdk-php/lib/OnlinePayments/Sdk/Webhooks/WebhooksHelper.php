@@ -1,11 +1,11 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
-use Syde\Vendor\OnlinePayments\Sdk\DefaultConnectionResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
-use Syde\Vendor\OnlinePayments\Sdk\ResponseClassMap;
-use Syde\Vendor\OnlinePayments\Sdk\ResponseFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DefaultConnectionResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ResponseFactory;
 /**
  * Class WebhooksHelper
  *
@@ -46,7 +46,7 @@ class WebhooksHelper
         $this->validate($body, $requestHeaders);
         $response = new DefaultConnectionResponse(200, array('Content-Type' => 'application/json'), $body);
         $responseClassMap = new ResponseClassMap('');
-        $responseClassMap->addResponseClassName(200, 'Syde\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent');
+        $responseClassMap->addResponseClassName(200, 'Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent');
         /** @var \OnlinePayments\Sdk\Domain\WebhooksEvent $event */
         $event = $this->getResponseFactory()->createResponse($response, $responseClassMap);
         $this->validateApiVersion($event);

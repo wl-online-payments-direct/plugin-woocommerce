@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
 /*
  * This file is part of the Symfony package.
@@ -36,4 +36,4 @@ final class Attribute
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-\class_alias('Syde\Vendor\Attribute', 'Attribute', \false);
+\class_alias('Syde\Vendor\Worldline\Attribute', 'Attribute', \false);

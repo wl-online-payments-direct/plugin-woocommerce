@@ -8,7 +8,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-namespace Syde\Vendor\Symfony\Polyfill\Php80;
+namespace Syde\Vendor\Worldline\Symfony\Polyfill\Php80;
 
 /**
  * @author Fedonyuk Anton <info@ensostudio.ru>

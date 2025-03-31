@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Logger;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger;
 
-use Syde\Vendor\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
 class QueryMonitorLogger extends AbstractLogger
 {
     /** @var string|null */

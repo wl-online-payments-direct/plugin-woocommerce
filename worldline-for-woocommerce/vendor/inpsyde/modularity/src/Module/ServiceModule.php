@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Modularity\Module;
+namespace Syde\Vendor\Worldline\Inpsyde\Modularity\Module;
 
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 /**
  * @psalm-type Service = callable(ContainerInterface $container):mixed
  */

@@ -1,27 +1,32 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway;
 
+use Automattic\WooCommerce\Utilities\OrderUtil;
 use Exception;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ExtendingModule;
-use Syde\Vendor\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Inpsyde\Modularity\Module\ServiceModule;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice\OrderActionNotice;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
-use Syde\Vendor\Psr\Container\ContainerExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CaptureMode;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cron\AutoCaptureHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice\OrderActionNotice;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
 use WC_Order;
 use WC_Order_Refund;
-use Syde\Vendor\WP_CLI;
+use Syde\Vendor\Worldline\WP_CLI;
 class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, ExtendingModule
 {
     use ModuleClassNameIdTrait;
+    public const PACKAGE_NAME = 'worldline-payment-gateway';
     /**
      * @throws Exception
      */
@@ -33,6 +38,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
         $this->registerCliCommands($container);
         $this->registerRefundSaving($container);
         $this->registerCheckoutCompletionHandler($container);
+        $this->scheduleAutoCapturing($container);
         return \true;
     }
     public function services(): array
@@ -85,7 +91,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
     }
     protected function registerCliCommands(ContainerInterface $container): void
     {
-        if (defined('Syde\Vendor\WP_CLI') && WP_CLI) {
+        if (defined('Syde\Vendor\Worldline\WP_CLI') && WP_CLI) {
             try {
                 /** @psalm-suppress MixedArgument */
                 WP_CLI::add_command('wlop order', $container->get('worldline_payment_gateway.cli.status_update_command'));
@@ -181,6 +187,38 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             $orderUpdater = $container->get('worldline_payment_gateway.order_updater');
             assert($orderUpdater instanceof OrderUpdater);
             $orderUpdater->updateFromResponse($wlopWcOrder, $payment->getStatusOutput(), $payment->getPaymentOutput());
+        });
+    }
+    protected function scheduleAutoCapturing(ContainerInterface $container): void
+    {
+        $hook = 'wlop_auto_capturing';
+        add_action('action_scheduler_init', static function () use ($container, $hook): void {
+            if (as_has_scheduled_action($hook)) {
+                return;
+            }
+            $captureMode = $container->get('config.capture_mode');
+            if ($captureMode === CaptureMode::MANUAL) {
+                return;
+            }
+            $authorizationMode = $container->get('config.authorization_mode');
+            if ($authorizationMode === AuthorizationMode::SALE) {
+                return;
+            }
+            $interval = (int) $container->get('worldline_payment_gateway.auto_capture.handler.interval');
+            as_schedule_single_action(time() + $interval, $hook, [], 'wlop', \true);
+        });
+        add_action($hook, static function () use ($container): void {
+            $captureMode = $container->get('config.capture_mode');
+            if ($captureMode === CaptureMode::MANUAL) {
+                return;
+            }
+            $authorizationMode = $container->get('config.authorization_mode');
+            if ($authorizationMode === AuthorizationMode::SALE) {
+                return;
+            }
+            $handler = $container->get('worldline_payment_gateway.auto_capture.handler');
+            assert($handler instanceof AutoCaptureHandler);
+            $handler->execute();
         });
     }
 }

@@ -13,7 +13,7 @@ class RadPHPInstaller extends \Composer\Installers\BaseInstaller
     {
         $nameParts = explode('/', $vars['name']);
         foreach ($nameParts as &$value) {
-            $value = strtolower($this->pregReplace('/(?<=\w)([A-Z])/', 'Syde\Vendor\_\1', $value));
+            $value = strtolower($this->pregReplace('/(?<=\w)([A-Z])/', 'Syde\Vendor\Worldline\_\1', $value));
             $value = str_replace(array('-', '_'), ' ', $value);
             $value = str_replace(' ', '', ucwords($value));
         }

@@ -34,12 +34,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Wp\\HttpClient\\": "src"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Wp\\HttpClient\\Test\\Func\\": "tests\/functional"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\Test\\Func\\": "tests\/functional"
         }
     },
     "extra": {

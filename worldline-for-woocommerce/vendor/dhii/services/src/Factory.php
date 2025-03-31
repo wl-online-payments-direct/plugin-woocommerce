@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Services;
+namespace Syde\Vendor\Worldline\Dhii\Services;
 
-use Syde\Vendor\Dhii\Services\Factories\Constructor;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Constructor;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 /**
  * A simple implementation for a factory service.
  *

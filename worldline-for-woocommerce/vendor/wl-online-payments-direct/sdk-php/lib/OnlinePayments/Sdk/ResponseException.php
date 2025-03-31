@@ -1,9 +1,9 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use Syde\Vendor\OnlinePayments\Sdk\Domain\APIError;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\ErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse;
 use RuntimeException;
 /**
  * Class ResponseException

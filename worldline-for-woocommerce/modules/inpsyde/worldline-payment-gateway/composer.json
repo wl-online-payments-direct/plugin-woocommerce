@@ -5,12 +5,12 @@
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "src"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "tests\/php"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "tests\/php"
         }
     },
     "authors": [
@@ -26,6 +26,7 @@
         "dhii\/services": "^0.1.0-alpha2"
     },
     "require-dev": {
-        "phpunit\/phpunit": "^9.0"
+        "phpunit\/phpunit": "^9.0",
+        "brain\/monkey": "^2.6"
     }
 }

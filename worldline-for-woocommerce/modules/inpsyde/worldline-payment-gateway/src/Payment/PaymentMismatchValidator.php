@@ -3,12 +3,12 @@
 declare (strict_types=1);
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
 // phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment;
 
 use Exception;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\LineItem;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\Order;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\LineItem;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Order;
 class PaymentMismatchValidator
 {
     /**

@@ -2,23 +2,24 @@
 
 declare (strict_types=1);
 // phpcs:disable WordPress.Security.NonceVerification
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment;
 
 use Exception;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentProcessorInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutUrlFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\APIError;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\ErrorResponse;
-use Syde\Vendor\OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentProcessorInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutUrlFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 use Throwable;
 use WC_Order;
 class HostedPaymentProcessor implements PaymentProcessorInterface
 {
+    use OrderInitTrait;
     private HostedCheckoutUrlFactory $hostedCheckoutUrlFactory;
     private WcOrderBasedOrderFactoryInterface $wcOrderBasedFactory;
     private WcTokenRepository $wcTokenRepository;
@@ -62,17 +63,6 @@ class HostedPaymentProcessor implements PaymentProcessorInterface
             return ['result' => 'failure'];
         }
         return ['result' => 'success', 'redirect' => $hostedCheckoutResponse->getRedirectUrl()];
-    }
-    protected function initWlopWcOrder(WC_Order $wcOrder): void
-    {
-        /** Some webhooks arrive almost at the same time. There is a high possibility
-         * for 1st and 2nd webhook to create two separate meta fields with the same key,
-         * because they are both unaware that the data is about to be saved. We
-         * save empty values for these meta-fields, so that can't happen.
-         */
-        $wcOrder->add_meta_data(OrderMetaKeys::TRANSACTION_STATUS_CODE, '-1');
-        $wcOrder->add_meta_data(OrderMetaKeys::TRANSACTION_ID, '');
-        $wcOrder->save();
     }
     protected function extractErrors(ValidationException $exception): string
     {

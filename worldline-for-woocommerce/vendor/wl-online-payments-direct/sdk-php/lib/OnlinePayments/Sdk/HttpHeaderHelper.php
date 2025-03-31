@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 /**
  * Class HttpHeaderHelper

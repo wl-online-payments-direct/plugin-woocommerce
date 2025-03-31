@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Logger;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger;
 
 use Exception;
-use Syde\Vendor\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
-use Syde\Vendor\Psr\Log\LogLevel;
+use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
+use Syde\Vendor\Worldline\Psr\Log\LogLevel;
 use WC_Logger_Interface;
 /**
  * PSR-3 wrapper for a WooCommerce logger.

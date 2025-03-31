@@ -30,7 +30,7 @@
         "dhii\/versions": "^0.1.0@alpha",
         "inpsyde\/logger": "2.0.1",
         "inpsyde\/modularity": "^1.7",
-        "inpsyde\/payment-gateway": "^2.2.2",
+        "inpsyde\/payment-gateway": "^2.6.0",
         "inpsyde\/psr-18-wp-http-client": "^0.1.0@alpha",
         "inpsyde\/transformer": "*",
         "inpsyde\/worldline-apple-pay-gateway": "*",
@@ -41,9 +41,12 @@
         "inpsyde\/worldline-google-pay-gateway": "*",
         "inpsyde\/worldline-hosted-tokenization-gateway": "*",
         "inpsyde\/worldline-ideal-gateway": "*",
+        "inpsyde\/worldline-klarna-gateway": "*",
         "inpsyde\/worldline-logging": "*",
         "inpsyde\/worldline-payment-gateway": "*",
+        "inpsyde\/worldline-postfinance-gateway": "*",
         "inpsyde\/worldline-return-page": "*",
+        "inpsyde\/worldline-twint-gateway": "*",
         "inpsyde\/worldline-uninstall": "*",
         "inpsyde\/worldline-uri": "*",
         "inpsyde\/worldline-utils": "*",
@@ -75,12 +78,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\WorldlineForWoocommerce\\Test\\": "tests\/PHPUnit\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Test\\": "tests\/PHPUnit\/"
         }
     },
     "minimum-stability": "dev",

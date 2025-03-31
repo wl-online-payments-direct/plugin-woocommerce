@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-use Syde\Vendor\Dhii\Services\Factories\Constructor;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Utils\FileBasedLockerFactory;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Constructor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Utils\FileBasedLockerFactory;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 return static function (): array {
     return ['utils.locker.timeout' => static function (): int {
         $envTimeout = \apply_filters('wlop_locker_timeout', (int) \getenv("FILE_LOCKER_TIMEOUT"));

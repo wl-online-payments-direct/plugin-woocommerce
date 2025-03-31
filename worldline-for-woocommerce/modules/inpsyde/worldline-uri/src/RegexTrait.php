@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Uri;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Uri;
 
 use RuntimeException;
 use UnexpectedValueException;

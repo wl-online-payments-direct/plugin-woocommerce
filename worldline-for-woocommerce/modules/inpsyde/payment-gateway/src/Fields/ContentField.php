@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\PaymentGateway\Fields;
+namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Fields;
 
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\PaymentGateway\SettingsFieldRendererInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\SettingsFieldRendererInterface;
 /**
  * The field for rendering basic HTML content.
  *

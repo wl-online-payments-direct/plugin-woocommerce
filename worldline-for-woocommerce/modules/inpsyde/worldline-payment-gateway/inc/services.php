@@ -1,43 +1,49 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
-use Syde\Vendor\Dhii\Services\Factories\Alias;
-use Syde\Vendor\Dhii\Services\Factories\Constructor;
-use Syde\Vendor\Dhii\Services\Factories\Value;
-use Syde\Vendor\Dhii\Services\Factory;
-use Syde\Vendor\Dhii\Services\Service;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\PaymentGateway\StaticIconProvider;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\RenderCaptureAction;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AmountOfMoneyFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutUrlFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\MerchantClientFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\AuthorizedPaymentProcessor;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cli\StatusUpdateCommand;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Customer\AccountTypeHandler;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Fee\FeeFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice\OrderActionNotice;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\DetailsDroppingMismatchHandler;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentCaptureValidator;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentMismatchValidator;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund\RefundProcessor;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund\RefundValidator;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Shipping\AddressIndicatorHandler;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
-use Syde\Vendor\OnlinePayments\Sdk\CommunicatorLogger;
-use Syde\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Alias;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Constructor;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Dhii\Services\Service;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\DefaultIconsRenderer;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Icon;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\IconProviderInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\StaticIconProvider;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\RenderCaptureAction;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AmountOfMoneyFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutUrlFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\MerchantClientFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\AuthorizedPaymentProcessor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cli\StatusUpdateCommand;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cron\AutoCaptureHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Customer\AccountTypeHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Fee\FeeFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice\OrderActionNotice;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\DetailsDroppingMismatchHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentCaptureValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentMismatchValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund\RefundProcessor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund\RefundValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Shipping\AddressIndicatorHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WorldlinePaymentGatewayModule;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 return static function (): array {
     $moduleRoot = \dirname(__FILE__, 2);
     $gatewayId = GatewayIds::HOSTED_CHECKOUT;
@@ -62,12 +68,12 @@ return static function (): array {
             }
             return $sdkLogger;
         }),
-        'worldline_payment_gateway.api.client.factory' => new Constructor(MerchantClientFactory::class, ['worldline_payment_gateway.api.integrator-name', 'worldline_payment_gateway.api.client.logger']),
+        'worldline_payment_gateway.api.client.factory' => new Constructor(MerchantClientFactory::class, [Package::PROPERTIES, 'core.wp_environment', 'worldline_payment_gateway.api.integrator-name', 'worldline_payment_gateway.api.client.logger']),
         'worldline_payment_gateway.api.client' => new Factory(['worldline_payment_gateway.api.client.factory', 'config.pspid', 'config.api_key', 'config.api_secret', 'config.api_endpoint'], static function (MerchantClientFactory $factory, string $pspid, string $apiKey, string $apiSecret, string $apiEndpoint): MerchantClientInterface {
             return $factory->create($pspid, $apiKey, $apiSecret, $apiEndpoint);
         }),
         'worldline_payment_gateway.order_updater' => new Constructor(OrderUpdater::class, ['worldline_payment_gateway.api.client', 'utils.locker.file_based_locker_factory', 'worldline_payment_gateway.money_amount_converter', 'worldline_payment_gateway.fee_factory']),
-        "payment_gateway.{$gatewayId}.payment_processor" => new Factory(['worldline_payment_gateway.hosted_checkout_url_factory', 'worldline_payment_gateway.wc_order_factory', 'vaulting.repository.wc.tokens', 'worldline_payment_gateway.hosted_checkout_language'], static function (HostedCheckoutUrlFactory $hostedCheckoutUrlFactory, WcOrderBasedOrderFactoryInterface $wcOrderBasedOrderFactory, WcTokenRepository $wcTokenRepository, ?string $hostedCheckoutLanguage): HostedPaymentProcessor {
+        "payment_gateway.{$gatewayId}.payment_processor" => new Factory(['worldline_payment_gateway.hosted_checkout_url_factory', 'worldline_payment_gateway.wc_order_factory', 'vaulting.repository.wc.tokens.' . GatewayIds::HOSTED_CHECKOUT, 'worldline_payment_gateway.hosted_checkout_language'], static function (HostedCheckoutUrlFactory $hostedCheckoutUrlFactory, WcOrderBasedOrderFactoryInterface $wcOrderBasedOrderFactory, WcTokenRepository $wcTokenRepository, ?string $hostedCheckoutLanguage): HostedPaymentProcessor {
             return new HostedPaymentProcessor($hostedCheckoutUrlFactory, $wcOrderBasedOrderFactory, $wcTokenRepository, $hostedCheckoutLanguage);
         }),
         "payment_gateway.{$gatewayId}.refund_processor" => new Constructor(RefundProcessor::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.refund_validator']),
@@ -95,7 +101,16 @@ return static function (): array {
                 return $currencySupportValidator->wlopSupportStoreCurrency();
             };
         }),
-        "payment_gateway.{$gatewayId}.method_icon_provider" => new Constructor(StaticIconProvider::class),
+        "payment_gateway.{$gatewayId}.method_icon_provider" => new Factory(['assets.get_module_static_asset_url'], static function (callable $getStaticAssetUrl): IconProviderInterface {
+            /** @var string $src */
+            $src = $getStaticAssetUrl(WorldlinePaymentGatewayModule::PACKAGE_NAME, "images/worldline-logo.svg");
+            $icon = new Icon('worldline-logo', $src, 'Worldline logo');
+            return new StaticIconProvider($icon);
+        }),
+        "payment_gateway.{$gatewayId}.gateway_icons_renderer" => new Constructor(DefaultIconsRenderer::class, ["payment_gateway.{$gatewayId}.method_icon_provider"]),
+        "payment_gateway.{$gatewayId}.icon" => new Factory(['assets.get_module_static_asset_url'], static function (callable $getStaticAssetUrl): string {
+            return $getStaticAssetUrl(WorldlinePaymentGatewayModule::PACKAGE_NAME, "images/worldline-gateway-logo.svg");
+        }),
         'worldline_payment_gateway.transformer.wc_order_to_wlop_order' => Service::fromFile("{$moduleRoot}/inc/transformers/wc-order-to-wlop-order.php"),
         'worldline_payment_gateway.wc_order_factory' => new Constructor(WcOrderBasedOrderFactory::class, ['worldline_payment_gateway.transformer.wc_order_to_wlop_order', 'worldline_payment_gateway.payment_mismatch_validator', 'worldline_payment_gateway.details_dropping_mismatch_handler', 'config.surcharge_enabled', 'config.send_shopping_cart']),
         'worldline_payment_gateway.amount_of_money_factory' => new Constructor(AmountOfMoneyFactory::class, ['worldline_payment_gateway.money_amount_converter']),
@@ -139,6 +154,8 @@ return static function (): array {
         'worldline_payment_gateway.address_indicator_handler' => static fn() => new AddressIndicatorHandler(),
         'worldline_payment_gateway.account_type_handler' => static fn(): AccountTypeHandler => new AccountTypeHandler(),
         'worldline_payment_gateway.three_d_secure_factory' => new Constructor(ThreeDSecureFactory::class, ['config.enable_3ds', 'config.enforce_3dsv2', 'config.request_3ds_exemption']),
+        'worldline_payment_gateway.auto_capture.handler.interval' => static fn(): int => 3600,
+        'worldline_payment_gateway.auto_capture.handler' => new Constructor(AutoCaptureHandler::class, ['config.capture_mode', 'worldline_payment_gateway.api.client']),
         // phpcs:disable WordPress.Security.NonceVerification
         'worldline_payment_gateway.customer_screen_height' => static function (): ?int {
             $key = 'wlop_screen_height';

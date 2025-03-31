@@ -41,13 +41,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Modularity\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Modularity\\Tests\\": "tests\/src\/",
-            "Syde\\Vendor\\Inpsyde\\Modularity\\Tests\\Unit\\": "tests\/unit\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\Tests\\": "tests\/src\/",
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\Tests\\Unit\\": "tests\/unit\/"
         }
     },
     "minimum-stability": "dev",

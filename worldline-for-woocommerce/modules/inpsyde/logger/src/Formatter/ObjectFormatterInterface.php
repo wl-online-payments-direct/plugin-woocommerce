@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Inpsyde\Logger\Formatter;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger\Formatter;
 
 /**
  * Produces a string describing the given object for logging purposes

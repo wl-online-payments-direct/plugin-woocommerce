@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-use Syde\Vendor\Dhii\Services\Factory;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\PayOrderRedirectAction;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\ReturnPage;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\StatusActionInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\StatusCheckerInterface;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\WcOrderStatusChecker;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\PayOrderRedirectAction;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\ReturnPage;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\StatusActionInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\StatusCheckerInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\WcOrderStatusChecker;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 return static function (): array {
     return ['return_page.wc' => new Factory([], static function (): \WooCommerce {
         if (!\did_action('woocommerce_init')) {

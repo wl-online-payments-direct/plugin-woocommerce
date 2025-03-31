@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde;
+namespace Syde\Vendor\Worldline\Inpsyde;
 
 class WpContext implements \JsonSerializable
 {
@@ -42,7 +42,7 @@ class WpContext implements \JsonSerializable
         /** @psalm-suppress RedundantCondition */
         $xmlRpc = defined('XMLRPC_REQUEST') && \XMLRPC_REQUEST;
         $isCore = defined('ABSPATH');
-        $isCli = defined('Syde\Vendor\WP_CLI');
+        $isCli = defined('Syde\Vendor\Worldline\WP_CLI');
         $notInstalling = $isCore && !$installing;
         $isAjax = $notInstalling && wp_doing_ajax();
         $isAdmin = $notInstalling && is_admin() && !$isAjax;

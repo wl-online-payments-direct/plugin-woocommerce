@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 /**
  * Represents an error response from the payment platform when something went wrong at the payment platform or further downstream.

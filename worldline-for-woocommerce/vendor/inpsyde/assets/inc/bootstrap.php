@@ -32,7 +32,7 @@ function bootstrap(): bool
  * In that case, we first try to load `plugin.php` before calling `add_action`.
  */
 $addActionExists = function_exists('add_action');
-if ($addActionExists || defined('ABSPATH') && defined('Syde\Vendor\WP_INC') && file_exists(\ABSPATH . WP_INC . '/plugin.php')) {
+if ($addActionExists || defined('ABSPATH') && defined('Syde\Vendor\Worldline\WP_INC') && file_exists(\ABSPATH . WP_INC . '/plugin.php')) {
     if (!$addActionExists) {
         require_once \ABSPATH . WP_INC . '/plugin.php';
     }

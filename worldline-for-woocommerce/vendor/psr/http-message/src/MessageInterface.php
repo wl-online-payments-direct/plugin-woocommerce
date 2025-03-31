@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Psr\Http\Message;
+namespace Syde\Vendor\Worldline\Psr\Http\Message;
 
 /**
  * HTTP messages consist of requests from a client to a server and responses

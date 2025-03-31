@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
-use Syde\Vendor\Psr\Log\LogLevel;
+use Syde\Vendor\Worldline\Psr\Log\LogLevel;
 // phpcs:disable Inpsyde.CodeQuality.LineLength
 return static function (): array {
     return ['inpsyde_logger.log_events' => static function (array $previous): array {

@@ -1,10 +1,10 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentErrorResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\RefundErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundErrorResponse;
 /**
  * Class ResponseExceptionFactory
  *

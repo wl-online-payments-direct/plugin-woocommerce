@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Psr\Log;
+namespace Syde\Vendor\Worldline\Psr\Log;
 
 /**
  * This is a simple Logger implementation that other Loggers can inherit from.

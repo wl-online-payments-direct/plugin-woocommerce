@@ -49,12 +49,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Logger\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Logger\\Tests\\": "tests\/php"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\Tests\\": "tests\/php"
         }
     },
     "minimum-stability": "dev",

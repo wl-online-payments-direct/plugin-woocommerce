@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Psr\Log;
+namespace Syde\Vendor\Worldline\Psr\Log;
 
 /**
  * Basic Implementation of LoggerAwareInterface.

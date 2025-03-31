@@ -14,7 +14,7 @@ cardButtons.forEach( ( btn ) => {
 		}
 
 		const form = document.querySelector(
-			'form.woocommerce-checkout'
+			'form.woocommerce-checkout, form#order_review'
 		) as HTMLFormElement | null;
 		if ( ! form ) {
 			return;

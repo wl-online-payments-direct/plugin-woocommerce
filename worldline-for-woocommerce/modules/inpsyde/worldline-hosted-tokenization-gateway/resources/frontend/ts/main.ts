@@ -13,6 +13,9 @@ addEventListener( 'DOMContentLoaded', () => {
 	let tokenizer;
 	let initialized: boolean = false;
 
+	const tokenRadiosSelector =
+		'.payment_method_worldline-hosted-tokenization input.woocommerce-SavedPaymentMethods-tokenInput';
+
 	const iframeWrapper = (): HTMLElement | null => {
 		return document.querySelector( '#' + WlopHtConfig.wrapper.id );
 	};
@@ -31,6 +34,7 @@ addEventListener( 'DOMContentLoaded', () => {
 
 		const options: TokenizerOptions = {
 			hideCardholderName: false,
+			hideTokenFields: false,
 		};
 		if ( WlopHtConfig.surcharge ) {
 			options.surchargeCallback = ( result ) => {
@@ -84,14 +88,18 @@ addEventListener( 'DOMContentLoaded', () => {
 	};
 
 	const updateSurcharge = ( surcharge: number ) => {
-		if ( surcharge <= 0 ) {
+		if ( ! WlopHtConfig.surcharge ) {
 			return;
 		}
-
 		const element = document.getElementById(
 			WlopHtConfig.surcharge.wrapper.id
 		);
 		if ( ! element ) {
+			return;
+		}
+
+		if ( surcharge <= 0 ) {
+			element.innerHTML = '';
 			return;
 		}
 
@@ -137,11 +145,19 @@ addEventListener( 'DOMContentLoaded', () => {
 
 		await tokenizer.initialize();
 
+		setupButtonHandler();
+
 		updateVisibility();
 
 		initialized = true;
 
 		updateAmount();
+
+		const tokenRadios = document.querySelectorAll( tokenRadiosSelector );
+		tokenRadios.forEach( ( chk ) => {
+			chk.addEventListener( 'click', updateTokenState );
+		} );
+		updateTokenState();
 	};
 
 	const resetIframe = async () => {
@@ -153,7 +169,6 @@ addEventListener( 'DOMContentLoaded', () => {
 			document.querySelector( `[name="${ name }"]` )?.remove();
 		} );
 		initTokenizer();
-		setupButtonHandler();
 		await initIframe();
 	};
 
@@ -214,6 +229,24 @@ addEventListener( 'DOMContentLoaded', () => {
 		} );
 	};
 
+	const updateTokenState = () => {
+		const selectedRadio = document.querySelector(
+			tokenRadiosSelector + ':checked'
+		) as HTMLInputElement | null;
+		if ( ! selectedRadio ) {
+			return;
+		}
+
+		const value = selectedRadio.value;
+		if ( value === 'new' ) {
+			updateSurcharge( 0 );
+			tokenizer.useToken();
+		} else {
+			const token = WlopHtConfig.tokens[ value ];
+			tokenizer.useToken( token );
+		}
+	};
+
 	const reloadConfig = async ( withoutUrl = false ) => {
 		const data = await jQuery.ajax( {
 			type: 'post',
@@ -228,20 +261,18 @@ addEventListener( 'DOMContentLoaded', () => {
 		const newWlopHtConfig = data.data;
 		if ( withoutUrl ) {
 			newWlopHtConfig.url = WlopHtConfig.url;
+			newWlopHtConfig.tokens = WlopHtConfig.tokens;
 		}
 		WlopHtConfig = newWlopHtConfig;
 	};
 
 	initTokenizer();
 
-	setupButtonHandler();
-
 	initIframe();
 
 	jQuery( document.body ).on( 'updated_checkout', async () => {
 		await reloadConfig( true );
 
-		setupButtonHandler();
 		await initIframe();
 
 		updateAmount();
@@ -281,4 +312,8 @@ addEventListener( 'DOMContentLoaded', () => {
 			} );
 		} );
 	}
+
+	setTimeout( () => {
+		jQuery( document.body ).trigger( 'wc-credit-card-form-init' );
+	}, 0 );
 } );

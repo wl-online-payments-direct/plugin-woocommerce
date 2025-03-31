@@ -3,8 +3,8 @@
 /**
  * Plugin Name: Worldline Payments for WooCommerce
  * Description: Worldline payment gateway for WooCommerce.
- * Version: 2.0.0
- * SHA: 337fb5993db7003a5e31d2aed9fbe279b9955fd6
+ * Version: 2.1.0
+ * SHA: d142311393c297e412a6c0ac9d2723a230123283
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
@@ -16,9 +16,9 @@
  * Domain Path: /languages
  */
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce;
 
-use Syde\Vendor\Inpsyde\Modularity\Package;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
 if (is_readable(dirname(__FILE__) . '/vendor/autoload.php')) {
     include_once dirname(__FILE__) . '/vendor/autoload.php';
 }

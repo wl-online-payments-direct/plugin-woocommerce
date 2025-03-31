@@ -2,11 +2,11 @@
 
 declare (strict_types=1);
 // phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlineLogging;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlineLogging;
 
 use Exception;
-use Syde\Vendor\Psr\Log\LoggerInterface;
-use Syde\Vendor\OnlinePayments\Sdk\CommunicatorLogger;
+use Syde\Vendor\Worldline\Psr\Log\LoggerInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorLogger;
 class SdkLogger implements CommunicatorLogger
 {
     protected LoggerInterface $logger;

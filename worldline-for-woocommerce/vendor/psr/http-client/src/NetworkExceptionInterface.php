@@ -1,8 +1,8 @@
 <?php
 
-namespace Syde\Vendor\Psr\Http\Client;
+namespace Syde\Vendor\Worldline\Psr\Http\Client;
 
-use Syde\Vendor\Psr\Http\Message\RequestInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\RequestInterface;
 /**
  * Thrown when the request cannot be completed because of network issues.
  *

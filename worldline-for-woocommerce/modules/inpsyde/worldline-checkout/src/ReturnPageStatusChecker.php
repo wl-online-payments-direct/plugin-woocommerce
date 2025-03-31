@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Checkout;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Checkout;
 
 use Exception;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\ReturnPageStatus;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage\WcOrderStatusChecker;
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\ReturnPageStatus;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage\WcOrderStatusChecker;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
 use WC_Order;
 class ReturnPageStatusChecker extends WcOrderStatusChecker
 {

@@ -1,15 +1,15 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor;
+namespace Syde\Vendor\Worldline;
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength
-use Syde\Vendor\Inpsyde\Modularity\Package;
-use Syde\Vendor\Inpsyde\Modularity\Properties\PluginProperties;
-use Syde\Vendor\Psr\Container\ContainerInterface;
-use Syde\Vendor\Psr\Log\LoggerInterface;
-use Syde\Vendor\Psr\Log\LogLevel;
-use Syde\Vendor\Psr\Log\NullLogger;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\PluginProperties;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Psr\Log\LoggerInterface;
+use Syde\Vendor\Worldline\Psr\Log\LogLevel;
+use Syde\Vendor\Worldline\Psr\Log\NullLogger;
 return static function (): array {
     return ['inpsyde_logger.logger' => static function (LoggerInterface $previousLogger, ContainerInterface $container): LoggerInterface {
         if (!$container->get('core.is_logging_enabled')) {

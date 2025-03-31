@@ -3,35 +3,35 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk\Merchant\Payments;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payments;
 
 use Exception;
-use Syde\Vendor\OnlinePayments\Sdk\ApiException;
-use Syde\Vendor\OnlinePayments\Sdk\AuthorizationException;
-use Syde\Vendor\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\OnlinePayments\Sdk\DeclinedPaymentException;
-use Syde\Vendor\OnlinePayments\Sdk\DeclinedRefundException;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CancelPaymentRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CancelPaymentResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CapturePaymentRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CaptureResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CapturesResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CompletePaymentRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CompletePaymentResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CreatePaymentResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PaymentResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\RefundRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\RefundResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\RefundsResponse;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\SubsequentPaymentRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\SubsequentPaymentResponse;
-use Syde\Vendor\OnlinePayments\Sdk\IdempotenceException;
-use Syde\Vendor\OnlinePayments\Sdk\InvalidResponseException;
-use Syde\Vendor\OnlinePayments\Sdk\PaymentPlatformException;
-use Syde\Vendor\OnlinePayments\Sdk\ReferenceException;
-use Syde\Vendor\OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DeclinedPaymentException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DeclinedRefundException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CancelPaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CancelPaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CapturePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CaptureResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CapturesResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SubsequentPaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SubsequentPaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PaymentPlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 interface PaymentsClientInterface
 {
     /**

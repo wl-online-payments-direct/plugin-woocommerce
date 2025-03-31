@@ -1,8 +1,8 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk\Domain;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\OnlinePayments\Sdk\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
 /**
  * Class ShoppingCartExtension

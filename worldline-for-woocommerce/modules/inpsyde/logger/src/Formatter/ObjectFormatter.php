@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Logger\Formatter;
+namespace Syde\Vendor\Worldline\Inpsyde\Logger\Formatter;
 
 class ObjectFormatter implements ObjectFormatterInterface
 {

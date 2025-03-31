@@ -1,5 +1,5 @@
 // eslint-disable-next-line import/no-extraneous-dependencies
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import CurrencyFactory from '@woocommerce/currency';
 import { __, sprintf } from '@wordpress/i18n';
 import { TokenizerOptions } from './types/tokenizer';
@@ -10,21 +10,27 @@ declare let Tokenizer;
 declare let WlopHtConfig;
 
 addEventListener( 'DOMContentLoaded', () => {
-	let tokenizer;
-
 	const HostedTokenizationForm = ( {
 		eventRegistration,
 		emitResponse,
 		billing,
+		token,
 	} ) => {
 		const { onPaymentSetup } = eventRegistration;
 		const { responseTypes } = emitResponse;
 
 		const [ surcharge, setSurcharge ] = useState( 0 );
 
+		const [ initialized, setInitialized ] = useState( false );
+
+		const tokenizer = useRef< typeof Tokenizer >( null );
+
 		useEffect( () => {
+			setInitialized( false );
+
 			const options: TokenizerOptions = {
 				hideCardholderName: false,
+				hideTokenFields: false,
 			};
 			if ( WlopHtConfig.surcharge ) {
 				options.surchargeCallback = ( result ) => {
@@ -46,40 +52,56 @@ addEventListener( 'DOMContentLoaded', () => {
 				};
 			}
 
-			tokenizer = new Tokenizer(
+			tokenizer.current = new Tokenizer(
 				WlopHtConfig.url,
 				WlopHtConfig.wrapper.id,
 				options
 			);
-			tokenizer.initialize();
+			tokenizer.current.initialize().then( () => setInitialized( true ) );
 
 			// clean up when component destroyed
 			return () => {
 				try {
-					tokenizer.destroy();
+					setInitialized( false );
+					tokenizer.current.destroy();
 				} catch ( err ) {
 					// ignore
 				}
 			};
 		}, [] );
+
 		useEffect( () => {
 			const decimal =
 				billing.cartTotal.value / 10 ** billing.currency.minorUnit;
 			const cents = Math.round(
 				decimal * WlopHtConfig.currency.centFactor
 			);
-			tokenizer.setAmount( cents, billing.currency.code );
+			tokenizer.current.setAmount( cents, billing.currency.code );
 		}, [
 			billing.cartTotal.value,
 			billing.currency.code,
 			billing.currency.minorUnit,
 		] );
 
+		useEffect( () => {
+			if ( ! initialized ) {
+				return;
+			}
+
+			if ( token ) {
+				const tokenKey = WlopHtConfig.tokens[ token ];
+				tokenizer.current.useToken( tokenKey );
+			} else {
+				tokenizer.current.useToken();
+			}
+		}, [ token, initialized ] );
+
 		useEffect(
 			() =>
 				onPaymentSetup( () => {
 					async function handlePaymentProcessing() {
-						const response = await tokenizer.submitTokenization();
+						const response =
+							await tokenizer.current.submitTokenization();
 
 						if ( ! response.success ) {
 							return {
@@ -148,6 +170,15 @@ addEventListener( 'DOMContentLoaded', () => {
 
 	wp.hooks.addFilter(
 		WlopHtConfig.gateway.id + '_checkout_fields',
+		'wlop/ht/checkout',
+		( components ) => {
+			components.push( HostedTokenizationForm );
+
+			return components;
+		}
+	);
+	wp.hooks.addFilter(
+		WlopHtConfig.gateway.id + '_saved_token_fields',
 		'wlop/ht/checkout',
 		( components ) => {
 			components.push( HostedTokenizationForm );

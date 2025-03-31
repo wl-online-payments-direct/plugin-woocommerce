@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\ReturnPage;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage;
 
 use WC_Order;
 interface StatusActionInterface

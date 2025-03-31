@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Psr\\Log\\": "Psr\/Log\/"
+            "Syde\\Vendor\\Worldline\\Psr\\Log\\": "Psr\/Log\/"
         }
     },
     "extra": {

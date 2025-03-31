@@ -29,12 +29,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\": "src\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Inpsyde\\Tests\\": "tests\/"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\Tests\\": "tests\/"
         }
     },
     "minimum-stability": "dev",

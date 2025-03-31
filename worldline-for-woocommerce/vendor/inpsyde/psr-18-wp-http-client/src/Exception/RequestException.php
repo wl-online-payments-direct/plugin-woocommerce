@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Wp\HttpClient\Exception;
+namespace Syde\Vendor\Worldline\Inpsyde\Wp\HttpClient\Exception;
 
-use Syde\Vendor\Psr\Http\Client\RequestExceptionInterface;
-use Syde\Vendor\Psr\Http\Message\RequestInterface;
+use Syde\Vendor\Worldline\Psr\Http\Client\RequestExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\RequestInterface;
 use Throwable;
 /**
  * This exception is thrown where provided to client request is malformed

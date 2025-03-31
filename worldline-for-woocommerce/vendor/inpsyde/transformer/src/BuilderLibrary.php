@@ -1,13 +1,13 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\Transformer;
+namespace Syde\Vendor\Worldline\Inpsyde\Transformer;
 
-use Syde\Vendor\Dhii\Container\CompositeCachingServiceProvider;
-use Syde\Vendor\Dhii\Container\DelegatingContainer;
-use Syde\Vendor\Dhii\Container\ServiceProvider;
-use Syde\Vendor\Dhii\Modular\Module\Exception\ModuleExceptionInterface;
-use Syde\Vendor\Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Container\CompositeCachingServiceProvider;
+use Syde\Vendor\Worldline\Dhii\Container\DelegatingContainer;
+use Syde\Vendor\Worldline\Dhii\Container\ServiceProvider;
+use Syde\Vendor\Worldline\Dhii\Modular\Module\Exception\ModuleExceptionInterface;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class BuilderLibrary
 {
     /**

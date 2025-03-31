@@ -3,14 +3,14 @@
 /*
  * This class was auto-generated.
  */
-namespace Syde\Vendor\OnlinePayments\Sdk\Merchant\Services;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services;
 
-use Syde\Vendor\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\CurrencyConversionRequest;
-use Syde\Vendor\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
-use Syde\Vendor\OnlinePayments\Sdk\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ResponseClassMap;
 class ServicesClient extends ApiResource implements ServicesClientInterface
 {
     /**
@@ -18,7 +18,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
      */
     public function surchargeCalculation(CalculateSurchargeRequest $body, CallContext $callContext = null)
     {
-        $responseClassMap = new ResponseClassMap('Syde\Vendor\OnlinePayments\Sdk\Domain\CalculateSurchargeResponse');
+        $responseClassMap = new ResponseClassMap('Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeResponse');
         return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/services/surchargecalculation'), $this->getClientMetaInfo(), $body, null, $callContext);
     }
     /**
@@ -26,7 +26,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
      */
     public function getDccRateInquiry(CurrencyConversionRequest $body, CallContext $callContext = null)
     {
-        $responseClassMap = new ResponseClassMap('Syde\Vendor\OnlinePayments\Sdk\Domain\CurrencyConversionResponse');
+        $responseClassMap = new ResponseClassMap('Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionResponse');
         return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/services/dccrate'), $this->getClientMetaInfo(), $body, null, $callContext);
     }
     /**
@@ -34,7 +34,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
      */
     public function getPrivacyPolicy(GetPrivacyPolicyParams $query, CallContext $callContext = null)
     {
-        $responseClassMap = new ResponseClassMap('Syde\Vendor\OnlinePayments\Sdk\Domain\GetPrivacyPolicyResponse');
+        $responseClassMap = new ResponseClassMap('Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPrivacyPolicyResponse');
         return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/services/privacypolicy'), $this->getClientMetaInfo(), $query, $callContext);
     }
     /**
@@ -42,7 +42,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
      */
     public function testConnection(CallContext $callContext = null)
     {
-        $responseClassMap = new ResponseClassMap('Syde\Vendor\OnlinePayments\Sdk\Domain\TestConnection');
+        $responseClassMap = new ResponseClassMap('Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TestConnection');
         return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/services/testconnection'), $this->getClientMetaInfo(), null, $callContext);
     }
     /**
@@ -50,7 +50,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
      */
     public function getIINDetails(GetIINDetailsRequest $body, CallContext $callContext = null)
     {
-        $responseClassMap = new ResponseClassMap('Syde\Vendor\OnlinePayments\Sdk\Domain\GetIINDetailsResponse');
+        $responseClassMap = new ResponseClassMap('Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsResponse');
         return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/services/getIINdetails'), $this->getClientMetaInfo(), $body, null, $callContext);
     }
 }

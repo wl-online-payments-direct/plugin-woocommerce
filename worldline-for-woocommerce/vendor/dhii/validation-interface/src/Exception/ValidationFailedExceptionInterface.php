@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Validation\Exception;
+namespace Syde\Vendor\Worldline\Dhii\Validation\Exception;
 
 use Stringable;
 use Exception;

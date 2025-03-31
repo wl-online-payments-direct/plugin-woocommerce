@@ -1,8 +1,8 @@
 <?php
 
-namespace Syde\Vendor\OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use Syde\Vendor\OnlinePayments\Sdk\Domain\PayoutResult;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResult;
 /**
  * Class DeclinedPayoutException
  *

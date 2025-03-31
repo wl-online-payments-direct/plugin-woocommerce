@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Dhii\Package\Version\Constraint;
+namespace Syde\Vendor\Worldline\Dhii\Package\Version\Constraint;
 
-use Syde\Vendor\Dhii\Package\Version\Constraint\Exception\ConstraintFailedExceptionInterface;
-use Syde\Vendor\Dhii\Package\Version\VersionInterface;
-use Syde\Vendor\Dhii\Validation\ValidatorInterface;
+use Syde\Vendor\Worldline\Dhii\Package\Version\Constraint\Exception\ConstraintFailedExceptionInterface;
+use Syde\Vendor\Worldline\Dhii\Package\Version\VersionInterface;
+use Syde\Vendor\Worldline\Dhii\Validation\ValidatorInterface;
 use Exception;
 /**
  * Represents a version constraint.

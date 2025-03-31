@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Config\Sanitizer;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\Sanitizer;
 
-use Syde\Vendor\Inpsyde\WorldlineForWoocommerce\Uri\UriBuilderInterface;
-use Syde\Vendor\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Inpsyde\PaymentGateway\SettingsFieldSanitizerInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Uri\UriBuilderInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\SettingsFieldSanitizerInterface;
 use RangeException;
 class ApiEndpointSanitizer implements SettingsFieldSanitizerInterface
 {
