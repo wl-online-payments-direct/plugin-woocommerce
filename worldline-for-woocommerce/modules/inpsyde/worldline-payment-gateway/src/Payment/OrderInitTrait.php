@@ -17,6 +17,9 @@ trait OrderInitTrait
         $wcOrder->add_meta_data(OrderMetaKeys::TRANSACTION_STATUS_CODE, '-1');
         $wcOrder->add_meta_data(OrderMetaKeys::TRANSACTION_ID, '');
         $wcOrder->add_meta_data(OrderMetaKeys::CREATION_TIME, (string) time());
+        $wcOrder->add_meta_data(OrderMetaKeys::THREE_D_SECURE_RESULT_PROCESSED, '');
+        $wcOrder->add_meta_data(OrderMetaKeys::THREE_D_SECURE_LIABILITY, '');
+        $wcOrder->add_meta_data(OrderMetaKeys::THREE_D_SECURE_LIABILITY, '');
         $wcOrder->save();
     }
 }

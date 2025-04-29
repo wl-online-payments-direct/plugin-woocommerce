@@ -14,7 +14,6 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\ConfigContainer
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\Sanitizer\ApiEndpointSanitizer;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\MerchantClientFactory;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
 return static function (): array {
     $moduleRoot = \dirname(__FILE__, 2);
     return ['payment_gateway.worldline-for-woocommerce.form_fields' => Service::fromFile("{$moduleRoot}/inc/fields.php"), 'config.container' => new Constructor(ConfigContainer::class, ['worldline_payment_gateway.gateway']), 'config.connection_validator.callback' => new Factory(['worldline_payment_gateway.api.client.factory'], static function (MerchantClientFactory $clientFactory): callable {
@@ -75,16 +74,16 @@ return static function (): array {
         return $captureMode;
     }), 'config.enable_3ds' => new Factory(['config.container'], static function (ConfigContainer $config): bool {
         return $config->get('enable_3ds') === 'yes';
-    }), 'config.enforce_3dsv2' => new Factory(['config.container'], static function (ConfigContainer $config): ?string {
-        if ($config->get('enforce_3dsv2') === 'yes') {
-            return ThreeDSecureFactory::CHALLENGE_REQUIRED;
+    }), 'config.enforce_3dsv2' => new Factory(['config.container'], static function (ConfigContainer $config): bool {
+        return $config->get('enforce_3dsv2') === 'yes';
+    }), 'config.3ds_exemption_type' => new Factory(['config.container'], static function (ConfigContainer $config): ?string {
+        if ($config->get('request_3ds_exemption') !== 'yes') {
+            return null;
         }
-        return null;
-    }), 'config.request_3ds_exemption' => new Factory(['config.container'], static function (ConfigContainer $config): ?string {
-        if ($config->get('request_3ds_exemption') === 'yes') {
-            return ThreeDSecureFactory::EXEMPTION_LOW_VALUE;
-        }
-        return null;
+        return (string) $config->get('3ds_exemption_type');
+    }), 'config.3ds_exemption_limit' => new Factory(['config.container'], static function (ConfigContainer $config): int {
+        $limit = (int) $config->get('3ds_exemption_limit');
+        return $limit * 100;
     }), 'config.clear_data_on_uninstall' => new Factory(['config.container'], static function (ConfigContainer $config): bool {
         return $config->get('clear_data_on_uninstall') === 'yes';
     }), 'config.card_brands_grouped' => new Factory(['config.container'], static function (ConfigContainer $config): bool {

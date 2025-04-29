@@ -27,6 +27,21 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		'#woocommerce_worldline-for-woocommerce_enable_3ds'
 	) as HTMLInputElement | null;
 
+	const chkIs3dsExemption = document.querySelector(
+		'#woocommerce_worldline-for-woocommerce_request_3ds_exemption'
+	) as HTMLInputElement | null;
+
+	const lst3dsExemptionType = document.querySelector(
+		'#woocommerce_worldline-for-woocommerce_3ds_exemption_type'
+	) as HTMLInputElement | null;
+
+	const num3dsExemptionLimit = document.querySelector(
+		'#woocommerce_worldline-for-woocommerce_3ds_exemption_limit'
+	) as HTMLInputElement | null;
+
+	let prevExemptionType: string | null = null;
+	let lastTraLimit: number | null = null;
+
 	function updateLiveTestFields() {
 		if ( ! chkLiveMode ) {
 			return;
@@ -137,20 +152,83 @@ document.addEventListener( 'DOMContentLoaded', () => {
 	}
 
 	function update3dsFields() {
+		if ( ! chkIs3dsAuthentication ) {
+			return;
+		}
+
 		setVisibleByClass(
 			getFieldRow(
 				'#woocommerce_worldline-for-woocommerce_enforce_3dsv2'
 			),
-			chkIs3dsAuthentication?.checked,
+			chkIs3dsAuthentication.checked,
 			'wlop-hidden'
 		);
 		setVisibleByClass(
 			getFieldRow(
 				'#woocommerce_worldline-for-woocommerce_request_3ds_exemption'
 			),
-			chkIs3dsAuthentication?.checked,
+			chkIs3dsAuthentication.checked,
 			'wlop-hidden'
 		);
+
+		if ( ! chkIs3dsExemption ) {
+			return;
+		}
+
+		setVisibleByClass(
+			getFieldRow(
+				'#woocommerce_worldline-for-woocommerce_3ds_exemption_type'
+			),
+			chkIs3dsAuthentication.checked && chkIs3dsExemption.checked,
+			'wlop-hidden'
+		);
+		setVisibleByClass(
+			getFieldRow(
+				'#woocommerce_worldline-for-woocommerce_3ds_exemption_limit'
+			),
+			chkIs3dsAuthentication.checked && chkIs3dsExemption.checked,
+			'wlop-hidden'
+		);
+		setVisibleByClass(
+			'#woocommerce_worldline-for-woocommerce_3ds_exemption_warning',
+			chkIs3dsAuthentication.checked && chkIs3dsExemption.checked,
+			'wlop-hidden'
+		);
+	}
+
+	function update3dsExemptionLimit() {
+		if ( ! lst3dsExemptionType || ! num3dsExemptionLimit ) {
+			return;
+		}
+
+		const currentType = lst3dsExemptionType.value;
+		const currentLimit = parseInt( num3dsExemptionLimit.value );
+
+		const max = currentType === 'low-value' ? 30 : 100;
+
+		num3dsExemptionLimit.setAttribute( 'max', max.toString() );
+		if ( currentLimit > max ) {
+			num3dsExemptionLimit.value = max.toString();
+
+			if (
+				prevExemptionType === 'transaction-risk-analysis' &&
+				currentType === 'low-value'
+			) {
+				lastTraLimit = currentLimit;
+			}
+		}
+
+		if (
+			prevExemptionType === 'low-value' &&
+			currentType === 'transaction-risk-analysis'
+		) {
+			if ( lastTraLimit && lastTraLimit > 30 ) {
+				num3dsExemptionLimit.value = lastTraLimit.toString();
+				lastTraLimit = null;
+			}
+		}
+
+		prevExemptionType = currentType;
 	}
 
 	function initCopyButtons() {
@@ -205,10 +283,14 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		'change',
 		updateAuthorizationFields
 	);
+
 	chkIs3dsAuthentication?.addEventListener( 'click', update3dsFields );
+	chkIs3dsExemption?.addEventListener( 'click', update3dsFields );
+	lst3dsExemptionType?.addEventListener( 'change', update3dsExemptionLimit );
 
 	updateLiveTestFields();
 	updateAuthorizationFields();
 	update3dsFields();
+	update3dsExemptionLimit();
 	initCopyButtons();
 } );

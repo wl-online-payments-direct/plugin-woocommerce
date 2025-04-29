@@ -53,6 +53,7 @@ class OrderUpdater
             if ($paymentDetails) {
                 $this->addSurchargeIfPossible($wlopWcOrder, $paymentDetails->getPaymentOutput());
                 $this->adjustWcStatus($wlopWcOrder, $paymentDetails->getPaymentOutput());
+                $this->checkExemptionInfo($wlopWcOrder, $paymentDetails->getPaymentOutput(), $paymentDetails->getStatusOutput());
                 $wlopWcOrder->order()->save();
             }
         });
@@ -67,6 +68,7 @@ class OrderUpdater
             $this->updateStatusMeta($wlopWcOrder, $statusOutput);
             $this->addSurchargeIfPossible($wlopWcOrder, $paymentOutput);
             $this->adjustWcStatus($wlopWcOrder, $paymentOutput);
+            $this->checkExemptionInfo($wlopWcOrder, $paymentOutput, $statusOutput);
             $wlopWcOrder->order()->save();
         });
     }
@@ -109,6 +111,40 @@ class OrderUpdater
         }
         $hostedCheckout = $this->apiClient->hostedCheckout()->getHostedCheckout($hostedCheckoutId);
         return $hostedCheckout->getCreatedPaymentOutput()->getPayment();
+    }
+    protected function checkExemptionInfo(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput, PaymentStatusOutput $statusOutput): void
+    {
+        // already saved
+        if ($wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_RESULT_PROCESSED)) {
+            return;
+        }
+        // skip failed/cancelled
+        if (!in_array($statusOutput->getStatusCategory(), ['PENDING_PAYMENT', 'PENDING_MERCHANT', 'PENDING_CONNECT_OR_3RD_PARTY', 'COMPLETED'], \true)) {
+            return;
+        }
+        $methodOutput = $paymentOutput->getCardPaymentMethodSpecificOutput();
+        if (!$methodOutput) {
+            $methodOutput = $paymentOutput->getMobilePaymentMethodSpecificOutput();
+        }
+        if (!$methodOutput) {
+            return;
+        }
+        $threedsResults = $methodOutput->getThreeDSecureResults();
+        if (!$threedsResults) {
+            return;
+        }
+        $appliedExemption = $threedsResults->getAppliedExemption();
+        $liability = $threedsResults->getLiability();
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_APPLIED_EXEMPTION, $appliedExemption);
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_LIABILITY, $liability);
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_RESULT_PROCESSED, 'yes');
+        $wlopWcOrder->addWorldlineOrderNote(sprintf(
+            /* translators: %1$s - newline, %2$s, %3$s - values from the API like 'low-value',  'issuer' */
+            __('3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s', 'worldline-for-woocommerce'),
+            '<br/>',
+            $appliedExemption ?: 'na',
+            $liability ?: 'na'
+        ));
     }
     protected function updateStatusMeta(WlopWcOrder $wlopWcOrder, PaymentStatusOutput $statusOutput): void
     {

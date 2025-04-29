@@ -18,10 +18,13 @@ class ContentField implements SettingsFieldRendererInterface
         $fieldKey = $gateway->get_field_key($fieldId);
         $data = array_merge(['title' => '', 'disabled' => \false, 'class' => '', 'css' => '', 'placeholder' => '', 'type' => 'text', 'desc_tip' => \false, 'description' => '', 'custom_attributes' => []], $fieldConfig);
         $hasTitle = !empty($data['title']);
+        $renderDirectly = $data['render_directly'] ?? \false;
         // phpcs:disable WordPress.Security.EscapeOutput.OutputNotEscaped
         ob_start();
         ?>
-        <tr valign="top">
+        <tr valign="top" id="<?php 
+        echo $fieldKey;
+        ?>">
             <?php 
         if ($hasTitle) {
             ?>
@@ -47,7 +50,7 @@ class ContentField implements SettingsFieldRendererInterface
         echo $hasTitle ? '' : 'padding-left: 0;';
         ?>">
                 <?php 
-        echo $gateway->get_description_html($data);
+        echo $renderDirectly ? wp_kses_post((string) $data['description']) : $gateway->get_description_html($data);
         ?>
             </td>
         </tr>

@@ -9,10 +9,9 @@ use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentProcessorInterface;
 use Syde\Vendor\Worldline\Inpsyde\Transformer\Transformer;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\OrderInitTrait;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\CardThreeDSecureFactory;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
@@ -30,15 +29,15 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
     private Transformer $requestTransformer;
     private MerchantClientInterface $client;
     private string $authorizationMode;
-    private ThreeDSecureFactory $threedSecureFactory;
-    public function __construct(HostedPaymentProcessor $hostedPaymentProcessor, WcOrderBasedOrderFactoryInterface $wcOrderBasedFactory, Transformer $requestTransformer, MerchantClientInterface $client, string $authorizationMode, ThreeDSecureFactory $threedSecureFactory)
+    private CardThreeDSecureFactory $cardThreedSecureFactory;
+    public function __construct(HostedPaymentProcessor $hostedPaymentProcessor, WcOrderBasedOrderFactoryInterface $wcOrderBasedFactory, Transformer $requestTransformer, MerchantClientInterface $client, string $authorizationMode, CardThreeDSecureFactory $threedSecureFactory)
     {
         $this->hostedPaymentProcessor = $hostedPaymentProcessor;
         $this->wcOrderBasedFactory = $wcOrderBasedFactory;
         $this->requestTransformer = $requestTransformer;
         $this->client = $client;
         $this->authorizationMode = $authorizationMode;
-        $this->threedSecureFactory = $threedSecureFactory;
+        $this->cardThreedSecureFactory = $threedSecureFactory;
     }
     /**
      * @throws Throwable
@@ -61,8 +60,7 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
             $paymentRequest->setHostedTokenizationId($hostedTokenizationId);
             $cardPaymentMethodSpecificInput = $this->requestTransformer->create(CardPaymentMethodSpecificInput::class, new HostedCheckoutInput($wlopOrder, $wcOrder, '', null, null, null));
             assert($cardPaymentMethodSpecificInput instanceof CardPaymentMethodSpecificInput);
-            $threedSecure = $this->threedSecureFactory->create($wlopOrder->getAmountOfMoney()->getAmount(), $wlopOrder->getAmountOfMoney()->getCurrencyCode(), $wcOrder->get_checkout_order_received_url());
-            $cardPaymentMethodSpecificInput->setThreeDSecure($threedSecure);
+            $cardPaymentMethodSpecificInput->setThreeDSecure($this->cardThreedSecureFactory->create($wlopOrder->getAmountOfMoney()->getAmount(), $wlopOrder->getAmountOfMoney()->getCurrencyCode(), $wcOrder->get_checkout_order_received_url()));
             $paymentRequest->setOrder($wlopOrder);
             $paymentRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
             $response = $this->client->payments()->createPayment($paymentRequest);
@@ -81,7 +79,7 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
                 $errors = $this->extractErrors($exception);
             }
             do_action('wlop.hosted_tokenization_payment_error', ['exception' => $exception, 'errors' => $errors]);
-            wc_add_notice(__('Failed to process checkout. Please try again or contact the shop admin.', 'worldline-for-woocommerce'), 'error');
+            wc_add_notice(__('Failed to process checkout. Please try again or contact the store admin.', 'worldline-for-woocommerce'), 'error');
             return ['result' => 'failure'];
         }
         return ['result' => 'success', 'redirect' => $gateway->get_return_url($wcOrder)];

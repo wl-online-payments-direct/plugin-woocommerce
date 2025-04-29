@@ -5,31 +5,28 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\GooglePayGateway
 
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\GooglePayThreeDSecureFactory;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectionData;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ThreeDSecure;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GPayThreeDSecure;
 class GooglePayRequestModifier extends AbstractHostedPaymentRequestModifier
 {
-    private ThreeDSecureFactory $threedSecureFactory;
-    private string $authorizationMode;
-    public function __construct(string $authorizationMode, ThreeDSecureFactory $threedSecureFactory)
+    private GooglePayThreeDSecureFactory $threedSecureFactory;
+    public function __construct(GooglePayThreeDSecureFactory $threedSecureFactory)
     {
         $this->threedSecureFactory = $threedSecureFactory;
-        $this->authorizationMode = $authorizationMode;
     }
     public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput): CreateHostedCheckoutRequest
     {
-        $mobilePaymentSpecificInput = new MobilePaymentMethodSpecificInput();
-        $mobilePaymentSpecificInput->setAuthorizationMode($this->authorizationMode);
+        $mobilePaymentSpecificInput = $hostedCheckoutRequest->getMobilePaymentMethodSpecificInput();
         $mobilePaymentSpecificInput->setPaymentProductId(320);
-        $mobilePaymentSpecificInput->setPaymentProduct320SpecificInput($this->threeDSecure($hostedCheckoutInput));
-        $hostedCheckoutRequest->setMobilePaymentMethodSpecificInput($mobilePaymentSpecificInput);
+        $gpaySpecificInput = $mobilePaymentSpecificInput->getPaymentProduct320SpecificInput();
+        $gpaySpecificInput->setThreeDSecure($this->threeDSecure($hostedCheckoutInput));
+        $mobilePaymentSpecificInput->setPaymentProduct320SpecificInput($gpaySpecificInput);
         $this->removeTokensFromRequest($hostedCheckoutRequest);
+        $hostedCheckoutRequest->setCardPaymentMethodSpecificInput(null);
         return $hostedCheckoutRequest;
     }
-    protected function threeDSecure(HostedCheckoutInput $hostedCheckoutInput): ThreeDSecure
+    protected function threeDSecure(HostedCheckoutInput $hostedCheckoutInput): GPayThreeDSecure
     {
         $threedSecure = $this->threedSecureFactory->create($hostedCheckoutInput->order()->getAmountOfMoney()->getAmount(), $hostedCheckoutInput->order()->getAmountOfMoney()->getCurrencyCode(), $hostedCheckoutInput->wcOrder()->get_checkout_order_received_url());
         return $threedSecure;

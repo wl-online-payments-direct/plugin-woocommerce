@@ -26,7 +26,7 @@ return static function (): array {
         return new HostedPaymentProcessor($hostedCheckoutUrlFactory, $wcOrderBasedOrderFactory, $wcTokenRepository, $hostedCheckoutLanguage, $googlePayRequestModifier);
     }), "payment_gateway.{$gatewayId}.supports" => static function (): array {
         return ['products', 'refunds'];
-    }, "payment_gateway.{$gatewayId}.refund_processor" => new Alias('payment_gateway.' . GatewayIds::HOSTED_CHECKOUT . '.refund_processor'), "payment_gateway.{$gatewayId}.availability_callback" => new Alias('payment_gateway.' . GatewayIds::HOSTED_CHECKOUT . '.availability_callback'), "google_pay.request_modifier" => new Constructor(GooglePayRequestModifier::class, ['config.authorization_mode', 'worldline_payment_gateway.three_d_secure_factory']), "payment_gateway.{$gatewayId}.method_icon_provider" => new Factory(['assets.get_module_static_asset_url'], static function (callable $getStaticAssetUrl): IconProviderInterface {
+    }, "payment_gateway.{$gatewayId}.refund_processor" => new Alias('payment_gateway.' . GatewayIds::HOSTED_CHECKOUT . '.refund_processor'), "payment_gateway.{$gatewayId}.availability_callback" => new Alias('payment_gateway.' . GatewayIds::HOSTED_CHECKOUT . '.availability_callback'), "google_pay.request_modifier" => new Constructor(GooglePayRequestModifier::class, ['worldline_payment_gateway.3ds.google_pay_3ds_factory']), "payment_gateway.{$gatewayId}.method_icon_provider" => new Factory(['assets.get_module_static_asset_url'], static function (callable $getStaticAssetUrl): IconProviderInterface {
         /** @var string $src */
         $src = $getStaticAssetUrl(GooglePayGatewayModule::PACKAGE_NAME, "images/google-pay-logo.svg");
         $icon = new Icon('google-pay-logo', $src, 'Google Pay logo');

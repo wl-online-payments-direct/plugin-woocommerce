@@ -670,17 +670,17 @@
         },
         {
             "name": "inpsyde\/payment-gateway",
-            "version": "2.6.0",
-            "version_normalized": "2.6.0.0",
+            "version": "2.7.0",
+            "version_normalized": "2.7.0.0",
             "source": {
                 "type": "git",
                 "url": "git@github.com:inpsyde\/payment-gateway.git",
-                "reference": "a13d1c482b992a40522e34561a08fca6026a8465"
+                "reference": "ac4128c3bf4468cccde87bebfcdd60bed53c5934"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/inpsyde\/payment-gateway\/zipball\/a13d1c482b992a40522e34561a08fca6026a8465",
-                "reference": "a13d1c482b992a40522e34561a08fca6026a8465",
+                "url": "https:\/\/api.github.com\/repos\/inpsyde\/payment-gateway\/zipball\/ac4128c3bf4468cccde87bebfcdd60bed53c5934",
+                "reference": "ac4128c3bf4468cccde87bebfcdd60bed53c5934",
                 "shasum": "",
                 "mirrors": [
                     {
@@ -706,7 +706,7 @@
                 "phpunit\/phpunit": "^8.0 | ^9.0",
                 "vimeo\/psalm": "^4.3"
             },
-            "time": "2025-03-14T20:33:00+00:00",
+            "time": "2025-04-02T15:15:57+00:00",
             "type": "inpsyde-module",
             "extra": {
                 "hooks": {
@@ -795,7 +795,7 @@
                 }
             ],
             "support": {
-                "source": "https:\/\/github.com\/inpsyde\/payment-gateway\/tree\/2.6.0",
+                "source": "https:\/\/github.com\/inpsyde\/payment-gateway\/tree\/2.7.0",
                 "issues": "https:\/\/github.com\/inpsyde\/payment-gateway\/issues"
             },
             "install-path": "..\/..\/modules\/inpsyde\/payment-gateway"
@@ -933,8 +933,8 @@
         },
         {
             "name": "inpsyde\/worldline-apple-pay-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/apple-pay-gateway",
@@ -979,8 +979,8 @@
         },
         {
             "name": "inpsyde\/worldline-bank-transfer-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/bank-transfer-gateway",
@@ -1025,8 +1025,8 @@
         },
         {
             "name": "inpsyde\/worldline-checkout",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/checkout",
@@ -1071,8 +1071,8 @@
         },
         {
             "name": "inpsyde\/worldline-config",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/config",
@@ -1118,8 +1118,8 @@
         },
         {
             "name": "inpsyde\/worldline-documentation",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/documentation",
@@ -1164,8 +1164,8 @@
         },
         {
             "name": "inpsyde\/worldline-google-pay-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/google-pay-gateway",
@@ -1210,8 +1210,8 @@
         },
         {
             "name": "inpsyde\/worldline-hosted-tokenization-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/hosted-tokenization-gateway",
@@ -1256,8 +1256,8 @@
         },
         {
             "name": "inpsyde\/worldline-ideal-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/ideal-gateway",
@@ -1302,8 +1302,8 @@
         },
         {
             "name": "inpsyde\/worldline-klarna-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/klarna-gateway",
@@ -1348,8 +1348,8 @@
         },
         {
             "name": "inpsyde\/worldline-logging",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/worldline-logging",
@@ -1393,8 +1393,8 @@
         },
         {
             "name": "inpsyde\/worldline-payment-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/worldline-payment-gateway",
@@ -1439,8 +1439,8 @@
         },
         {
             "name": "inpsyde\/worldline-postfinance-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/postfinance",
@@ -1485,8 +1485,8 @@
         },
         {
             "name": "inpsyde\/worldline-return-page",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/return-page",
@@ -1531,8 +1531,8 @@
         },
         {
             "name": "inpsyde\/worldline-twint-gateway",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/twint-gateway",
@@ -1577,8 +1577,8 @@
         },
         {
             "name": "inpsyde\/worldline-uninstall",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/uninstall",
@@ -1622,8 +1622,8 @@
         },
         {
             "name": "inpsyde\/worldline-uri",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/uri",
@@ -1668,8 +1668,8 @@
         },
         {
             "name": "inpsyde\/worldline-utils",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/utils",
@@ -1711,8 +1711,8 @@
         },
         {
             "name": "inpsyde\/worldline-vaulting",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/vaulting",
@@ -1756,8 +1756,8 @@
         },
         {
             "name": "inpsyde\/worldline-wc-support",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/wc-support",
@@ -1801,8 +1801,8 @@
         },
         {
             "name": "inpsyde\/worldline-webhooks",
-            "version": "dev-feature\/WOL-578-ht-tokens",
-            "version_normalized": "dev-feature\/WOL-578-ht-tokens",
+            "version": "dev-feature\/WOL-620-3ds-tra",
+            "version_normalized": "dev-feature\/WOL-620-3ds-tra",
             "dist": {
                 "type": "path",
                 "url": ".\/modules.local\/webhooks",

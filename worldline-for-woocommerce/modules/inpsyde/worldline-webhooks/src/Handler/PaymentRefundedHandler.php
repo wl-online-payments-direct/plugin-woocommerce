@@ -40,7 +40,7 @@ class PaymentRefundedHandler implements WebhookHandlerInterface
             $this->issueRefund($webhook, $wlopWcOrder);
         } catch (\Throwable $exception) {
             /* translators: 1 Worldline transaction ID */
-            $wlopWcOrder->addWorldlineOrderNote(sprintf(__('Failed to issue a refund in the Woocommerce. Transaction ID: %s', 'worldline-for-woocommerce'), WebhookHelper::transactionIdForUi($webhook)));
+            $wlopWcOrder->addWorldlineOrderNote(sprintf(__('Failed to issue a refund in the WooCommerce. Transaction ID: %s', 'worldline-for-woocommerce'), WebhookHelper::transactionIdForUi($webhook)));
             do_action('wlop.refund_wc_error', ['exception' => $exception, 'orderId' => $wlopWcOrder->order()->get_id()]);
         }
     }

@@ -12,9 +12,88 @@ declare let WlopHtConfig;
 addEventListener( 'DOMContentLoaded', () => {
 	let tokenizer;
 	let initialized: boolean = false;
+	let lastSurchargeAmount = 0;
 
 	const tokenRadiosSelector =
 		'.payment_method_worldline-hosted-tokenization input.woocommerce-SavedPaymentMethods-tokenInput';
+	const orderSummaryTableSelector =
+		'.shop_table.woocommerce-checkout-review-order-table';
+	let originalOrderSummaryTableHTML = '';
+
+	const storeOriginalOrderSummaryTable = () => {
+		const orderSummaryTable = document.querySelector(
+			orderSummaryTableSelector
+		);
+		if ( orderSummaryTable ) {
+			originalOrderSummaryTableHTML = orderSummaryTable.innerHTML;
+		}
+	};
+
+	const restoreOriginalOrderSummaryTable = () => {
+		if ( ! originalOrderSummaryTableHTML ) {
+			return;
+		}
+		const table = document.querySelector( orderSummaryTableSelector );
+		if ( table ) {
+			table.innerHTML = originalOrderSummaryTableHTML;
+		}
+	};
+
+	const applySurchargeToOrderSummaryTable = ( surcharge: number ) => {
+		const table = document.querySelector( orderSummaryTableSelector );
+		if ( ! table ) {
+			return;
+		}
+
+		const surchargeValue = surcharge / WlopHtConfig.currency.centFactor;
+
+		const tfoot = table.querySelector( 'tfoot' );
+		if ( ! tfoot ) {
+			return;
+		}
+
+		const baseTotalValue =
+			WlopHtConfig.total / WlopHtConfig.currency.centFactor;
+		const newTotalValue = baseTotalValue + surchargeValue;
+		const currencyFactory = CurrencyFactory( WlopHtConfig.currency );
+		const formattedNewTotal = currencyFactory.formatAmount( newTotalValue );
+		const formattedSurcharge =
+			currencyFactory.formatAmount( surchargeValue );
+
+		let surchargeRow = tfoot.querySelector( '.wlop-order-surcharge' );
+		if ( ! surchargeRow ) {
+			surchargeRow = document.createElement( 'tr' );
+			surchargeRow.classList.add( 'wlop-order-surcharge' );
+			surchargeRow.innerHTML = `
+				<th>${ __( 'Surcharge', 'worldline-for-woocommerce' ) }</th>
+				<td>
+					<strong>
+						<span class="woocommerce-Price-amount amount"><bdi>${ formattedSurcharge }</bdi></span>
+					</strong>
+				</td>
+			`;
+			const orderTotalRow = tfoot.querySelector( '.order-total' );
+			if ( orderTotalRow ) {
+				tfoot.insertBefore( surchargeRow, orderTotalRow );
+			} else {
+				tfoot.appendChild( surchargeRow );
+			}
+		} else {
+			const surchargeAmountEl = surchargeRow.querySelector(
+				'.woocommerce-Price-amount bdi'
+			);
+			if ( surchargeAmountEl ) {
+				surchargeAmountEl.textContent = formattedSurcharge;
+			}
+		}
+
+		const totalEl = tfoot.querySelector(
+			'.order-total .woocommerce-Price-amount bdi'
+		);
+		if ( totalEl ) {
+			totalEl.textContent = formattedNewTotal;
+		}
+	};
 
 	const iframeWrapper = (): HTMLElement | null => {
 		return document.querySelector( '#' + WlopHtConfig.wrapper.id );
@@ -47,7 +126,7 @@ addEventListener( 'DOMContentLoaded', () => {
 							'Invalid surcharge amount received. ' + amount
 						);
 					}
-
+					lastSurchargeAmount = amount;
 					updateSurcharge( amount );
 				} else {
 					// eslint-disable-next-line no-console
@@ -73,10 +152,15 @@ addEventListener( 'DOMContentLoaded', () => {
 			return;
 		}
 
-		setVisible(
-			wrapper,
-			getCurrentPaymentMethod() === WlopHtConfig.gateway.id
-		);
+		const isHTGateway =
+			getCurrentPaymentMethod() === WlopHtConfig.gateway.id;
+		setVisible( wrapper, isHTGateway );
+
+		if ( ! isHTGateway ) {
+			restoreOriginalOrderSummaryTable();
+		} else if ( lastSurchargeAmount > 0 ) {
+			applySurchargeToOrderSummaryTable( lastSurchargeAmount );
+		}
 	};
 
 	const updateAmount = () => {
@@ -100,6 +184,7 @@ addEventListener( 'DOMContentLoaded', () => {
 
 		if ( surcharge <= 0 ) {
 			element.innerHTML = '';
+			restoreOriginalOrderSummaryTable();
 			return;
 		}
 
@@ -115,6 +200,12 @@ addEventListener( 'DOMContentLoaded', () => {
 			__( 'Includes surcharge of %s', 'worldline-for-woocommerce' ),
 			formattedSurcharge
 		);
+
+		if ( getCurrentPaymentMethod() === WlopHtConfig.gateway.id ) {
+			applySurchargeToOrderSummaryTable( surcharge );
+		} else {
+			restoreOriginalOrderSummaryTable();
+		}
 	};
 
 	const initIframe = async () => {
@@ -239,6 +330,7 @@ addEventListener( 'DOMContentLoaded', () => {
 
 		const value = selectedRadio.value;
 		if ( value === 'new' ) {
+			lastSurchargeAmount = 0;
 			updateSurcharge( 0 );
 			tokenizer.useToken();
 		} else {
@@ -271,6 +363,7 @@ addEventListener( 'DOMContentLoaded', () => {
 	initIframe();
 
 	jQuery( document.body ).on( 'updated_checkout', async () => {
+		storeOriginalOrderSummaryTable();
 		await reloadConfig( true );
 
 		await initIframe();

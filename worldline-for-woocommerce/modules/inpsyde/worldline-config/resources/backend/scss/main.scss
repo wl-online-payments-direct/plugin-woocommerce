@@ -6,3 +6,17 @@
 	display: block;
 	margin-top: 12px;
 }
+
+.wlop-warning-field {
+	max-width: 800px;
+	padding: 10px;
+	background-color: #ffffe0;
+	border: 1px solid #ffa500;
+	border-radius: 8px;
+}
+
+#woocommerce_worldline-for-woocommerce_3ds_exemption_warning { /* stylelint-disable-line selector-id-pattern */
+	td {
+		padding-top: 0;
+	}
+}

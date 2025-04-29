@@ -1,48 +1,49 @@
-=== Worldline Payments for WooCommerce ===
+=== Worldline Global Online Pay for WooCommerce ===
 Contributors: syde
 Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.1.0
+Stable tag: 2.2.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-Worldline's latest payment processing solution. 
+Worldline's latest payment processing solution.
 
 == Description ==
 
-Worldline payments for WooCommerce allows store owners to securely accept and process payments through Worldline’s payment solutions. Our plug-in comes with regular updates and full integration support, guaranteeing a versatile out-of-the-box solution to accept online payments easily. The plugin ensures secure transactions by utilizing advanced encryption and security protocols, providing both store owners and customers peace of mind when it comes to payment security. 
+Worldline Global Online Pay for WooCommerce allows store owners to securely accept and process payments through Worldline’s payment solutions. Our plug-in comes with regular updates and full integration support, guaranteeing a versatile out-of-the-box solution to accept online payments easily. The plugin ensures secure transactions by utilizing advanced encryption and security protocols, providing both store owners and customers peace of mind when it comes to payment security.
 
 **Features**
 
-* Incredible reach of local and global payment methods
-* Authorization/Sale modes
-* Card tokenization
-* PSD2 Compliant
-* PCI-DSS Compliant
+* Supports all major global and local payment methods
+* Authorization/Sale mode for transactions
+* Onsite payments for increased conversion
+* Advanced 3DS options
+* PSD2 and PCI-DSS Compliant
+* Possibility of custom branding on the payment pages
 * Maintenance transactions within WooCommerce cockpit
 
 **Effortless Integration**
 
-Our plugin is crafted to integrate seamlessly into your WooCommerce store without hassle. With easy installation and setup, you'll be ready to accept a wide array of payment methods including credit cards, debit cards, and alternative payments in no time.
+Our plugin is crafted to integrate seamlessly into your WooCommerce store without hassle. With easy installation and setup, you’ll be ready to accept a wide array of payment methods including credit cards, debit cards, and alternative payments in no time.
 
 == Frequently Asked Questions ==
 
-= Where can I find the WooCommerce Worldline Payments documentation and setup guide? =
+= Where can I find documentation for the plugin setup? =
 
-For help setting up and configuring Worldline Payments for WooCommerce, please refer to the [documentation](https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/woocommerce).
+For help setting up and configuring the plugin, please refer to the [documentation](https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/woocommerce).
 
-= Where can I get help for Worldline Payments for WooCommerce? =
+= Where can I get help for Worldline Global Online Pay for WooCommerce? =
 
 For questions regarding the plugin setup, we recommend reviewing our [documentation](https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/woocommerce) if you encounter any issues.
-If the question or problem persists after reviewing the documentation, kindly create a new thread in the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or open a support ticket via [our helpdesk](https://worldline.inpsyde.com/how-to-request-support-via-widget-on-the-website/).
+If the question or problem persists after reviewing the documentation, kindly create a new thread in the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or email to us at [isvpartners@worldline.com](mailto:isvpartners@worldline.com).
 
 == Installation ==
 
 = Requirements =
 
-To install and configure Worldline Payments for WooCommerce, you will need:
+To install and configure Worldline Global Online Pay for WooCommerce, you will need:
 
 * WordPress Version 6.3 or newer (installed)
 * WooCommerce Version 8.6 or newer (installed and activated)
@@ -53,7 +54,7 @@ To install and configure Worldline Payments for WooCommerce, you will need:
 
 1. Log in to WordPress admin.
 2. Go to **Plugins > Add New**.
-3. Search for the **Worldline Payments for WooCommerce** plugin.
+3. Search for the **Worldline Global Online Pay for WooCommerce** plugin.
 4. Click on **Install Now** and wait until the plugin is installed successfully.
 5. You can activate the plugin immediately by clicking on **Activate** now on the success page. If you want to activate it later, you can do so via **Plugins > Installed Plugins**.
 
@@ -61,17 +62,17 @@ To install and configure Worldline Payments for WooCommerce, you will need:
 
 Follow the steps below to connect the plugin to your Worldline account:
 
-1. After you have activated the Worldline Payments for WooCommerce plugin, go to **WooCommerce  > Settings**.
+1. After you have activated the Worldline Global Online Pay for WooCommerce plugin, go to **WooCommerce  > Settings**.
 2. Click the **Payments** tab.
-3. Click on **Worldline**.
+3. Click on **Worldline Global Online Pay for WooCommerce**.
 4. Enter the details for PSPID, API Key and Secret (live/test depending on the environment) from your Worldline Merchant Portal (Developer>Payment API).
 5. Click on "Save" to store these settings in the plugin.
 6. Copy the "Webhook endpoint".
 6. Add the webhook endpoint in the Worldline back office page "Developer" > "Webhooks" by clicking "add webhook endpoint".
 7. Generate the webhook keys on the back office page and copy the details into the plugin settings page into the fields "Webhook ID" and "Secret Webhook key".
-8. Click on "Save" to store these settings in the plugin. 
+8. Click on "Save" to store these settings in the plugin.
 
-Complete onboarding instructions can be found in the [documentation here](https://woocommerce.com/document/tbc).
+Complete onboarding instructions can be found in the [documentation here](https://docs.direct.worldline-solutions.com/en/integration/how-to-integrate/plugins/woocommerce).
 
 = Updating =
 
@@ -84,6 +85,12 @@ If you encounter issues with the Worldline buttons not appearing after an update
 1. tbc by Worldline
 
 == Changelog ==
+
+= 2.2.0 - 2025-04-29 =
+* Allow SCA exemptions with Transaction Risk Analysis.
+* Show totals with Surcharge on the checkout page.
+* Add payment method logos on checkout.
+* Improve settings tooltips.
 
 = 2.1.0 - 2025-03-31 =
 * Added single payment methods (Klarna, PostFinance, Twint).

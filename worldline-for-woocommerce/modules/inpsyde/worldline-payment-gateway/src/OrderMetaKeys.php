@@ -14,4 +14,7 @@ interface OrderMetaKeys
     public const MANUAL_CAPTURE_SENT = '_wlop_manual_capture';
     public const AUTO_CAPTURE_SENT = '_wlop_auto_capture';
     public const HOSTED_CHECKOUT_ID = '_wlop_hosted_checkout_id';
+    public const THREE_D_SECURE_RESULT_PROCESSED = '_wlop_three_d_secure_result_processed';
+    public const THREE_D_SECURE_APPLIED_EXEMPTION = '_wlop_three_d_secure_applied_exemption';
+    public const THREE_D_SECURE_LIABILITY = '_wlop_three_d_secure_liability';
 }

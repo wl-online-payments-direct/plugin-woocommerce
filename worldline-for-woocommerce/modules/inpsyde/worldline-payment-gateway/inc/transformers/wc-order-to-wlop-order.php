@@ -22,7 +22,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\LineItem;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PersonalInformation;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PersonalName;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Shipping;
-return new Factory(['worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.account_type_handler', 'worldline_payment_gateway.address_indicator_handler', 'utils.client_ip_address', 'utils.client_user_agent', 'utils.client_accept', 'worldline_payment_gateway.customer_screen_height', 'worldline_payment_gateway.customer_screen_width'], static function (AmountOfMoneyFactory $amountOfMoneyFactory, AccountTypeHandler $accountTypeHandler, AddressIndicatorHandler $addressIndicatorHandler, ?string $ipAddress, ?string $userAgent, ?string $acceptHeader, ?int $screenHeight, ?int $screenWidth): Transformer {
+return new Factory(['worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.account_type_handler', 'worldline_payment_gateway.address_indicator_handler', 'worldline_payment_gateway.locale', 'utils.client_ip_address', 'utils.client_user_agent', 'utils.client_accept', 'worldline_payment_gateway.customer_screen_height', 'worldline_payment_gateway.customer_screen_width'], static function (AmountOfMoneyFactory $amountOfMoneyFactory, AccountTypeHandler $accountTypeHandler, AddressIndicatorHandler $addressIndicatorHandler, string $locale, ?string $ipAddress, ?string $userAgent, ?string $acceptHeader, ?int $screenHeight, ?int $screenWidth): Transformer {
     $transformer = new ConfigurableTransformer();
     $transformer->addTransformer(static function (WcPriceStruct $priceStruct) use ($amountOfMoneyFactory): AmountOfMoney {
         return $amountOfMoneyFactory->create($priceStruct);
@@ -31,7 +31,7 @@ return new Factory(['worldline_payment_gateway.amount_of_money_factory', 'worldl
         $lineItemFactory = new LineItemFactory();
         return $lineItemFactory->create($wcLineItem, $transformer);
     });
-    $transformer->addTransformer(static function (\WC_Order $wcOrder, Transformer $transformer) use ($ipAddress, $userAgent, $acceptHeader, $accountTypeHandler, $screenHeight, $screenWidth): Customer {
+    $transformer->addTransformer(static function (\WC_Order $wcOrder, Transformer $transformer) use ($ipAddress, $userAgent, $acceptHeader, $accountTypeHandler, $screenHeight, $screenWidth, $locale): Customer {
         $customer = new Customer();
         $accountType = $accountTypeHandler->determineAccountType($wcOrder);
         $personalInfo = new PersonalInformation();
@@ -42,7 +42,7 @@ return new Factory(['worldline_payment_gateway.amount_of_money_factory', 'worldl
             $personalInfo->setName($name);
         }
         $customer->setPersonalInformation($personalInfo);
-        $customer->setLocale(\get_locale());
+        $customer->setLocale($locale);
         $customer->setAccountType($accountType);
         $customerDevice = new CustomerDevice();
         if (!\is_null($acceptHeader)) {

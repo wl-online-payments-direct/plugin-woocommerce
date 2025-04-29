@@ -36,10 +36,13 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGatewa
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentCaptureValidator;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentMismatchValidator;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\ThreeDSecureFactory;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund\RefundProcessor;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Refund\RefundValidator;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Shipping\AddressIndicatorHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\CardThreeDSecureFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\CarteBancaireThreeDSecureFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\ExemptionAmountChecker;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\GooglePayThreeDSecureFactory;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WorldlinePaymentGatewayModule;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorLogger;
@@ -78,12 +81,12 @@ return static function (): array {
         }),
         "payment_gateway.{$gatewayId}.refund_processor" => new Constructor(RefundProcessor::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.refund_validator']),
         'worldline_payment_gateway.refund_validator' => new Constructor(RefundValidator::class),
-        "payment_gateway.{$gatewayId}.method_title" => static fn(): string => \__('Worldline for WooCommerce', 'worldline-for-woocommerce'),
+        "payment_gateway.{$gatewayId}.method_title" => static fn(): string => \__('Worldline Global Online Pay for WooCommerce', 'worldline-for-woocommerce'),
         "payment_gateway.{$gatewayId}.title" => new Factory(['config.primary_gateway_title'], static function (string $customTitle): string {
             if (!empty($customTitle)) {
                 return $customTitle;
             }
-            return \__('Worldline for WooCommerce', 'worldline-for-woocommerce');
+            return \__('Worldline Global Online Pay', 'worldline-for-woocommerce');
         }),
         "payment_gateway.{$gatewayId}.method_description" => static fn(): string => \__('Accept payments with all major and local payment methods.', 'worldline-for-woocommerce'),
         "payment_gateway.{$gatewayId}.description" => new Factory(['config.surcharge_enabled'], static function (bool $surchargeEnabled): string {
@@ -153,7 +156,10 @@ return static function (): array {
         },
         'worldline_payment_gateway.address_indicator_handler' => static fn() => new AddressIndicatorHandler(),
         'worldline_payment_gateway.account_type_handler' => static fn(): AccountTypeHandler => new AccountTypeHandler(),
-        'worldline_payment_gateway.three_d_secure_factory' => new Constructor(ThreeDSecureFactory::class, ['config.enable_3ds', 'config.enforce_3dsv2', 'config.request_3ds_exemption']),
+        'worldline_payment_gateway.3ds.exemption_amount_checker' => new Constructor(ExemptionAmountChecker::class, ['config.3ds_exemption_limit']),
+        'worldline_payment_gateway.3ds.card_3ds_factory' => new Constructor(CardThreeDSecureFactory::class, ['config.enable_3ds', 'config.enforce_3dsv2', 'config.3ds_exemption_type', 'worldline_payment_gateway.3ds.exemption_amount_checker']),
+        'worldline_payment_gateway.3ds.google_pay_3ds_factory' => new Constructor(GooglePayThreeDSecureFactory::class, ['config.enable_3ds', 'config.enforce_3dsv2', 'config.3ds_exemption_type', 'worldline_payment_gateway.3ds.exemption_amount_checker']),
+        'worldline_payment_gateway.3ds.carte_bancaire_3ds_factory' => new Constructor(CarteBancaireThreeDSecureFactory::class, ['config.enable_3ds', 'config.3ds_exemption_type', 'worldline_payment_gateway.3ds.exemption_amount_checker', 'config.authorization_mode']),
         'worldline_payment_gateway.auto_capture.handler.interval' => static fn(): int => 3600,
         'worldline_payment_gateway.auto_capture.handler' => new Constructor(AutoCaptureHandler::class, ['config.capture_mode', 'worldline_payment_gateway.api.client']),
         // phpcs:disable WordPress.Security.NonceVerification
