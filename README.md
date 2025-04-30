@@ -20,7 +20,7 @@ Our plugin is crafted to integrate seamlessly into your WooCommerce store withou
 
 ## Requirements
 
-To install and configure Worldline Payments for WooCommerce, you will need:
+To install and configure Worldline Global Online Pay for WooCommerce, you will need:
 
 - WordPress Version 6.3 or newer (installed)
 - WooCommerce Version 8.6 or newer (installed and activated)
