@@ -1,14 +1,15 @@
-# Worldline Payments for WooCommerce
+# Worldline Global Online Pay for WooCommerce
 
-Worldline payments for WooCommerce allows store owners to securely accept and process payments through Worldline’s payment solutions. Our plug-in comes with regular updates and full integration support, guaranteeing a versatile out-of-the-box solution to accept online payments easily. The plugin ensures secure transactions by utilizing advanced encryption and security protocols, providing both store owners and customers peace of mind when it comes to payment security.
+Worldline Global Online Pay WooCommerce allows store owners to securely accept and process payments through Worldline’s payment solutions. Our plug-in comes with regular updates and full integration support, guaranteeing a versatile out-of-the-box solution to accept online payments easily. The plugin ensures secure transactions by utilizing advanced encryption and security protocols, providing both store owners and customers peace of mind when it comes to payment security.
 
 ## Features
 
-- Incredible reach of local and global payment methods
-- Authorization/Sale modes
-- Card tokenization
-- PSD2 Compliant
-- PCI-DSS Compliant
+- Supports all major global and local payment methods
+- Authorization/Sale mode for transactions
+- Onsite payments for increased conversion
+- Advanced 3DS options
+- PSD2 and PCI-DSS Compliant
+- Possibility of custom branding on the payment pages
 - Maintenance transactions within WooCommerce cockpit
 
 ## Effortless Integration
@@ -30,7 +31,7 @@ To install and configure Worldline Payments for WooCommerce, you will need:
 
 1. Log in to WordPress admin.
 2. Go to **Plugins > Add New**.
-3. Search for the **Worldline Payments for WooCommerce** plugin.
+3. Search for the **Worldline Global Online Pay for WooCommerce** plugin.
 4. Click on **Install Now** and wait until the plugin is installed successfully.
 5. You can activate the plugin immediately by clicking on **Activate** now on the success page. If you want to activate it later, you can do so via **Plugins > Installed Plugins**.
 
@@ -40,7 +41,7 @@ Follow the steps below to connect the plugin to your Worldline account:
 
 1. After you have activated the Worldline Payments for WooCommerce plugin, go to **WooCommerce  > Settings**.
 2. Click the **Payments** tab.
-3. Click on **Worldline**.
+3. Click on **Worldline Global Online Pay for WooCommerce**.
 4. Enter the details for PSPID, Live API Key and Test API Secret from your Worldline account page under "Developer" > "Payment API" page.
 5. Click on "Save" to store these settings in the plugin.
 6. Copy the "Webhook endpoint".
