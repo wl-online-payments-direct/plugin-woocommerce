@@ -39,7 +39,7 @@ To install and configure Worldline Payments for WooCommerce, you will need:
 
 Follow the steps below to connect the plugin to your Worldline account:
 
-1. After you have activated the Worldline Payments for WooCommerce plugin, go to **WooCommerce  > Settings**.
+1. After you have activated the Worldline Global Online Pay for WooCommerce plugin, go to **WooCommerce  > Settings**.
 2. Click the **Payments** tab.
 3. Click on **Worldline Global Online Pay for WooCommerce**.
 4. Enter the details for PSPID, Live API Key and Test API Secret from your Worldline account page under "Developer" > "Payment API" page.
