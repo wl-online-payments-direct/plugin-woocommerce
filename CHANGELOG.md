@@ -1,3 +1,6 @@
+# 3.2.4
+- Plugin csv fix
+
 # 3.2.3
 - New Visa fields
 - Plugin icon fix

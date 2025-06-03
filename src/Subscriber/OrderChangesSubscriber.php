@@ -100,7 +100,7 @@ class OrderChangesSubscriber implements EventSubscriberInterface
             if (is_null($orderId)) {
                 continue;
             }
-            if (Payment::isOrderLocked($this->requestdebugStack->getSession(), $orderId)) {
+            if (Payment::isOrderLocked($this->requestStack->getSession(), $orderId)) {
                 continue;
             }
 
