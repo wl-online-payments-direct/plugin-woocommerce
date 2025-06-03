@@ -73,7 +73,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
     private EntityRepository $customerRepository;
     private TranslatorInterface $translator;
     private OrderTransactionStateHandler $transactionStateHandler;
-    private Session $session;
     private StateMachineRegistry $stateMachineRegistry;
 
     public const STATUS_PAYMENT_CREATED = [0];                      //open
@@ -188,7 +187,6 @@ class Payment implements AsynchronousPaymentHandlerInterface
         $this->translator = $translator;
         $this->transactionStateHandler = $transactionStateHandler;
         $this->stateMachineRegistry = $stateMachineRegistry;
-        $this->session = new Session();
     }
 
     /**
@@ -245,6 +243,9 @@ class Payment implements AsynchronousPaymentHandlerInterface
                 $clientData[$key] = $dataBag->get($key);
             }
         }
+
+        // Change localeId with locale code (hex to de_DE, for example)
+        $clientData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($clientData[Form::WORLDLINE_CART_FORM_LOCALE]);
 
         return $clientData;
     }

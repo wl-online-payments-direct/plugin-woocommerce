@@ -17,6 +17,7 @@ use Shopware\Core\Checkout\Order\Aggregate\OrderLineItem\OrderLineItemEntity;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStates;
 use Shopware\Core\Checkout\Order\OrderEntity;
+use Shopware\Core\Framework\App\Manifest\Xml\PaymentMethod\PaymentMethod;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -52,11 +53,11 @@ class PaymentHandler
         SystemConfigService          $systemConfigService,
         OrderEntity                  $order,
         TranslatorInterface          $translator,
-        EntityRepository    $orderRepository,
-        EntityRepository    $customerRepository,
+        EntityRepository             $orderRepository,
+        EntityRepository             $customerRepository,
         Context                      $context,
         OrderTransactionStateHandler $transactionStateHandler,
-        StateMachineRegistry $stateMachineRegistry
+        StateMachineRegistry         $stateMachineRegistry
     )
     {
         $salesChannelId = $order->getSalesChannelId();
@@ -129,7 +130,7 @@ class PaymentHandler
         $amountTotal = (int)round($this->order->getAmountTotal() * 100);
         $currencyISO = OrderHelper::getCurrencyISO($this->order, $this->logger);
 
-        $this->logger->paymentLog($this->order->getOrderNumber(),  'buildingOrder');
+        $this->logger->paymentLog($this->order->getOrderNumber(), 'buildingOrder');
         $hostedCheckoutResponse = $this->adapter->createPayment(
             $amountTotal,
             $currencyISO,
@@ -168,8 +169,6 @@ class PaymentHandler
 
         $this->logger->paymentLog($this->order->getOrderNumber(), 'buildingHostdTokenizationOrder');
 
-        // Change localeId with locale code (hex to de_DE, for example)
-        $customerData[Form::WORLDLINE_CART_FORM_LOCALE] = LocaleHelper::getCode($customerData[Form::WORLDLINE_CART_FORM_LOCALE]);
         $hostedTokenization = $this->adapter->createHostedTokenization($customerData);
 
         $orderObject = null;
@@ -265,7 +264,7 @@ class PaymentHandler
         $message = $this->getSuccessMessage($isFinal, $hostedCheckoutId, 'capturePayment');
 
         if ((!in_array($newStatus, Payment::STATUS_CAPTURE_REQUESTED)
-            && !in_array($newStatus, Payment::STATUS_CAPTURED))
+                && !in_array($newStatus, Payment::STATUS_CAPTURED))
             && $amount > 0) {
             return [false, 'failed'];
         }
@@ -422,13 +421,18 @@ class PaymentHandler
         }
 
         $status = $this->adapter->getStatus($paymentDetails);
+        $paymentProductId = $this->adapter->getPaymentProductId($paymentDetails);
 
         //Check log for any outer actions
         $this->compareLog($paymentDetails);
 
         //finalize for direct sales case
         $autoCapture = $this->adapter->getPluginConfig(Form::AUTO_CAPTURE);
-        if ($isFinalize && $autoCapture == Form::AUTO_CAPTURE_IMMEDIATELY && in_array($status, Payment::STATUS_CAPTURED)) {
+        if ($isFinalize
+            && in_array($status, Payment::STATUS_CAPTURED)
+            && ($autoCapture == Form::AUTO_CAPTURE_IMMEDIATELY
+                || $paymentProductId === PaymentProducts::PAYMENT_PRODUCT_PRZELEWY24)
+        ) {
             $amountTotal = (int)round($this->order->getAmountTotal() * 100);
             $this->saveOrderCustomFields(
                 $status,
@@ -692,7 +696,7 @@ class PaymentHandler
                     if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_PAID)) {
                         break;
                     }
-                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentPaidPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentPaidPartially', 0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                     $this->transactionStateHandler->payPartially($orderTransactionId, $this->context);
                     break;
                 }
@@ -702,7 +706,7 @@ class PaymentHandler
                     if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_PARTIALLY_REFUNDED)) {
                         break;
                     }
-                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentRefundedPartially',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentRefundedPartially', 0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                     $this->transactionStateHandler->refundPartially($orderTransactionId, $this->context);
                     break;
                 }
@@ -721,7 +725,7 @@ class PaymentHandler
                 if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_OPEN)) {
                     break;
                 }
-                $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentOpen',0,  ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId],);
+                $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentOpen', 0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                 $this->transactionStateHandler->reopen($orderTransactionId, $this->context);
                 break;
             }
@@ -732,10 +736,10 @@ class PaymentHandler
                     break;
                 }
                 if ($orderTransactionState === OrderTransactionStates::STATE_PARTIALLY_PAID) {
-                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentPartiallyToPaid',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentPartiallyToPaid', 0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                     OrderTransactionHelper::paidPartiallyToPaid($this->stateMachineRegistry, $this->context, $orderTransactionId);
                 } else {
-                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentPaid',0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId] );
+                    $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentPaid', 0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                     $this->transactionStateHandler->paid($orderTransactionId, $this->context);
                 }
                 break;
@@ -746,7 +750,7 @@ class PaymentHandler
                 if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_REFUNDED)) {
                     break;
                 }
-                $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentRefunded',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentRefunded', 0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                 $this->transactionStateHandler->refund($orderTransactionId, $this->context);
                 break;
             }
@@ -755,7 +759,7 @@ class PaymentHandler
                 if (Payment::operationImpossible($orderTransactionState, OrderTransactionStates::STATE_CANCELLED)) {
                     break;
                 }
-                $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentCanceled',0,['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
+                $this->logger->paymentLog($this->order->getOrderNumber(), 'paymentCanceled', 0, ['status' => $statusCode, 'hostedCheckoutId' => $hostedCheckoutId]);
                 $this->transactionStateHandler->cancel($orderTransactionId, $this->context);
                 break;
             }
@@ -787,14 +791,14 @@ class PaymentHandler
         if (!is_null($hostedTokenization) && $hostedTokenization->getToken()->getIsTemporary()) {
             $tmpToken = $hostedTokenization->getToken()->getId();
             $customFields[$tmpTokenKey] = $tmpToken;
-            $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
+            $this->customerRepository->update([['id' => $customerId, 'customFields' => $customFields]], $this->context);
             return;
         }
 
         // We don't need to save card if token was temporary
         if (is_array($customFields) && array_key_exists($tmpTokenKey, $customFields) && $token == $customFields[$tmpTokenKey]) {
             unset($customFields[$tmpTokenKey]);
-            $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
+            $this->customerRepository->update([['id' => $customerId, 'customFields' => $customFields]], $this->context);
             return;
         }
 
@@ -821,7 +825,7 @@ class PaymentHandler
 
         $customFields[$savedCardKey][$token] = $paymentProduct;
 
-        $this->customerRepository->update([['id' => $customerId,'customFields' => $customFields]], $this->context);
+        $this->customerRepository->update([['id' => $customerId, 'customFields' => $customFields]], $this->context);
     }
 
     /**

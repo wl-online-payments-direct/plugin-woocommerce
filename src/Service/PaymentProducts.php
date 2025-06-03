@@ -36,6 +36,7 @@ class PaymentProducts
         self::PAYMENT_PRODUCT_KLARNA_PAY_LATER,
         self::PAYMENT_PRODUCT_TWINTWL,
         self::PAYMENT_PRODUCT_CARTE_BANCAIRE,
+        self::PAYMENT_PRODUCT_VISA,
         Payment::FULL_REDIRECT_PAYMENT_METHOD_ID,
     ];
     const INTERNAL_PAYMENT_METHODS = [

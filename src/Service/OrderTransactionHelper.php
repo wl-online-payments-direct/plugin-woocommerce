@@ -52,7 +52,7 @@ class OrderTransactionHelper
             || !array_key_exists(Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID, $customFields)
             || empty($customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID])
         ) {
-            return self::getCustomFieldFromTransaction($transaction);
+            return (string)self::getCustomFieldFromTransaction($transaction);
         }
 
         return (string)$customFields[Form::CUSTOM_FIELD_WORLDLINE_PAYMENT_METHOD_ID];

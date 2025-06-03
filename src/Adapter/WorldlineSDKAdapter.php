@@ -283,7 +283,7 @@ class WorldlineSDKAdapter
         HostedCheckoutSpecificInput    &$hostedCheckoutSpecificInput,
         Order                          &$order,
         CreateHostedCheckoutRequest    &$hostedCheckoutRequest,
-        array $customerData,
+        array                          $customerData,
     ): void
     {
         switch ($worldlinePaymentProductId) {
@@ -349,8 +349,24 @@ class WorldlineSDKAdapter
                 $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
                 break;
             }
+            case PaymentProducts::PAYMENT_PRODUCT_VISA:
+            {
+                $this->addCartToRequest(
+                    $currencyISO,
+                    $orderEntity,
+                    $cardPaymentMethodSpecificInput,
+                    $hostedCheckoutSpecificInput,
+                    $order,
+                    false,
+                    false,
+                );
+                $customer = $order->getCustomer();
+                $customer->setDevice($this->getCustomerDevice($customerData));
+                $order->setCustomer($customer);
+                break;
+            }
             case Payment::FULL_REDIRECT_PAYMENT_METHOD_ID:
-            case PaymentProducts::PAYMENT_PRODUCT_VISA: {
+            {
                 $this->addCartToRequest(
                     $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput, $order
                 );
@@ -593,6 +609,22 @@ class WorldlineSDKAdapter
 
     /**
      * @param PaymentDetailsResponse $paymentDetails
+     * @return int
+     */
+    public function getPaymentProductId(PaymentDetailsResponse $paymentDetails): int
+    {
+        if (!is_object($paymentDetails)
+            || !is_object($paymentDetails->getPaymentOutput())
+            || is_null($paymentDetails->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput())
+            || is_null($paymentDetails->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getPaymentProductId())
+        ) {
+            return 0;
+        }
+        return $paymentDetails->getPaymentOutput()->getRedirectPaymentMethodSpecificOutput()->getPaymentProductId();
+    }
+
+    /**
+     * @param PaymentDetailsResponse $paymentDetails
      * @return string
      */
     public function getRedirectToken(PaymentDetailsResponse $paymentDetails): string
@@ -701,6 +733,8 @@ class WorldlineSDKAdapter
      * @param CardPaymentMethodSpecificInput $cardPaymentMethodSpecificInput
      * @param HostedCheckoutSpecificInput $hostedCheckoutSpecificInput
      * @param Order $order
+     * @param bool $removeHostedCheckoutSpecificInput
+     * @param bool $removeCardPaymentMethodSpecificInput
      * @return void
      * @throws \Exception
      */
@@ -709,7 +743,9 @@ class WorldlineSDKAdapter
         OrderEntity                    $orderEntity,
         CardPaymentMethodSpecificInput &$cardPaymentMethodSpecificInput,
         HostedCheckoutSpecificInput    $hostedCheckoutSpecificInput,
-        Order                          $order
+        Order                          $order,
+        bool                           $removeHostedCheckoutSpecificInput = true,
+        bool                           $removeCardPaymentMethodSpecificInput = true,
     ): void
     {
         $shipping = new Shipping();
@@ -737,10 +773,13 @@ class WorldlineSDKAdapter
             )
         );
 
-        $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
-        $hostedCheckoutSpecificInput->setVariant(null);
-
-        $cardPaymentMethodSpecificInput = null;
+        if ($removeHostedCheckoutSpecificInput) {
+            $hostedCheckoutSpecificInput->setPaymentProductFilters(null);
+            $hostedCheckoutSpecificInput->setVariant(null);
+        }
+        if ($removeCardPaymentMethodSpecificInput) {
+            $cardPaymentMethodSpecificInput = null;
+        }
     }
 
     /**
@@ -766,7 +805,7 @@ class WorldlineSDKAdapter
      * @return void
      */
     private function addCarteBancaireData(
-        OrderEntity $orderEntity,
+        OrderEntity                    $orderEntity,
         CardPaymentMethodSpecificInput &$cardPaymentMethodSpecificInput
     ): void
     {
@@ -1003,7 +1042,7 @@ class WorldlineSDKAdapter
         $ip = '0.0.0.0';
         if (array_key_exists('HTTP_X_REAL_IP', $_SERVER)) {
             $ip = explode(':', $_SERVER['HTTP_X_REAL_IP'])[0];
-        } elseif(array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
+        } elseif (array_key_exists('HTTP_X_FORWARDED_FOR', $_SERVER)) {
             $ip = explode(':', $_SERVER['HTTP_X_FORWARDED_FOR'])[0];
         }
         return $ip;
