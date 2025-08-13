@@ -1,59 +1,66 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class Customer extends DataObject
 {
-    // Properties
     /**
      * @var CustomerAccount
      */
-    private $account;
+    public $account = null;
+
     /**
      * @var string
      */
-    private $accountType;
+    public $accountType = null;
+
     /**
      * @var Address
      */
-    private $billingAddress;
+    public $billingAddress = null;
+
     /**
      * @var CompanyInformation
      */
-    private $companyInformation;
+    public $companyInformation = null;
+
     /**
      * @var ContactDetails
      */
-    private $contactDetails;
+    public $contactDetails = null;
+
     /**
      * @var CustomerDevice
      */
-    private $device;
+    public $device = null;
+
     /**
      * @var string
      */
-    private $fiscalNumber;
+    public $fiscalNumber = null;
+
     /**
      * @var string
      */
-    private $locale;
+    public $locale = null;
+
     /**
      * @var string
      */
-    private $merchantCustomerId;
+    public $merchantCustomerId = null;
+
     /**
      * @var PersonalInformation
      */
-    private $personalInformation;
-    // Methods
+    public $personalInformation = null;
+
     /**
      * @return CustomerAccount
      */
@@ -61,13 +68,15 @@ class Customer extends DataObject
     {
         return $this->account;
     }
+
     /**
-     * @var CustomerAccount
+     * @param CustomerAccount
      */
     public function setAccount($value)
     {
         $this->account = $value;
     }
+
     /**
      * @return string
      */
@@ -75,13 +84,15 @@ class Customer extends DataObject
     {
         return $this->accountType;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAccountType($value)
     {
         $this->accountType = $value;
     }
+
     /**
      * @return Address
      */
@@ -89,13 +100,15 @@ class Customer extends DataObject
     {
         return $this->billingAddress;
     }
+
     /**
-     * @var Address
+     * @param Address
      */
     public function setBillingAddress($value)
     {
         $this->billingAddress = $value;
     }
+
     /**
      * @return CompanyInformation
      */
@@ -103,13 +116,15 @@ class Customer extends DataObject
     {
         return $this->companyInformation;
     }
+
     /**
-     * @var CompanyInformation
+     * @param CompanyInformation
      */
     public function setCompanyInformation($value)
     {
         $this->companyInformation = $value;
     }
+
     /**
      * @return ContactDetails
      */
@@ -117,13 +132,15 @@ class Customer extends DataObject
     {
         return $this->contactDetails;
     }
+
     /**
-     * @var ContactDetails
+     * @param ContactDetails
      */
     public function setContactDetails($value)
     {
         $this->contactDetails = $value;
     }
+
     /**
      * @return CustomerDevice
      */
@@ -131,13 +148,15 @@ class Customer extends DataObject
     {
         return $this->device;
     }
+
     /**
-     * @var CustomerDevice
+     * @param CustomerDevice
      */
     public function setDevice($value)
     {
         $this->device = $value;
     }
+
     /**
      * @return string
      */
@@ -145,13 +164,15 @@ class Customer extends DataObject
     {
         return $this->fiscalNumber;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setFiscalNumber($value)
     {
         $this->fiscalNumber = $value;
     }
+
     /**
      * @return string
      */
@@ -159,13 +180,15 @@ class Customer extends DataObject
     {
         return $this->locale;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setLocale($value)
     {
         $this->locale = $value;
     }
+
     /**
      * @return string
      */
@@ -173,13 +196,15 @@ class Customer extends DataObject
     {
         return $this->merchantCustomerId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setMerchantCustomerId($value)
     {
         $this->merchantCustomerId = $value;
     }
+
     /**
      * @return PersonalInformation
      */
@@ -187,51 +212,54 @@ class Customer extends DataObject
     {
         return $this->personalInformation;
     }
+
     /**
-     * @var PersonalInformation
+     * @param PersonalInformation
      */
     public function setPersonalInformation($value)
     {
         $this->personalInformation = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->account !== null) {
+        if (!is_null($this->account)) {
             $object->account = $this->account->toObject();
         }
-        if ($this->accountType !== null) {
+        if (!is_null($this->accountType)) {
             $object->accountType = $this->accountType;
         }
-        if ($this->billingAddress !== null) {
+        if (!is_null($this->billingAddress)) {
             $object->billingAddress = $this->billingAddress->toObject();
         }
-        if ($this->companyInformation !== null) {
+        if (!is_null($this->companyInformation)) {
             $object->companyInformation = $this->companyInformation->toObject();
         }
-        if ($this->contactDetails !== null) {
+        if (!is_null($this->contactDetails)) {
             $object->contactDetails = $this->contactDetails->toObject();
         }
-        if ($this->device !== null) {
+        if (!is_null($this->device)) {
             $object->device = $this->device->toObject();
         }
-        if ($this->fiscalNumber !== null) {
+        if (!is_null($this->fiscalNumber)) {
             $object->fiscalNumber = $this->fiscalNumber;
         }
-        if ($this->locale !== null) {
+        if (!is_null($this->locale)) {
             $object->locale = $this->locale;
         }
-        if ($this->merchantCustomerId !== null) {
+        if (!is_null($this->merchantCustomerId)) {
             $object->merchantCustomerId = $this->merchantCustomerId;
         }
-        if ($this->personalInformation !== null) {
+        if (!is_null($this->personalInformation)) {
             $object->personalInformation = $this->personalInformation->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -242,7 +270,7 @@ class Customer extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'account')) {
             if (!is_object($object->account)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->account, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->account, true) . '\' is not an object');
             }
             $value = new CustomerAccount();
             $this->account = $value->fromObject($object->account);
@@ -252,28 +280,28 @@ class Customer extends DataObject
         }
         if (property_exists($object, 'billingAddress')) {
             if (!is_object($object->billingAddress)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->billingAddress, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->billingAddress, true) . '\' is not an object');
             }
             $value = new Address();
             $this->billingAddress = $value->fromObject($object->billingAddress);
         }
         if (property_exists($object, 'companyInformation')) {
             if (!is_object($object->companyInformation)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->companyInformation, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->companyInformation, true) . '\' is not an object');
             }
             $value = new CompanyInformation();
             $this->companyInformation = $value->fromObject($object->companyInformation);
         }
         if (property_exists($object, 'contactDetails')) {
             if (!is_object($object->contactDetails)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->contactDetails, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->contactDetails, true) . '\' is not an object');
             }
             $value = new ContactDetails();
             $this->contactDetails = $value->fromObject($object->contactDetails);
         }
         if (property_exists($object, 'device')) {
             if (!is_object($object->device)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->device, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->device, true) . '\' is not an object');
             }
             $value = new CustomerDevice();
             $this->device = $value->fromObject($object->device);
@@ -289,7 +317,7 @@ class Customer extends DataObject
         }
         if (property_exists($object, 'personalInformation')) {
             if (!is_object($object->personalInformation)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->personalInformation, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->personalInformation, true) . '\' is not an object');
             }
             $value = new PersonalInformation();
             $this->personalInformation = $value->fromObject($object->personalInformation);

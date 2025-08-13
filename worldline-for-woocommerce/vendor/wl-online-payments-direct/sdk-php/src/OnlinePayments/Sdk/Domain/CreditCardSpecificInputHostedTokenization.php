@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class CreditCardSpecificInputHostedTokenization extends DataObject
 {
-    // Properties
     /**
      * @var CreditCardValidationRulesHostedTokenization
      */
-    private $ValidationRules;
+    public $ValidationRules = null;
+
     /**
      * @var int[]
      */
-    private $paymentProductPreferredOrder;
-    // Methods
+    public $paymentProductPreferredOrder = null;
+
     /**
      * @return CreditCardValidationRulesHostedTokenization
      */
@@ -29,13 +28,15 @@ class CreditCardSpecificInputHostedTokenization extends DataObject
     {
         return $this->ValidationRules;
     }
+
     /**
-     * @var CreditCardValidationRulesHostedTokenization
+     * @param CreditCardValidationRulesHostedTokenization
      */
     public function setValidationRules($value)
     {
         $this->ValidationRules = $value;
     }
+
     /**
      * @return int[]
      */
@@ -43,32 +44,35 @@ class CreditCardSpecificInputHostedTokenization extends DataObject
     {
         return $this->paymentProductPreferredOrder;
     }
+
     /**
-     * @var int[]
+     * @param int[]
      */
     public function setPaymentProductPreferredOrder($value)
     {
         $this->paymentProductPreferredOrder = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->ValidationRules !== null) {
+        if (!is_null($this->ValidationRules)) {
             $object->ValidationRules = $this->ValidationRules->toObject();
         }
-        if ($this->paymentProductPreferredOrder !== null) {
+        if (!is_null($this->paymentProductPreferredOrder)) {
             $object->paymentProductPreferredOrder = [];
             foreach ($this->paymentProductPreferredOrder as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->paymentProductPreferredOrder[] = $element;
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -79,14 +83,14 @@ class CreditCardSpecificInputHostedTokenization extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'ValidationRules')) {
             if (!is_object($object->ValidationRules)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->ValidationRules, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->ValidationRules, true) . '\' is not an object');
             }
             $value = new CreditCardValidationRulesHostedTokenization();
             $this->ValidationRules = $value->fromObject($object->ValidationRules);
         }
         if (property_exists($object, 'paymentProductPreferredOrder')) {
             if (!is_array($object->paymentProductPreferredOrder) && !is_object($object->paymentProductPreferredOrder)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductPreferredOrder, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductPreferredOrder, true) . '\' is not an array or object');
             }
             $this->paymentProductPreferredOrder = [];
             foreach ($object->paymentProductPreferredOrder as $element) {

@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class RangeValidator extends DataObject
 {
-    // Properties
     /**
      * @var int
      */
-    private $maxValue;
+    public $maxValue = null;
+
     /**
      * @var int
      */
-    private $minValue;
-    // Methods
+    public $minValue = null;
+
     /**
      * @return int
      */
@@ -29,13 +28,15 @@ class RangeValidator extends DataObject
     {
         return $this->maxValue;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setMaxValue($value)
     {
         $this->maxValue = $value;
     }
+
     /**
      * @return int
      */
@@ -43,27 +44,30 @@ class RangeValidator extends DataObject
     {
         return $this->minValue;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setMinValue($value)
     {
         $this->minValue = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->maxValue !== null) {
+        if (!is_null($this->maxValue)) {
             $object->maxValue = $this->maxValue;
         }
-        if ($this->minValue !== null) {
+        if (!is_null($this->minValue)) {
             $object->minValue = $this->minValue;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

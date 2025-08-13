@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class DirectoryEntry extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $issuerId;
+    public $issuerId = null;
+
     /**
      * @var string
      */
-    private $issuerList;
+    public $issuerList = null;
+
     /**
      * @var string
      */
-    private $issuerName;
-    // Methods
+    public $issuerName = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class DirectoryEntry extends DataObject
     {
         return $this->issuerId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setIssuerId($value)
     {
         $this->issuerId = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class DirectoryEntry extends DataObject
     {
         return $this->issuerList;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setIssuerList($value)
     {
         $this->issuerList = $value;
     }
+
     /**
      * @return string
      */
@@ -61,30 +65,33 @@ class DirectoryEntry extends DataObject
     {
         return $this->issuerName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setIssuerName($value)
     {
         $this->issuerName = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->issuerId !== null) {
+        if (!is_null($this->issuerId)) {
             $object->issuerId = $this->issuerId;
         }
-        if ($this->issuerList !== null) {
+        if (!is_null($this->issuerList)) {
             $object->issuerList = $this->issuerList;
         }
-        if ($this->issuerName !== null) {
+        if (!is_null($this->issuerName)) {
             $object->issuerName = $this->issuerName;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

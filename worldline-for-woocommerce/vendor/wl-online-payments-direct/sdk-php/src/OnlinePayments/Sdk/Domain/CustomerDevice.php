@@ -1,47 +1,51 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class CustomerDevice extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $acceptHeader;
+    public $acceptHeader = null;
+
     /**
      * @var BrowserData
      */
-    private $browserData;
+    public $browserData = null;
+
     /**
      * @var string
      */
-    private $deviceFingerprint;
+    public $deviceFingerprint = null;
+
     /**
      * @var string
      */
-    private $ipAddress;
+    public $ipAddress = null;
+
     /**
      * @var string
      */
-    private $locale;
+    public $locale = null;
+
     /**
      * @var string
      */
-    private $timezoneOffsetUtcMinutes;
+    public $timezoneOffsetUtcMinutes = null;
+
     /**
      * @var string
      */
-    private $userAgent;
-    // Methods
+    public $userAgent = null;
+
     /**
      * @return string
      */
@@ -49,13 +53,15 @@ class CustomerDevice extends DataObject
     {
         return $this->acceptHeader;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAcceptHeader($value)
     {
         $this->acceptHeader = $value;
     }
+
     /**
      * @return BrowserData
      */
@@ -63,13 +69,15 @@ class CustomerDevice extends DataObject
     {
         return $this->browserData;
     }
+
     /**
-     * @var BrowserData
+     * @param BrowserData
      */
     public function setBrowserData($value)
     {
         $this->browserData = $value;
     }
+
     /**
      * @return string
      */
@@ -77,13 +85,15 @@ class CustomerDevice extends DataObject
     {
         return $this->deviceFingerprint;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDeviceFingerprint($value)
     {
         $this->deviceFingerprint = $value;
     }
+
     /**
      * @return string
      */
@@ -91,13 +101,15 @@ class CustomerDevice extends DataObject
     {
         return $this->ipAddress;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setIpAddress($value)
     {
         $this->ipAddress = $value;
     }
+
     /**
      * @return string
      */
@@ -105,13 +117,15 @@ class CustomerDevice extends DataObject
     {
         return $this->locale;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setLocale($value)
     {
         $this->locale = $value;
     }
+
     /**
      * @return string
      */
@@ -119,13 +133,15 @@ class CustomerDevice extends DataObject
     {
         return $this->timezoneOffsetUtcMinutes;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setTimezoneOffsetUtcMinutes($value)
     {
         $this->timezoneOffsetUtcMinutes = $value;
     }
+
     /**
      * @return string
      */
@@ -133,42 +149,45 @@ class CustomerDevice extends DataObject
     {
         return $this->userAgent;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setUserAgent($value)
     {
         $this->userAgent = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->acceptHeader !== null) {
+        if (!is_null($this->acceptHeader)) {
             $object->acceptHeader = $this->acceptHeader;
         }
-        if ($this->browserData !== null) {
+        if (!is_null($this->browserData)) {
             $object->browserData = $this->browserData->toObject();
         }
-        if ($this->deviceFingerprint !== null) {
+        if (!is_null($this->deviceFingerprint)) {
             $object->deviceFingerprint = $this->deviceFingerprint;
         }
-        if ($this->ipAddress !== null) {
+        if (!is_null($this->ipAddress)) {
             $object->ipAddress = $this->ipAddress;
         }
-        if ($this->locale !== null) {
+        if (!is_null($this->locale)) {
             $object->locale = $this->locale;
         }
-        if ($this->timezoneOffsetUtcMinutes !== null) {
+        if (!is_null($this->timezoneOffsetUtcMinutes)) {
             $object->timezoneOffsetUtcMinutes = $this->timezoneOffsetUtcMinutes;
         }
-        if ($this->userAgent !== null) {
+        if (!is_null($this->userAgent)) {
             $object->userAgent = $this->userAgent;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -182,7 +201,7 @@ class CustomerDevice extends DataObject
         }
         if (property_exists($object, 'browserData')) {
             if (!is_object($object->browserData)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->browserData, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->browserData, true) . '\' is not an object');
             }
             $value = new BrowserData();
             $this->browserData = $value->fromObject($object->browserData);

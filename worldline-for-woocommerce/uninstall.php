@@ -37,6 +37,10 @@ require $mainPluginFile;
         if ($shouldClearDb !== \true) {
             return;
         }
+        global $wpdb;
+        $table = $wpdb->prefix . 'product_type';
+        $wpdb->query("DROP TABLE IF EXISTS `$table`");
+
         $dbCleaner = $container->get('uninstall.db-cleaner');
         \assert($dbCleaner instanceof DatabaseCleaner);
         $dbCleaner->clearAll();

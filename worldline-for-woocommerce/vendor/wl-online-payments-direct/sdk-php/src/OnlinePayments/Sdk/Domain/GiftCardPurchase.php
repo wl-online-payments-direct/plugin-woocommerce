@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class GiftCardPurchase extends DataObject
 {
-    // Properties
     /**
      * @var AmountOfMoney
      */
-    private $amountOfMoney;
+    public $amountOfMoney = null;
+
     /**
      * @var int
      */
-    private $numberOfGiftCards;
-    // Methods
+    public $numberOfGiftCards = null;
+
     /**
      * @return AmountOfMoney
      */
@@ -29,13 +28,15 @@ class GiftCardPurchase extends DataObject
     {
         return $this->amountOfMoney;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney
      */
     public function setAmountOfMoney($value)
     {
         $this->amountOfMoney = $value;
     }
+
     /**
      * @return int
      */
@@ -43,27 +44,30 @@ class GiftCardPurchase extends DataObject
     {
         return $this->numberOfGiftCards;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setNumberOfGiftCards($value)
     {
         $this->numberOfGiftCards = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->amountOfMoney !== null) {
+        if (!is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if ($this->numberOfGiftCards !== null) {
+        if (!is_null($this->numberOfGiftCards)) {
             $object->numberOfGiftCards = $this->numberOfGiftCards;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -74,7 +78,7 @@ class GiftCardPurchase extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'amountOfMoney')) {
             if (!is_object($object->amountOfMoney)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->amountOfMoney, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->amountOfMoney, true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->amountOfMoney = $value->fromObject($object->amountOfMoney);

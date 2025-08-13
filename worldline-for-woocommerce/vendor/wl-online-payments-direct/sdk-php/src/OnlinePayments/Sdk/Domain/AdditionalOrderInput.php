@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class AdditionalOrderInput extends DataObject
 {
-    // Properties
     /**
      * @var AirlineData
      */
-    private $airlineData;
+    public $airlineData = null;
+
     /**
      * @var LoanRecipient
      */
-    private $loanRecipient;
+    public $loanRecipient = null;
+
     /**
      * @var LodgingData
      */
-    private $lodgingData;
+    public $lodgingData = null;
+
     /**
      * @var OrderTypeInformation
      */
-    private $typeInformation;
-    // Methods
+    public $typeInformation = null;
+
     /**
      * @return AirlineData
      */
@@ -37,13 +38,15 @@ class AdditionalOrderInput extends DataObject
     {
         return $this->airlineData;
     }
+
     /**
-     * @var AirlineData
+     * @param AirlineData
      */
     public function setAirlineData($value)
     {
         $this->airlineData = $value;
     }
+
     /**
      * @return LoanRecipient
      */
@@ -51,13 +54,15 @@ class AdditionalOrderInput extends DataObject
     {
         return $this->loanRecipient;
     }
+
     /**
-     * @var LoanRecipient
+     * @param LoanRecipient
      */
     public function setLoanRecipient($value)
     {
         $this->loanRecipient = $value;
     }
+
     /**
      * @return LodgingData
      */
@@ -65,13 +70,15 @@ class AdditionalOrderInput extends DataObject
     {
         return $this->lodgingData;
     }
+
     /**
-     * @var LodgingData
+     * @param LodgingData
      */
     public function setLodgingData($value)
     {
         $this->lodgingData = $value;
     }
+
     /**
      * @return OrderTypeInformation
      */
@@ -79,33 +86,36 @@ class AdditionalOrderInput extends DataObject
     {
         return $this->typeInformation;
     }
+
     /**
-     * @var OrderTypeInformation
+     * @param OrderTypeInformation
      */
     public function setTypeInformation($value)
     {
         $this->typeInformation = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->airlineData !== null) {
+        if (!is_null($this->airlineData)) {
             $object->airlineData = $this->airlineData->toObject();
         }
-        if ($this->loanRecipient !== null) {
+        if (!is_null($this->loanRecipient)) {
             $object->loanRecipient = $this->loanRecipient->toObject();
         }
-        if ($this->lodgingData !== null) {
+        if (!is_null($this->lodgingData)) {
             $object->lodgingData = $this->lodgingData->toObject();
         }
-        if ($this->typeInformation !== null) {
+        if (!is_null($this->typeInformation)) {
             $object->typeInformation = $this->typeInformation->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -116,28 +126,28 @@ class AdditionalOrderInput extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'airlineData')) {
             if (!is_object($object->airlineData)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->airlineData, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->airlineData, true) . '\' is not an object');
             }
             $value = new AirlineData();
             $this->airlineData = $value->fromObject($object->airlineData);
         }
         if (property_exists($object, 'loanRecipient')) {
             if (!is_object($object->loanRecipient)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->loanRecipient, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->loanRecipient, true) . '\' is not an object');
             }
             $value = new LoanRecipient();
             $this->loanRecipient = $value->fromObject($object->loanRecipient);
         }
         if (property_exists($object, 'lodgingData')) {
             if (!is_object($object->lodgingData)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->lodgingData, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->lodgingData, true) . '\' is not an object');
             }
             $value = new LodgingData();
             $this->lodgingData = $value->fromObject($object->lodgingData);
         }
         if (property_exists($object, 'typeInformation')) {
             if (!is_object($object->typeInformation)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->typeInformation, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->typeInformation, true) . '\' is not an object');
             }
             $value = new OrderTypeInformation();
             $this->typeInformation = $value->fromObject($object->typeInformation);

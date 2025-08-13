@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class AccountOnFileDisplayHints extends DataObject
 {
-    // Properties
     /**
      * @var LabelTemplateElement[]
      */
-    private $labelTemplate;
+    public $labelTemplate = null;
+
     /**
      * @var string
      */
-    private $logo;
-    // Methods
+    public $logo = null;
+
     /**
      * @return LabelTemplateElement[]
      */
@@ -29,13 +28,15 @@ class AccountOnFileDisplayHints extends DataObject
     {
         return $this->labelTemplate;
     }
+
     /**
-     * @var LabelTemplateElement[]
+     * @param LabelTemplateElement[]
      */
     public function setLabelTemplate($value)
     {
         $this->labelTemplate = $value;
     }
+
     /**
      * @return string
      */
@@ -43,32 +44,35 @@ class AccountOnFileDisplayHints extends DataObject
     {
         return $this->logo;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setLogo($value)
     {
         $this->logo = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->labelTemplate !== null) {
+        if (!is_null($this->labelTemplate)) {
             $object->labelTemplate = [];
             foreach ($this->labelTemplate as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->labelTemplate[] = $element->toObject();
                 }
             }
         }
-        if ($this->logo !== null) {
+        if (!is_null($this->logo)) {
             $object->logo = $this->logo;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -79,7 +83,7 @@ class AccountOnFileDisplayHints extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'labelTemplate')) {
             if (!is_array($object->labelTemplate) && !is_object($object->labelTemplate)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->labelTemplate, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->labelTemplate, true) . '\' is not an array or object');
             }
             $this->labelTemplate = [];
             foreach ($object->labelTemplate as $element) {

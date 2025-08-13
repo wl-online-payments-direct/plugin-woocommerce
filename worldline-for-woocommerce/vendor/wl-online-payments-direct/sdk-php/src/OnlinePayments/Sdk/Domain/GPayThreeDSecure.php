@@ -1,39 +1,41 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class GPayThreeDSecure extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $challengeCanvasSize;
+    public $challengeCanvasSize = null;
+
     /**
      * @var string
      */
-    private $challengeIndicator;
+    public $challengeIndicator = null;
+
     /**
      * @var string
      */
-    private $exemptionRequest;
+    public $exemptionRequest = null;
+
     /**
      * @var RedirectionData
      */
-    private $redirectionData;
+    public $redirectionData = null;
+
     /**
      * @var bool
      */
-    private $skipAuthentication;
-    // Methods
+    public $skipAuthentication = null;
+
     /**
      * @return string
      */
@@ -41,13 +43,15 @@ class GPayThreeDSecure extends DataObject
     {
         return $this->challengeCanvasSize;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setChallengeCanvasSize($value)
     {
         $this->challengeCanvasSize = $value;
     }
+
     /**
      * @return string
      */
@@ -55,13 +59,15 @@ class GPayThreeDSecure extends DataObject
     {
         return $this->challengeIndicator;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setChallengeIndicator($value)
     {
         $this->challengeIndicator = $value;
     }
+
     /**
      * @return string
      */
@@ -69,13 +75,15 @@ class GPayThreeDSecure extends DataObject
     {
         return $this->exemptionRequest;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setExemptionRequest($value)
     {
         $this->exemptionRequest = $value;
     }
+
     /**
      * @return RedirectionData
      */
@@ -83,13 +91,15 @@ class GPayThreeDSecure extends DataObject
     {
         return $this->redirectionData;
     }
+
     /**
-     * @var RedirectionData
+     * @param RedirectionData
      */
     public function setRedirectionData($value)
     {
         $this->redirectionData = $value;
     }
+
     /**
      * @return bool
      */
@@ -97,36 +107,39 @@ class GPayThreeDSecure extends DataObject
     {
         return $this->skipAuthentication;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setSkipAuthentication($value)
     {
         $this->skipAuthentication = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->challengeCanvasSize !== null) {
+        if (!is_null($this->challengeCanvasSize)) {
             $object->challengeCanvasSize = $this->challengeCanvasSize;
         }
-        if ($this->challengeIndicator !== null) {
+        if (!is_null($this->challengeIndicator)) {
             $object->challengeIndicator = $this->challengeIndicator;
         }
-        if ($this->exemptionRequest !== null) {
+        if (!is_null($this->exemptionRequest)) {
             $object->exemptionRequest = $this->exemptionRequest;
         }
-        if ($this->redirectionData !== null) {
+        if (!is_null($this->redirectionData)) {
             $object->redirectionData = $this->redirectionData->toObject();
         }
-        if ($this->skipAuthentication !== null) {
+        if (!is_null($this->skipAuthentication)) {
             $object->skipAuthentication = $this->skipAuthentication;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -146,7 +159,7 @@ class GPayThreeDSecure extends DataObject
         }
         if (property_exists($object, 'redirectionData')) {
             if (!is_object($object->redirectionData)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->redirectionData, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->redirectionData, true) . '\' is not an object');
             }
             $value = new RedirectionData();
             $this->redirectionData = $value->fromObject($object->redirectionData);

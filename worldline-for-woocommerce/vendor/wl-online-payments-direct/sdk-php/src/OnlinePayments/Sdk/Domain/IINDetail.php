@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class IINDetail extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $cardType;
+    public $cardType = null;
+
     /**
      * @var bool
      */
-    private $isAllowedInContext;
+    public $isAllowedInContext = null;
+
     /**
      * @var int
      */
-    private $paymentProductId;
-    // Methods
+    public $paymentProductId = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class IINDetail extends DataObject
     {
         return $this->cardType;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCardType($value)
     {
         $this->cardType = $value;
     }
+
     /**
      * @return bool
      */
@@ -47,13 +49,15 @@ class IINDetail extends DataObject
     {
         return $this->isAllowedInContext;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setIsAllowedInContext($value)
     {
         $this->isAllowedInContext = $value;
     }
+
     /**
      * @return int
      */
@@ -61,30 +65,33 @@ class IINDetail extends DataObject
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setPaymentProductId($value)
     {
         $this->paymentProductId = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->cardType !== null) {
+        if (!is_null($this->cardType)) {
             $object->cardType = $this->cardType;
         }
-        if ($this->isAllowedInContext !== null) {
+        if (!is_null($this->isAllowedInContext)) {
             $object->isAllowedInContext = $this->isAllowedInContext;
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

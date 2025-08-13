@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class FixedListValidator extends DataObject
 {
-    // Properties
     /**
      * @var string[]
      */
-    private $allowedValues;
-    // Methods
+    public $allowedValues = null;
+
     /**
      * @return string[]
      */
@@ -25,29 +23,32 @@ class FixedListValidator extends DataObject
     {
         return $this->allowedValues;
     }
+
     /**
-     * @var string[]
+     * @param string[]
      */
     public function setAllowedValues($value)
     {
         $this->allowedValues = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->allowedValues !== null) {
+        if (!is_null($this->allowedValues)) {
             $object->allowedValues = [];
             foreach ($this->allowedValues as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->allowedValues[] = $element;
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -58,7 +59,7 @@ class FixedListValidator extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'allowedValues')) {
             if (!is_array($object->allowedValues) && !is_object($object->allowedValues)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->allowedValues, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->allowedValues, true) . '\' is not an array or object');
             }
             $this->allowedValues = [];
             foreach ($object->allowedValues as $element) {

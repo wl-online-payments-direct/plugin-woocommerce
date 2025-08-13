@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class SubsequentPaymentProduct5001SpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $subsequentType;
-    // Methods
+    public $subsequentType = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class SubsequentPaymentProduct5001SpecificInput extends DataObject
     {
         return $this->subsequentType;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSubsequentType($value)
     {
         $this->subsequentType = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->subsequentType !== null) {
+        if (!is_null($this->subsequentType)) {
             $object->subsequentType = $this->subsequentType;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

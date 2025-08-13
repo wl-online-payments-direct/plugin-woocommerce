@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class GetMandateResponse extends DataObject
 {
-    // Properties
     /**
      * @var MandateResponse
      */
-    private $mandate;
-    // Methods
+    public $mandate = null;
+
     /**
      * @return MandateResponse
      */
@@ -25,24 +23,27 @@ class GetMandateResponse extends DataObject
     {
         return $this->mandate;
     }
+
     /**
-     * @var MandateResponse
+     * @param MandateResponse
      */
     public function setMandate($value)
     {
         $this->mandate = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->mandate !== null) {
+        if (!is_null($this->mandate)) {
             $object->mandate = $this->mandate->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -53,7 +54,7 @@ class GetMandateResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'mandate')) {
             if (!is_object($object->mandate)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->mandate, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->mandate, true) . '\' is not an object');
             }
             $value = new MandateResponse();
             $this->mandate = $value->fromObject($object->mandate);

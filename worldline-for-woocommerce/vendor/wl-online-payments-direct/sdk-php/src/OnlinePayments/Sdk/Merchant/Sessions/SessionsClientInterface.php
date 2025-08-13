@@ -1,38 +1,39 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Sessions;
+namespace OnlinePayments\Sdk\Merchant\Sessions;
 
-use Exception;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\InvalidResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\PaymentPlatformException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
+use OnlinePayments\Sdk\ApiException;
+use OnlinePayments\Sdk\AuthorizationException;
+use OnlinePayments\Sdk\CallContext;
+use OnlinePayments\Sdk\Communication\InvalidResponseException;
+use OnlinePayments\Sdk\Domain\SessionRequest;
+use OnlinePayments\Sdk\Domain\SessionResponse;
+use OnlinePayments\Sdk\IdempotenceException;
+use OnlinePayments\Sdk\PlatformException;
+use OnlinePayments\Sdk\ReferenceException;
+use OnlinePayments\Sdk\ValidationException;
+
+/**
+ * Sessions client interface.
+ */
 interface SessionsClientInterface
 {
     /**
-     * ApiResource /v2/{merchantId}/sessions - Create session
+     * Resource /v2/{merchantId}/sessions - Create session
      *
      * @param SessionRequest $body
-     * @param CallContext $callContext
+     * @param CallContext|null $callContext
      * @return SessionResponse
      *
-     * @throws ApiException
-     * @throws AuthorizationException
-     * @throws Exception
-     * @throws PaymentPlatformException
      * @throws IdempotenceException
-     * @throws InvalidResponseException
-     * @throws ReferenceException
      * @throws ValidationException
+     * @throws AuthorizationException
+     * @throws ReferenceException
+     * @throws PlatformException
+     * @throws ApiException
+     * @throws InvalidResponseException
      */
-    public function createSession(SessionRequest $body, CallContext $callContext = null);
+    function createSession(SessionRequest $body, CallContext $callContext = null);
 }

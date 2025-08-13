@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class FraudResults extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $fraudServiceResult;
-    // Methods
+    public $fraudServiceResult = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class FraudResults extends DataObject
     {
         return $this->fraudServiceResult;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setFraudServiceResult($value)
     {
         $this->fraudServiceResult = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->fraudServiceResult !== null) {
+        if (!is_null($this->fraudServiceResult)) {
             $object->fraudServiceResult = $this->fraudServiceResult;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

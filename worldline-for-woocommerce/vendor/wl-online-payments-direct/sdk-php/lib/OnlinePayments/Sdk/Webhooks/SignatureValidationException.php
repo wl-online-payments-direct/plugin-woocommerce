@@ -1,9 +1,9 @@
 <?php
-
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
+namespace OnlinePayments\Sdk\Webhooks;
 
 use Exception;
 use RuntimeException;
+
 /**
  * Class SignatureValidationException
  *
@@ -12,8 +12,8 @@ use RuntimeException;
 class SignatureValidationException extends RuntimeException
 {
     /**
-     * @param string $message
-     * @param Exception $previous
+     * @param string|null $message
+     * @param Exception|null $previous
      */
     public function __construct($message = null, $previous = null)
     {

@@ -1,43 +1,47 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class AirlinePassenger extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $airlineLoyaltyStatus;
+    public $airlineLoyaltyStatus = null;
+
     /**
      * @var string
      */
-    private $firstName;
+    public $firstName = null;
+
     /**
      * @var string
      */
-    private $passengerType;
+    public $passengerType = null;
+
     /**
      * @var string
      */
-    private $surname;
+    public $surname = null;
+
     /**
      * @var string
      */
-    private $surnamePrefix;
+    public $surnamePrefix = null;
+
     /**
      * @var string
+     * @deprecated This field is not used by any payment product Title of the passenger (this property is used for fraud screening on the payment platform)
      */
-    private $title;
-    // Methods
+    public $title = null;
+
     /**
      * @return string
      */
@@ -45,13 +49,15 @@ class AirlinePassenger extends DataObject
     {
         return $this->airlineLoyaltyStatus;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAirlineLoyaltyStatus($value)
     {
         $this->airlineLoyaltyStatus = $value;
     }
+
     /**
      * @return string
      */
@@ -59,13 +65,15 @@ class AirlinePassenger extends DataObject
     {
         return $this->firstName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setFirstName($value)
     {
         $this->firstName = $value;
     }
+
     /**
      * @return string
      */
@@ -73,13 +81,15 @@ class AirlinePassenger extends DataObject
     {
         return $this->passengerType;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPassengerType($value)
     {
         $this->passengerType = $value;
     }
+
     /**
      * @return string
      */
@@ -87,13 +97,15 @@ class AirlinePassenger extends DataObject
     {
         return $this->surname;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSurname($value)
     {
         $this->surname = $value;
     }
+
     /**
      * @return string
      */
@@ -101,53 +113,60 @@ class AirlinePassenger extends DataObject
     {
         return $this->surnamePrefix;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSurnamePrefix($value)
     {
         $this->surnamePrefix = $value;
     }
+
     /**
      * @return string
+     * @deprecated This field is not used by any payment product Title of the passenger (this property is used for fraud screening on the payment platform)
      */
     public function getTitle()
     {
         return $this->title;
     }
+
     /**
-     * @var string
+     * @param string
+     * @deprecated This field is not used by any payment product Title of the passenger (this property is used for fraud screening on the payment platform)
      */
     public function setTitle($value)
     {
         $this->title = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->airlineLoyaltyStatus !== null) {
+        if (!is_null($this->airlineLoyaltyStatus)) {
             $object->airlineLoyaltyStatus = $this->airlineLoyaltyStatus;
         }
-        if ($this->firstName !== null) {
+        if (!is_null($this->firstName)) {
             $object->firstName = $this->firstName;
         }
-        if ($this->passengerType !== null) {
+        if (!is_null($this->passengerType)) {
             $object->passengerType = $this->passengerType;
         }
-        if ($this->surname !== null) {
+        if (!is_null($this->surname)) {
             $object->surname = $this->surname;
         }
-        if ($this->surnamePrefix !== null) {
+        if (!is_null($this->surnamePrefix)) {
             $object->surnamePrefix = $this->surnamePrefix;
         }
-        if ($this->title !== null) {
+        if (!is_null($this->title)) {
             $object->title = $this->title;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

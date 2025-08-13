@@ -34,7 +34,7 @@ class WorldlineWebhooksController implements WpRestApiControllerInterface
             do_action('wlop.webhook_request', $request);
             try {
                 $webhookEvent = $this->webhookEventFactory->fromRequest($request->get_body(), $request->get_headers());
-                do_action('wlop.webhook_event', ['id' => $webhookEvent->getId(), 'type' => $webhookEvent->getType(), 'ref' => (string) WebhookHelper::reference($webhookEvent), 'object' => $webhookEvent]);
+                do_action('wlop.webhook_event', ['id' => $webhookEvent->id, 'type' => $webhookEvent->type, 'ref' => (string) WebhookHelper::reference($webhookEvent), 'object' => $webhookEvent]);
                 $this->queue->add($webhookEvent);
             } catch (SignatureValidationException $exception) {
                 do_action('wlop.webhook_verification_failed', ['exception' => $exception]);

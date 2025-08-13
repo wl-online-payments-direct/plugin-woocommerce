@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class BankAccountIban extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $iban;
-    // Methods
+    public $iban = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class BankAccountIban extends DataObject
     {
         return $this->iban;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setIban($value)
     {
         $this->iban = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->iban !== null) {
+        if (!is_null($this->iban)) {
             $object->iban = $this->iban;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class PaymentCreationOutput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $externalReference;
+    public $externalReference = null;
+
     /**
      * @var bool
      */
-    private $isNewToken;
+    public $isNewToken = null;
+
     /**
      * @var string
      */
-    private $token;
+    public $token = null;
+
     /**
      * @var bool
      */
-    private $tokenizationSucceeded;
-    // Methods
+    public $tokenizationSucceeded = null;
+
     /**
      * @return string
      */
@@ -37,13 +38,15 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->externalReference;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setExternalReference($value)
     {
         $this->externalReference = $value;
     }
+
     /**
      * @return bool
      */
@@ -51,13 +54,15 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->isNewToken;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setIsNewToken($value)
     {
         $this->isNewToken = $value;
     }
+
     /**
      * @return string
      */
@@ -65,13 +70,15 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->token;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setToken($value)
     {
         $this->token = $value;
     }
+
     /**
      * @return bool
      */
@@ -79,33 +86,36 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->tokenizationSucceeded;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setTokenizationSucceeded($value)
     {
         $this->tokenizationSucceeded = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->externalReference !== null) {
+        if (!is_null($this->externalReference)) {
             $object->externalReference = $this->externalReference;
         }
-        if ($this->isNewToken !== null) {
+        if (!is_null($this->isNewToken)) {
             $object->isNewToken = $this->isNewToken;
         }
-        if ($this->token !== null) {
+        if (!is_null($this->token)) {
             $object->token = $this->token;
         }
-        if ($this->tokenizationSucceeded !== null) {
+        if (!is_null($this->tokenizationSucceeded)) {
             $object->tokenizationSucceeded = $this->tokenizationSucceeded;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class PaymentLinkOrderOutput extends DataObject
 {
-    // Properties
     /**
      * @var AmountOfMoney
      */
-    private $amount;
+    public $amount = null;
+
     /**
      * @var string
      */
-    private $merchantReference;
+    public $merchantReference = null;
+
     /**
      * @var SurchargeForPaymentLink
      */
-    private $surchargeSpecificOutput;
-    // Methods
+    public $surchargeSpecificOutput = null;
+
     /**
      * @return AmountOfMoney
      */
@@ -33,13 +33,15 @@ class PaymentLinkOrderOutput extends DataObject
     {
         return $this->amount;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney
      */
     public function setAmount($value)
     {
         $this->amount = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class PaymentLinkOrderOutput extends DataObject
     {
         return $this->merchantReference;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setMerchantReference($value)
     {
         $this->merchantReference = $value;
     }
+
     /**
      * @return SurchargeForPaymentLink
      */
@@ -61,30 +65,33 @@ class PaymentLinkOrderOutput extends DataObject
     {
         return $this->surchargeSpecificOutput;
     }
+
     /**
-     * @var SurchargeForPaymentLink
+     * @param SurchargeForPaymentLink
      */
     public function setSurchargeSpecificOutput($value)
     {
         $this->surchargeSpecificOutput = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->amount !== null) {
+        if (!is_null($this->amount)) {
             $object->amount = $this->amount->toObject();
         }
-        if ($this->merchantReference !== null) {
+        if (!is_null($this->merchantReference)) {
             $object->merchantReference = $this->merchantReference;
         }
-        if ($this->surchargeSpecificOutput !== null) {
+        if (!is_null($this->surchargeSpecificOutput)) {
             $object->surchargeSpecificOutput = $this->surchargeSpecificOutput->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -95,7 +102,7 @@ class PaymentLinkOrderOutput extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'amount')) {
             if (!is_object($object->amount)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->amount, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->amount, true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->amount = $value->fromObject($object->amount);
@@ -105,7 +112,7 @@ class PaymentLinkOrderOutput extends DataObject
         }
         if (property_exists($object, 'surchargeSpecificOutput')) {
             if (!is_object($object->surchargeSpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->surchargeSpecificOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->surchargeSpecificOutput, true) . '\' is not an object');
             }
             $value = new SurchargeForPaymentLink();
             $this->surchargeSpecificOutput = $value->fromObject($object->surchargeSpecificOutput);

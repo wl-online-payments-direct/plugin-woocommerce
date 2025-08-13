@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class SurchargeRate extends DataObject
 {
-    // Properties
     /**
      * @var float
      */
-    private $adValoremRate;
+    public $adValoremRate = null;
+
     /**
      * @var int
      */
-    private $specificRate;
+    public $specificRate = null;
+
     /**
      * @var string
      */
-    private $surchargeProductTypeId;
+    public $surchargeProductTypeId = null;
+
     /**
      * @var string
      */
-    private $surchargeProductTypeVersion;
-    // Methods
+    public $surchargeProductTypeVersion = null;
+
     /**
      * @return float
      */
@@ -37,13 +38,15 @@ class SurchargeRate extends DataObject
     {
         return $this->adValoremRate;
     }
+
     /**
-     * @var float
+     * @param float
      */
     public function setAdValoremRate($value)
     {
         $this->adValoremRate = $value;
     }
+
     /**
      * @return int
      */
@@ -51,13 +54,15 @@ class SurchargeRate extends DataObject
     {
         return $this->specificRate;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setSpecificRate($value)
     {
         $this->specificRate = $value;
     }
+
     /**
      * @return string
      */
@@ -65,13 +70,15 @@ class SurchargeRate extends DataObject
     {
         return $this->surchargeProductTypeId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSurchargeProductTypeId($value)
     {
         $this->surchargeProductTypeId = $value;
     }
+
     /**
      * @return string
      */
@@ -79,33 +86,36 @@ class SurchargeRate extends DataObject
     {
         return $this->surchargeProductTypeVersion;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSurchargeProductTypeVersion($value)
     {
         $this->surchargeProductTypeVersion = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->adValoremRate !== null) {
+        if (!is_null($this->adValoremRate)) {
             $object->adValoremRate = $this->adValoremRate;
         }
-        if ($this->specificRate !== null) {
+        if (!is_null($this->specificRate)) {
             $object->specificRate = $this->specificRate;
         }
-        if ($this->surchargeProductTypeId !== null) {
+        if (!is_null($this->surchargeProductTypeId)) {
             $object->surchargeProductTypeId = $this->surchargeProductTypeId;
         }
-        if ($this->surchargeProductTypeVersion !== null) {
+        if (!is_null($this->surchargeProductTypeVersion)) {
             $object->surchargeProductTypeVersion = $this->surchargeProductTypeVersion;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

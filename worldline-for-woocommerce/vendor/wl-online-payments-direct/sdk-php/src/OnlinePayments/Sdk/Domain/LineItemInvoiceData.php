@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class LineItemInvoiceData extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $description;
-    // Methods
+    public $description = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class LineItemInvoiceData extends DataObject
     {
         return $this->description;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDescription($value)
     {
         $this->description = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->description !== null) {
+        if (!is_null($this->description)) {
             $object->description = $this->description;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

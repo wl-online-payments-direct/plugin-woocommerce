@@ -1,8 +1,8 @@
 <?php
-
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
+namespace OnlinePayments\Sdk\Webhooks;
 
 use RuntimeException;
+
 /**
  * Class ApiVersionMismatchException
  *
@@ -11,9 +11,11 @@ use RuntimeException;
 class ApiVersionMismatchException extends RuntimeException
 {
     /** @var string */
-    protected $eventApiVersion;
+    private $eventApiVersion;
+
     /** @var string */
-    protected $sdkApiVersion;
+    private $sdkApiVersion;
+
     /**
      * @param string $eventApiVersion
      * @param string $sdkApiVersion
@@ -24,6 +26,7 @@ class ApiVersionMismatchException extends RuntimeException
         $this->eventApiVersion = $eventApiVersion;
         $this->sdkApiVersion = $sdkApiVersion;
     }
+
     /**
      * @return string
      */
@@ -31,6 +34,7 @@ class ApiVersionMismatchException extends RuntimeException
     {
         return $this->eventApiVersion;
     }
+
     /**
      * @return string
      */

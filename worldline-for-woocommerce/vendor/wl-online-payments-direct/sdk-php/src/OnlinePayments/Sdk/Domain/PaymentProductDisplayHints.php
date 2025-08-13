@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductDisplayHints extends DataObject
 {
-    // Properties
     /**
      * @var int
      */
-    private $displayOrder;
+    public $displayOrder = null;
+
     /**
      * @var string
      */
-    private $label;
+    public $label = null;
+
     /**
      * @var string
      */
-    private $logo;
-    // Methods
+    public $logo = null;
+
     /**
      * @return int
      */
@@ -33,13 +33,15 @@ class PaymentProductDisplayHints extends DataObject
     {
         return $this->displayOrder;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setDisplayOrder($value)
     {
         $this->displayOrder = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class PaymentProductDisplayHints extends DataObject
     {
         return $this->label;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setLabel($value)
     {
         $this->label = $value;
     }
+
     /**
      * @return string
      */
@@ -61,30 +65,33 @@ class PaymentProductDisplayHints extends DataObject
     {
         return $this->logo;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setLogo($value)
     {
         $this->logo = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->displayOrder !== null) {
+        if (!is_null($this->displayOrder)) {
             $object->displayOrder = $this->displayOrder;
         }
-        if ($this->label !== null) {
+        if (!is_null($this->label)) {
             $object->label = $this->label;
         }
-        if ($this->logo !== null) {
+        if (!is_null($this->logo)) {
             $object->logo = $this->logo;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

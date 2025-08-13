@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class CardPaymentMethodSpecificInputForHostedCheckout extends DataObject
 {
-    // Properties
     /**
      * @var bool
      */
-    private $clickToPay;
+    public $clickToPay = null;
+
     /**
      * @var bool
      */
-    private $groupCards;
+    public $groupCards = null;
+
     /**
      * @var int[]
      */
-    private $paymentProductPreferredOrder;
-    // Methods
+    public $paymentProductPreferredOrder = null;
+
     /**
      * @return bool
      */
@@ -33,13 +33,15 @@ class CardPaymentMethodSpecificInputForHostedCheckout extends DataObject
     {
         return $this->clickToPay;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setClickToPay($value)
     {
         $this->clickToPay = $value;
     }
+
     /**
      * @return bool
      */
@@ -47,13 +49,15 @@ class CardPaymentMethodSpecificInputForHostedCheckout extends DataObject
     {
         return $this->groupCards;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setGroupCards($value)
     {
         $this->groupCards = $value;
     }
+
     /**
      * @return int[]
      */
@@ -61,35 +65,38 @@ class CardPaymentMethodSpecificInputForHostedCheckout extends DataObject
     {
         return $this->paymentProductPreferredOrder;
     }
+
     /**
-     * @var int[]
+     * @param int[]
      */
     public function setPaymentProductPreferredOrder($value)
     {
         $this->paymentProductPreferredOrder = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->clickToPay !== null) {
+        if (!is_null($this->clickToPay)) {
             $object->clickToPay = $this->clickToPay;
         }
-        if ($this->groupCards !== null) {
+        if (!is_null($this->groupCards)) {
             $object->groupCards = $this->groupCards;
         }
-        if ($this->paymentProductPreferredOrder !== null) {
+        if (!is_null($this->paymentProductPreferredOrder)) {
             $object->paymentProductPreferredOrder = [];
             foreach ($this->paymentProductPreferredOrder as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->paymentProductPreferredOrder[] = $element;
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -106,7 +113,7 @@ class CardPaymentMethodSpecificInputForHostedCheckout extends DataObject
         }
         if (property_exists($object, 'paymentProductPreferredOrder')) {
             if (!is_array($object->paymentProductPreferredOrder) && !is_object($object->paymentProductPreferredOrder)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductPreferredOrder, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductPreferredOrder, true) . '\' is not an array or object');
             }
             $this->paymentProductPreferredOrder = [];
             foreach ($object->paymentProductPreferredOrder as $element) {

@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class GetHostedCheckoutResponse extends DataObject
 {
-    // Properties
     /**
      * @var CreatedPaymentOutput
      */
-    private $createdPaymentOutput;
+    public $createdPaymentOutput = null;
+
     /**
      * @var string
      */
-    private $status;
-    // Methods
+    public $status = null;
+
     /**
      * @return CreatedPaymentOutput
      */
@@ -29,13 +28,15 @@ class GetHostedCheckoutResponse extends DataObject
     {
         return $this->createdPaymentOutput;
     }
+
     /**
-     * @var CreatedPaymentOutput
+     * @param CreatedPaymentOutput
      */
     public function setCreatedPaymentOutput($value)
     {
         $this->createdPaymentOutput = $value;
     }
+
     /**
      * @return string
      */
@@ -43,27 +44,30 @@ class GetHostedCheckoutResponse extends DataObject
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setStatus($value)
     {
         $this->status = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->createdPaymentOutput !== null) {
+        if (!is_null($this->createdPaymentOutput)) {
             $object->createdPaymentOutput = $this->createdPaymentOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -74,7 +78,7 @@ class GetHostedCheckoutResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'createdPaymentOutput')) {
             if (!is_object($object->createdPaymentOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->createdPaymentOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->createdPaymentOutput, true) . '\' is not an object');
             }
             $value = new CreatedPaymentOutput();
             $this->createdPaymentOutput = $value->fromObject($object->createdPaymentOutput);

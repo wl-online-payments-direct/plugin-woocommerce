@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class CurrencyConversionInput extends DataObject
 {
-    // Properties
     /**
      * @var bool
      */
-    private $acceptedByUser;
+    public $acceptedByUser = null;
+
     /**
      * @var string
      */
-    private $dccSessionId;
-    // Methods
+    public $dccSessionId = null;
+
     /**
      * @return bool
      */
@@ -29,13 +28,15 @@ class CurrencyConversionInput extends DataObject
     {
         return $this->acceptedByUser;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setAcceptedByUser($value)
     {
         $this->acceptedByUser = $value;
     }
+
     /**
      * @return string
      */
@@ -43,27 +44,30 @@ class CurrencyConversionInput extends DataObject
     {
         return $this->dccSessionId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDccSessionId($value)
     {
         $this->dccSessionId = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->acceptedByUser !== null) {
+        if (!is_null($this->acceptedByUser)) {
             $object->acceptedByUser = $this->acceptedByUser;
         }
-        if ($this->dccSessionId !== null) {
+        if (!is_null($this->dccSessionId)) {
             $object->dccSessionId = $this->dccSessionId;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

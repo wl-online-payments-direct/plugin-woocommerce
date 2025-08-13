@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct5407 extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $pairingToken;
+    public $pairingToken = null;
+
     /**
      * @var string
      */
-    private $qrCode;
-    // Methods
+    public $qrCode = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class PaymentProduct5407 extends DataObject
     {
         return $this->pairingToken;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPairingToken($value)
     {
         $this->pairingToken = $value;
     }
+
     /**
      * @return string
      */
@@ -43,27 +44,30 @@ class PaymentProduct5407 extends DataObject
     {
         return $this->qrCode;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setQrCode($value)
     {
         $this->qrCode = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->pairingToken !== null) {
+        if (!is_null($this->pairingToken)) {
             $object->pairingToken = $this->pairingToken;
         }
-        if ($this->qrCode !== null) {
+        if (!is_null($this->qrCode)) {
             $object->qrCode = $this->qrCode;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

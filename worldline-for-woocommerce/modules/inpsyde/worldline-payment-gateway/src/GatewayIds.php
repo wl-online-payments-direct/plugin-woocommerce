@@ -22,6 +22,11 @@ interface GatewayIds
     public const TWINT = 'worldline-twint';
     public const KLARNA_FINANCING = 'worldline-klarna-financing';
     public const KLARNA_FINANCING_PAY_IN_3 = 'worldline-klarna-financing-pay-in-3';
-    public const HOSTED_CHECKOUT_GATEWAYS = [self::HOSTED_CHECKOUT, self::GOOGLE_PAY, self::APPLE_PAY, self::BANK_TRANSFER, self::IDEAL, self::POSTFINANCE];
-    public const ALL = [self::HOSTED_CHECKOUT, self::HOSTED_TOKENIZATION, self::GOOGLE_PAY, self::APPLE_PAY, self::BANK_TRANSFER, self::IDEAL, self::KLARNA_PAY_WITH_KLARNA, self::KLARNA_PAY_NOW, self::KLARNA_BANK_TRANSFER, self::KLARNA_DIRECT_DEBIT, self::KLARNA_PAY_LATER, self::KLARNA_PAY_LATER_PAY_IN_3, self::KLARNA_PAY_LATER_BANK_TRANSFER, self::KLARNA_FINANCING, self::KLARNA_FINANCING_PAY_IN_3, self::POSTFINANCE, self::TWINT];
+
+    public const MEALVOUCHERS = 'worldline-mealvouchers';
+    public const CVCO = 'worldline-cvco';
+
+    public const EPS = 'worldline-eps';
+    public const HOSTED_CHECKOUT_GATEWAYS = [self::HOSTED_CHECKOUT, self::GOOGLE_PAY, self::APPLE_PAY, self::BANK_TRANSFER, self::IDEAL, self::POSTFINANCE, self::MEALVOUCHERS, self::CVCO, self::EPS];
+    public const ALL = [self::HOSTED_CHECKOUT, self::HOSTED_TOKENIZATION, self::GOOGLE_PAY, self::APPLE_PAY, self::BANK_TRANSFER, self::IDEAL, self::KLARNA_PAY_WITH_KLARNA, self::KLARNA_PAY_NOW, self::KLARNA_BANK_TRANSFER, self::KLARNA_DIRECT_DEBIT, self::KLARNA_PAY_LATER, self::KLARNA_PAY_LATER_PAY_IN_3, self::KLARNA_PAY_LATER_BANK_TRANSFER, self::KLARNA_FINANCING, self::KLARNA_FINANCING_PAY_IN_3, self::POSTFINANCE, self::TWINT, self::MEALVOUCHERS, self::CVCO, self::EPS];
 }

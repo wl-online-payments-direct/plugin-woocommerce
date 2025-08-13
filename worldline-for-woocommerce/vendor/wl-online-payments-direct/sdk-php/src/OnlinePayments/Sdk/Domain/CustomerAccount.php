@@ -1,55 +1,61 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class CustomerAccount extends DataObject
 {
-    // Properties
     /**
      * @var CustomerAccountAuthentication
      */
-    private $authentication;
+    public $authentication = null;
+
     /**
      * @var string
      */
-    private $changeDate;
+    public $changeDate = null;
+
     /**
      * @var bool
      */
-    private $changedDuringCheckout;
+    public $changedDuringCheckout = null;
+
     /**
      * @var string
      */
-    private $createDate;
+    public $createDate = null;
+
     /**
      * @var bool
      */
-    private $hadSuspiciousActivity;
+    public $hadSuspiciousActivity = null;
+
     /**
      * @var string
      */
-    private $passwordChangeDate;
+    public $passwordChangeDate = null;
+
     /**
      * @var bool
      */
-    private $passwordChangedDuringCheckout;
+    public $passwordChangedDuringCheckout = null;
+
     /**
      * @var PaymentAccountOnFile
      */
-    private $paymentAccountOnFile;
+    public $paymentAccountOnFile = null;
+
     /**
      * @var CustomerPaymentActivity
      */
-    private $paymentActivity;
-    // Methods
+    public $paymentActivity = null;
+
     /**
      * @return CustomerAccountAuthentication
      */
@@ -57,13 +63,15 @@ class CustomerAccount extends DataObject
     {
         return $this->authentication;
     }
+
     /**
-     * @var CustomerAccountAuthentication
+     * @param CustomerAccountAuthentication
      */
     public function setAuthentication($value)
     {
         $this->authentication = $value;
     }
+
     /**
      * @return string
      */
@@ -71,13 +79,15 @@ class CustomerAccount extends DataObject
     {
         return $this->changeDate;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setChangeDate($value)
     {
         $this->changeDate = $value;
     }
+
     /**
      * @return bool
      */
@@ -85,13 +95,15 @@ class CustomerAccount extends DataObject
     {
         return $this->changedDuringCheckout;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setChangedDuringCheckout($value)
     {
         $this->changedDuringCheckout = $value;
     }
+
     /**
      * @return string
      */
@@ -99,13 +111,15 @@ class CustomerAccount extends DataObject
     {
         return $this->createDate;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCreateDate($value)
     {
         $this->createDate = $value;
     }
+
     /**
      * @return bool
      */
@@ -113,13 +127,15 @@ class CustomerAccount extends DataObject
     {
         return $this->hadSuspiciousActivity;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setHadSuspiciousActivity($value)
     {
         $this->hadSuspiciousActivity = $value;
     }
+
     /**
      * @return string
      */
@@ -127,13 +143,15 @@ class CustomerAccount extends DataObject
     {
         return $this->passwordChangeDate;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPasswordChangeDate($value)
     {
         $this->passwordChangeDate = $value;
     }
+
     /**
      * @return bool
      */
@@ -141,13 +159,15 @@ class CustomerAccount extends DataObject
     {
         return $this->passwordChangedDuringCheckout;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setPasswordChangedDuringCheckout($value)
     {
         $this->passwordChangedDuringCheckout = $value;
     }
+
     /**
      * @return PaymentAccountOnFile
      */
@@ -155,13 +175,15 @@ class CustomerAccount extends DataObject
     {
         return $this->paymentAccountOnFile;
     }
+
     /**
-     * @var PaymentAccountOnFile
+     * @param PaymentAccountOnFile
      */
     public function setPaymentAccountOnFile($value)
     {
         $this->paymentAccountOnFile = $value;
     }
+
     /**
      * @return CustomerPaymentActivity
      */
@@ -169,48 +191,51 @@ class CustomerAccount extends DataObject
     {
         return $this->paymentActivity;
     }
+
     /**
-     * @var CustomerPaymentActivity
+     * @param CustomerPaymentActivity
      */
     public function setPaymentActivity($value)
     {
         $this->paymentActivity = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->authentication !== null) {
+        if (!is_null($this->authentication)) {
             $object->authentication = $this->authentication->toObject();
         }
-        if ($this->changeDate !== null) {
+        if (!is_null($this->changeDate)) {
             $object->changeDate = $this->changeDate;
         }
-        if ($this->changedDuringCheckout !== null) {
+        if (!is_null($this->changedDuringCheckout)) {
             $object->changedDuringCheckout = $this->changedDuringCheckout;
         }
-        if ($this->createDate !== null) {
+        if (!is_null($this->createDate)) {
             $object->createDate = $this->createDate;
         }
-        if ($this->hadSuspiciousActivity !== null) {
+        if (!is_null($this->hadSuspiciousActivity)) {
             $object->hadSuspiciousActivity = $this->hadSuspiciousActivity;
         }
-        if ($this->passwordChangeDate !== null) {
+        if (!is_null($this->passwordChangeDate)) {
             $object->passwordChangeDate = $this->passwordChangeDate;
         }
-        if ($this->passwordChangedDuringCheckout !== null) {
+        if (!is_null($this->passwordChangedDuringCheckout)) {
             $object->passwordChangedDuringCheckout = $this->passwordChangedDuringCheckout;
         }
-        if ($this->paymentAccountOnFile !== null) {
+        if (!is_null($this->paymentAccountOnFile)) {
             $object->paymentAccountOnFile = $this->paymentAccountOnFile->toObject();
         }
-        if ($this->paymentActivity !== null) {
+        if (!is_null($this->paymentActivity)) {
             $object->paymentActivity = $this->paymentActivity->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -221,7 +246,7 @@ class CustomerAccount extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'authentication')) {
             if (!is_object($object->authentication)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->authentication, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->authentication, true) . '\' is not an object');
             }
             $value = new CustomerAccountAuthentication();
             $this->authentication = $value->fromObject($object->authentication);
@@ -246,14 +271,14 @@ class CustomerAccount extends DataObject
         }
         if (property_exists($object, 'paymentAccountOnFile')) {
             if (!is_object($object->paymentAccountOnFile)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentAccountOnFile, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentAccountOnFile, true) . '\' is not an object');
             }
             $value = new PaymentAccountOnFile();
             $this->paymentAccountOnFile = $value->fromObject($object->paymentAccountOnFile);
         }
         if (property_exists($object, 'paymentActivity')) {
             if (!is_object($object->paymentActivity)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentActivity, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentActivity, true) . '\' is not an object');
             }
             $value = new CustomerPaymentActivity();
             $this->paymentActivity = $value->fromObject($object->paymentActivity);

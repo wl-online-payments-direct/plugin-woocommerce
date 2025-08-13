@@ -1,39 +1,41 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class LoanRecipient extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $accountNumber;
+    public $accountNumber = null;
+
     /**
      * @var string
      */
-    private $dateOfBirth;
+    public $dateOfBirth = null;
+
     /**
      * @var string
      */
-    private $partialPan;
+    public $partialPan = null;
+
     /**
      * @var string
      */
-    private $surname;
+    public $surname = null;
+
     /**
      * @var string
      */
-    private $zip;
-    // Methods
+    public $zip = null;
+
     /**
      * @return string
      */
@@ -41,13 +43,15 @@ class LoanRecipient extends DataObject
     {
         return $this->accountNumber;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAccountNumber($value)
     {
         $this->accountNumber = $value;
     }
+
     /**
      * @return string
      */
@@ -55,13 +59,15 @@ class LoanRecipient extends DataObject
     {
         return $this->dateOfBirth;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDateOfBirth($value)
     {
         $this->dateOfBirth = $value;
     }
+
     /**
      * @return string
      */
@@ -69,13 +75,15 @@ class LoanRecipient extends DataObject
     {
         return $this->partialPan;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPartialPan($value)
     {
         $this->partialPan = $value;
     }
+
     /**
      * @return string
      */
@@ -83,13 +91,15 @@ class LoanRecipient extends DataObject
     {
         return $this->surname;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSurname($value)
     {
         $this->surname = $value;
     }
+
     /**
      * @return string
      */
@@ -97,36 +107,39 @@ class LoanRecipient extends DataObject
     {
         return $this->zip;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setZip($value)
     {
         $this->zip = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->accountNumber !== null) {
+        if (!is_null($this->accountNumber)) {
             $object->accountNumber = $this->accountNumber;
         }
-        if ($this->dateOfBirth !== null) {
+        if (!is_null($this->dateOfBirth)) {
             $object->dateOfBirth = $this->dateOfBirth;
         }
-        if ($this->partialPan !== null) {
+        if (!is_null($this->partialPan)) {
             $object->partialPan = $this->partialPan;
         }
-        if ($this->surname !== null) {
+        if (!is_null($this->surname)) {
             $object->surname = $this->surname;
         }
-        if ($this->zip !== null) {
+        if (!is_null($this->zip)) {
             $object->zip = $this->zip;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

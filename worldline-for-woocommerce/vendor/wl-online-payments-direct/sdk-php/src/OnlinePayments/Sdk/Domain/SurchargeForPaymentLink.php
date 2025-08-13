@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class SurchargeForPaymentLink extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $surchargeMode;
-    // Methods
+    public $surchargeMode = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class SurchargeForPaymentLink extends DataObject
     {
         return $this->surchargeMode;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSurchargeMode($value)
     {
         $this->surchargeMode = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->surchargeMode !== null) {
+        if (!is_null($this->surchargeMode)) {
             $object->surchargeMode = $this->surchargeMode;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct5100SpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $brand;
-    // Methods
+    public $brand = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class PaymentProduct5100SpecificInput extends DataObject
     {
         return $this->brand;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setBrand($value)
     {
         $this->brand = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->brand !== null) {
+        if (!is_null($this->brand)) {
             $object->brand = $this->brand;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

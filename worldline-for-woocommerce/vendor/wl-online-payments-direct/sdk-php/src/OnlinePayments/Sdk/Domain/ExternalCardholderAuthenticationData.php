@@ -1,59 +1,66 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class ExternalCardholderAuthenticationData extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $acsTransactionId;
+    public $acsTransactionId = null;
+
     /**
      * @var string
      */
-    private $appliedExemption;
+    public $appliedExemption = null;
+
     /**
      * @var string
      */
-    private $cavv;
+    public $cavv = null;
+
     /**
      * @var string
      */
-    private $cavvAlgorithm;
+    public $cavvAlgorithm = null;
+
     /**
      * @var string
      */
-    private $directoryServerTransactionId;
+    public $directoryServerTransactionId = null;
+
     /**
      * @var int
      */
-    private $eci;
+    public $eci = null;
+
     /**
      * @var string
      */
-    private $flow;
+    public $flow = null;
+
     /**
      * @var int
      */
-    private $schemeRiskScore;
+    public $schemeRiskScore = null;
+
     /**
      * @var string
      */
-    private $threeDSecureVersion;
+    public $threeDSecureVersion = null;
+
     /**
      * @var string
      */
-    private $xid;
-    // Methods
+    public $xid = null;
+
     /**
      * @return string
      */
@@ -61,13 +68,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->acsTransactionId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAcsTransactionId($value)
     {
         $this->acsTransactionId = $value;
     }
+
     /**
      * @return string
      */
@@ -75,13 +84,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->appliedExemption;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAppliedExemption($value)
     {
         $this->appliedExemption = $value;
     }
+
     /**
      * @return string
      */
@@ -89,13 +100,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->cavv;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCavv($value)
     {
         $this->cavv = $value;
     }
+
     /**
      * @return string
      */
@@ -103,13 +116,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->cavvAlgorithm;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCavvAlgorithm($value)
     {
         $this->cavvAlgorithm = $value;
     }
+
     /**
      * @return string
      */
@@ -117,13 +132,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->directoryServerTransactionId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDirectoryServerTransactionId($value)
     {
         $this->directoryServerTransactionId = $value;
     }
+
     /**
      * @return int
      */
@@ -131,13 +148,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->eci;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setEci($value)
     {
         $this->eci = $value;
     }
+
     /**
      * @return string
      */
@@ -145,13 +164,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->flow;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setFlow($value)
     {
         $this->flow = $value;
     }
+
     /**
      * @return int
      */
@@ -159,13 +180,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->schemeRiskScore;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setSchemeRiskScore($value)
     {
         $this->schemeRiskScore = $value;
     }
+
     /**
      * @return string
      */
@@ -173,13 +196,15 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->threeDSecureVersion;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setThreeDSecureVersion($value)
     {
         $this->threeDSecureVersion = $value;
     }
+
     /**
      * @return string
      */
@@ -187,51 +212,54 @@ class ExternalCardholderAuthenticationData extends DataObject
     {
         return $this->xid;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setXid($value)
     {
         $this->xid = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->acsTransactionId !== null) {
+        if (!is_null($this->acsTransactionId)) {
             $object->acsTransactionId = $this->acsTransactionId;
         }
-        if ($this->appliedExemption !== null) {
+        if (!is_null($this->appliedExemption)) {
             $object->appliedExemption = $this->appliedExemption;
         }
-        if ($this->cavv !== null) {
+        if (!is_null($this->cavv)) {
             $object->cavv = $this->cavv;
         }
-        if ($this->cavvAlgorithm !== null) {
+        if (!is_null($this->cavvAlgorithm)) {
             $object->cavvAlgorithm = $this->cavvAlgorithm;
         }
-        if ($this->directoryServerTransactionId !== null) {
+        if (!is_null($this->directoryServerTransactionId)) {
             $object->directoryServerTransactionId = $this->directoryServerTransactionId;
         }
-        if ($this->eci !== null) {
+        if (!is_null($this->eci)) {
             $object->eci = $this->eci;
         }
-        if ($this->flow !== null) {
+        if (!is_null($this->flow)) {
             $object->flow = $this->flow;
         }
-        if ($this->schemeRiskScore !== null) {
+        if (!is_null($this->schemeRiskScore)) {
             $object->schemeRiskScore = $this->schemeRiskScore;
         }
-        if ($this->threeDSecureVersion !== null) {
+        if (!is_null($this->threeDSecureVersion)) {
             $object->threeDSecureVersion = $this->threeDSecureVersion;
         }
-        if ($this->xid !== null) {
+        if (!is_null($this->xid)) {
             $object->xid = $this->xid;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

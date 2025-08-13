@@ -1,6 +1,5 @@
 <?php
-
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
+namespace OnlinePayments\Sdk\Webhooks;
 
 /**
  * Class SecretKeyStore

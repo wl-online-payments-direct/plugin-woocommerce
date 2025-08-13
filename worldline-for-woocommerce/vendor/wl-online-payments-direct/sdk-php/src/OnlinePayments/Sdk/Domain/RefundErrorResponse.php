@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class RefundErrorResponse extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $errorId;
+    public $errorId = null;
+
     /**
      * @var APIError[]
      */
-    private $errors;
+    public $errors = null;
+
     /**
      * @var RefundResponse
      */
-    private $refundResult;
-    // Methods
+    public $refundResult = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class RefundErrorResponse extends DataObject
     {
         return $this->errorId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setErrorId($value)
     {
         $this->errorId = $value;
     }
+
     /**
      * @return APIError[]
      */
@@ -47,13 +49,15 @@ class RefundErrorResponse extends DataObject
     {
         return $this->errors;
     }
+
     /**
-     * @var APIError[]
+     * @param APIError[]
      */
     public function setErrors($value)
     {
         $this->errors = $value;
     }
+
     /**
      * @return RefundResponse
      */
@@ -61,35 +65,38 @@ class RefundErrorResponse extends DataObject
     {
         return $this->refundResult;
     }
+
     /**
-     * @var RefundResponse
+     * @param RefundResponse
      */
     public function setRefundResult($value)
     {
         $this->refundResult = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->errorId !== null) {
+        if (!is_null($this->errorId)) {
             $object->errorId = $this->errorId;
         }
-        if ($this->errors !== null) {
+        if (!is_null($this->errors)) {
             $object->errors = [];
             foreach ($this->errors as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->errors[] = $element->toObject();
                 }
             }
         }
-        if ($this->refundResult !== null) {
+        if (!is_null($this->refundResult)) {
             $object->refundResult = $this->refundResult->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -103,7 +110,7 @@ class RefundErrorResponse extends DataObject
         }
         if (property_exists($object, 'errors')) {
             if (!is_array($object->errors) && !is_object($object->errors)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->errors, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->errors, true) . '\' is not an array or object');
             }
             $this->errors = [];
             foreach ($object->errors as $element) {
@@ -113,7 +120,7 @@ class RefundErrorResponse extends DataObject
         }
         if (property_exists($object, 'refundResult')) {
             if (!is_object($object->refundResult)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->refundResult, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->refundResult, true) . '\' is not an object');
             }
             $value = new RefundResponse();
             $this->refundResult = $value->fromObject($object->refundResult);

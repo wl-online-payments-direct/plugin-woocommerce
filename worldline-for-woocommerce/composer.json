@@ -37,8 +37,11 @@
         "inpsyde\/worldline-bank-transfer-gateway": "*",
         "inpsyde\/worldline-checkout": "*",
         "inpsyde\/worldline-config": "*",
+        "inpsyde/worldline-cvco-gateway": "dev-main",
         "inpsyde\/worldline-documentation": "*",
+        "inpsyde/worldline-eps-gateway": "dev-main",
         "inpsyde\/worldline-google-pay-gateway": "*",
+        "inpsyde/worldline-mealvouchers-gateway": "dev-main",
         "inpsyde\/worldline-hosted-tokenization-gateway": "*",
         "inpsyde\/worldline-ideal-gateway": "*",
         "inpsyde\/worldline-klarna-gateway": "*",
@@ -53,12 +56,13 @@
         "inpsyde\/worldline-vaulting": "*",
         "inpsyde\/worldline-wc-support": "*",
         "inpsyde\/worldline-webhooks": "*",
+        "inpsyde/worldline-product-type": "dev-main",
         "oomphinc\/composer-installers-extender": "^2.0",
         "psr\/container": "^1.1",
         "psr\/log": "^1.1",
         "sniccowp\/php-scoper-wordpress-excludes": "^6.4",
         "symfony\/polyfill-php80": "^1.29",
-        "wl-online-payments-direct\/sdk-php": "^5.12"
+        "wl-online-payments-direct\/sdk-php": "6.1.0"
     },
     "require-dev": {
         "brain\/monkey": "^2.6",

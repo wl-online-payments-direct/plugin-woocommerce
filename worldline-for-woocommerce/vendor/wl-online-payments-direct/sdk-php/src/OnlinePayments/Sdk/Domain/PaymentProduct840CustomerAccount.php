@@ -1,51 +1,56 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct840CustomerAccount extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $accountId;
+    public $accountId = null;
+
     /**
      * @var string
      */
-    private $companyName;
+    public $companyName = null;
+
     /**
      * @var string
      */
-    private $countryCode;
+    public $countryCode = null;
+
     /**
      * @var string
      */
-    private $customerAccountStatus;
+    public $customerAccountStatus = null;
+
     /**
      * @var string
      */
-    private $customerAddressStatus;
+    public $customerAddressStatus = null;
+
     /**
      * @var string
      */
-    private $firstName;
+    public $firstName = null;
+
     /**
      * @var string
      */
-    private $payerId;
+    public $payerId = null;
+
     /**
      * @var string
      */
-    private $surname;
-    // Methods
+    public $surname = null;
+
     /**
      * @return string
      */
@@ -53,13 +58,15 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->accountId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAccountId($value)
     {
         $this->accountId = $value;
     }
+
     /**
      * @return string
      */
@@ -67,13 +74,15 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->companyName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCompanyName($value)
     {
         $this->companyName = $value;
     }
+
     /**
      * @return string
      */
@@ -81,13 +90,15 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->countryCode;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCountryCode($value)
     {
         $this->countryCode = $value;
     }
+
     /**
      * @return string
      */
@@ -95,13 +106,15 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAccountStatus;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCustomerAccountStatus($value)
     {
         $this->customerAccountStatus = $value;
     }
+
     /**
      * @return string
      */
@@ -109,13 +122,15 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAddressStatus;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCustomerAddressStatus($value)
     {
         $this->customerAddressStatus = $value;
     }
+
     /**
      * @return string
      */
@@ -123,13 +138,15 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->firstName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setFirstName($value)
     {
         $this->firstName = $value;
     }
+
     /**
      * @return string
      */
@@ -137,13 +154,15 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->payerId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPayerId($value)
     {
         $this->payerId = $value;
     }
+
     /**
      * @return string
      */
@@ -151,45 +170,48 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->surname;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSurname($value)
     {
         $this->surname = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->accountId !== null) {
+        if (!is_null($this->accountId)) {
             $object->accountId = $this->accountId;
         }
-        if ($this->companyName !== null) {
+        if (!is_null($this->companyName)) {
             $object->companyName = $this->companyName;
         }
-        if ($this->countryCode !== null) {
+        if (!is_null($this->countryCode)) {
             $object->countryCode = $this->countryCode;
         }
-        if ($this->customerAccountStatus !== null) {
+        if (!is_null($this->customerAccountStatus)) {
             $object->customerAccountStatus = $this->customerAccountStatus;
         }
-        if ($this->customerAddressStatus !== null) {
+        if (!is_null($this->customerAddressStatus)) {
             $object->customerAddressStatus = $this->customerAddressStatus;
         }
-        if ($this->firstName !== null) {
+        if (!is_null($this->firstName)) {
             $object->firstName = $this->firstName;
         }
-        if ($this->payerId !== null) {
+        if (!is_null($this->payerId)) {
             $object->payerId = $this->payerId;
         }
-        if ($this->surname !== null) {
+        if (!is_null($this->surname)) {
             $object->surname = $this->surname;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class AccountOnFile extends DataObject
 {
-    // Properties
     /**
      * @var AccountOnFileAttribute[]
      */
-    private $attributes;
+    public $attributes = null;
+
     /**
      * @var AccountOnFileDisplayHints
      */
-    private $displayHints;
+    public $displayHints = null;
+
     /**
      * @var int
      */
-    private $id;
+    public $id = null;
+
     /**
      * @var int
      */
-    private $paymentProductId;
-    // Methods
+    public $paymentProductId = null;
+
     /**
      * @return AccountOnFileAttribute[]
      */
@@ -37,13 +38,15 @@ class AccountOnFile extends DataObject
     {
         return $this->attributes;
     }
+
     /**
-     * @var AccountOnFileAttribute[]
+     * @param AccountOnFileAttribute[]
      */
     public function setAttributes($value)
     {
         $this->attributes = $value;
     }
+
     /**
      * @return AccountOnFileDisplayHints
      */
@@ -51,13 +54,15 @@ class AccountOnFile extends DataObject
     {
         return $this->displayHints;
     }
+
     /**
-     * @var AccountOnFileDisplayHints
+     * @param AccountOnFileDisplayHints
      */
     public function setDisplayHints($value)
     {
         $this->displayHints = $value;
     }
+
     /**
      * @return int
      */
@@ -65,13 +70,15 @@ class AccountOnFile extends DataObject
     {
         return $this->id;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setId($value)
     {
         $this->id = $value;
     }
+
     /**
      * @return int
      */
@@ -79,38 +86,41 @@ class AccountOnFile extends DataObject
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setPaymentProductId($value)
     {
         $this->paymentProductId = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->attributes !== null) {
+        if (!is_null($this->attributes)) {
             $object->attributes = [];
             foreach ($this->attributes as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->attributes[] = $element->toObject();
                 }
             }
         }
-        if ($this->displayHints !== null) {
+        if (!is_null($this->displayHints)) {
             $object->displayHints = $this->displayHints->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -121,7 +131,7 @@ class AccountOnFile extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'attributes')) {
             if (!is_array($object->attributes) && !is_object($object->attributes)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->attributes, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->attributes, true) . '\' is not an array or object');
             }
             $this->attributes = [];
             foreach ($object->attributes as $element) {
@@ -131,7 +141,7 @@ class AccountOnFile extends DataObject
         }
         if (property_exists($object, 'displayHints')) {
             if (!is_object($object->displayHints)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->displayHints, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->displayHints, true) . '\' is not an object');
             }
             $value = new AccountOnFileDisplayHints();
             $this->displayHints = $value->fromObject($object->displayHints);

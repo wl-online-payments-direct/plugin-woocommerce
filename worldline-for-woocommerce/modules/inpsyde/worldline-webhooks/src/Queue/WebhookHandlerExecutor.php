@@ -30,10 +30,13 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
         if ($this->webhookProcessed($wlopWcOrder, $webhook)) {
             return;
         }
-        $eventData = ['id' => $webhook->getId(), 'type' => $webhook->getType(), 'ref' => (string) WebhookHelper::reference($webhook), 'object' => $webhook];
+        $eventData = ['id' => $webhook->id, 'type' => $webhook->type, 'ref' => (string) WebhookHelper::reference($webhook), 'object' => $webhook];
         do_action('wlop.webhook_handling_start', $eventData);
         foreach ($this->handlers as $handler) {
             if (!$handler->accepts($webhook)) {
+                continue;
+            }
+            if ($this->shouldSkipMealvoucherWebhook($webhook) || $this->shouldSkipCVCOWebhook($webhook)) {
                 continue;
             }
             $handlerEventData = array_merge($eventData, ['handler' => (new \ReflectionClass($handler))->getShortName()]);
@@ -52,7 +55,7 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
     {
         $transactionId = WebhookHelper::transactionId($webhook);
         $statusCode = (string) WebhookHelper::statusCode($webhook);
-        return $webhook->getType() . '_' . $transactionId . '_' . $statusCode;
+        return $webhook->type . '_' . $transactionId . '_' . $statusCode;
     }
     protected function addProcessedWebhook(WlopWcOrder $wlopWcOrder, WebhooksEvent $webhook): void
     {
@@ -70,5 +73,83 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
             return (string) $webhookIdMeta->get_data()['value'];
         }, $webhookIdsMeta);
         return in_array($this->wlopWebhookId($webhook), $processedWebhooks, \true);
+    }
+
+    /**
+     * Determines whether a Mealvouchers webhook event should be skipped.
+     *
+     * @param \OnlinePayments\Sdk\Domain\WebhooksEvent $webhook The incoming webhook event.
+     *
+     * @return bool True if the webhook should be skipped, false otherwise.
+     */
+    private function shouldSkipMealvoucherWebhook(WebhooksEvent $webhook): bool
+    {
+        $type = $webhook->type;
+
+        $mealvouchersEvents = [
+            'payment.authorization_requested',
+            'payment.pending_approval',
+            'payment.pending_completion',
+            'payment.pending_capture',
+            'payment.captured',
+            'payment.cancelled',
+            'payment.rejected',
+        ];
+
+        if (!in_array($type, $mealvouchersEvents, true)) {
+            return false;
+        }
+
+        $paymentOutput = $webhook->getPayment()->getPaymentOutput();
+        $redirectOutput = $paymentOutput->getRedirectPaymentMethodSpecificOutput();
+        $productId = $redirectOutput ? $redirectOutput->getPaymentProductId() : null;
+
+        if ((int) $productId !== 5402) { // MEALVOCUHERS_PRODUCT_ID
+            return false;
+        }
+
+        $amount = $paymentOutput->getAmountOfMoney()->getAmount();
+        $acquired = $paymentOutput->getAcquiredAmount() ? $paymentOutput->getAcquiredAmount()->getAmount() : 0;
+
+        return $amount !== $acquired;
+    }
+
+    /**
+     * Determines whether a CVCO webhook event should be skipped.
+     *
+     * @param WebhooksEvent $webhook The incoming webhook event.
+     *
+     * @return bool True if the webhook should be skipped, false otherwise.
+     */
+    private function shouldSkipCVCOWebhook(WebhooksEvent $webhook): bool
+    {
+        $type = $webhook->type;
+
+        $cvcoEvents = [
+            'payment.authorization_requested',
+            'payment.pending_approval',
+            'payment.pending_completion',
+            'payment.pending_capture',
+            'payment.captured',
+            'payment.cancelled',
+            'payment.rejected',
+        ];
+
+        if (!in_array($type, $cvcoEvents, true)) {
+            return false;
+        }
+
+        $paymentOutput = $webhook->getPayment()->getPaymentOutput();
+        $redirectOutput = $paymentOutput->getRedirectPaymentMethodSpecificOutput();
+        $productId = $redirectOutput ? $redirectOutput->getPaymentProductId() : null;
+
+        if ((int) $productId !== 5403) { // CVCO_PRODUCT_ID
+            return false;
+        }
+
+        $amount = $paymentOutput->getAmountOfMoney()->getAmount();
+        $acquired = $paymentOutput->getAcquiredAmount() ? $paymentOutput->getAcquiredAmount()->getAmount() : 0;
+
+        return $amount !== $acquired;
     }
 }

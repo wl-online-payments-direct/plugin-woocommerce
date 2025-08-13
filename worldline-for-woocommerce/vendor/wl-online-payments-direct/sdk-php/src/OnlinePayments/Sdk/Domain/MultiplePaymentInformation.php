@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class MultiplePaymentInformation extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $paymentPattern;
+    public $paymentPattern = null;
+
     /**
      * @var int
      */
-    private $totalNumberOfPayments;
-    // Methods
+    public $totalNumberOfPayments = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class MultiplePaymentInformation extends DataObject
     {
         return $this->paymentPattern;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPaymentPattern($value)
     {
         $this->paymentPattern = $value;
     }
+
     /**
      * @return int
      */
@@ -43,27 +44,30 @@ class MultiplePaymentInformation extends DataObject
     {
         return $this->totalNumberOfPayments;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setTotalNumberOfPayments($value)
     {
         $this->totalNumberOfPayments = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->paymentPattern !== null) {
+        if (!is_null($this->paymentPattern)) {
             $object->paymentPattern = $this->paymentPattern;
         }
-        if ($this->totalNumberOfPayments !== null) {
+        if (!is_null($this->totalNumberOfPayments)) {
             $object->totalNumberOfPayments = $this->totalNumberOfPayments;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

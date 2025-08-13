@@ -17,7 +17,7 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
     }
     public function accepts(WebhooksEvent $webhook): bool
     {
-        return !in_array($webhook->getType(), [
+        return !in_array($webhook->type, [
             // payment.created often arrives together with other webhooks
             'payment.created',
         ], \true);

@@ -6,7 +6,7 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlineLogging
 
 use Exception;
 use Syde\Vendor\Worldline\Psr\Log\LoggerInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 class SdkLogger implements CommunicatorLogger
 {
     protected LoggerInterface $logger;

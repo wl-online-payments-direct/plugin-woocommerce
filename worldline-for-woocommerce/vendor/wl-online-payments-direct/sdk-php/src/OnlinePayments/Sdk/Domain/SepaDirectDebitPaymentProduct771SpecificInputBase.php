@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class SepaDirectDebitPaymentProduct771SpecificInputBase extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $existingUniqueMandateReference;
+    public $existingUniqueMandateReference = null;
+
     /**
      * @var CreateMandateRequest
      */
-    private $mandate;
-    // Methods
+    public $mandate = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class SepaDirectDebitPaymentProduct771SpecificInputBase extends DataObject
     {
         return $this->existingUniqueMandateReference;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setExistingUniqueMandateReference($value)
     {
         $this->existingUniqueMandateReference = $value;
     }
+
     /**
      * @return CreateMandateRequest
      */
@@ -43,27 +44,30 @@ class SepaDirectDebitPaymentProduct771SpecificInputBase extends DataObject
     {
         return $this->mandate;
     }
+
     /**
-     * @var CreateMandateRequest
+     * @param CreateMandateRequest
      */
     public function setMandate($value)
     {
         $this->mandate = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->existingUniqueMandateReference !== null) {
+        if (!is_null($this->existingUniqueMandateReference)) {
             $object->existingUniqueMandateReference = $this->existingUniqueMandateReference;
         }
-        if ($this->mandate !== null) {
+        if (!is_null($this->mandate)) {
             $object->mandate = $this->mandate->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -77,7 +81,7 @@ class SepaDirectDebitPaymentProduct771SpecificInputBase extends DataObject
         }
         if (property_exists($object, 'mandate')) {
             if (!is_object($object->mandate)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->mandate, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->mandate, true) . '\' is not an object');
             }
             $value = new CreateMandateRequest();
             $this->mandate = $value->fromObject($object->mandate);

@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class RefundMobileMethodSpecificOutput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $network;
+    public $network = null;
+
     /**
      * @var int
      */
-    private $totalAmountPaid;
+    public $totalAmountPaid = null;
+
     /**
      * @var int
      */
-    private $totalAmountRefunded;
-    // Methods
+    public $totalAmountRefunded = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class RefundMobileMethodSpecificOutput extends DataObject
     {
         return $this->network;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setNetwork($value)
     {
         $this->network = $value;
     }
+
     /**
      * @return int
      */
@@ -47,13 +49,15 @@ class RefundMobileMethodSpecificOutput extends DataObject
     {
         return $this->totalAmountPaid;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setTotalAmountPaid($value)
     {
         $this->totalAmountPaid = $value;
     }
+
     /**
      * @return int
      */
@@ -61,30 +65,33 @@ class RefundMobileMethodSpecificOutput extends DataObject
     {
         return $this->totalAmountRefunded;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setTotalAmountRefunded($value)
     {
         $this->totalAmountRefunded = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->network !== null) {
+        if (!is_null($this->network)) {
             $object->network = $this->network;
         }
-        if ($this->totalAmountPaid !== null) {
+        if (!is_null($this->totalAmountPaid)) {
             $object->totalAmountPaid = $this->totalAmountPaid;
         }
-        if ($this->totalAmountRefunded !== null) {
+        if (!is_null($this->totalAmountRefunded)) {
             $object->totalAmountRefunded = $this->totalAmountRefunded;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

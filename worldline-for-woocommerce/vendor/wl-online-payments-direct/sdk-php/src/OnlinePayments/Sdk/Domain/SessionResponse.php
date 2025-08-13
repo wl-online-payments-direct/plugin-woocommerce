@@ -1,39 +1,41 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class SessionResponse extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $assetUrl;
+    public $assetUrl = null;
+
     /**
      * @var string
      */
-    private $clientApiUrl;
+    public $clientApiUrl = null;
+
     /**
      * @var string
      */
-    private $clientSessionId;
+    public $clientSessionId = null;
+
     /**
      * @var string
      */
-    private $customerId;
+    public $customerId = null;
+
     /**
      * @var string[]
      */
-    private $invalidTokens;
-    // Methods
+    public $invalidTokens = null;
+
     /**
      * @return string
      */
@@ -41,13 +43,15 @@ class SessionResponse extends DataObject
     {
         return $this->assetUrl;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAssetUrl($value)
     {
         $this->assetUrl = $value;
     }
+
     /**
      * @return string
      */
@@ -55,13 +59,15 @@ class SessionResponse extends DataObject
     {
         return $this->clientApiUrl;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setClientApiUrl($value)
     {
         $this->clientApiUrl = $value;
     }
+
     /**
      * @return string
      */
@@ -69,13 +75,15 @@ class SessionResponse extends DataObject
     {
         return $this->clientSessionId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setClientSessionId($value)
     {
         $this->clientSessionId = $value;
     }
+
     /**
      * @return string
      */
@@ -83,13 +91,15 @@ class SessionResponse extends DataObject
     {
         return $this->customerId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCustomerId($value)
     {
         $this->customerId = $value;
     }
+
     /**
      * @return string[]
      */
@@ -97,41 +107,44 @@ class SessionResponse extends DataObject
     {
         return $this->invalidTokens;
     }
+
     /**
-     * @var string[]
+     * @param string[]
      */
     public function setInvalidTokens($value)
     {
         $this->invalidTokens = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->assetUrl !== null) {
+        if (!is_null($this->assetUrl)) {
             $object->assetUrl = $this->assetUrl;
         }
-        if ($this->clientApiUrl !== null) {
+        if (!is_null($this->clientApiUrl)) {
             $object->clientApiUrl = $this->clientApiUrl;
         }
-        if ($this->clientSessionId !== null) {
+        if (!is_null($this->clientSessionId)) {
             $object->clientSessionId = $this->clientSessionId;
         }
-        if ($this->customerId !== null) {
+        if (!is_null($this->customerId)) {
             $object->customerId = $this->customerId;
         }
-        if ($this->invalidTokens !== null) {
+        if (!is_null($this->invalidTokens)) {
             $object->invalidTokens = [];
             foreach ($this->invalidTokens as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->invalidTokens[] = $element;
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -154,7 +167,7 @@ class SessionResponse extends DataObject
         }
         if (property_exists($object, 'invalidTokens')) {
             if (!is_array($object->invalidTokens) && !is_object($object->invalidTokens)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->invalidTokens, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->invalidTokens, true) . '\' is not an array or object');
             }
             $this->invalidTokens = [];
             foreach ($object->invalidTokens as $element) {

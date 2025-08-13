@@ -1,31 +1,32 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class FraudFields extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $blackListData;
+    public $blackListData = null;
+
     /**
      * @var string
+     * @deprecated Use order.customer.device.ipAddress instead.  The IP Address of the customer that is making the payment
      */
-    private $customerIpAddress;
+    public $customerIpAddress = null;
+
     /**
      * @var string[]
      */
-    private $productCategories;
-    // Methods
+    public $productCategories = null;
+
     /**
      * @return string
      */
@@ -33,27 +34,33 @@ class FraudFields extends DataObject
     {
         return $this->blackListData;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setBlackListData($value)
     {
         $this->blackListData = $value;
     }
+
     /**
      * @return string
+     * @deprecated Use order.customer.device.ipAddress instead.  The IP Address of the customer that is making the payment
      */
     public function getCustomerIpAddress()
     {
         return $this->customerIpAddress;
     }
+
     /**
-     * @var string
+     * @param string
+     * @deprecated Use order.customer.device.ipAddress instead.  The IP Address of the customer that is making the payment
      */
     public function setCustomerIpAddress($value)
     {
         $this->customerIpAddress = $value;
     }
+
     /**
      * @return string[]
      */
@@ -61,35 +68,38 @@ class FraudFields extends DataObject
     {
         return $this->productCategories;
     }
+
     /**
-     * @var string[]
+     * @param string[]
      */
     public function setProductCategories($value)
     {
         $this->productCategories = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->blackListData !== null) {
+        if (!is_null($this->blackListData)) {
             $object->blackListData = $this->blackListData;
         }
-        if ($this->customerIpAddress !== null) {
+        if (!is_null($this->customerIpAddress)) {
             $object->customerIpAddress = $this->customerIpAddress;
         }
-        if ($this->productCategories !== null) {
+        if (!is_null($this->productCategories)) {
             $object->productCategories = [];
             foreach ($this->productCategories as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->productCategories[] = $element;
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -106,7 +116,7 @@ class FraudFields extends DataObject
         }
         if (property_exists($object, 'productCategories')) {
             if (!is_array($object->productCategories) && !is_object($object->productCategories)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->productCategories, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->productCategories, true) . '\' is not an array or object');
             }
             $this->productCategories = [];
             foreach ($object->productCategories as $element) {

@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class PaymentAccountOnFile extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $createDate;
+    public $createDate = null;
+
     /**
      * @var int
      */
-    private $numberOfCardOnFileCreationAttemptsLast24Hours;
-    // Methods
+    public $numberOfCardOnFileCreationAttemptsLast24Hours = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class PaymentAccountOnFile extends DataObject
     {
         return $this->createDate;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCreateDate($value)
     {
         $this->createDate = $value;
     }
+
     /**
      * @return int
      */
@@ -43,27 +44,30 @@ class PaymentAccountOnFile extends DataObject
     {
         return $this->numberOfCardOnFileCreationAttemptsLast24Hours;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setNumberOfCardOnFileCreationAttemptsLast24Hours($value)
     {
         $this->numberOfCardOnFileCreationAttemptsLast24Hours = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->createDate !== null) {
+        if (!is_null($this->createDate)) {
             $object->createDate = $this->createDate;
         }
-        if ($this->numberOfCardOnFileCreationAttemptsLast24Hours !== null) {
+        if (!is_null($this->numberOfCardOnFileCreationAttemptsLast24Hours)) {
             $object->numberOfCardOnFileCreationAttemptsLast24Hours = $this->numberOfCardOnFileCreationAttemptsLast24Hours;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

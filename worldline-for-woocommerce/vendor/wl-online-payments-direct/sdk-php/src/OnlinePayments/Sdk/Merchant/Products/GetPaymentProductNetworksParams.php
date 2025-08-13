@@ -1,11 +1,12 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products;
+namespace OnlinePayments\Sdk\Merchant\Products;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\RequestObject;
+
+use OnlinePayments\Sdk\Communication\RequestObject;
+
 /**
  * Query parameters for Get payment product networks
  *
@@ -13,24 +14,26 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\RequestObject;
  */
 class GetPaymentProductNetworksParams extends RequestObject
 {
-    // Properties
     /**
      * @var string
      */
-    protected $countryCode;
+    public $countryCode;
+
     /**
      * @var string
      */
-    protected $currencyCode;
+    public $currencyCode;
+
     /**
      * @var int
      */
-    protected $amount;
+    public $amount;
+
     /**
      * @var bool
      */
-    protected $isRecurring;
-    // Methods
+    public $isRecurring;
+
     /**
      * @return string
      */
@@ -38,13 +41,26 @@ class GetPaymentProductNetworksParams extends RequestObject
     {
         return $this->countryCode;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCountryCode($value)
     {
         $this->countryCode = $value;
     }
+
+    /**
+     * @param string
+     */
+    public function addCountryCode($value)
+    {
+        if (is_null($this->countryCode)) {
+            $this->countryCode = [];
+        }
+        $this->countryCode[] = $value;
+    }
+
     /**
      * @return string
      */
@@ -52,13 +68,26 @@ class GetPaymentProductNetworksParams extends RequestObject
     {
         return $this->currencyCode;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCurrencyCode($value)
     {
         $this->currencyCode = $value;
     }
+
+    /**
+     * @param string
+     */
+    public function addCurrencyCode($value)
+    {
+        if (is_null($this->currencyCode)) {
+            $this->currencyCode = [];
+        }
+        $this->currencyCode[] = $value;
+    }
+
     /**
      * @return int
      */
@@ -66,13 +95,26 @@ class GetPaymentProductNetworksParams extends RequestObject
     {
         return $this->amount;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setAmount($value)
     {
         $this->amount = $value;
     }
+
+    /**
+     * @param int
+     */
+    public function addAmount($value)
+    {
+        if (is_null($this->amount)) {
+            $this->amount = [];
+        }
+        $this->amount[] = $value;
+    }
+
     /**
      * @return bool
      */
@@ -80,30 +122,43 @@ class GetPaymentProductNetworksParams extends RequestObject
     {
         return $this->isRecurring;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setIsRecurring($value)
     {
         $this->isRecurring = $value;
     }
+
+    /**
+     * @param bool
+     */
+    public function addIsRecurring($value)
+    {
+        if (is_null($this->isRecurring)) {
+            $this->isRecurring = [];
+        }
+        $this->isRecurring[] = $value;
+    }
+
     /**
      * @return array
      */
     public function toArray()
     {
-        $array = array();
-        if ($this->countryCode !== null) {
-            $array["countryCode"] = $this->countryCode;
+        $array = [];
+        if ($this->countryCode != null) {
+            $array['countryCode'] = $this->countryCode;
         }
-        if ($this->currencyCode !== null) {
-            $array["currencyCode"] = $this->currencyCode;
+        if ($this->currencyCode != null) {
+            $array['currencyCode'] = $this->currencyCode;
         }
-        if ($this->amount !== null) {
-            $array["amount"] = $this->amount;
+        if ($this->amount != null) {
+            $array['amount'] = $this->amount;
         }
-        if ($this->isRecurring !== null) {
-            $array["isRecurring"] = $this->isRecurring ? 'true' : 'false';
+        if ($this->isRecurring != null) {
+            $array['isRecurring'] = $this->isRecurring ? 'true' : 'false';
         }
         return $array;
     }

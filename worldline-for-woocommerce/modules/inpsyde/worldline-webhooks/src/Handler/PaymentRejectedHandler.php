@@ -10,7 +10,7 @@ class PaymentRejectedHandler implements WebhookHandlerInterface
 {
     public function accepts(WebhooksEvent $webhook): bool
     {
-        return $webhook->getType() === 'payment.rejected';
+        return $webhook->type === 'payment.rejected';
     }
     /**
      * @throws Exception

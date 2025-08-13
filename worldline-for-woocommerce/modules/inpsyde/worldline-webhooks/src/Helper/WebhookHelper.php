@@ -80,7 +80,7 @@ class WebhookHelper
     }
     public static function cancelledPaymentAmount(WebhooksEvent $webhook): ?AmountOfMoney
     {
-        if ($webhook->getType() !== 'payment.cancelled') {
+        if ($webhook->type !== 'payment.cancelled') {
             return null;
         }
         $payment = $webhook->getPayment();

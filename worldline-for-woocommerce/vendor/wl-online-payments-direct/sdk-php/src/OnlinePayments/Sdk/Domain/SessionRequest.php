@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
  * @package OnlinePayments\Sdk\Domain
  */
 class SessionRequest extends DataObject
 {
-    // Properties
     /**
      * @var string[]
      */
-    private $tokens;
-    // Methods
+    public $tokens = null;
+
     /**
      * @return string[]
      */
@@ -25,29 +23,32 @@ class SessionRequest extends DataObject
     {
         return $this->tokens;
     }
+
     /**
-     * @var string[]
+     * @param string[]
      */
     public function setTokens($value)
     {
         $this->tokens = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->tokens !== null) {
+        if (!is_null($this->tokens)) {
             $object->tokens = [];
             foreach ($this->tokens as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->tokens[] = $element;
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -58,7 +59,7 @@ class SessionRequest extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'tokens')) {
             if (!is_array($object->tokens) && !is_object($object->tokens)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->tokens, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->tokens, true) . '\' is not an array or object');
             }
             $this->tokens = [];
             foreach ($object->tokens as $element) {
