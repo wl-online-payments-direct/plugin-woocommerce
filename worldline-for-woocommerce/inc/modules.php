@@ -3,6 +3,10 @@
 declare (strict_types=1);
 namespace Syde\Vendor\Worldline;
 
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\CVCOGateway\CVCOGatewayModule;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\MealvouchersGateway\MealvouchersGatewayModule;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ProductType\ProductTypeModule;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\EpsGateway\EpsGatewayModule;
 use Syde\Vendor\Worldline\Inpsyde\Logger\LoggerModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\Module;
 use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGatewayModule;
@@ -29,5 +33,5 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Webhooks\WebhooksModul
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlineLogging\WorldlineLoggingModule;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WorldlinePaymentGatewayModule;
 return static function (): iterable {
-    return [new EnvironmentModule(), new CoreModule(), new PaymentGatewayModule(), new LoggerModule(), new WorldlineLoggingModule(), new UriModule(), new WcSupportModule(), new ConfigModule(), new WorldlinePaymentGatewayModule(), new HostedTokenizationGatewayModule(), new GooglePayGatewayModule(), new ApplePayGatewayModule(), new BankTransferGatewayModule(), new IdealGatewayModule(), new PostfinanceGatewayModule(), new KlarnaGatewayModule(), new TwintGatewayModule(), new CheckoutModule(), new ReturnPageModule(), new WebhooksModule(), new VaultingModule(), new UtilsModule(), new DocumentationModule(), new UninstallModule()];
+    return [new EnvironmentModule(), new CoreModule(), new PaymentGatewayModule(), new LoggerModule(), new WorldlineLoggingModule(), new UriModule(), new WcSupportModule(), new ConfigModule(), new WorldlinePaymentGatewayModule(), new HostedTokenizationGatewayModule(), new GooglePayGatewayModule(), new ApplePayGatewayModule(), new BankTransferGatewayModule(), new IdealGatewayModule(), new PostfinanceGatewayModule(), new KlarnaGatewayModule(), new TwintGatewayModule(), new CheckoutModule(), new ReturnPageModule(), new WebhooksModule(), new VaultingModule(), new UtilsModule(), new DocumentationModule(), new UninstallModule(), new MealvouchersGatewayModule(), new ProductTypeModule(), new CVCOGatewayModule(), new EpsGatewayModule()];
 };

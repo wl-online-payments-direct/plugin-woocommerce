@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RedirectPaymentProduct5406SpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var CustomerBankAccount
      */
-    private $customerBankAccount;
-    // Methods
+    public $customerBankAccount = null;
+
     /**
      * @return CustomerBankAccount
      */
@@ -25,24 +23,27 @@ class RedirectPaymentProduct5406SpecificInput extends DataObject
     {
         return $this->customerBankAccount;
     }
+
     /**
-     * @var CustomerBankAccount
+     * @param CustomerBankAccount
      */
     public function setCustomerBankAccount($value)
     {
         $this->customerBankAccount = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->customerBankAccount !== null) {
+        if (!is_null($this->customerBankAccount)) {
             $object->customerBankAccount = $this->customerBankAccount->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -53,7 +54,7 @@ class RedirectPaymentProduct5406SpecificInput extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'customerBankAccount')) {
             if (!is_object($object->customerBankAccount)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->customerBankAccount, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->customerBankAccount, true) . '\' is not an object');
             }
             $value = new CustomerBankAccount();
             $this->customerBankAccount = $value->fromObject($object->customerBankAccount);

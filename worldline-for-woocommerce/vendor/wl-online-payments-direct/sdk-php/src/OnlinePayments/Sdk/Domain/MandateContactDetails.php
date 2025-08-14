@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class MandateContactDetails extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $emailAddress;
-    // Methods
+    public $emailAddress = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class MandateContactDetails extends DataObject
     {
         return $this->emailAddress;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setEmailAddress($value)
     {
         $this->emailAddress = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->emailAddress !== null) {
+        if (!is_null($this->emailAddress)) {
             $object->emailAddress = $this->emailAddress;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

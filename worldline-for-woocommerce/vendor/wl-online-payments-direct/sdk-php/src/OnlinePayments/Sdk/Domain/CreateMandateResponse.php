@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CreateMandateResponse extends DataObject
 {
-    // Properties
     /**
      * @var MandateResponse
      */
-    private $mandate;
+    public $mandate = null;
+
     /**
      * @var MandateMerchantAction
      */
-    private $merchantAction;
-    // Methods
+    public $merchantAction = null;
+
     /**
      * @return MandateResponse
      */
@@ -29,13 +28,15 @@ class CreateMandateResponse extends DataObject
     {
         return $this->mandate;
     }
+
     /**
-     * @var MandateResponse
+     * @param MandateResponse
      */
     public function setMandate($value)
     {
         $this->mandate = $value;
     }
+
     /**
      * @return MandateMerchantAction
      */
@@ -43,27 +44,30 @@ class CreateMandateResponse extends DataObject
     {
         return $this->merchantAction;
     }
+
     /**
-     * @var MandateMerchantAction
+     * @param MandateMerchantAction
      */
     public function setMerchantAction($value)
     {
         $this->merchantAction = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->mandate !== null) {
+        if (!is_null($this->mandate)) {
             $object->mandate = $this->mandate->toObject();
         }
-        if ($this->merchantAction !== null) {
+        if (!is_null($this->merchantAction)) {
             $object->merchantAction = $this->merchantAction->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -74,14 +78,14 @@ class CreateMandateResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'mandate')) {
             if (!is_object($object->mandate)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->mandate, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->mandate, true) . '\' is not an object');
             }
             $value = new MandateResponse();
             $this->mandate = $value->fromObject($object->mandate);
         }
         if (property_exists($object, 'merchantAction')) {
             if (!is_object($object->merchantAction)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->merchantAction, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->merchantAction, true) . '\' is not an object');
             }
             $value = new MandateMerchantAction();
             $this->merchantAction = $value->fromObject($object->merchantAction);

@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class Capture extends DataObject
 {
-    // Properties
     /**
      * @var CaptureOutput
      */
-    private $captureOutput;
+    public $captureOutput = null;
+
     /**
      * @var string
      */
-    private $id;
+    public $id = null;
+
     /**
      * @var string
      */
-    private $status;
+    public $status = null;
+
     /**
      * @var CaptureStatusOutput
      */
-    private $statusOutput;
-    // Methods
+    public $statusOutput = null;
+
     /**
      * @return CaptureOutput
      */
@@ -37,13 +38,15 @@ class Capture extends DataObject
     {
         return $this->captureOutput;
     }
+
     /**
-     * @var CaptureOutput
+     * @param CaptureOutput
      */
     public function setCaptureOutput($value)
     {
         $this->captureOutput = $value;
     }
+
     /**
      * @return string
      */
@@ -51,13 +54,15 @@ class Capture extends DataObject
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setId($value)
     {
         $this->id = $value;
     }
+
     /**
      * @return string
      */
@@ -65,13 +70,15 @@ class Capture extends DataObject
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setStatus($value)
     {
         $this->status = $value;
     }
+
     /**
      * @return CaptureStatusOutput
      */
@@ -79,33 +86,36 @@ class Capture extends DataObject
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var CaptureStatusOutput
+     * @param CaptureStatusOutput
      */
     public function setStatusOutput($value)
     {
         $this->statusOutput = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->captureOutput !== null) {
+        if (!is_null($this->captureOutput)) {
             $object->captureOutput = $this->captureOutput->toObject();
         }
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -116,7 +126,7 @@ class Capture extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'captureOutput')) {
             if (!is_object($object->captureOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->captureOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->captureOutput, true) . '\' is not an object');
             }
             $value = new CaptureOutput();
             $this->captureOutput = $value->fromObject($object->captureOutput);
@@ -129,7 +139,7 @@ class Capture extends DataObject
         }
         if (property_exists($object, 'statusOutput')) {
             if (!is_object($object->statusOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, true) . '\' is not an object');
             }
             $value = new CaptureStatusOutput();
             $this->statusOutput = $value->fromObject($object->statusOutput);

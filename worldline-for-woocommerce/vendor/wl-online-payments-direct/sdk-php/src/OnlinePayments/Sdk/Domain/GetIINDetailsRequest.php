@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class GetIINDetailsRequest extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $bin;
+    public $bin = null;
+
     /**
      * @var PaymentContext
      */
-    private $paymentContext;
-    // Methods
+    public $paymentContext = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class GetIINDetailsRequest extends DataObject
     {
         return $this->bin;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setBin($value)
     {
         $this->bin = $value;
     }
+
     /**
      * @return PaymentContext
      */
@@ -43,27 +44,30 @@ class GetIINDetailsRequest extends DataObject
     {
         return $this->paymentContext;
     }
+
     /**
-     * @var PaymentContext
+     * @param PaymentContext
      */
     public function setPaymentContext($value)
     {
         $this->paymentContext = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->bin !== null) {
+        if (!is_null($this->bin)) {
             $object->bin = $this->bin;
         }
-        if ($this->paymentContext !== null) {
+        if (!is_null($this->paymentContext)) {
             $object->paymentContext = $this->paymentContext->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -77,7 +81,7 @@ class GetIINDetailsRequest extends DataObject
         }
         if (property_exists($object, 'paymentContext')) {
             if (!is_object($object->paymentContext)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentContext, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentContext, true) . '\' is not an object');
             }
             $value = new PaymentContext();
             $this->paymentContext = $value->fromObject($object->paymentContext);

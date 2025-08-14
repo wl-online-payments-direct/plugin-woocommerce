@@ -45,7 +45,7 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGatewa
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\GooglePayThreeDSecureFactory;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WorldlinePaymentGatewayModule;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 return static function (): array {
     $moduleRoot = \dirname(__FILE__, 2);

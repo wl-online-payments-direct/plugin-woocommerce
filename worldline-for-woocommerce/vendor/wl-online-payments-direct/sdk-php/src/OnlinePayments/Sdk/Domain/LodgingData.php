@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class LodgingData extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $checkInDate;
-    // Methods
+    public $checkInDate = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class LodgingData extends DataObject
     {
         return $this->checkInDate;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCheckInDate($value)
     {
         $this->checkInDate = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->checkInDate !== null) {
+        if (!is_null($this->checkInDate)) {
             $object->checkInDate = $this->checkInDate;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

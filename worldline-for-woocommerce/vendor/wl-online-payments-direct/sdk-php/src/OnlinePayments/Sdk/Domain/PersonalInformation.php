@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PersonalInformation extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $dateOfBirth;
+    public $dateOfBirth = null;
+
     /**
      * @var string
      */
-    private $gender;
+    public $gender = null;
+
     /**
      * @var PersonalName
      */
-    private $name;
-    // Methods
+    public $name = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class PersonalInformation extends DataObject
     {
         return $this->dateOfBirth;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDateOfBirth($value)
     {
         $this->dateOfBirth = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class PersonalInformation extends DataObject
     {
         return $this->gender;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setGender($value)
     {
         $this->gender = $value;
     }
+
     /**
      * @return PersonalName
      */
@@ -61,30 +65,33 @@ class PersonalInformation extends DataObject
     {
         return $this->name;
     }
+
     /**
-     * @var PersonalName
+     * @param PersonalName
      */
     public function setName($value)
     {
         $this->name = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->dateOfBirth !== null) {
+        if (!is_null($this->dateOfBirth)) {
             $object->dateOfBirth = $this->dateOfBirth;
         }
-        if ($this->gender !== null) {
+        if (!is_null($this->gender)) {
             $object->gender = $this->gender;
         }
-        if ($this->name !== null) {
+        if (!is_null($this->name)) {
             $object->name = $this->name->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -101,7 +108,7 @@ class PersonalInformation extends DataObject
         }
         if (property_exists($object, 'name')) {
             if (!is_object($object->name)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->name, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->name, true) . '\' is not an object');
             }
             $value = new PersonalName();
             $this->name = $value->fromObject($object->name);

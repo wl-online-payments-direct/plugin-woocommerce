@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CurrencyConversionSpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var bool
      */
-    private $dccEnabled;
-    // Methods
+    public $dccEnabled = null;
+
     /**
      * @return bool
      */
@@ -25,24 +23,27 @@ class CurrencyConversionSpecificInput extends DataObject
     {
         return $this->dccEnabled;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setDccEnabled($value)
     {
         $this->dccEnabled = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->dccEnabled !== null) {
+        if (!is_null($this->dccEnabled)) {
             $object->dccEnabled = $this->dccEnabled;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

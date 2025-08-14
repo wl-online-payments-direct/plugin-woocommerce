@@ -1,39 +1,41 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class MandateCustomerResponse extends DataObject
 {
-    // Properties
     /**
      * @var BankAccountIban
      */
-    private $bankAccountIban;
+    public $bankAccountIban = null;
+
     /**
      * @var string
      */
-    private $companyName;
+    public $companyName = null;
+
     /**
      * @var MandateContactDetails
      */
-    private $contactDetails;
+    public $contactDetails = null;
+
     /**
      * @var MandateAddressResponse
      */
-    private $mandateAddress;
+    public $mandateAddress = null;
+
     /**
      * @var MandatePersonalInformationResponse
      */
-    private $personalInformation;
-    // Methods
+    public $personalInformation = null;
+
     /**
      * @return BankAccountIban
      */
@@ -41,13 +43,15 @@ class MandateCustomerResponse extends DataObject
     {
         return $this->bankAccountIban;
     }
+
     /**
-     * @var BankAccountIban
+     * @param BankAccountIban
      */
     public function setBankAccountIban($value)
     {
         $this->bankAccountIban = $value;
     }
+
     /**
      * @return string
      */
@@ -55,13 +59,15 @@ class MandateCustomerResponse extends DataObject
     {
         return $this->companyName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCompanyName($value)
     {
         $this->companyName = $value;
     }
+
     /**
      * @return MandateContactDetails
      */
@@ -69,13 +75,15 @@ class MandateCustomerResponse extends DataObject
     {
         return $this->contactDetails;
     }
+
     /**
-     * @var MandateContactDetails
+     * @param MandateContactDetails
      */
     public function setContactDetails($value)
     {
         $this->contactDetails = $value;
     }
+
     /**
      * @return MandateAddressResponse
      */
@@ -83,13 +91,15 @@ class MandateCustomerResponse extends DataObject
     {
         return $this->mandateAddress;
     }
+
     /**
-     * @var MandateAddressResponse
+     * @param MandateAddressResponse
      */
     public function setMandateAddress($value)
     {
         $this->mandateAddress = $value;
     }
+
     /**
      * @return MandatePersonalInformationResponse
      */
@@ -97,36 +107,39 @@ class MandateCustomerResponse extends DataObject
     {
         return $this->personalInformation;
     }
+
     /**
-     * @var MandatePersonalInformationResponse
+     * @param MandatePersonalInformationResponse
      */
     public function setPersonalInformation($value)
     {
         $this->personalInformation = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->bankAccountIban !== null) {
+        if (!is_null($this->bankAccountIban)) {
             $object->bankAccountIban = $this->bankAccountIban->toObject();
         }
-        if ($this->companyName !== null) {
+        if (!is_null($this->companyName)) {
             $object->companyName = $this->companyName;
         }
-        if ($this->contactDetails !== null) {
+        if (!is_null($this->contactDetails)) {
             $object->contactDetails = $this->contactDetails->toObject();
         }
-        if ($this->mandateAddress !== null) {
+        if (!is_null($this->mandateAddress)) {
             $object->mandateAddress = $this->mandateAddress->toObject();
         }
-        if ($this->personalInformation !== null) {
+        if (!is_null($this->personalInformation)) {
             $object->personalInformation = $this->personalInformation->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -137,7 +150,7 @@ class MandateCustomerResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'bankAccountIban')) {
             if (!is_object($object->bankAccountIban)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->bankAccountIban, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->bankAccountIban, true) . '\' is not an object');
             }
             $value = new BankAccountIban();
             $this->bankAccountIban = $value->fromObject($object->bankAccountIban);
@@ -147,21 +160,21 @@ class MandateCustomerResponse extends DataObject
         }
         if (property_exists($object, 'contactDetails')) {
             if (!is_object($object->contactDetails)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->contactDetails, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->contactDetails, true) . '\' is not an object');
             }
             $value = new MandateContactDetails();
             $this->contactDetails = $value->fromObject($object->contactDetails);
         }
         if (property_exists($object, 'mandateAddress')) {
             if (!is_object($object->mandateAddress)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->mandateAddress, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->mandateAddress, true) . '\' is not an object');
             }
             $value = new MandateAddressResponse();
             $this->mandateAddress = $value->fromObject($object->mandateAddress);
         }
         if (property_exists($object, 'personalInformation')) {
             if (!is_object($object->personalInformation)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->personalInformation, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->personalInformation, true) . '\' is not an object');
             }
             $value = new MandatePersonalInformationResponse();
             $this->personalInformation = $value->fromObject($object->personalInformation);

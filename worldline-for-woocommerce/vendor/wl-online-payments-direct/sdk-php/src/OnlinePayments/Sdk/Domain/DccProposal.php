@@ -1,39 +1,41 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class DccProposal extends DataObject
 {
-    // Properties
     /**
      * @var AmountOfMoney
      */
-    private $baseAmount;
+    public $baseAmount = null;
+
     /**
      * @var string
      */
-    private $disclaimerDisplay;
+    public $disclaimerDisplay = null;
+
     /**
      * @var string
      */
-    private $disclaimerReceipt;
+    public $disclaimerReceipt = null;
+
     /**
      * @var RateDetails
      */
-    private $rate;
+    public $rate = null;
+
     /**
      * @var AmountOfMoney
      */
-    private $targetAmount;
-    // Methods
+    public $targetAmount = null;
+
     /**
      * @return AmountOfMoney
      */
@@ -41,13 +43,15 @@ class DccProposal extends DataObject
     {
         return $this->baseAmount;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney
      */
     public function setBaseAmount($value)
     {
         $this->baseAmount = $value;
     }
+
     /**
      * @return string
      */
@@ -55,13 +59,15 @@ class DccProposal extends DataObject
     {
         return $this->disclaimerDisplay;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDisclaimerDisplay($value)
     {
         $this->disclaimerDisplay = $value;
     }
+
     /**
      * @return string
      */
@@ -69,13 +75,15 @@ class DccProposal extends DataObject
     {
         return $this->disclaimerReceipt;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDisclaimerReceipt($value)
     {
         $this->disclaimerReceipt = $value;
     }
+
     /**
      * @return RateDetails
      */
@@ -83,13 +91,15 @@ class DccProposal extends DataObject
     {
         return $this->rate;
     }
+
     /**
-     * @var RateDetails
+     * @param RateDetails
      */
     public function setRate($value)
     {
         $this->rate = $value;
     }
+
     /**
      * @return AmountOfMoney
      */
@@ -97,36 +107,39 @@ class DccProposal extends DataObject
     {
         return $this->targetAmount;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney
      */
     public function setTargetAmount($value)
     {
         $this->targetAmount = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->baseAmount !== null) {
+        if (!is_null($this->baseAmount)) {
             $object->baseAmount = $this->baseAmount->toObject();
         }
-        if ($this->disclaimerDisplay !== null) {
+        if (!is_null($this->disclaimerDisplay)) {
             $object->disclaimerDisplay = $this->disclaimerDisplay;
         }
-        if ($this->disclaimerReceipt !== null) {
+        if (!is_null($this->disclaimerReceipt)) {
             $object->disclaimerReceipt = $this->disclaimerReceipt;
         }
-        if ($this->rate !== null) {
+        if (!is_null($this->rate)) {
             $object->rate = $this->rate->toObject();
         }
-        if ($this->targetAmount !== null) {
+        if (!is_null($this->targetAmount)) {
             $object->targetAmount = $this->targetAmount->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -137,7 +150,7 @@ class DccProposal extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'baseAmount')) {
             if (!is_object($object->baseAmount)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->baseAmount, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->baseAmount, true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->baseAmount = $value->fromObject($object->baseAmount);
@@ -150,14 +163,14 @@ class DccProposal extends DataObject
         }
         if (property_exists($object, 'rate')) {
             if (!is_object($object->rate)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->rate, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->rate, true) . '\' is not an object');
             }
             $value = new RateDetails();
             $this->rate = $value->fromObject($object->rate);
         }
         if (property_exists($object, 'targetAmount')) {
             if (!is_object($object->targetAmount)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->targetAmount, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->targetAmount, true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->targetAmount = $value->fromObject($object->targetAmount);

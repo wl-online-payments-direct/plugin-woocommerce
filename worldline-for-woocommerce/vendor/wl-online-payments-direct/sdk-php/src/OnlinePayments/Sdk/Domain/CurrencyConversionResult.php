@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CurrencyConversionResult extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $result;
+    public $result = null;
+
     /**
      * @var string
      */
-    private $resultReason;
-    // Methods
+    public $resultReason = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class CurrencyConversionResult extends DataObject
     {
         return $this->result;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setResult($value)
     {
         $this->result = $value;
     }
+
     /**
      * @return string
      */
@@ -43,27 +44,30 @@ class CurrencyConversionResult extends DataObject
     {
         return $this->resultReason;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setResultReason($value)
     {
         $this->resultReason = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->result !== null) {
+        if (!is_null($this->result)) {
             $object->result = $this->result;
         }
-        if ($this->resultReason !== null) {
+        if (!is_null($this->resultReason)) {
             $object->resultReason = $this->resultReason;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

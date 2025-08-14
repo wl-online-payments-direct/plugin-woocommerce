@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class Card extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $cardNumber;
+    public $cardNumber = null;
+
     /**
      * @var string
      */
-    private $cardholderName;
+    public $cardholderName = null;
+
     /**
      * @var string
      */
-    private $cvv;
+    public $cvv = null;
+
     /**
      * @var string
      */
-    private $expiryDate;
-    // Methods
+    public $expiryDate = null;
+
     /**
      * @return string
      */
@@ -37,13 +38,15 @@ class Card extends DataObject
     {
         return $this->cardNumber;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCardNumber($value)
     {
         $this->cardNumber = $value;
     }
+
     /**
      * @return string
      */
@@ -51,13 +54,15 @@ class Card extends DataObject
     {
         return $this->cardholderName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCardholderName($value)
     {
         $this->cardholderName = $value;
     }
+
     /**
      * @return string
      */
@@ -65,13 +70,15 @@ class Card extends DataObject
     {
         return $this->cvv;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCvv($value)
     {
         $this->cvv = $value;
     }
+
     /**
      * @return string
      */
@@ -79,33 +86,36 @@ class Card extends DataObject
     {
         return $this->expiryDate;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setExpiryDate($value)
     {
         $this->expiryDate = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->cardNumber !== null) {
+        if (!is_null($this->cardNumber)) {
             $object->cardNumber = $this->cardNumber;
         }
-        if ($this->cardholderName !== null) {
+        if (!is_null($this->cardholderName)) {
             $object->cardholderName = $this->cardholderName;
         }
-        if ($this->cvv !== null) {
+        if (!is_null($this->cvv)) {
             $object->cvv = $this->cvv;
         }
-        if ($this->expiryDate !== null) {
+        if (!is_null($this->expiryDate)) {
             $object->expiryDate = $this->expiryDate;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

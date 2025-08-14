@@ -1,24 +1,26 @@
 <?php
-
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
 use UnexpectedValueException;
+
 /**
  * Class InMemorySecretKeyStore
  *
- * @package OnlinePayments\Sdk\Webhooks
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks
  */
 class InMemorySecretKeyStore implements SecretKeyStore
 {
-    /** @var array<string> */
+    /** @var array<string, string> */
     private $secretKeys;
+
     /**
-     * @param array<string> $secretKeys
+     * @param array<string, string> $secretKeys
      */
-    public function __construct($secretKeys = [])
+    public function  __construct($secretKeys = array())
     {
         $this->secretKeys = $secretKeys;
     }
+
     /**
      * @param string $keyId
      * @return string
@@ -27,14 +29,15 @@ class InMemorySecretKeyStore implements SecretKeyStore
     public function getSecretKey($keyId)
     {
         if (!isset($this->secretKeys[$keyId]) || is_null($this->secretKeys[$keyId])) {
-            throw new SecretKeyNotAvailableException($keyId, "could not find secret key for key id {$keyId}");
+            throw new SecretKeyNotAvailableException($keyId, "could not find secret key for key id $keyId");
         }
         return $this->secretKeys[$keyId];
     }
+
     /**
      * Stores the given secret key for the given key id.
-     * @param string|null $keyId
-     * @param string|null $secretKey
+     * @param string $keyId
+     * @param string $secretKey
      */
     public function storeSecretKey($keyId, $secretKey)
     {
@@ -46,6 +49,7 @@ class InMemorySecretKeyStore implements SecretKeyStore
         }
         $this->secretKeys[$keyId] = $secretKey;
     }
+
     /**
      * Removes the secret key for the given key id.
      * @param string $keyId
@@ -54,6 +58,7 @@ class InMemorySecretKeyStore implements SecretKeyStore
     {
         unset($this->secretKeys[$keyId]);
     }
+
     /**
      * Removes all stored secret keys.
      */

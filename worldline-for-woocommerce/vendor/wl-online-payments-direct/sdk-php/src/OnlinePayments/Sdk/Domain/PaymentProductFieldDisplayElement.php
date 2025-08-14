@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PaymentProductFieldDisplayElement extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $id;
+    public $id = null;
+
     /**
      * @var string
      */
-    private $label;
+    public $label = null;
+
     /**
      * @var string
      */
-    private $type;
+    public $type = null;
+
     /**
      * @var string
      */
-    private $value;
-    // Methods
+    public $value = null;
+
     /**
      * @return string
      */
@@ -37,13 +38,15 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setId($value)
     {
         $this->id = $value;
     }
+
     /**
      * @return string
      */
@@ -51,13 +54,15 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->label;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setLabel($value)
     {
         $this->label = $value;
     }
+
     /**
      * @return string
      */
@@ -65,13 +70,15 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setType($value)
     {
         $this->type = $value;
     }
+
     /**
      * @return string
      */
@@ -79,33 +86,36 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->value;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setValue($value)
     {
         $this->value = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->label !== null) {
+        if (!is_null($this->label)) {
             $object->label = $this->label;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
-        if ($this->value !== null) {
+        if (!is_null($this->value)) {
             $object->value = $this->value;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

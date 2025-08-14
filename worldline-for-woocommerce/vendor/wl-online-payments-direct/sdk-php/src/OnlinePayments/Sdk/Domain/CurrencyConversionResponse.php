@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CurrencyConversionResponse extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $dccSessionId;
+    public $dccSessionId = null;
+
     /**
      * @var DccProposal
      */
-    private $proposal;
+    public $proposal = null;
+
     /**
      * @var CurrencyConversionResult
      */
-    private $result;
-    // Methods
+    public $result = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class CurrencyConversionResponse extends DataObject
     {
         return $this->dccSessionId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDccSessionId($value)
     {
         $this->dccSessionId = $value;
     }
+
     /**
      * @return DccProposal
      */
@@ -47,13 +49,15 @@ class CurrencyConversionResponse extends DataObject
     {
         return $this->proposal;
     }
+
     /**
-     * @var DccProposal
+     * @param DccProposal
      */
     public function setProposal($value)
     {
         $this->proposal = $value;
     }
+
     /**
      * @return CurrencyConversionResult
      */
@@ -61,30 +65,33 @@ class CurrencyConversionResponse extends DataObject
     {
         return $this->result;
     }
+
     /**
-     * @var CurrencyConversionResult
+     * @param CurrencyConversionResult
      */
     public function setResult($value)
     {
         $this->result = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->dccSessionId !== null) {
+        if (!is_null($this->dccSessionId)) {
             $object->dccSessionId = $this->dccSessionId;
         }
-        if ($this->proposal !== null) {
+        if (!is_null($this->proposal)) {
             $object->proposal = $this->proposal->toObject();
         }
-        if ($this->result !== null) {
+        if (!is_null($this->result)) {
             $object->result = $this->result->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -98,14 +105,14 @@ class CurrencyConversionResponse extends DataObject
         }
         if (property_exists($object, 'proposal')) {
             if (!is_object($object->proposal)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->proposal, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->proposal, true) . '\' is not an object');
             }
             $value = new DccProposal();
             $this->proposal = $value->fromObject($object->proposal);
         }
         if (property_exists($object, 'result')) {
             if (!is_object($object->result)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->result, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->result, true) . '\' is not an object');
             }
             $value = new CurrencyConversionResult();
             $this->result = $value->fromObject($object->result);

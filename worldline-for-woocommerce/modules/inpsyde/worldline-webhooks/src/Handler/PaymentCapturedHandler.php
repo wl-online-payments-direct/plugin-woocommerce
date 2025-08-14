@@ -16,7 +16,7 @@ class PaymentCapturedHandler implements WebhookHandlerInterface
     }
     public function accepts(WebhooksEvent $webhook): bool
     {
-        return $webhook->getType() === 'payment.captured';
+        return $webhook->type === 'payment.captured';
     }
     /**
      * @throws \Exception
@@ -25,7 +25,7 @@ class PaymentCapturedHandler implements WebhookHandlerInterface
     {
         $capturedAmount = WebhookHelper::paymentCapturedAmount($webhook);
         if ($capturedAmount === null) {
-            throw new \Exception("Can't retrieve captured amount. Webhook: {$webhook->getId()}");
+            throw new \Exception("Can't retrieve captured amount. Webhook: {$webhook->id}");
         }
         $wlopWcOrder->addWorldlineOrderNote(sprintf(
             /* translators: %s refers to the capture amount */

@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RefundPaymentProduct840CustomerAccount extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $customerAccountStatus;
+    public $customerAccountStatus = null;
+
     /**
      * @var string
      */
-    private $customerAddressStatus;
+    public $customerAddressStatus = null;
+
     /**
      * @var string
      */
-    private $payerId;
-    // Methods
+    public $payerId = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAccountStatus;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCustomerAccountStatus($value)
     {
         $this->customerAccountStatus = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAddressStatus;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCustomerAddressStatus($value)
     {
         $this->customerAddressStatus = $value;
     }
+
     /**
      * @return string
      */
@@ -61,30 +65,33 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         return $this->payerId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPayerId($value)
     {
         $this->payerId = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->customerAccountStatus !== null) {
+        if (!is_null($this->customerAccountStatus)) {
             $object->customerAccountStatus = $this->customerAccountStatus;
         }
-        if ($this->customerAddressStatus !== null) {
+        if (!is_null($this->customerAddressStatus)) {
             $object->customerAddressStatus = $this->customerAddressStatus;
         }
-        if ($this->payerId !== null) {
+        if (!is_null($this->payerId)) {
             $object->payerId = $this->payerId;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

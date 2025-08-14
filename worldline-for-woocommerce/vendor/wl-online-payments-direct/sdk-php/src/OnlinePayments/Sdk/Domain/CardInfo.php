@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CardInfo extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $cardNumber;
+    public $cardNumber = null;
+
     /**
      * @var int
      */
-    private $paymentProductId;
-    // Methods
+    public $paymentProductId = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class CardInfo extends DataObject
     {
         return $this->cardNumber;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCardNumber($value)
     {
         $this->cardNumber = $value;
     }
+
     /**
      * @return int
      */
@@ -43,27 +44,30 @@ class CardInfo extends DataObject
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setPaymentProductId($value)
     {
         $this->paymentProductId = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->cardNumber !== null) {
+        if (!is_null($this->cardNumber)) {
             $object->cardNumber = $this->cardNumber;
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

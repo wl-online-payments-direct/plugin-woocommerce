@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class GetPaymentProductGroupsResponse extends DataObject
 {
-    // Properties
     /**
      * @var PaymentProductGroup[]
      */
-    private $paymentProductGroups;
-    // Methods
+    public $paymentProductGroups = null;
+
     /**
      * @return PaymentProductGroup[]
      */
@@ -25,29 +23,32 @@ class GetPaymentProductGroupsResponse extends DataObject
     {
         return $this->paymentProductGroups;
     }
+
     /**
-     * @var PaymentProductGroup[]
+     * @param PaymentProductGroup[]
      */
     public function setPaymentProductGroups($value)
     {
         $this->paymentProductGroups = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->paymentProductGroups !== null) {
+        if (!is_null($this->paymentProductGroups)) {
             $object->paymentProductGroups = [];
             foreach ($this->paymentProductGroups as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->paymentProductGroups[] = $element->toObject();
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -58,7 +59,7 @@ class GetPaymentProductGroupsResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'paymentProductGroups')) {
             if (!is_array($object->paymentProductGroups) && !is_object($object->paymentProductGroups)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductGroups, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductGroups, true) . '\' is not an array or object');
             }
             $this->paymentProductGroups = [];
             foreach ($object->paymentProductGroups as $element) {

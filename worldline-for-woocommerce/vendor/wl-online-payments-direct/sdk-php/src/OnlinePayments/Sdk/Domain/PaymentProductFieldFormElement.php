@@ -1,27 +1,27 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PaymentProductFieldFormElement extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $type;
+    public $type = null;
+
     /**
      * @var ValueMappingElement[]
+     * @deprecated This field is not used by any payment product
      */
-    private $valueMapping;
-    // Methods
+    public $valueMapping = null;
+
     /**
      * @return string
      */
@@ -29,46 +29,53 @@ class PaymentProductFieldFormElement extends DataObject
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setType($value)
     {
         $this->type = $value;
     }
+
     /**
      * @return ValueMappingElement[]
+     * @deprecated This field is not used by any payment product
      */
     public function getValueMapping()
     {
         return $this->valueMapping;
     }
+
     /**
-     * @var ValueMappingElement[]
+     * @param ValueMappingElement[]
+     * @deprecated This field is not used by any payment product
      */
     public function setValueMapping($value)
     {
         $this->valueMapping = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
-        if ($this->valueMapping !== null) {
+        if (!is_null($this->valueMapping)) {
             $object->valueMapping = [];
             foreach ($this->valueMapping as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->valueMapping[] = $element->toObject();
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -82,7 +89,7 @@ class PaymentProductFieldFormElement extends DataObject
         }
         if (property_exists($object, 'valueMapping')) {
             if (!is_array($object->valueMapping) && !is_object($object->valueMapping)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->valueMapping, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->valueMapping, true) . '\' is not an array or object');
             }
             $this->valueMapping = [];
             foreach ($object->valueMapping as $element) {

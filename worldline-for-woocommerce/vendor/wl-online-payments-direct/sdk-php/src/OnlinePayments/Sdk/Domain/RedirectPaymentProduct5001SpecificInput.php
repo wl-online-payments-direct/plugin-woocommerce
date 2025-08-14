@@ -1,23 +1,42 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RedirectPaymentProduct5001SpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $subsequentType;
-    // Methods
+    public $exemptionRequest = null;
+
+    /**
+     * @var string
+     */
+    public $subsequentType = null;
+
+    /**
+     * @return string
+     */
+    public function getExemptionRequest()
+    {
+        return $this->exemptionRequest;
+    }
+
+    /**
+     * @param string
+     */
+    public function setExemptionRequest($value)
+    {
+        $this->exemptionRequest = $value;
+    }
+
     /**
      * @return string
      */
@@ -25,24 +44,30 @@ class RedirectPaymentProduct5001SpecificInput extends DataObject
     {
         return $this->subsequentType;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setSubsequentType($value)
     {
         $this->subsequentType = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->subsequentType !== null) {
+        if (!is_null($this->exemptionRequest)) {
+            $object->exemptionRequest = $this->exemptionRequest;
+        }
+        if (!is_null($this->subsequentType)) {
             $object->subsequentType = $this->subsequentType;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -51,6 +76,9 @@ class RedirectPaymentProduct5001SpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
+        if (property_exists($object, 'exemptionRequest')) {
+            $this->exemptionRequest = $object->exemptionRequest;
+        }
         if (property_exists($object, 'subsequentType')) {
             $this->subsequentType = $object->subsequentType;
         }

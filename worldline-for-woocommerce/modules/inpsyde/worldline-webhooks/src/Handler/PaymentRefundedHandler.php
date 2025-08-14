@@ -23,14 +23,14 @@ class PaymentRefundedHandler implements WebhookHandlerInterface
     }
     public function accepts(WebhooksEvent $webhook): bool
     {
-        return in_array($webhook->getType(), ['payment.refunded', 'payment.cancelled'], \true);
+        return in_array($webhook->type, ['payment.refunded', 'payment.cancelled'], \true);
     }
     /**
      * @throws Exception
      */
     public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder): void
     {
-        if ($webhook->getType() === 'payment.cancelled') {
+        if ($webhook->type === 'payment.cancelled') {
             // cancelled during checkout
             if ($wlopWcOrder->statusCode() === 1 || WebhookHelper::statusCode($webhook) === 1) {
                 return;
@@ -108,9 +108,9 @@ class PaymentRefundedHandler implements WebhookHandlerInterface
     protected function makeReasonText(WebhooksEvent $webhook): string
     {
         $reason = '';
-        if ($webhook->getType() === 'payment.refunded') {
+        if ($webhook->type === 'payment.refunded') {
             $reason = __('Refund processed.', 'worldline-for-woocommerce');
-        } elseif ($webhook->getType() === 'payment.cancelled') {
+        } elseif ($webhook->type === 'payment.cancelled') {
             $reason = __('Authorization cancelled.', 'worldline-for-woocommerce');
         }
         return (string) sprintf(
@@ -136,10 +136,10 @@ class PaymentRefundedHandler implements WebhookHandlerInterface
             throw new Exception(' Amount: ' . (string) $refundValue . ', ' . $refund->get_error_message());
         }
         $note = '';
-        if ($webhook->getType() === 'payment.refunded') {
+        if ($webhook->type === 'payment.refunded') {
             /* translators: 1 Amount of money */
             $note = __('%s was refunded.', 'worldline-for-woocommerce');
-        } elseif ($webhook->getType() === 'payment.cancelled') {
+        } elseif ($webhook->type === 'payment.cancelled') {
             /* translators: 1 Amount of money */
             $note = __('%s was cancelled.', 'worldline-for-woocommerce');
         }

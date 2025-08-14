@@ -1,65 +1,94 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
+use DateTime;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PaymentLinkResponse extends DataObject
 {
-    // Properties
+    /**
+     * @var DateTime
+     */
+    public $expirationDate = null;
+
+    /**
+     * @var bool
+     */
+    public $isReusableLink = null;
+
     /**
      * @var string
      */
-    private $expirationDate;
-    /**
-     * @var string
-     */
-    private $paymentId;
+    public $paymentId = null;
+
     /**
      * @var PaymentLinkEvent[]
      */
-    private $paymentLinkEvents;
+    public $paymentLinkEvents = null;
+
     /**
      * @var string
      */
-    private $paymentLinkId;
+    public $paymentLinkId = null;
+
     /**
      * @var PaymentLinkOrderOutput
      */
-    private $paymentLinkOrder;
+    public $paymentLinkOrder = null;
+
     /**
      * @var string
      */
-    private $recipientName;
+    public $recipientName = null;
+
     /**
      * @var string
      */
-    private $redirectionUrl;
+    public $redirectionUrl = null;
+
     /**
      * @var string
      */
-    private $status;
-    // Methods
+    public $status = null;
+
     /**
-     * @return string
+     * @return DateTime
      */
     public function getExpirationDate()
     {
         return $this->expirationDate;
     }
+
     /**
-     * @var string
+     * @param DateTime
      */
     public function setExpirationDate($value)
     {
         $this->expirationDate = $value;
     }
+
+    /**
+     * @return bool
+     */
+    public function getIsReusableLink()
+    {
+        return $this->isReusableLink;
+    }
+
+    /**
+     * @param bool
+     */
+    public function setIsReusableLink($value)
+    {
+        $this->isReusableLink = $value;
+    }
+
     /**
      * @return string
      */
@@ -67,13 +96,15 @@ class PaymentLinkResponse extends DataObject
     {
         return $this->paymentId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPaymentId($value)
     {
         $this->paymentId = $value;
     }
+
     /**
      * @return PaymentLinkEvent[]
      */
@@ -81,13 +112,15 @@ class PaymentLinkResponse extends DataObject
     {
         return $this->paymentLinkEvents;
     }
+
     /**
-     * @var PaymentLinkEvent[]
+     * @param PaymentLinkEvent[]
      */
     public function setPaymentLinkEvents($value)
     {
         $this->paymentLinkEvents = $value;
     }
+
     /**
      * @return string
      */
@@ -95,13 +128,15 @@ class PaymentLinkResponse extends DataObject
     {
         return $this->paymentLinkId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPaymentLinkId($value)
     {
         $this->paymentLinkId = $value;
     }
+
     /**
      * @return PaymentLinkOrderOutput
      */
@@ -109,13 +144,15 @@ class PaymentLinkResponse extends DataObject
     {
         return $this->paymentLinkOrder;
     }
+
     /**
-     * @var PaymentLinkOrderOutput
+     * @param PaymentLinkOrderOutput
      */
     public function setPaymentLinkOrder($value)
     {
         $this->paymentLinkOrder = $value;
     }
+
     /**
      * @return string
      */
@@ -123,13 +160,15 @@ class PaymentLinkResponse extends DataObject
     {
         return $this->recipientName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setRecipientName($value)
     {
         $this->recipientName = $value;
     }
+
     /**
      * @return string
      */
@@ -137,13 +176,15 @@ class PaymentLinkResponse extends DataObject
     {
         return $this->redirectionUrl;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setRedirectionUrl($value)
     {
         $this->redirectionUrl = $value;
     }
+
     /**
      * @return string
      */
@@ -151,50 +192,56 @@ class PaymentLinkResponse extends DataObject
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setStatus($value)
     {
         $this->status = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->expirationDate !== null) {
-            $object->expirationDate = $this->expirationDate;
+        if (!is_null($this->expirationDate)) {
+            $object->expirationDate = $this->expirationDate->format('Y-m-d\\TH:i:s.vP');
         }
-        if ($this->paymentId !== null) {
+        if (!is_null($this->isReusableLink)) {
+            $object->isReusableLink = $this->isReusableLink;
+        }
+        if (!is_null($this->paymentId)) {
             $object->paymentId = $this->paymentId;
         }
-        if ($this->paymentLinkEvents !== null) {
+        if (!is_null($this->paymentLinkEvents)) {
             $object->paymentLinkEvents = [];
             foreach ($this->paymentLinkEvents as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->paymentLinkEvents[] = $element->toObject();
                 }
             }
         }
-        if ($this->paymentLinkId !== null) {
+        if (!is_null($this->paymentLinkId)) {
             $object->paymentLinkId = $this->paymentLinkId;
         }
-        if ($this->paymentLinkOrder !== null) {
+        if (!is_null($this->paymentLinkOrder)) {
             $object->paymentLinkOrder = $this->paymentLinkOrder->toObject();
         }
-        if ($this->recipientName !== null) {
+        if (!is_null($this->recipientName)) {
             $object->recipientName = $this->recipientName;
         }
-        if ($this->redirectionUrl !== null) {
+        if (!is_null($this->redirectionUrl)) {
             $object->redirectionUrl = $this->redirectionUrl;
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -204,14 +251,17 @@ class PaymentLinkResponse extends DataObject
     {
         parent::fromObject($object);
         if (property_exists($object, 'expirationDate')) {
-            $this->expirationDate = $object->expirationDate;
+            $this->expirationDate = new DateTime($object->expirationDate);
+        }
+        if (property_exists($object, 'isReusableLink')) {
+            $this->isReusableLink = $object->isReusableLink;
         }
         if (property_exists($object, 'paymentId')) {
             $this->paymentId = $object->paymentId;
         }
         if (property_exists($object, 'paymentLinkEvents')) {
             if (!is_array($object->paymentLinkEvents) && !is_object($object->paymentLinkEvents)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentLinkEvents, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentLinkEvents, true) . '\' is not an array or object');
             }
             $this->paymentLinkEvents = [];
             foreach ($object->paymentLinkEvents as $element) {
@@ -224,7 +274,7 @@ class PaymentLinkResponse extends DataObject
         }
         if (property_exists($object, 'paymentLinkOrder')) {
             if (!is_object($object->paymentLinkOrder)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentLinkOrder, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentLinkOrder, true) . '\' is not an object');
             }
             $value = new PaymentLinkOrderOutput();
             $this->paymentLinkOrder = $value->fromObject($object->paymentLinkOrder);

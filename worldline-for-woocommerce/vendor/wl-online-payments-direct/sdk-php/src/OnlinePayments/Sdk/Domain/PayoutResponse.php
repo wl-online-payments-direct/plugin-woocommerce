@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PayoutResponse extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $id;
+    public $id = null;
+
     /**
      * @var PayoutOutput
      */
-    private $payoutOutput;
+    public $payoutOutput = null;
+
     /**
      * @var string
      */
-    private $status;
+    public $status = null;
+
     /**
      * @var PayoutStatusOutput
      */
-    private $statusOutput;
-    // Methods
+    public $statusOutput = null;
+
     /**
      * @return string
      */
@@ -37,13 +38,15 @@ class PayoutResponse extends DataObject
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setId($value)
     {
         $this->id = $value;
     }
+
     /**
      * @return PayoutOutput
      */
@@ -51,13 +54,15 @@ class PayoutResponse extends DataObject
     {
         return $this->payoutOutput;
     }
+
     /**
-     * @var PayoutOutput
+     * @param PayoutOutput
      */
     public function setPayoutOutput($value)
     {
         $this->payoutOutput = $value;
     }
+
     /**
      * @return string
      */
@@ -65,13 +70,15 @@ class PayoutResponse extends DataObject
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setStatus($value)
     {
         $this->status = $value;
     }
+
     /**
      * @return PayoutStatusOutput
      */
@@ -79,33 +86,36 @@ class PayoutResponse extends DataObject
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var PayoutStatusOutput
+     * @param PayoutStatusOutput
      */
     public function setStatusOutput($value)
     {
         $this->statusOutput = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->payoutOutput !== null) {
+        if (!is_null($this->payoutOutput)) {
             $object->payoutOutput = $this->payoutOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -119,7 +129,7 @@ class PayoutResponse extends DataObject
         }
         if (property_exists($object, 'payoutOutput')) {
             if (!is_object($object->payoutOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->payoutOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->payoutOutput, true) . '\' is not an object');
             }
             $value = new PayoutOutput();
             $this->payoutOutput = $value->fromObject($object->payoutOutput);
@@ -129,7 +139,7 @@ class PayoutResponse extends DataObject
         }
         if (property_exists($object, 'statusOutput')) {
             if (!is_object($object->statusOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, true) . '\' is not an object');
             }
             $value = new PayoutStatusOutput();
             $this->statusOutput = $value->fromObject($object->statusOutput);

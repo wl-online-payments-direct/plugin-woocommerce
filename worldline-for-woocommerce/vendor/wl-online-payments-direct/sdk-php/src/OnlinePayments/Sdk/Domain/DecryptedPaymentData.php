@@ -1,39 +1,41 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class DecryptedPaymentData extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $cardholderName;
+    public $cardholderName = null;
+
     /**
      * @var string
      */
-    private $cryptogram;
+    public $cryptogram = null;
+
     /**
      * @var string
      */
-    private $dpan;
+    public $dpan = null;
+
     /**
      * @var int
      */
-    private $eci;
+    public $eci = null;
+
     /**
      * @var string
      */
-    private $expiryDate;
-    // Methods
+    public $expiryDate = null;
+
     /**
      * @return string
      */
@@ -41,13 +43,15 @@ class DecryptedPaymentData extends DataObject
     {
         return $this->cardholderName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCardholderName($value)
     {
         $this->cardholderName = $value;
     }
+
     /**
      * @return string
      */
@@ -55,13 +59,15 @@ class DecryptedPaymentData extends DataObject
     {
         return $this->cryptogram;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setCryptogram($value)
     {
         $this->cryptogram = $value;
     }
+
     /**
      * @return string
      */
@@ -69,13 +75,15 @@ class DecryptedPaymentData extends DataObject
     {
         return $this->dpan;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDpan($value)
     {
         $this->dpan = $value;
     }
+
     /**
      * @return int
      */
@@ -83,13 +91,15 @@ class DecryptedPaymentData extends DataObject
     {
         return $this->eci;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setEci($value)
     {
         $this->eci = $value;
     }
+
     /**
      * @return string
      */
@@ -97,36 +107,39 @@ class DecryptedPaymentData extends DataObject
     {
         return $this->expiryDate;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setExpiryDate($value)
     {
         $this->expiryDate = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->cardholderName !== null) {
+        if (!is_null($this->cardholderName)) {
             $object->cardholderName = $this->cardholderName;
         }
-        if ($this->cryptogram !== null) {
+        if (!is_null($this->cryptogram)) {
             $object->cryptogram = $this->cryptogram;
         }
-        if ($this->dpan !== null) {
+        if (!is_null($this->dpan)) {
             $object->dpan = $this->dpan;
         }
-        if ($this->eci !== null) {
+        if (!is_null($this->eci)) {
             $object->eci = $this->eci;
         }
-        if ($this->expiryDate !== null) {
+        if (!is_null($this->expiryDate)) {
             $object->expiryDate = $this->expiryDate;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

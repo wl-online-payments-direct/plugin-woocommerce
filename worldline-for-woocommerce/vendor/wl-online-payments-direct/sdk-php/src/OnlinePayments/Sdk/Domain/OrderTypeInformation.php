@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class OrderTypeInformation extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $purchaseType;
+    public $purchaseType = null;
+
     /**
      * @var string
      */
-    private $transactionType;
-    // Methods
+    public $transactionType = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class OrderTypeInformation extends DataObject
     {
         return $this->purchaseType;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPurchaseType($value)
     {
         $this->purchaseType = $value;
     }
+
     /**
      * @return string
      */
@@ -43,27 +44,30 @@ class OrderTypeInformation extends DataObject
     {
         return $this->transactionType;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setTransactionType($value)
     {
         $this->transactionType = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->purchaseType !== null) {
+        if (!is_null($this->purchaseType)) {
             $object->purchaseType = $this->purchaseType;
         }
-        if ($this->transactionType !== null) {
+        if (!is_null($this->transactionType)) {
             $object->transactionType = $this->transactionType;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

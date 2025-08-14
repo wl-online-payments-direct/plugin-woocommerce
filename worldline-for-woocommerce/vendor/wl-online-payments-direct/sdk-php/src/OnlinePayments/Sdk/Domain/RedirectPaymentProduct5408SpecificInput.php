@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RedirectPaymentProduct5408SpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var CustomerBankAccount
      */
-    private $customerBankAccount;
+    public $customerBankAccount = null;
+
     /**
      * @var bool
      */
-    private $instantPaymentOnly;
-    // Methods
+    public $instantPaymentOnly = null;
+
     /**
      * @return CustomerBankAccount
      */
@@ -29,13 +28,15 @@ class RedirectPaymentProduct5408SpecificInput extends DataObject
     {
         return $this->customerBankAccount;
     }
+
     /**
-     * @var CustomerBankAccount
+     * @param CustomerBankAccount
      */
     public function setCustomerBankAccount($value)
     {
         $this->customerBankAccount = $value;
     }
+
     /**
      * @return bool
      */
@@ -43,27 +44,30 @@ class RedirectPaymentProduct5408SpecificInput extends DataObject
     {
         return $this->instantPaymentOnly;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setInstantPaymentOnly($value)
     {
         $this->instantPaymentOnly = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->customerBankAccount !== null) {
+        if (!is_null($this->customerBankAccount)) {
             $object->customerBankAccount = $this->customerBankAccount->toObject();
         }
-        if ($this->instantPaymentOnly !== null) {
+        if (!is_null($this->instantPaymentOnly)) {
             $object->instantPaymentOnly = $this->instantPaymentOnly;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -74,7 +78,7 @@ class RedirectPaymentProduct5408SpecificInput extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'customerBankAccount')) {
             if (!is_object($object->customerBankAccount)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->customerBankAccount, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->customerBankAccount, true) . '\' is not an object');
             }
             $value = new CustomerBankAccount();
             $this->customerBankAccount = $value->fromObject($object->customerBankAccount);

@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PaymentProduct3208SpecificOutput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $buyerCompliantBankMessage;
-    // Methods
+    public $buyerCompliantBankMessage = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class PaymentProduct3208SpecificOutput extends DataObject
     {
         return $this->buyerCompliantBankMessage;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setBuyerCompliantBankMessage($value)
     {
         $this->buyerCompliantBankMessage = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->buyerCompliantBankMessage !== null) {
+        if (!is_null($this->buyerCompliantBankMessage)) {
             $object->buyerCompliantBankMessage = $this->buyerCompliantBankMessage;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

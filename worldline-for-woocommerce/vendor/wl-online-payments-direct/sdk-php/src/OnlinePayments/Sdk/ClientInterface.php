@@ -1,13 +1,14 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+
 /**
- * API specifications
+ * Payment platform client interface.
  */
 interface ClientInterface
 {
@@ -15,12 +16,23 @@ interface ClientInterface
      * @param CommunicatorLogger $communicatorLogger
      */
     function enableLogging(CommunicatorLogger $communicatorLogger);
-    function disableLogging();
+
     /**
-     * ApiResource /v2/{merchantId}
+     * @return void
+     */
+    function disableLogging();
+
+    /**
+     * @param string $clientMetaInfo
+     * @return $this
+     */
+    function setClientMetaInfo($clientMetaInfo);
+
+    /**
+     * Resource /v2/{merchantId}
      *
      * @param string $merchantId
      * @return MerchantClientInterface
      */
-    public function merchant($merchantId);
+    function merchant($merchantId);
 }

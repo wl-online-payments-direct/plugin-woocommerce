@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class OmnichannelPayoutSpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $paymentId;
-    // Methods
+    public $paymentId = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class OmnichannelPayoutSpecificInput extends DataObject
     {
         return $this->paymentId;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setPaymentId($value)
     {
         $this->paymentId = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->paymentId !== null) {
+        if (!is_null($this->paymentId)) {
             $object->paymentId = $this->paymentId;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

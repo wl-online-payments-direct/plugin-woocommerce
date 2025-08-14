@@ -1,43 +1,46 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class MobilePaymentMethodSpecificOutput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $authorisationCode;
+    public $authorisationCode = null;
+
     /**
      * @var CardFraudResults
      */
-    private $fraudResults;
+    public $fraudResults = null;
+
     /**
      * @var string
      */
-    private $network;
+    public $network = null;
+
     /**
      * @var MobilePaymentData
      */
-    private $paymentData;
+    public $paymentData = null;
+
     /**
      * @var int
      */
-    private $paymentProductId;
+    public $paymentProductId = null;
+
     /**
      * @var ThreeDSecureResults
      */
-    private $threeDSecureResults;
-    // Methods
+    public $threeDSecureResults = null;
+
     /**
      * @return string
      */
@@ -45,13 +48,15 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     {
         return $this->authorisationCode;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setAuthorisationCode($value)
     {
         $this->authorisationCode = $value;
     }
+
     /**
      * @return CardFraudResults
      */
@@ -59,13 +64,15 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     {
         return $this->fraudResults;
     }
+
     /**
-     * @var CardFraudResults
+     * @param CardFraudResults
      */
     public function setFraudResults($value)
     {
         $this->fraudResults = $value;
     }
+
     /**
      * @return string
      */
@@ -73,13 +80,15 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     {
         return $this->network;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setNetwork($value)
     {
         $this->network = $value;
     }
+
     /**
      * @return MobilePaymentData
      */
@@ -87,13 +96,15 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     {
         return $this->paymentData;
     }
+
     /**
-     * @var MobilePaymentData
+     * @param MobilePaymentData
      */
     public function setPaymentData($value)
     {
         $this->paymentData = $value;
     }
+
     /**
      * @return int
      */
@@ -101,13 +112,15 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     {
         return $this->paymentProductId;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setPaymentProductId($value)
     {
         $this->paymentProductId = $value;
     }
+
     /**
      * @return ThreeDSecureResults
      */
@@ -115,39 +128,42 @@ class MobilePaymentMethodSpecificOutput extends DataObject
     {
         return $this->threeDSecureResults;
     }
+
     /**
-     * @var ThreeDSecureResults
+     * @param ThreeDSecureResults
      */
     public function setThreeDSecureResults($value)
     {
         $this->threeDSecureResults = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->authorisationCode !== null) {
+        if (!is_null($this->authorisationCode)) {
             $object->authorisationCode = $this->authorisationCode;
         }
-        if ($this->fraudResults !== null) {
+        if (!is_null($this->fraudResults)) {
             $object->fraudResults = $this->fraudResults->toObject();
         }
-        if ($this->network !== null) {
+        if (!is_null($this->network)) {
             $object->network = $this->network;
         }
-        if ($this->paymentData !== null) {
+        if (!is_null($this->paymentData)) {
             $object->paymentData = $this->paymentData->toObject();
         }
-        if ($this->paymentProductId !== null) {
+        if (!is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
-        if ($this->threeDSecureResults !== null) {
+        if (!is_null($this->threeDSecureResults)) {
             $object->threeDSecureResults = $this->threeDSecureResults->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -161,7 +177,7 @@ class MobilePaymentMethodSpecificOutput extends DataObject
         }
         if (property_exists($object, 'fraudResults')) {
             if (!is_object($object->fraudResults)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->fraudResults, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->fraudResults, true) . '\' is not an object');
             }
             $value = new CardFraudResults();
             $this->fraudResults = $value->fromObject($object->fraudResults);
@@ -171,7 +187,7 @@ class MobilePaymentMethodSpecificOutput extends DataObject
         }
         if (property_exists($object, 'paymentData')) {
             if (!is_object($object->paymentData)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentData, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->paymentData, true) . '\' is not an object');
             }
             $value = new MobilePaymentData();
             $this->paymentData = $value->fromObject($object->paymentData);
@@ -181,7 +197,7 @@ class MobilePaymentMethodSpecificOutput extends DataObject
         }
         if (property_exists($object, 'threeDSecureResults')) {
             if (!is_object($object->threeDSecureResults)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->threeDSecureResults, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->threeDSecureResults, true) . '\' is not an object');
             }
             $value = new ThreeDSecureResults();
             $this->threeDSecureResults = $value->fromObject($object->threeDSecureResults);

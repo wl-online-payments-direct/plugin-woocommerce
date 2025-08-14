@@ -18,7 +18,7 @@ class ShutdownWebhookQueue implements WebhookQueueInterface
     }
     public function add(WebhooksEvent $webhook): void
     {
-        $this->webhooks[$webhook->getId()] = $webhook;
+        $this->webhooks[$webhook->id] = $webhook;
         $this->registerShutdownHandler();
     }
     protected function registerShutdownHandler(): void

@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class AcquirerSelectionInformation extends DataObject
 {
-    // Properties
     /**
      * @var int
      */
-    private $fallbackLevel;
+    public $fallbackLevel = null;
+
     /**
      * @var string
      */
-    private $result;
+    public $result = null;
+
     /**
      * @var string
      */
-    private $ruleName;
-    // Methods
+    public $ruleName = null;
+
     /**
      * @return int
      */
@@ -33,13 +33,15 @@ class AcquirerSelectionInformation extends DataObject
     {
         return $this->fallbackLevel;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setFallbackLevel($value)
     {
         $this->fallbackLevel = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class AcquirerSelectionInformation extends DataObject
     {
         return $this->result;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setResult($value)
     {
         $this->result = $value;
     }
+
     /**
      * @return string
      */
@@ -61,30 +65,33 @@ class AcquirerSelectionInformation extends DataObject
     {
         return $this->ruleName;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setRuleName($value)
     {
         $this->ruleName = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->fallbackLevel !== null) {
+        if (!is_null($this->fallbackLevel)) {
             $object->fallbackLevel = $this->fallbackLevel;
         }
-        if ($this->result !== null) {
+        if (!is_null($this->result)) {
             $object->result = $this->result;
         }
-        if ($this->ruleName !== null) {
+        if (!is_null($this->ruleName)) {
             $object->ruleName = $this->ruleName;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

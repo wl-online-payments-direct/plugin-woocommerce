@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RedirectPaymentProduct3306SpecificInput extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $extraMerchantData;
-    // Methods
+    public $extraMerchantData = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class RedirectPaymentProduct3306SpecificInput extends DataObject
     {
         return $this->extraMerchantData;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setExtraMerchantData($value)
     {
         $this->extraMerchantData = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->extraMerchantData !== null) {
+        if (!is_null($this->extraMerchantData)) {
             $object->extraMerchantData = $this->extraMerchantData;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

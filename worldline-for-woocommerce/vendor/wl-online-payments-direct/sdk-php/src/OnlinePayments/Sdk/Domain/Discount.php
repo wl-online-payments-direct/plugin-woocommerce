@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class Discount extends DataObject
 {
-    // Properties
     /**
      * @var int
      */
-    private $amount;
-    // Methods
+    public $amount = null;
+
     /**
      * @return int
      */
@@ -25,24 +23,27 @@ class Discount extends DataObject
     {
         return $this->amount;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setAmount($value)
     {
         $this->amount = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->amount !== null) {
+        if (!is_null($this->amount)) {
             $object->amount = $this->amount;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CreditCardValidationRulesHostedTokenization extends DataObject
 {
-    // Properties
     /**
      * @var bool
      */
-    private $cvvMandatoryForExistingToken;
+    public $cvvMandatoryForExistingToken = null;
+
     /**
      * @var bool
      */
-    private $cvvMandatoryForNewToken;
-    // Methods
+    public $cvvMandatoryForNewToken = null;
+
     /**
      * @return bool
      */
@@ -29,13 +28,15 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
     {
         return $this->cvvMandatoryForExistingToken;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setCvvMandatoryForExistingToken($value)
     {
         $this->cvvMandatoryForExistingToken = $value;
     }
+
     /**
      * @return bool
      */
@@ -43,27 +44,30 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
     {
         return $this->cvvMandatoryForNewToken;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setCvvMandatoryForNewToken($value)
     {
         $this->cvvMandatoryForNewToken = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->cvvMandatoryForExistingToken !== null) {
+        if (!is_null($this->cvvMandatoryForExistingToken)) {
             $object->cvvMandatoryForExistingToken = $this->cvvMandatoryForExistingToken;
         }
-        if ($this->cvvMandatoryForNewToken !== null) {
+        if (!is_null($this->cvvMandatoryForNewToken)) {
             $object->cvvMandatoryForNewToken = $this->cvvMandatoryForNewToken;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CompletePaymentResponse extends DataObject
 {
-    // Properties
     /**
      * @var PaymentCreationOutput
      */
-    private $creationOutput;
+    public $creationOutput = null;
+
     /**
      * @var MerchantAction
      */
-    private $merchantAction;
+    public $merchantAction = null;
+
     /**
      * @var PaymentResponse
      */
-    private $payment;
-    // Methods
+    public $payment = null;
+
     /**
      * @return PaymentCreationOutput
      */
@@ -33,13 +33,15 @@ class CompletePaymentResponse extends DataObject
     {
         return $this->creationOutput;
     }
+
     /**
-     * @var PaymentCreationOutput
+     * @param PaymentCreationOutput
      */
     public function setCreationOutput($value)
     {
         $this->creationOutput = $value;
     }
+
     /**
      * @return MerchantAction
      */
@@ -47,13 +49,15 @@ class CompletePaymentResponse extends DataObject
     {
         return $this->merchantAction;
     }
+
     /**
-     * @var MerchantAction
+     * @param MerchantAction
      */
     public function setMerchantAction($value)
     {
         $this->merchantAction = $value;
     }
+
     /**
      * @return PaymentResponse
      */
@@ -61,30 +65,33 @@ class CompletePaymentResponse extends DataObject
     {
         return $this->payment;
     }
+
     /**
-     * @var PaymentResponse
+     * @param PaymentResponse
      */
     public function setPayment($value)
     {
         $this->payment = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->creationOutput !== null) {
+        if (!is_null($this->creationOutput)) {
             $object->creationOutput = $this->creationOutput->toObject();
         }
-        if ($this->merchantAction !== null) {
+        if (!is_null($this->merchantAction)) {
             $object->merchantAction = $this->merchantAction->toObject();
         }
-        if ($this->payment !== null) {
+        if (!is_null($this->payment)) {
             $object->payment = $this->payment->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -95,21 +102,21 @@ class CompletePaymentResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'creationOutput')) {
             if (!is_object($object->creationOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->creationOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->creationOutput, true) . '\' is not an object');
             }
             $value = new PaymentCreationOutput();
             $this->creationOutput = $value->fromObject($object->creationOutput);
         }
         if (property_exists($object, 'merchantAction')) {
             if (!is_object($object->merchantAction)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->merchantAction, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->merchantAction, true) . '\' is not an object');
             }
             $value = new MerchantAction();
             $this->merchantAction = $value->fromObject($object->merchantAction);
         }
         if (property_exists($object, 'payment')) {
             if (!is_object($object->payment)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->payment, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->payment, true) . '\' is not an object');
             }
             $value = new PaymentResponse();
             $this->payment = $value->fromObject($object->payment);

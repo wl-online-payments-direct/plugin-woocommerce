@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PaymentProductFiltersHostedTokenization extends DataObject
 {
-    // Properties
     /**
      * @var PaymentProductFilterHostedTokenization
      */
-    private $exclude;
+    public $exclude = null;
+
     /**
      * @var PaymentProductFilterHostedTokenization
      */
-    private $restrictTo;
-    // Methods
+    public $restrictTo = null;
+
     /**
      * @return PaymentProductFilterHostedTokenization
      */
@@ -29,13 +28,15 @@ class PaymentProductFiltersHostedTokenization extends DataObject
     {
         return $this->exclude;
     }
+
     /**
-     * @var PaymentProductFilterHostedTokenization
+     * @param PaymentProductFilterHostedTokenization
      */
     public function setExclude($value)
     {
         $this->exclude = $value;
     }
+
     /**
      * @return PaymentProductFilterHostedTokenization
      */
@@ -43,27 +44,30 @@ class PaymentProductFiltersHostedTokenization extends DataObject
     {
         return $this->restrictTo;
     }
+
     /**
-     * @var PaymentProductFilterHostedTokenization
+     * @param PaymentProductFilterHostedTokenization
      */
     public function setRestrictTo($value)
     {
         $this->restrictTo = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->exclude !== null) {
+        if (!is_null($this->exclude)) {
             $object->exclude = $this->exclude->toObject();
         }
-        if ($this->restrictTo !== null) {
+        if (!is_null($this->restrictTo)) {
             $object->restrictTo = $this->restrictTo->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -74,14 +78,14 @@ class PaymentProductFiltersHostedTokenization extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'exclude')) {
             if (!is_object($object->exclude)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->exclude, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->exclude, true) . '\' is not an object');
             }
             $value = new PaymentProductFilterHostedTokenization();
             $this->exclude = $value->fromObject($object->exclude);
         }
         if (property_exists($object, 'restrictTo')) {
             if (!is_object($object->restrictTo)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->restrictTo, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->restrictTo, true) . '\' is not an object');
             }
             $value = new PaymentProductFilterHostedTokenization();
             $this->restrictTo = $value->fromObject($object->restrictTo);

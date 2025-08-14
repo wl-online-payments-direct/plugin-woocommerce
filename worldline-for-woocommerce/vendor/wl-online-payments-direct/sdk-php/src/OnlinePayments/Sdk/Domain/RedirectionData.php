@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RedirectionData extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $returnUrl;
-    // Methods
+    public $returnUrl = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class RedirectionData extends DataObject
     {
         return $this->returnUrl;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setReturnUrl($value)
     {
         $this->returnUrl = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->returnUrl !== null) {
+        if (!is_null($this->returnUrl)) {
             $object->returnUrl = $this->returnUrl;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

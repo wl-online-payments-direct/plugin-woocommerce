@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CurrencyConversionRequest extends DataObject
 {
-    // Properties
     /**
      * @var DccCardSource
      */
-    private $cardSource;
+    public $cardSource = null;
+
     /**
      * @var Transaction
      */
-    private $transaction;
-    // Methods
+    public $transaction = null;
+
     /**
      * @return DccCardSource
      */
@@ -29,13 +28,15 @@ class CurrencyConversionRequest extends DataObject
     {
         return $this->cardSource;
     }
+
     /**
-     * @var DccCardSource
+     * @param DccCardSource
      */
     public function setCardSource($value)
     {
         $this->cardSource = $value;
     }
+
     /**
      * @return Transaction
      */
@@ -43,27 +44,30 @@ class CurrencyConversionRequest extends DataObject
     {
         return $this->transaction;
     }
+
     /**
-     * @var Transaction
+     * @param Transaction
      */
     public function setTransaction($value)
     {
         $this->transaction = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->cardSource !== null) {
+        if (!is_null($this->cardSource)) {
             $object->cardSource = $this->cardSource->toObject();
         }
-        if ($this->transaction !== null) {
+        if (!is_null($this->transaction)) {
             $object->transaction = $this->transaction->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -74,14 +78,14 @@ class CurrencyConversionRequest extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'cardSource')) {
             if (!is_object($object->cardSource)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->cardSource, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->cardSource, true) . '\' is not an object');
             }
             $value = new DccCardSource();
             $this->cardSource = $value->fromObject($object->cardSource);
         }
         if (property_exists($object, 'transaction')) {
             if (!is_object($object->transaction)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->transaction, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->transaction, true) . '\' is not an object');
             }
             $value = new Transaction();
             $this->transaction = $value->fromObject($object->transaction);

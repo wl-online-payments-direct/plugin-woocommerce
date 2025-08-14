@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PaymentLinkEvent extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $dateTime;
+    public $dateTime = null;
+
     /**
      * @var string
      */
-    private $details;
+    public $details = null;
+
     /**
      * @var string
      */
-    private $type;
-    // Methods
+    public $type = null;
+
     /**
      * @return string
      */
@@ -33,13 +33,15 @@ class PaymentLinkEvent extends DataObject
     {
         return $this->dateTime;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDateTime($value)
     {
         $this->dateTime = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class PaymentLinkEvent extends DataObject
     {
         return $this->details;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setDetails($value)
     {
         $this->details = $value;
     }
+
     /**
      * @return string
      */
@@ -61,30 +65,33 @@ class PaymentLinkEvent extends DataObject
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setType($value)
     {
         $this->type = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->dateTime !== null) {
+        if (!is_null($this->dateTime)) {
             $object->dateTime = $this->dateTime;
         }
-        if ($this->details !== null) {
+        if (!is_null($this->details)) {
             $object->details = $this->details;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

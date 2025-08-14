@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CompletePaymentRequest extends DataObject
 {
-    // Properties
     /**
      * @var CompletePaymentCardPaymentMethodSpecificInput
      */
-    private $cardPaymentMethodSpecificInput;
+    public $cardPaymentMethodSpecificInput = null;
+
     /**
      * @var Order
      */
-    private $order;
-    // Methods
+    public $order = null;
+
     /**
      * @return CompletePaymentCardPaymentMethodSpecificInput
      */
@@ -29,13 +28,15 @@ class CompletePaymentRequest extends DataObject
     {
         return $this->cardPaymentMethodSpecificInput;
     }
+
     /**
-     * @var CompletePaymentCardPaymentMethodSpecificInput
+     * @param CompletePaymentCardPaymentMethodSpecificInput
      */
     public function setCardPaymentMethodSpecificInput($value)
     {
         $this->cardPaymentMethodSpecificInput = $value;
     }
+
     /**
      * @return Order
      */
@@ -43,27 +44,30 @@ class CompletePaymentRequest extends DataObject
     {
         return $this->order;
     }
+
     /**
-     * @var Order
+     * @param Order
      */
     public function setOrder($value)
     {
         $this->order = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->cardPaymentMethodSpecificInput !== null) {
+        if (!is_null($this->cardPaymentMethodSpecificInput)) {
             $object->cardPaymentMethodSpecificInput = $this->cardPaymentMethodSpecificInput->toObject();
         }
-        if ($this->order !== null) {
+        if (!is_null($this->order)) {
             $object->order = $this->order->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -74,14 +78,14 @@ class CompletePaymentRequest extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'cardPaymentMethodSpecificInput')) {
             if (!is_object($object->cardPaymentMethodSpecificInput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->cardPaymentMethodSpecificInput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->cardPaymentMethodSpecificInput, true) . '\' is not an object');
             }
             $value = new CompletePaymentCardPaymentMethodSpecificInput();
             $this->cardPaymentMethodSpecificInput = $value->fromObject($object->cardPaymentMethodSpecificInput);
         }
         if (property_exists($object, 'order')) {
             if (!is_object($object->order)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->order, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->order, true) . '\' is not an object');
             }
             $value = new Order();
             $this->order = $value->fromObject($object->order);

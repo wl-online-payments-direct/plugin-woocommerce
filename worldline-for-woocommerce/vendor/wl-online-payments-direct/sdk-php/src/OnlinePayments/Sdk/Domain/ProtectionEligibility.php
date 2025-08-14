@@ -1,27 +1,26 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class ProtectionEligibility extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $eligibility;
+    public $eligibility = null;
+
     /**
      * @var string
      */
-    private $type;
-    // Methods
+    public $type = null;
+
     /**
      * @return string
      */
@@ -29,13 +28,15 @@ class ProtectionEligibility extends DataObject
     {
         return $this->eligibility;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setEligibility($value)
     {
         $this->eligibility = $value;
     }
+
     /**
      * @return string
      */
@@ -43,27 +44,30 @@ class ProtectionEligibility extends DataObject
     {
         return $this->type;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setType($value)
     {
         $this->type = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->eligibility !== null) {
+        if (!is_null($this->eligibility)) {
             $object->eligibility = $this->eligibility;
         }
-        if ($this->type !== null) {
+        if (!is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

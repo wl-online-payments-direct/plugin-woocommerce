@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class Transaction extends DataObject
 {
-    // Properties
     /**
      * @var AmountOfMoney
      */
-    private $amount;
-    // Methods
+    public $amount = null;
+
     /**
      * @return AmountOfMoney
      */
@@ -25,24 +23,27 @@ class Transaction extends DataObject
     {
         return $this->amount;
     }
+
     /**
-     * @var AmountOfMoney
+     * @param AmountOfMoney
      */
     public function setAmount($value)
     {
         $this->amount = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->amount !== null) {
+        if (!is_null($this->amount)) {
             $object->amount = $this->amount->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -53,7 +54,7 @@ class Transaction extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'amount')) {
             if (!is_object($object->amount)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->amount, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->amount, true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->amount = $value->fromObject($object->amount);

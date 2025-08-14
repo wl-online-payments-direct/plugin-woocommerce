@@ -1,31 +1,31 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class PayoutStatusOutput extends DataObject
 {
-    // Properties
     /**
      * @var bool
      */
-    private $isCancellable;
+    public $isCancellable = null;
+
     /**
      * @var string
      */
-    private $statusCategory;
+    public $statusCategory = null;
+
     /**
      * @var int
      */
-    private $statusCode;
-    // Methods
+    public $statusCode = null;
+
     /**
      * @return bool
      */
@@ -33,13 +33,15 @@ class PayoutStatusOutput extends DataObject
     {
         return $this->isCancellable;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setIsCancellable($value)
     {
         $this->isCancellable = $value;
     }
+
     /**
      * @return string
      */
@@ -47,13 +49,15 @@ class PayoutStatusOutput extends DataObject
     {
         return $this->statusCategory;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setStatusCategory($value)
     {
         $this->statusCategory = $value;
     }
+
     /**
      * @return int
      */
@@ -61,30 +65,33 @@ class PayoutStatusOutput extends DataObject
     {
         return $this->statusCode;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setStatusCode($value)
     {
         $this->statusCode = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->isCancellable !== null) {
+        if (!is_null($this->isCancellable)) {
             $object->isCancellable = $this->isCancellable;
         }
-        if ($this->statusCategory !== null) {
+        if (!is_null($this->statusCategory)) {
             $object->statusCategory = $this->statusCategory;
         }
-        if ($this->statusCode !== null) {
+        if (!is_null($this->statusCode)) {
             $object->statusCode = $this->statusCode;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this

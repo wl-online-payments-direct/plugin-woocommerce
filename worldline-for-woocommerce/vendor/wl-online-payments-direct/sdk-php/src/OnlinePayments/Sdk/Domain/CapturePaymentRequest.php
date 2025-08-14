@@ -1,31 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CapturePaymentRequest extends DataObject
 {
-    // Properties
     /**
      * @var int
      */
-    private $amount;
+    public $amount = null;
+
     /**
      * @var bool
      */
-    private $isFinal;
+    public $isFinal = null;
+
+    /**
+     * @var OperationPaymentReferences
+     */
+    public $operationReferences = null;
+
     /**
      * @var PaymentReferences
      */
-    private $references;
-    // Methods
+    public $references = null;
+
     /**
      * @return int
      */
@@ -33,13 +38,15 @@ class CapturePaymentRequest extends DataObject
     {
         return $this->amount;
     }
+
     /**
-     * @var int
+     * @param int
      */
     public function setAmount($value)
     {
         $this->amount = $value;
     }
+
     /**
      * @return bool
      */
@@ -47,13 +54,31 @@ class CapturePaymentRequest extends DataObject
     {
         return $this->isFinal;
     }
+
     /**
-     * @var bool
+     * @param bool
      */
     public function setIsFinal($value)
     {
         $this->isFinal = $value;
     }
+
+    /**
+     * @return OperationPaymentReferences
+     */
+    public function getOperationReferences()
+    {
+        return $this->operationReferences;
+    }
+
+    /**
+     * @param OperationPaymentReferences
+     */
+    public function setOperationReferences($value)
+    {
+        $this->operationReferences = $value;
+    }
+
     /**
      * @return PaymentReferences
      */
@@ -61,30 +86,36 @@ class CapturePaymentRequest extends DataObject
     {
         return $this->references;
     }
+
     /**
-     * @var PaymentReferences
+     * @param PaymentReferences
      */
     public function setReferences($value)
     {
         $this->references = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->amount !== null) {
+        if (!is_null($this->amount)) {
             $object->amount = $this->amount;
         }
-        if ($this->isFinal !== null) {
+        if (!is_null($this->isFinal)) {
             $object->isFinal = $this->isFinal;
         }
-        if ($this->references !== null) {
+        if (!is_null($this->operationReferences)) {
+            $object->operationReferences = $this->operationReferences->toObject();
+        }
+        if (!is_null($this->references)) {
             $object->references = $this->references->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -99,9 +130,16 @@ class CapturePaymentRequest extends DataObject
         if (property_exists($object, 'isFinal')) {
             $this->isFinal = $object->isFinal;
         }
+        if (property_exists($object, 'operationReferences')) {
+            if (!is_object($object->operationReferences)) {
+                throw new UnexpectedValueException('value \'' . print_r($object->operationReferences, true) . '\' is not an object');
+            }
+            $value = new OperationPaymentReferences();
+            $this->operationReferences = $value->fromObject($object->operationReferences);
+        }
         if (property_exists($object, 'references')) {
             if (!is_object($object->references)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->references, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->references, true) . '\' is not an object');
             }
             $value = new PaymentReferences();
             $this->references = $value->fromObject($object->references);

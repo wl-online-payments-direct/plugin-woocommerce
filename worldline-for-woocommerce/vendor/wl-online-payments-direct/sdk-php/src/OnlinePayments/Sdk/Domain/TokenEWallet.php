@@ -1,41 +1,45 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class TokenEWallet extends DataObject
 {
-    // Properties
     /**
      * @var string
+     * @deprecated This field is not used by any payment product An alias for the token. This can be used to visually represent the token.
      */
-    private $alias;
+    public $alias = null;
+
     /**
      * @var CustomerToken
      */
-    private $customer;
-    // Methods
+    public $customer = null;
+
     /**
      * @return string
+     * @deprecated This field is not used by any payment product An alias for the token. This can be used to visually represent the token.
      */
     public function getAlias()
     {
         return $this->alias;
     }
+
     /**
-     * @var string
+     * @param string
+     * @deprecated This field is not used by any payment product An alias for the token. This can be used to visually represent the token.
      */
     public function setAlias($value)
     {
         $this->alias = $value;
     }
+
     /**
      * @return CustomerToken
      */
@@ -43,27 +47,30 @@ class TokenEWallet extends DataObject
     {
         return $this->customer;
     }
+
     /**
-     * @var CustomerToken
+     * @param CustomerToken
      */
     public function setCustomer($value)
     {
         $this->customer = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->alias !== null) {
+        if (!is_null($this->alias)) {
             $object->alias = $this->alias;
         }
-        if ($this->customer !== null) {
+        if (!is_null($this->customer)) {
             $object->customer = $this->customer->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -77,7 +84,7 @@ class TokenEWallet extends DataObject
         }
         if (property_exists($object, 'customer')) {
             if (!is_object($object->customer)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->customer, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->customer, true) . '\' is not an object');
             }
             $value = new CustomerToken();
             $this->customer = $value->fromObject($object->customer);

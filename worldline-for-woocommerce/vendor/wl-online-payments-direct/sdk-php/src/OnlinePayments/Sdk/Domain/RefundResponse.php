@@ -1,35 +1,36 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RefundResponse extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $id;
+    public $id = null;
+
     /**
      * @var RefundOutput
      */
-    private $refundOutput;
+    public $refundOutput = null;
+
     /**
      * @var string
      */
-    private $status;
+    public $status = null;
+
     /**
      * @var OrderStatusOutput
      */
-    private $statusOutput;
-    // Methods
+    public $statusOutput = null;
+
     /**
      * @return string
      */
@@ -37,13 +38,15 @@ class RefundResponse extends DataObject
     {
         return $this->id;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setId($value)
     {
         $this->id = $value;
     }
+
     /**
      * @return RefundOutput
      */
@@ -51,13 +54,15 @@ class RefundResponse extends DataObject
     {
         return $this->refundOutput;
     }
+
     /**
-     * @var RefundOutput
+     * @param RefundOutput
      */
     public function setRefundOutput($value)
     {
         $this->refundOutput = $value;
     }
+
     /**
      * @return string
      */
@@ -65,13 +70,15 @@ class RefundResponse extends DataObject
     {
         return $this->status;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setStatus($value)
     {
         $this->status = $value;
     }
+
     /**
      * @return OrderStatusOutput
      */
@@ -79,33 +86,36 @@ class RefundResponse extends DataObject
     {
         return $this->statusOutput;
     }
+
     /**
-     * @var OrderStatusOutput
+     * @param OrderStatusOutput
      */
     public function setStatusOutput($value)
     {
         $this->statusOutput = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->id !== null) {
+        if (!is_null($this->id)) {
             $object->id = $this->id;
         }
-        if ($this->refundOutput !== null) {
+        if (!is_null($this->refundOutput)) {
             $object->refundOutput = $this->refundOutput->toObject();
         }
-        if ($this->status !== null) {
+        if (!is_null($this->status)) {
             $object->status = $this->status;
         }
-        if ($this->statusOutput !== null) {
+        if (!is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -119,7 +129,7 @@ class RefundResponse extends DataObject
         }
         if (property_exists($object, 'refundOutput')) {
             if (!is_object($object->refundOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->refundOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->refundOutput, true) . '\' is not an object');
             }
             $value = new RefundOutput();
             $this->refundOutput = $value->fromObject($object->refundOutput);
@@ -129,7 +139,7 @@ class RefundResponse extends DataObject
         }
         if (property_exists($object, 'statusOutput')) {
             if (!is_object($object->statusOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, true) . '\' is not an object');
             }
             $value = new OrderStatusOutput();
             $this->statusOutput = $value->fromObject($object->statusOutput);

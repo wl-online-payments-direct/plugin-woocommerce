@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RefundsResponse extends DataObject
 {
-    // Properties
     /**
      * @var RefundResponse[]
      */
-    private $refunds;
-    // Methods
+    public $refunds = null;
+
     /**
      * @return RefundResponse[]
      */
@@ -25,29 +23,32 @@ class RefundsResponse extends DataObject
     {
         return $this->refunds;
     }
+
     /**
-     * @var RefundResponse[]
+     * @param RefundResponse[]
      */
     public function setRefunds($value)
     {
         $this->refunds = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->refunds !== null) {
+        if (!is_null($this->refunds)) {
             $object->refunds = [];
             foreach ($this->refunds as $element) {
-                if ($element !== null) {
+                if (!is_null($element)) {
                     $object->refunds[] = $element->toObject();
                 }
             }
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -58,7 +59,7 @@ class RefundsResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'refunds')) {
             if (!is_array($object->refunds) && !is_object($object->refunds)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->refunds, \true) . '\' is not an array or object');
+                throw new UnexpectedValueException('value \'' . print_r($object->refunds, true) . '\' is not an array or object');
             }
             $this->refunds = [];
             foreach ($object->refunds as $element) {

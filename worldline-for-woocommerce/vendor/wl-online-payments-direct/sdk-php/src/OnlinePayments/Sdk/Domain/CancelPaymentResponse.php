@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CancelPaymentResponse extends DataObject
 {
-    // Properties
     /**
      * @var PaymentResponse
      */
-    private $payment;
-    // Methods
+    public $payment = null;
+
     /**
      * @return PaymentResponse
      */
@@ -25,24 +23,27 @@ class CancelPaymentResponse extends DataObject
     {
         return $this->payment;
     }
+
     /**
-     * @var PaymentResponse
+     * @param PaymentResponse
      */
     public function setPayment($value)
     {
         $this->payment = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->payment !== null) {
+        if (!is_null($this->payment)) {
             $object->payment = $this->payment->toObject();
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
@@ -53,7 +54,7 @@ class CancelPaymentResponse extends DataObject
         parent::fromObject($object);
         if (property_exists($object, 'payment')) {
             if (!is_object($object->payment)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->payment, \true) . '\' is not an object');
+                throw new UnexpectedValueException('value \'' . print_r($object->payment, true) . '\' is not an object');
             }
             $value = new PaymentResponse();
             $this->payment = $value->fromObject($object->payment);

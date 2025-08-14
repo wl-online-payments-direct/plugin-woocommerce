@@ -1,23 +1,21 @@
 <?php
-
 /*
- * This class was auto-generated.
+ * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\DataObject;
 use UnexpectedValueException;
+
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class RegularExpressionValidator extends DataObject
 {
-    // Properties
     /**
      * @var string
      */
-    private $regularExpression;
-    // Methods
+    public $regularExpression = null;
+
     /**
      * @return string
      */
@@ -25,24 +23,27 @@ class RegularExpressionValidator extends DataObject
     {
         return $this->regularExpression;
     }
+
     /**
-     * @var string
+     * @param string
      */
     public function setRegularExpression($value)
     {
         $this->regularExpression = $value;
     }
+
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if ($this->regularExpression !== null) {
+        if (!is_null($this->regularExpression)) {
             $object->regularExpression = $this->regularExpression;
         }
         return $object;
     }
+
     /**
      * @param object $object
      * @return $this
