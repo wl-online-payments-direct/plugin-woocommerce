@@ -1,5 +1,5 @@
 === Worldline Global Online Pay for WooCommerce ===
-Contributors: syde
+Contributors: worldlinelogeecomsupport
 Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.7
