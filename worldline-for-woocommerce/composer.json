@@ -44,6 +44,7 @@
         "inpsyde/worldline-mealvouchers-gateway": "dev-main",
         "inpsyde\/worldline-hosted-tokenization-gateway": "*",
         "inpsyde\/worldline-ideal-gateway": "*",
+        "inpsyde/worldline-paypal-gateway": "dev-main",
         "inpsyde\/worldline-klarna-gateway": "*",
         "inpsyde\/worldline-logging": "*",
         "inpsyde\/worldline-payment-gateway": "*",
