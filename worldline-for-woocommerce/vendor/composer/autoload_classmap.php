@@ -270,6 +270,8 @@ return array(
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\MealvouchersGatewayModule' => $baseDir . '/modules/inpsyde/worldline-mealvouchers-gateway/src/MealvouchersGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\Payment\\MealvouchersRequestModifier' => $baseDir . '/modules/inpsyde/worldline-mealvouchers-gateway/src/Payment/MealvouchersRequestModifier.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\ProductTypeModule' => $baseDir . '/modules/inpsyde/worldline-product-type/src/ProductTypeModule.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\PayPalGatewayModule' => $baseDir . '/modules/inpsyde/worldline-paypal-gateway/src/PayPalGatewayModule.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\Payment\\PayPalRequestModifier' => $baseDir . '/modules/inpsyde/worldline-paypal-gateway/src/Payment/PayPalRequestModifier.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\Gateway\\TokensPaymentFieldsRenderer' => $baseDir . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/Gateway/TokensPaymentFieldsRenderer.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\HostedTokenizationGatewayModule' => $baseDir . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/HostedTokenizationGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\Payment\\HostedTokenizationPaymentProcessor' => $baseDir . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/Payment/HostedTokenizationPaymentProcessor.php',
