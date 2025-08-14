@@ -1,15 +1,15 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use Exception;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\Domain\AmountOfMoney;
-use OnlinePayments\Sdk\Domain\Card;
-use OnlinePayments\Sdk\Domain\CardPayoutMethodSpecificInput;
-use OnlinePayments\Sdk\Domain\CreatePayoutRequest;
-use OnlinePayments\Sdk\Domain\PaymentReferences;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Card;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPayoutMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePayoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentReferences;
 
 /**
  * @group examples

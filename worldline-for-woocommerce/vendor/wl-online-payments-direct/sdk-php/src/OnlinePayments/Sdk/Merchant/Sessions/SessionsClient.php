@@ -2,14 +2,14 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Sessions;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Sessions;
 
-use OnlinePayments\Sdk\ApiResource;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\ErrorResponseException;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Domain\SessionRequest;
-use OnlinePayments\Sdk\ExceptionFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 
 /**
  * Sessions client.
@@ -25,8 +25,8 @@ class SessionsClient extends ApiResource implements SessionsClientInterface
     public function createSession(SessionRequest $body, CallContext $callContext = null)
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\Domain\SessionResponse';
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
         try {
             return $this->getCommunicator()->post(
                 $responseClassMap,

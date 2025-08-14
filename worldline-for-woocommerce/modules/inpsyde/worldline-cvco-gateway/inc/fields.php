@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
 
-use Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
 
 return new Factory(
     [],

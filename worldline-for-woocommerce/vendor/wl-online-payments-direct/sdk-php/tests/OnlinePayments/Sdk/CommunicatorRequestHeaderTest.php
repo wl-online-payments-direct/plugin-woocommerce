@@ -1,10 +1,10 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use ReflectionMethod;
-use OnlinePayments\Sdk\Communication\MetadataProvider;
-use OnlinePayments\Sdk\Domain\ShoppingCartExtension;
-use OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\MetadataProvider;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
 
 /**
  * @group request_header

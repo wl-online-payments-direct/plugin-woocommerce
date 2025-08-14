@@ -2,13 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\WorldlineForWoocommerce\EpsGateway\Payment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\EpsGateway\Payment;
 
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
-use OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
-use OnlinePayments\Sdk\Domain\RedirectionData;
-use OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectionData;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
 
 class EpsRequestModifier extends AbstractHostedPaymentRequestModifier
 {

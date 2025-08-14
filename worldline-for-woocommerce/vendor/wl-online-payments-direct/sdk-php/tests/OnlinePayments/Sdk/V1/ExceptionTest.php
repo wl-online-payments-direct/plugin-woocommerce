@@ -1,35 +1,35 @@
 <?php
-namespace OnlinePayments\Sdk\V1;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\V1;
 
 use Exception;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\AuthorizationException;
-use OnlinePayments\Sdk\DeclinedPaymentException;
-use OnlinePayments\Sdk\DeclinedPayoutException;
-use OnlinePayments\Sdk\DeclinedRefundException;
-use OnlinePayments\Sdk\Domain\Address;
-use OnlinePayments\Sdk\Domain\AmountOfMoney;
-use OnlinePayments\Sdk\Domain\Card;
-use OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
-use OnlinePayments\Sdk\Domain\CardPayoutMethodSpecificInput;
-use OnlinePayments\Sdk\Domain\CreatePaymentRequest;
-use OnlinePayments\Sdk\Domain\CreatePaymentResponse;
-use OnlinePayments\Sdk\Domain\CreatePayoutRequest;
-use OnlinePayments\Sdk\Domain\Customer;
-use OnlinePayments\Sdk\Domain\ErrorResponse;
-use OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
-use OnlinePayments\Sdk\Domain\Order;
-use OnlinePayments\Sdk\Domain\PaymentErrorResponse;
-use OnlinePayments\Sdk\Domain\PaymentReferences;
-use OnlinePayments\Sdk\Domain\PayoutErrorResponse;
-use OnlinePayments\Sdk\Domain\PayoutResult;
-use OnlinePayments\Sdk\Domain\PersonalInformation;
-use OnlinePayments\Sdk\Domain\PersonalName;
-use OnlinePayments\Sdk\Domain\RefundErrorResponse;
-use OnlinePayments\Sdk\Domain\RefundResponse;
-use OnlinePayments\Sdk\PlatformException;
-use OnlinePayments\Sdk\ResponseException;
-use OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DeclinedPaymentException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DeclinedPayoutException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DeclinedRefundException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Address;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Card;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPayoutMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePayoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Customer;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Order;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentReferences;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResult;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PersonalInformation;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PersonalName;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 
 /**
  * @group exceptions
@@ -48,7 +48,7 @@ class ExceptionTest extends ClientTestCase
             $this->assertNotEmpty($e->getErrorId());
             $errors = $e->getErrors();
             $this->assertCount(1, $errors);
-            $this->assertContainsOnlyInstancesOf('\OnlinePayments\Sdk\Domain\APIError', $errors);
+            $this->assertContainsOnlyInstancesOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError', $errors);
             return;
         }
         $this->fail('An expected exception has not been raised.');
@@ -86,7 +86,7 @@ EOD;
         $responseException = new ResponseException($httpStatusCode, $errorResponse);
         $expectedResponseExceptionString = sprintf(
             "exception '%s' with message '%s'. in %s:%d\nHTTP status code: %s\nResponse:\n%s\nStack trace:\n%s",
-            'OnlinePayments\Sdk\ResponseException',
+            'Syde\Vendor\Worldline\OnlinePayments\Sdk\ResponseException',
             $responseException->getMessage(),
             $responseException->getFile(),
             $responseException->getLine(),
@@ -186,9 +186,9 @@ EOD;
             $this->getClient()->merchant($merchantId)->payments()->createPayment($createPaymentRequest);
         } catch (DeclinedPaymentException $e) {
             $paymentResult = $e->getCreatePaymentResponse();
-            $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\CreatePaymentResponse', $paymentResult);
+            $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentResponse', $paymentResult);
             $payment = $paymentResult->getPayment();
-            $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\PaymentResponse', $payment);
+            $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentResponse', $payment);
             $this->assertNotEmpty($payment->getId());
             $this->assertEquals('REJECTED', $payment->getStatus());
             return;
@@ -231,7 +231,7 @@ EOD;
             $client->merchant($merchantId)->payouts()->createPayout($createPayoutRequest);
         } catch (DeclinedPayoutException $e) {
             $payoutResult = $e->getPayoutResult();
-            $this->assertInstanceOf('\OnlinePayments\Sdk\V2\Domain\PayoutResult', $payoutResult);
+            $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\V2\Domain\PayoutResult', $payoutResult);
             $this->assertNotEmpty($payoutResult->getId());
             $this->assertEquals('REJECTED', $payoutResult->getStatus());
             return;
@@ -266,7 +266,7 @@ EOD;
         try {
             $client->merchant($merchantId)->payouts()->createPayout($createPayoutRequest);
         } catch (PlatformException $e) {
-            $this->assertInstanceOf('\OnlinePayments\Sdk\V2\Domain\ErrorResponse', $e->getResponse());
+            $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\V2\Domain\ErrorResponse', $e->getResponse());
             return;
         }
         $this->fail('An expected exception has not been raised');
@@ -276,26 +276,26 @@ EOD;
     {
         $paymentErrorResponse = new PaymentErrorResponse();
         $declinedPaymentException = new DeclinedPaymentException(0, $paymentErrorResponse);
-        $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\CreatePaymentResponse', $declinedPaymentException->getCreatePaymentResponse());
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentResponse', $declinedPaymentException->getCreatePaymentResponse());
         $paymentErrorResponse->setPaymentResult(new CreatePaymentResponse());
-        $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\CreatePaymentResponse', $declinedPaymentException->getCreatePaymentResponse());
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentResponse', $declinedPaymentException->getCreatePaymentResponse());
     }
 
     public function testDeclinedPayoutException()
     {
         $payoutErrorResponse = new PayoutErrorResponse();
         $declinedPayoutException = new DeclinedPayoutException(0, $payoutErrorResponse);
-        $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\PayoutResult', $declinedPayoutException->getPayoutResult());
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResult', $declinedPayoutException->getPayoutResult());
         $payoutErrorResponse->setPayoutResult(new PayoutResult());
-        $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\PayoutResult', $declinedPayoutException->getPayoutResult());
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResult', $declinedPayoutException->getPayoutResult());
     }
 
     public function testDeclinedRefundException()
     {
         $refundErrorResponse = new RefundErrorResponse();
         $declinedRefundException = new DeclinedRefundException(0, $refundErrorResponse);
-        $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\RefundResponse', $declinedRefundException->getRefundResponse());
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse', $declinedRefundException->getRefundResponse());
         $refundErrorResponse->setRefundResult(new RefundResponse());
-        $this->assertInstanceOf('\OnlinePayments\Sdk\Domain\RefundResponse', $declinedRefundException->getRefundResponse());
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse', $declinedRefundException->getRefundResponse());
     }
 }

@@ -2,19 +2,19 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Complete;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Complete;
 
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\AuthorizationException;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
-use OnlinePayments\Sdk\DeclinedPaymentException;
-use OnlinePayments\Sdk\Domain\CompletePaymentRequest;
-use OnlinePayments\Sdk\Domain\CompletePaymentResponse;
-use OnlinePayments\Sdk\IdempotenceException;
-use OnlinePayments\Sdk\PlatformException;
-use OnlinePayments\Sdk\ReferenceException;
-use OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DeclinedPaymentException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 
 /**
  * Complete client interface.

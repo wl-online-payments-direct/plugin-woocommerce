@@ -1,11 +1,11 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Domain\DataObject;
-use OnlinePayments\Sdk\TestUtil\AppendingBodyHandler;
-use OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\AppendingBodyHandler;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
 
 /**
  * @group communicator
@@ -28,8 +28,8 @@ class CommunicatorTest extends TestCase
         $communicatorConfiguration->setApiEndpoint($this->getHttpBinUrl());
         $this->defaultCommunicator = new Communicator($communicatorConfiguration, new TestingAuthenticator());
         $this->defaultResponseClassMap = new ResponseClassMap();
-        $this->defaultResponseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\SimpleHttpBinResponse';
-        $this->defaultResponseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\TestUtil\TestErrorResponse';
+        $this->defaultResponseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\SimpleHttpBinResponse';
+        $this->defaultResponseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestErrorResponse';
     }
 
     public function tearDown(): void
@@ -40,7 +40,7 @@ class CommunicatorTest extends TestCase
     {
         $relativeUri = '/get';
         $response = $this->defaultCommunicator->get($this->defaultResponseClassMap, $relativeUri);
-        $this->assertInstanceOf('\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
         $this->assertEquals($this->getHttpBinUrl() . $relativeUri, $response->url);
     }
 
@@ -60,7 +60,7 @@ class CommunicatorTest extends TestCase
     {
         $relativeUri = '/post';
         $response = $this->defaultCommunicator->post($this->defaultResponseClassMap, $relativeUri);
-        $this->assertInstanceOf('\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
         $this->assertEquals($this->getHttpBinUrl() . $relativeUri, $response->url);
     }
 
@@ -68,7 +68,7 @@ class CommunicatorTest extends TestCase
     {
         $relativeUri = '/put';
         $response = $this->defaultCommunicator->put($this->defaultResponseClassMap, $relativeUri);
-        $this->assertInstanceOf('\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
         $this->assertEquals($this->getHttpBinUrl() . $relativeUri, $response->url);
     }
 
@@ -76,7 +76,7 @@ class CommunicatorTest extends TestCase
     {
         $relativeUri = '/delete';
         $response = $this->defaultCommunicator->delete($this->defaultResponseClassMap, $relativeUri);
-        $this->assertInstanceOf('\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
+        $this->assertInstanceOf('\Syde\Vendor\Worldline\OnlinePayments\Sdk\SimpleHttpBinResponse', $response);
         $this->assertEquals($this->getHttpBinUrl() . $relativeUri, $response->url);
     }
 

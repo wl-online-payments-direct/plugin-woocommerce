@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
 use Exception;
 
 /**
  * Class SecretKeyNotAvailableException
  *
- * @package OnlinePayments\Sdk\Webhooks
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks
  */
 class SecretKeyNotAvailableException extends SignatureValidationException
 {

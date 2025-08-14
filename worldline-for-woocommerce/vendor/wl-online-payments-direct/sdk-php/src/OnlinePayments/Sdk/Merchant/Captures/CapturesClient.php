@@ -2,13 +2,13 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Captures;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Captures;
 
-use OnlinePayments\Sdk\ApiResource;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\ErrorResponseException;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\ExceptionFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 
 /**
  * Captures client.
@@ -25,8 +25,8 @@ class CapturesClient extends ApiResource implements CapturesClientInterface
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\Domain\CapturesResponse';
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CapturesResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
         try {
             return $this->getCommunicator()->get(
                 $responseClassMap,

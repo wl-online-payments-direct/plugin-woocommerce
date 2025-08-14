@@ -1,7 +1,7 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 use PHPUnit\Framework\TestCase;
 
 /**

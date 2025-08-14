@@ -1,17 +1,17 @@
 <?php
 
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use Exception;
-use OnlinePayments\Sdk\Communication\RequestObject;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Domain\DataObject;
-use OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 
 /**
  * Interface CommunicatorInterface
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 interface CommunicatorInterface
 {

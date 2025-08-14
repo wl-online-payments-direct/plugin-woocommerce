@@ -1,14 +1,14 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use stdClass;
-use OnlinePayments\Sdk\CommunicatorConfiguration;
-use OnlinePayments\Sdk\Domain\ShoppingCartExtension;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorConfiguration;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
 
 /**
  * Class MetadataProvider
  *
- * @package OnlinePayments\Sdk\Communication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
  */
 class MetadataProvider implements MetadataProviderInterface
 {

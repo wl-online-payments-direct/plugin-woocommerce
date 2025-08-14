@@ -2,16 +2,16 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Domain\DataObject;
-use OnlinePayments\Sdk\Domain\RefundErrorResponse;
-use OnlinePayments\Sdk\Domain\RefundResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse;
 
 /**
  * Class DeclinedRefundException
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class DeclinedRefundException extends ResponseException
 {

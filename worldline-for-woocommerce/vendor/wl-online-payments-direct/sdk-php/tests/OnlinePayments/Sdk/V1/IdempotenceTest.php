@@ -1,16 +1,16 @@
 <?php
-namespace OnlinePayments\Sdk\V1;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\V1;
 
 use DateTime;
 use DateTimeInterface;
 use ReflectionMethod;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\ConnectionResponse;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Communicator;
-use OnlinePayments\Sdk\TestCase;
-use OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
-use OnlinePayments\Sdk\TestUtil\TestingConnection;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communicator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingConnection;
 
 class IdempotenceTest extends TestCase
 {

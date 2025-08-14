@@ -1,5 +1,5 @@
 <?php
-namespace OnlinePayments\Sdk\Logging;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
 
 use Exception;
 use UnexpectedValueException;
@@ -7,7 +7,7 @@ use UnexpectedValueException;
 /**
  * Class ResourceLogger
  *
- * @package OnlinePayments\Sdk\Logging
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging
  */
 class ResourceLogger implements CommunicatorLogger
 {

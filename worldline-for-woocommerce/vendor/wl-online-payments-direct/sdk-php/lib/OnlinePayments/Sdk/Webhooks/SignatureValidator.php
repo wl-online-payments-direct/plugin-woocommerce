@@ -1,10 +1,10 @@
 <?php
-namespace OnlinePayments\Sdk\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
 /**
  * Class SignatureValidator
  *
- * @package OnlinePayments\Sdk\Webhooks
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks
  */
 class SignatureValidator
 {

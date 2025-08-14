@@ -1,20 +1,20 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use ErrorException;
 use ReflectionMethod;
 use stdClass;
-use OnlinePayments\Sdk\Communication\CommunicatorLoggerHelper;
-use OnlinePayments\Sdk\Communication\Connection;
-use OnlinePayments\Sdk\Communication\ConnectionResponse;
-use OnlinePayments\Sdk\Communication\ErrorResponseException;
-use OnlinePayments\Sdk\Communication\HttpObfuscator;
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Domain\DataObject;
-use OnlinePayments\Sdk\TestUtil\TestErrorResponse;
-use OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
-use OnlinePayments\Sdk\TestUtil\TestingConnection;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\CommunicatorLoggerHelper;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\Connection;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\HttpObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingConnection;
 
 /**
  * @group logging
@@ -31,7 +31,7 @@ class CommunicatorLoggingTest extends TestCase
             new TestingAuthenticator(),
             $connection
         );
-        $logger = $this->getMockBuilder('\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
+        $logger = $this->getMockBuilder('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
         $logger->expects($this->exactly(2))->method('log')->will(
             $this->returnCallback(function ($message) {
                 $messageParts = explode("\n", $message);
@@ -72,7 +72,7 @@ class CommunicatorLoggingTest extends TestCase
             $requestHeaders,
             $requestBody->toJson()
         );
-        $logger = $this->getMockBuilder('\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
+        $logger = $this->getMockBuilder('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
         $logger->expects($this->exactly(2))->method('log')->will(
             $this->returnCallback(function ($message) use ($rawObfuscatedRequest) {
                 $messageHeader = strstr($message, "\n", true);
@@ -109,7 +109,7 @@ class CommunicatorLoggingTest extends TestCase
             $requestHeaders,
             $requestBody->toJson()
         );
-        $logger = $this->getMockBuilder('\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
+        $logger = $this->getMockBuilder('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
         $logger->expects($this->exactly(2))->method('log')->will(
             $this->returnCallback(function ($message) use ($rawObfuscatedRequest) {
                 $messageHeader = strstr($message, "\n", true);
@@ -138,7 +138,7 @@ class CommunicatorLoggingTest extends TestCase
         );
         $httpObfuscator = new HttpObfuscator();
         $rawObfuscatedResponse = $httpObfuscator->getRawObfuscatedResponse($connectionResponse);
-        $logger = $this->getMockBuilder('\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
+        $logger = $this->getMockBuilder('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
         $logger->expects($this->exactly(2))->method('log')->will(
             $this->returnCallback(function ($message) use ($rawObfuscatedResponse) {
                 $messageHeader = strstr($message, "\n", true);
@@ -150,7 +150,7 @@ class CommunicatorLoggingTest extends TestCase
         $logger->expects($this->never())->method('logException');
         $communicator->enableLogging($logger);
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\TestUtil\TestErrorResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestErrorResponse';
         try {
             $communicator->put($responseClassMap, $relativeRequestUri);
         } catch (ErrorResponseException $e) {
@@ -173,7 +173,7 @@ class CommunicatorLoggingTest extends TestCase
         );
         $httpObfuscator = new HttpObfuscator();
         $rawObfuscatedResponse = $httpObfuscator->getRawObfuscatedResponse($connectionResponse);
-        $logger = $this->getMockBuilder('\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
+        $logger = $this->getMockBuilder('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
         $logger->expects($this->exactly(2))->method('log')->will(
             $this->returnCallback(function ($message) use ($rawObfuscatedResponse) {
                 $messageHeader = strstr($message, "\n", true);
@@ -206,7 +206,7 @@ class CommunicatorLoggingTest extends TestCase
             new TestingAuthenticator(),
             $connection
         );
-        $logger = $this->getMockBuilder('\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
+        $logger = $this->getMockBuilder('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger')->getMock();
         $logger->expects($this->once())->method('log')->will(
             $this->returnCallback(function ($message) {
                 $messageHeader = strstr($message, "\n", true);
@@ -234,7 +234,7 @@ class CommunicatorLoggingTest extends TestCase
      */
     protected function getMockRequestDataObject()
     {
-        $requestDataObject = $this->getMockBuilder('\OnlinePayments\Sdk\Domain\DataObject')->getMock();
+        $requestDataObject = $this->getMockBuilder('\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject')->getMock();
         $convertedDataObject = new stdClass();
         $convertedDataObject->customer = new stdClass();
         $convertedDataObject->customer->firstName = 'John';

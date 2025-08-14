@@ -1,15 +1,15 @@
 <?php
-namespace OnlinePayments\Sdk\It;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\It;
 
-use OnlinePayments\Sdk\Communication\MultipartDataObject;
-use OnlinePayments\Sdk\Communication\MultipartFormDataObject;
-use OnlinePayments\Sdk\Communication\ResponseBuilder;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Communicator;
-use OnlinePayments\Sdk\Domain\DataObject;
-use OnlinePayments\Sdk\Domain\UploadableFile;
-use OnlinePayments\Sdk\TestCase;
-use OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\MultipartDataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\MultipartFormDataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseBuilder;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communicator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\UploadableFile;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
 
 /**
  * @group multipart/form-data
@@ -28,7 +28,7 @@ class MultipartFormDataTest extends TestCase
         $multipart->addValue('value', 'Hello World');
 
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\It\HttpBinResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\It\HttpBinResponse';
 
         /** @var HttpBinResponse $response */
         $response = $communicator->post($responseClassMap, '/post', '', $multipart);
@@ -48,7 +48,7 @@ class MultipartFormDataTest extends TestCase
         $multipart->addValue('value', 'Hello World');
 
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\It\HttpBinResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\It\HttpBinResponse';
 
         /** @var HttpBinResponse $response */
         $response = $communicator->post($responseClassMap, '/post', '', new MultipartFormDataWrapper($multipart));
@@ -122,7 +122,7 @@ class MultipartFormDataTest extends TestCase
         $multipart->addValue('value', 'Hello World');
 
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\It\HttpBinResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\It\HttpBinResponse';
 
         /** @var HttpBinResponse $response */
         $response = $communicator->put($responseClassMap, '/put', '', $multipart);
@@ -142,7 +142,7 @@ class MultipartFormDataTest extends TestCase
         $multipart->addValue('value', 'Hello World');
 
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\It\HttpBinResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\It\HttpBinResponse';
 
         /** @var HttpBinResponse $response */
         $response = $communicator->put($responseClassMap,  '/put', '', new MultipartFormDataWrapper($multipart));

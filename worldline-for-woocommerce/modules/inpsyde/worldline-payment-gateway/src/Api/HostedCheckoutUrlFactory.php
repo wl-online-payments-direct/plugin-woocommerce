@@ -33,7 +33,7 @@ class HostedCheckoutUrlFactory
         $productFilterHostedCheckout->setExclude($excludeMealVoucherFilter);
         $request->getHostedCheckoutSpecificInput()->setPaymentProductFilters($productFilterHostedCheckout);
 
-        assert($request instanceof \OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest);
+        assert($request instanceof \Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest);
 
         $redirectInput = $request->getRedirectPaymentMethodSpecificInput();
         if (!$redirectInput) {

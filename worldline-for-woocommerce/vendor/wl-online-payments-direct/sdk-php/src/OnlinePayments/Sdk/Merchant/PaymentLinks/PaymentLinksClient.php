@@ -2,14 +2,14 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\PaymentLinks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PaymentLinks;
 
-use OnlinePayments\Sdk\ApiResource;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\ErrorResponseException;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Domain\CreatePaymentLinkRequest;
-use OnlinePayments\Sdk\ExceptionFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentLinkRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 
 /**
  * PaymentLinks client.
@@ -25,8 +25,8 @@ class PaymentLinksClient extends ApiResource implements PaymentLinksClientInterf
     public function createPaymentLink(CreatePaymentLinkRequest $body, CallContext $callContext = null)
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\Domain\PaymentLinkResponse';
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentLinkResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
         try {
             return $this->getCommunicator()->post(
                 $responseClassMap,
@@ -52,8 +52,8 @@ class PaymentLinksClient extends ApiResource implements PaymentLinksClientInterf
     {
         $this->context['paymentLinkId'] = $paymentLinkId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\Domain\PaymentLinkResponse';
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentLinkResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
         try {
             return $this->getCommunicator()->get(
                 $responseClassMap,
@@ -78,7 +78,7 @@ class PaymentLinksClient extends ApiResource implements PaymentLinksClientInterf
     {
         $this->context['paymentLinkId'] = $paymentLinkId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
         try {
             return $this->getCommunicator()->post(
                 $responseClassMap,

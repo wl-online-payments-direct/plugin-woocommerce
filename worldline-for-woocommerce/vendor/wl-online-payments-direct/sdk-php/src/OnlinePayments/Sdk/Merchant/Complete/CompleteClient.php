@@ -2,14 +2,14 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Complete;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Complete;
 
-use OnlinePayments\Sdk\ApiResource;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\ErrorResponseException;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Domain\CompletePaymentRequest;
-use OnlinePayments\Sdk\ExceptionFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 
 /**
  * Complete client.
@@ -26,8 +26,8 @@ class CompleteClient extends ApiResource implements CompleteClientInterface
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\Domain\CompletePaymentResponse';
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\PaymentErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentErrorResponse';
         try {
             return $this->getCommunicator()->post(
                 $responseClassMap,

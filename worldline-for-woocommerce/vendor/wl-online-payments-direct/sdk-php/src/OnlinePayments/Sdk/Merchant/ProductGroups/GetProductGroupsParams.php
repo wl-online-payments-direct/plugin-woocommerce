@@ -2,15 +2,15 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\ProductGroups;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups;
 
 
-use OnlinePayments\Sdk\Communication\RequestObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
 
 /**
  * Query parameters for Get product groups
  *
- * @package OnlinePayments\Sdk\Merchant\ProductGroups
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups
  */
 class GetProductGroupsParams extends RequestObject
 {

@@ -2,19 +2,19 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Webhooks;
 
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\AuthorizationException;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
-use OnlinePayments\Sdk\Domain\SendTestRequest;
-use OnlinePayments\Sdk\Domain\ValidateCredentialsRequest;
-use OnlinePayments\Sdk\Domain\ValidateCredentialsResponse;
-use OnlinePayments\Sdk\IdempotenceException;
-use OnlinePayments\Sdk\PlatformException;
-use OnlinePayments\Sdk\ReferenceException;
-use OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SendTestRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ValidateCredentialsRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ValidateCredentialsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 
 /**
  * Webhooks client interface.

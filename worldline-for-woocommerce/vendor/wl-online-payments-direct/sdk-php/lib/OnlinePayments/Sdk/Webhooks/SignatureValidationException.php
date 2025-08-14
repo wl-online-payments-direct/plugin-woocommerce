@@ -1,5 +1,5 @@
 <?php
-namespace OnlinePayments\Sdk\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
 use Exception;
 use RuntimeException;
@@ -7,7 +7,7 @@ use RuntimeException;
 /**
  * Class SignatureValidationException
  *
- * @package OnlinePayments\Sdk\Webhooks
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks
  */
 class SignatureValidationException extends RuntimeException
 {

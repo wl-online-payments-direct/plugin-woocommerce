@@ -1,15 +1,15 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use Exception;
-use OnlinePayments\Sdk\Logging\BodyObfuscator;
-use OnlinePayments\Sdk\Logging\CommunicatorLogger;
-use OnlinePayments\Sdk\Logging\HeaderObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\BodyObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\HeaderObfuscator;
 
 /**
  * Class CommunicatorLoggerHelper
  *
- * @package OnlinePayments\Sdk\Communication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
  */
 class CommunicatorLoggerHelper
 {

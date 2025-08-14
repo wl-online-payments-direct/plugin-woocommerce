@@ -1,16 +1,16 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use Exception;
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\Domain\GetPaymentProductsResponse;
-use OnlinePayments\Sdk\Domain\PaymentProduct;
-use OnlinePayments\Sdk\Domain\ProductDirectory;
-use OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams;
-use OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
-use OnlinePayments\Sdk\Merchant\Products\GetProductDirectoryApiParams;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPaymentProductsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProduct;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ProductDirectory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\GetPaymentProductsParams;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\GetProductDirectoryApiParams;
 
 /**
  * @group examples

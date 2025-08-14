@@ -2,13 +2,13 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\ProductGroups;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups;
 
-use OnlinePayments\Sdk\ApiResource;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\ErrorResponseException;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\ExceptionFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 
 /**
  * ProductGroups client.
@@ -24,8 +24,8 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
     public function getProductGroups(GetProductGroupsParams $query, CallContext $callContext = null)
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\Domain\GetPaymentProductGroupsResponse';
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPaymentProductGroupsResponse';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
         try {
             return $this->getCommunicator()->get(
                 $responseClassMap,
@@ -50,8 +50,8 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
     {
         $this->context['paymentProductGroupId'] = $paymentProductGroupId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\OnlinePayments\Sdk\Domain\PaymentProductGroup';
-        $responseClassMap->defaultErrorResponseClassName = '\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductGroup';
+        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
         try {
             return $this->getCommunicator()->get(
                 $responseClassMap,

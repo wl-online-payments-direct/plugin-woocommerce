@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 /**
  * Class BodyHandler
  * A utility class that can be used to support binary responses. Its handleBodyPart method can be used as
  * callback to methods that require a body handler callable.
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class BodyHandler
 {

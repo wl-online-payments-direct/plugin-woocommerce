@@ -1,12 +1,12 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use Exception;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
-use OnlinePayments\Sdk\Domain\GetIINDetailsResponse;
-use OnlinePayments\Sdk\Domain\TestConnection;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TestConnection;
 
 /**
  * @group examples

@@ -1,30 +1,30 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use DateTime;
 use Exception;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\Domain\Address;
-use OnlinePayments\Sdk\Domain\AddressPersonal;
-use OnlinePayments\Sdk\Domain\AmountOfMoney;
-use OnlinePayments\Sdk\Domain\CapturePaymentRequest;
-use OnlinePayments\Sdk\Domain\Card;
-use OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
-use OnlinePayments\Sdk\Domain\CompanyInformation;
-use OnlinePayments\Sdk\Domain\ContactDetails;
-use OnlinePayments\Sdk\Domain\CreatePaymentRequest;
-use OnlinePayments\Sdk\Domain\Customer;
-use OnlinePayments\Sdk\Domain\LineItem;
-use OnlinePayments\Sdk\Domain\LineItemInvoiceData;
-use OnlinePayments\Sdk\Domain\Order;
-use OnlinePayments\Sdk\Domain\OrderReferences;
-use OnlinePayments\Sdk\Domain\PersonalInformation;
-use OnlinePayments\Sdk\Domain\PersonalName;
-use OnlinePayments\Sdk\Domain\ShoppingCart;
-use OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Address;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AddressPersonal;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CapturePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Card;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompanyInformation;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ContactDetails;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Customer;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\LineItem;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\LineItemInvoiceData;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Order;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\OrderReferences;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PersonalInformation;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PersonalName;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCart;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 
 /**
  * @group examples

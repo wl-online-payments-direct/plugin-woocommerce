@@ -1,10 +1,10 @@
 <?php
-namespace OnlinePayments\Sdk\Logging;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
 
 /**
  * Class ValueObfuscator
  *
- * @package OnlinePayments\Sdk\Logging
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging
  */
 class ValueObfuscator
 {

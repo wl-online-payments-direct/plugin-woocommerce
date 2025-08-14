@@ -1,13 +1,13 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use ErrorException;
 use ReflectionMethod;
-use OnlinePayments\Sdk\Communicator;
-use OnlinePayments\Sdk\Logging\BodyObfuscator;
-use OnlinePayments\Sdk\Logging\HeaderObfuscator;
-use OnlinePayments\Sdk\TestCase;
-use OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communicator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\BodyObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\HeaderObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil\TestingAuthenticator;
 
 /**
  * @group default_connection

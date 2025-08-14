@@ -78,7 +78,7 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
     /**
      * Determines whether a Mealvouchers webhook event should be skipped.
      *
-     * @param \OnlinePayments\Sdk\Domain\WebhooksEvent $webhook The incoming webhook event.
+     * @param WebhooksEvent $webhook The incoming webhook event.
      *
      * @return bool True if the webhook should be skipped, false otherwise.
      */

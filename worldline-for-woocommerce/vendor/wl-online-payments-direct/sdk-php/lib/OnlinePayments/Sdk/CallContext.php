@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use DateTime;
 
 /**
  * Class CallContext
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class CallContext
 {

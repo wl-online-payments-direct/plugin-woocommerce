@@ -1,15 +1,15 @@
 <?php
-namespace OnlinePayments\Sdk\Domain;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use Exception;
 use stdClass;
 use UnexpectedValueException;
-use OnlinePayments\Sdk\JSON\JSONUtil;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\JSON\JSONUtil;
 
 /**
  * Class DataObject
  *
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 abstract class DataObject
 {

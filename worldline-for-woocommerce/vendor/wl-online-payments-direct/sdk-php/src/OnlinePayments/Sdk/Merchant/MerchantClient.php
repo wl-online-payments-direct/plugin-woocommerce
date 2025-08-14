@@ -2,25 +2,25 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant;
 
-use OnlinePayments\Sdk\ApiResource;
-use OnlinePayments\Sdk\Merchant\Captures\CapturesClient;
-use OnlinePayments\Sdk\Merchant\Complete\CompleteClient;
-use OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClient;
-use OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClient;
-use OnlinePayments\Sdk\Merchant\Mandates\MandatesClient;
-use OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClient;
-use OnlinePayments\Sdk\Merchant\Payments\PaymentsClient;
-use OnlinePayments\Sdk\Merchant\Payouts\PayoutsClient;
-use OnlinePayments\Sdk\Merchant\PrivacyPolicy\PrivacyPolicyClient;
-use OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClient;
-use OnlinePayments\Sdk\Merchant\Products\ProductsClient;
-use OnlinePayments\Sdk\Merchant\Refunds\RefundsClient;
-use OnlinePayments\Sdk\Merchant\Services\ServicesClient;
-use OnlinePayments\Sdk\Merchant\Sessions\SessionsClient;
-use OnlinePayments\Sdk\Merchant\Tokens\TokensClient;
-use OnlinePayments\Sdk\Merchant\Webhooks\WebhooksClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Captures\CapturesClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Complete\CompleteClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Mandates\MandatesClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payments\PaymentsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payouts\PayoutsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PrivacyPolicy\PrivacyPolicyClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\ProductsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Refunds\RefundsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services\ServicesClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Sessions\SessionsClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokens\TokensClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Webhooks\WebhooksClient;
 
 /**
  * Merchant client.

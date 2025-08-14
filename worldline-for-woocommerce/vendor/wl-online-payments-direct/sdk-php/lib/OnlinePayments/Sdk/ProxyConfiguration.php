@@ -1,10 +1,10 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 /**
  * Class ProxyConfiguration
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class ProxyConfiguration
 {

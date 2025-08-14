@@ -1,11 +1,11 @@
 <?php
 
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 /**
  * Interface ConnectionResponseInterface
  *
- * @package OnlinePayments\Sdk\Communication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
  */
 interface ConnectionResponseInterface
 {

@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
 use UnexpectedValueException;
 
 /**
  * Class InMemorySecretKeyStore
  *
- * @package OnlinePayments\Sdk\Webhooks
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks
  */
 class InMemorySecretKeyStore implements SecretKeyStore
 {

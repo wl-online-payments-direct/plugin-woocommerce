@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk\Domain;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
 
 /**
  * Class UploadableFile
  *
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class UploadableFile
 {

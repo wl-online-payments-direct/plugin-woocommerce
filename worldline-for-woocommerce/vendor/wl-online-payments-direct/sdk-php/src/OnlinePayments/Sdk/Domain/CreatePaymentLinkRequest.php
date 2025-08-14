@@ -2,13 +2,13 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Domain;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use DateTime;
 use UnexpectedValueException;
 
 /**
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class CreatePaymentLinkRequest extends DataObject
 {

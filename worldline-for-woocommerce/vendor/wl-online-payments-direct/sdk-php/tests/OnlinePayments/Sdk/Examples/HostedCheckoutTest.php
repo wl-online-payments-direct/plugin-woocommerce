@@ -1,20 +1,20 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use Exception;
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\Domain\Address;
-use OnlinePayments\Sdk\Domain\AmountOfMoney;
-use OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
-use OnlinePayments\Sdk\Domain\CreateHostedCheckoutResponse;
-use OnlinePayments\Sdk\Domain\Customer;
-use OnlinePayments\Sdk\Domain\GetHostedCheckoutResponse;
-use OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput;
-use OnlinePayments\Sdk\Domain\Order;
-use OnlinePayments\Sdk\Domain\PaymentProductFilter;
-use OnlinePayments\Sdk\Domain\PaymentProductFiltersHostedCheckout;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Address;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Customer;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetHostedCheckoutResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Order;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductFilter;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductFiltersHostedCheckout;
 
 /**
  * @group examples

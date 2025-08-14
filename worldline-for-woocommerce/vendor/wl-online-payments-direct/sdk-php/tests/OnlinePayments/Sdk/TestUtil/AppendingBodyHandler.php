@@ -1,7 +1,7 @@
 <?php
-namespace OnlinePayments\Sdk\TestUtil;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil;
 
-use OnlinePayments\Sdk\BodyHandler;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\BodyHandler;
 
 class AppendingBodyHandler extends BodyHandler
 {

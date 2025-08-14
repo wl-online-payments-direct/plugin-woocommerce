@@ -1,14 +1,14 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use Exception;
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\Domain\Card;
-use OnlinePayments\Sdk\Domain\CreateTokenRequest;
-use OnlinePayments\Sdk\Domain\TokenCardSpecificInput;
-use OnlinePayments\Sdk\Domain\TokenData;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Card;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateTokenRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TokenCardSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TokenData;
 
 /**
  * @group examples

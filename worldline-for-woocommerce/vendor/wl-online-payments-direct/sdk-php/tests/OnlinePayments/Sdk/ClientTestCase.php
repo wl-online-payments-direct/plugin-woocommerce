@@ -1,7 +1,7 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Authentication\V1HmacAuthenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication\V1HmacAuthenticator;
 
 class ClientTestCase extends TestCase
 {

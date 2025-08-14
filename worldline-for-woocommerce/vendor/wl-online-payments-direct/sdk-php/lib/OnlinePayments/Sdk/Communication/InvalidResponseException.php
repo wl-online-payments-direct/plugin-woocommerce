@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use RuntimeException;
 
 /**
  * Class InvalidResponseException
  *
- * @package OnlinePayments\Sdk\Communication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
  */
 class InvalidResponseException extends RuntimeException
 {

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 
 return static function (): array {
     return [

@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\WorldlineForWoocommerce\CVCOGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\CVCOGateway;
 
-use Inpsyde\Modularity\Module\ExtendingModule;
-use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
 
 class CVCOGatewayModule implements ServiceModule, ExtendingModule
 {

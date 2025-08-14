@@ -1,13 +1,13 @@
 <?php
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use UnexpectedValueException;
-use OnlinePayments\Sdk\Domain\ShoppingCartExtension;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
 
 /**
  * Class CommunicatorConfiguration
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class CommunicatorConfiguration
 {

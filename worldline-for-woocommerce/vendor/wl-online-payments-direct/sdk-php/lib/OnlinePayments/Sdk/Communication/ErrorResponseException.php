@@ -1,13 +1,13 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use RuntimeException;
-use OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 
 /**
  * Class ErrorResponseException
  *
- * @package OnlinePayments\Sdk\Communication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
  */
 class ErrorResponseException extends RuntimeException
 {

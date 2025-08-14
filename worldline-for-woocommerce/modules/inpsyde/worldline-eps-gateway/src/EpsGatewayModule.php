@@ -2,11 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\WorldlineForWoocommerce\EpsGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\EpsGateway;
 
-use Inpsyde\Modularity\Module\ExtendingModule;
-use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
 
 class EpsGatewayModule implements ServiceModule, ExtendingModule
 {

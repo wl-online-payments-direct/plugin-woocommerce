@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\WorldlineForWoocommerce\ProductType;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ProductType;
 
-use Inpsyde\Modularity\Module\ExecutableModule;
-use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Inpsyde\Modularity\Module\ServiceModule;
-use Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 
 class ProductTypeModule implements ExecutableModule, ServiceModule
 {

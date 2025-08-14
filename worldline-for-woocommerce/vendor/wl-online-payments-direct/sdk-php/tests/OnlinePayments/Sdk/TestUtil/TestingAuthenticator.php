@@ -1,7 +1,7 @@
 <?php
-namespace OnlinePayments\Sdk\TestUtil;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil;
 
-use OnlinePayments\Sdk\Authentication\Authenticator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication\Authenticator;
 
 class TestingAuthenticator implements Authenticator
 {

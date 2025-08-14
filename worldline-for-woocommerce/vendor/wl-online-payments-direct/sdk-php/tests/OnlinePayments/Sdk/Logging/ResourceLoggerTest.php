@@ -1,9 +1,9 @@
 <?php
-namespace OnlinePayments\Sdk\Logging;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
 
 use PHPUnit\Framework\TestCase;
-use OnlinePayments\Sdk\Communication\ConnectionResponse;
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
 
 /**
  * @group logging

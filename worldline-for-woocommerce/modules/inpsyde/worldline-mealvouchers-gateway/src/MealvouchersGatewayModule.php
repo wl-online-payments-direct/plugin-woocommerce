@@ -2,19 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\WorldlineForWoocommerce\MealvouchersGateway;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\MealvouchersGateway;
 
-use Inpsyde\Assets\AssetManager;
-use Inpsyde\Assets\Script;
-use Inpsyde\Assets\Style;
-use Inpsyde\Assets\Asset;
-use Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Inpsyde\Modularity\Module\ExecutableModule;
-use Inpsyde\Modularity\Module\ServiceModule;
-use Inpsyde\Modularity\Module\ExtendingModule;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\ContainerInterface;
-use Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
 
 class MealvouchersGatewayModule implements ServiceModule, ExtendingModule
 {

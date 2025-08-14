@@ -1,9 +1,9 @@
 <?php
 
-namespace OnlinePayments\Sdk\Authentication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication;
 
-use OnlinePayments\Sdk\CommunicatorConfiguration;
-use OnlinePayments\Sdk\TestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorConfiguration;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\TestCase;
 
 /**
  * @group authentication

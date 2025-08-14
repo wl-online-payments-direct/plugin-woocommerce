@@ -1,12 +1,12 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use Exception;
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\Domain\SessionRequest;
-use OnlinePayments\Sdk\Domain\SessionResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionResponse;
 
 /**
  * @group examples

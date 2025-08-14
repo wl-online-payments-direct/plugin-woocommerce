@@ -2,14 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\WorldlineForWoocommerce\CVCOGateway\Payment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\CVCOGateway\Payment;
 
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
-use OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
-use OnlinePayments\Sdk\Domain\RedirectionData;
-use OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
-use OnlinePayments\Sdk\Domain\RedirectPaymentProduct5403SpecificInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectionData;
 
 class CVCORequestModifier extends AbstractHostedPaymentRequestModifier
 {

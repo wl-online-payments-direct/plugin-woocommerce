@@ -2,15 +2,15 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\PrivacyPolicy;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PrivacyPolicy;
 
 
-use OnlinePayments\Sdk\Communication\RequestObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
 
 /**
  * Query parameters for Get Privacy Policy
  *
- * @package OnlinePayments\Sdk\Merchant\PrivacyPolicy
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PrivacyPolicy
  */
 class GetPrivacyPolicyParams extends RequestObject
 {

@@ -2,15 +2,15 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Products;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products;
 
 
-use OnlinePayments\Sdk\Communication\RequestObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
 
 /**
  * Query parameters for Get payment product networks
  *
- * @package OnlinePayments\Sdk\Merchant\Products
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products
  */
 class GetPaymentProductNetworksParams extends RequestObject
 {

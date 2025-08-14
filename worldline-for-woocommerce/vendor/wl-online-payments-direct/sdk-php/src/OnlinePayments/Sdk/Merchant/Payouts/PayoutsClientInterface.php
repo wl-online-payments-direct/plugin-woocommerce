@@ -2,19 +2,19 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Payouts;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payouts;
 
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\AuthorizationException;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
-use OnlinePayments\Sdk\DeclinedPayoutException;
-use OnlinePayments\Sdk\Domain\CreatePayoutRequest;
-use OnlinePayments\Sdk\Domain\PayoutResponse;
-use OnlinePayments\Sdk\IdempotenceException;
-use OnlinePayments\Sdk\PlatformException;
-use OnlinePayments\Sdk\ReferenceException;
-use OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\DeclinedPayoutException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePayoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 
 /**
  * Payouts client interface.

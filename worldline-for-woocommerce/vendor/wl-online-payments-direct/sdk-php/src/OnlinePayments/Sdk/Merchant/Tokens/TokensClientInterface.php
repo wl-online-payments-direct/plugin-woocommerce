@@ -2,19 +2,19 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Tokens;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokens;
 
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\AuthorizationException;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
-use OnlinePayments\Sdk\Domain\CreateTokenRequest;
-use OnlinePayments\Sdk\Domain\CreatedTokenResponse;
-use OnlinePayments\Sdk\Domain\TokenResponse;
-use OnlinePayments\Sdk\IdempotenceException;
-use OnlinePayments\Sdk\PlatformException;
-use OnlinePayments\Sdk\ReferenceException;
-use OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateTokenRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatedTokenResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TokenResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 
 /**
  * Tokens client interface.

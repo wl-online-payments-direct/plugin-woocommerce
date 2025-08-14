@@ -2,14 +2,14 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 
 /**
  * Class ApiException
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class ApiException extends ResponseException
 {

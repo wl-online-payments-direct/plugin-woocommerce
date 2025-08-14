@@ -37,7 +37,7 @@ class MerchantClientFactory
         $communicatorConfiguration = new CommunicatorConfiguration($apiKey, $apiSecret, $apiEndpoint, $this->integrator);
         $communicatorConfiguration->setShoppingCartExtension(new ShoppingCartExtension('Worldline-GlobalOnlinePayments', 'WordPress', $this->getPlatformVersion(), $this->pluginVersion));
 
-        $communicator = new \OnlinePayments\Sdk\Communicator(
+        $communicator = new \Syde\Vendor\Worldline\OnlinePayments\Sdk\Communicator(
             $communicatorConfiguration,
             new V1HmacAuthenticator($communicatorConfiguration),
             $connection,

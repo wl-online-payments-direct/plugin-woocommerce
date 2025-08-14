@@ -2,18 +2,18 @@
 
 declare(strict_types=1);
 
-namespace Inpsyde\WorldlineForWoocommerce\MealvouchersGateway\Payment;
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\MealvouchersGateway\Payment;
 
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
-use OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
-use OnlinePayments\Sdk\Domain\AmountOfMoney;
-use OnlinePayments\Sdk\Domain\LineItem;
-use OnlinePayments\Sdk\Domain\OrderLineDetails;
-use OnlinePayments\Sdk\Domain\RedirectionData;
-use OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
-use OnlinePayments\Sdk\Domain\RedirectPaymentProduct5402SpecificInput;
-use OnlinePayments\Sdk\Domain\ShoppingCart;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\LineItem;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\OrderLineDetails;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectionData;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5402SpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCart;
 use WC_Order_Item_Product;
 
 class MealvouchersRequestModifier extends AbstractHostedPaymentRequestModifier

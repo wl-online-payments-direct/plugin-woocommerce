@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk\Logging;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
 
 use UnexpectedValueException;
 
 /**
  * Class BodyObfuscator
  *
- * @package OnlinePayments\Sdk\Logging
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging
  */
 class BodyObfuscator
 {

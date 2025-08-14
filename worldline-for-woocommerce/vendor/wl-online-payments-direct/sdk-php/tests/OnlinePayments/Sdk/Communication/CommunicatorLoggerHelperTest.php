@@ -1,5 +1,5 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use PHPUnit\Framework\TestCase;
 

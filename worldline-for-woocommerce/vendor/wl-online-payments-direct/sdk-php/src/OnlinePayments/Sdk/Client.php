@@ -2,10 +2,10 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Logging\CommunicatorLogger;
-use OnlinePayments\Sdk\Merchant\MerchantClient;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClient;
 
 /**
  * Payment platform client.

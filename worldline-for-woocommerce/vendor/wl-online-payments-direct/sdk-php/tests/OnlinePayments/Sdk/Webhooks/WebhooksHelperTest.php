@@ -1,10 +1,10 @@
 <?php
-namespace OnlinePayments\Sdk\Webhooks;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
-use OnlinePayments\Sdk\Communication\ConnectionResponseInterface;
-use OnlinePayments\Sdk\Communication\ResponseClassMap;
-use OnlinePayments\Sdk\Communication\ResponseFactory;
-use OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponseInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseFactory;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
 use PHPUnit\Framework\TestCase;
 
 /**

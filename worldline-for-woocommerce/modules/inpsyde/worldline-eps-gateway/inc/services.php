@@ -3,23 +3,23 @@
 declare(strict_types=1);
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
-use Dhii\Services\Factories\Alias;
-use Dhii\Services\Factories\Constructor;
-use Dhii\Services\Factories\Value;
-use Dhii\Services\Factory;
-use Dhii\Services\Service;
-use Inpsyde\PaymentGateway\DefaultIconsRenderer;
-use Inpsyde\PaymentGateway\Icon;
-use Inpsyde\PaymentGateway\IconProviderInterface;
-use Inpsyde\PaymentGateway\StaticIconProvider;
-use Inpsyde\WorldlineForWoocommerce\EpsGateway\EpsGatewayModule;
-use Inpsyde\WorldlineForWoocommerce\EpsGateway\Payment\EpsRequestModifier;
-use Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutUrlFactory;
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
-use Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
-use Psr\Container\ContainerInterface;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Alias;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Constructor;
+use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
+use Syde\Vendor\Worldline\Dhii\Services\Factory;
+use Syde\Vendor\Worldline\Dhii\Services\Service;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\DefaultIconsRenderer;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\Icon;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\IconProviderInterface;
+use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\StaticIconProvider;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\EpsGateway\EpsGatewayModule;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\EpsGateway\Payment\EpsRequestModifier;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Vaulting\WcTokenRepository;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutUrlFactory;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WcOrderBasedOrderFactoryInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
+use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 
 return static function (): array {
     $moduleRoot = dirname(__FILE__, 2);

@@ -1,10 +1,10 @@
 <?php
-namespace OnlinePayments\Sdk\Authentication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication;
 
 /**
  * Class Authenticator
  *
- * @package OnlinePayments\Sdk\Authentication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication
  */
 interface Authenticator
 {

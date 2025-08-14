@@ -1,5 +1,5 @@
 <?php
-namespace OnlinePayments\Sdk\Logging;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
 
 use PHPUnit\Framework\TestCase;
 

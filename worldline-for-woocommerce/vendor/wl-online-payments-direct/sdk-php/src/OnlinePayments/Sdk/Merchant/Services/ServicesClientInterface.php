@@ -2,23 +2,23 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk\Merchant\Services;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services;
 
-use OnlinePayments\Sdk\ApiException;
-use OnlinePayments\Sdk\AuthorizationException;
-use OnlinePayments\Sdk\CallContext;
-use OnlinePayments\Sdk\Communication\InvalidResponseException;
-use OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
-use OnlinePayments\Sdk\Domain\CalculateSurchargeResponse;
-use OnlinePayments\Sdk\Domain\CurrencyConversionRequest;
-use OnlinePayments\Sdk\Domain\CurrencyConversionResponse;
-use OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
-use OnlinePayments\Sdk\Domain\GetIINDetailsResponse;
-use OnlinePayments\Sdk\Domain\TestConnection;
-use OnlinePayments\Sdk\IdempotenceException;
-use OnlinePayments\Sdk\PlatformException;
-use OnlinePayments\Sdk\ReferenceException;
-use OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TestConnection;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 
 /**
  * Services client interface.

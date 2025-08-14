@@ -2,16 +2,16 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
-use OnlinePayments\Sdk\Domain\DataObject;
-use OnlinePayments\Sdk\Domain\PayoutErrorResponse;
-use OnlinePayments\Sdk\Domain\PayoutResult;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResult;
 
 /**
  * Class DeclinedPayoutException
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class DeclinedPayoutException extends ResponseException
 {

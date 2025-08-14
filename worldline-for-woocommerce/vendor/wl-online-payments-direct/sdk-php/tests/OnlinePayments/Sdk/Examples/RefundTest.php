@@ -1,13 +1,13 @@
 <?php
 
-namespace OnlinePayments\Sdk\Examples;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Examples;
 
 use Exception;
-use OnlinePayments\Sdk\ClientTestCase;
-use OnlinePayments\Sdk\Domain\AmountOfMoney;
-use OnlinePayments\Sdk\Domain\RefundRequest;
-use OnlinePayments\Sdk\Domain\RefundResponse;
-use OnlinePayments\Sdk\ApiException;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ClientTestCase;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\AmountOfMoney;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
 
 /**
  * @group examples

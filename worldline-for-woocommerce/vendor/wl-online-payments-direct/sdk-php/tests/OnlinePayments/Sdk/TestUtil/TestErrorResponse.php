@@ -1,7 +1,7 @@
 <?php
-namespace OnlinePayments\Sdk\TestUtil;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil;
 
-use OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 
 class TestErrorResponse extends DataObject
 {

@@ -2,16 +2,16 @@
 /*
  * This file was automatically generated.
  */
-namespace OnlinePayments\Sdk;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use RuntimeException;
-use OnlinePayments\Sdk\Domain\APIError;
-use OnlinePayments\Sdk\Domain\DataObject;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 
 /**
  * Class ResponseException
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class ResponseException extends RuntimeException
 {

@@ -1,9 +1,9 @@
 <?php
-namespace OnlinePayments\Sdk\TestUtil;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\TestUtil;
 
 use Exception;
-use OnlinePayments\Sdk\Communication\ConnectionResponseInterface;
-use OnlinePayments\Sdk\Communication\DefaultConnection;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponseInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\DefaultConnection;
 
 class TestingConnection extends DefaultConnection
 {

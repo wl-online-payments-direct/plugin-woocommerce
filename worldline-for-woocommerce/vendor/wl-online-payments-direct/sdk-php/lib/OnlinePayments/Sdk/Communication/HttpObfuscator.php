@@ -1,13 +1,13 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
-use OnlinePayments\Sdk\Logging\BodyObfuscator;
-use OnlinePayments\Sdk\Logging\HeaderObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\BodyObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\HeaderObfuscator;
 
 /**
  * Class HttpObfuscator
  *
- * @package OnlinePayments\Sdk\Communication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
  */
 class HttpObfuscator
 {

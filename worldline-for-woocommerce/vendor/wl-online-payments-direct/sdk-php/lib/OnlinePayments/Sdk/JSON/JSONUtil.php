@@ -1,5 +1,5 @@
 <?php
-namespace OnlinePayments\Sdk\JSON;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\JSON;
 
 use stdClass;
 use UnexpectedValueException;
@@ -7,7 +7,7 @@ use UnexpectedValueException;
 /**
  * Class JSONUtil
  *
- * @package OnlinePayments\Sdk
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
  */
 class JSONUtil
 {

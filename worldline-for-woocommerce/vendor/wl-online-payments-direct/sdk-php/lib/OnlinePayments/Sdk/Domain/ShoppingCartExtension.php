@@ -1,12 +1,12 @@
 <?php
-namespace OnlinePayments\Sdk\Domain;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
 
 /**
  * Class ShoppingCartExtension
  *
- * @package OnlinePayments\Sdk\Domain
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
  */
 class ShoppingCartExtension extends DataObject
 {

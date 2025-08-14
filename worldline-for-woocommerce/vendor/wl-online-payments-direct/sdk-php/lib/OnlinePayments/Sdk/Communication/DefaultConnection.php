@@ -1,20 +1,20 @@
 <?php
-namespace OnlinePayments\Sdk\Communication;
+namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use ErrorException;
 use Exception;
 use Robtimus\Multipart\MultipartFormData;
 use UnexpectedValueException;
-use OnlinePayments\Sdk\CommunicatorConfiguration;
-use OnlinePayments\Sdk\Logging\BodyObfuscator;
-use OnlinePayments\Sdk\Logging\CommunicatorLogger;
-use OnlinePayments\Sdk\Logging\HeaderObfuscator;
-use OnlinePayments\Sdk\ProxyConfiguration;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorConfiguration;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\BodyObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\HeaderObfuscator;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\ProxyConfiguration;
 
 /**
  * Class ApiException
  *
- * @package OnlinePayments\Sdk\Communication
+ * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
  */
 class DefaultConnection implements Connection
 {
