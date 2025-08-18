@@ -1,3 +1,6 @@
+# 3.2.5
+- Automatic capture fix
+
 # 3.2.4
 - Plugin csv fix
 

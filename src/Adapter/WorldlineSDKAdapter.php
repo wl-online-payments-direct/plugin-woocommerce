@@ -368,7 +368,8 @@ class WorldlineSDKAdapter
             case Payment::FULL_REDIRECT_PAYMENT_METHOD_ID:
             {
                 $this->addCartToRequest(
-                    $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput, $order
+                    $currencyISO, $orderEntity, $cardPaymentMethodSpecificInput, $hostedCheckoutSpecificInput,
+                    $order, true, false
                 );
                 $customer = $order->getCustomer();
                 $customer->setDevice($this->getCustomerDevice($customerData));
