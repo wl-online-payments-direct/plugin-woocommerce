@@ -11,7 +11,7 @@ class MayaInstaller extends \Composer\Installers\BaseInstaller
      *
      * For package type maya-module, cut off a trailing '-module' if present.
      */
-    public function inflectPackageVars(array $vars) : array
+    public function inflectPackageVars(array $vars): array
     {
         if ($vars['type'] === 'maya-module') {
             return $this->inflectModuleVars($vars);
@@ -22,11 +22,11 @@ class MayaInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, string> $vars
      * @return array<string, string>
      */
-    protected function inflectModuleVars(array $vars) : array
+    protected function inflectModuleVars(array $vars): array
     {
         $vars['name'] = $this->pregReplace('/-module$/', '', $vars['name']);
-        $vars['name'] = \str_replace(array('-', '_'), ' ', $vars['name']);
-        $vars['name'] = \str_replace(' ', '', \ucwords($vars['name']));
+        $vars['name'] = str_replace(array('-', '_'), ' ', $vars['name']);
+        $vars['name'] = str_replace(' ', '', ucwords($vars['name']));
         return $vars;
     }
 }

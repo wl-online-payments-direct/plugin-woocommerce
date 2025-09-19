@@ -13,7 +13,7 @@ class OctoberInstaller extends \Composer\Installers\BaseInstaller
      *
      * For package type october-theme, cut off a trailing '-theme' if present.
      */
-    public function inflectPackageVars(array $vars) : array
+    public function inflectPackageVars(array $vars): array
     {
         if ($vars['type'] === 'october-plugin') {
             return $this->inflectPluginVars($vars);
@@ -27,7 +27,7 @@ class OctoberInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, string> $vars
      * @return array<string, string>
      */
-    protected function inflectPluginVars(array $vars) : array
+    protected function inflectPluginVars(array $vars): array
     {
         $vars['name'] = $this->pregReplace('/^oc-|-plugin$/', '', $vars['name']);
         $vars['vendor'] = $this->pregReplace('/[^a-z0-9_]/i', '', $vars['vendor']);
@@ -37,7 +37,7 @@ class OctoberInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, string> $vars
      * @return array<string, string>
      */
-    protected function inflectThemeVars(array $vars) : array
+    protected function inflectThemeVars(array $vars): array
     {
         $vars['name'] = $this->pregReplace('/^oc-|-theme$/', '', $vars['name']);
         $vars['vendor'] = $this->pregReplace('/[^a-z0-9_]/i', '', $vars['vendor']);
