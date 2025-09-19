@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
+class ComposerStaticInitedWorldlineForWoocommerce457efa3
 {
     public static $files = array (
         '75224de648373daee048deff719e279d' => __DIR__ . '/..' . '/inpsyde/assets/inc/functions.php',
@@ -13,239 +13,264 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
     );
 
     public static $prefixLengthsPsr4 = array (
-        'S' => 
-        array (
-            'Syde\\Vendor\\Worldline\\Symfony\\Polyfill\\Php80\\' => 45,
-            'Syde\\Vendor\\Worldline\\Robtimus\\Multipart\\' => 41,
-            'Syde\\Vendor\\Worldline\\Psr\\Log\\' => 30,
-            'Syde\\Vendor\\Worldline\\Psr\\Http\\Server\\' => 38,
-            'Syde\\Vendor\\Worldline\\Psr\\Http\\Message\\' => 39,
-            'Syde\\Vendor\\Worldline\\Psr\\Http\\Client\\' => 38,
-            'Syde\\Vendor\\Worldline\\Psr\\Container\\' => 36,
-            'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\' => 41,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\' => 44,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\' => 78,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlineLogging\\' => 71,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\' => 63,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\' => 64,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Vaulting\\' => 63,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Utils\\' => 60,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\' => 58,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' => 64,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' => 67,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => 65,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => 73,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' => 68,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' => 67,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\' => 80,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\' => 71,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\' => 68,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\' => 61,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\' => 63,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' => 74,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\' => 70,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\' => 54,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\' => 42,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\' => 45,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\' => 41,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\' => 37,
-            'Syde\\Vendor\\Worldline\\Inpsyde\\' => 30,
-            'Syde\\Vendor\\Worldline\\Dhii\\Versions\\' => 36,
-            'Syde\\Vendor\\Worldline\\Dhii\\Validator\\' => 37,
-            'Syde\\Vendor\\Worldline\\Dhii\\Validation\\' => 38,
-            'Syde\\Vendor\\Worldline\\Dhii\\Services\\' => 36,
-            'Syde\\Vendor\\Worldline\\Dhii\\Package\\' => 35,
-        ),
-        'O' => 
-        array (
-            'OomphInc\\ComposerInstallersExtender\\' => 36,
-        ),
-        'I' => 
-        array (
-            'Inpsyde\\Assets\\' => 15,
-        ),
-        'C' => 
-        array (
-            'Composer\\Installers\\' => 20,
-        ),
+        'S' =>
+            array (
+                'Syde\\Vendor\\Worldline\\Symfony\\Polyfill\\Php80\\' => 45,
+                'Syde\\Vendor\\Worldline\\Robtimus\\Multipart\\' => 41,
+                'Syde\\Vendor\\Worldline\\Psr\\Log\\' => 30,
+                'Syde\\Vendor\\Worldline\\Psr\\Http\\Server\\' => 38,
+                'Syde\\Vendor\\Worldline\\Psr\\Http\\Message\\' => 39,
+                'Syde\\Vendor\\Worldline\\Psr\\Http\\Client\\' => 38,
+                'Syde\\Vendor\\Worldline\\Psr\\Container\\' => 36,
+                'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\' => 41,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\' => 44,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\' => 78,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlineLogging\\' => 71,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\' => 63,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\' => 64,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Vaulting\\' => 63,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Utils\\' => 60,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\' => 58,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' => 64,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' => 67,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => 65,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\' => 66,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => 73,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\' => 68,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\' => 74,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' => 68,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' => 67,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\' => 80,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\' => 71,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\' => 65,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\' => 68,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\' => 61,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\' => 63,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\' => 66,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' => 74,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\' => 70,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\' => 54,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\' => 42,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\' => 45,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\' => 41,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\' => 37,
+                'Syde\\Vendor\\Worldline\\Inpsyde\\' => 30,
+                'Syde\\Vendor\\Worldline\\Dhii\\Versions\\' => 36,
+                'Syde\\Vendor\\Worldline\\Dhii\\Validator\\' => 37,
+                'Syde\\Vendor\\Worldline\\Dhii\\Validation\\' => 38,
+                'Syde\\Vendor\\Worldline\\Dhii\\Services\\' => 36,
+                'Syde\\Vendor\\Worldline\\Dhii\\Package\\' => 35,
+            ),
+        'O' =>
+            array (
+                'OomphInc\\ComposerInstallersExtender\\' => 36,
+            ),
+        'I' =>
+            array (
+                'Inpsyde\\Assets\\' => 15,
+            ),
+        'C' =>
+            array (
+                'Composer\\Installers\\' => 20,
+            ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Syde\\Vendor\\Worldline\\Symfony\\Polyfill\\Php80\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
-        ),
-        'Syde\\Vendor\\Worldline\\Robtimus\\Multipart\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/robtimus/multipart/src/Robtimus/Multipart',
-        ),
-        'Syde\\Vendor\\Worldline\\Psr\\Log\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
-        ),
-        'Syde\\Vendor\\Worldline\\Psr\\Http\\Server\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-server-middleware/src',
-            1 => __DIR__ . '/..' . '/psr/http-server-handler/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Psr\\Http\\Message\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-factory/src',
-            1 => __DIR__ . '/..' . '/psr/http-message/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Psr\\Http\\Client\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/http-client/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Psr\\Container\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/psr/container/src',
-        ),
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk',
-            1 => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/inpsyde/psr-18-wp-http-client/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlineLogging\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-logging/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-webhooks/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-wc-support/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Vaulting\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-vaulting/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Utils\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-utils/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uri/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uninstall/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-twint-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-postfinance-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-ideal-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-documentation/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-config/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-apple-pay-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/inpsyde/transformer/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/inpsyde/modularity/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\' => 
-        array (
-            0 => __DIR__ . '/../..' . '/modules/inpsyde/logger/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Inpsyde\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/inpsyde/wp-context/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Dhii\\Versions\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dhii/versions/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Dhii\\Validator\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dhii/validator/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Dhii\\Validation\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dhii/validation-interface/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Dhii\\Services\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dhii/services/src',
-        ),
-        'Syde\\Vendor\\Worldline\\Dhii\\Package\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/dhii/package-interface/src',
-        ),
-        'OomphInc\\ComposerInstallersExtender\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
-        ),
-        'Inpsyde\\Assets\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/inpsyde/assets/src',
-        ),
-        'Composer\\Installers\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
-        ),
+        'Syde\\Vendor\\Worldline\\Symfony\\Polyfill\\Php80\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/symfony/polyfill-php80',
+            ),
+        'Syde\\Vendor\\Worldline\\Robtimus\\Multipart\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/robtimus/multipart/src/Robtimus/Multipart',
+            ),
+        'Syde\\Vendor\\Worldline\\Psr\\Log\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/psr/log/Psr/Log',
+            ),
+        'Syde\\Vendor\\Worldline\\Psr\\Http\\Server\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/psr/http-server-middleware/src',
+                1 => __DIR__ . '/..' . '/psr/http-server-handler/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Psr\\Http\\Message\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/psr/http-factory/src',
+                1 => __DIR__ . '/..' . '/psr/http-message/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Psr\\Http\\Client\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/psr/http-client/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Psr\\Container\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/psr/container/src',
+            ),
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk',
+                1 => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/inpsyde/psr-18-wp-http-client/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlineLogging\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-logging/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-webhooks/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-wc-support/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Vaulting\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-vaulting/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Utils\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-utils/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uri/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uninstall/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-twint-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-product-type/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-postfinance-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-ideal-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-eps-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-documentation/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-config/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-apple-pay-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/inpsyde/transformer/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/payment-gateway/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/inpsyde/modularity/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\' =>
+            array (
+                0 => __DIR__ . '/../..' . '/modules/inpsyde/logger/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/inpsyde/wp-context/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Dhii\\Versions\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/dhii/versions/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Dhii\\Validator\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/dhii/validator/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Dhii\\Validation\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/dhii/validation-interface/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Dhii\\Services\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/dhii/services/src',
+            ),
+        'Syde\\Vendor\\Worldline\\Dhii\\Package\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/dhii/package-interface/src',
+            ),
+        'OomphInc\\ComposerInstallersExtender\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/oomphinc/composer-installers-extender/src',
+            ),
+        'Inpsyde\\Assets\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/inpsyde/assets/src',
+            ),
+        'Composer\\Installers\\' =>
+            array (
+                0 => __DIR__ . '/..' . '/composer/installers/src/Composer/Installers',
+            ),
     );
 
     public static $classMap = array (
@@ -484,6 +509,8 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\Payment\\ApplePayRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-apple-pay-gateway/src/Payment/ApplePayRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\BankTransferGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src/BankTransferGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\Payment\\BankTransferRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src/Payment/BankTransferRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\CVCOGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src/CVCOGatewayModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\Payment\\CVCORequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src/Payment/CVCORequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\CheckoutModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/CheckoutModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusChecker' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusChecker.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusUpdater' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusUpdater.php',
@@ -504,17 +531,10 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Environment\\WpEnvironmentFactory' => __DIR__ . '/../..' . '/src/Environment/WpEnvironmentFactory.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Environment\\WpEnvironmentFactoryInterface' => __DIR__ . '/../..' . '/src/Environment/WpEnvironmentFactoryInterface.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Environment\\WpEnvironmentInterface' => __DIR__ . '/../..' . '/src/Environment/WpEnvironmentInterface.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\GooglePayGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src/GooglePayGatewayModule.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\Payment\\GooglePayRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src/Payment/GooglePayRequestModifier.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\CVCOGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src/CVCOGatewayModule.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\Payment\\CVCORequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src/Payment/CVCORequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\EpsGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-eps-gateway/src/EpsGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\Payment\\EpsRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-eps-gateway/src/Payment/EpsRequestModifier.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\MealvouchersGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/MealvouchersGatewayModule.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\Payment\\MealvouchersRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/Payment/MealvouchersRequestModifier.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\ProductTypeModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-product-type/src/ProductTypeModule.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\PayPalGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src/PayPalGatewayModule.php',
-        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\Payment\\PayPalRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src/Payment/PayPalRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\GooglePayGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src/GooglePayGatewayModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\Payment\\GooglePayRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-google-pay-gateway/src/Payment/GooglePayRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\Gateway\\TokensPaymentFieldsRenderer' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/Gateway/TokensPaymentFieldsRenderer.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\HostedTokenizationGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/HostedTokenizationGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\Payment\\HostedTokenizationPaymentProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-hosted-tokenization-gateway/src/Payment/HostedTokenizationPaymentProcessor.php',
@@ -528,9 +548,14 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayLaterRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayLaterRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayNowRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayNowRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayWithKlarnaRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayWithKlarnaRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\MealvouchersGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/MealvouchersGatewayModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\Payment\\MealvouchersRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/Payment/MealvouchersRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\PayPalGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src/PayPalGatewayModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\Payment\\PayPalRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src/Payment/PayPalRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\Payment\\PostfinanceRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-postfinance-gateway/src/Payment/PostfinanceRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\Postfinance' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\PostfinanceGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-postfinance-gateway/src/PostfinanceGatewayModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\ProductTypeModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-product-type/src/ProductTypeModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\PayOrderRedirectAction' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/PayOrderRedirectAction.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\ReturnPage' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/ReturnPage.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\ReturnPageModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/ReturnPageModule.php',
@@ -607,6 +632,7 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\OrderInitTrait' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/OrderInitTrait.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\PaymentCaptureValidator' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/PaymentCaptureValidator.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\PaymentMismatchValidator' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/PaymentMismatchValidator.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Payment\\ThreeDSecureFactory' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Payment/ThreeDSecureFactory.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Refund\\RefundProcessor' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Refund/RefundProcessor.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Refund\\RefundValidator' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Refund/RefundValidator.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\Shipping\\AddressIndicatorHandler' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-payment-gateway/src/Shipping/AddressIndicatorHandler.php',
@@ -626,26 +652,40 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\Exception\\NetworkException' => __DIR__ . '/..' . '/inpsyde/psr-18-wp-http-client/src/Exception/NetworkException.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\Exception\\RequestException' => __DIR__ . '/..' . '/inpsyde/psr-18-wp-http-client/src/Exception/RequestException.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\Exception\\WpHttpClientException' => __DIR__ . '/..' . '/inpsyde/psr-18-wp-http-client/src/Exception/WpHttpClientException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ApiException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ApiException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ApiException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/ApiException.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ApiResource' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ApiResource.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\AuthorizationException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/AuthorizationException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\BodyObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/BodyObfuscator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Authentication\\Authenticator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Authentication/Authenticator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Authentication\\V1HmacAuthenticator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Authentication/V1HmacAuthenticator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\AuthorizationException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/AuthorizationException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\BodyHandler' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/BodyHandler.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\CallContext' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/CallContext.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Client' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Client.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/ClientInterface.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\CommunicatorLoggerHelper' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/CommunicatorLoggerHelper.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\Connection' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/Connection.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\ConnectionResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/ConnectionResponse.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\ConnectionResponseInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/ConnectionResponseInterface.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\DefaultConnection' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/DefaultConnection.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\ErrorResponseException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/ErrorResponseException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\HttpHeaderHelper' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/HttpHeaderHelper.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\HttpObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/HttpObfuscator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\InvalidResponseException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/InvalidResponseException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\MetadataProvider' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/MetadataProvider.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\MetadataProviderInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/MetadataProviderInterface.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\MultipartDataObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/MultipartDataObject.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\MultipartFormDataObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/MultipartFormDataObject.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\RequestObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/RequestObject.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\ResponseBuilder' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/ResponseBuilder.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\ResponseClassMap' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/ResponseClassMap.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\ResponseFactory' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/ResponseFactory.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\ResponseHeaderBuilder' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/ResponseHeaderBuilder.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\UuidGenerator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/UuidGenerator.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communicator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communicator.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\CommunicatorConfiguration' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/CommunicatorConfiguration.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\CommunicatorInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/CommunicatorInterface.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Logging\\CommunicatorLogger' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Logging/CommunicatorLogger.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\CommunicatorLoggerHelper' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/CommunicatorLoggerHelper.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Connection' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Connection.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ConnectionResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ConnectionResponse.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DataObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Domain/DataObject.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DeclinedPaymentException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/DeclinedPaymentException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DeclinedPayoutException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/DeclinedPayoutException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DeclinedRefundException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/DeclinedRefundException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Communication\\DefaultConnection' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Communication/DefaultConnection.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DefaultConnectionResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/DefaultConnectionResponse.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DeclinedPaymentException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/DeclinedPaymentException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DeclinedPayoutException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/DeclinedPayoutException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\DeclinedRefundException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/DeclinedRefundException.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\APIError' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/APIError.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\AccountOnFile' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/AccountOnFile.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\AccountOnFileAttribute' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/AccountOnFileAttribute.php',
@@ -660,6 +700,8 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\AirlinePassenger' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/AirlinePassenger.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\AmountBreakdown' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/AmountBreakdown.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\AmountOfMoney' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/AmountOfMoney.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ApplePayLineItem' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ApplePayLineItem.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ApplePayRecurringPaymentRequest' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ApplePayRecurringPaymentRequest.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\BankAccountIban' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/BankAccountIban.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\BrowserData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/BrowserData.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CalculateSurchargeRequest' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/CalculateSurchargeRequest.php',
@@ -720,6 +762,7 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CustomerOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/CustomerOutput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CustomerPaymentActivity' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/CustomerPaymentActivity.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CustomerToken' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/CustomerToken.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\DataObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Domain/DataObject.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\DccCardSource' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/DccCardSource.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\DccProposal' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/DccProposal.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\DecryptedPaymentData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/DecryptedPaymentData.php',
@@ -729,6 +772,7 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ErrorResponse.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ExternalCardholderAuthenticationData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ExternalCardholderAuthenticationData.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ExternalTokenLinked' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ExternalTokenLinked.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\Feedbacks' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/Feedbacks.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\FixedListValidator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/FixedListValidator.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\FraudFields' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/FraudFields.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\FraudResults' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/FraudResults.php',
@@ -768,15 +812,19 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\MobilePaymentMethodHostedCheckoutSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentMethodHostedCheckoutSpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\MobilePaymentMethodSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentMethodSpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\MobilePaymentMethodSpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentMethodSpecificOutput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\MobilePaymentProduct302SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentProduct302SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\MobilePaymentProduct320SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobilePaymentProduct320SpecificInput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\MobileThreeDSecureChallengeParameters' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MobileThreeDSecureChallengeParameters.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\MultiplePaymentInformation' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/MultiplePaymentInformation.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OmnichannelPayoutSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OmnichannelPayoutSpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OperationOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OperationOutput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OperationPaymentReferences' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OperationPaymentReferences.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\Order' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/Order.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OrderLineDetails' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OrderLineDetails.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OrderReferences' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OrderReferences.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OrderStatusOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OrderStatusOutput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OrderTypeInformation' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OrderTypeInformation.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\OtherDetails' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/OtherDetails.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentAccountOnFile' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentAccountOnFile.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentContext' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentContext.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentCreationOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentCreationOutput.php',
@@ -792,6 +840,7 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProduct130SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct130SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProduct130SpecificThreeDSecure' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct130SpecificThreeDSecure.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3012' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3012.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3012SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3012SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProduct302SpecificData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct302SpecificData.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3203SpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3203SpecificOutput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProduct3208SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/PaymentProduct3208SpecificInput.php',
@@ -838,16 +887,22 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ProtectionEligibility' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ProtectionEligibility.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RangeValidator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RangeValidator.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RateDetails' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RateDetails.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ReattemptInstructions' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ReattemptInstructions.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ReattemptInstructionsConditions' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ReattemptInstructionsConditions.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectData.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\V1HmacAuthenticator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Authentication/V1HmacAuthenticator.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentMethodSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentMethodSpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentMethodSpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentMethodSpecificOutput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct3203SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct3203SpecificInput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct3204SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct3204SpecificInput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct3302SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct3302SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct3306SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct3306SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5001SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5001SpecificInput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5300SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5300SpecificInput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5402SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5402SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5403SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5403SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5406SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5406SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5408SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5408SpecificInput.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct5410SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct5410SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct809SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct809SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectPaymentProduct840SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectPaymentProduct840SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RedirectionData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RedirectionData.php',
@@ -863,6 +918,7 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RefundResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RefundResponse.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RefundsResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RefundsResponse.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RegularExpressionValidator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/RegularExpressionValidator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SendTestRequest' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SendTestRequest.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SepaDirectDebitPaymentMethodSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SepaDirectDebitPaymentMethodSpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SepaDirectDebitPaymentMethodSpecificInputBase' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SepaDirectDebitPaymentMethodSpecificInputBase.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SepaDirectDebitPaymentMethodSpecificOutput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SepaDirectDebitPaymentMethodSpecificOutput.php',
@@ -875,6 +931,7 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ShoppingCart' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ShoppingCart.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ShoppingCartExtension' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Domain/ShoppingCartExtension.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ShowFormData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ShowFormData.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ShowInstructionsData' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ShowInstructionsData.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SubsequentCardPaymentMethodSpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SubsequentCardPaymentMethodSpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SubsequentPaymentProduct5001SpecificInput' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SubsequentPaymentProduct5001SpecificInput.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SubsequentPaymentRequest' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/SubsequentPaymentRequest.php',
@@ -897,13 +954,24 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\TokenEWallet' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/TokenEWallet.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\TokenResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/TokenResponse.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\Transaction' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/Transaction.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\UploadableFile' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Domain/UploadableFile.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ValidateCredentialsRequest' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ValidateCredentialsRequest.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ValidateCredentialsResponse' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ValidateCredentialsResponse.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ValueMappingElement' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Domain/ValueMappingElement.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\WebhooksEvent' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Domain/WebhooksEvent.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\HeaderObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/HeaderObfuscator.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\HttpHeaderHelper' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/HttpHeaderHelper.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\HttpObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/HttpObfuscator.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\IdempotenceException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/IdempotenceException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\InvalidResponseException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/InvalidResponseException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ExceptionFactory' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/ExceptionFactory.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\IdempotenceException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/IdempotenceException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\JSON\\JSONUtil' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/JSON/JSONUtil.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Logging\\BodyObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Logging/BodyObfuscator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Logging\\CommunicatorLogger' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Logging/CommunicatorLogger.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Logging\\HeaderObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Logging/HeaderObfuscator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Logging\\ResourceLogger' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Logging/ResourceLogger.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Logging\\SplFileObjectLogger' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Logging/SplFileObjectLogger.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Logging\\ValueObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Logging/ValueObfuscator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Captures\\CapturesClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Captures/CapturesClient.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Captures\\CapturesClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Captures/CapturesClientInterface.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Complete\\CompleteClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Complete/CompleteClient.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Complete\\CompleteClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Complete/CompleteClientInterface.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\HostedCheckout\\HostedCheckoutClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/HostedCheckout/HostedCheckoutClient.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\HostedCheckout\\HostedCheckoutClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/HostedCheckout/HostedCheckoutClientInterface.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\HostedTokenization\\HostedTokenizationClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/HostedTokenization/HostedTokenizationClient.php',
@@ -918,6 +986,9 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Payments\\PaymentsClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Payments/PaymentsClientInterface.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Payouts\\PayoutsClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Payouts/PayoutsClient.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Payouts\\PayoutsClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Payouts/PayoutsClientInterface.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\PrivacyPolicy\\GetPrivacyPolicyParams' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/PrivacyPolicy/GetPrivacyPolicyParams.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\PrivacyPolicy\\PrivacyPolicyClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/PrivacyPolicy/PrivacyPolicyClient.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\PrivacyPolicy\\PrivacyPolicyClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/PrivacyPolicy/PrivacyPolicyClientInterface.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\ProductGroups\\GetProductGroupParams' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/ProductGroups/GetProductGroupParams.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\ProductGroups\\GetProductGroupsParams' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/ProductGroups/GetProductGroupsParams.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\ProductGroups\\ProductGroupsClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/ProductGroups/ProductGroupsClient.php',
@@ -928,38 +999,27 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Products\\GetProductDirectoryParams' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Products/GetProductDirectoryParams.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Products\\ProductsClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Products/ProductsClient.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Products\\ProductsClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Products/ProductsClientInterface.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Services\\GetPrivacyPolicyParams' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Services/GetPrivacyPolicyParams.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Refunds\\RefundsClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Refunds/RefundsClient.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Refunds\\RefundsClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Refunds/RefundsClientInterface.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Services\\ServicesClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Services/ServicesClient.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Services\\ServicesClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Services/ServicesClientInterface.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Sessions\\SessionsClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Sessions/SessionsClient.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Sessions\\SessionsClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Sessions/SessionsClientInterface.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Tokens\\TokensClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Tokens/TokensClient.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Tokens\\TokensClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Tokens/TokensClientInterface.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\MultipartDataObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/MultipartDataObject.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\MultipartFormDataObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/MultipartFormDataObject.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\PaymentPlatformException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/PaymentPlatformException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Webhooks\\WebhooksClient' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Webhooks/WebhooksClient.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Merchant\\Webhooks\\WebhooksClientInterface' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/Merchant/Webhooks/WebhooksClientInterface.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\PlatformException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/PlatformException.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ProxyConfiguration' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ProxyConfiguration.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ReferenceException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ReferenceException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\RequestHeaderGenerator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/RequestHeaderGenerator.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\RequestObject' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/RequestObject.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResourceLogger' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ResourceLogger.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResponseBuilder' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ResponseBuilder.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResponseClassMap' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ResponseClassMap.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResponseException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ResponseException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResponseExceptionFactory' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ResponseExceptionFactory.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResponseFactory' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ResponseFactory.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResponseHeaderBuilder' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ResponseHeaderBuilder.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\SensitiveValueObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/SensitiveValueObfuscator.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\SplFileObjectLogger' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/SplFileObjectLogger.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\UploadableFile' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/UploadableFile.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\UuidGenerator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/UuidGenerator.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ValidationException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ValidationException.php',
-        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ValueObfuscator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/ValueObfuscator.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ReferenceException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/ReferenceException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ResponseException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/ResponseException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\ValidationException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/src/OnlinePayments/Sdk/ValidationException.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Webhooks\\ApiVersionMismatchException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Webhooks/ApiVersionMismatchException.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Webhooks\\InMemorySecretKeyStore' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Webhooks/InMemorySecretKeyStore.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Webhooks\\SecretKeyNotAvailableException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Webhooks/SecretKeyNotAvailableException.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Webhooks\\SecretKeyStore' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Webhooks/SecretKeyStore.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Webhooks\\SignatureValidationException' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Webhooks/SignatureValidationException.php',
+        'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Webhooks\\SignatureValidator' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Webhooks/SignatureValidator.php',
         'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Webhooks\\WebhooksHelper' => __DIR__ . '/..' . '/wl-online-payments-direct/sdk-php/lib/OnlinePayments/Sdk/Webhooks/WebhooksHelper.php',
         'Syde\\Vendor\\Worldline\\PhpToken' => __DIR__ . '/..' . '/symfony/polyfill-php80/Resources/stubs/PhpToken.php',
         'Syde\\Vendor\\Worldline\\Psr\\Container\\ContainerExceptionInterface' => __DIR__ . '/..' . '/psr/container/src/ContainerExceptionInterface.php',
@@ -1010,9 +1070,9 @@ class ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit71d06093138bf5d68fc0dfe3158e4388::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitedWorldlineForWoocommerce457efa3::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitedWorldlineForWoocommerce457efa3::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitedWorldlineForWoocommerce457efa3::$classMap;
 
         }, null, ClassLoader::class);
     }
