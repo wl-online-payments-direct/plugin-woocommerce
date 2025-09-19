@@ -9,16 +9,16 @@ class PlentymarketsInstaller extends \Composer\Installers\BaseInstaller
     /**
      * Remove hyphen, "plugin" and format to camelcase
      */
-    public function inflectPackageVars(array $vars): array
+    public function inflectPackageVars(array $vars) : array
     {
-        $nameBits = explode("-", $vars['name']);
+        $nameBits = \explode("-", $vars['name']);
         foreach ($nameBits as $key => $name) {
-            $nameBits[$key] = ucfirst($name);
-            if (strcasecmp($name, "Plugin") == 0) {
+            $nameBits[$key] = \ucfirst($name);
+            if (\strcasecmp($name, "Plugin") == 0) {
                 unset($nameBits[$key]);
             }
         }
-        $vars['name'] = implode('', $nameBits);
+        $vars['name'] = \implode('', $nameBits);
         return $vars;
     }
 }

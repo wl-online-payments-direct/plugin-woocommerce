@@ -9,9 +9,9 @@ class OntoWikiInstaller extends \Composer\Installers\BaseInstaller
     /**
      * Format package name to lower case and remove ".ontowiki" suffix
      */
-    public function inflectPackageVars(array $vars): array
+    public function inflectPackageVars(array $vars) : array
     {
-        $vars['name'] = strtolower($vars['name']);
+        $vars['name'] = \strtolower($vars['name']);
         $vars['name'] = $this->pregReplace('/.ontowiki$/', '', $vars['name']);
         $vars['name'] = $this->pregReplace('/-theme$/', '', $vars['name']);
         $vars['name'] = $this->pregReplace('/-translation$/', '', $vars['name']);

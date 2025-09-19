@@ -13,7 +13,7 @@ class TastyIgniterInstaller extends \Composer\Installers\BaseInstaller
      * Strip vendor name of characters that is not alphanumeric or an underscore
      *
      */
-    public function inflectPackageVars(array $vars): array
+    public function inflectPackageVars(array $vars) : array
     {
         $extra = $this->package->getExtra();
         if ($vars['type'] === 'tastyigniter-module') {
@@ -31,7 +31,7 @@ class TastyIgniterInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, string> $vars
      * @return array<string, string>
      */
-    protected function inflectModuleVars(array $vars): array
+    protected function inflectModuleVars(array $vars) : array
     {
         $vars['name'] = $this->pregReplace('/^ti-module-/', '', $vars['name']);
         return $vars;
@@ -41,10 +41,10 @@ class TastyIgniterInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, mixed> $extra
      * @return array<string, string>
      */
-    protected function inflectExtensionVars(array $vars, array $extra): array
+    protected function inflectExtensionVars(array $vars, array $extra) : array
     {
         if (!empty($extra['tastyigniter-extension']['code'])) {
-            $parts = explode('.', $extra['tastyigniter-extension']['code']);
+            $parts = \explode('.', $extra['tastyigniter-extension']['code']);
             $vars['vendor'] = (string) $parts[0];
             $vars['name'] = (string) ($parts[1] ?? '');
         }
@@ -57,7 +57,7 @@ class TastyIgniterInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, mixed> $extra
      * @return array<string, string>
      */
-    protected function inflectThemeVars(array $vars, array $extra): array
+    protected function inflectThemeVars(array $vars, array $extra) : array
     {
         if (!empty($extra['tastyigniter-theme']['code'])) {
             $vars['name'] = $extra['tastyigniter-theme']['code'];
