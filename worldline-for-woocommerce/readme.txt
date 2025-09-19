@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.4.1
+Stable tag: 2.4.0
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -85,9 +85,6 @@ If you encounter issues with the Worldline buttons not appearing after an update
 1. tbc by Worldline
 
 == Changelog ==
-
-= 2.4.1 - 2025-09-17 =
-* Fix fatal error issue
 
 = 2.4.0 - 2025-08-14 =
 * Add PayPal payment method
