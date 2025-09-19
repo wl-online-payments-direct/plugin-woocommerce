@@ -9,9 +9,9 @@ class RoundcubeInstaller extends \Composer\Installers\BaseInstaller
     /**
      * Lowercase name and changes the name to a underscores
      */
-    public function inflectPackageVars(array $vars): array
+    public function inflectPackageVars(array $vars) : array
     {
-        $vars['name'] = strtolower(str_replace('-', '_', $vars['name']));
+        $vars['name'] = \strtolower(\str_replace('-', '_', $vars['name']));
         return $vars;
     }
 }

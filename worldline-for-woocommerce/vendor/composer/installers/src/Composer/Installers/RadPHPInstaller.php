@@ -9,15 +9,15 @@ class RadPHPInstaller extends \Composer\Installers\BaseInstaller
     /**
      * Format package name to CamelCase
      */
-    public function inflectPackageVars(array $vars): array
+    public function inflectPackageVars(array $vars) : array
     {
-        $nameParts = explode('/', $vars['name']);
+        $nameParts = \explode('/', $vars['name']);
         foreach ($nameParts as &$value) {
-            $value = strtolower($this->pregReplace('/(?<=\w)([A-Z])/', 'Syde\Vendor\Worldline\_\1', $value));
-            $value = str_replace(array('-', '_'), ' ', $value);
-            $value = str_replace(' ', '', ucwords($value));
+            $value = \strtolower($this->pregReplace('/(?<=\\w)([A-Z])/', 'Syde\\Vendor\\Worldline\\_\\1', $value));
+            $value = \str_replace(array('-', '_'), ' ', $value);
+            $value = \str_replace(' ', '', \ucwords($value));
         }
-        $vars['name'] = implode('/', $nameParts);
+        $vars['name'] = \implode('/', $nameParts);
         return $vars;
     }
 }

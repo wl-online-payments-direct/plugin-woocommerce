@@ -13,7 +13,7 @@ class WinterInstaller extends \Composer\Installers\BaseInstaller
      *
      * For package type winter-theme, cut off a trailing '-theme' if present.
      */
-    public function inflectPackageVars(array $vars): array
+    public function inflectPackageVars(array $vars) : array
     {
         if ($vars['type'] === 'winter-module') {
             return $this->inflectModuleVars($vars);
@@ -30,7 +30,7 @@ class WinterInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, string> $vars
      * @return array<string, string>
      */
-    protected function inflectModuleVars(array $vars): array
+    protected function inflectModuleVars(array $vars) : array
     {
         $vars['name'] = $this->pregReplace('/^wn-|-module$/', '', $vars['name']);
         return $vars;
@@ -39,7 +39,7 @@ class WinterInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, string> $vars
      * @return array<string, string>
      */
-    protected function inflectPluginVars(array $vars): array
+    protected function inflectPluginVars(array $vars) : array
     {
         $vars['name'] = $this->pregReplace('/^wn-|-plugin$/', '', $vars['name']);
         $vars['vendor'] = $this->pregReplace('/[^a-z0-9_]/i', '', $vars['vendor']);
@@ -49,7 +49,7 @@ class WinterInstaller extends \Composer\Installers\BaseInstaller
      * @param array<string, string> $vars
      * @return array<string, string>
      */
-    protected function inflectThemeVars(array $vars): array
+    protected function inflectThemeVars(array $vars) : array
     {
         $vars['name'] = $this->pregReplace('/^wn-|-theme$/', '', $vars['name']);
         return $vars;
