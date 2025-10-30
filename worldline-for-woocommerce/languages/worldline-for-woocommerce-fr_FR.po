@@ -1111,5 +1111,5 @@ msgstr "Passerelle de paiement Worldline pour WooCommerce."
 
 #. Author URI of the plugin
 #: worldline-for-woocommerce.php
-msgid "https://syde.com"
-msgstr "https://syde.com"
+msgid "https://worldline.com"
+msgstr "https://worldline.com"

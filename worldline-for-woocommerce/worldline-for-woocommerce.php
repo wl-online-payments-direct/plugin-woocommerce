@@ -11,7 +11,7 @@
  * WC requires at least: 8.6
  * WC tested up to: 9.5
  * Author:      Worldline
- * Author URI:  https://syde.com
+ * Author URI:  https://worldline.com
  * Text Domain: worldline-for-woocommerce
  * Domain Path: /languages
  */
