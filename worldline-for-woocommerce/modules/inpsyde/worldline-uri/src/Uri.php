@@ -18,8 +18,8 @@ class Uri implements UriInterface
 {
     use RegexTrait;
     protected const SCHEMES = ['http' => 80, 'https' => 443, 'ftp' => 21, 'ssh' => 22, 'mysql' => 3306, 'smtp' => 25];
-    protected const CHAR_UNRESERVED = 'a-zA-Z0-9_\-\.~';
-    protected const CHAR_SUB_DELIMS = '!\$&\'\(\)\*\+,;=';
+    protected const CHAR_UNRESERVED = 'a-zA-Z0-9_\\-\\.~';
+    protected const CHAR_SUB_DELIMS = '!\\$&\'\\(\\)\\*\\+,;=';
     /** @var int */
     protected const MAX_PORT = 65535;
     /** @var int */
@@ -46,24 +46,24 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function __toString(): string
+    public function __toString() : string
     {
         return $this->createUriString((string) $this->scheme, $this->getAuthority(), (string) $this->path, (string) $this->query, (string) $this->fragment);
     }
     /**
      * @inheritDoc
      */
-    public function getScheme(): string
+    public function getScheme() : string
     {
         return (string) $this->scheme;
     }
     /**
      * @inheritDoc
      */
-    public function getAuthority(): string
+    public function getAuthority() : string
     {
         $host = $this->host;
-        if (is_null($host)) {
+        if (\is_null($host)) {
             return '';
         }
         $authority = $host;
@@ -72,7 +72,7 @@ class Uri implements UriInterface
             $authority = "{$userInfo}@{$authority}";
         }
         $port = $this->getPort();
-        if (!is_null($port) && !$this->isStandardPort((string) $this->scheme, $port)) {
+        if (!\is_null($port) && !$this->isStandardPort((string) $this->scheme, $port)) {
             $authority = "{$authority}:{$port}";
         }
         return $authority;
@@ -80,14 +80,14 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function getUserInfo(): string
+    public function getUserInfo() : string
     {
         $userInfo = '';
-        if (is_null($this->user)) {
+        if (\is_null($this->user)) {
             return $userInfo;
         }
         $userInfo = $this->user;
-        if (!is_null($this->password)) {
+        if (!\is_null($this->password)) {
             $userInfo .= ":{$this->password}";
         }
         return $userInfo;
@@ -95,52 +95,52 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function getHost(): string
+    public function getHost() : string
     {
         return (string) $this->host;
     }
     /**
      * @inheritDoc
      */
-    public function getPort(): ?int
+    public function getPort() : ?int
     {
         return $this->port;
     }
     /**
      * @inheritDoc
      */
-    public function getPath(): string
+    public function getPath() : string
     {
         return (string) $this->path;
     }
     /**
      * @inheritDoc
      */
-    public function getQuery(): string
+    public function getQuery() : string
     {
         return (string) $this->query;
     }
     /**
      * @inheritDoc
      */
-    public function getFragment(): string
+    public function getFragment() : string
     {
         return (string) $this->fragment;
     }
     /**
      * @inheritDoc
      */
-    public function withScheme($scheme): self
+    public function withScheme($scheme) : self
     {
         /**
          * @psalm-suppress DocblockTypeContradiction
          * @psalm-suppress TypeDoesNotContainType
          */
-        if (!is_string($scheme)) {
+        if (!\is_string($scheme)) {
             throw new InvalidArgumentException('Scheme must be a string');
         }
-        $scheme = trim($scheme);
-        $scheme = strtolower($scheme);
+        $scheme = \trim($scheme);
+        $scheme = \strtolower($scheme);
         $new = clone $this;
         $new->scheme = $scheme;
         return $new;
@@ -148,7 +148,7 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function withUserInfo($user, $password = null): self
+    public function withUserInfo($user, $password = null) : self
     {
         $user = $user === '' ? null : $user;
         $new = clone $this;
@@ -159,10 +159,10 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function withHost($host): self
+    public function withHost($host) : self
     {
-        $host = trim($host);
-        $host = strtolower($host);
+        $host = \trim($host);
+        $host = \strtolower($host);
         $new = clone $this;
         $new->host = $host;
         return $new;
@@ -170,7 +170,7 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function withPort($port): self
+    public function withPort($port) : self
     {
         $port = $this->normalizePort($port);
         $new = clone $this;
@@ -180,7 +180,7 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function withPath($path): self
+    public function withPath($path) : self
     {
         $path = $this->normalizePath($path);
         $new = clone $this;
@@ -190,7 +190,7 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function withQuery($query): self
+    public function withQuery($query) : self
     {
         $query = $this->normalizeQueryAndFragment($query);
         $new = clone $this;
@@ -200,7 +200,7 @@ class Uri implements UriInterface
     /**
      * @inheritDoc
      */
-    public function withFragment($fragment): self
+    public function withFragment($fragment) : self
     {
         $fragment = $this->normalizeQueryAndFragment($fragment);
         $new = clone $this;
@@ -212,7 +212,7 @@ class Uri implements UriInterface
     /**
      * Create a URI string from its various parts.
      */
-    protected function createUriString(string $scheme, string $authority, string $path, string $query, string $fragment): string
+    protected function createUriString(string $scheme, string $authority, string $path, string $query, string $fragment) : string
     {
         $uri = '';
         if (!empty($scheme)) {
@@ -222,8 +222,8 @@ class Uri implements UriInterface
             $uri .= "//{$authority}";
         }
         if (!empty($path)) {
-            $char0 = substr($path, 0, 1) !== \false ? substr($path, 0, 1) : null;
-            $char1 = substr($path, 1, 1) !== \false ? substr($path, 1, 1) : null;
+            $char0 = \substr($path, 0, 1) !== \false ? \substr($path, 0, 1) : null;
+            $char1 = \substr($path, 1, 1) !== \false ? \substr($path, 1, 1) : null;
             if ($char0 !== '/') {
                 if (!empty($authority)) {
                     // If the path is rootless and an authority is present, the path MUST be prefixed by "/"
@@ -233,7 +233,7 @@ class Uri implements UriInterface
                 if (empty($authority)) {
                     // If the path is starting with more than one "/" and no authority is present, the
                     // starting slashes MUST be reduced to one.
-                    $path = ltrim($path, '/');
+                    $path = \ltrim($path, '/');
                     $path = "/{$path}";
                 }
             }
@@ -260,7 +260,7 @@ class Uri implements UriInterface
      *
      * @throws RuntimeException If problem determining.
      */
-    protected function isStandardPort(string $scheme, int $port): bool
+    protected function isStandardPort(string $scheme, int $port) : bool
     {
         return isset(self::SCHEMES[$scheme]) && $port === self::SCHEMES[$scheme];
     }
@@ -271,7 +271,7 @@ class Uri implements UriInterface
      *
      * @return int|null The port.
      */
-    private function normalizePort($port): ?int
+    private function normalizePort($port) : ?int
     {
         if ($port === null) {
             return $port;
@@ -280,7 +280,7 @@ class Uri implements UriInterface
         $minPort = static::MIN_PORT;
         $port = (int) $port;
         if ($port < static::MIN_PORT || $port > $maxPort) {
-            throw new InvalidArgumentException(sprintf('Invalid port "%1$d". Must be between %2$d and %3$d', $port, $minPort, $maxPort));
+            throw new InvalidArgumentException(\sprintf('Invalid port "%1$d". Must be between %2$d and %3$d', $port, $minPort, $maxPort));
         }
         return $port;
     }
@@ -293,17 +293,17 @@ class Uri implements UriInterface
      * @throws InvalidArgumentException If string could not be normalized.
      * @throws RuntimeException If problem normalizing.
      */
-    protected function normalizePath($path): string
+    protected function normalizePath($path) : string
     {
         if (!\is_string($path)) {
             throw new InvalidArgumentException('Path must be a string');
         }
-        $path = trim($path);
-        return $this->pregReplaceCallback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\/]++|%(?![A-Fa-f0-9]{2}))/', static function (array $match): string {
+        $path = \trim($path);
+        return $this->pregReplaceCallback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\\/]++|%(?![A-Fa-f0-9]{2}))/', static function (array $match) : string {
             if (!isset($match[0])) {
                 throw new UnexpectedValueException('Replacement callback received no matches');
             }
-            return rawurlencode((string) $match[0]);
+            return \rawurlencode((string) $match[0]);
         }, $path);
     }
     /**
@@ -315,17 +315,17 @@ class Uri implements UriInterface
      * @throws InvalidArgumentException If string could not be normalized.
      * @throws RuntimeException If problem normalizing.
      */
-    protected function normalizeQueryAndFragment($str): string
+    protected function normalizeQueryAndFragment($str) : string
     {
         if (!\is_string($str)) {
             throw new InvalidArgumentException('Query and fragment must be a string');
         }
-        $str = trim($str);
-        return $this->pregReplaceCallback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\/\?]++|%(?![A-Fa-f0-9]{2}))/', static function (array $match): string {
+        $str = \trim($str);
+        return $this->pregReplaceCallback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\\/\\?]++|%(?![A-Fa-f0-9]{2}))/', static function (array $match) : string {
             if (!isset($match[0])) {
                 throw new UnexpectedValueException('Replacement callback received no matches');
             }
-            return rawurlencode((string) $match[0]);
+            return \rawurlencode((string) $match[0]);
         }, $str);
     }
 }

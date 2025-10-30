@@ -61,26 +61,26 @@ abstract class Multipart
      */
     private function generateBoundary()
     {
-        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xfff) | 0x4000, mt_rand(0, 0x3fff) | 0x8000, mt_rand(0, 0xffff), mt_rand(0, 0xffff), mt_rand(0, 0xffff));
+        return \sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xfff) | 0x4000, \mt_rand(0, 0x3fff) | 0x8000, \mt_rand(0, 0xffff), \mt_rand(0, 0xffff), \mt_rand(0, 0xffff));
     }
     /**
      * @return string the multipart boundary.
      */
-    final public function getBoundary()
+    public final function getBoundary()
     {
         return $this->boundary;
     }
     /**
      * @return string the multipart's content type.
      */
-    final public function getContentType()
+    public final function getContentType()
     {
         return $this->contentType;
     }
     /**
      * @return int the multipart's content length, or -1 if not known.
      */
-    final public function getContentLength()
+    public final function getContentLength()
     {
         return $this->contentLength;
     }
@@ -89,7 +89,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function startPart()
+    protected final function startPart()
     {
         $this->add('--' . $this->boundary . "\r\n");
     }
@@ -102,7 +102,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function addContentDisposition($type, $name = '', $filename = '')
+    protected final function addContentDisposition($type, $name = '', $filename = '')
     {
         $header = 'Content-Disposition: ' . $type;
         if ($name !== '') {
@@ -120,7 +120,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function addContentID($contentID)
+    protected final function addContentID($contentID)
     {
         $this->add('Content-ID: ' . $contentID . "\r\n");
     }
@@ -131,7 +131,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function addContentType($contentType)
+    protected final function addContentType($contentType)
     {
         $this->add('Content-Type: ' . $contentType . "\r\n");
     }
@@ -142,7 +142,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function addContentTransferEncoding($contentTransferEncoding)
+    protected final function addContentTransferEncoding($contentTransferEncoding)
     {
         $this->add('Content-Transfer-Encoding: ' . $contentTransferEncoding . "\r\n");
     }
@@ -151,7 +151,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function endHeaders()
+    protected final function endHeaders()
     {
         $this->add("\r\n");
     }
@@ -166,7 +166,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function addContent($content, $length = -1)
+    protected final function addContent($content, $length = -1)
     {
         $this->add($content, $length);
     }
@@ -177,7 +177,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function addNestedMultipart(Multipart $multipart)
+    protected final function addNestedMultipart(Multipart $multipart)
     {
         $this->startPart();
         $this->addContentType($multipart->getContentType());
@@ -190,7 +190,7 @@ abstract class Multipart
      *
      * @return void
      */
-    final protected function endPart()
+    protected final function endPart()
     {
         $this->add("\r\n");
     }
@@ -199,7 +199,7 @@ abstract class Multipart
      *
      * @return Multipart this object.
      */
-    final public function finish()
+    public final function finish()
     {
         $this->add('--' . $this->boundary . "--\r\n");
         $this->finished = \true;
@@ -208,7 +208,7 @@ abstract class Multipart
     /**
      * @return boolean whether or not the multipart is finished.
      */
-    final public function isFinished()
+    public final function isFinished()
     {
         return $this->finished;
     }
@@ -228,14 +228,14 @@ abstract class Multipart
         if ($this->finished) {
             throw new \LogicException('can\'t add to a finished multipart object');
         }
-        if (is_string($part)) {
-            $length = strlen($part);
+        if (\is_string($part)) {
+            $length = \strlen($part);
             $this->parts[] = $part;
             $this->partCount++;
             if ($this->contentLength !== -1) {
                 $this->contentLength += $length;
             }
-        } elseif (is_resource($part) || is_callable($part)) {
+        } elseif (\is_resource($part) || \is_callable($part)) {
             $this->parts[] = $part;
             $this->partCount++;
             if ($length === -1) {
@@ -244,7 +244,7 @@ abstract class Multipart
                 $this->contentLength += $length;
             }
         } else {
-            throw new \InvalidArgumentException('non-supported part type: ' . gettype($part));
+            throw new \InvalidArgumentException('non-supported part type: ' . \gettype($part));
         }
     }
     /**
@@ -255,7 +255,7 @@ abstract class Multipart
      * @return string a portion of this multipart object not larger than the given length,
      *                or an empty string if nothing remains to be read.
      */
-    final public function read($length)
+    public final function read($length)
     {
         if (!$this->finished) {
             throw new \LogicException('can\'t read from a non-finished multipart object');
@@ -297,22 +297,22 @@ abstract class Multipart
     private function doReadFromPart($length)
     {
         $part = $this->parts[$this->index];
-        if (is_string($part)) {
-            $partLength = strlen($part);
-            $length = min($length, $partLength - $this->partIndex);
-            $result = $length === 0 ? '' : substr($part, $this->partIndex, $length);
+        if (\is_string($part)) {
+            $partLength = \strlen($part);
+            $length = \min($length, $partLength - $this->partIndex);
+            $result = $length === 0 ? '' : \substr($part, $this->partIndex, $length);
             $this->partIndex += $length;
             return $result;
-        } elseif (is_resource($part)) {
-            $result = @fread($part, $length);
+        } elseif (\is_resource($part)) {
+            $result = @\fread($part, $length);
             if ($result === \false) {
-                throw new \ErrorException(error_get_last()['message']);
+                throw new \ErrorException(\error_get_last()['message']);
             }
             return $result;
-        } elseif (is_callable($part)) {
-            return call_user_func($part, $length);
+        } elseif (\is_callable($part)) {
+            return \call_user_func($part, $length);
         } else {
-            throw new \UnexpectedValueException('non-supported part type: ' . gettype($part));
+            throw new \UnexpectedValueException('non-supported part type: ' . \gettype($part));
         }
     }
     /**
@@ -325,7 +325,7 @@ abstract class Multipart
      * @return string a portion of this multipart object not larger than the given length,
      *                or an empty string if nothing remains to be read.
      */
-    final public function curl_read($ch, $fd, $length)
+    public final function curl_read($ch, $fd, $length)
     {
         return $this->read($length);
     }
@@ -339,7 +339,7 @@ abstract class Multipart
      *
      * @return string The content of this multipart object.
      */
-    final public function buffer($bufferSize = 8192)
+    public final function buffer($bufferSize = 8192)
     {
         if (!$this->finished) {
             throw new \LogicException('can\'t buffer a non-finished multipart object');
@@ -365,7 +365,7 @@ abstract class Multipart
             }
             $this->parts = [$content];
             $this->partCount = 1;
-            $this->contentLength = strlen($content);
+            $this->contentLength = \strlen($content);
         }
         $this->index = 0;
         $this->partIndex = 0;
@@ -374,9 +374,9 @@ abstract class Multipart
     /**
      * @return boolean whether or not the content is currently buffered.
      */
-    final public function isBuffered()
+    public final function isBuffered()
     {
-        return $this->partCount === 1 && is_string($this->parts[0]) && $this->contentLength === strlen($this->parts[0]);
+        return $this->partCount === 1 && \is_string($this->parts[0]) && $this->contentLength === \strlen($this->parts[0]);
     }
     /**
      * Returns this multipart object as a string. It will buffer the object to achieve this.
@@ -385,7 +385,7 @@ abstract class Multipart
      *
      * @return string this multipart object as a string
      */
-    final public function __toString()
+    public final function __toString()
     {
         return $this->doBuffer();
     }

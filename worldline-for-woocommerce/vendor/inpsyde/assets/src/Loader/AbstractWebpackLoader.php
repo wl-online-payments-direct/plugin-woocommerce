@@ -21,16 +21,13 @@ use Inpsyde\Assets\Style;
 abstract class AbstractWebpackLoader implements \Inpsyde\Assets\Loader\LoaderInterface
 {
     use ConfigureAutodiscoverVersionTrait;
-    /**
-     * @var string
-     */
-    protected $directoryUrl = '';
+    protected string $directoryUrl = '';
     /**
      * @param string $directoryUrl optional directory URL which will be used for the Asset
      *
      * @return static
      */
-    public function withDirectoryUrl(string $directoryUrl): \Inpsyde\Assets\Loader\AbstractWebpackLoader
+    public function withDirectoryUrl(string $directoryUrl) : \Inpsyde\Assets\Loader\AbstractWebpackLoader
     {
         $this->directoryUrl = $directoryUrl;
         return $this;
@@ -41,7 +38,7 @@ abstract class AbstractWebpackLoader implements \Inpsyde\Assets\Loader\LoaderInt
      *
      * @return array
      */
-    abstract protected function parseData(array $data, string $resource): array;
+    protected abstract function parseData(array $data, string $resource) : array;
     /**
      * @param mixed $resource
      *
@@ -50,17 +47,17 @@ abstract class AbstractWebpackLoader implements \Inpsyde\Assets\Loader\LoaderInt
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration
      * @psalm-suppress MixedArgument
      */
-    public function load($resource): array
+    public function load($resource) : array
     {
-        if (!is_string($resource) || !is_readable($resource)) {
-            throw new FileNotFoundException(sprintf('The given file "%s" does not exists or is not readable.', (string) $resource));
+        if (!\is_string($resource) || !\is_readable($resource)) {
+            throw new FileNotFoundException(\sprintf('The given file "%s" does not exists or is not readable.', (string) $resource));
         }
-        $data = @file_get_contents($resource) ?: '';
+        $data = @\file_get_contents($resource) ?: '';
         // phpcs:ignore
-        $data = json_decode($data, \true);
-        $errorCode = json_last_error();
+        $data = \json_decode($data, \true);
+        $errorCode = \json_last_error();
         if (0 < $errorCode) {
-            throw new InvalidResourceException(sprintf('Error parsing JSON - %s', $this->getJSONErrorMessage($errorCode)));
+            throw new InvalidResourceException(\sprintf('Error parsing JSON - %s', $this->getJSONErrorMessage($errorCode)));
         }
         return $this->parseData($data, $resource);
     }
@@ -71,7 +68,7 @@ abstract class AbstractWebpackLoader implements \Inpsyde\Assets\Loader\LoaderInt
      *
      * @return string Message string
      */
-    private function getJSONErrorMessage(int $errorCode): string
+    private function getJSONErrorMessage(int $errorCode) : string
     {
         switch ($errorCode) {
             case \JSON_ERROR_DEPTH:
@@ -95,14 +92,14 @@ abstract class AbstractWebpackLoader implements \Inpsyde\Assets\Loader\LoaderInt
      *
      * @return Asset|null
      */
-    protected function buildAsset(string $handle, string $fileUrl, string $filePath): ?Asset
+    protected function buildAsset(string $handle, string $fileUrl, string $filePath) : ?Asset
     {
         $extensionsToClass = ['css' => Style::class, 'js' => Script::class];
         /** @var array{filename?:string, extension?:string} $pathInfo */
-        $pathInfo = pathinfo($filePath);
+        $pathInfo = \pathinfo($filePath);
         $filename = $pathInfo['filename'] ?? '';
         $extension = $pathInfo['extension'] ?? '';
-        if (!in_array($extension, array_keys($extensionsToClass), \true)) {
+        if (!\in_array($extension, \array_keys($extensionsToClass), \true)) {
             return null;
         }
         $class = $extensionsToClass[$extension];
@@ -127,12 +124,12 @@ abstract class AbstractWebpackLoader implements \Inpsyde\Assets\Loader\LoaderInt
      *
      * @return string
      */
-    protected function sanitizeFileName(string $file): string
+    protected function sanitizeFileName(string $file) : string
     {
         // Check, if the given "file"-value is an URL
-        $parsedUrl = parse_url($file);
+        $parsedUrl = \parse_url($file);
         // the "file"-value can contain "./file.css" or "/file.css".
-        return ltrim($parsedUrl['path'] ?? $file, './');
+        return \ltrim($parsedUrl['path'] ?? $file, './');
     }
     /**
      * Internal function to resolve a location for a given file name.
@@ -147,21 +144,21 @@ abstract class AbstractWebpackLoader implements \Inpsyde\Assets\Loader\LoaderInt
      * @example foo.css             -> Asset::FRONTEND
      * @example foo-backend.css     -> Asset::BACKEND
      */
-    protected function resolveLocation(string $fileName): int
+    protected function resolveLocation(string $fileName) : int
     {
-        if (stristr($fileName, '-backend')) {
+        if (\stristr($fileName, '-backend')) {
             return Asset::BACKEND;
         }
-        if (stristr($fileName, '-block')) {
+        if (\stristr($fileName, '-block')) {
             return Asset::BLOCK_EDITOR_ASSETS;
         }
-        if (stristr($fileName, '-login')) {
+        if (\stristr($fileName, '-login')) {
             return Asset::LOGIN;
         }
-        if (stristr($fileName, '-customizer-preview')) {
+        if (\stristr($fileName, '-customizer-preview')) {
             return Asset::CUSTOMIZER_PREVIEW;
         }
-        if (stristr($fileName, '-customizer')) {
+        if (\stristr($fileName, '-customizer')) {
             return Asset::CUSTOMIZER;
         }
         return Asset::FRONTEND;

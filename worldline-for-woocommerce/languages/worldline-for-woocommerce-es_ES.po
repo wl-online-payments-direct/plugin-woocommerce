@@ -805,11 +805,6 @@ msgstr "Se aceptan todas las formas de pago principales y locales. El precio fin
 msgid "Accept payments with all major and local payment methods."
 msgstr "Acepte pagos con todos los métodos de pago principales y locales."
 
-#. Author of the plugin
-#: worldline-for-woocommerce.php
-msgid "Worldline"
-msgstr "Worldline"
-
 #: modules.local/webhooks/src/Helper/WebhookHelper.php:78
 #: modules/inpsyde/worldline-webhooks/src/Helper/WebhookHelper.php:78
 msgid "Unknown transaction ID"

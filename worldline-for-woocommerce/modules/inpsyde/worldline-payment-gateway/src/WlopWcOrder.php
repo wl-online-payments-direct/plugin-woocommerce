@@ -16,30 +16,30 @@ class WlopWcOrder
      * @param mixed $note
      * @return void
      */
-    public function addWorldlineOrderNote($note): void
+    public function addWorldlineOrderNote($note) : void
     {
         $this->order->add_order_note('Worldline: ' . $note);
     }
-    public function order(): WC_Order
+    public function order() : WC_Order
     {
         return $this->order;
     }
-    public function setTransactionId(string $value): void
+    public function setTransactionId(string $value) : void
     {
         $this->order->update_meta_data(OrderMetaKeys::TRANSACTION_ID, $value);
         $this->order->set_transaction_id($value);
         $this->order->save();
-        do_action('wlop.transaction_id_changed', ['id' => $value, 'wcOrderId' => $this->order->get_id()]);
+        \do_action('wlop.transaction_id_changed', ['id' => $value, 'wcOrderId' => $this->order->get_id()]);
     }
-    public function transactionId(): string
+    public function transactionId() : string
     {
         return (string) $this->order->get_meta(OrderMetaKeys::TRANSACTION_ID);
     }
-    public function hostedCheckoutId(): string
+    public function hostedCheckoutId() : string
     {
         return (string) $this->order->get_meta(OrderMetaKeys::HOSTED_CHECKOUT_ID);
     }
-    public function statusCode(): int
+    public function statusCode() : int
     {
         return (int) $this->order->get_meta(OrderMetaKeys::TRANSACTION_STATUS_CODE);
     }

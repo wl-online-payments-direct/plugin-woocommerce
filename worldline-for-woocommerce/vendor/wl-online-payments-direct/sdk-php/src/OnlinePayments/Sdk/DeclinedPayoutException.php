@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -7,11 +8,10 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResult;
-
 /**
  * Class DeclinedPayoutException
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
+ * @package OnlinePayments\Sdk
  */
 class DeclinedPayoutException extends ResponseException
 {
@@ -22,32 +22,30 @@ class DeclinedPayoutException extends ResponseException
      */
     public function __construct($httpStatusCode, DataObject $response, $message = null)
     {
-        if (is_null($message)) {
+        if (\is_null($message)) {
             $message = DeclinedPayoutException::buildMessage($response);
         }
         parent::__construct($httpStatusCode, $response, $message);
     }
-
     private static function buildMessage(DataObject $response)
     {
         if ($response instanceof PayoutErrorResponse && $response->payoutResult != null) {
             $payoutResult = $response->payoutResult;
-            return "declined payout '$payoutResult->id' with status '$payoutResult->status'";
+            return "declined payout '{$payoutResult->id}' with status '{$payoutResult->status}'";
         }
         return 'the payment platform returned a declined payout response';
     }
-
     /**
      * @return PayoutResult
      */
     public function getPayoutResult()
     {
-        $responseVariables = get_object_vars($this->getResponse());
-        if (!array_key_exists('payoutResult', $responseVariables)) {
+        $responseVariables = \get_object_vars($this->getResponse());
+        if (!\array_key_exists('payoutResult', $responseVariables)) {
             return new PayoutResult();
         }
         $payoutResult = $responseVariables['payoutResult'];
-        if (!($payoutResult instanceof PayoutResult)) {
+        if (!$payoutResult instanceof PayoutResult) {
             return new PayoutResult();
         }
         return $payoutResult;

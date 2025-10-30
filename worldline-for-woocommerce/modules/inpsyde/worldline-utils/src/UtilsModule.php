@@ -12,11 +12,11 @@ class UtilsModule implements ServiceModule, ExtendingModule
     /**
      * @inheritDoc
      */
-    public function services(): array
+    public function services() : array
     {
         static $services;
         if ($services === null) {
-            $services = require_once dirname(__DIR__) . '/inc/services.php';
+            $services = (require_once \dirname(__DIR__) . '/inc/services.php');
         }
         /** @var callable():
          * array<string, callable(ContainerInterface $container):mixed> $services
@@ -26,11 +26,11 @@ class UtilsModule implements ServiceModule, ExtendingModule
     /**
      * @inheritDoc
      */
-    public function extensions(): array
+    public function extensions() : array
     {
         static $extensions;
         if ($extensions === null) {
-            $extensions = require_once dirname(__DIR__) . '/inc/extensions.php';
+            $extensions = (require_once \dirname(__DIR__) . '/inc/extensions.php');
         }
         return $extensions();
     }

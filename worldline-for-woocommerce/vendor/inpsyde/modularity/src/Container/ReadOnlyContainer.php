@@ -39,10 +39,10 @@ class ReadOnlyContainer implements ContainerInterface
      */
     public function get(string $id)
     {
-        if (array_key_exists($id, $this->resolvedServices)) {
+        if (\array_key_exists($id, $this->resolvedServices)) {
             return $this->resolvedServices[$id];
         }
-        if (array_key_exists($id, $this->services)) {
+        if (\array_key_exists($id, $this->services)) {
             $service = $this->services[$id]($this);
             $resolved = $this->extensions->resolve($service, $id, $this);
             if (!isset($this->factoryIds[$id])) {
@@ -58,7 +58,7 @@ class ReadOnlyContainer implements ContainerInterface
             }
         }
         $error = "Service with ID {$id} not found.";
-        throw new class(esc_html($error)) extends \Exception implements NotFoundExceptionInterface
+        throw new class(\esc_html($error)) extends \Exception implements NotFoundExceptionInterface
         {
         };
     }
@@ -66,12 +66,12 @@ class ReadOnlyContainer implements ContainerInterface
      * @param string $id
      * @return bool
      */
-    public function has(string $id): bool
+    public function has(string $id) : bool
     {
-        if (array_key_exists($id, $this->services)) {
+        if (\array_key_exists($id, $this->services)) {
             return \true;
         }
-        if (array_key_exists($id, $this->resolvedServices)) {
+        if (\array_key_exists($id, $this->resolvedServices)) {
             return \true;
         }
         foreach ($this->containers as $container) {
@@ -91,14 +91,14 @@ class ReadOnlyContainer implements ContainerInterface
      * @param mixed $extensions
      * @return ServiceExtensions
      */
-    private function configureServiceExtensions($extensions): ServiceExtensions
+    private function configureServiceExtensions($extensions) : ServiceExtensions
     {
         if ($extensions instanceof ServiceExtensions) {
             return $extensions;
         }
-        if (!is_array($extensions)) {
-            $type = is_object($extensions) ? get_class($extensions) : gettype($extensions);
-            throw new \TypeError(sprintf('%s::%s(): Argument #3 ($extensions) must be of type %s|array, %s given', __CLASS__, '__construct', ServiceExtensions::class, esc_html($type)));
+        if (!\is_array($extensions)) {
+            $type = \is_object($extensions) ? \get_class($extensions) : \gettype($extensions);
+            throw new \TypeError(\sprintf('%s::%s(): Argument #3 ($extensions) must be of type %s|array, %s given', __CLASS__, '__construct', ServiceExtensions::class, \esc_html($type)));
         }
         $servicesExtensions = new ServiceExtensions();
         foreach ($extensions as $id => $callback) {

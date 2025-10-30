@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct840CustomerAccount extends DataObject
 {
@@ -15,42 +15,34 @@ class PaymentProduct840CustomerAccount extends DataObject
      * @var string
      */
     public $accountId = null;
-
     /**
      * @var string
      */
     public $companyName = null;
-
     /**
      * @var string
      */
     public $countryCode = null;
-
     /**
      * @var string
      */
     public $customerAccountStatus = null;
-
     /**
      * @var string
      */
     public $customerAddressStatus = null;
-
     /**
      * @var string
      */
     public $firstName = null;
-
     /**
      * @var string
      */
     public $payerId = null;
-
     /**
      * @var string
      */
     public $surname = null;
-
     /**
      * @return string
      */
@@ -58,7 +50,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->accountId;
     }
-
     /**
      * @param string
      */
@@ -66,7 +57,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->accountId = $value;
     }
-
     /**
      * @return string
      */
@@ -74,7 +64,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->companyName;
     }
-
     /**
      * @param string
      */
@@ -82,7 +71,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->companyName = $value;
     }
-
     /**
      * @return string
      */
@@ -90,7 +78,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->countryCode;
     }
-
     /**
      * @param string
      */
@@ -98,7 +85,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->countryCode = $value;
     }
-
     /**
      * @return string
      */
@@ -106,7 +92,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAccountStatus;
     }
-
     /**
      * @param string
      */
@@ -114,7 +99,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->customerAccountStatus = $value;
     }
-
     /**
      * @return string
      */
@@ -122,7 +106,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAddressStatus;
     }
-
     /**
      * @param string
      */
@@ -130,7 +113,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->customerAddressStatus = $value;
     }
-
     /**
      * @return string
      */
@@ -138,7 +120,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->firstName;
     }
-
     /**
      * @param string
      */
@@ -146,7 +127,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->firstName = $value;
     }
-
     /**
      * @return string
      */
@@ -154,7 +134,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->payerId;
     }
-
     /**
      * @param string
      */
@@ -162,7 +141,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->payerId = $value;
     }
-
     /**
      * @return string
      */
@@ -170,7 +148,6 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         return $this->surname;
     }
-
     /**
      * @param string
      */
@@ -178,40 +155,38 @@ class PaymentProduct840CustomerAccount extends DataObject
     {
         $this->surname = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->accountId)) {
+        if (!\is_null($this->accountId)) {
             $object->accountId = $this->accountId;
         }
-        if (!is_null($this->companyName)) {
+        if (!\is_null($this->companyName)) {
             $object->companyName = $this->companyName;
         }
-        if (!is_null($this->countryCode)) {
+        if (!\is_null($this->countryCode)) {
             $object->countryCode = $this->countryCode;
         }
-        if (!is_null($this->customerAccountStatus)) {
+        if (!\is_null($this->customerAccountStatus)) {
             $object->customerAccountStatus = $this->customerAccountStatus;
         }
-        if (!is_null($this->customerAddressStatus)) {
+        if (!\is_null($this->customerAddressStatus)) {
             $object->customerAddressStatus = $this->customerAddressStatus;
         }
-        if (!is_null($this->firstName)) {
+        if (!\is_null($this->firstName)) {
             $object->firstName = $this->firstName;
         }
-        if (!is_null($this->payerId)) {
+        if (!\is_null($this->payerId)) {
             $object->payerId = $this->payerId;
         }
-        if (!is_null($this->surname)) {
+        if (!\is_null($this->surname)) {
             $object->surname = $this->surname;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -220,28 +195,28 @@ class PaymentProduct840CustomerAccount extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'accountId')) {
+        if (\property_exists($object, 'accountId')) {
             $this->accountId = $object->accountId;
         }
-        if (property_exists($object, 'companyName')) {
+        if (\property_exists($object, 'companyName')) {
             $this->companyName = $object->companyName;
         }
-        if (property_exists($object, 'countryCode')) {
+        if (\property_exists($object, 'countryCode')) {
             $this->countryCode = $object->countryCode;
         }
-        if (property_exists($object, 'customerAccountStatus')) {
+        if (\property_exists($object, 'customerAccountStatus')) {
             $this->customerAccountStatus = $object->customerAccountStatus;
         }
-        if (property_exists($object, 'customerAddressStatus')) {
+        if (\property_exists($object, 'customerAddressStatus')) {
             $this->customerAddressStatus = $object->customerAddressStatus;
         }
-        if (property_exists($object, 'firstName')) {
+        if (\property_exists($object, 'firstName')) {
             $this->firstName = $object->firstName;
         }
-        if (property_exists($object, 'payerId')) {
+        if (\property_exists($object, 'payerId')) {
             $this->payerId = $object->payerId;
         }
-        if (property_exists($object, 'surname')) {
+        if (\property_exists($object, 'surname')) {
             $this->surname = $object->surname;
         }
         return $this;

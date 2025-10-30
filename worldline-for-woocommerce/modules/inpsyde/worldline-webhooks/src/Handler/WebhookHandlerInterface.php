@@ -7,6 +7,6 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGatewa
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
 interface WebhookHandlerInterface
 {
-    public function accepts(WebhooksEvent $webhook): bool;
-    public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder): void;
+    public function accepts(WebhooksEvent $webhook) : bool;
+    public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : void;
 }

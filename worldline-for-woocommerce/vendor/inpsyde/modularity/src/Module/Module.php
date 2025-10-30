@@ -13,5 +13,5 @@ interface Module
      *
      * @return string
      */
-    public function id(): string;
+    public function id() : string;
 }

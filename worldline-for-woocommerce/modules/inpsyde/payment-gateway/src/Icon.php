@@ -25,7 +25,7 @@ final class Icon
      *
      * @return string The icon's ID.
      */
-    public function id(): string
+    public function id() : string
     {
         return $this->id;
     }
@@ -34,7 +34,7 @@ final class Icon
      *
      * @return string The icon's source path.
      */
-    public function src(): string
+    public function src() : string
     {
         return $this->src;
     }
@@ -43,7 +43,7 @@ final class Icon
      *
      * @return string Descriptive alt text for the icon.
      */
-    public function alt(): string
+    public function alt() : string
     {
         return $this->alt;
     }

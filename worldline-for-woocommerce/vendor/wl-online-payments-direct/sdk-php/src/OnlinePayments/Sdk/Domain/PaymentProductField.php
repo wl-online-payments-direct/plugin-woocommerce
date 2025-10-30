@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductField extends DataObject
 {
@@ -15,22 +15,18 @@ class PaymentProductField extends DataObject
      * @var PaymentProductFieldDataRestrictions
      */
     public $dataRestrictions = null;
-
     /**
      * @var PaymentProductFieldDisplayHints
      */
     public $displayHints = null;
-
     /**
      * @var string
      */
     public $id = null;
-
     /**
      * @var string
      */
     public $type = null;
-
     /**
      * @return PaymentProductFieldDataRestrictions
      */
@@ -38,7 +34,6 @@ class PaymentProductField extends DataObject
     {
         return $this->dataRestrictions;
     }
-
     /**
      * @param PaymentProductFieldDataRestrictions
      */
@@ -46,7 +41,6 @@ class PaymentProductField extends DataObject
     {
         $this->dataRestrictions = $value;
     }
-
     /**
      * @return PaymentProductFieldDisplayHints
      */
@@ -54,7 +48,6 @@ class PaymentProductField extends DataObject
     {
         return $this->displayHints;
     }
-
     /**
      * @param PaymentProductFieldDisplayHints
      */
@@ -62,7 +55,6 @@ class PaymentProductField extends DataObject
     {
         $this->displayHints = $value;
     }
-
     /**
      * @return string
      */
@@ -70,7 +62,6 @@ class PaymentProductField extends DataObject
     {
         return $this->id;
     }
-
     /**
      * @param string
      */
@@ -78,7 +69,6 @@ class PaymentProductField extends DataObject
     {
         $this->id = $value;
     }
-
     /**
      * @return string
      */
@@ -86,7 +76,6 @@ class PaymentProductField extends DataObject
     {
         return $this->type;
     }
-
     /**
      * @param string
      */
@@ -94,28 +83,26 @@ class PaymentProductField extends DataObject
     {
         $this->type = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->dataRestrictions)) {
+        if (!\is_null($this->dataRestrictions)) {
             $object->dataRestrictions = $this->dataRestrictions->toObject();
         }
-        if (!is_null($this->displayHints)) {
+        if (!\is_null($this->displayHints)) {
             $object->displayHints = $this->displayHints->toObject();
         }
-        if (!is_null($this->id)) {
+        if (!\is_null($this->id)) {
             $object->id = $this->id;
         }
-        if (!is_null($this->type)) {
+        if (!\is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,24 +111,24 @@ class PaymentProductField extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'dataRestrictions')) {
-            if (!is_object($object->dataRestrictions)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->dataRestrictions, true) . '\' is not an object');
+        if (\property_exists($object, 'dataRestrictions')) {
+            if (!\is_object($object->dataRestrictions)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->dataRestrictions, \true) . '\' is not an object');
             }
             $value = new PaymentProductFieldDataRestrictions();
             $this->dataRestrictions = $value->fromObject($object->dataRestrictions);
         }
-        if (property_exists($object, 'displayHints')) {
-            if (!is_object($object->displayHints)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->displayHints, true) . '\' is not an object');
+        if (\property_exists($object, 'displayHints')) {
+            if (!\is_object($object->displayHints)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->displayHints, \true) . '\' is not an object');
             }
             $value = new PaymentProductFieldDisplayHints();
             $this->displayHints = $value->fromObject($object->displayHints);
         }
-        if (property_exists($object, 'id')) {
+        if (\property_exists($object, 'id')) {
             $this->id = $object->id;
         }
-        if (property_exists($object, 'type')) {
+        if (\property_exists($object, 'type')) {
             $this->type = $object->type;
         }
         return $this;

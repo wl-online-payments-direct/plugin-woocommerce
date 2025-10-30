@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Syde\Vendor\Worldline\Inpsyde\Transformer;
 
 use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;

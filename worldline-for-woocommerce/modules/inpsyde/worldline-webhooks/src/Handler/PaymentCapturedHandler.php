@@ -14,22 +14,22 @@ class PaymentCapturedHandler implements WebhookHandlerInterface
     {
         $this->moneyAmountConverter = $moneyAmountConverter;
     }
-    public function accepts(WebhooksEvent $webhook): bool
+    public function accepts(WebhooksEvent $webhook) : bool
     {
         return $webhook->type === 'payment.captured';
     }
     /**
      * @throws \Exception
      */
-    public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder): void
+    public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : void
     {
         $capturedAmount = WebhookHelper::paymentCapturedAmount($webhook);
         if ($capturedAmount === null) {
             throw new \Exception("Can't retrieve captured amount. Webhook: {$webhook->id}");
         }
-        $wlopWcOrder->addWorldlineOrderNote(sprintf(
+        $wlopWcOrder->addWorldlineOrderNote(\sprintf(
             /* translators: %s refers to the capture amount */
-            __('Payment of %s successfully captured.', 'worldline-for-woocommerce'),
+            \__('Payment of %s successfully captured.', 'worldline-for-woocommerce'),
             $this->moneyAmountConverter->amountOfMoneyAsString($capturedAmount)
         ));
         $wlopWcOrder->order()->save();

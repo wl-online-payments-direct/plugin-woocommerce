@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class RedirectPaymentProduct3302SpecificInput extends DataObject
 {
@@ -15,17 +15,14 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
      * @var string
      */
     public $organizationEntityType = null;
-
     /**
      * @var string
      */
     public $organizationRegistrationId = null;
-
     /**
      * @var string
      */
     public $vatId = null;
-
     /**
      * @return string
      */
@@ -33,7 +30,6 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
     {
         return $this->organizationEntityType;
     }
-
     /**
      * @param string
      */
@@ -41,7 +37,6 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
     {
         $this->organizationEntityType = $value;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
     {
         return $this->organizationRegistrationId;
     }
-
     /**
      * @param string
      */
@@ -57,7 +51,6 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
     {
         $this->organizationRegistrationId = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +58,6 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
     {
         return $this->vatId;
     }
-
     /**
      * @param string
      */
@@ -73,25 +65,23 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
     {
         $this->vatId = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->organizationEntityType)) {
+        if (!\is_null($this->organizationEntityType)) {
             $object->organizationEntityType = $this->organizationEntityType;
         }
-        if (!is_null($this->organizationRegistrationId)) {
+        if (!\is_null($this->organizationRegistrationId)) {
             $object->organizationRegistrationId = $this->organizationRegistrationId;
         }
-        if (!is_null($this->vatId)) {
+        if (!\is_null($this->vatId)) {
             $object->vatId = $this->vatId;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,13 +90,13 @@ class RedirectPaymentProduct3302SpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'organizationEntityType')) {
+        if (\property_exists($object, 'organizationEntityType')) {
             $this->organizationEntityType = $object->organizationEntityType;
         }
-        if (property_exists($object, 'organizationRegistrationId')) {
+        if (\property_exists($object, 'organizationRegistrationId')) {
             $this->organizationRegistrationId = $object->organizationRegistrationId;
         }
-        if (property_exists($object, 'vatId')) {
+        if (\property_exists($object, 'vatId')) {
             $this->vatId = $object->vatId;
         }
         return $this;

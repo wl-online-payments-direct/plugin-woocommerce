@@ -23,21 +23,21 @@ class InlineAssetOutputFilter implements \Inpsyde\Assets\OutputFilter\AssetOutpu
      * @return string
      * @psalm-suppress PossiblyNullArgument
      */
-    public function __invoke(string $html, Asset $asset): string
+    public function __invoke(string $html, Asset $asset) : string
     {
         $filePath = $asset->filePath();
         if ($filePath === '') {
             return $html;
         }
-        $content = @file_get_contents($filePath);
+        $content = @\file_get_contents($filePath);
         if (!$content) {
             return $html;
         }
         if ($asset instanceof Script) {
-            return sprintf('<script data-version="%1$s" data-id="%2$s">%3$s</script>', $asset->version(), $asset->handle(), $content);
+            return \sprintf('<script data-version="%1$s" data-id="%2$s">%3$s</script>', $asset->version(), $asset->handle(), $content);
         }
         if ($asset instanceof Style) {
-            return sprintf('<style data-version="%1$s" data-id="%2$s">%3$s</style>', $asset->version(), $asset->handle(), $content);
+            return \sprintf('<style data-version="%1$s" data-id="%2$s">%3$s</style>', $asset->version(), $asset->handle(), $content);
         }
         return $html;
     }

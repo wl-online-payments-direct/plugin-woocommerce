@@ -15,7 +15,7 @@ class AddressIndicatorHandler
     /**
      * @throws Exception
      */
-    public function determineAddressType(WC_Order $wcOrder): string
+    public function determineAddressType(WC_Order $wcOrder) : string
     {
         if (!$wcOrder->needs_shipping_address()) {
             return 'digital-goods';
@@ -26,7 +26,7 @@ class AddressIndicatorHandler
         }
         return 'different-than-billing';
     }
-    protected function shippingAddressSameAsBilling(WC_Order $wcOrder): bool
+    protected function shippingAddressSameAsBilling(WC_Order $wcOrder) : bool
     {
         foreach ($this->shippingFields as $field) {
             if ($wcOrder->{"get_shipping_{$field}"}() !== $wcOrder->{"get_billing_{$field}"}()) {
@@ -38,7 +38,7 @@ class AddressIndicatorHandler
     /**
      * @throws Exception
      */
-    protected function shippingAddressIsVerified(WC_Order $wcOrder): bool
+    protected function shippingAddressIsVerified(WC_Order $wcOrder) : bool
     {
         $customerId = $wcOrder->get_user_id();
         $orderQuery = new WC_Order_Query([
@@ -48,7 +48,7 @@ class AddressIndicatorHandler
             'limit' => '-1',
         ]);
         $orders = $orderQuery->get_orders();
-        if (!is_array($orders)) {
+        if (!\is_array($orders)) {
             return \false;
         }
         /** @var WC_Order $order */
@@ -59,7 +59,7 @@ class AddressIndicatorHandler
         }
         return \false;
     }
-    protected function compareTwoOrdersShipping(WC_Order $order1, WC_Order $order2): bool
+    protected function compareTwoOrdersShipping(WC_Order $order1, WC_Order $order2) : bool
     {
         if ($order1->get_id() === $order2->get_id()) {
             return \false;

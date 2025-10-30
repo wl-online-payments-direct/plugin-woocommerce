@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ValidateCredentialsRequest extends DataObject
 {
@@ -15,12 +15,10 @@ class ValidateCredentialsRequest extends DataObject
      * @var string
      */
     public $key = null;
-
     /**
      * @var string
      */
     public $secret = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class ValidateCredentialsRequest extends DataObject
     {
         return $this->key;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class ValidateCredentialsRequest extends DataObject
     {
         $this->key = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class ValidateCredentialsRequest extends DataObject
     {
         return $this->secret;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class ValidateCredentialsRequest extends DataObject
     {
         $this->secret = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->key)) {
+        if (!\is_null($this->key)) {
             $object->key = $this->key;
         }
-        if (!is_null($this->secret)) {
+        if (!\is_null($this->secret)) {
             $object->secret = $this->secret;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class ValidateCredentialsRequest extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'key')) {
+        if (\property_exists($object, 'key')) {
             $this->key = $object->key;
         }
-        if (property_exists($object, 'secret')) {
+        if (\property_exists($object, 'secret')) {
             $this->secret = $object->secret;
         }
         return $this;

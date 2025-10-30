@@ -5,6 +5,6 @@ namespace Syde\Vendor\Worldline;
 
 // phpcs:disable Inpsyde.CodeQuality.LineLength.TooLong
 use Syde\Vendor\Worldline\Dhii\Services\Factory;
-return new Factory([], static function (): array {
+return new Factory([], static function () : array {
     return \array_merge(['enabled' => ['title' => \__('Enable/Disable', 'worldline-for-woocommerce'), 'type' => 'checkbox', 'label' => \__('Enable Google Pay (Worldline)', 'worldline-for-woocommerce'), 'default' => 'no']]);
 });

@@ -5,7 +5,7 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 /**
  * Interface ConnectionResponseInterface
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
+ * @package OnlinePayments\Sdk\Communication
  */
 interface ConnectionResponseInterface
 {
@@ -13,18 +13,15 @@ interface ConnectionResponseInterface
      * @return int
      */
     public function getHttpStatusCode();
-
     /**
      * @return array
      */
     public function getHeaders();
-
     /**
      * @param string $name
      * @return mixed
      */
     public function getHeaderValue($name);
-
     /**
      * @return string
      */

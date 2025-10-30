@@ -18,14 +18,14 @@ class CarteBancaireThreeDSecureFactory
         $this->exemptionAmountChecker = $exemptionAmountChecker;
         $this->authorizationMode = $authorizationMode;
     }
-    public function create(int $orderAmount, string $currencyCode, int $numberOfItems): ?PaymentProduct130SpecificThreeDSecure
+    public function create(int $orderAmount, string $currencyCode, int $numberOfItems) : ?PaymentProduct130SpecificThreeDSecure
     {
         if (!$this->enable3ds) {
             return null;
         }
         $carteBancaire3ds = new PaymentProduct130SpecificThreeDSecure();
         $carteBancaire3ds->setUsecase($this->authorizationMode === AuthorizationMode::SALE ? 'single-amount' : 'payment-upon-shipment');
-        $carteBancaire3ds->setNumberOfItems(min($numberOfItems, 99));
+        $carteBancaire3ds->setNumberOfItems(\min($numberOfItems, 99));
         if ($this->exemptionType === null) {
             $carteBancaire3ds->setAcquirerExemption(\false);
             return $carteBancaire3ds;

@@ -13,13 +13,13 @@ class WlopWcOrderFactory
     /**
      * @throws Exception
      */
-    public function create(WebhooksEvent $webhook): WlopWcOrder
+    public function create(WebhooksEvent $webhook) : WlopWcOrder
     {
         $ref = WebhookHelper::reference($webhook);
         if ($ref === null) {
             throw new Exception('Merchant reference not found.');
         }
-        $wcOrder = wc_get_order((int) $ref);
+        $wcOrder = \wc_get_order((int) $ref);
         if (!$wcOrder instanceof WC_Order) {
             throw new Exception("Failed to find WC order for merchant reference {$ref}.");
         }

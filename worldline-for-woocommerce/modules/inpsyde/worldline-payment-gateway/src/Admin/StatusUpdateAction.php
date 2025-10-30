@@ -14,19 +14,19 @@ class StatusUpdateAction
     {
         $this->orderUpdater = $orderUpdater;
     }
-    public function isAvailable(WC_Order $wcOrder): bool
+    public function isAvailable(WC_Order $wcOrder) : bool
     {
-        return in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true);
+        return \in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true);
     }
-    public function render(array $orderActions, WC_Order $wcOrder): array
+    public function render(array $orderActions, WC_Order $wcOrder) : array
     {
         if (!$this->isAvailable($wcOrder)) {
             return $orderActions;
         }
-        $orderActions['worldline_update_order_status'] = esc_html__('Refresh Worldline status', 'worldline-for-woocommerce');
+        $orderActions['worldline_update_order_status'] = \esc_html__('Refresh Worldline status', 'worldline-for-woocommerce');
         return $orderActions;
     }
-    public function execute(WC_Order $wcOrder): void
+    public function execute(WC_Order $wcOrder) : void
     {
         $this->orderUpdater->update(new WlopWcOrder($wcOrder));
     }

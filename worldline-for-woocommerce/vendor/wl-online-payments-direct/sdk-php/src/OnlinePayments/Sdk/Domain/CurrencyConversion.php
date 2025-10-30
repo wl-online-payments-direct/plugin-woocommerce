@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CurrencyConversion extends DataObject
 {
@@ -15,12 +15,10 @@ class CurrencyConversion extends DataObject
      * @var bool
      */
     public $acceptedByUser = null;
-
     /**
      * @var DccProposal
      */
     public $proposal = null;
-
     /**
      * @return bool
      */
@@ -28,7 +26,6 @@ class CurrencyConversion extends DataObject
     {
         return $this->acceptedByUser;
     }
-
     /**
      * @param bool
      */
@@ -36,7 +33,6 @@ class CurrencyConversion extends DataObject
     {
         $this->acceptedByUser = $value;
     }
-
     /**
      * @return DccProposal
      */
@@ -44,7 +40,6 @@ class CurrencyConversion extends DataObject
     {
         return $this->proposal;
     }
-
     /**
      * @param DccProposal
      */
@@ -52,22 +47,20 @@ class CurrencyConversion extends DataObject
     {
         $this->proposal = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->acceptedByUser)) {
+        if (!\is_null($this->acceptedByUser)) {
             $object->acceptedByUser = $this->acceptedByUser;
         }
-        if (!is_null($this->proposal)) {
+        if (!\is_null($this->proposal)) {
             $object->proposal = $this->proposal->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,12 +69,12 @@ class CurrencyConversion extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'acceptedByUser')) {
+        if (\property_exists($object, 'acceptedByUser')) {
             $this->acceptedByUser = $object->acceptedByUser;
         }
-        if (property_exists($object, 'proposal')) {
-            if (!is_object($object->proposal)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->proposal, true) . '\' is not an object');
+        if (\property_exists($object, 'proposal')) {
+            if (!\is_object($object->proposal)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->proposal, \true) . '\' is not an object');
             }
             $value = new DccProposal();
             $this->proposal = $value->fromObject($object->proposal);

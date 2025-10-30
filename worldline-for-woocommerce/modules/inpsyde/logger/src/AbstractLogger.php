@@ -15,14 +15,8 @@ use Syde\Vendor\Worldline\Psr\Log\LogLevel;
 abstract class AbstractLogger extends PsrAbstractLogger
 {
     public const LOG_LEVELS = [LogLevel::EMERGENCY, LogLevel::ALERT, LogLevel::CRITICAL, LogLevel::ERROR, LogLevel::WARNING, LogLevel::NOTICE, LogLevel::INFO, LogLevel::DEBUG];
-    /**
-     * @var ObjectFormatterInterface
-     */
-    protected $formatter;
-    /**
-     * @var bool
-     */
-    protected $isDebug;
+    protected ObjectFormatterInterface $formatter;
+    protected bool $isDebug;
     public function __construct(ObjectFormatterInterface $formatter, bool $isDebug)
     {
         $this->formatter = $formatter;
@@ -33,11 +27,11 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType
      */
-    public function log($level, $message, array $context = []): void
+    public function log($level, $message, array $context = []) : void
     {
         // phpcs:enable
-        if (!in_array($level, self::LOG_LEVELS, \true)) {
-            throw new InvalidLogLevelProvided(sprintf('Unknown log level "%1$s"', $level));
+        if (!\in_array($level, self::LOG_LEVELS, \true)) {
+            throw new InvalidLogLevelProvided(\sprintf('Unknown log level "%1$s"', $level));
         }
         /** @psalm-suppress RedundantCastGivenDocblockType */
         $message = (string) $message;
@@ -61,7 +55,7 @@ abstract class AbstractLogger extends PsrAbstractLogger
      * @param array<string, string> $context The context to interpolate into the string.
      * @return string The string with context interpolated into it.
      */
-    protected function interpolateContext(string $string, array $context = []): string
+    protected function interpolateContext(string $string, array $context = []) : string
     {
         $tokens = $this->getReplacements($context);
         return $this->interpolateTokens($string, $tokens);
@@ -76,19 +70,19 @@ abstract class AbstractLogger extends PsrAbstractLogger
      *
      * @return array A map of strings to replace - to strings to replace them with.
      */
-    protected function getReplacements(array $context = []): array
+    protected function getReplacements(array $context = []) : array
     {
         // build a replacement array with braces around the context keys
         $replace = [];
         foreach ($context as $key => $val) {
-            if (!is_string($key)) {
+            if (!\is_string($key)) {
                 continue;
             }
-            if (is_scalar($val)) {
+            if (\is_scalar($val)) {
                 $replace['{' . $key . '}'] = (string) $val;
                 continue;
             }
-            if (is_object($val)) {
+            if (\is_object($val)) {
                 $replace['{' . $key . '}'] = $this->formatter->format($val);
                 continue;
             }
@@ -103,9 +97,9 @@ abstract class AbstractLogger extends PsrAbstractLogger
      * @param array<string, string> $tokens The map of token names to values.
      * @return string The string in which tokens have been replaced with their values.
      */
-    protected function interpolateTokens(string $string, array $tokens = []): string
+    protected function interpolateTokens(string $string, array $tokens = []) : string
     {
-        return strtr($string, $tokens);
+        return \strtr($string, $tokens);
     }
     /**
      * Writes the specified message to log.
@@ -114,17 +108,17 @@ abstract class AbstractLogger extends PsrAbstractLogger
      * @param string $message The message to write to the log.
      * @param array<string, string> $context The context of the message
      */
-    abstract protected function writeToLog(string $level, string $message, array $context = []): void;
+    protected abstract function writeToLog(string $level, string $message, array $context = []) : void;
     /**
      * Retrieves the name of the log source.
      *
      * @return string|null The name of the log source, if any.
      */
-    abstract protected function getSource(): ?string;
+    protected abstract function getSource() : ?string;
     /**
      * Retrieves the plugin version.
      *
      * @return string|null The name of the plugin version, if any.
      */
-    abstract protected function getVersion(): ?string;
+    protected abstract function getVersion() : ?string;
 }

@@ -12,17 +12,14 @@ class DelegatingObjectFormatter implements ObjectFormatterInterface
     /**
      * @var array<class-string,ObjectFormatterInterface>
      */
-    protected $formatterMap;
-    /**
-     * @var ObjectFormatterInterface
-     */
-    protected $fallback;
+    protected array $formatterMap;
+    protected ObjectFormatterInterface $fallback;
     public function __construct(array $formatterMap, ObjectFormatterInterface $fallback)
     {
         $this->formatterMap = $formatterMap;
         $this->fallback = $fallback;
     }
-    public function format(object $object): string
+    public function format(object $object) : string
     {
         foreach ($this->formatterMap as $type => $formatter) {
             if ($object instanceof $type) {

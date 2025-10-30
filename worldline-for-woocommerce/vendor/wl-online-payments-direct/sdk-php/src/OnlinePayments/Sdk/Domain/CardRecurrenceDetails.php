@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CardRecurrenceDetails extends DataObject
 {
@@ -15,7 +15,6 @@ class CardRecurrenceDetails extends DataObject
      * @var string
      */
     public $recurringPaymentSequenceIndicator = null;
-
     /**
      * @return string
      */
@@ -23,7 +22,6 @@ class CardRecurrenceDetails extends DataObject
     {
         return $this->recurringPaymentSequenceIndicator;
     }
-
     /**
      * @param string
      */
@@ -31,19 +29,17 @@ class CardRecurrenceDetails extends DataObject
     {
         $this->recurringPaymentSequenceIndicator = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->recurringPaymentSequenceIndicator)) {
+        if (!\is_null($this->recurringPaymentSequenceIndicator)) {
             $object->recurringPaymentSequenceIndicator = $this->recurringPaymentSequenceIndicator;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -52,7 +48,7 @@ class CardRecurrenceDetails extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'recurringPaymentSequenceIndicator')) {
+        if (\property_exists($object, 'recurringPaymentSequenceIndicator')) {
             $this->recurringPaymentSequenceIndicator = $object->recurringPaymentSequenceIndicator;
         }
         return $this;

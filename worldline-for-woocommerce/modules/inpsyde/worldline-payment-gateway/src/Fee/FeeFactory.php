@@ -7,7 +7,7 @@ use WC_Order_Item_Fee;
 class FeeFactory
 {
     public const CREDIT_CARD_SURCHARGE_META_KEY = 'wlop_credit_card_surcharge';
-    public function create(string $feeName, float $feeValue): WC_Order_Item_Fee
+    public function create(string $feeName, float $feeValue) : WC_Order_Item_Fee
     {
         $fee = new WC_Order_Item_Fee();
         $fee->set_name($feeName);

@@ -27,29 +27,29 @@ use WC_Payment_Gateway;
  */
 interface PaymentMethodDefinition
 {
-    public function id(): string;
-    public function paymentProcessor(ContainerInterface $container): PaymentProcessorInterface;
-    public function paymentRequestValidator(ContainerInterface $container): PaymentRequestValidatorInterface;
-    public function title(ContainerInterface $container): string;
-    public function methodTitle(ContainerInterface $container): string;
-    public function description(ContainerInterface $container): string;
-    public function methodDescription(ContainerInterface $container): string;
+    public function id() : string;
+    public function paymentProcessor(ContainerInterface $container) : PaymentProcessorInterface;
+    public function paymentRequestValidator(ContainerInterface $container) : PaymentRequestValidatorInterface;
+    public function title(ContainerInterface $container) : string;
+    public function methodTitle(ContainerInterface $container) : string;
+    public function description(ContainerInterface $container) : string;
+    public function methodDescription(ContainerInterface $container) : string;
     /**
      * @param ContainerInterface $container
      *
      * @return callable(WC_Payment_Gateway): bool
      */
-    public function availabilityCallback(ContainerInterface $container): callable;
-    public function supports(ContainerInterface $container): array;
-    public function refundProcessor(ContainerInterface $container): RefundProcessorInterface;
-    public function paymentMethodIconProvider(ContainerInterface $container): IconProviderInterface;
-    public function gatewayIconsRenderer(ContainerInterface $container): GatewayIconsRendererInterface;
-    public function paymentFieldsRenderer(ContainerInterface $container): PaymentFieldsRendererInterface;
-    public function hasFields(ContainerInterface $container): bool;
-    public function formFields(ContainerInterface $container): array;
-    public function optionKey(ContainerInterface $container): string;
-    public function registerBlocks(ContainerInterface $container): bool;
-    public function orderButtonText(ContainerInterface $container): string;
-    public function customSettings(): CustomSettingsFieldsDefinition;
-    public function icon(ContainerInterface $container): string;
+    public function availabilityCallback(ContainerInterface $container) : callable;
+    public function supports(ContainerInterface $container) : array;
+    public function refundProcessor(ContainerInterface $container) : RefundProcessorInterface;
+    public function paymentMethodIconProvider(ContainerInterface $container) : IconProviderInterface;
+    public function gatewayIconsRenderer(ContainerInterface $container) : GatewayIconsRendererInterface;
+    public function paymentFieldsRenderer(ContainerInterface $container) : PaymentFieldsRendererInterface;
+    public function hasFields(ContainerInterface $container) : bool;
+    public function formFields(ContainerInterface $container) : array;
+    public function optionKey(ContainerInterface $container) : string;
+    public function registerBlocks(ContainerInterface $container) : bool;
+    public function orderButtonText(ContainerInterface $container) : string;
+    public function customSettings() : CustomSettingsFieldsDefinition;
+    public function icon(ContainerInterface $container) : string;
 }

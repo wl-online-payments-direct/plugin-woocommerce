@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -19,7 +20,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
-
 /**
  * Services client interface.
  */
@@ -40,7 +40,6 @@ interface ServicesClientInterface
      * @throws InvalidResponseException
      */
     function testConnection(CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/services/getIINdetails - Get IIN details
      *
@@ -57,7 +56,6 @@ interface ServicesClientInterface
      * @throws InvalidResponseException
      */
     function getIINDetails(GetIINDetailsRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/services/dccrate - Get currency conversion quote
      *
@@ -74,7 +72,6 @@ interface ServicesClientInterface
      * @throws InvalidResponseException
      */
     function getDccRateInquiry(CurrencyConversionRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/services/surchargecalculation - Surcharge Calculation
      *

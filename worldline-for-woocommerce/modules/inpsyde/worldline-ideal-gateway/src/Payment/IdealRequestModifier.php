@@ -9,7 +9,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
 class IdealRequestModifier extends AbstractHostedPaymentRequestModifier
 {
-    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput): CreateHostedCheckoutRequest
+    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput) : CreateHostedCheckoutRequest
     {
         $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
         $redirectPaymentMethodSpecificInput->setPaymentProductId(809);

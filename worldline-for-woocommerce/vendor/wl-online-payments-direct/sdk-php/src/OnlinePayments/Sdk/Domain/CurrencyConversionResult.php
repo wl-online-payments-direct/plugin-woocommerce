@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CurrencyConversionResult extends DataObject
 {
@@ -15,12 +15,10 @@ class CurrencyConversionResult extends DataObject
      * @var string
      */
     public $result = null;
-
     /**
      * @var string
      */
     public $resultReason = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class CurrencyConversionResult extends DataObject
     {
         return $this->result;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class CurrencyConversionResult extends DataObject
     {
         $this->result = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class CurrencyConversionResult extends DataObject
     {
         return $this->resultReason;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class CurrencyConversionResult extends DataObject
     {
         $this->resultReason = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->result)) {
+        if (!\is_null($this->result)) {
             $object->result = $this->result;
         }
-        if (!is_null($this->resultReason)) {
+        if (!\is_null($this->resultReason)) {
             $object->resultReason = $this->resultReason;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class CurrencyConversionResult extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'result')) {
+        if (\property_exists($object, 'result')) {
             $this->result = $object->result;
         }
-        if (property_exists($object, 'resultReason')) {
+        if (\property_exists($object, 'resultReason')) {
             $this->resultReason = $object->resultReason;
         }
         return $this;

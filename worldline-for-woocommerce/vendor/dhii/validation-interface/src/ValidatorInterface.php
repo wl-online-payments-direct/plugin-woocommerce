@@ -18,5 +18,5 @@ interface ValidatorInterface
      * @throws RuntimeException                                    If problem validating.
      * @throws ValidationFailedExceptionInterface                  If validation failed. Must extend {@see RuntimeException}.
      */
-    public function validate($value): void;
+    public function validate($value) : void;
 }

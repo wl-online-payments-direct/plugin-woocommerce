@@ -9,8 +9,8 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
 abstract class AbstractKlarnaRequestModifier extends AbstractHostedPaymentRequestModifier
 {
-    abstract public function klarnaPaymentProductId(): int;
-    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput): CreateHostedCheckoutRequest
+    public abstract function klarnaPaymentProductId() : int;
+    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput) : CreateHostedCheckoutRequest
     {
         $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
         $redirectPaymentMethodSpecificInput->setPaymentProductId($this->klarnaPaymentProductId());

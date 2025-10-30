@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class EmptyValidator extends DataObject
 {
@@ -19,7 +19,6 @@ class EmptyValidator extends DataObject
         $object = parent::toObject();
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this

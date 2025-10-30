@@ -11,9 +11,9 @@ use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 //phpcs:disable Inpsyde.CodeQuality.NoAccessors.NoGetter
 class BuilderModule implements ModuleInterface
 {
-    public function setup(): ServiceProviderInterface
+    public function setup() : ServiceProviderInterface
     {
-        return new ServiceProvider(['inpsyde.transformer' => function (C $ctr): Transformer {
+        return new ServiceProvider(['inpsyde.transformer' => static function (C $ctr) : Transformer {
             return new ConfigurableTransformer();
         }], []);
     }

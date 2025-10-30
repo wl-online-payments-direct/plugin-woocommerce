@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PayoutStatusOutput extends DataObject
 {
@@ -15,17 +15,14 @@ class PayoutStatusOutput extends DataObject
      * @var bool
      */
     public $isCancellable = null;
-
     /**
      * @var string
      */
     public $statusCategory = null;
-
     /**
      * @var int
      */
     public $statusCode = null;
-
     /**
      * @return bool
      */
@@ -33,7 +30,6 @@ class PayoutStatusOutput extends DataObject
     {
         return $this->isCancellable;
     }
-
     /**
      * @param bool
      */
@@ -41,7 +37,6 @@ class PayoutStatusOutput extends DataObject
     {
         $this->isCancellable = $value;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ class PayoutStatusOutput extends DataObject
     {
         return $this->statusCategory;
     }
-
     /**
      * @param string
      */
@@ -57,7 +51,6 @@ class PayoutStatusOutput extends DataObject
     {
         $this->statusCategory = $value;
     }
-
     /**
      * @return int
      */
@@ -65,7 +58,6 @@ class PayoutStatusOutput extends DataObject
     {
         return $this->statusCode;
     }
-
     /**
      * @param int
      */
@@ -73,25 +65,23 @@ class PayoutStatusOutput extends DataObject
     {
         $this->statusCode = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->isCancellable)) {
+        if (!\is_null($this->isCancellable)) {
             $object->isCancellable = $this->isCancellable;
         }
-        if (!is_null($this->statusCategory)) {
+        if (!\is_null($this->statusCategory)) {
             $object->statusCategory = $this->statusCategory;
         }
-        if (!is_null($this->statusCode)) {
+        if (!\is_null($this->statusCode)) {
             $object->statusCode = $this->statusCode;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,13 +90,13 @@ class PayoutStatusOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'isCancellable')) {
+        if (\property_exists($object, 'isCancellable')) {
             $this->isCancellable = $object->isCancellable;
         }
-        if (property_exists($object, 'statusCategory')) {
+        if (\property_exists($object, 'statusCategory')) {
             $this->statusCategory = $object->statusCategory;
         }
-        if (property_exists($object, 'statusCode')) {
+        if (\property_exists($object, 'statusCode')) {
             $this->statusCode = $object->statusCode;
         }
         return $this;

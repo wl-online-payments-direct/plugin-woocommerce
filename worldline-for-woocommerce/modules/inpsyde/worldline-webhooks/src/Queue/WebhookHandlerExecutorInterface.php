@@ -10,5 +10,5 @@ interface WebhookHandlerExecutorInterface
     /**
      * @throws Exception
      */
-    public function handle(WebhooksEvent $webhook): void;
+    public function handle(WebhooksEvent $webhook) : void;
 }

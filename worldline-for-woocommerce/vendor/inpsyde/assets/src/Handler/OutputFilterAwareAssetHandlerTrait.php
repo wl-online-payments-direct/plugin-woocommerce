@@ -18,14 +18,14 @@ trait OutputFilterAwareAssetHandlerTrait
     /**
      * @var array<string, callable|class-string<AssetOutputFilter>>
      */
-    protected $outputFilters = [];
+    protected array $outputFilters = [];
     /**
      * @param string $name
      * @param callable $filter
      *
      * @return OutputFilterAwareAssetHandler
      */
-    public function withOutputFilter(string $name, callable $filter): \Inpsyde\Assets\Handler\OutputFilterAwareAssetHandler
+    public function withOutputFilter(string $name, callable $filter) : \Inpsyde\Assets\Handler\OutputFilterAwareAssetHandler
     {
         $this->outputFilters[$name] = $filter;
         return $this;
@@ -33,7 +33,7 @@ trait OutputFilterAwareAssetHandlerTrait
     /**
      * @return array<string, callable|class-string<AssetOutputFilter>>
      */
-    public function outputFilters(): array
+    public function outputFilters() : array
     {
         return $this->outputFilters;
     }
@@ -42,13 +42,13 @@ trait OutputFilterAwareAssetHandlerTrait
      *
      * @return bool
      */
-    public function filter(Asset $asset): bool
+    public function filter(Asset $asset) : bool
     {
         $filters = $this->currentOutputFilters($asset);
-        if (count($filters) === 0) {
+        if (\count($filters) === 0) {
             return \false;
         }
-        add_filter($this->filterHook(), static function (string $html, string $handle) use ($filters, $asset): string {
+        \add_filter($this->filterHook(), static function (string $html, string $handle) use($filters, $asset) : string {
             if ($handle !== $asset->handle()) {
                 return $html;
             }
@@ -60,12 +60,12 @@ trait OutputFilterAwareAssetHandlerTrait
         }, 10, 2);
         return \true;
     }
-    protected function currentOutputFilters(Asset $asset): array
+    protected function currentOutputFilters(Asset $asset) : array
     {
         $filters = [];
         $registeredFilters = $this->outputFilters();
         foreach ($asset->filters() as $filter) {
-            if (is_callable($filter)) {
+            if (\is_callable($filter)) {
                 $filters[] = $filter;
                 continue;
             }
@@ -80,5 +80,5 @@ trait OutputFilterAwareAssetHandlerTrait
      *
      * @return string
      */
-    abstract public function filterHook(): string;
+    public abstract function filterHook() : string;
 }

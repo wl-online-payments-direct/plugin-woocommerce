@@ -14,5 +14,4 @@ if (\PHP_VERSION_ID < 80000) {
     class ValueError extends \Error
     {
     }
-    \class_alias('Syde\Vendor\Worldline\ValueError', 'ValueError', \false);
 }

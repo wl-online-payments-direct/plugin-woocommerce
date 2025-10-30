@@ -18,7 +18,7 @@ class GooglePayThreeDSecureFactory
         $this->exemptionType = $exemptionType;
         $this->exemptionAmountChecker = $exemptionAmountChecker;
     }
-    public function create(int $orderAmount, string $currencyCode, string $returnUrl = ''): GPayThreeDSecure
+    public function create(int $orderAmount, string $currencyCode, string $returnUrl = '') : GPayThreeDSecure
     {
         $threedSecure = new GPayThreeDSecure();
         if (!empty($returnUrl)) {

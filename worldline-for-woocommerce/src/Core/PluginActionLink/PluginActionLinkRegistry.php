@@ -20,24 +20,24 @@ class PluginActionLinkRegistry
         $this->pluginActionLinks = $pluginActionLinks;
         $this->pluginMetaLinks = $pluginMetaLinks;
     }
-    public function init(): void
+    public function init() : void
     {
-        add_filter('plugin_action_links', function (array $links, string $pluginFile): array {
+        \add_filter('plugin_action_links', function (array $links, string $pluginFile) : array {
             return $this->addPluginLinks($links, $pluginFile, $this->pluginActionLinks);
         }, 10, 2);
-        add_filter('plugin_row_meta', function (array $links, string $pluginFile): array {
+        \add_filter('plugin_row_meta', function (array $links, string $pluginFile) : array {
             return $this->addPluginLinks($links, $pluginFile, $this->pluginMetaLinks);
         }, 10, 2);
     }
-    protected function addPluginLinks(array $links, string $pluginFile, array $extraLinks): array
+    protected function addPluginLinks(array $links, string $pluginFile, array $extraLinks) : array
     {
         if ($pluginFile !== $this->pluginMainFile) {
             return $links;
         }
-        $extraLinksAssoc = array_reduce($extraLinks, static function (array $extraLinks, PluginActionLink $link): array {
+        $extraLinksAssoc = \array_reduce($extraLinks, static function (array $extraLinks, PluginActionLink $link) : array {
             $extraLinks[$link->slug()] = $link;
             return $extraLinks;
         }, []);
-        return array_merge($extraLinksAssoc, $links);
+        return \array_merge($extraLinksAssoc, $links);
     }
 }

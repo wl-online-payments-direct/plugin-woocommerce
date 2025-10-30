@@ -14,15 +14,15 @@ class CurrencyValidatorProperties
         $this->currency = $currency;
         $this->transientKey = $transientKey;
     }
-    public function country(): string
+    public function country() : string
     {
         return $this->country;
     }
-    public function currency(): string
+    public function currency() : string
     {
         return $this->currency;
     }
-    public function transientKey(): string
+    public function transientKey() : string
     {
         return $this->transientKey;
     }

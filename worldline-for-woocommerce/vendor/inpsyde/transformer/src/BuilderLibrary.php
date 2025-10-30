@@ -10,18 +10,9 @@ use Syde\Vendor\Worldline\Dhii\Modular\Module\Exception\ModuleExceptionInterface
 use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class BuilderLibrary
 {
-    /**
-     * @var DelegatingContainer
-     */
-    private $container;
-    /**
-     * @var CompositeCachingServiceProvider
-     */
-    private $provider;
-    /**
-     * @var BuilderModule
-     */
-    private $module;
+    private DelegatingContainer $container;
+    private CompositeCachingServiceProvider $provider;
+    private BuilderModule $module;
     /**
      * QueueLibrary constructor.
      *
@@ -45,7 +36,7 @@ class BuilderLibrary
     {
         $this->module->run($this->container());
     }
-    public function container(): ContainerInterface
+    public function container() : ContainerInterface
     {
         return $this->container;
     }

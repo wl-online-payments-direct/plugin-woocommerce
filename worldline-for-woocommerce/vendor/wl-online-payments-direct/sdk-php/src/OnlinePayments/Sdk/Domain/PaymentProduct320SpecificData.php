@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct320SpecificData extends DataObject
 {
@@ -15,12 +15,10 @@ class PaymentProduct320SpecificData extends DataObject
      * @var string
      */
     public $gateway = null;
-
     /**
      * @var string[]
      */
     public $networks = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class PaymentProduct320SpecificData extends DataObject
     {
         return $this->gateway;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class PaymentProduct320SpecificData extends DataObject
     {
         $this->gateway = $value;
     }
-
     /**
      * @return string[]
      */
@@ -44,7 +40,6 @@ class PaymentProduct320SpecificData extends DataObject
     {
         return $this->networks;
     }
-
     /**
      * @param string[]
      */
@@ -52,27 +47,25 @@ class PaymentProduct320SpecificData extends DataObject
     {
         $this->networks = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->gateway)) {
+        if (!\is_null($this->gateway)) {
             $object->gateway = $this->gateway;
         }
-        if (!is_null($this->networks)) {
+        if (!\is_null($this->networks)) {
             $object->networks = [];
             foreach ($this->networks as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->networks[] = $element;
                 }
             }
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -81,12 +74,12 @@ class PaymentProduct320SpecificData extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'gateway')) {
+        if (\property_exists($object, 'gateway')) {
             $this->gateway = $object->gateway;
         }
-        if (property_exists($object, 'networks')) {
-            if (!is_array($object->networks) && !is_object($object->networks)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->networks, true) . '\' is not an array or object');
+        if (\property_exists($object, 'networks')) {
+            if (!\is_array($object->networks) && !\is_object($object->networks)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->networks, \true) . '\' is not an array or object');
             }
             $this->networks = [];
             foreach ($object->networks as $element) {

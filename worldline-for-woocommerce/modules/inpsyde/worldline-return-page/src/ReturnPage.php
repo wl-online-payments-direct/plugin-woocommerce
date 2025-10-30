@@ -20,20 +20,20 @@ class ReturnPage
         $this->paymentMethodId = $paymentMethodId;
         $this->container = $container;
     }
-    public function init(): void
+    public function init() : void
     {
         $this->registerAjax();
         $this->printOutput();
     }
-    public function handleCheckPaymentStatusAjax(): void
+    public function handleCheckPaymentStatusAjax() : void
     {
         // nonce check should not be needed here, not modifying anything
         // phpcs:disable WordPress.Security.NonceVerification
         $wcOrder = null;
-        if (isset($_POST[self::WC_ORDER_KEY]) && is_string($_POST[self::WC_ORDER_KEY])) {
-            $wcOrderKey = sanitize_text_field(wp_unslash($_POST[self::WC_ORDER_KEY]));
-            $wcOrderId = wc_get_order_id_by_order_key($wcOrderKey);
-            $wcOrder = wc_get_order($wcOrderId);
+        if (isset($_POST[self::WC_ORDER_KEY]) && \is_string($_POST[self::WC_ORDER_KEY])) {
+            $wcOrderKey = \sanitize_text_field(\wp_unslash($_POST[self::WC_ORDER_KEY]));
+            $wcOrderId = \wc_get_order_id_by_order_key($wcOrderKey);
+            $wcOrder = \wc_get_order($wcOrderId);
             if (!$wcOrder instanceof WC_Order) {
                 $wcOrder = null;
             }
@@ -46,9 +46,9 @@ class ReturnPage
         }
         $paymentStatus = $this->checkPaymentStatus($wcOrder);
         $message = $this->getStatusMessage($paymentStatus);
-        wp_send_json_success(['status' => $paymentStatus, 'message' => $this->renderMessage($message)], 200);
+        \wp_send_json_success(['status' => $paymentStatus, 'message' => $this->renderMessage($message)], 200);
     }
-    public function checkPaymentStatus(?WC_Order $wcOrder): string
+    public function checkPaymentStatus(?WC_Order $wcOrder) : string
     {
         $statusChecker = $this->locateWithFallback('status_checker', null);
         if (!$statusChecker instanceof StatusCheckerInterface) {
@@ -56,9 +56,9 @@ class ReturnPage
         }
         return $statusChecker->determineStatus($wcOrder);
     }
-    public function getStatusMessage(string $status): string
+    public function getStatusMessage(string $status) : string
     {
-        return (string) apply_filters("syde.return_page.{$this->paymentMethodId}.message.status.{$status}", $this->locateWithFallback("message.status.{$status}", "{$status}"));
+        return (string) \apply_filters("syde.return_page.{$this->paymentMethodId}.message.status.{$status}", $this->locateWithFallback("message.status.{$status}", "{$status}"));
     }
     /**
      * @param string $key
@@ -73,19 +73,19 @@ class ReturnPage
             return $fallback;
         }
     }
-    private function generateServiceName(string $key): string
+    private function generateServiceName(string $key) : string
     {
         return 'return_page.' . $this->paymentMethodId . '.' . $key;
     }
-    private function ajaxEndpointName(): string
+    private function ajaxEndpointName() : string
     {
         return 'return-page-' . $this->paymentMethodId . '-check-payment-status';
     }
     // phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
-    private function printOutput(): void
+    private function printOutput() : void
     {
-        add_action('woocommerce_before_thankyou', function (int $orderId): void {
-            $order = wc_get_order($orderId);
+        \add_action('woocommerce_before_thankyou', function (int $orderId) : void {
+            $order = \wc_get_order($orderId);
             if (!$order instanceof WC_Order) {
                 throw new Exception("Failed to retrieve the order based on the provided order ID {$orderId}.");
             }
@@ -93,7 +93,7 @@ class ReturnPage
             if ($orderPaymentMethodId !== $this->paymentMethodId) {
                 return;
             }
-            $outputParameters = apply_filters("syde.return_page.{$this->paymentMethodId}.parameters", ['timeout' => $this->locateWithFallback('interval', 1000), 'retryCount' => $this->locateWithFallback('retry_count', 5), 'messageLoading' => $this->locateWithFallback('message.loading', 'Processing your payment. Please wait...'), 'action' => $this->ajaxEndpointName()]);
+            $outputParameters = \apply_filters("syde.return_page.{$this->paymentMethodId}.parameters", ['timeout' => $this->locateWithFallback('interval', 1000), 'retryCount' => $this->locateWithFallback('retry_count', 5), 'messageLoading' => $this->locateWithFallback('message.loading', 'Processing your payment. Please wait...'), 'action' => $this->ajaxEndpointName()]);
             $status = $this->checkPaymentStatus($order);
             $isDone = $status !== ReturnPageStatus::PENDING;
             $action = $this->locateWithFallback("action.status.{$status}", null);
@@ -104,31 +104,31 @@ class ReturnPage
             if ($isDone) {
                 $classes[] = 'done';
             }
-            $classes = apply_filters("syde.return_page.{$this->paymentMethodId}.html_classes", $classes);
-            assert(is_array($classes));
-            $classesStr = implode(' ', $classes);
+            $classes = \apply_filters("syde.return_page.{$this->paymentMethodId}.html_classes", $classes);
+            \assert(\is_array($classes));
+            $classesStr = \implode(' ', $classes);
             $message = (string) $outputParameters['messageLoading'];
             if ($isDone) {
                 $message = $this->getStatusMessage($status);
             }
-            echo sprintf('<div class="%s" data-timeout="%d"
+            echo \sprintf('<div class="%s" data-timeout="%d"
                                     data-retry-count="%d"
                                     data-action="%s"
-                                    >', esc_attr($classesStr), (int) $outputParameters['timeout'], (int) $outputParameters['retryCount'], esc_attr((string) $outputParameters['action']));
+                                    >', \esc_attr($classesStr), (int) $outputParameters['timeout'], (int) $outputParameters['retryCount'], \esc_attr((string) $outputParameters['action']));
             // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo $this->renderMessage($message);
             echo "</div>";
         });
     }
-    private function renderMessage(string $message): string
+    private function renderMessage(string $message) : string
     {
         $renderer = $this->locateWithFallback('message.render', new ReturnPageRender());
-        assert($renderer instanceof ReturnPageRenderInterface);
+        \assert($renderer instanceof ReturnPageRenderInterface);
         return $renderer->render(['message' => $message]);
     }
-    public function registerAjax(): void
+    public function registerAjax() : void
     {
-        add_action('wp_ajax_nopriv_' . $this->ajaxEndpointName(), [$this, 'handleCheckPaymentStatusAjax']);
-        add_action('wp_ajax_' . $this->ajaxEndpointName(), [$this, 'handleCheckPaymentStatusAjax']);
+        \add_action('wp_ajax_nopriv_' . $this->ajaxEndpointName(), [$this, 'handleCheckPaymentStatusAjax']);
+        \add_action('wp_ajax_' . $this->ajaxEndpointName(), [$this, 'handleCheckPaymentStatusAjax']);
     }
 }

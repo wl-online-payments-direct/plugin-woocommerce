@@ -27,21 +27,21 @@ class WorldlineWebhooksController implements WpRestApiControllerInterface
     /**
      * @inheritDoc
      */
-    public function handleWpRestRequest(WP_REST_Request $request): WP_REST_Response
+    public function handleWpRestRequest(WP_REST_Request $request) : WP_REST_Response
     {
         $response = new WP_REST_Response(null, 200);
         try {
-            do_action('wlop.webhook_request', $request);
+            \do_action('wlop.webhook_request', $request);
             try {
                 $webhookEvent = $this->webhookEventFactory->fromRequest($request->get_body(), $request->get_headers());
-                do_action('wlop.webhook_event', ['id' => $webhookEvent->id, 'type' => $webhookEvent->type, 'ref' => (string) WebhookHelper::reference($webhookEvent), 'object' => $webhookEvent]);
+                \do_action('wlop.webhook_event', ['id' => $webhookEvent->id, 'type' => $webhookEvent->type, 'ref' => (string) WebhookHelper::reference($webhookEvent), 'object' => $webhookEvent]);
                 $this->queue->add($webhookEvent);
             } catch (SignatureValidationException $exception) {
-                do_action('wlop.webhook_verification_failed', ['exception' => $exception]);
+                \do_action('wlop.webhook_verification_failed', ['exception' => $exception]);
             }
-            do_action('wlop.webhook_response', $response);
+            \do_action('wlop.webhook_response', $response);
         } catch (Throwable $error) {
-            do_action('wlop.webhook_error', ['exception' => $error]);
+            \do_action('wlop.webhook_error', ['exception' => $error]);
         }
         return $response;
     }

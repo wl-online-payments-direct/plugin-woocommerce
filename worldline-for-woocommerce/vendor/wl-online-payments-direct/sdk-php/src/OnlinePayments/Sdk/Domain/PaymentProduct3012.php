@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct3012 extends DataObject
 {
@@ -15,12 +15,10 @@ class PaymentProduct3012 extends DataObject
      * @var string
      */
     public $qrCode = null;
-
     /**
      * @var string
      */
     public $urlIntent = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class PaymentProduct3012 extends DataObject
     {
         return $this->qrCode;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class PaymentProduct3012 extends DataObject
     {
         $this->qrCode = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class PaymentProduct3012 extends DataObject
     {
         return $this->urlIntent;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class PaymentProduct3012 extends DataObject
     {
         $this->urlIntent = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->qrCode)) {
+        if (!\is_null($this->qrCode)) {
             $object->qrCode = $this->qrCode;
         }
-        if (!is_null($this->urlIntent)) {
+        if (!\is_null($this->urlIntent)) {
             $object->urlIntent = $this->urlIntent;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class PaymentProduct3012 extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'qrCode')) {
+        if (\property_exists($object, 'qrCode')) {
             $this->qrCode = $object->qrCode;
         }
-        if (property_exists($object, 'urlIntent')) {
+        if (\property_exists($object, 'urlIntent')) {
             $this->urlIntent = $object->urlIntent;
         }
         return $this;

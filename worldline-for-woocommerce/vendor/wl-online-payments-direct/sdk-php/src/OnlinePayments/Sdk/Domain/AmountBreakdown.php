@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class AmountBreakdown extends DataObject
 {
@@ -15,12 +15,10 @@ class AmountBreakdown extends DataObject
      * @var int
      */
     public $amount = null;
-
     /**
      * @var string
      */
     public $type = null;
-
     /**
      * @return int
      */
@@ -28,7 +26,6 @@ class AmountBreakdown extends DataObject
     {
         return $this->amount;
     }
-
     /**
      * @param int
      */
@@ -36,7 +33,6 @@ class AmountBreakdown extends DataObject
     {
         $this->amount = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class AmountBreakdown extends DataObject
     {
         return $this->type;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class AmountBreakdown extends DataObject
     {
         $this->type = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->amount)) {
+        if (!\is_null($this->amount)) {
             $object->amount = $this->amount;
         }
-        if (!is_null($this->type)) {
+        if (!\is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class AmountBreakdown extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'amount')) {
+        if (\property_exists($object, 'amount')) {
             $this->amount = $object->amount;
         }
-        if (property_exists($object, 'type')) {
+        if (\property_exists($object, 'type')) {
             $this->type = $object->type;
         }
         return $this;

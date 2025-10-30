@@ -22,39 +22,39 @@ class LinksRenderer
         $this->liveViewAccountUrl = $liveViewAccountUrl;
         $this->isLive = $isLive;
     }
-    public function render(): string
+    public function render() : string
     {
-        $links = [sprintf(
+        $links = [\sprintf(
             // translators: %1$s, %2$s - <a> link tags.
-            __('%1$sContact Us%2$s', 'worldline-for-woocommerce'),
-            '<a target="_blank" href="' . esc_url($this->contactUsUrl) . '">',
+            \__('%1$sContact Us%2$s', 'worldline-for-woocommerce'),
+            '<a target="_blank" href="' . \esc_url($this->contactUsUrl) . '">',
             '</a>'
-        ), sprintf(
+        ), \sprintf(
             // translators: %1$s, %2$s - <a> link tags.
-            __('%1$sDocumentation%2$s', 'worldline-for-woocommerce'),
-            '<a target="_blank" href="' . esc_url($this->documentationUrl) . '">',
+            \__('%1$sDocumentation%2$s', 'worldline-for-woocommerce'),
+            '<a target="_blank" href="' . \esc_url($this->documentationUrl) . '">',
             '</a>'
-        ), sprintf(
+        ), \sprintf(
             // translators: %1$s, %2$s - <a> link tags.
-            __('%1$sCreate Account%2$s', 'worldline-for-woocommerce'),
-            '<a id="wlopTestCreateAccountLink" target="_blank" href="' . esc_url($this->testCreateAccountUrl) . '"' . ($this->isLive ? ' style="display: none;"' : '') . '>',
+            \__('%1$sCreate Account%2$s', 'worldline-for-woocommerce'),
+            '<a id="wlopTestCreateAccountLink" target="_blank" href="' . \esc_url($this->testCreateAccountUrl) . '"' . ($this->isLive ? ' style="display: none;"' : '') . '>',
             '</a>'
-        ) . sprintf(
+        ) . \sprintf(
             // translators: %1$s, %2$s - <a> link tags.
-            __('%1$sCreate Account%2$s', 'worldline-for-woocommerce'),
-            '<a id="wlopLiveCreateAccountLink" target="_blank" href="' . esc_url($this->liveCreateAccountUrl) . '"' . ($this->isLive ? '' : ' style="display: none;"') . '>',
+            \__('%1$sCreate Account%2$s', 'worldline-for-woocommerce'),
+            '<a id="wlopLiveCreateAccountLink" target="_blank" href="' . \esc_url($this->liveCreateAccountUrl) . '"' . ($this->isLive ? '' : ' style="display: none;"') . '>',
             '</a>'
-        ), sprintf(
+        ), \sprintf(
             // translators: %1$s, %2$s - <a> link tags.
-            __('%1$sView Account%2$s', 'worldline-for-woocommerce'),
-            '<a id="wlopTestViewAccountLink" target="_blank" href="' . esc_url($this->testViewAccountUrl) . '"' . ($this->isLive ? ' style="display: none;"' : '') . '>',
+            \__('%1$sView Account%2$s', 'worldline-for-woocommerce'),
+            '<a id="wlopTestViewAccountLink" target="_blank" href="' . \esc_url($this->testViewAccountUrl) . '"' . ($this->isLive ? ' style="display: none;"' : '') . '>',
             '</a>'
-        ) . sprintf(
+        ) . \sprintf(
             // translators: %1$s, %2$s - <a> link tags.
-            __('%1$sView Account%2$s', 'worldline-for-woocommerce'),
-            '<a id="wlopLiveViewAccountLink" target="_blank" href="' . esc_url($this->liveViewAccountUrl) . '"' . ($this->isLive ? '' : ' style="display: none;"') . '>',
+            \__('%1$sView Account%2$s', 'worldline-for-woocommerce'),
+            '<a id="wlopLiveViewAccountLink" target="_blank" href="' . \esc_url($this->liveViewAccountUrl) . '"' . ($this->isLive ? '' : ' style="display: none;"') . '>',
             '</a>'
         )];
-        return '<nav>' . implode(' | ', $links) . '</nav>';
+        return '<nav>' . \implode(' | ', $links) . '</nav>';
     }
 }

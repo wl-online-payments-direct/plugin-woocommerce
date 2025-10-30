@@ -11,11 +11,11 @@ class WorldlineProperties extends PluginProperties
      *
      * @return PluginProperties
      */
-    public static function new(string $pluginMainFile): PluginProperties
+    public static function new(string $pluginMainFile) : PluginProperties
     {
         return new self($pluginMainFile);
     }
-    public function isDebug(): bool
+    public function isDebug() : bool
     {
         /**
          * We do not wish to follow Modularity's default behaviour of piggybacking on WP_DEBUG.
@@ -29,6 +29,6 @@ class WorldlineProperties extends PluginProperties
          * As a consequence, we implement our own debug flag here which pretty much guarantees
          * it will never be used accidentally.
          */
-        return (bool) getenv('WORLDLINE_DEBUG');
+        return (bool) \getenv('WORLDLINE_DEBUG');
     }
 }

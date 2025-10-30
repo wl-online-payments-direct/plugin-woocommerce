@@ -14,11 +14,11 @@ class UriFactory implements UriFactoryInterface, UriBuilderInterface
     /**
      * @inheritDoc
      */
-    public function createUri(string $uri = ''): UriInterface
+    public function createUri(string $uri = '') : UriInterface
     {
-        $parts = parse_url($uri);
+        $parts = \parse_url($uri);
         if ($parts === \false) {
-            throw new InvalidArgumentException(sprintf('Unable to parse URI: "%1$s"', $uri));
+            throw new InvalidArgumentException(\sprintf('Unable to parse URI: "%1$s"', $uri));
         }
         return $this->createUriFromParts($parts);
     }
@@ -26,7 +26,7 @@ class UriFactory implements UriFactoryInterface, UriBuilderInterface
      * @inheritDoc
      * @psalm-suppress MixedArgument
      */
-    public function createUriFromParts(array $parts): UriInterface
+    public function createUriFromParts(array $parts) : UriInterface
     {
         $result = new Uri(null, null, null, null, null, null, null, null);
         if (isset($parts['scheme'])) {

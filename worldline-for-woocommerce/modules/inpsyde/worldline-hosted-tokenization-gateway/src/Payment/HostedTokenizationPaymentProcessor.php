@@ -43,14 +43,14 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
      * @throws Throwable
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength.TooLong
      */
-    public function processPayment(WC_Order $wcOrder, PaymentGateway $gateway): array
+    public function processPayment(WC_Order $wcOrder, PaymentGateway $gateway) : array
     {
         $wcOrder->set_status('pending');
         $wcOrder->save();
         $hostedTokenizationId = $this->hostedTokenizationId();
         if ($hostedTokenizationId === null) {
             // Fallback to redirect, e.g. when no JavaScript.
-            do_action('wlop.hosted_tokenization_fallback');
+            \do_action('wlop.hosted_tokenization_fallback');
             return $this->hostedPaymentProcessor->processPayment($wcOrder, $gateway);
         }
         try {
@@ -59,7 +59,7 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
             $paymentRequest = new CreatePaymentRequest();
             $paymentRequest->setHostedTokenizationId($hostedTokenizationId);
             $cardPaymentMethodSpecificInput = $this->requestTransformer->create(CardPaymentMethodSpecificInput::class, new HostedCheckoutInput($wlopOrder, $wcOrder, '', null, null, null));
-            assert($cardPaymentMethodSpecificInput instanceof CardPaymentMethodSpecificInput);
+            \assert($cardPaymentMethodSpecificInput instanceof CardPaymentMethodSpecificInput);
             $cardPaymentMethodSpecificInput->setThreeDSecure($this->cardThreedSecureFactory->create($wlopOrder->getAmountOfMoney()->getAmount(), $wlopOrder->getAmountOfMoney()->getCurrencyCode(), $wcOrder->get_checkout_order_received_url()));
             $paymentRequest->setOrder($wlopOrder);
             $paymentRequest->setCardPaymentMethodSpecificInput($cardPaymentMethodSpecificInput);
@@ -78,32 +78,32 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
             if ($exception instanceof ValidationException) {
                 $errors = $this->extractErrors($exception);
             }
-            do_action('wlop.hosted_tokenization_payment_error', ['exception' => $exception, 'errors' => $errors]);
-            wc_add_notice(__('Failed to process checkout. Please try again or contact the store admin.', 'worldline-for-woocommerce'), 'error');
+            \do_action('wlop.hosted_tokenization_payment_error', ['exception' => $exception, 'errors' => $errors]);
+            \wc_add_notice(\__('Failed to process checkout. Please try again or contact the store admin.', 'worldline-for-woocommerce'), 'error');
             return ['result' => 'failure'];
         }
         return ['result' => 'success', 'redirect' => $gateway->get_return_url($wcOrder)];
     }
-    protected function hostedTokenizationId(): ?string
+    protected function hostedTokenizationId() : ?string
     {
         $key = 'wlop_hosted_tokenization_id';
         if (!isset($_POST[$key])) {
             return null;
         }
         /** @psalm-suppress PossiblyInvalidArgument */
-        $hostedTokenizationId = sanitize_text_field(wp_unslash($_POST[$key]));
+        $hostedTokenizationId = \sanitize_text_field(\wp_unslash($_POST[$key]));
         if (empty($hostedTokenizationId)) {
             return null;
         }
         return $hostedTokenizationId;
     }
-    protected function extractErrors(ValidationException $exception): string
+    protected function extractErrors(ValidationException $exception) : string
     {
         $response = $exception->getResponse();
-        assert($response instanceof ErrorResponse);
-        $errorMessages = array_map(static function (APIError $error): string {
+        \assert($response instanceof ErrorResponse);
+        $errorMessages = \array_map(static function (APIError $error) : string {
             return $error->getMessage();
         }, $response->getErrors());
-        return implode(', ', $errorMessages);
+        return \implode(', ', $errorMessages);
     }
 }

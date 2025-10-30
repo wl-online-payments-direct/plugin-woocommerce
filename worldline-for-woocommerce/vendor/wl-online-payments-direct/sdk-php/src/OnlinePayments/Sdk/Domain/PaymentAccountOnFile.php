@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentAccountOnFile extends DataObject
 {
@@ -15,12 +15,10 @@ class PaymentAccountOnFile extends DataObject
      * @var string
      */
     public $createDate = null;
-
     /**
      * @var int
      */
     public $numberOfCardOnFileCreationAttemptsLast24Hours = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class PaymentAccountOnFile extends DataObject
     {
         return $this->createDate;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class PaymentAccountOnFile extends DataObject
     {
         $this->createDate = $value;
     }
-
     /**
      * @return int
      */
@@ -44,7 +40,6 @@ class PaymentAccountOnFile extends DataObject
     {
         return $this->numberOfCardOnFileCreationAttemptsLast24Hours;
     }
-
     /**
      * @param int
      */
@@ -52,22 +47,20 @@ class PaymentAccountOnFile extends DataObject
     {
         $this->numberOfCardOnFileCreationAttemptsLast24Hours = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->createDate)) {
+        if (!\is_null($this->createDate)) {
             $object->createDate = $this->createDate;
         }
-        if (!is_null($this->numberOfCardOnFileCreationAttemptsLast24Hours)) {
+        if (!\is_null($this->numberOfCardOnFileCreationAttemptsLast24Hours)) {
             $object->numberOfCardOnFileCreationAttemptsLast24Hours = $this->numberOfCardOnFileCreationAttemptsLast24Hours;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class PaymentAccountOnFile extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'createDate')) {
+        if (\property_exists($object, 'createDate')) {
             $this->createDate = $object->createDate;
         }
-        if (property_exists($object, 'numberOfCardOnFileCreationAttemptsLast24Hours')) {
+        if (\property_exists($object, 'numberOfCardOnFileCreationAttemptsLast24Hours')) {
             $this->numberOfCardOnFileCreationAttemptsLast24Hours = $object->numberOfCardOnFileCreationAttemptsLast24Hours;
         }
         return $this;

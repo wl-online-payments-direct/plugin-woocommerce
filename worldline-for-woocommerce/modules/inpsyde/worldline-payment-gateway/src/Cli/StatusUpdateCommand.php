@@ -29,10 +29,10 @@ class StatusUpdateCommand
      *
      * @when after_wp_load
      */
-    public function refresh(array $args): void
+    public function refresh(array $args) : void
     {
         $id = (int) $args[0];
-        $wcOrder = wc_get_order($id);
+        $wcOrder = \wc_get_order($id);
         if (!$wcOrder instanceof WC_Order) {
             WP_CLI::error("Order {$id} not found.");
             return;

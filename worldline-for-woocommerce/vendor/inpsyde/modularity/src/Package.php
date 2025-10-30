@@ -165,9 +165,9 @@ class Package
      * @param ContainerInterface ...$containers
      * @return Package
      */
-    public static function new(Properties $properties, ContainerInterface ...$containers): Package
+    public static function new(Properties $properties, ContainerInterface ...$containers) : Package
     {
-        return new self($properties, ...array_values($containers));
+        return new self($properties, ...\array_values($containers));
     }
     /**
      * @param Properties $properties
@@ -177,7 +177,7 @@ class Package
     {
         $this->properties = $properties;
         $this->containerConfigurator = new ContainerConfigurator($containers);
-        $this->containerConfigurator->addService(self::PROPERTIES, static function () use ($properties): Properties {
+        $this->containerConfigurator->addService(self::PROPERTIES, static function () use($properties) : Properties {
             return $properties;
         });
     }
@@ -185,10 +185,10 @@ class Package
      * @param Module $module
      * @return static
      */
-    public function addModule(Module $module): Package
+    public function addModule(Module $module) : Package
     {
         try {
-            $reason = sprintf('add module %s', $module->id());
+            $reason = \sprintf('add module %s', $module->id());
             $this->assertStatus(self::STATUS_FAILED, $reason, '!=');
             $this->assertStatus(self::STATUS_INITIALIZING, $reason, '<=');
             $registeredServices = $this->addModuleServices($module, self::MODULE_REGISTERED);
@@ -215,7 +215,7 @@ class Package
      *
      * phpcs:disable Inpsyde.CodeQuality.FunctionLength
      */
-    public function connect(Package $package): bool
+    public function connect(Package $package) : bool
     {
         // phpcs:enable Inpsyde.CodeQuality.FunctionLength
         try {
@@ -224,7 +224,7 @@ class Package
             }
             $packageName = $package->name();
             // Don't connect, if already connected
-            if (array_key_exists($packageName, $this->connectedPackages)) {
+            if (\array_key_exists($packageName, $this->connectedPackages)) {
                 return $this->handleConnectionFailure($packageName, 'already connected', \false);
             }
             // Don't connect, if already booted or boot failed
@@ -236,14 +236,14 @@ class Package
             $this->connectedPackages[$packageName] = \true;
             // We put connected package's properties in this package's container, so that in modules
             // "run" method we can access them if we need to.
-            $this->containerConfigurator->addService(sprintf('%s.%s', $package->name(), self::PROPERTIES), static function () use ($package): Properties {
+            $this->containerConfigurator->addService(\sprintf('%s.%s', $package->name(), self::PROPERTIES), static function () use($package) : Properties {
                 return $package->properties();
             });
             // If we can obtain a container we do, otherwise we build a proxy container
             $packageHasContainer = $package->hasReachedStatus(self::STATUS_INITIALIZED) || $package->hasContainer();
             $container = $packageHasContainer ? $package->container() : new PackageProxyContainer($package);
             $this->containerConfigurator->addContainer($container);
-            do_action($this->hookName(self::ACTION_PACKAGE_CONNECTED), $packageName, $this->status, $container instanceof PackageProxyContainer);
+            \do_action($this->hookName(self::ACTION_PACKAGE_CONNECTED), $packageName, $this->status, $container instanceof PackageProxyContainer);
             return \true;
         } catch (\Throwable $throwable) {
             if (isset($packageName) && ($this->connectedPackages[$packageName] ?? \false) !== \true) {
@@ -256,7 +256,7 @@ class Package
     /**
      * @return static
      */
-    public function build(): Package
+    public function build() : Package
     {
         try {
             // Be tolerant about things like `$package->build()->build()`.
@@ -288,7 +288,7 @@ class Package
      * @param Module ...$defaultModules Deprecated, use `addModule()` to add default modules.
      * @return bool
      */
-    public function boot(Module ...$defaultModules): bool
+    public function boot(Module ...$defaultModules) : bool
     {
         try {
             // When package is done, nothing should happen to it calling boot again, but we call
@@ -327,10 +327,10 @@ class Package
      * @param Module ...$defaultModules
      * @return void
      */
-    private function doBuild(Module ...$defaultModules): void
+    private function doBuild(Module ...$defaultModules) : void
     {
         if ($defaultModules) {
-            $this->deprecatedArgument(sprintf('Passing default modules to %1$s::boot() is deprecated since version 1.7.0.' . ' Please add modules via %1$s::addModule().', __CLASS__), __METHOD__, '1.7.0');
+            $this->deprecatedArgument(\sprintf('Passing default modules to %1$s::boot() is deprecated since version 1.7.0.' . ' Please add modules via %1$s::addModule().', __CLASS__), __METHOD__, '1.7.0');
         }
         // We expect `boot()` to be called either:
         //   1. Directly after `addModule()`/`connect()`, without any `build()` call in between, so
@@ -394,7 +394,7 @@ class Package
      * @param string $status
      * @return bool
      */
-    private function addModuleServices(Module $module, string $status): bool
+    private function addModuleServices(Module $module, string $status) : bool
     {
         /** @var null|array<string, Service|ExtendingService> $services */
         $services = null;
@@ -428,7 +428,7 @@ class Package
     /**
      * @return void
      */
-    private function doExecute(): void
+    private function doExecute() : void
     {
         foreach ($this->executables as $executable) {
             $success = $executable->run($this->container());
@@ -441,7 +441,7 @@ class Package
      * @param list<string>|null $serviceIds
      * @return void
      */
-    private function moduleProgress(string $moduleId, string $status, ?array $serviceIds = null): void
+    private function moduleProgress(string $moduleId, string $status, ?array $serviceIds = null) : void
     {
         isset($this->moduleStatus[$status]) or $this->moduleStatus[$status] = [];
         $this->moduleStatus[$status][] = $moduleId;
@@ -449,20 +449,20 @@ class Package
             $this->moduleStatus[self::MODULES_ALL][] = "{$moduleId} {$status}";
             return;
         }
-        $description = sprintf('%s %s (%s)', $moduleId, $status, implode(', ', $serviceIds));
+        $description = \sprintf('%s %s (%s)', $moduleId, $status, \implode(', ', $serviceIds));
         $this->moduleStatus[self::MODULES_ALL][] = $description;
     }
     /**
      * @return array<string, list<string>>
      */
-    public function modulesStatus(): array
+    public function modulesStatus() : array
     {
         return $this->moduleStatus;
     }
     /**
      * @return array<string, bool>
      */
-    public function connectedPackages(): array
+    public function connectedPackages() : array
     {
         return $this->connectedPackages;
     }
@@ -470,7 +470,7 @@ class Package
      * @param string $packageName
      * @return bool
      */
-    public function isPackageConnected(string $packageName): bool
+    public function isPackageConnected(string $packageName) : bool
     {
         return $this->connectedPackages[$packageName] ?? \false;
     }
@@ -480,9 +480,9 @@ class Package
      *
      * @return bool
      */
-    public function moduleIs(string $moduleId, string $status): bool
+    public function moduleIs(string $moduleId, string $status) : bool
     {
-        return in_array($moduleId, $this->moduleStatus[$status] ?? [], \true);
+        return \in_array($moduleId, $this->moduleStatus[$status] ?? [], \true);
     }
     /**
      * Return the filter name to be used to extend modules of the plugin.
@@ -498,7 +498,7 @@ class Package
      *
      * @see Package::name()
      */
-    public function hookName(string $suffix = ''): string
+    public function hookName(string $suffix = '') : string
     {
         $filter = self::HOOK_PREFIX . $this->properties->baseName();
         if ($suffix) {
@@ -509,14 +509,14 @@ class Package
     /**
      * @return Properties
      */
-    public function properties(): Properties
+    public function properties() : Properties
     {
         return $this->properties;
     }
     /**
      * @return ContainerInterface
      */
-    public function container(): ContainerInterface
+    public function container() : ContainerInterface
     {
         $this->assertStatus(self::STATUS_INITIALIZED, 'obtain the container instance', '>=');
         $this->hasContainer = \true;
@@ -525,14 +525,14 @@ class Package
     /**
      * @return bool
      */
-    public function hasContainer(): bool
+    public function hasContainer() : bool
     {
         return $this->hasContainer;
     }
     /**
      * @return string
      */
-    public function name(): string
+    public function name() : string
     {
         return $this->properties->baseName();
     }
@@ -540,14 +540,14 @@ class Package
      * @param int $status
      * @return bool
      */
-    public function statusIs(int $status): bool
+    public function statusIs(int $status) : bool
     {
         return $this->checkStatus($status);
     }
     /**
      * @return bool
      */
-    public function hasFailed(): bool
+    public function hasFailed() : bool
     {
         return $this->status === self::STATUS_FAILED;
     }
@@ -555,7 +555,7 @@ class Package
      * @param int $status
      * @return bool
      */
-    public function hasReachedStatus(int $status): bool
+    public function hasReachedStatus(int $status) : bool
     {
         if ($this->hasFailed()) {
             return \false;
@@ -567,23 +567,23 @@ class Package
      * @param value-of<Package::OPERATORS> $operator
      * @return bool
      */
-    private function checkStatus(int $status, string $operator = '=='): bool
+    private function checkStatus(int $status, string $operator = '==') : bool
     {
-        assert(isset(self::OPERATORS[$operator]));
-        return version_compare((string) $this->status, (string) $status, $operator);
+        \assert(isset(self::OPERATORS[$operator]));
+        return \version_compare((string) $this->status, (string) $status, $operator);
     }
     /**
      * @param Package::STATUS_* $status
      */
-    private function progress(int $status): void
+    private function progress(int $status) : void
     {
         $this->status = $status;
         [$packageHookSuffix, $globalHook] = self::STATUSES_ACTIONS_MAP[$status] ?? [null, null];
         if ($packageHookSuffix !== null) {
-            do_action($this->hookName($packageHookSuffix), $this);
+            \do_action($this->hookName($packageHookSuffix), $this);
         }
         if ($globalHook !== null) {
-            do_action($globalHook, $this->name(), $this);
+            \do_action($globalHook, $this->name(), $this);
         }
     }
     /**
@@ -592,13 +592,13 @@ class Package
      * @param bool $throw
      * @return ($throw is true ? never: false)
      */
-    private function handleConnectionFailure(string $packageName, string $reason, bool $throw): bool
+    private function handleConnectionFailure(string $packageName, string $reason, bool $throw) : bool
     {
         $errorData = ['package' => $packageName, 'status' => $this->status];
         $message = "Failed connecting package {$packageName} because {$reason}.";
-        do_action($this->hookName(self::ACTION_FAILED_CONNECT), $packageName, new \WP_Error('failed_connection', $message, $errorData));
+        \do_action($this->hookName(self::ACTION_FAILED_CONNECT), $packageName, new \WP_Error('failed_connection', $message, $errorData));
         if ($throw) {
-            throw new \Exception(esc_html($message), 0, $this->lastError);
+            throw new \Exception(\esc_html($message), 0, $this->lastError);
         }
         return \false;
     }
@@ -607,11 +607,11 @@ class Package
      * @param Package::ACTION_FAILED_* $action
      * @return void
      */
-    private function handleFailure(\Throwable $throwable, string $action): void
+    private function handleFailure(\Throwable $throwable, string $action) : void
     {
         $this->progress(self::STATUS_FAILED);
         $hook = $this->hookName($action);
-        did_action($hook) or do_action($hook, $throwable);
+        \did_action($hook) or \do_action($hook, $throwable);
         if ($this->properties->isDebug()) {
             throw $throwable;
         }
@@ -622,10 +622,10 @@ class Package
      * @param string $action
      * @param value-of<Package::OPERATORS> $operator
      */
-    private function assertStatus(int $status, string $action, string $operator = '=='): void
+    private function assertStatus(int $status, string $action, string $operator = '==') : void
     {
         if (!$this->checkStatus($status, $operator)) {
-            throw new \Exception(sprintf("Can't %s at this point of application.", esc_html($action)), 0, $this->lastError);
+            throw new \Exception(\sprintf("Can't %s at this point of application.", \esc_html($action)), 0, $this->lastError);
         }
     }
     /**
@@ -637,12 +637,12 @@ class Package
      * @param string $version
      * @return void
      */
-    private function deprecatedArgument(string $message, string $function, string $version): void
+    private function deprecatedArgument(string $message, string $function, string $version) : void
     {
-        do_action('deprecated_argument_run', $function, $message, $version);
-        if (apply_filters('deprecated_argument_trigger_error', \true)) {
-            do_action('wp_trigger_error_run', $function, $message, \E_USER_DEPRECATED);
-            trigger_error(esc_html($message), \E_USER_DEPRECATED);
+        \do_action('deprecated_argument_run', $function, $message, $version);
+        if (\apply_filters('deprecated_argument_trigger_error', \true)) {
+            \do_action('wp_trigger_error_run', $function, $message, \E_USER_DEPRECATED);
+            \trigger_error(\esc_html($message), \E_USER_DEPRECATED);
         }
     }
 }

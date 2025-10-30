@@ -15,9 +15,9 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
     {
         $this->orderUpdater = $orderUpdater;
     }
-    public function accepts(WebhooksEvent $webhook): bool
+    public function accepts(WebhooksEvent $webhook) : bool
     {
-        return !in_array($webhook->type, [
+        return !\in_array($webhook->type, [
             // payment.created often arrives together with other webhooks
             'payment.created',
         ], \true);
@@ -25,15 +25,15 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
     /**
      * @throws Exception
      */
-    public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder): void
+    public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : void
     {
         $transactionId = WebhookHelper::transactionId($webhook);
-        if (!is_null($transactionId) && $this->shouldSetTransactionId($transactionId, $webhook, $wlopWcOrder)) {
+        if (!\is_null($transactionId) && $this->shouldSetTransactionId($transactionId, $webhook, $wlopWcOrder)) {
             $wlopWcOrder->setTransactionId($transactionId);
         }
         $this->orderUpdater->update($wlopWcOrder);
     }
-    protected function shouldSetTransactionId(string $newTransactionId, WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder): bool
+    protected function shouldSetTransactionId(string $newTransactionId, WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : bool
     {
         $wcTransactionId = $wlopWcOrder->transactionId();
         if (!$wcTransactionId) {
@@ -48,7 +48,7 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
             return \false;
         }
         $statusCategory = $statusOutput->getStatusCategory();
-        if (in_array($statusCategory, ['UNSUCCESSFUL', 'REFUNDED'], \true)) {
+        if (\in_array($statusCategory, ['UNSUCCESSFUL', 'REFUNDED'], \true)) {
             return \false;
         }
         if ($this->cleanupId($newTransactionId) === $this->cleanupId($newTransactionId)) {
@@ -56,10 +56,10 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
         }
         return \true;
     }
-    protected function cleanupId(string $id): string
+    protected function cleanupId(string $id) : string
     {
-        $parts = explode('_', $id);
-        if (count($parts) !== 2) {
+        $parts = \explode('_', $id);
+        if (\count($parts) !== 2) {
             // not an ID like 123456_1
             return $id;
         }

@@ -23,27 +23,27 @@ class HostedCheckoutInput
         $this->token = $token;
         $this->modifier = $modifier;
     }
-    public function order(): Order
+    public function order() : Order
     {
         return $this->order;
     }
-    public function wcOrder(): WC_Order
+    public function wcOrder() : WC_Order
     {
         return $this->wcOrder;
     }
-    public function returnUrl(): string
+    public function returnUrl() : string
     {
         return $this->returnUrl;
     }
-    public function language(): ?string
+    public function language() : ?string
     {
         return $this->language;
     }
-    public function token(): ?string
+    public function token() : ?string
     {
         return $this->token;
     }
-    public function hostedCheckoutRequestModifier(): ?AbstractHostedPaymentRequestModifier
+    public function hostedCheckoutRequestModifier() : ?AbstractHostedPaymentRequestModifier
     {
         return $this->modifier;
     }

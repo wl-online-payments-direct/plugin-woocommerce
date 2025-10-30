@@ -13,15 +13,12 @@ use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
  */
 class ReadOnlyTransformer implements Transformer
 {
-    /**
-     * @var Transformer
-     */
-    private $transformer;
+    private Transformer $transformer;
     private function __construct(Transformer $transformer)
     {
         $this->transformer = $transformer;
     }
-    public static function fromTransformer(Transformer $transformer): Transformer
+    public static function fromTransformer(Transformer $transformer) : Transformer
     {
         return new self($transformer);
     }

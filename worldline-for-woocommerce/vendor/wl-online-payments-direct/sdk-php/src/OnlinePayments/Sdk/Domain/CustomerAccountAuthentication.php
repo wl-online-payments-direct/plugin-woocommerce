@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CustomerAccountAuthentication extends DataObject
 {
@@ -15,17 +15,14 @@ class CustomerAccountAuthentication extends DataObject
      * @var string
      */
     public $data = null;
-
     /**
      * @var string
      */
     public $method = null;
-
     /**
      * @var string
      */
     public $utcTimestamp = null;
-
     /**
      * @return string
      */
@@ -33,7 +30,6 @@ class CustomerAccountAuthentication extends DataObject
     {
         return $this->data;
     }
-
     /**
      * @param string
      */
@@ -41,7 +37,6 @@ class CustomerAccountAuthentication extends DataObject
     {
         $this->data = $value;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ class CustomerAccountAuthentication extends DataObject
     {
         return $this->method;
     }
-
     /**
      * @param string
      */
@@ -57,7 +51,6 @@ class CustomerAccountAuthentication extends DataObject
     {
         $this->method = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +58,6 @@ class CustomerAccountAuthentication extends DataObject
     {
         return $this->utcTimestamp;
     }
-
     /**
      * @param string
      */
@@ -73,25 +65,23 @@ class CustomerAccountAuthentication extends DataObject
     {
         $this->utcTimestamp = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->data)) {
+        if (!\is_null($this->data)) {
             $object->data = $this->data;
         }
-        if (!is_null($this->method)) {
+        if (!\is_null($this->method)) {
             $object->method = $this->method;
         }
-        if (!is_null($this->utcTimestamp)) {
+        if (!\is_null($this->utcTimestamp)) {
             $object->utcTimestamp = $this->utcTimestamp;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,13 +90,13 @@ class CustomerAccountAuthentication extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'data')) {
+        if (\property_exists($object, 'data')) {
             $this->data = $object->data;
         }
-        if (property_exists($object, 'method')) {
+        if (\property_exists($object, 'method')) {
             $this->method = $object->method;
         }
-        if (property_exists($object, 'utcTimestamp')) {
+        if (\property_exists($object, 'utcTimestamp')) {
             $this->utcTimestamp = $object->utcTimestamp;
         }
         return $this;

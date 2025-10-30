@@ -1,6 +1,6 @@
 <?php
 
-# -*- coding: utf-8 -*-
+declare (strict_types=1);
 /*
  * This file is part of the Assets package.
  *
@@ -12,7 +12,7 @@
 namespace Inpsyde\Assets;
 
 // Exit early in case multiple Composer autoloaders try to include this file.
-if (function_exists(__NAMESPACE__ . '\assetSuffix')) {
+if (\function_exists(__NAMESPACE__ . '\\assetSuffix')) {
     return;
 }
 /**
@@ -20,9 +20,9 @@ if (function_exists(__NAMESPACE__ . '\assetSuffix')) {
  *
  * @return string
  */
-function assetSuffix(): string
+function assetSuffix() : string
 {
-    return defined('SCRIPT_DEBUG') && \SCRIPT_DEBUG ? '' : '.min';
+    return \defined('SCRIPT_DEBUG') && \SCRIPT_DEBUG ? '' : '.min';
 }
 /**
  * Adding the assetSuffix() before file extension to the given file.
@@ -33,11 +33,11 @@ function assetSuffix(): string
  * @example before: my-script.js | after: my-script.min.js
  *
  */
-function withAssetSuffix(string $file): string
+function withAssetSuffix(string $file) : string
 {
-    $suffix = assetSuffix();
-    $extension = '.' . pathinfo($file, \PATHINFO_EXTENSION);
-    return str_replace($extension, $suffix . $extension, $file);
+    $suffix = \assetSuffix();
+    $extension = '.' . \pathinfo($file, \PATHINFO_EXTENSION);
+    return \str_replace($extension, $suffix . $extension, $file);
 }
 /**
  * Symlinks a folder inside the web-root for Assets, which are outside of the web-root
@@ -48,26 +48,26 @@ function withAssetSuffix(string $file): string
  *
  * @return string|null
  */
-function symlinkedAssetFolder(string $originDir, string $name): ?string
+function symlinkedAssetFolder(string $originDir, string $name) : ?string
 {
     // we're using realpath here, otherwise the comparisment with
     // readlink will not work.
-    $originDir = realpath($originDir);
+    $originDir = \realpath($originDir);
     $folderName = '/~inpsyde-assets/';
     $rootPath = \WP_CONTENT_DIR . $folderName;
     $rootUrl = \WP_CONTENT_URL . $folderName;
-    if (!is_dir($rootPath) && !wp_mkdir_p($rootPath)) {
+    if (!\is_dir($rootPath) && !\wp_mkdir_p($rootPath)) {
         return null;
     }
     $targetDir = $rootPath . $name;
-    $targetUrl = trailingslashit($rootUrl . $name);
-    if (is_link($targetDir)) {
-        if (readlink($targetDir) === $originDir) {
+    $targetUrl = \trailingslashit($rootUrl . $name);
+    if (\is_link($targetDir)) {
+        if (\readlink($targetDir) === $originDir) {
             return $targetUrl;
         }
-        unlink($targetDir);
+        \unlink($targetDir);
     }
-    if (!symlink($originDir, $targetDir)) {
+    if (!\symlink($originDir, $targetDir)) {
         return null;
     }
     return $targetUrl;

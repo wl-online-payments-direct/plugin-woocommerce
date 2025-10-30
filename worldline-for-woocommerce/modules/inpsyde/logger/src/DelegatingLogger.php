@@ -13,7 +13,7 @@ class DelegatingLogger extends AbstractLogger
     /**
      * @var LoggerInterface[]
      */
-    protected $loggers;
+    protected array $loggers;
     public function __construct(LoggerInterface ...$loggers)
     {
         $this->loggers = $loggers;

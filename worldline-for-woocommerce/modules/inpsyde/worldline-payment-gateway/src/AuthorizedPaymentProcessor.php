@@ -26,7 +26,7 @@ class AuthorizedPaymentProcessor
     /**
      * @throws \Exception
      */
-    public function captureAuthorizedPayment(WC_Order $wcOrder): void
+    public function captureAuthorizedPayment(WC_Order $wcOrder) : void
     {
         $wlopWcOrder = new WlopWcOrder($wcOrder);
         if (!$this->paymentCaptureValidator->validate($wcOrder)) {
@@ -40,17 +40,17 @@ class AuthorizedPaymentProcessor
             $capturePaymentRequest->setAmount($captureAmount->getAmount());
             $this->apiClient->payments()->capturePayment((string) $transactionId, $capturePaymentRequest);
             $wcOrder->update_meta_data(OrderMetaKeys::MANUAL_CAPTURE_SENT, 'yes');
-            $wlopWcOrder->addWorldlineOrderNote(__('Your fund capture request is submitted. You will receive a notification in the order notes upon completion.', 'worldline-for-woocommerce'));
+            $wlopWcOrder->addWorldlineOrderNote(\__('Your fund capture request is submitted. You will receive a notification in the order notes upon completion.', 'worldline-for-woocommerce'));
             $wcOrder->save();
         } catch (\Throwable $exception) {
             $this->orderActionNotice->displayMessage((string) $this->orderActionNotice::CAPTURE_SUBMIT_ERROR);
-            do_action('wlop.admin_capture_error', ['exception' => $exception]);
+            \do_action('wlop.admin_capture_error', ['exception' => $exception]);
         }
     }
     /**
      * @throws \Exception
      */
-    protected function captureAmount(string $transactionId): AmountOfMoney
+    protected function captureAmount(string $transactionId) : AmountOfMoney
     {
         $paymentDetails = $this->apiClient->payments()->getPaymentDetails($transactionId);
         return $paymentDetails->getPaymentOutput()->getAcquiredAmount();

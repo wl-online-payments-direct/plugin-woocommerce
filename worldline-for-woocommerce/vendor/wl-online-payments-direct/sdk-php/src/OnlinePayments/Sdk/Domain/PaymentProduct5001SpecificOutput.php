@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct5001SpecificOutput extends DataObject
 {
@@ -15,27 +15,22 @@ class PaymentProduct5001SpecificOutput extends DataObject
      * @var string
      */
     public $accountNumber = null;
-
     /**
      * @var string
      */
     public $authorisationCode = null;
-
     /**
      * @var string
      */
     public $liability = null;
-
     /**
      * @var string
      */
     public $mobilePhoneNumber = null;
-
     /**
      * @var string
      */
     public $operationCode = null;
-
     /**
      * @return string
      */
@@ -43,7 +38,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         return $this->accountNumber;
     }
-
     /**
      * @param string
      */
@@ -51,7 +45,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         $this->accountNumber = $value;
     }
-
     /**
      * @return string
      */
@@ -59,7 +52,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         return $this->authorisationCode;
     }
-
     /**
      * @param string
      */
@@ -67,7 +59,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         $this->authorisationCode = $value;
     }
-
     /**
      * @return string
      */
@@ -75,7 +66,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         return $this->liability;
     }
-
     /**
      * @param string
      */
@@ -83,7 +73,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         $this->liability = $value;
     }
-
     /**
      * @return string
      */
@@ -91,7 +80,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         return $this->mobilePhoneNumber;
     }
-
     /**
      * @param string
      */
@@ -99,7 +87,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         $this->mobilePhoneNumber = $value;
     }
-
     /**
      * @return string
      */
@@ -107,7 +94,6 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         return $this->operationCode;
     }
-
     /**
      * @param string
      */
@@ -115,31 +101,29 @@ class PaymentProduct5001SpecificOutput extends DataObject
     {
         $this->operationCode = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->accountNumber)) {
+        if (!\is_null($this->accountNumber)) {
             $object->accountNumber = $this->accountNumber;
         }
-        if (!is_null($this->authorisationCode)) {
+        if (!\is_null($this->authorisationCode)) {
             $object->authorisationCode = $this->authorisationCode;
         }
-        if (!is_null($this->liability)) {
+        if (!\is_null($this->liability)) {
             $object->liability = $this->liability;
         }
-        if (!is_null($this->mobilePhoneNumber)) {
+        if (!\is_null($this->mobilePhoneNumber)) {
             $object->mobilePhoneNumber = $this->mobilePhoneNumber;
         }
-        if (!is_null($this->operationCode)) {
+        if (!\is_null($this->operationCode)) {
             $object->operationCode = $this->operationCode;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -148,19 +132,19 @@ class PaymentProduct5001SpecificOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'accountNumber')) {
+        if (\property_exists($object, 'accountNumber')) {
             $this->accountNumber = $object->accountNumber;
         }
-        if (property_exists($object, 'authorisationCode')) {
+        if (\property_exists($object, 'authorisationCode')) {
             $this->authorisationCode = $object->authorisationCode;
         }
-        if (property_exists($object, 'liability')) {
+        if (\property_exists($object, 'liability')) {
             $this->liability = $object->liability;
         }
-        if (property_exists($object, 'mobilePhoneNumber')) {
+        if (\property_exists($object, 'mobilePhoneNumber')) {
             $this->mobilePhoneNumber = $object->mobilePhoneNumber;
         }
-        if (property_exists($object, 'operationCode')) {
+        if (\property_exists($object, 'operationCode')) {
             $this->operationCode = $object->operationCode;
         }
         return $this;

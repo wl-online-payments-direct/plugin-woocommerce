@@ -18,22 +18,22 @@ class PostfinanceGatewayModule implements ServiceModule, ExtendingModule
     {
         $this->paymentMethod = new Postfinance();
     }
-    public function services(): array
+    public function services() : array
     {
         static $services;
         if ($services === null) {
-            $services = require_once dirname(__DIR__) . '/inc/services.php';
+            $services = (require_once \dirname(__DIR__) . '/inc/services.php');
         }
-        return array_merge($services(), $this->providePaymentMethodServices($this->paymentMethod));
+        return \array_merge($services(), $this->providePaymentMethodServices($this->paymentMethod));
     }
     /**
      * @inheritDoc
      */
-    public function extensions(): array
+    public function extensions() : array
     {
         static $extensions;
         if ($extensions === null) {
-            $extensions = require_once dirname(__DIR__) . '/inc/extensions.php';
+            $extensions = (require_once \dirname(__DIR__) . '/inc/extensions.php');
         }
         return $extensions();
     }

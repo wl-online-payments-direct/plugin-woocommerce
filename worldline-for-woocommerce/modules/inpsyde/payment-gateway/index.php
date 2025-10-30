@@ -19,8 +19,8 @@ namespace Syde\Vendor\Worldline;
  * Text Domain: ddev-wordpress-plugin-example
  * Domain Path: /languages
  */
-\add_action('rest_api_init', function () {
-    \register_rest_route('inpsyde', 'example', ['method' => 'GET', 'callback' => function () {
+\add_action('rest_api_init', static function () {
+    \register_rest_route('inpsyde', 'example', ['method' => 'GET', 'callback' => static function () {
         return ['hello' => \__('world', 'ddev-wordpress-plugin-example')];
     }, 'permission_callback' => '__return_true']);
 });

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class HostedCheckoutSpecificInput extends DataObject
 {
@@ -15,52 +15,42 @@ class HostedCheckoutSpecificInput extends DataObject
      * @var int
      */
     public $allowedNumberOfPaymentAttempts = null;
-
     /**
      * @var CardPaymentMethodSpecificInputForHostedCheckout
      */
     public $cardPaymentMethodSpecificInput = null;
-
     /**
      * @var bool
      */
     public $isRecurring = null;
-
     /**
      * @var string
      */
     public $locale = null;
-
     /**
      * @var PaymentProductFiltersHostedCheckout
      */
     public $paymentProductFilters = null;
-
     /**
      * @var string
      */
     public $returnUrl = null;
-
     /**
      * @var int
      */
     public $sessionTimeout = null;
-
     /**
      * @var bool
      */
     public $showResultPage = null;
-
     /**
      * @var string
      */
     public $tokens = null;
-
     /**
      * @var string
      */
     public $variant = null;
-
     /**
      * @return int
      */
@@ -68,7 +58,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->allowedNumberOfPaymentAttempts;
     }
-
     /**
      * @param int
      */
@@ -76,7 +65,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->allowedNumberOfPaymentAttempts = $value;
     }
-
     /**
      * @return CardPaymentMethodSpecificInputForHostedCheckout
      */
@@ -84,7 +72,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->cardPaymentMethodSpecificInput;
     }
-
     /**
      * @param CardPaymentMethodSpecificInputForHostedCheckout
      */
@@ -92,7 +79,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->cardPaymentMethodSpecificInput = $value;
     }
-
     /**
      * @return bool
      */
@@ -100,7 +86,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->isRecurring;
     }
-
     /**
      * @param bool
      */
@@ -108,7 +93,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->isRecurring = $value;
     }
-
     /**
      * @return string
      */
@@ -116,7 +100,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->locale;
     }
-
     /**
      * @param string
      */
@@ -124,7 +107,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->locale = $value;
     }
-
     /**
      * @return PaymentProductFiltersHostedCheckout
      */
@@ -132,7 +114,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->paymentProductFilters;
     }
-
     /**
      * @param PaymentProductFiltersHostedCheckout
      */
@@ -140,7 +121,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->paymentProductFilters = $value;
     }
-
     /**
      * @return string
      */
@@ -148,7 +128,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->returnUrl;
     }
-
     /**
      * @param string
      */
@@ -156,7 +135,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->returnUrl = $value;
     }
-
     /**
      * @return int
      */
@@ -164,7 +142,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->sessionTimeout;
     }
-
     /**
      * @param int
      */
@@ -172,7 +149,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->sessionTimeout = $value;
     }
-
     /**
      * @return bool
      */
@@ -180,7 +156,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->showResultPage;
     }
-
     /**
      * @param bool
      */
@@ -188,7 +163,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->showResultPage = $value;
     }
-
     /**
      * @return string
      */
@@ -196,7 +170,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->tokens;
     }
-
     /**
      * @param string
      */
@@ -204,7 +177,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->tokens = $value;
     }
-
     /**
      * @return string
      */
@@ -212,7 +184,6 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         return $this->variant;
     }
-
     /**
      * @param string
      */
@@ -220,46 +191,44 @@ class HostedCheckoutSpecificInput extends DataObject
     {
         $this->variant = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->allowedNumberOfPaymentAttempts)) {
+        if (!\is_null($this->allowedNumberOfPaymentAttempts)) {
             $object->allowedNumberOfPaymentAttempts = $this->allowedNumberOfPaymentAttempts;
         }
-        if (!is_null($this->cardPaymentMethodSpecificInput)) {
+        if (!\is_null($this->cardPaymentMethodSpecificInput)) {
             $object->cardPaymentMethodSpecificInput = $this->cardPaymentMethodSpecificInput->toObject();
         }
-        if (!is_null($this->isRecurring)) {
+        if (!\is_null($this->isRecurring)) {
             $object->isRecurring = $this->isRecurring;
         }
-        if (!is_null($this->locale)) {
+        if (!\is_null($this->locale)) {
             $object->locale = $this->locale;
         }
-        if (!is_null($this->paymentProductFilters)) {
+        if (!\is_null($this->paymentProductFilters)) {
             $object->paymentProductFilters = $this->paymentProductFilters->toObject();
         }
-        if (!is_null($this->returnUrl)) {
+        if (!\is_null($this->returnUrl)) {
             $object->returnUrl = $this->returnUrl;
         }
-        if (!is_null($this->sessionTimeout)) {
+        if (!\is_null($this->sessionTimeout)) {
             $object->sessionTimeout = $this->sessionTimeout;
         }
-        if (!is_null($this->showResultPage)) {
+        if (!\is_null($this->showResultPage)) {
             $object->showResultPage = $this->showResultPage;
         }
-        if (!is_null($this->tokens)) {
+        if (!\is_null($this->tokens)) {
             $object->tokens = $this->tokens;
         }
-        if (!is_null($this->variant)) {
+        if (!\is_null($this->variant)) {
             $object->variant = $this->variant;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -268,42 +237,42 @@ class HostedCheckoutSpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'allowedNumberOfPaymentAttempts')) {
+        if (\property_exists($object, 'allowedNumberOfPaymentAttempts')) {
             $this->allowedNumberOfPaymentAttempts = $object->allowedNumberOfPaymentAttempts;
         }
-        if (property_exists($object, 'cardPaymentMethodSpecificInput')) {
-            if (!is_object($object->cardPaymentMethodSpecificInput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->cardPaymentMethodSpecificInput, true) . '\' is not an object');
+        if (\property_exists($object, 'cardPaymentMethodSpecificInput')) {
+            if (!\is_object($object->cardPaymentMethodSpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->cardPaymentMethodSpecificInput, \true) . '\' is not an object');
             }
             $value = new CardPaymentMethodSpecificInputForHostedCheckout();
             $this->cardPaymentMethodSpecificInput = $value->fromObject($object->cardPaymentMethodSpecificInput);
         }
-        if (property_exists($object, 'isRecurring')) {
+        if (\property_exists($object, 'isRecurring')) {
             $this->isRecurring = $object->isRecurring;
         }
-        if (property_exists($object, 'locale')) {
+        if (\property_exists($object, 'locale')) {
             $this->locale = $object->locale;
         }
-        if (property_exists($object, 'paymentProductFilters')) {
-            if (!is_object($object->paymentProductFilters)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductFilters, true) . '\' is not an object');
+        if (\property_exists($object, 'paymentProductFilters')) {
+            if (!\is_object($object->paymentProductFilters)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProductFilters, \true) . '\' is not an object');
             }
             $value = new PaymentProductFiltersHostedCheckout();
             $this->paymentProductFilters = $value->fromObject($object->paymentProductFilters);
         }
-        if (property_exists($object, 'returnUrl')) {
+        if (\property_exists($object, 'returnUrl')) {
             $this->returnUrl = $object->returnUrl;
         }
-        if (property_exists($object, 'sessionTimeout')) {
+        if (\property_exists($object, 'sessionTimeout')) {
             $this->sessionTimeout = $object->sessionTimeout;
         }
-        if (property_exists($object, 'showResultPage')) {
+        if (\property_exists($object, 'showResultPage')) {
             $this->showResultPage = $object->showResultPage;
         }
-        if (property_exists($object, 'tokens')) {
+        if (\property_exists($object, 'tokens')) {
             $this->tokens = $object->tokens;
         }
-        if (property_exists($object, 'variant')) {
+        if (\property_exists($object, 'variant')) {
             $this->variant = $object->variant;
         }
         return $this;

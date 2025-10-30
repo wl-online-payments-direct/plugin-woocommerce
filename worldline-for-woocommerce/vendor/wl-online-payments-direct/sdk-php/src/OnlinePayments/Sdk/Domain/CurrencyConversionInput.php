@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CurrencyConversionInput extends DataObject
 {
@@ -15,12 +15,10 @@ class CurrencyConversionInput extends DataObject
      * @var bool
      */
     public $acceptedByUser = null;
-
     /**
      * @var string
      */
     public $dccSessionId = null;
-
     /**
      * @return bool
      */
@@ -28,7 +26,6 @@ class CurrencyConversionInput extends DataObject
     {
         return $this->acceptedByUser;
     }
-
     /**
      * @param bool
      */
@@ -36,7 +33,6 @@ class CurrencyConversionInput extends DataObject
     {
         $this->acceptedByUser = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class CurrencyConversionInput extends DataObject
     {
         return $this->dccSessionId;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class CurrencyConversionInput extends DataObject
     {
         $this->dccSessionId = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->acceptedByUser)) {
+        if (!\is_null($this->acceptedByUser)) {
             $object->acceptedByUser = $this->acceptedByUser;
         }
-        if (!is_null($this->dccSessionId)) {
+        if (!\is_null($this->dccSessionId)) {
             $object->dccSessionId = $this->dccSessionId;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class CurrencyConversionInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'acceptedByUser')) {
+        if (\property_exists($object, 'acceptedByUser')) {
             $this->acceptedByUser = $object->acceptedByUser;
         }
-        if (property_exists($object, 'dccSessionId')) {
+        if (\property_exists($object, 'dccSessionId')) {
             $this->dccSessionId = $object->dccSessionId;
         }
         return $this;

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductFiltersHostedCheckout extends DataObject
 {
@@ -15,12 +15,10 @@ class PaymentProductFiltersHostedCheckout extends DataObject
      * @var PaymentProductFilter
      */
     public $exclude = null;
-
     /**
      * @var PaymentProductFilter
      */
     public $restrictTo = null;
-
     /**
      * @return PaymentProductFilter
      */
@@ -28,7 +26,6 @@ class PaymentProductFiltersHostedCheckout extends DataObject
     {
         return $this->exclude;
     }
-
     /**
      * @param PaymentProductFilter
      */
@@ -36,7 +33,6 @@ class PaymentProductFiltersHostedCheckout extends DataObject
     {
         $this->exclude = $value;
     }
-
     /**
      * @return PaymentProductFilter
      */
@@ -44,7 +40,6 @@ class PaymentProductFiltersHostedCheckout extends DataObject
     {
         return $this->restrictTo;
     }
-
     /**
      * @param PaymentProductFilter
      */
@@ -52,22 +47,20 @@ class PaymentProductFiltersHostedCheckout extends DataObject
     {
         $this->restrictTo = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->exclude)) {
+        if (!\is_null($this->exclude)) {
             $object->exclude = $this->exclude->toObject();
         }
-        if (!is_null($this->restrictTo)) {
+        if (!\is_null($this->restrictTo)) {
             $object->restrictTo = $this->restrictTo->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,16 +69,16 @@ class PaymentProductFiltersHostedCheckout extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'exclude')) {
-            if (!is_object($object->exclude)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->exclude, true) . '\' is not an object');
+        if (\property_exists($object, 'exclude')) {
+            if (!\is_object($object->exclude)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->exclude, \true) . '\' is not an object');
             }
             $value = new PaymentProductFilter();
             $this->exclude = $value->fromObject($object->exclude);
         }
-        if (property_exists($object, 'restrictTo')) {
-            if (!is_object($object->restrictTo)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->restrictTo, true) . '\' is not an object');
+        if (\property_exists($object, 'restrictTo')) {
+            if (!\is_object($object->restrictTo)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->restrictTo, \true) . '\' is not an object');
             }
             $value = new PaymentProductFilter();
             $this->restrictTo = $value->fromObject($object->restrictTo);

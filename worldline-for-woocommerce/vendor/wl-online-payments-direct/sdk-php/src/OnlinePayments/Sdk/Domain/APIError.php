@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class APIError extends DataObject
 {
@@ -15,43 +15,35 @@ class APIError extends DataObject
      * @var string
      */
     public $category = null;
-
     /**
      * @var string
      * @deprecated Use errorCode instead. Error code
      */
     public $code = null;
-
     /**
      * @var string
      */
     public $errorCode = null;
-
     /**
      * @var int
      */
     public $httpStatusCode = null;
-
     /**
      * @var string
      */
     public $id = null;
-
     /**
      * @var string
      */
     public $message = null;
-
     /**
      * @var string
      */
     public $propertyName = null;
-
     /**
      * @var bool
      */
     public $retriable = null;
-
     /**
      * @return string
      */
@@ -59,7 +51,6 @@ class APIError extends DataObject
     {
         return $this->category;
     }
-
     /**
      * @param string
      */
@@ -67,7 +58,6 @@ class APIError extends DataObject
     {
         $this->category = $value;
     }
-
     /**
      * @return string
      * @deprecated Use errorCode instead. Error code
@@ -76,7 +66,6 @@ class APIError extends DataObject
     {
         return $this->code;
     }
-
     /**
      * @param string
      * @deprecated Use errorCode instead. Error code
@@ -85,7 +74,6 @@ class APIError extends DataObject
     {
         $this->code = $value;
     }
-
     /**
      * @return string
      */
@@ -93,7 +81,6 @@ class APIError extends DataObject
     {
         return $this->errorCode;
     }
-
     /**
      * @param string
      */
@@ -101,7 +88,6 @@ class APIError extends DataObject
     {
         $this->errorCode = $value;
     }
-
     /**
      * @return int
      */
@@ -109,7 +95,6 @@ class APIError extends DataObject
     {
         return $this->httpStatusCode;
     }
-
     /**
      * @param int
      */
@@ -117,7 +102,6 @@ class APIError extends DataObject
     {
         $this->httpStatusCode = $value;
     }
-
     /**
      * @return string
      */
@@ -125,7 +109,6 @@ class APIError extends DataObject
     {
         return $this->id;
     }
-
     /**
      * @param string
      */
@@ -133,7 +116,6 @@ class APIError extends DataObject
     {
         $this->id = $value;
     }
-
     /**
      * @return string
      */
@@ -141,7 +123,6 @@ class APIError extends DataObject
     {
         return $this->message;
     }
-
     /**
      * @param string
      */
@@ -149,7 +130,6 @@ class APIError extends DataObject
     {
         $this->message = $value;
     }
-
     /**
      * @return string
      */
@@ -157,7 +137,6 @@ class APIError extends DataObject
     {
         return $this->propertyName;
     }
-
     /**
      * @param string
      */
@@ -165,7 +144,6 @@ class APIError extends DataObject
     {
         $this->propertyName = $value;
     }
-
     /**
      * @return bool
      */
@@ -173,7 +151,6 @@ class APIError extends DataObject
     {
         return $this->retriable;
     }
-
     /**
      * @param bool
      */
@@ -181,40 +158,38 @@ class APIError extends DataObject
     {
         $this->retriable = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->category)) {
+        if (!\is_null($this->category)) {
             $object->category = $this->category;
         }
-        if (!is_null($this->code)) {
+        if (!\is_null($this->code)) {
             $object->code = $this->code;
         }
-        if (!is_null($this->errorCode)) {
+        if (!\is_null($this->errorCode)) {
             $object->errorCode = $this->errorCode;
         }
-        if (!is_null($this->httpStatusCode)) {
+        if (!\is_null($this->httpStatusCode)) {
             $object->httpStatusCode = $this->httpStatusCode;
         }
-        if (!is_null($this->id)) {
+        if (!\is_null($this->id)) {
             $object->id = $this->id;
         }
-        if (!is_null($this->message)) {
+        if (!\is_null($this->message)) {
             $object->message = $this->message;
         }
-        if (!is_null($this->propertyName)) {
+        if (!\is_null($this->propertyName)) {
             $object->propertyName = $this->propertyName;
         }
-        if (!is_null($this->retriable)) {
+        if (!\is_null($this->retriable)) {
             $object->retriable = $this->retriable;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -223,28 +198,28 @@ class APIError extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'category')) {
+        if (\property_exists($object, 'category')) {
             $this->category = $object->category;
         }
-        if (property_exists($object, 'code')) {
+        if (\property_exists($object, 'code')) {
             $this->code = $object->code;
         }
-        if (property_exists($object, 'errorCode')) {
+        if (\property_exists($object, 'errorCode')) {
             $this->errorCode = $object->errorCode;
         }
-        if (property_exists($object, 'httpStatusCode')) {
+        if (\property_exists($object, 'httpStatusCode')) {
             $this->httpStatusCode = $object->httpStatusCode;
         }
-        if (property_exists($object, 'id')) {
+        if (\property_exists($object, 'id')) {
             $this->id = $object->id;
         }
-        if (property_exists($object, 'message')) {
+        if (\property_exists($object, 'message')) {
             $this->message = $object->message;
         }
-        if (property_exists($object, 'propertyName')) {
+        if (\property_exists($object, 'propertyName')) {
             $this->propertyName = $object->propertyName;
         }
-        if (property_exists($object, 'retriable')) {
+        if (\property_exists($object, 'retriable')) {
             $this->retriable = $object->retriable;
         }
         return $this;

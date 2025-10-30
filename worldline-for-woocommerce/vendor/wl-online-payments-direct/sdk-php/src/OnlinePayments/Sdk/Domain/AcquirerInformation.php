@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class AcquirerInformation extends DataObject
 {
@@ -15,12 +15,10 @@ class AcquirerInformation extends DataObject
      * @var AcquirerSelectionInformation
      */
     public $acquirerSelectionInformation = null;
-
     /**
      * @var string
      */
     public $name = null;
-
     /**
      * @return AcquirerSelectionInformation
      */
@@ -28,7 +26,6 @@ class AcquirerInformation extends DataObject
     {
         return $this->acquirerSelectionInformation;
     }
-
     /**
      * @param AcquirerSelectionInformation
      */
@@ -36,7 +33,6 @@ class AcquirerInformation extends DataObject
     {
         $this->acquirerSelectionInformation = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class AcquirerInformation extends DataObject
     {
         return $this->name;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class AcquirerInformation extends DataObject
     {
         $this->name = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->acquirerSelectionInformation)) {
+        if (!\is_null($this->acquirerSelectionInformation)) {
             $object->acquirerSelectionInformation = $this->acquirerSelectionInformation->toObject();
         }
-        if (!is_null($this->name)) {
+        if (!\is_null($this->name)) {
             $object->name = $this->name;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,14 +69,14 @@ class AcquirerInformation extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'acquirerSelectionInformation')) {
-            if (!is_object($object->acquirerSelectionInformation)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->acquirerSelectionInformation, true) . '\' is not an object');
+        if (\property_exists($object, 'acquirerSelectionInformation')) {
+            if (!\is_object($object->acquirerSelectionInformation)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->acquirerSelectionInformation, \true) . '\' is not an object');
             }
             $value = new AcquirerSelectionInformation();
             $this->acquirerSelectionInformation = $value->fromObject($object->acquirerSelectionInformation);
         }
-        if (property_exists($object, 'name')) {
+        if (\property_exists($object, 'name')) {
             $this->name = $object->name;
         }
         return $this;

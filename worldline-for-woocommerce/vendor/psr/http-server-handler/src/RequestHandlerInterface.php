@@ -17,5 +17,5 @@ interface RequestHandlerInterface
      *
      * May call other collaborating code to generate the response.
      */
-    public function handle(ServerRequestInterface $request): ResponseInterface;
+    public function handle(ServerRequestInterface $request) : ResponseInterface;
 }

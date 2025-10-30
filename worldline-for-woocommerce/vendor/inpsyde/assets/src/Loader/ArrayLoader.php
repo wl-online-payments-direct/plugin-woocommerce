@@ -29,10 +29,10 @@ class ArrayLoader implements \Inpsyde\Assets\Loader\LoaderInterface
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration
      * @psalm-suppress MixedArgument
      */
-    public function load($resource): array
+    public function load($resource) : array
     {
-        $assets = array_map([AssetFactory::class, 'create'], (array) $resource);
-        return array_map(function (Asset $asset): Asset {
+        $assets = \array_map([AssetFactory::class, 'create'], (array) $resource);
+        return \array_map(function (Asset $asset) : Asset {
             if ($asset instanceof BaseAsset) {
                 $this->autodiscoverVersion ? $asset->enableAutodiscoverVersion() : $asset->disableAutodiscoverVersion();
             }

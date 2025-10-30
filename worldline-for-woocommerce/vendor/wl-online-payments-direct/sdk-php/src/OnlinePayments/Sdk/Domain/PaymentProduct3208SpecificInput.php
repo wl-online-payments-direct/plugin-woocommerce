@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct3208SpecificInput extends DataObject
 {
@@ -15,7 +15,6 @@ class PaymentProduct3208SpecificInput extends DataObject
      * @var string
      */
     public $merchantFinanceCode = null;
-
     /**
      * @return string
      */
@@ -23,7 +22,6 @@ class PaymentProduct3208SpecificInput extends DataObject
     {
         return $this->merchantFinanceCode;
     }
-
     /**
      * @param string
      */
@@ -31,19 +29,17 @@ class PaymentProduct3208SpecificInput extends DataObject
     {
         $this->merchantFinanceCode = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->merchantFinanceCode)) {
+        if (!\is_null($this->merchantFinanceCode)) {
             $object->merchantFinanceCode = $this->merchantFinanceCode;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -52,7 +48,7 @@ class PaymentProduct3208SpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'merchantFinanceCode')) {
+        if (\property_exists($object, 'merchantFinanceCode')) {
             $this->merchantFinanceCode = $object->merchantFinanceCode;
         }
         return $this;

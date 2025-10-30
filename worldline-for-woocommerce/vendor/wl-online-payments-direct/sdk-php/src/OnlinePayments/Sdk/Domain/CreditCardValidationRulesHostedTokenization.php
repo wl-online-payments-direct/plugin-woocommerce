@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CreditCardValidationRulesHostedTokenization extends DataObject
 {
@@ -15,12 +15,10 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
      * @var bool
      */
     public $cvvMandatoryForExistingToken = null;
-
     /**
      * @var bool
      */
     public $cvvMandatoryForNewToken = null;
-
     /**
      * @return bool
      */
@@ -28,7 +26,6 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
     {
         return $this->cvvMandatoryForExistingToken;
     }
-
     /**
      * @param bool
      */
@@ -36,7 +33,6 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
     {
         $this->cvvMandatoryForExistingToken = $value;
     }
-
     /**
      * @return bool
      */
@@ -44,7 +40,6 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
     {
         return $this->cvvMandatoryForNewToken;
     }
-
     /**
      * @param bool
      */
@@ -52,22 +47,20 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
     {
         $this->cvvMandatoryForNewToken = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->cvvMandatoryForExistingToken)) {
+        if (!\is_null($this->cvvMandatoryForExistingToken)) {
             $object->cvvMandatoryForExistingToken = $this->cvvMandatoryForExistingToken;
         }
-        if (!is_null($this->cvvMandatoryForNewToken)) {
+        if (!\is_null($this->cvvMandatoryForNewToken)) {
             $object->cvvMandatoryForNewToken = $this->cvvMandatoryForNewToken;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'cvvMandatoryForExistingToken')) {
+        if (\property_exists($object, 'cvvMandatoryForExistingToken')) {
             $this->cvvMandatoryForExistingToken = $object->cvvMandatoryForExistingToken;
         }
-        if (property_exists($object, 'cvvMandatoryForNewToken')) {
+        if (\property_exists($object, 'cvvMandatoryForNewToken')) {
             $this->cvvMandatoryForNewToken = $object->cvvMandatoryForNewToken;
         }
         return $this;

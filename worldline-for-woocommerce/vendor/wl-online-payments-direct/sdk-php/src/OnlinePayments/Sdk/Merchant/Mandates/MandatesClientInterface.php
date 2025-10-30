@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -15,7 +16,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
-
 /**
  * Mandates client interface.
  */
@@ -37,7 +37,6 @@ interface MandatesClientInterface
      * @throws InvalidResponseException
      */
     function createMandate(CreateMandateRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference} - Get mandate
      *
@@ -54,7 +53,6 @@ interface MandatesClientInterface
      * @throws InvalidResponseException
      */
     function getMandate($uniqueMandateReference, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference}/block - Block mandate
      *
@@ -71,7 +69,6 @@ interface MandatesClientInterface
      * @throws InvalidResponseException
      */
     function blockMandate($uniqueMandateReference, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference}/unblock - Unblock mandate
      *
@@ -88,7 +85,6 @@ interface MandatesClientInterface
      * @throws InvalidResponseException
      */
     function unblockMandate($uniqueMandateReference, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference}/revoke - Revoke mandate
      *

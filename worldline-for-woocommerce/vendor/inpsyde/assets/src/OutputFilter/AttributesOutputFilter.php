@@ -14,10 +14,10 @@ namespace Inpsyde\Assets\OutputFilter;
 use Inpsyde\Assets\Asset;
 class AttributesOutputFilter implements \Inpsyde\Assets\OutputFilter\AssetOutputFilter
 {
-    public function __invoke(string $html, Asset $asset): string
+    public function __invoke(string $html, Asset $asset) : string
     {
         $attributes = $asset->attributes();
-        if (!class_exists(\WP_HTML_Tag_Processor::class) || count($attributes) === 0) {
+        if (!\class_exists(\WP_HTML_Tag_Processor::class) || \count($attributes) === 0) {
             return $html;
         }
         $tags = new \WP_HTML_Tag_Processor($html);
@@ -28,17 +28,17 @@ class AttributesOutputFilter implements \Inpsyde\Assets\OutputFilter\AssetOutput
         }
         return $tags->get_updated_html();
     }
-    protected function applyAttributes(\WP_HTML_Tag_Processor $script, array $attributes): void
+    protected function applyAttributes(\WP_HTML_Tag_Processor $script, array $attributes) : void
     {
         foreach ($attributes as $key => $value) {
-            $key = esc_attr((string) $key);
+            $key = \esc_attr((string) $key);
             if ((string) $script->get_attribute($key)) {
                 continue;
             }
-            if (is_bool($value) && !$value) {
+            if (\is_bool($value) && !$value) {
                 continue;
             }
-            $value = is_bool($value) ? esc_attr($key) : esc_attr((string) $value);
+            $value = \is_bool($value) ? \esc_attr($key) : \esc_attr((string) $value);
             $script->set_attribute($key, $value);
         }
     }

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ErrorResponse extends DataObject
 {
@@ -15,12 +15,10 @@ class ErrorResponse extends DataObject
      * @var string
      */
     public $errorId = null;
-
     /**
      * @var APIError[]
      */
     public $errors = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class ErrorResponse extends DataObject
     {
         return $this->errorId;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class ErrorResponse extends DataObject
     {
         $this->errorId = $value;
     }
-
     /**
      * @return APIError[]
      */
@@ -44,7 +40,6 @@ class ErrorResponse extends DataObject
     {
         return $this->errors;
     }
-
     /**
      * @param APIError[]
      */
@@ -52,27 +47,25 @@ class ErrorResponse extends DataObject
     {
         $this->errors = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->errorId)) {
+        if (!\is_null($this->errorId)) {
             $object->errorId = $this->errorId;
         }
-        if (!is_null($this->errors)) {
+        if (!\is_null($this->errors)) {
             $object->errors = [];
             foreach ($this->errors as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->errors[] = $element->toObject();
                 }
             }
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -81,12 +74,12 @@ class ErrorResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'errorId')) {
+        if (\property_exists($object, 'errorId')) {
             $this->errorId = $object->errorId;
         }
-        if (property_exists($object, 'errors')) {
-            if (!is_array($object->errors) && !is_object($object->errors)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->errors, true) . '\' is not an array or object');
+        if (\property_exists($object, 'errors')) {
+            if (!\is_array($object->errors) && !\is_object($object->errors)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->errors, \true) . '\' is not an array or object');
             }
             $this->errors = [];
             foreach ($object->errors as $element) {

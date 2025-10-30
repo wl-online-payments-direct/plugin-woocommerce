@@ -29,7 +29,7 @@ trait PaymentMethodServiceProviderTrait
      *      An associative array where each key is a unique service identifier
      *      and each value is a closure representing the service implementation.
      */
-    public function providePaymentMethodServices(PaymentMethodDefinition ...$paymentMethods): array
+    public function providePaymentMethodServices(PaymentMethodDefinition ...$paymentMethods) : array
     {
         //
         $services = [];

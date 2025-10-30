@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CardPaymentMethodSpecificOutput extends DataObject
 {
@@ -15,87 +15,70 @@ class CardPaymentMethodSpecificOutput extends DataObject
      * @var AcquirerInformation
      */
     public $acquirerInformation = null;
-
     /**
      * @var int
      */
     public $authenticatedAmount = null;
-
     /**
      * @var string
      */
     public $authorisationCode = null;
-
     /**
      * @var CardEssentials
      */
     public $card = null;
-
     /**
      * @var CurrencyConversion
      */
     public $currencyConversion = null;
-
     /**
      * @var ExternalTokenLinked
      */
     public $externalTokenLinked = null;
-
     /**
      * @var CardFraudResults
      */
     public $fraudResults = null;
-
     /**
      * @var string
      */
     public $initialSchemeTransactionId = null;
-
     /**
      * @var string
      */
     public $paymentAccountReference = null;
-
     /**
      * @var string
      */
     public $paymentOption = null;
-
     /**
      * @var PaymentProduct3208SpecificOutput
      */
     public $paymentProduct3208SpecificOutput = null;
-
     /**
      * @var PaymentProduct3209SpecificOutput
      */
     public $paymentProduct3209SpecificOutput = null;
-
     /**
      * @var int
      */
     public $paymentProductId = null;
-
     /**
      * @var ReattemptInstructions
      */
     public $reattemptInstructions = null;
-
     /**
      * @var string
      */
     public $schemeReferenceData = null;
-
     /**
      * @var ThreeDSecureResults
      */
     public $threeDSecureResults = null;
-
     /**
      * @var string
      */
     public $token = null;
-
     /**
      * @return AcquirerInformation
      */
@@ -103,7 +86,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->acquirerInformation;
     }
-
     /**
      * @param AcquirerInformation
      */
@@ -111,7 +93,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->acquirerInformation = $value;
     }
-
     /**
      * @return int
      */
@@ -119,7 +100,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->authenticatedAmount;
     }
-
     /**
      * @param int
      */
@@ -127,7 +107,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->authenticatedAmount = $value;
     }
-
     /**
      * @return string
      */
@@ -135,7 +114,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->authorisationCode;
     }
-
     /**
      * @param string
      */
@@ -143,7 +121,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->authorisationCode = $value;
     }
-
     /**
      * @return CardEssentials
      */
@@ -151,7 +128,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->card;
     }
-
     /**
      * @param CardEssentials
      */
@@ -159,7 +135,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->card = $value;
     }
-
     /**
      * @return CurrencyConversion
      */
@@ -167,7 +142,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->currencyConversion;
     }
-
     /**
      * @param CurrencyConversion
      */
@@ -175,7 +149,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->currencyConversion = $value;
     }
-
     /**
      * @return ExternalTokenLinked
      */
@@ -183,7 +156,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->externalTokenLinked;
     }
-
     /**
      * @param ExternalTokenLinked
      */
@@ -191,7 +163,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->externalTokenLinked = $value;
     }
-
     /**
      * @return CardFraudResults
      */
@@ -199,7 +170,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->fraudResults;
     }
-
     /**
      * @param CardFraudResults
      */
@@ -207,7 +177,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->fraudResults = $value;
     }
-
     /**
      * @return string
      */
@@ -215,7 +184,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->initialSchemeTransactionId;
     }
-
     /**
      * @param string
      */
@@ -223,7 +191,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->initialSchemeTransactionId = $value;
     }
-
     /**
      * @return string
      */
@@ -231,7 +198,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->paymentAccountReference;
     }
-
     /**
      * @param string
      */
@@ -239,7 +205,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->paymentAccountReference = $value;
     }
-
     /**
      * @return string
      */
@@ -247,7 +212,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->paymentOption;
     }
-
     /**
      * @param string
      */
@@ -255,7 +219,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->paymentOption = $value;
     }
-
     /**
      * @return PaymentProduct3208SpecificOutput
      */
@@ -263,7 +226,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->paymentProduct3208SpecificOutput;
     }
-
     /**
      * @param PaymentProduct3208SpecificOutput
      */
@@ -271,7 +233,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->paymentProduct3208SpecificOutput = $value;
     }
-
     /**
      * @return PaymentProduct3209SpecificOutput
      */
@@ -279,7 +240,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->paymentProduct3209SpecificOutput;
     }
-
     /**
      * @param PaymentProduct3209SpecificOutput
      */
@@ -287,7 +247,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->paymentProduct3209SpecificOutput = $value;
     }
-
     /**
      * @return int
      */
@@ -295,7 +254,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->paymentProductId;
     }
-
     /**
      * @param int
      */
@@ -303,7 +261,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->paymentProductId = $value;
     }
-
     /**
      * @return ReattemptInstructions
      */
@@ -311,7 +268,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->reattemptInstructions;
     }
-
     /**
      * @param ReattemptInstructions
      */
@@ -319,7 +275,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->reattemptInstructions = $value;
     }
-
     /**
      * @return string
      */
@@ -327,7 +282,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->schemeReferenceData;
     }
-
     /**
      * @param string
      */
@@ -335,7 +289,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->schemeReferenceData = $value;
     }
-
     /**
      * @return ThreeDSecureResults
      */
@@ -343,7 +296,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->threeDSecureResults;
     }
-
     /**
      * @param ThreeDSecureResults
      */
@@ -351,7 +303,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->threeDSecureResults = $value;
     }
-
     /**
      * @return string
      */
@@ -359,7 +310,6 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         return $this->token;
     }
-
     /**
      * @param string
      */
@@ -367,67 +317,65 @@ class CardPaymentMethodSpecificOutput extends DataObject
     {
         $this->token = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->acquirerInformation)) {
+        if (!\is_null($this->acquirerInformation)) {
             $object->acquirerInformation = $this->acquirerInformation->toObject();
         }
-        if (!is_null($this->authenticatedAmount)) {
+        if (!\is_null($this->authenticatedAmount)) {
             $object->authenticatedAmount = $this->authenticatedAmount;
         }
-        if (!is_null($this->authorisationCode)) {
+        if (!\is_null($this->authorisationCode)) {
             $object->authorisationCode = $this->authorisationCode;
         }
-        if (!is_null($this->card)) {
+        if (!\is_null($this->card)) {
             $object->card = $this->card->toObject();
         }
-        if (!is_null($this->currencyConversion)) {
+        if (!\is_null($this->currencyConversion)) {
             $object->currencyConversion = $this->currencyConversion->toObject();
         }
-        if (!is_null($this->externalTokenLinked)) {
+        if (!\is_null($this->externalTokenLinked)) {
             $object->externalTokenLinked = $this->externalTokenLinked->toObject();
         }
-        if (!is_null($this->fraudResults)) {
+        if (!\is_null($this->fraudResults)) {
             $object->fraudResults = $this->fraudResults->toObject();
         }
-        if (!is_null($this->initialSchemeTransactionId)) {
+        if (!\is_null($this->initialSchemeTransactionId)) {
             $object->initialSchemeTransactionId = $this->initialSchemeTransactionId;
         }
-        if (!is_null($this->paymentAccountReference)) {
+        if (!\is_null($this->paymentAccountReference)) {
             $object->paymentAccountReference = $this->paymentAccountReference;
         }
-        if (!is_null($this->paymentOption)) {
+        if (!\is_null($this->paymentOption)) {
             $object->paymentOption = $this->paymentOption;
         }
-        if (!is_null($this->paymentProduct3208SpecificOutput)) {
+        if (!\is_null($this->paymentProduct3208SpecificOutput)) {
             $object->paymentProduct3208SpecificOutput = $this->paymentProduct3208SpecificOutput->toObject();
         }
-        if (!is_null($this->paymentProduct3209SpecificOutput)) {
+        if (!\is_null($this->paymentProduct3209SpecificOutput)) {
             $object->paymentProduct3209SpecificOutput = $this->paymentProduct3209SpecificOutput->toObject();
         }
-        if (!is_null($this->paymentProductId)) {
+        if (!\is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
-        if (!is_null($this->reattemptInstructions)) {
+        if (!\is_null($this->reattemptInstructions)) {
             $object->reattemptInstructions = $this->reattemptInstructions->toObject();
         }
-        if (!is_null($this->schemeReferenceData)) {
+        if (!\is_null($this->schemeReferenceData)) {
             $object->schemeReferenceData = $this->schemeReferenceData;
         }
-        if (!is_null($this->threeDSecureResults)) {
+        if (!\is_null($this->threeDSecureResults)) {
             $object->threeDSecureResults = $this->threeDSecureResults->toObject();
         }
-        if (!is_null($this->token)) {
+        if (!\is_null($this->token)) {
             $object->token = $this->token;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -436,91 +384,91 @@ class CardPaymentMethodSpecificOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'acquirerInformation')) {
-            if (!is_object($object->acquirerInformation)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->acquirerInformation, true) . '\' is not an object');
+        if (\property_exists($object, 'acquirerInformation')) {
+            if (!\is_object($object->acquirerInformation)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->acquirerInformation, \true) . '\' is not an object');
             }
             $value = new AcquirerInformation();
             $this->acquirerInformation = $value->fromObject($object->acquirerInformation);
         }
-        if (property_exists($object, 'authenticatedAmount')) {
+        if (\property_exists($object, 'authenticatedAmount')) {
             $this->authenticatedAmount = $object->authenticatedAmount;
         }
-        if (property_exists($object, 'authorisationCode')) {
+        if (\property_exists($object, 'authorisationCode')) {
             $this->authorisationCode = $object->authorisationCode;
         }
-        if (property_exists($object, 'card')) {
-            if (!is_object($object->card)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->card, true) . '\' is not an object');
+        if (\property_exists($object, 'card')) {
+            if (!\is_object($object->card)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->card, \true) . '\' is not an object');
             }
             $value = new CardEssentials();
             $this->card = $value->fromObject($object->card);
         }
-        if (property_exists($object, 'currencyConversion')) {
-            if (!is_object($object->currencyConversion)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->currencyConversion, true) . '\' is not an object');
+        if (\property_exists($object, 'currencyConversion')) {
+            if (!\is_object($object->currencyConversion)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->currencyConversion, \true) . '\' is not an object');
             }
             $value = new CurrencyConversion();
             $this->currencyConversion = $value->fromObject($object->currencyConversion);
         }
-        if (property_exists($object, 'externalTokenLinked')) {
-            if (!is_object($object->externalTokenLinked)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->externalTokenLinked, true) . '\' is not an object');
+        if (\property_exists($object, 'externalTokenLinked')) {
+            if (!\is_object($object->externalTokenLinked)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->externalTokenLinked, \true) . '\' is not an object');
             }
             $value = new ExternalTokenLinked();
             $this->externalTokenLinked = $value->fromObject($object->externalTokenLinked);
         }
-        if (property_exists($object, 'fraudResults')) {
-            if (!is_object($object->fraudResults)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->fraudResults, true) . '\' is not an object');
+        if (\property_exists($object, 'fraudResults')) {
+            if (!\is_object($object->fraudResults)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->fraudResults, \true) . '\' is not an object');
             }
             $value = new CardFraudResults();
             $this->fraudResults = $value->fromObject($object->fraudResults);
         }
-        if (property_exists($object, 'initialSchemeTransactionId')) {
+        if (\property_exists($object, 'initialSchemeTransactionId')) {
             $this->initialSchemeTransactionId = $object->initialSchemeTransactionId;
         }
-        if (property_exists($object, 'paymentAccountReference')) {
+        if (\property_exists($object, 'paymentAccountReference')) {
             $this->paymentAccountReference = $object->paymentAccountReference;
         }
-        if (property_exists($object, 'paymentOption')) {
+        if (\property_exists($object, 'paymentOption')) {
             $this->paymentOption = $object->paymentOption;
         }
-        if (property_exists($object, 'paymentProduct3208SpecificOutput')) {
-            if (!is_object($object->paymentProduct3208SpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct3208SpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'paymentProduct3208SpecificOutput')) {
+            if (!\is_object($object->paymentProduct3208SpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct3208SpecificOutput, \true) . '\' is not an object');
             }
             $value = new PaymentProduct3208SpecificOutput();
             $this->paymentProduct3208SpecificOutput = $value->fromObject($object->paymentProduct3208SpecificOutput);
         }
-        if (property_exists($object, 'paymentProduct3209SpecificOutput')) {
-            if (!is_object($object->paymentProduct3209SpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct3209SpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'paymentProduct3209SpecificOutput')) {
+            if (!\is_object($object->paymentProduct3209SpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct3209SpecificOutput, \true) . '\' is not an object');
             }
             $value = new PaymentProduct3209SpecificOutput();
             $this->paymentProduct3209SpecificOutput = $value->fromObject($object->paymentProduct3209SpecificOutput);
         }
-        if (property_exists($object, 'paymentProductId')) {
+        if (\property_exists($object, 'paymentProductId')) {
             $this->paymentProductId = $object->paymentProductId;
         }
-        if (property_exists($object, 'reattemptInstructions')) {
-            if (!is_object($object->reattemptInstructions)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->reattemptInstructions, true) . '\' is not an object');
+        if (\property_exists($object, 'reattemptInstructions')) {
+            if (!\is_object($object->reattemptInstructions)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->reattemptInstructions, \true) . '\' is not an object');
             }
             $value = new ReattemptInstructions();
             $this->reattemptInstructions = $value->fromObject($object->reattemptInstructions);
         }
-        if (property_exists($object, 'schemeReferenceData')) {
+        if (\property_exists($object, 'schemeReferenceData')) {
             $this->schemeReferenceData = $object->schemeReferenceData;
         }
-        if (property_exists($object, 'threeDSecureResults')) {
-            if (!is_object($object->threeDSecureResults)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->threeDSecureResults, true) . '\' is not an object');
+        if (\property_exists($object, 'threeDSecureResults')) {
+            if (!\is_object($object->threeDSecureResults)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->threeDSecureResults, \true) . '\' is not an object');
             }
             $value = new ThreeDSecureResults();
             $this->threeDSecureResults = $value->fromObject($object->threeDSecureResults);
         }
-        if (property_exists($object, 'token')) {
+        if (\property_exists($object, 'token')) {
             $this->token = $object->token;
         }
         return $this;

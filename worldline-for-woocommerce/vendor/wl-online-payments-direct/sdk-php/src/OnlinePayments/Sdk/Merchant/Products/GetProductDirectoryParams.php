@@ -1,16 +1,15 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products;
 
-
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
-
 /**
  * Query parameters for Get payment product directory
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products
+ * @package OnlinePayments\Sdk\Merchant\Products
  */
 class GetProductDirectoryParams extends RequestObject
 {
@@ -18,12 +17,10 @@ class GetProductDirectoryParams extends RequestObject
      * @var string
      */
     public $countryCode;
-
     /**
      * @var string
      */
     public $currencyCode;
-
     /**
      * @return string
      */
@@ -31,7 +28,6 @@ class GetProductDirectoryParams extends RequestObject
     {
         return $this->countryCode;
     }
-
     /**
      * @param string
      */
@@ -39,18 +35,16 @@ class GetProductDirectoryParams extends RequestObject
     {
         $this->countryCode = $value;
     }
-
     /**
      * @param string
      */
     public function addCountryCode($value)
     {
-        if (is_null($this->countryCode)) {
+        if (\is_null($this->countryCode)) {
             $this->countryCode = [];
         }
         $this->countryCode[] = $value;
     }
-
     /**
      * @return string
      */
@@ -58,7 +52,6 @@ class GetProductDirectoryParams extends RequestObject
     {
         return $this->currencyCode;
     }
-
     /**
      * @param string
      */
@@ -66,18 +59,16 @@ class GetProductDirectoryParams extends RequestObject
     {
         $this->currencyCode = $value;
     }
-
     /**
      * @param string
      */
     public function addCurrencyCode($value)
     {
-        if (is_null($this->currencyCode)) {
+        if (\is_null($this->currencyCode)) {
             $this->currencyCode = [];
         }
         $this->currencyCode[] = $value;
     }
-
     /**
      * @return array
      */

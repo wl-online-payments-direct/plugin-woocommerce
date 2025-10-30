@@ -20,13 +20,13 @@ class StringVersionFactory implements StringVersionFactoryInterface
     /**
      * @inheritDoc
      */
-    public function createVersionFromString(string $versionString): VersionInterface
+    public function createVersionFromString(string $versionString) : VersionInterface
     {
         try {
             $components = $this->parseVersion($versionString);
             $version = new Version($components['major'], $components['minor'], $components['patch'], $components['pre_release'], $components['build']);
         } catch (RangeException $e) {
-            throw new DomainException(sprintf('Version string "%1$s" is malformed', $versionString), 0, $e);
+            throw new DomainException(\sprintf('Version string "%1$s" is malformed', $versionString), 0, $e);
         }
         return $version;
     }
@@ -46,30 +46,30 @@ class StringVersionFactory implements StringVersionFactoryInterface
      * @throws DomainException If version string is malformed.
      * @throws Exception If problem parsing.
      */
-    protected function parseVersion(string $version): array
+    protected function parseVersion(string $version) : array
     {
-        $preReleaseSepPos = ($preReleaseSepPos = strpos($version, static::SEP_PRERELEASE)) !== \false ? $preReleaseSepPos : null;
-        $buildSepPos = ($buildSepPos = strpos($version, static::SEP_BUILD)) !== \false ? $buildSepPos : null;
+        $preReleaseSepPos = ($preReleaseSepPos = \strpos($version, static::SEP_PRERELEASE)) !== \false ? $preReleaseSepPos : null;
+        $buildSepPos = ($buildSepPos = \strpos($version, static::SEP_BUILD)) !== \false ? $buildSepPos : null;
         if ($preReleaseSepPos === 0 || $buildSepPos === 0) {
-            throw new DomainException(sprintf('Pre-release or build information in version string "%1$s" must be preceded by at least one version number', $version));
+            throw new DomainException(\sprintf('Pre-release or build information in version string "%1$s" must be preceded by at least one version number', $version));
         }
         $preRelease = '';
         $build = '';
         $numbers = $this->getSubstring($version, 0, $preReleaseSepPos ?? $buildSepPos);
         if ($preReleaseSepPos) {
-            $preRelease = $this->getSubstring($version, $preReleaseSepPos + 1, $buildSepPos ? $buildSepPos - strlen($numbers) - 1 : $buildSepPos);
+            $preRelease = $this->getSubstring($version, $preReleaseSepPos + 1, $buildSepPos ? $buildSepPos - \strlen($numbers) - 1 : $buildSepPos);
         }
         if ($buildSepPos) {
             $build = $this->getSubstring($version, $buildSepPos + 1, null);
         }
-        $numbers = strlen($numbers) ? explode('.', $numbers, 3) : [];
-        $preRelease = strlen($preRelease) ? explode('.', $preRelease) : [];
-        $build = strlen($build) ? explode('.', $build) : [];
+        $numbers = \strlen($numbers) ? \explode('.', $numbers, 3) : [];
+        $preRelease = \strlen($preRelease) ? \explode('.', $preRelease) : [];
+        $build = \strlen($build) ? \explode('.', $build) : [];
         $major = $numbers[0] ?? 0;
         $minor = $numbers[1] ?? 0;
         $patch = $numbers[2] ?? 0;
-        if (!is_numeric($major) || !is_numeric($minor) || !is_numeric($patch)) {
-            throw new DomainException(sprintf('Major, minor, and patch numbers in version string "%1$s" must be numeric', $version));
+        if (!\is_numeric($major) || !\is_numeric($minor) || !\is_numeric($patch)) {
+            throw new DomainException(\sprintf('Major, minor, and patch numbers in version string "%1$s" must be numeric', $version));
         }
         return ['major' => (int) $major, 'minor' => (int) $minor, 'patch' => (int) $patch, 'pre_release' => $preRelease, 'build' => $build];
     }
@@ -86,11 +86,11 @@ class StringVersionFactory implements StringVersionFactoryInterface
      *
      * @throws RuntimeException If problem retrieving.
      */
-    protected function getSubstring(string $string, int $start, ?int $length): string
+    protected function getSubstring(string $string, int $start, ?int $length) : string
     {
-        $substring = is_null($length) ? substr($string, $start) : substr($string, $start, $length);
-        if (!is_string($substring)) {
-            throw new UnexpectedValueException(sprintf('Could not extract a substring of a string "%1$d" chars long, starting from "%2$d" for "%3$d" chars', $string, $start, $length ?? 'null'));
+        $substring = \is_null($length) ? \substr($string, $start) : \substr($string, $start, $length);
+        if (!\is_string($substring)) {
+            throw new UnexpectedValueException(\sprintf('Could not extract a substring of a string "%1$d" chars long, starting from "%2$d" for "%3$d" chars', $string, $start, $length ?? 'null'));
         }
         return $substring;
     }

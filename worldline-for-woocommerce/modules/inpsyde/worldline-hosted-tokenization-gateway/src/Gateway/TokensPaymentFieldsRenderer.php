@@ -12,13 +12,13 @@ class TokensPaymentFieldsRenderer implements PaymentFieldsRendererInterface
     {
         $this->gateway = $gateway;
     }
-    public function renderFields(): string
+    public function renderFields() : string
     {
-        ob_start();
+        \ob_start();
         $this->gateway->tokenization_script();
         $this->gateway->saved_payment_methods();
         // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
         echo $this->gateway->get_description();
-        return (string) ob_get_clean();
+        return (string) \ob_get_clean();
     }
 }

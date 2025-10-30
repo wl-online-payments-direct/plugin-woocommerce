@@ -17,13 +17,13 @@ class PluginActionLink
         $this->uri = $uri;
         $this->newTab = $newTab;
     }
-    public function slug(): string
+    public function slug() : string
     {
         return $this->slug;
     }
-    public function __toString(): string
+    public function __toString() : string
     {
         $target = $this->newTab ? ' _blank' : '_self';
-        return sprintf('<a target="%s" href="%s">%s</a>', $target, esc_url((string) $this->uri), esc_html($this->label));
+        return \sprintf('<a target="%s" href="%s">%s</a>', $target, \esc_url((string) $this->uri), \esc_html($this->label));
     }
 }

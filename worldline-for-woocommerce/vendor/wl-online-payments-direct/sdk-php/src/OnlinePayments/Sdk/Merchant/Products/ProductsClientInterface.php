@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -16,7 +17,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
-
 /**
  * Products client interface.
  */
@@ -38,7 +38,6 @@ interface ProductsClientInterface
      * @throws InvalidResponseException
      */
     function getPaymentProducts(GetPaymentProductsParams $query, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/products/{paymentProductId} - Get payment product
      *
@@ -56,7 +55,6 @@ interface ProductsClientInterface
      * @throws InvalidResponseException
      */
     function getPaymentProduct($paymentProductId, GetPaymentProductParams $query, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/products/{paymentProductId}/networks - Get payment product networks
      *
@@ -74,7 +72,6 @@ interface ProductsClientInterface
      * @throws InvalidResponseException
      */
     function getPaymentProductNetworks($paymentProductId, GetPaymentProductNetworksParams $query, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/products/{paymentProductId}/directory - Get payment product directory
      *

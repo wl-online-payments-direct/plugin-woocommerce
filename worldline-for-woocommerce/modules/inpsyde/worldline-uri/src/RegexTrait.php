@@ -22,14 +22,14 @@ trait RegexTrait
      * @return bool True if a match is found; false otherwise.
      * @throws RuntimeException If problem matching.
      */
-    protected function pregMatch(string $pattern, string $subject, array &$matches = [], int $flags = 0, int $offset = 0): bool
+    protected function pregMatch(string $pattern, string $subject, array &$matches = [], int $flags = 0, int $offset = 0) : bool
     {
-        $result = preg_match($pattern, $subject, $matches, $flags, $offset);
+        $result = \preg_match($pattern, $subject, $matches, $flags, $offset);
         if ($result === \false) {
-            if (preg_last_error() === \PREG_NO_ERROR) {
+            if (\preg_last_error() === \PREG_NO_ERROR) {
                 throw new UnexpectedValueException('A RegEx error has occurred, but no info is available');
             }
-            throw new RuntimeException(preg_last_error_msg());
+            throw new RuntimeException(\preg_last_error_msg());
         }
         return (bool) $result;
     }
@@ -47,14 +47,14 @@ trait RegexTrait
      * @return int The number of full pattern matches.
      * @throws RuntimeException If problem matching.
      */
-    protected function pregMatchAll(string $pattern, string $subject, array &$matches = [], int $flags = 0, int $offset = 0): int
+    protected function pregMatchAll(string $pattern, string $subject, array &$matches = [], int $flags = 0, int $offset = 0) : int
     {
-        $result = preg_match_all($pattern, $subject, $matches, $flags, $offset);
+        $result = \preg_match_all($pattern, $subject, $matches, $flags, $offset);
         if ($result === \false) {
-            if (preg_last_error() === \PREG_NO_ERROR) {
+            if (\preg_last_error() === \PREG_NO_ERROR) {
                 throw new UnexpectedValueException('A RegEx error has occurred, but no info is available');
             }
-            throw new RuntimeException(preg_last_error_msg());
+            throw new RuntimeException(\preg_last_error_msg());
         }
         return $result;
     }
@@ -72,14 +72,14 @@ trait RegexTrait
      * @return string The string after replacement.
      * @throws RuntimeException If problem replacing.
      */
-    protected function pregReplace(string $pattern, string $replacement, string $subject, int $limit = -1, int &$count = 0): string
+    protected function pregReplace(string $pattern, string $replacement, string $subject, int $limit = -1, int &$count = 0) : string
     {
-        $result = preg_replace($pattern, $replacement, $subject, $limit, $count);
+        $result = \preg_replace($pattern, $replacement, $subject, $limit, $count);
         if ($result === null) {
-            if (preg_last_error() === \PREG_NO_ERROR) {
+            if (\preg_last_error() === \PREG_NO_ERROR) {
                 throw new UnexpectedValueException('A RegEx error has occurred, but no info is available');
             }
-            throw new RuntimeException(preg_last_error_msg());
+            throw new RuntimeException(\preg_last_error_msg());
         }
         return $result;
     }
@@ -97,14 +97,14 @@ trait RegexTrait
      * @return string The string after replacement.
      * @throws RuntimeException If problem replacing.
      */
-    protected function pregReplaceCallback(string $pattern, callable $callback, string $subject, int $limit = -1, int &$count = 0): string
+    protected function pregReplaceCallback(string $pattern, callable $callback, string $subject, int $limit = -1, int &$count = 0) : string
     {
-        $result = preg_replace_callback($pattern, $callback, $subject, $limit, $count);
+        $result = \preg_replace_callback($pattern, $callback, $subject, $limit, $count);
         if ($result === null) {
-            if (preg_last_error() === \PREG_NO_ERROR) {
+            if (\preg_last_error() === \PREG_NO_ERROR) {
                 throw new UnexpectedValueException('A RegEx error has occurred, but no info is available');
             }
-            throw new RuntimeException(preg_last_error_msg());
+            throw new RuntimeException(\preg_last_error_msg());
         }
         return $result;
     }

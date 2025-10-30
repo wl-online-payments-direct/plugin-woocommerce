@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ReattemptInstructionsConditions extends DataObject
 {
@@ -15,12 +15,10 @@ class ReattemptInstructionsConditions extends DataObject
      * @var int
      */
     public $maxAttempts = null;
-
     /**
      * @var int
      */
     public $maxDelay = null;
-
     /**
      * @return int
      */
@@ -28,7 +26,6 @@ class ReattemptInstructionsConditions extends DataObject
     {
         return $this->maxAttempts;
     }
-
     /**
      * @param int
      */
@@ -36,7 +33,6 @@ class ReattemptInstructionsConditions extends DataObject
     {
         $this->maxAttempts = $value;
     }
-
     /**
      * @return int
      */
@@ -44,7 +40,6 @@ class ReattemptInstructionsConditions extends DataObject
     {
         return $this->maxDelay;
     }
-
     /**
      * @param int
      */
@@ -52,22 +47,20 @@ class ReattemptInstructionsConditions extends DataObject
     {
         $this->maxDelay = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->maxAttempts)) {
+        if (!\is_null($this->maxAttempts)) {
             $object->maxAttempts = $this->maxAttempts;
         }
-        if (!is_null($this->maxDelay)) {
+        if (!\is_null($this->maxDelay)) {
             $object->maxDelay = $this->maxDelay;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class ReattemptInstructionsConditions extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'maxAttempts')) {
+        if (\property_exists($object, 'maxAttempts')) {
             $this->maxAttempts = $object->maxAttempts;
         }
-        if (property_exists($object, 'maxDelay')) {
+        if (\property_exists($object, 'maxDelay')) {
             $this->maxDelay = $object->maxDelay;
         }
         return $this;

@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Assets package.
  *
@@ -17,5 +18,5 @@ interface LoaderInterface
      *
      * @return array
      */
-    public function load($resource): array;
+    public function load($resource) : array;
 }

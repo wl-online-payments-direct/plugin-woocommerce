@@ -31,7 +31,7 @@ final class Util
      */
     public static function validateInt(&$input, $name, $message = '')
     {
-        if (!is_int($input)) {
+        if (!\is_int($input)) {
             self::throwIncorrectlyTypedException($name, $message);
         }
     }
@@ -66,7 +66,7 @@ final class Util
      */
     public static function validateString(&$input, $name, $message = '')
     {
-        if (!is_string($input)) {
+        if (!\is_string($input)) {
             self::throwIncorrectlyTypedException($name, $message);
         }
     }
@@ -84,7 +84,7 @@ final class Util
     public static function validateNonEmptyString(&$input, $name, $message = '')
     {
         self::validateString($input, $name, $message);
-        if (trim($input) === '') {
+        if (\trim($input) === '') {
             throw new \InvalidArgumentException($message === '' ? $name . ' must be non-empty' : $message);
         }
     }
@@ -101,7 +101,7 @@ final class Util
      */
     public static function validateStreamable(&$input, $name, $message = '')
     {
-        if (!is_string($input) && !is_resource($input) && !is_callable($input)) {
+        if (!\is_string($input) && !\is_resource($input) && !\is_callable($input)) {
             self::throwIncorrectlyTypedException($name, $message);
         }
     }

@@ -9,5 +9,5 @@ interface StatusActionInterface
     /**
      * Performs some actions when the return page has the given status.
      */
-    public function execute(string $status, WC_Order $wcOrder): void;
+    public function execute(string $status, WC_Order $wcOrder) : void;
 }

@@ -5,5 +5,5 @@ namespace Syde\Vendor\Worldline\Inpsyde\PaymentGateway;
 
 interface PaymentProcessorInterface
 {
-    public function processPayment(\WC_Order $order, PaymentGateway $gateway): array;
+    public function processPayment(\WC_Order $order, PaymentGateway $gateway) : array;
 }

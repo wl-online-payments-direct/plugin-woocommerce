@@ -25,11 +25,6 @@ msgstr ""
 msgid "Worldline payment gateway for WooCommerce."
 msgstr ""
 
-#. Author of the plugin
-#: worldline-for-woocommerce.php
-msgid "Worldline"
-msgstr ""
-
 #. Author URI of the plugin
 #: worldline-for-woocommerce.php
 msgid "https://syde.com"

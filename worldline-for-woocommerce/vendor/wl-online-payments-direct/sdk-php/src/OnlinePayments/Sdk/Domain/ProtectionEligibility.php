@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ProtectionEligibility extends DataObject
 {
@@ -15,12 +15,10 @@ class ProtectionEligibility extends DataObject
      * @var string
      */
     public $eligibility = null;
-
     /**
      * @var string
      */
     public $type = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class ProtectionEligibility extends DataObject
     {
         return $this->eligibility;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class ProtectionEligibility extends DataObject
     {
         $this->eligibility = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class ProtectionEligibility extends DataObject
     {
         return $this->type;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class ProtectionEligibility extends DataObject
     {
         $this->type = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->eligibility)) {
+        if (!\is_null($this->eligibility)) {
             $object->eligibility = $this->eligibility;
         }
-        if (!is_null($this->type)) {
+        if (!\is_null($this->type)) {
             $object->type = $this->type;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class ProtectionEligibility extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'eligibility')) {
+        if (\property_exists($object, 'eligibility')) {
             $this->eligibility = $object->eligibility;
         }
-        if (property_exists($object, 'type')) {
+        if (\property_exists($object, 'type')) {
             $this->type = $object->type;
         }
         return $this;

@@ -10,7 +10,7 @@ trait ModuleClassNameIdTrait
      *
      * @see Module::id()
      */
-    public function id(): string
+    public function id() : string
     {
         return __CLASS__;
     }

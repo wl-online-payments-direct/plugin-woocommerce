@@ -23,7 +23,7 @@ use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
  */
 trait DefaultPaymentMethodDefinitionTrait
 {
-    private function ensureServiceKeyGenerator(): ServiceKeyGenerator
+    private function ensureServiceKeyGenerator() : ServiceKeyGenerator
     {
         static $keyGen;
         if (!$keyGen) {
@@ -31,43 +31,43 @@ trait DefaultPaymentMethodDefinitionTrait
         }
         return $keyGen;
     }
-    public function paymentProcessor(ContainerInterface $container): PaymentProcessorInterface
+    public function paymentProcessor(ContainerInterface $container) : PaymentProcessorInterface
     {
         return new NoopPaymentProcessor();
     }
-    public function paymentRequestValidator(ContainerInterface $container): PaymentRequestValidatorInterface
+    public function paymentRequestValidator(ContainerInterface $container) : PaymentRequestValidatorInterface
     {
         return new NoopPaymentRequestValidator();
     }
-    public function title(ContainerInterface $container): string
+    public function title(ContainerInterface $container) : string
     {
         return $this->id();
     }
-    public function methodTitle(ContainerInterface $container): string
+    public function methodTitle(ContainerInterface $container) : string
     {
         return $this->id();
     }
-    public function description(ContainerInterface $container): string
+    public function description(ContainerInterface $container) : string
     {
         return $this->id();
     }
-    public function methodDescription(ContainerInterface $container): string
+    public function methodDescription(ContainerInterface $container) : string
     {
         return $this->id();
     }
-    public function availabilityCallback(ContainerInterface $container): callable
+    public function availabilityCallback(ContainerInterface $container) : callable
     {
         return static fn() => \true;
     }
-    public function supports(ContainerInterface $container): array
+    public function supports(ContainerInterface $container) : array
     {
         return ['products'];
     }
-    public function refundProcessor(ContainerInterface $container): RefundProcessorInterface
+    public function refundProcessor(ContainerInterface $container) : RefundProcessorInterface
     {
         return new NoopRefundProcessor();
     }
-    public function paymentMethodIconProvider(ContainerInterface $container): IconProviderInterface
+    public function paymentMethodIconProvider(ContainerInterface $container) : IconProviderInterface
     {
         return new StaticIconProvider();
     }
@@ -75,17 +75,17 @@ trait DefaultPaymentMethodDefinitionTrait
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function gatewayIconsRenderer(ContainerInterface $container): GatewayIconsRendererInterface
+    public function gatewayIconsRenderer(ContainerInterface $container) : GatewayIconsRendererInterface
     {
         try {
             $iconProvider = $container->get($this->ensureServiceKeyGenerator()->createKey('method_icon_provider'));
         } catch (NotFoundExceptionInterface|ContainerExceptionInterface $exception) {
             $iconProvider = $container->get($this->ensureServiceKeyGenerator()->createFallbackKey('method_icon_provider'));
         }
-        assert($iconProvider instanceof IconProviderInterface);
+        \assert($iconProvider instanceof IconProviderInterface);
         return new DefaultIconsRenderer($iconProvider);
     }
-    public function paymentFieldsRenderer(ContainerInterface $container): PaymentFieldsRendererInterface
+    public function paymentFieldsRenderer(ContainerInterface $container) : PaymentFieldsRendererInterface
     {
         /**
          * Trigger fallback within PaymentGateway by pretending the service does not exist
@@ -94,16 +94,16 @@ trait DefaultPaymentMethodDefinitionTrait
         {
         };
     }
-    public function hasFields(ContainerInterface $container): bool
+    public function hasFields(ContainerInterface $container) : bool
     {
         return \false;
     }
-    public function formFields(ContainerInterface $container): array
+    public function formFields(ContainerInterface $container) : array
     {
         //TODO i18n
         return ['enabled' => ['title' => 'Enable/Disable', 'type' => 'checkbox', 'label' => 'Enable payment method', 'default' => 'no']];
     }
-    public function optionKey(ContainerInterface $container): string
+    public function optionKey(ContainerInterface $container) : string
     {
         /**
          * Trigger fallback within PaymentGateway by pretending the service does not exist
@@ -112,15 +112,15 @@ trait DefaultPaymentMethodDefinitionTrait
         {
         };
     }
-    public function registerBlocks(ContainerInterface $container): bool
+    public function registerBlocks(ContainerInterface $container) : bool
     {
         return \true;
     }
-    public function orderButtonText(ContainerInterface $container): ?string
+    public function orderButtonText(ContainerInterface $container) : ?string
     {
         return null;
     }
-    public function customSettings(): CustomSettingsFieldsDefinition
+    public function customSettings() : CustomSettingsFieldsDefinition
     {
         return new CustomSettingsFields([], []);
     }

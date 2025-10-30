@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class AmountOfMoney extends DataObject
 {
@@ -15,12 +15,10 @@ class AmountOfMoney extends DataObject
      * @var int
      */
     public $amount = null;
-
     /**
      * @var string
      */
     public $currencyCode = null;
-
     /**
      * @return int
      */
@@ -28,7 +26,6 @@ class AmountOfMoney extends DataObject
     {
         return $this->amount;
     }
-
     /**
      * @param int
      */
@@ -36,7 +33,6 @@ class AmountOfMoney extends DataObject
     {
         $this->amount = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class AmountOfMoney extends DataObject
     {
         return $this->currencyCode;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class AmountOfMoney extends DataObject
     {
         $this->currencyCode = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->amount)) {
+        if (!\is_null($this->amount)) {
             $object->amount = $this->amount;
         }
-        if (!is_null($this->currencyCode)) {
+        if (!\is_null($this->currencyCode)) {
             $object->currencyCode = $this->currencyCode;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class AmountOfMoney extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'amount')) {
+        if (\property_exists($object, 'amount')) {
             $this->amount = $object->amount;
         }
-        if (property_exists($object, 'currencyCode')) {
+        if (\property_exists($object, 'currencyCode')) {
             $this->currencyCode = $object->currencyCode;
         }
         return $this;

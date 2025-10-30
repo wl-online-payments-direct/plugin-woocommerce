@@ -6,5 +6,5 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePayment
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Order;
 interface MismatchHandlerInterface
 {
-    public function handle(Order $wlopOrder, \Throwable $exception): void;
+    public function handle(Order $wlopOrder, \Throwable $exception) : void;
 }

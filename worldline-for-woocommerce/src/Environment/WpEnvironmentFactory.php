@@ -27,7 +27,7 @@ class WpEnvironmentFactory implements WpEnvironmentFactoryInterface
     /**
      * @inheritDoc
      */
-    public function createFromGlobals(): WpEnvironmentInterface
+    public function createFromGlobals() : WpEnvironmentInterface
     {
         return new WpEnvironment($this->phpVersion(), $this->wpVersion(), $this->wcVersion(), $this->isWcActive());
     }
@@ -36,10 +36,10 @@ class WpEnvironmentFactory implements WpEnvironmentFactoryInterface
      *
      * @return string
      */
-    protected function phpVersion(): string
+    protected function phpVersion() : string
     {
         try {
-            return (string) $this->versionFactory->createVersionFromString((string) phpversion());
+            return (string) $this->versionFactory->createVersionFromString((string) \phpversion());
         } catch (Exception $exception) {
             do_action($this->eventNameEnvironmentValidationFailed, ['reason' => 'couldn\'t get PHP version', 'details' => $exception->getMessage()]);
             return '';
@@ -50,7 +50,7 @@ class WpEnvironmentFactory implements WpEnvironmentFactoryInterface
      *
      * @return string
      */
-    protected function wpVersion(): string
+    protected function wpVersion() : string
     {
         global $wp_version;
         try {
@@ -65,9 +65,9 @@ class WpEnvironmentFactory implements WpEnvironmentFactoryInterface
      *
      * @return string
      */
-    protected function wcVersion(): string
+    protected function wcVersion() : string
     {
-        if (!defined('WC_VERSION')) {
+        if (!\defined('WC_VERSION')) {
             return '';
         }
         try {
@@ -82,8 +82,8 @@ class WpEnvironmentFactory implements WpEnvironmentFactoryInterface
      *
      * @return bool
      */
-    protected function isWcActive(): bool
+    protected function isWcActive() : bool
     {
-        return class_exists(WooCommerce::class);
+        return \class_exists(WooCommerce::class);
     }
 }

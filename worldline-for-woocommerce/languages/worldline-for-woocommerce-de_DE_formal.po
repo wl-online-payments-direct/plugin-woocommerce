@@ -805,11 +805,6 @@ msgstr "Wir akzeptieren alle gängigen und lokalen Zahlungsmöglichkeiten. Der E
 msgid "Accept payments with all major and local payment methods."
 msgstr "Akzeptieren Sie Zahlungen mit allen gängigen und lokalen Zahlungsmitteln."
 
-#. Author of the plugin
-#: worldline-for-woocommerce.php
-msgid "Worldline"
-msgstr "Worldline"
-
 #: modules.local/webhooks/src/Helper/WebhookHelper.php:78
 #: modules/inpsyde/worldline-webhooks/src/Helper/WebhookHelper.php:78
 msgid "Unknown transaction ID"

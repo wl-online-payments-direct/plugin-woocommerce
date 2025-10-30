@@ -14,11 +14,11 @@ class UriModule implements ServiceModule
     /**
      * @inheritDoc
      */
-    public function services(): array
+    public function services() : array
     {
         static $services;
         if ($services === null) {
-            $services = require_once dirname(__DIR__) . '/inc/services.php';
+            $services = (require_once \dirname(__DIR__) . '/inc/services.php');
         }
         return $services();
     }

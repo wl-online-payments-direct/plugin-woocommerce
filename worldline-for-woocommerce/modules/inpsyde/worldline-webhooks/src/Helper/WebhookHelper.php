@@ -10,7 +10,7 @@ class WebhookHelper
     /**
      * @psalm-suppress RedundantConditionGivenDocblockType
      */
-    public static function reference(WebhooksEvent $webhook): ?string
+    public static function reference(WebhooksEvent $webhook) : ?string
     {
         $payment = $webhook->getPayment();
         $refund = $webhook->getRefund();
@@ -32,7 +32,7 @@ class WebhookHelper
     /**
      * @psalm-suppress RedundantConditionGivenDocblockType
      */
-    public static function transactionId(WebhooksEvent $webhook): ?string
+    public static function transactionId(WebhooksEvent $webhook) : ?string
     {
         $payment = $webhook->getPayment();
         $refund = $webhook->getRefund();
@@ -43,7 +43,7 @@ class WebhookHelper
         }
         return null;
     }
-    public static function statusCode(WebhooksEvent $webhook): ?int
+    public static function statusCode(WebhooksEvent $webhook) : ?int
     {
         $payment = $webhook->getPayment();
         $refund = $webhook->getRefund();
@@ -58,15 +58,15 @@ class WebhookHelper
         }
         return $output->getStatusCode();
     }
-    public static function transactionIdForUi(WebhooksEvent $webhook): string
+    public static function transactionIdForUi(WebhooksEvent $webhook) : string
     {
         $transactionId = self::transactionId($webhook);
-        if (is_null($transactionId)) {
-            return __('Unknown transaction ID', 'worldline-for-woocommerce');
+        if (\is_null($transactionId)) {
+            return \__('Unknown transaction ID', 'worldline-for-woocommerce');
         }
         return $transactionId;
     }
-    public static function paymentCapturedAmount(WebhooksEvent $webhook): ?AmountOfMoney
+    public static function paymentCapturedAmount(WebhooksEvent $webhook) : ?AmountOfMoney
     {
         $payment = $webhook->getPayment();
         if (!$payment) {
@@ -78,7 +78,7 @@ class WebhookHelper
         }
         return $output->getAcquiredAmount();
     }
-    public static function cancelledPaymentAmount(WebhooksEvent $webhook): ?AmountOfMoney
+    public static function cancelledPaymentAmount(WebhooksEvent $webhook) : ?AmountOfMoney
     {
         if ($webhook->type !== 'payment.cancelled') {
             return null;
@@ -96,7 +96,7 @@ class WebhookHelper
         }
         return $paymentOutput->getAmountOfMoney();
     }
-    public static function paymentRefundedAmount(WebhooksEvent $webhook): ?AmountOfMoney
+    public static function paymentRefundedAmount(WebhooksEvent $webhook) : ?AmountOfMoney
     {
         $refund = $webhook->getRefund();
         if (!$refund) {

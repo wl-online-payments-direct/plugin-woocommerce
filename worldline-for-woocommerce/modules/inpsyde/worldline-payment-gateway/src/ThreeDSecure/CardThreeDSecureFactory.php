@@ -18,7 +18,7 @@ class CardThreeDSecureFactory
         $this->exemptionType = $exemptionType;
         $this->exemptionAmountChecker = $exemptionAmountChecker;
     }
-    public function create(int $orderAmount, string $currencyCode, string $returnUrl = ''): ThreeDSecure
+    public function create(int $orderAmount, string $currencyCode, string $returnUrl = '') : ThreeDSecure
     {
         $threedSecure = new ThreeDSecure();
         if (!empty($returnUrl)) {

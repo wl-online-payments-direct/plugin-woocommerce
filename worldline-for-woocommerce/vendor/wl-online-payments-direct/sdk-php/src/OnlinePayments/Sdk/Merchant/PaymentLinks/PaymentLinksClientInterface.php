@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -14,7 +15,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
-
 /**
  * PaymentLinks client interface.
  */
@@ -36,7 +36,6 @@ interface PaymentLinksClientInterface
      * @throws InvalidResponseException
      */
     function createPaymentLink(CreatePaymentLinkRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/paymentlinks/{paymentLinkId} - Get payment link by ID
      *
@@ -53,7 +52,6 @@ interface PaymentLinksClientInterface
      * @throws InvalidResponseException
      */
     function getPaymentLinkById($paymentLinkId, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/paymentlinks/{paymentLinkId}/cancel - Cancel PaymentLink by ID
      *

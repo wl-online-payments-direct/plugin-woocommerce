@@ -20,121 +20,121 @@ class BaseProperties implements Properties
     protected function __construct(string $baseName, string $basePath, string $baseUrl = null, array $properties = [])
     {
         $baseName = $this->sanitizeBaseName($baseName);
-        $basePath = trailingslashit($basePath);
+        $basePath = \trailingslashit($basePath);
         if ($baseUrl !== null) {
-            $baseUrl = trailingslashit($baseUrl);
+            $baseUrl = \trailingslashit($baseUrl);
         }
         $this->baseName = $baseName;
         $this->basePath = $basePath;
         $this->baseUrl = $baseUrl;
-        $this->properties = array_replace(Properties::DEFAULT_PROPERTIES, $properties);
+        $this->properties = \array_replace(Properties::DEFAULT_PROPERTIES, $properties);
     }
     /**
      * @param string $name
      * @return lowercase-string
      */
-    protected function sanitizeBaseName(string $name): string
+    protected function sanitizeBaseName(string $name) : string
     {
-        substr_count($name, '/') and $name = dirname($name);
-        return strtolower(pathinfo($name, \PATHINFO_FILENAME));
+        \substr_count($name, '/') and $name = \dirname($name);
+        return \strtolower(\pathinfo($name, \PATHINFO_FILENAME));
     }
     /**
      * @return string
      */
-    public function baseName(): string
+    public function baseName() : string
     {
         return $this->baseName;
     }
     /**
      * @return string
      */
-    public function basePath(): string
+    public function basePath() : string
     {
         return $this->basePath;
     }
     /**
      * @return string|null
      */
-    public function baseUrl(): ?string
+    public function baseUrl() : ?string
     {
         return $this->baseUrl;
     }
     /**
      * @return string
      */
-    public function author(): string
+    public function author() : string
     {
         return (string) $this->get(self::PROP_AUTHOR);
     }
     /**
      * @return string
      */
-    public function authorUri(): string
+    public function authorUri() : string
     {
         return (string) $this->get(self::PROP_AUTHOR_URI);
     }
     /**
      * @return string
      */
-    public function description(): string
+    public function description() : string
     {
         return (string) $this->get(self::PROP_DESCRIPTION);
     }
     /**
      * @return string
      */
-    public function textDomain(): string
+    public function textDomain() : string
     {
         return (string) $this->get(self::PROP_TEXTDOMAIN);
     }
     /**
      * @return string
      */
-    public function domainPath(): string
+    public function domainPath() : string
     {
         return (string) $this->get(self::PROP_DOMAIN_PATH);
     }
     /**
      * @return string
      */
-    public function name(): string
+    public function name() : string
     {
         return (string) $this->get(self::PROP_NAME);
     }
     /**
      * @return string
      */
-    public function uri(): string
+    public function uri() : string
     {
         return (string) $this->get(self::PROP_URI);
     }
     /**
      * @return string
      */
-    public function version(): string
+    public function version() : string
     {
         return (string) $this->get(self::PROP_VERSION);
     }
     /**
      * @return string|null
      */
-    public function requiresWp(): ?string
+    public function requiresWp() : ?string
     {
         $value = $this->get(self::PROP_REQUIRES_WP);
-        return $value !== '' && is_string($value) ? $value : null;
+        return $value !== '' && \is_string($value) ? $value : null;
     }
     /**
      * @return string|null
      */
-    public function requiresPhp(): ?string
+    public function requiresPhp() : ?string
     {
         $value = $this->get(self::PROP_REQUIRES_PHP);
-        return $value !== '' && is_string($value) ? $value : null;
+        return $value !== '' && \is_string($value) ? $value : null;
     }
     /**
      * @return array
      */
-    public function tags(): array
+    public function tags() : array
     {
         return (array) $this->get(self::PROP_TAGS);
     }
@@ -151,7 +151,7 @@ class BaseProperties implements Properties
      * @param string $key
      * @return bool
      */
-    public function has(string $key): bool
+    public function has(string $key) : bool
     {
         return isset($this->properties[$key]);
     }
@@ -159,11 +159,11 @@ class BaseProperties implements Properties
      * @return bool
      * @see Properties::isDebug()
      */
-    public function isDebug(): bool
+    public function isDebug() : bool
     {
         if ($this->isDebug === null) {
             /** @psalm-suppress TypeDoesNotContainType */
-            $this->isDebug = defined('WP_DEBUG') && \WP_DEBUG;
+            $this->isDebug = \defined('WP_DEBUG') && \WP_DEBUG;
         }
         return $this->isDebug;
     }

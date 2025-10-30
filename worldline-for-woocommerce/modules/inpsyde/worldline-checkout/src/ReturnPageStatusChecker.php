@@ -10,7 +10,7 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGatewa
 use WC_Order;
 class ReturnPageStatusChecker extends WcOrderStatusChecker
 {
-    public function determineStatus(?WC_Order $wcOrder): string
+    public function determineStatus(?WC_Order $wcOrder) : string
     {
         if (!$wcOrder) {
             throw new Exception('WC order required.');

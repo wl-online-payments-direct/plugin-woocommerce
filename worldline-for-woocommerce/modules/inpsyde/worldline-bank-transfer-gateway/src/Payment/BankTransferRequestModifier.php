@@ -10,7 +10,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectionData;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
 class BankTransferRequestModifier extends AbstractHostedPaymentRequestModifier
 {
-    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput): CreateHostedCheckoutRequest
+    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput) : CreateHostedCheckoutRequest
     {
         $redirectPaymentMethodSpecificInput = new RedirectPaymentMethodSpecificInput();
         $redirectionData = new RedirectionData();

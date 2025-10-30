@@ -23,14 +23,14 @@ class ContainerConfigurator
      */
     public function __construct(array $containers = [], ?ServiceExtensions $extensions = null)
     {
-        array_map([$this, 'addContainer'], $containers);
+        \array_map([$this, 'addContainer'], $containers);
         $this->extensions = $extensions ?? new ServiceExtensions();
     }
     /**
      * @param ContainerInterface $container
      * @return void
      */
-    public function addContainer(ContainerInterface $container): void
+    public function addContainer(ContainerInterface $container) : void
     {
         $this->containers[] = $container;
     }
@@ -38,7 +38,7 @@ class ContainerConfigurator
      * @param string $id
      * @param Service $factory
      */
-    public function addFactory(string $id, callable $factory): void
+    public function addFactory(string $id, callable $factory) : void
     {
         $this->addService($id, $factory);
         // We're using a hash table to detect later
@@ -50,7 +50,7 @@ class ContainerConfigurator
      * @param Service $service
      * @return void
      */
-    public function addService(string $id, callable $service): void
+    public function addService(string $id, callable $service) : void
     {
         /*
          * We are being intentionally permissive here,
@@ -68,9 +68,9 @@ class ContainerConfigurator
      * @param string $id
      * @return bool
      */
-    public function hasService(string $id): bool
+    public function hasService(string $id) : bool
     {
-        if (array_key_exists($id, $this->services)) {
+        if (\array_key_exists($id, $this->services)) {
             return \true;
         }
         foreach ($this->containers as $container) {
@@ -85,7 +85,7 @@ class ContainerConfigurator
      * @param ExtendingService $extender
      * @return void
      */
-    public function addExtension(string $id, callable $extender): void
+    public function addExtension(string $id, callable $extender) : void
     {
         $this->extensions->add($id, $extender);
     }
@@ -93,7 +93,7 @@ class ContainerConfigurator
      * @param string $id
      * @return bool
      */
-    public function hasExtension(string $id): bool
+    public function hasExtension(string $id) : bool
     {
         return $this->extensions->has($id);
     }
@@ -102,7 +102,7 @@ class ContainerConfigurator
      *
      * @psalm-assert ContainerInterface $this->compiledContainer
      */
-    public function createReadOnlyContainer(): ContainerInterface
+    public function createReadOnlyContainer() : ContainerInterface
     {
         if ($this->compiledContainer === null) {
             $this->compiledContainer = new ReadOnlyContainer($this->services, $this->factoryIds, $this->extensions, $this->containers);

@@ -55,23 +55,23 @@ class PaymentGateway extends WC_Payment_Gateway
         unset($this->method_description);
         unset($this->icon);
         unset($this->form_fields);
-        add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
-        add_action('woocommerce_settings_checkout', [$this, 'display_errors']);
-        add_filter('woocommerce_settings_api_sanitized_fields_' . $this->id, [$this, 'filterVirtualFields'], -1000);
+        \add_action('woocommerce_update_options_payment_gateways_' . $this->id, [$this, 'process_admin_options']);
+        \add_action('woocommerce_settings_checkout', [$this, 'display_errors']);
+        \add_filter('woocommerce_settings_api_sanitized_fields_' . $this->id, [$this, 'filterVirtualFields'], -1000);
     }
     public function init_settings()
     {
         parent::init_settings();
-        do_action($this->id . '_after_init_settings', $this);
+        \do_action($this->id . '_after_init_settings', $this);
     }
-    public function get_title(): string
+    public function get_title() : string
     {
         if (!$this->title) {
             $this->title = $this->locate('title');
         }
         return parent::get_title();
     }
-    public function get_description(): string
+    public function get_description() : string
     {
         if (!$this->description) {
             $this->description = $this->locate('description');
@@ -83,20 +83,20 @@ class PaymentGateway extends WC_Payment_Gateway
      *
      * @return bool Whether it is available, true for yes and false for no.
      */
-    public function is_available(): bool
+    public function is_available() : bool
     {
         $isAvailable = parent::is_available();
         if (!$isAvailable) {
             return \false;
         }
         $canBeUsed = $this->locate('availability_callback');
-        assert(is_callable($canBeUsed));
+        \assert(\is_callable($canBeUsed));
         return $canBeUsed($this);
     }
     /**
      * @inheritDoc
      */
-    public function process_payment($orderId): array
+    public function process_payment($orderId) : array
     {
         /**
          * Produce the WC_Order instance first
@@ -106,15 +106,15 @@ class PaymentGateway extends WC_Payment_Gateway
         try {
             $order = $this->getOrder((string) $orderId);
             $paymentRequestValidator = $this->locate('payment_request_validator');
-            assert($paymentRequestValidator instanceof PaymentRequestValidatorInterface);
+            \assert($paymentRequestValidator instanceof PaymentRequestValidatorInterface);
             $paymentRequestValidator->assertIsValid($order, $this);
         } catch (RuntimeException $exception) {
-            wc_add_notice($exception->getMessage(), 'error');
-            WC()->session->set('refresh_totals', \true);
+            \wc_add_notice($exception->getMessage(), 'error');
+            \WC()->session->set('refresh_totals', \true);
             return ['result' => 'failure', 'redirect' => ''];
         }
         $processor = $this->locate('payment_processor');
-        assert($processor instanceof PaymentProcessorInterface);
+        \assert($processor instanceof PaymentProcessorInterface);
         return $processor->processPayment($order, $this);
     }
     public function get_icon()
@@ -122,12 +122,12 @@ class PaymentGateway extends WC_Payment_Gateway
         $output = '';
         try {
             $iconService = $this->locate('gateway_icons_renderer');
-            assert($iconService instanceof GatewayIconsRendererInterface);
+            \assert($iconService instanceof GatewayIconsRendererInterface);
             $output = $iconService->renderIcons();
         } catch (ContainerExceptionInterface $exception) {
             // Silence
         }
-        return apply_filters('woocommerce_gateway_icon', $output, $this->id);
+        return \apply_filters('woocommerce_gateway_icon', $output, $this->id);
     }
     /**
      * Get order by ID or throw exception.
@@ -138,11 +138,11 @@ class PaymentGateway extends WC_Payment_Gateway
      *
      * @throws RuntimeException If order not found.
      */
-    protected function getOrder(string $orderId): WC_Order
+    protected function getOrder(string $orderId) : WC_Order
     {
-        $order = wc_get_order($orderId);
+        $order = \wc_get_order($orderId);
         if (!$order instanceof WC_Order) {
-            throw new RuntimeException(sprintf('Failed to process order %1$d, it cannot be found.', $orderId));
+            throw new RuntimeException(\sprintf('Failed to process order %1$d, it cannot be found.', $orderId));
         }
         return $order;
     }
@@ -153,7 +153,7 @@ class PaymentGateway extends WC_Payment_Gateway
      *
      * @return string
      */
-    public function get_transaction_url($order): string
+    public function get_transaction_url($order) : string
     {
         $this->view_transaction_url = (string) $order->get_meta(self::TRANSACTION_URL_TEMPLATE_FIELD_NAME, \true);
         return parent::get_transaction_url($order);
@@ -164,24 +164,24 @@ class PaymentGateway extends WC_Payment_Gateway
      */
     public function process_refund($orderId, $amount = \null, $reason = '')
     {
-        $order = wc_get_order($orderId);
+        $order = \wc_get_order($orderId);
         if (!$order instanceof WC_Order) {
             return new WP_Error('refund_order_not_found', $this->i18n->translate('refund_order_not_found', $this->id, ['orderId' => $orderId]));
         }
-        $amount = floatval($amount);
+        $amount = \floatval($amount);
         $refundProcessor = $this->locate('refund_processor');
-        assert($refundProcessor instanceof RefundProcessorInterface);
+        \assert($refundProcessor instanceof RefundProcessorInterface);
         $refundProcessor->refundOrderPayment($order, $amount, $reason);
         return \true;
     }
     /**
      * @inheritDoc
      */
-    public function payment_fields(): void
+    public function payment_fields() : void
     {
         try {
             $renderer = $this->locate('payment_fields_renderer');
-            assert($renderer instanceof PaymentFieldsRendererInterface);
+            \assert($renderer instanceof PaymentFieldsRendererInterface);
         } catch (ContainerExceptionInterface $exception) {
             parent::payment_fields();
             return;
@@ -190,8 +190,8 @@ class PaymentGateway extends WC_Payment_Gateway
             //phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
             echo $renderer->renderFields();
         } catch (\Throwable $exception) {
-            do_action($this->id . '_payment_fields_failure', ['exception' => $exception]);
-            echo esc_html($this->i18n->translate('payment_method_not_available', $this->id));
+            \do_action($this->id . '_payment_fields_failure', ['exception' => $exception]);
+            echo \esc_html($this->i18n->translate('payment_method_not_available', $this->id));
         }
     }
     /**
@@ -217,18 +217,18 @@ class PaymentGateway extends WC_Payment_Gateway
                  * Check if we have a dedicated renderer in our service container
                  */
                 $fieldRenderer = $this->locate('settings_field_renderer.' . $type);
-                assert($fieldRenderer instanceof SettingsFieldRendererInterface);
+                \assert($fieldRenderer instanceof SettingsFieldRendererInterface);
                 $html .= $fieldRenderer->render($key, $value, $this);
             } catch (ContainerExceptionInterface $exception) {
                 /**
                  * Fallback to WC core implementation
                  */
-                if (method_exists($this, 'generate_' . $type . '_html')) {
+                if (\method_exists($this, 'generate_' . $type . '_html')) {
                     $html .= $this->{'generate_' . $type . '_html'}($key, $value);
                     continue;
                 }
-                if (has_filter('woocommerce_generate_' . $type . '_html')) {
-                    $html .= apply_filters('woocommerce_generate_' . $type . '_html', '', $key, $value, $this);
+                if (\has_filter('woocommerce_generate_' . $type . '_html')) {
+                    $html .= \apply_filters('woocommerce_generate_' . $type . '_html', '', $key, $value, $this);
                     continue;
                 }
                 $html .= $this->generate_text_html($key, $value);
@@ -262,7 +262,7 @@ class PaymentGateway extends WC_Payment_Gateway
     /**
      * @inheritDoc
      */
-    public function process_admin_options(): bool
+    public function process_admin_options() : bool
     {
         $result = parent::process_admin_options();
         return $result;
@@ -284,10 +284,10 @@ class PaymentGateway extends WC_Payment_Gateway
         $postData = empty($postData) ? $_POST : $postData;
         $value = $postData[$fieldKey] ?? null;
         try {
-            if (isset($field['sanitize_callback']) && is_callable($field['sanitize_callback'])) {
+            if (isset($field['sanitize_callback']) && \is_callable($field['sanitize_callback'])) {
                 // keeping WC behavior
                 // phpcs:ignore Inpsyde.CodeQuality.DisableCallUserFunc.call_user_func_call_user_func
-                return call_user_func($field['sanitize_callback'], $value);
+                return \call_user_func($field['sanitize_callback'], $value);
             }
             /**
              * Check if we have a dedicated field sanitizer in our service container
@@ -300,17 +300,17 @@ class PaymentGateway extends WC_Payment_Gateway
              * Fallback to WC core implementation
              */
             // Look for a validate_FIELDID_field method for special handling.
-            if (is_callable([$this, 'validate_' . $key . '_field'])) {
+            if (\is_callable([$this, 'validate_' . $key . '_field'])) {
                 return $this->{'validate_' . $key . '_field'}($key, $value);
             }
             // Look for a validate_FIELDTYPE_field method.
-            if (is_callable([$this, 'validate_' . $type . '_field'])) {
+            if (\is_callable([$this, 'validate_' . $type . '_field'])) {
                 return $this->{'validate_' . $type . '_field'}($key, $value);
             }
             // Fallback to text.
             return $this->validate_text_field($key, $value);
         } catch (RangeException $exception) {
-            $this->add_error(sprintf('Field "%1$s" is invalid: %2$s', $key, $exception->getMessage()));
+            $this->add_error(\sprintf('Field "%1$s" is invalid: %2$s', $key, $exception->getMessage()));
             return null;
         }
     }
@@ -324,15 +324,15 @@ class PaymentGateway extends WC_Payment_Gateway
      * @throws RangeException If field not configured.
      * @throws RuntimeException If problem retrieving.
      */
-    protected function getFieldConfig(string $key): array
+    protected function getFieldConfig(string $key) : array
     {
         $fields = $this->get_form_fields();
         if (!isset($fields[$key])) {
-            throw new RangeException(sprintf('Field "%1$s" is not configured', $key));
+            throw new RangeException(\sprintf('Field "%1$s" is not configured', $key));
         }
         $field = $fields[$key];
-        if (!is_array($field)) {
-            throw new UnexpectedValueException(sprintf('Invalid configuration for field "%1$s"', $key));
+        if (!\is_array($field)) {
+            throw new UnexpectedValueException(\sprintf('Invalid configuration for field "%1$s"', $key));
         }
         return $field;
     }
@@ -384,7 +384,7 @@ class PaymentGateway extends WC_Payment_Gateway
     {
         try {
             $optionKey = $this->locate('option_key');
-            assert(is_string($optionKey));
+            \assert(\is_string($optionKey));
         } catch (ContainerExceptionInterface $exception) {
             $optionKey = null;
         }
@@ -402,17 +402,17 @@ class PaymentGateway extends WC_Payment_Gateway
      *
      * @return array
      */
-    public function filterVirtualFields(array $settings): array
+    public function filterVirtualFields(array $settings) : array
     {
-        $validFields = array_filter($this->get_form_fields(), static function (array $fieldConfig) {
+        $validFields = \array_filter($this->get_form_fields(), static function (array $fieldConfig) {
             if (isset($fieldConfig['save'])) {
                 return $fieldConfig['save'] !== \false;
             }
             return $fieldConfig['type'] !== 'virtual';
         });
-        $validKeys = array_keys($validFields);
+        $validKeys = \array_keys($validFields);
         foreach ($settings as $key => $value) {
-            if (!in_array($key, $validKeys, \true)) {
+            if (!\in_array($key, $validKeys, \true)) {
                 unset($settings[$key]);
             }
         }

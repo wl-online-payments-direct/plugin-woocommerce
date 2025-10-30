@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class RefundPaymentProduct840CustomerAccount extends DataObject
 {
@@ -15,17 +15,14 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
      * @var string
      */
     public $customerAccountStatus = null;
-
     /**
      * @var string
      */
     public $customerAddressStatus = null;
-
     /**
      * @var string
      */
     public $payerId = null;
-
     /**
      * @return string
      */
@@ -33,7 +30,6 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAccountStatus;
     }
-
     /**
      * @param string
      */
@@ -41,7 +37,6 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         $this->customerAccountStatus = $value;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         return $this->customerAddressStatus;
     }
-
     /**
      * @param string
      */
@@ -57,7 +51,6 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         $this->customerAddressStatus = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +58,6 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         return $this->payerId;
     }
-
     /**
      * @param string
      */
@@ -73,25 +65,23 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     {
         $this->payerId = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->customerAccountStatus)) {
+        if (!\is_null($this->customerAccountStatus)) {
             $object->customerAccountStatus = $this->customerAccountStatus;
         }
-        if (!is_null($this->customerAddressStatus)) {
+        if (!\is_null($this->customerAddressStatus)) {
             $object->customerAddressStatus = $this->customerAddressStatus;
         }
-        if (!is_null($this->payerId)) {
+        if (!\is_null($this->payerId)) {
             $object->payerId = $this->payerId;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,13 +90,13 @@ class RefundPaymentProduct840CustomerAccount extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'customerAccountStatus')) {
+        if (\property_exists($object, 'customerAccountStatus')) {
             $this->customerAccountStatus = $object->customerAccountStatus;
         }
-        if (property_exists($object, 'customerAddressStatus')) {
+        if (\property_exists($object, 'customerAddressStatus')) {
             $this->customerAddressStatus = $object->customerAddressStatus;
         }
-        if (property_exists($object, 'payerId')) {
+        if (\property_exists($object, 'payerId')) {
             $this->payerId = $object->payerId;
         }
         return $this;

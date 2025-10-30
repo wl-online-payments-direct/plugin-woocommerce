@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentReferences extends DataObject
 {
@@ -15,12 +15,10 @@ class PaymentReferences extends DataObject
      * @var string
      */
     public $merchantParameters = null;
-
     /**
      * @var string
      */
     public $merchantReference = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class PaymentReferences extends DataObject
     {
         return $this->merchantParameters;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class PaymentReferences extends DataObject
     {
         $this->merchantParameters = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class PaymentReferences extends DataObject
     {
         return $this->merchantReference;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class PaymentReferences extends DataObject
     {
         $this->merchantReference = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->merchantParameters)) {
+        if (!\is_null($this->merchantParameters)) {
             $object->merchantParameters = $this->merchantParameters;
         }
-        if (!is_null($this->merchantReference)) {
+        if (!\is_null($this->merchantReference)) {
             $object->merchantReference = $this->merchantReference;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class PaymentReferences extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'merchantParameters')) {
+        if (\property_exists($object, 'merchantParameters')) {
             $this->merchantParameters = $object->merchantParameters;
         }
-        if (property_exists($object, 'merchantReference')) {
+        if (\property_exists($object, 'merchantReference')) {
             $this->merchantReference = $object->merchantReference;
         }
         return $this;

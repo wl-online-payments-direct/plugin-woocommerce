@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CapturesResponse extends DataObject
 {
@@ -15,7 +15,6 @@ class CapturesResponse extends DataObject
      * @var Capture[]
      */
     public $captures = null;
-
     /**
      * @return Capture[]
      */
@@ -23,7 +22,6 @@ class CapturesResponse extends DataObject
     {
         return $this->captures;
     }
-
     /**
      * @param Capture[]
      */
@@ -31,24 +29,22 @@ class CapturesResponse extends DataObject
     {
         $this->captures = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->captures)) {
+        if (!\is_null($this->captures)) {
             $object->captures = [];
             foreach ($this->captures as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->captures[] = $element->toObject();
                 }
             }
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -57,9 +53,9 @@ class CapturesResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'captures')) {
-            if (!is_array($object->captures) && !is_object($object->captures)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->captures, true) . '\' is not an array or object');
+        if (\property_exists($object, 'captures')) {
+            if (!\is_array($object->captures) && !\is_object($object->captures)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->captures, \true) . '\' is not an array or object');
             }
             $this->captures = [];
             foreach ($object->captures as $element) {

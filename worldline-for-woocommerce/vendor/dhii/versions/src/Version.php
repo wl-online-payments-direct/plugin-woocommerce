@@ -55,35 +55,35 @@ class Version implements VersionInterface
     /**
      * @inheritDoc
      */
-    public function getMajor(): int
+    public function getMajor() : int
     {
         return $this->major;
     }
     /**
      * @inheritDoc
      */
-    public function getMinor(): int
+    public function getMinor() : int
     {
         return $this->minor;
     }
     /**
      * @inheritDoc
      */
-    public function getPatch(): int
+    public function getPatch() : int
     {
         return $this->patch;
     }
     /**
      * @inheritDoc
      */
-    public function getPreRelease(): array
+    public function getPreRelease() : array
     {
         return $this->preRelease;
     }
     /**
      * @inheritDoc
      */
-    public function getBuild(): array
+    public function getBuild() : array
     {
         return $this->build;
     }
@@ -98,12 +98,12 @@ class Version implements VersionInterface
      * @throws DomainException If identifier is malformed
      * @throws Exception If problem normalizing.
      */
-    protected function normalizeIdentifier(string $identifier): string
+    protected function normalizeIdentifier(string $identifier) : string
     {
         $origIdentifier = $identifier;
-        $identifier = $this->replace('![^\d\w-]!', '', $identifier);
-        if (!strlen($identifier)) {
-            throw new DomainException(sprintf('Identifier "%1$s" normalized to "%2$s" is empty', $origIdentifier, $identifier));
+        $identifier = $this->replace('![^\\d\\w-]!', '', $identifier);
+        if (!\strlen($identifier)) {
+            throw new DomainException(\sprintf('Identifier "%1$s" normalized to "%2$s" is empty', $origIdentifier, $identifier));
         }
         return $identifier;
     }
@@ -121,7 +121,7 @@ class Version implements VersionInterface
      * @throws RangeException If could not normalize.
      * @throws Exception If problem normalizing.
      */
-    protected function normalizePreRelease(iterable $preRelease): array
+    protected function normalizePreRelease(iterable $preRelease) : array
     {
         $normalized = [];
         foreach ($preRelease as $idx => $identifier) {
@@ -129,10 +129,10 @@ class Version implements VersionInterface
             try {
                 $identifier = $this->normalizeIdentifier($identifier);
             } catch (DomainException $e) {
-                throw new RangeException(sprintf('Pre-release identifier #%1$d "%2$s" cannot be normalized', $idx, $identifier), 0, $e);
+                throw new RangeException(\sprintf('Pre-release identifier #%1$d "%2$s" cannot be normalized', $idx, $identifier), 0, $e);
             }
-            if (is_numeric($identifier)) {
-                $identifier = (string) intval($identifier);
+            if (\is_numeric($identifier)) {
+                $identifier = (string) \intval($identifier);
             }
             $normalized[] = $identifier;
         }
@@ -151,7 +151,7 @@ class Version implements VersionInterface
      * @throws RangeException If could not normalize.
      * @throws Exception If problem normalizing.
      */
-    protected function normalizeBuild(iterable $build): array
+    protected function normalizeBuild(iterable $build) : array
     {
         $normalized = [];
         foreach ($build as $idx => $identifier) {
@@ -159,7 +159,7 @@ class Version implements VersionInterface
             try {
                 $identifier = $this->normalizeIdentifier($identifier);
             } catch (DomainException $e) {
-                throw new RangeException(sprintf('Build identifier #%1$d "%2$s" cannot be normalized', $idx, $identifier), 0, $e);
+                throw new RangeException(\sprintf('Build identifier #%1$d "%2$s" cannot be normalized', $idx, $identifier), 0, $e);
             }
             $normalized[] = $identifier;
         }
@@ -176,13 +176,13 @@ class Version implements VersionInterface
      *
      * @throws Exception If problem replacing.
      */
-    protected function replace(string $pattern, string $replacement, string $subject): string
+    protected function replace(string $pattern, string $replacement, string $subject) : string
     {
-        $result = preg_replace($pattern, $replacement, $subject);
+        $result = \preg_replace($pattern, $replacement, $subject);
         if ($result === null) {
-            $code = preg_last_error();
+            $code = \preg_last_error();
             $code = $code ? $code : 0;
-            $message = preg_last_error_msg();
+            $message = \preg_last_error_msg();
             $message = !empty($message) ? $message : 'Could not replace';
             throw new RuntimeException($message, $code);
         }
@@ -194,11 +194,11 @@ class Version implements VersionInterface
     public function __toString()
     {
         $version = "{$this->major}.{$this->minor}.{$this->patch}";
-        if (count($this->preRelease)) {
-            $version .= '-' . implode('.', $this->preRelease);
+        if (\count($this->preRelease)) {
+            $version .= '-' . \implode('.', $this->preRelease);
         }
-        if (count($this->build)) {
-            $version .= '+' . implode('.', $this->build);
+        if (\count($this->build)) {
+            $version .= '+' . \implode('.', $this->build);
         }
         return $version;
     }

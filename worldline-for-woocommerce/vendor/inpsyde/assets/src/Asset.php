@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Assets package.
  *
@@ -42,13 +43,13 @@ interface Asset
      *
      * @return string
      */
-    public function url(): string;
+    public function url() : string;
     /**
      * Returns the full file path to the asset.
      *
      * @return string
      */
-    public function filePath(): string;
+    public function filePath() : string;
     /**
      * Define the full filePath to the Asset.
      *
@@ -56,41 +57,41 @@ interface Asset
      *
      * @return static
      */
-    public function withFilePath(string $filePath): \Inpsyde\Assets\Asset;
+    public function withFilePath(string $filePath) : \Inpsyde\Assets\Asset;
     /**
      * Name of the given asset.
      *
      * @return string
      */
-    public function handle(): string;
+    public function handle() : string;
     /**
      * A list of handle-dependencies.
      *
      * @return string[]
      */
-    public function dependencies(): array;
+    public function dependencies() : array;
     /**
      * @param string ...$dependencies
      *
      * @return static
      */
-    public function withDependencies(string ...$dependencies): \Inpsyde\Assets\Asset;
+    public function withDependencies(string ...$dependencies) : \Inpsyde\Assets\Asset;
     /**
      * The current version of the asset.
      *
      * @return string|null
      */
-    public function version(): ?string;
+    public function version() : ?string;
     /**
      * @param string $version
      *
      * @return static
      */
-    public function withVersion(string $version): \Inpsyde\Assets\Asset;
+    public function withVersion(string $version) : \Inpsyde\Assets\Asset;
     /**
      * @return bool
      */
-    public function enqueue(): bool;
+    public function enqueue() : bool;
     /**
      * @param bool|callable $enqueue
      *
@@ -98,7 +99,7 @@ interface Asset
      *
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType
      */
-    public function canEnqueue($enqueue): \Inpsyde\Assets\Asset;
+    public function canEnqueue($enqueue) : \Inpsyde\Assets\Asset;
     /**
      * Location where the asset is enqueued.
      *
@@ -107,7 +108,7 @@ interface Asset
      * @example Asset::FRONTEND | Asset::BACKEND
      * @example Asset::FRONTEND
      */
-    public function location(): int;
+    public function location() : int;
     /**
      * Define a location based on Asset location types.
      *
@@ -115,35 +116,35 @@ interface Asset
      *
      * @return static
      */
-    public function forLocation(int $location): \Inpsyde\Assets\Asset;
+    public function forLocation(int $location) : \Inpsyde\Assets\Asset;
     /**
      * A list of assigned output filters to change the rendered tag.
      *
      * @return callable[]|AssetOutputFilter[]|class-string<AssetOutputFilter>[]
      */
-    public function filters(): array;
+    public function filters() : array;
     /**
      * @param callable|class-string<AssetOutputFilter> ...$filters
      *
      * @return static
      */
-    public function withFilters(...$filters): \Inpsyde\Assets\Asset;
+    public function withFilters(...$filters) : \Inpsyde\Assets\Asset;
     /**
      * Name of the handler class to register and enqueue the asset.
      *
      * @return class-string<AssetHandler>
      */
-    public function handler(): string;
+    public function handler() : string;
     /**
      * @param class-string<AssetHandler> $handler
      *
      * @return static
      */
-    public function useHandler(string $handler): \Inpsyde\Assets\Asset;
+    public function useHandler(string $handler) : \Inpsyde\Assets\Asset;
     /**
      * @return array
      */
-    public function data(): array;
+    public function data() : array;
     /**
      * Add a conditional tag for your Asset.
      *
@@ -153,15 +154,15 @@ interface Asset
      *
      * @see https://developer.wordpress.org/reference/functions/wp_script_add_data/#comment-1007
      */
-    public function withCondition(string $condition): \Inpsyde\Assets\Asset;
+    public function withCondition(string $condition) : \Inpsyde\Assets\Asset;
     /**
      * @return array<string, mixed>
      */
-    public function attributes(): array;
+    public function attributes() : array;
     /**
      * @param array<string, mixed> $attributes
      *
      * @return Asset
      */
-    public function withAttributes(array $attributes): \Inpsyde\Assets\Asset;
+    public function withAttributes(array $attributes) : \Inpsyde\Assets\Asset;
 }

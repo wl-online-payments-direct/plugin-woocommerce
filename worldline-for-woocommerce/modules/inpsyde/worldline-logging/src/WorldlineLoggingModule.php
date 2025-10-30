@@ -15,26 +15,26 @@ class WorldlineLoggingModule implements ExecutableModule, ServiceModule, Extendi
      * @param ContainerInterface $container
      * @return bool
      */
-    public function run(ContainerInterface $container): bool
+    public function run(ContainerInterface $container) : bool
     {
         return \true;
     }
-    public function services(): array
+    public function services() : array
     {
         static $services;
         if ($services === null) {
-            $services = require_once dirname(__DIR__) . '/inc/services.php';
+            $services = (require_once \dirname(__DIR__) . '/inc/services.php');
         }
         return $services();
     }
     /**
      * @inheritDoc
      */
-    public function extensions(): array
+    public function extensions() : array
     {
         static $extensions;
         if ($extensions === null) {
-            $extensions = require_once dirname(__DIR__) . '/inc/extensions.php';
+            $extensions = (require_once \dirname(__DIR__) . '/inc/extensions.php');
         }
         return $extensions();
     }

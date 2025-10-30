@@ -11,9 +11,9 @@ interface CustomSettingsFieldsDefinition
     /**
      * @return array<callable(ContainerInterface):SettingsFieldRendererInterface>
      */
-    public function renderers(): array;
+    public function renderers() : array;
     /**
      * @return array<callable(ContainerInterface):SettingsFieldSanitizerInterface>
      */
-    public function sanitizers(): array;
+    public function sanitizers() : array;
 }

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CardEssentials extends DataObject
 {
@@ -15,22 +15,18 @@ class CardEssentials extends DataObject
      * @var string
      */
     public $bin = null;
-
     /**
      * @var string
      */
     public $cardNumber = null;
-
     /**
      * @var string
      */
     public $countryCode = null;
-
     /**
      * @var string
      */
     public $expiryDate = null;
-
     /**
      * @return string
      */
@@ -38,7 +34,6 @@ class CardEssentials extends DataObject
     {
         return $this->bin;
     }
-
     /**
      * @param string
      */
@@ -46,7 +41,6 @@ class CardEssentials extends DataObject
     {
         $this->bin = $value;
     }
-
     /**
      * @return string
      */
@@ -54,7 +48,6 @@ class CardEssentials extends DataObject
     {
         return $this->cardNumber;
     }
-
     /**
      * @param string
      */
@@ -62,7 +55,6 @@ class CardEssentials extends DataObject
     {
         $this->cardNumber = $value;
     }
-
     /**
      * @return string
      */
@@ -70,7 +62,6 @@ class CardEssentials extends DataObject
     {
         return $this->countryCode;
     }
-
     /**
      * @param string
      */
@@ -78,7 +69,6 @@ class CardEssentials extends DataObject
     {
         $this->countryCode = $value;
     }
-
     /**
      * @return string
      */
@@ -86,7 +76,6 @@ class CardEssentials extends DataObject
     {
         return $this->expiryDate;
     }
-
     /**
      * @param string
      */
@@ -94,28 +83,26 @@ class CardEssentials extends DataObject
     {
         $this->expiryDate = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->bin)) {
+        if (!\is_null($this->bin)) {
             $object->bin = $this->bin;
         }
-        if (!is_null($this->cardNumber)) {
+        if (!\is_null($this->cardNumber)) {
             $object->cardNumber = $this->cardNumber;
         }
-        if (!is_null($this->countryCode)) {
+        if (!\is_null($this->countryCode)) {
             $object->countryCode = $this->countryCode;
         }
-        if (!is_null($this->expiryDate)) {
+        if (!\is_null($this->expiryDate)) {
             $object->expiryDate = $this->expiryDate;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,16 +111,16 @@ class CardEssentials extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'bin')) {
+        if (\property_exists($object, 'bin')) {
             $this->bin = $object->bin;
         }
-        if (property_exists($object, 'cardNumber')) {
+        if (\property_exists($object, 'cardNumber')) {
             $this->cardNumber = $object->cardNumber;
         }
-        if (property_exists($object, 'countryCode')) {
+        if (\property_exists($object, 'countryCode')) {
             $this->countryCode = $object->countryCode;
         }
-        if (property_exists($object, 'expiryDate')) {
+        if (\property_exists($object, 'expiryDate')) {
             $this->expiryDate = $object->expiryDate;
         }
         return $this;

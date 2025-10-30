@@ -15,5 +15,5 @@ interface HandlerAdderInterface
      * @param callable $handler Handler to be called when event happened.
      * @param int $priority Determines the order of execution of handlers, lower is earlier.
      */
-    public function addHandler(string $eventName, callable $handler, int $priority): void;
+    public function addHandler(string $eventName, callable $handler, int $priority) : void;
 }

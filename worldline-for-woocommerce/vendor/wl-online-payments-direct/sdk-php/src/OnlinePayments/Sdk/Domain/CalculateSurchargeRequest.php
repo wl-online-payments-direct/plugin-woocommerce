@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CalculateSurchargeRequest extends DataObject
 {
@@ -15,12 +15,10 @@ class CalculateSurchargeRequest extends DataObject
      * @var AmountOfMoney
      */
     public $amountOfMoney = null;
-
     /**
      * @var CardSource
      */
     public $cardSource = null;
-
     /**
      * @return AmountOfMoney
      */
@@ -28,7 +26,6 @@ class CalculateSurchargeRequest extends DataObject
     {
         return $this->amountOfMoney;
     }
-
     /**
      * @param AmountOfMoney
      */
@@ -36,7 +33,6 @@ class CalculateSurchargeRequest extends DataObject
     {
         $this->amountOfMoney = $value;
     }
-
     /**
      * @return CardSource
      */
@@ -44,7 +40,6 @@ class CalculateSurchargeRequest extends DataObject
     {
         return $this->cardSource;
     }
-
     /**
      * @param CardSource
      */
@@ -52,22 +47,20 @@ class CalculateSurchargeRequest extends DataObject
     {
         $this->cardSource = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->amountOfMoney)) {
+        if (!\is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if (!is_null($this->cardSource)) {
+        if (!\is_null($this->cardSource)) {
             $object->cardSource = $this->cardSource->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,16 +69,16 @@ class CalculateSurchargeRequest extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'amountOfMoney')) {
-            if (!is_object($object->amountOfMoney)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->amountOfMoney, true) . '\' is not an object');
+        if (\property_exists($object, 'amountOfMoney')) {
+            if (!\is_object($object->amountOfMoney)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->amountOfMoney, \true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->amountOfMoney = $value->fromObject($object->amountOfMoney);
         }
-        if (property_exists($object, 'cardSource')) {
-            if (!is_object($object->cardSource)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->cardSource, true) . '\' is not an object');
+        if (\property_exists($object, 'cardSource')) {
+            if (!\is_object($object->cardSource)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->cardSource, \true) . '\' is not an object');
             }
             $value = new CardSource();
             $this->cardSource = $value->fromObject($object->cardSource);

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductFieldDisplayHints extends DataObject
 {
@@ -15,53 +15,43 @@ class PaymentProductFieldDisplayHints extends DataObject
      * @var bool
      */
     public $alwaysShow = null;
-
     /**
      * @var int
      */
     public $displayOrder = null;
-
     /**
      * @var PaymentProductFieldFormElement
      */
     public $formElement = null;
-
     /**
      * @var string
      */
     public $label = null;
-
     /**
      * @var string
      * @deprecated Deprecated
      */
     public $link = null;
-
     /**
      * @var string
      */
     public $mask = null;
-
     /**
      * @var bool
      */
     public $obfuscate = null;
-
     /**
      * @var string
      */
     public $placeholderLabel = null;
-
     /**
      * @var string
      */
     public $preferredInputType = null;
-
     /**
      * @var PaymentProductFieldTooltip
      */
     public $tooltip = null;
-
     /**
      * @return bool
      */
@@ -69,7 +59,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->alwaysShow;
     }
-
     /**
      * @param bool
      */
@@ -77,7 +66,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->alwaysShow = $value;
     }
-
     /**
      * @return int
      */
@@ -85,7 +73,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->displayOrder;
     }
-
     /**
      * @param int
      */
@@ -93,7 +80,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->displayOrder = $value;
     }
-
     /**
      * @return PaymentProductFieldFormElement
      */
@@ -101,7 +87,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->formElement;
     }
-
     /**
      * @param PaymentProductFieldFormElement
      */
@@ -109,7 +94,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->formElement = $value;
     }
-
     /**
      * @return string
      */
@@ -117,7 +101,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->label;
     }
-
     /**
      * @param string
      */
@@ -125,7 +108,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->label = $value;
     }
-
     /**
      * @return string
      * @deprecated Deprecated
@@ -134,7 +116,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->link;
     }
-
     /**
      * @param string
      * @deprecated Deprecated
@@ -143,7 +124,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->link = $value;
     }
-
     /**
      * @return string
      */
@@ -151,7 +131,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->mask;
     }
-
     /**
      * @param string
      */
@@ -159,7 +138,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->mask = $value;
     }
-
     /**
      * @return bool
      */
@@ -167,7 +145,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->obfuscate;
     }
-
     /**
      * @param bool
      */
@@ -175,7 +152,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->obfuscate = $value;
     }
-
     /**
      * @return string
      */
@@ -183,7 +159,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->placeholderLabel;
     }
-
     /**
      * @param string
      */
@@ -191,7 +166,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->placeholderLabel = $value;
     }
-
     /**
      * @return string
      */
@@ -199,7 +173,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->preferredInputType;
     }
-
     /**
      * @param string
      */
@@ -207,7 +180,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->preferredInputType = $value;
     }
-
     /**
      * @return PaymentProductFieldTooltip
      */
@@ -215,7 +187,6 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         return $this->tooltip;
     }
-
     /**
      * @param PaymentProductFieldTooltip
      */
@@ -223,46 +194,44 @@ class PaymentProductFieldDisplayHints extends DataObject
     {
         $this->tooltip = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->alwaysShow)) {
+        if (!\is_null($this->alwaysShow)) {
             $object->alwaysShow = $this->alwaysShow;
         }
-        if (!is_null($this->displayOrder)) {
+        if (!\is_null($this->displayOrder)) {
             $object->displayOrder = $this->displayOrder;
         }
-        if (!is_null($this->formElement)) {
+        if (!\is_null($this->formElement)) {
             $object->formElement = $this->formElement->toObject();
         }
-        if (!is_null($this->label)) {
+        if (!\is_null($this->label)) {
             $object->label = $this->label;
         }
-        if (!is_null($this->link)) {
+        if (!\is_null($this->link)) {
             $object->link = $this->link;
         }
-        if (!is_null($this->mask)) {
+        if (!\is_null($this->mask)) {
             $object->mask = $this->mask;
         }
-        if (!is_null($this->obfuscate)) {
+        if (!\is_null($this->obfuscate)) {
             $object->obfuscate = $this->obfuscate;
         }
-        if (!is_null($this->placeholderLabel)) {
+        if (!\is_null($this->placeholderLabel)) {
             $object->placeholderLabel = $this->placeholderLabel;
         }
-        if (!is_null($this->preferredInputType)) {
+        if (!\is_null($this->preferredInputType)) {
             $object->preferredInputType = $this->preferredInputType;
         }
-        if (!is_null($this->tooltip)) {
+        if (!\is_null($this->tooltip)) {
             $object->tooltip = $this->tooltip->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -271,40 +240,40 @@ class PaymentProductFieldDisplayHints extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'alwaysShow')) {
+        if (\property_exists($object, 'alwaysShow')) {
             $this->alwaysShow = $object->alwaysShow;
         }
-        if (property_exists($object, 'displayOrder')) {
+        if (\property_exists($object, 'displayOrder')) {
             $this->displayOrder = $object->displayOrder;
         }
-        if (property_exists($object, 'formElement')) {
-            if (!is_object($object->formElement)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->formElement, true) . '\' is not an object');
+        if (\property_exists($object, 'formElement')) {
+            if (!\is_object($object->formElement)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->formElement, \true) . '\' is not an object');
             }
             $value = new PaymentProductFieldFormElement();
             $this->formElement = $value->fromObject($object->formElement);
         }
-        if (property_exists($object, 'label')) {
+        if (\property_exists($object, 'label')) {
             $this->label = $object->label;
         }
-        if (property_exists($object, 'link')) {
+        if (\property_exists($object, 'link')) {
             $this->link = $object->link;
         }
-        if (property_exists($object, 'mask')) {
+        if (\property_exists($object, 'mask')) {
             $this->mask = $object->mask;
         }
-        if (property_exists($object, 'obfuscate')) {
+        if (\property_exists($object, 'obfuscate')) {
             $this->obfuscate = $object->obfuscate;
         }
-        if (property_exists($object, 'placeholderLabel')) {
+        if (\property_exists($object, 'placeholderLabel')) {
             $this->placeholderLabel = $object->placeholderLabel;
         }
-        if (property_exists($object, 'preferredInputType')) {
+        if (\property_exists($object, 'preferredInputType')) {
             $this->preferredInputType = $object->preferredInputType;
         }
-        if (property_exists($object, 'tooltip')) {
-            if (!is_object($object->tooltip)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->tooltip, true) . '\' is not an object');
+        if (\property_exists($object, 'tooltip')) {
+            if (!\is_object($object->tooltip)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->tooltip, \true) . '\' is not an object');
             }
             $value = new PaymentProductFieldTooltip();
             $this->tooltip = $value->fromObject($object->tooltip);

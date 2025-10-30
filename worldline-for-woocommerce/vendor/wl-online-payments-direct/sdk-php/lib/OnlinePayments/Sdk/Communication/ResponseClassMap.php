@@ -1,22 +1,20 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 /**
  * Class ResponseClassMap
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
+ * @package OnlinePayments\Sdk\Communication
  */
 class ResponseClassMap
 {
     /** @var string */
     public $defaultSuccessResponseClassName = '';
-
     /** @var string */
     public $defaultErrorResponseClassName = '';
-
     /** @var string[]  */
     private $responseClassNamesByHttpStatusCode = array();
-
     /**
      * @param int $httpStatusCode
      * @param string $responseClassName
@@ -27,14 +25,13 @@ class ResponseClassMap
         $this->responseClassNamesByHttpStatusCode[$httpStatusCode] = $responseClassName;
         return $this;
     }
-
     /**
      * @param int $httpStatusCode
      * @return string
      */
     public function getResponseClassName($httpStatusCode)
     {
-        if (array_key_exists($httpStatusCode, $this->responseClassNamesByHttpStatusCode)) {
+        if (\array_key_exists($httpStatusCode, $this->responseClassNamesByHttpStatusCode)) {
             return $this->responseClassNamesByHttpStatusCode[$httpStatusCode];
         }
         if ($httpStatusCode < 400) {

@@ -52,13 +52,13 @@ class StringService extends Service
      *
      * @throws UnexpectedValueException If service could be converted to string.
      */
-    protected function resolveString($serviceRef, ContainerInterface $c): string
+    protected function resolveString($serviceRef, ContainerInterface $c) : string
     {
         $service = $this->resolveSingleDep($c, $serviceRef);
-        if (!is_null($service) && !is_scalar($service) && !is_object($service)) {
-            throw new UnexpectedValueException(sprintf('Service must be of type null|scalar|object to be stringable; %1$s received', gettype($service)));
+        if (!\is_null($service) && !\is_scalar($service) && !\is_object($service)) {
+            throw new UnexpectedValueException(\sprintf('Service must be of type null|scalar|object to be stringable; %1$s received', \gettype($service)));
         }
-        return strval($service);
+        return \strval($service);
     }
     /**
      * @inheritDoc
@@ -73,6 +73,6 @@ class StringService extends Service
             $idx = (string) $idx;
             $replace['{' . $idx . '}'] = $this->resolveString($dependency, $c);
         }
-        return strtr($this->format, $replace);
+        return \strtr($this->format, $replace);
     }
 }

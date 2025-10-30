@@ -16,18 +16,18 @@ class ApiEndpointSanitizer implements SettingsFieldSanitizerInterface
         $this->uriBuilder = $uriBuilder;
         /** @psalm-suppress PossiblyFalsePropertyAssignmentValue */
         /* translators: %s - URL. */
-        $this->errorMessage = sprintf(__('Invalid API endpoint URL. Should be similar to "%s".', 'worldline-for-woocommerce'), $urlExample);
+        $this->errorMessage = \sprintf(\__('Invalid API endpoint URL. Should be similar to "%s".', 'worldline-for-woocommerce'), $urlExample);
     }
     // phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration.NoArgumentType
     // phpcs:disable Inpsyde.CodeQuality.ReturnTypeDeclaration.NoReturnType
     public function sanitize(string $key, $value, PaymentGateway $gateway)
     {
-        if (!is_string($value)) {
+        if (!\is_string($value)) {
             throw new RangeException($this->errorMessage);
         }
-        $value = trim($value);
-        $parts = parse_url($value);
-        if (!is_array($parts) || !isset($parts['host'])) {
+        $value = \trim($value);
+        $parts = \parse_url($value);
+        if (!\is_array($parts) || !isset($parts['host'])) {
             throw new RangeException($this->errorMessage);
         }
         unset($parts['path']);

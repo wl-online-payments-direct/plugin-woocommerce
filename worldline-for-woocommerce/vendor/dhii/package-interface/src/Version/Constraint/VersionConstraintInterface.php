@@ -20,5 +20,5 @@ interface VersionConstraintInterface extends ValidatorInterface
      * @throws ConstraintFailedExceptionInterface If version does not match this constraint.
      * @throws Exception If problem validating.
      */
-    public function validate($version): void;
+    public function validate($version) : void;
 }

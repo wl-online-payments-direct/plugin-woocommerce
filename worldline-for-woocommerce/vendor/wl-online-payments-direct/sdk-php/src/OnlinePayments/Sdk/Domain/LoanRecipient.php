@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class LoanRecipient extends DataObject
 {
@@ -15,27 +15,22 @@ class LoanRecipient extends DataObject
      * @var string
      */
     public $accountNumber = null;
-
     /**
      * @var string
      */
     public $dateOfBirth = null;
-
     /**
      * @var string
      */
     public $partialPan = null;
-
     /**
      * @var string
      */
     public $surname = null;
-
     /**
      * @var string
      */
     public $zip = null;
-
     /**
      * @return string
      */
@@ -43,7 +38,6 @@ class LoanRecipient extends DataObject
     {
         return $this->accountNumber;
     }
-
     /**
      * @param string
      */
@@ -51,7 +45,6 @@ class LoanRecipient extends DataObject
     {
         $this->accountNumber = $value;
     }
-
     /**
      * @return string
      */
@@ -59,7 +52,6 @@ class LoanRecipient extends DataObject
     {
         return $this->dateOfBirth;
     }
-
     /**
      * @param string
      */
@@ -67,7 +59,6 @@ class LoanRecipient extends DataObject
     {
         $this->dateOfBirth = $value;
     }
-
     /**
      * @return string
      */
@@ -75,7 +66,6 @@ class LoanRecipient extends DataObject
     {
         return $this->partialPan;
     }
-
     /**
      * @param string
      */
@@ -83,7 +73,6 @@ class LoanRecipient extends DataObject
     {
         $this->partialPan = $value;
     }
-
     /**
      * @return string
      */
@@ -91,7 +80,6 @@ class LoanRecipient extends DataObject
     {
         return $this->surname;
     }
-
     /**
      * @param string
      */
@@ -99,7 +87,6 @@ class LoanRecipient extends DataObject
     {
         $this->surname = $value;
     }
-
     /**
      * @return string
      */
@@ -107,7 +94,6 @@ class LoanRecipient extends DataObject
     {
         return $this->zip;
     }
-
     /**
      * @param string
      */
@@ -115,31 +101,29 @@ class LoanRecipient extends DataObject
     {
         $this->zip = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->accountNumber)) {
+        if (!\is_null($this->accountNumber)) {
             $object->accountNumber = $this->accountNumber;
         }
-        if (!is_null($this->dateOfBirth)) {
+        if (!\is_null($this->dateOfBirth)) {
             $object->dateOfBirth = $this->dateOfBirth;
         }
-        if (!is_null($this->partialPan)) {
+        if (!\is_null($this->partialPan)) {
             $object->partialPan = $this->partialPan;
         }
-        if (!is_null($this->surname)) {
+        if (!\is_null($this->surname)) {
             $object->surname = $this->surname;
         }
-        if (!is_null($this->zip)) {
+        if (!\is_null($this->zip)) {
             $object->zip = $this->zip;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -148,19 +132,19 @@ class LoanRecipient extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'accountNumber')) {
+        if (\property_exists($object, 'accountNumber')) {
             $this->accountNumber = $object->accountNumber;
         }
-        if (property_exists($object, 'dateOfBirth')) {
+        if (\property_exists($object, 'dateOfBirth')) {
             $this->dateOfBirth = $object->dateOfBirth;
         }
-        if (property_exists($object, 'partialPan')) {
+        if (\property_exists($object, 'partialPan')) {
             $this->partialPan = $object->partialPan;
         }
-        if (property_exists($object, 'surname')) {
+        if (\property_exists($object, 'surname')) {
             $this->surname = $object->surname;
         }
-        if (property_exists($object, 'zip')) {
+        if (\property_exists($object, 'zip')) {
             $this->zip = $object->zip;
         }
         return $this;

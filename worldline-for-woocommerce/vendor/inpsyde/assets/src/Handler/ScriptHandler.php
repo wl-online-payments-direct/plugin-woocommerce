@@ -21,10 +21,7 @@ use WP_Scripts;
 class ScriptHandler implements \Inpsyde\Assets\Handler\AssetHandler, \Inpsyde\Assets\Handler\OutputFilterAwareAssetHandler
 {
     use \Inpsyde\Assets\Handler\OutputFilterAwareAssetHandlerTrait;
-    /**
-     * @var \WP_Scripts
-     */
-    protected $wpScripts;
+    protected \WP_Scripts $wpScripts;
     /**
      * ScriptHandler constructor.
      *
@@ -42,21 +39,21 @@ class ScriptHandler implements \Inpsyde\Assets\Handler\AssetHandler, \Inpsyde\As
             $this->withOutputFilter($name, $callable);
         }
     }
-    public function enqueue(Asset $asset): bool
+    public function enqueue(Asset $asset) : bool
     {
         $this->register($asset);
         if ($asset->enqueue()) {
-            wp_enqueue_script($asset->handle());
+            \wp_enqueue_script($asset->handle());
             return \true;
         }
         return \false;
     }
-    public function register(Asset $asset): bool
+    public function register(Asset $asset) : bool
     {
         /** @var Script $asset */
         $handle = $asset->handle();
-        wp_register_script($handle, $asset->url(), $asset->dependencies(), $asset->version(), $asset->inFooter());
-        if (count($asset->localize()) > 0) {
+        \wp_register_script($handle, $asset->url(), $asset->dependencies(), $asset->version(), $asset->inFooter());
+        if (\count($asset->localize()) > 0) {
             foreach ($asset->localize() as $name => $args) {
                 /**
                  * Actually it is possible to use $args as scalar value for
@@ -64,12 +61,12 @@ class ScriptHandler implements \Inpsyde\Assets\Handler\AssetHandler, \Inpsyde\As
                  *
                  * @psalm-suppress MixedArgument
                  */
-                wp_localize_script($handle, $name, $args);
+                \wp_localize_script($handle, $name, $args);
             }
         }
         foreach ($asset->inlineScripts() as $location => $data) {
-            if (count($data) > 0) {
-                wp_add_inline_script($handle, implode("\n", $data), $location);
+            if (\count($data) > 0) {
+                \wp_add_inline_script($handle, \implode("\n", $data), $location);
             }
         }
         $translation = $asset->translation();
@@ -78,16 +75,16 @@ class ScriptHandler implements \Inpsyde\Assets\Handler\AssetHandler, \Inpsyde\As
              * The $path is allowed to be "null"- or a "string"-value.
              * @psalm-suppress PossiblyNullArgument
              */
-            wp_set_script_translations($handle, $translation['domain'], $translation['path']);
+            \wp_set_script_translations($handle, $translation['domain'], $translation['path']);
         }
-        if (count($asset->data()) > 0) {
+        if (\count($asset->data()) > 0) {
             foreach ($asset->data() as $key => $value) {
                 $this->wpScripts->add_data($handle, $key, $value);
             }
         }
         return \true;
     }
-    public function filterHook(): string
+    public function filterHook() : string
     {
         return 'script_loader_tag';
     }

@@ -14,11 +14,11 @@ class PaymentGatewayValidator
         $this->container = $container;
         $this->requiredServices = $requiredServices;
     }
-    public function validate(string $gatewayId): bool
+    public function validate(string $gatewayId) : bool
     {
         /** @var string $requiredService */
         foreach ($this->requiredServices as $requiredService) {
-            $service = sprintf($requiredService, $gatewayId);
+            $service = \sprintf($requiredService, $gatewayId);
             if (!$this->container->has($service)) {
                 throw new \Exception("Please define a service: '{$service}' for a gateway with the ID: {$gatewayId}");
             }

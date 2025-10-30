@@ -11,8 +11,8 @@ class WpHandlerAdder implements HandlerAdderInterface
     /**
      * @inheritDoc
      */
-    public function addHandler(string $eventName, callable $handler, int $priority): void
+    public function addHandler(string $eventName, callable $handler, int $priority) : void
     {
-        add_action($eventName, $handler, $priority, 999);
+        \add_action($eventName, $handler, $priority, 999);
     }
 }

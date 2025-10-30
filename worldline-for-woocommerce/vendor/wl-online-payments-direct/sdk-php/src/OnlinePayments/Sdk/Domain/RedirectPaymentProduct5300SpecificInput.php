@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class RedirectPaymentProduct5300SpecificInput extends DataObject
 {
@@ -15,37 +15,30 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
      * @var string
      */
     public $birthCity = null;
-
     /**
      * @var string
      */
     public $birthCountry = null;
-
     /**
      * @var string
      */
     public $birthZipCode = null;
-
     /**
      * @var string
      */
     public $channel = null;
-
     /**
      * @var string
      */
     public $loyaltyCardNumber = null;
-
     /**
      * @var string
      */
     public $secondInstallmentPaymentDate = null;
-
     /**
      * @var int
      */
     public $sessionDuration = null;
-
     /**
      * @return string
      */
@@ -53,7 +46,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         return $this->birthCity;
     }
-
     /**
      * @param string
      */
@@ -61,7 +53,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         $this->birthCity = $value;
     }
-
     /**
      * @return string
      */
@@ -69,7 +60,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         return $this->birthCountry;
     }
-
     /**
      * @param string
      */
@@ -77,7 +67,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         $this->birthCountry = $value;
     }
-
     /**
      * @return string
      */
@@ -85,7 +74,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         return $this->birthZipCode;
     }
-
     /**
      * @param string
      */
@@ -93,7 +81,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         $this->birthZipCode = $value;
     }
-
     /**
      * @return string
      */
@@ -101,7 +88,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         return $this->channel;
     }
-
     /**
      * @param string
      */
@@ -109,7 +95,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         $this->channel = $value;
     }
-
     /**
      * @return string
      */
@@ -117,7 +102,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         return $this->loyaltyCardNumber;
     }
-
     /**
      * @param string
      */
@@ -125,7 +109,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         $this->loyaltyCardNumber = $value;
     }
-
     /**
      * @return string
      */
@@ -133,7 +116,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         return $this->secondInstallmentPaymentDate;
     }
-
     /**
      * @param string
      */
@@ -141,7 +123,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         $this->secondInstallmentPaymentDate = $value;
     }
-
     /**
      * @return int
      */
@@ -149,7 +130,6 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         return $this->sessionDuration;
     }
-
     /**
      * @param int
      */
@@ -157,37 +137,35 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     {
         $this->sessionDuration = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->birthCity)) {
+        if (!\is_null($this->birthCity)) {
             $object->birthCity = $this->birthCity;
         }
-        if (!is_null($this->birthCountry)) {
+        if (!\is_null($this->birthCountry)) {
             $object->birthCountry = $this->birthCountry;
         }
-        if (!is_null($this->birthZipCode)) {
+        if (!\is_null($this->birthZipCode)) {
             $object->birthZipCode = $this->birthZipCode;
         }
-        if (!is_null($this->channel)) {
+        if (!\is_null($this->channel)) {
             $object->channel = $this->channel;
         }
-        if (!is_null($this->loyaltyCardNumber)) {
+        if (!\is_null($this->loyaltyCardNumber)) {
             $object->loyaltyCardNumber = $this->loyaltyCardNumber;
         }
-        if (!is_null($this->secondInstallmentPaymentDate)) {
+        if (!\is_null($this->secondInstallmentPaymentDate)) {
             $object->secondInstallmentPaymentDate = $this->secondInstallmentPaymentDate;
         }
-        if (!is_null($this->sessionDuration)) {
+        if (!\is_null($this->sessionDuration)) {
             $object->sessionDuration = $this->sessionDuration;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -196,25 +174,25 @@ class RedirectPaymentProduct5300SpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'birthCity')) {
+        if (\property_exists($object, 'birthCity')) {
             $this->birthCity = $object->birthCity;
         }
-        if (property_exists($object, 'birthCountry')) {
+        if (\property_exists($object, 'birthCountry')) {
             $this->birthCountry = $object->birthCountry;
         }
-        if (property_exists($object, 'birthZipCode')) {
+        if (\property_exists($object, 'birthZipCode')) {
             $this->birthZipCode = $object->birthZipCode;
         }
-        if (property_exists($object, 'channel')) {
+        if (\property_exists($object, 'channel')) {
             $this->channel = $object->channel;
         }
-        if (property_exists($object, 'loyaltyCardNumber')) {
+        if (\property_exists($object, 'loyaltyCardNumber')) {
             $this->loyaltyCardNumber = $object->loyaltyCardNumber;
         }
-        if (property_exists($object, 'secondInstallmentPaymentDate')) {
+        if (\property_exists($object, 'secondInstallmentPaymentDate')) {
             $this->secondInstallmentPaymentDate = $object->secondInstallmentPaymentDate;
         }
-        if (property_exists($object, 'sessionDuration')) {
+        if (\property_exists($object, 'sessionDuration')) {
             $this->sessionDuration = $object->sessionDuration;
         }
         return $this;

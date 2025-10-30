@@ -10,5 +10,5 @@ interface GatewayIconsRendererInterface
      *
      * @return string Rendered HTML.
      */
-    public function renderIcons(): string;
+    public function renderIcons() : string;
 }

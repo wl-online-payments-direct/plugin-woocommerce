@@ -25,7 +25,7 @@ class OrderUpdater
         $this->moneyAmountConverter = $moneyAmountConverter;
         $this->feeFactory = $feeFactory;
     }
-    public function lockOrder(WlopWcOrder $wlopWcOrder, callable $callback): void
+    public function lockOrder(WlopWcOrder $wlopWcOrder, callable $callback) : void
     {
         $locker = $this->lockerFactory->create($wlopWcOrder->order()->get_id());
         /**
@@ -46,9 +46,9 @@ class OrderUpdater
      * Retrieves and saves the current status from the API,
      * updates WC status/notes if needed.
      */
-    public function update(WlopWcOrder $wlopWcOrder): void
+    public function update(WlopWcOrder $wlopWcOrder) : void
     {
-        $this->lockOrder($wlopWcOrder, function () use ($wlopWcOrder): void {
+        $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder) : void {
             $paymentDetails = $this->refreshWlopData($wlopWcOrder);
             if ($paymentDetails) {
                 $this->addSurchargeIfPossible($wlopWcOrder, $paymentDetails->getPaymentOutput());
@@ -62,9 +62,9 @@ class OrderUpdater
      * Saves the current status from the given API response,
      * updates WC status/notes if needed.
      */
-    public function updateFromResponse(WlopWcOrder $wlopWcOrder, PaymentStatusOutput $statusOutput, PaymentOutput $paymentOutput): void
+    public function updateFromResponse(WlopWcOrder $wlopWcOrder, PaymentStatusOutput $statusOutput, PaymentOutput $paymentOutput) : void
     {
-        $this->lockOrder($wlopWcOrder, function () use ($wlopWcOrder, $statusOutput, $paymentOutput): void {
+        $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder, $statusOutput, $paymentOutput) : void {
             $this->updateStatusMeta($wlopWcOrder, $statusOutput);
             $this->addSurchargeIfPossible($wlopWcOrder, $paymentOutput);
             $this->adjustWcStatus($wlopWcOrder, $paymentOutput);
@@ -103,7 +103,7 @@ class OrderUpdater
     /**
      * @throws Exception
      */
-    protected function paymentDetailsFromHostedCheckout(WlopWcOrder $wlopWcOrder): ?PaymentResponse
+    protected function paymentDetailsFromHostedCheckout(WlopWcOrder $wlopWcOrder) : ?PaymentResponse
     {
         $hostedCheckoutId = $wlopWcOrder->hostedCheckoutId();
         if (!$hostedCheckoutId) {
@@ -112,14 +112,14 @@ class OrderUpdater
         $hostedCheckout = $this->apiClient->hostedCheckout()->getHostedCheckout($hostedCheckoutId);
         return $hostedCheckout->getCreatedPaymentOutput()->getPayment();
     }
-    protected function checkExemptionInfo(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput, PaymentStatusOutput $statusOutput): void
+    protected function checkExemptionInfo(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput, PaymentStatusOutput $statusOutput) : void
     {
         // already saved
         if ($wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_RESULT_PROCESSED)) {
             return;
         }
         // skip failed/cancelled
-        if (!in_array($statusOutput->getStatusCategory(), ['PENDING_PAYMENT', 'PENDING_MERCHANT', 'PENDING_CONNECT_OR_3RD_PARTY', 'COMPLETED'], \true)) {
+        if (!\in_array($statusOutput->getStatusCategory(), ['PENDING_PAYMENT', 'PENDING_MERCHANT', 'PENDING_CONNECT_OR_3RD_PARTY', 'COMPLETED'], \true)) {
             return;
         }
         $methodOutput = $paymentOutput->getCardPaymentMethodSpecificOutput();
@@ -138,25 +138,25 @@ class OrderUpdater
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_APPLIED_EXEMPTION, $appliedExemption);
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_LIABILITY, $liability);
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_RESULT_PROCESSED, 'yes');
-        $wlopWcOrder->addWorldlineOrderNote(sprintf(
+        $wlopWcOrder->addWorldlineOrderNote(\sprintf(
             /* translators: %1$s - newline, %2$s, %3$s - values from the API like 'low-value',  'issuer' */
-            __('3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s', 'worldline-for-woocommerce'),
+            \__('3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s', 'worldline-for-woocommerce'),
             '<br/>',
             $appliedExemption ?: 'na',
             $liability ?: 'na'
         ));
     }
-    protected function updateStatusMeta(WlopWcOrder $wlopWcOrder, PaymentStatusOutput $statusOutput): void
+    protected function updateStatusMeta(WlopWcOrder $wlopWcOrder, PaymentStatusOutput $statusOutput) : void
     {
         $statusCode = $statusOutput->getStatusCode();
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::TRANSACTION_STATUS_CODE, (string) $statusCode);
     }
-    protected function adjustWcStatus(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput): void
+    protected function adjustWcStatus(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput) : void
     {
         $currentStatus = $wlopWcOrder->order()->get_status();
         // update only between early statuses,
         // do not update after manually set (cancelled, completed, ...) or refunded
-        if (!in_array($currentStatus, ['pending', 'on-hold', 'processing', 'failed'], \true)) {
+        if (!\in_array($currentStatus, ['pending', 'on-hold', 'processing', 'failed'], \true)) {
             return;
         }
         $newStatus = $this->determineWcStatus($wlopWcOrder);
@@ -165,10 +165,10 @@ class OrderUpdater
         }
         $wlopWcOrder->order()->set_status($newStatus);
         $this->addStatusChangeNote($wlopWcOrder);
-        do_action('wlop.wc_order_status_updated', ['wcOrderId' => $wlopWcOrder->order()->get_id(), 'wcOrder' => $wlopWcOrder->order(), 'status' => $wlopWcOrder->order()->get_status(), 'statusCode' => $wlopWcOrder->statusCode(), 'paymentOutput' => $paymentOutput]);
+        \do_action('wlop.wc_order_status_updated', ['wcOrderId' => $wlopWcOrder->order()->get_id(), 'wcOrder' => $wlopWcOrder->order(), 'status' => $wlopWcOrder->order()->get_status(), 'statusCode' => $wlopWcOrder->statusCode(), 'paymentOutput' => $paymentOutput]);
     }
     // phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
-    protected function determineWcStatus(WlopWcOrder $wlopWcOrder): ?string
+    protected function determineWcStatus(WlopWcOrder $wlopWcOrder) : ?string
     {
         $statusCode = $wlopWcOrder->statusCode();
         if ($statusCode < 0) {
@@ -214,18 +214,18 @@ class OrderUpdater
             case 85:
                 return null;
         }
-        do_action('wlop.unexpected_status_code', ['wcOrderId' => $wlopWcOrder->order()->get_id(), 'statusCode' => $statusCode]);
+        \do_action('wlop.unexpected_status_code', ['wcOrderId' => $wlopWcOrder->order()->get_id(), 'statusCode' => $statusCode]);
         return null;
     }
-    protected function addStatusChangeNote(WlopWcOrder $wlopWcOrder): void
+    protected function addStatusChangeNote(WlopWcOrder $wlopWcOrder) : void
     {
         switch ($wlopWcOrder->order()->get_status()) {
             case 'on-hold':
-                $wlopWcOrder->addWorldlineOrderNote(__('Payment authorization accepted, funds can be captured.', 'worldline-for-woocommerce'));
+                $wlopWcOrder->addWorldlineOrderNote(\__('Payment authorization accepted, funds can be captured.', 'worldline-for-woocommerce'));
                 break;
         }
     }
-    protected function addSurchargeIfPossible(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput): void
+    protected function addSurchargeIfPossible(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput) : void
     {
         if ($this->creditCardSurchargeExists($wlopWcOrder)) {
             return;
@@ -244,12 +244,12 @@ class OrderUpdater
         if ($decimalSurcharge <= 0) {
             return;
         }
-        $fee = $this->feeFactory->create(__('Surcharge', 'worldline-for-woocommerce'), $decimalSurcharge);
+        $fee = $this->feeFactory->create(\__('Surcharge', 'worldline-for-woocommerce'), $decimalSurcharge);
         $order = $wlopWcOrder->order();
         $order->add_item($fee);
         $order->calculate_totals();
     }
-    protected function creditCardSurchargeExists(WlopWcOrder $wlopWcOrder): bool
+    protected function creditCardSurchargeExists(WlopWcOrder $wlopWcOrder) : bool
     {
         $order = $wlopWcOrder->order();
         $orderItems = $order->get_items('fee');

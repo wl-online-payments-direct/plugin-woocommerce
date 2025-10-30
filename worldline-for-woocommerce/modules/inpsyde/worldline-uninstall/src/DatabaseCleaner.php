@@ -39,10 +39,10 @@ class DatabaseCleaner
      *
      * @throws RuntimeException If a problem occurs during deletion.
      */
-    public function deleteOptions(): void
+    public function deleteOptions() : void
     {
         foreach ($this->optionNames as $optionName) {
-            delete_option($optionName);
+            \delete_option($optionName);
         }
     }
     /**
@@ -50,10 +50,10 @@ class DatabaseCleaner
      *
      * @throws RuntimeException If a problem occurs during clearing.
      */
-    public function clearScheduledActions(): void
+    public function clearScheduledActions() : void
     {
         foreach ($this->scheduledActionNames as $actionName) {
-            as_unschedule_action($actionName);
+            \as_unschedule_action($actionName);
         }
     }
     /**
@@ -61,10 +61,10 @@ class DatabaseCleaner
      *
      * @throws RuntimeException If a problem occurs during clearing.
      */
-    public function runCleanupActions(): void
+    public function runCleanupActions() : void
     {
         foreach ($this->cleanupActionNames as $actionName) {
-            do_action($actionName);
+            \do_action($actionName);
         }
     }
     /**
@@ -73,7 +73,7 @@ class DatabaseCleaner
      *
      * @throws RuntimeException If a problem occurs during one of the cleanup steps.
      */
-    public function clearAll(): void
+    public function clearAll() : void
     {
         $this->deleteOptions();
         $this->clearScheduledActions();

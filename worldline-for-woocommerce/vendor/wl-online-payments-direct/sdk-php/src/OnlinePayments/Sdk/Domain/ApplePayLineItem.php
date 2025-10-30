@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ApplePayLineItem extends DataObject
 {
@@ -15,37 +15,30 @@ class ApplePayLineItem extends DataObject
      * @var string
      */
     public $amount = null;
-
     /**
      * @var string
      */
     public $label = null;
-
     /**
      * @var string
      */
     public $paymentTiming = null;
-
     /**
      * @var string
      */
     public $recurringPaymentEndDate = null;
-
     /**
      * @var int
      */
     public $recurringPaymentIntervalCount = null;
-
     /**
      * @var string
      */
     public $recurringPaymentIntervalUnit = null;
-
     /**
      * @var string
      */
     public $recurringPaymentStartDate = null;
-
     /**
      * @return string
      */
@@ -53,7 +46,6 @@ class ApplePayLineItem extends DataObject
     {
         return $this->amount;
     }
-
     /**
      * @param string
      */
@@ -61,7 +53,6 @@ class ApplePayLineItem extends DataObject
     {
         $this->amount = $value;
     }
-
     /**
      * @return string
      */
@@ -69,7 +60,6 @@ class ApplePayLineItem extends DataObject
     {
         return $this->label;
     }
-
     /**
      * @param string
      */
@@ -77,7 +67,6 @@ class ApplePayLineItem extends DataObject
     {
         $this->label = $value;
     }
-
     /**
      * @return string
      */
@@ -85,7 +74,6 @@ class ApplePayLineItem extends DataObject
     {
         return $this->paymentTiming;
     }
-
     /**
      * @param string
      */
@@ -93,7 +81,6 @@ class ApplePayLineItem extends DataObject
     {
         $this->paymentTiming = $value;
     }
-
     /**
      * @return string
      */
@@ -101,7 +88,6 @@ class ApplePayLineItem extends DataObject
     {
         return $this->recurringPaymentEndDate;
     }
-
     /**
      * @param string
      */
@@ -109,7 +95,6 @@ class ApplePayLineItem extends DataObject
     {
         $this->recurringPaymentEndDate = $value;
     }
-
     /**
      * @return int
      */
@@ -117,7 +102,6 @@ class ApplePayLineItem extends DataObject
     {
         return $this->recurringPaymentIntervalCount;
     }
-
     /**
      * @param int
      */
@@ -125,7 +109,6 @@ class ApplePayLineItem extends DataObject
     {
         $this->recurringPaymentIntervalCount = $value;
     }
-
     /**
      * @return string
      */
@@ -133,7 +116,6 @@ class ApplePayLineItem extends DataObject
     {
         return $this->recurringPaymentIntervalUnit;
     }
-
     /**
      * @param string
      */
@@ -141,7 +123,6 @@ class ApplePayLineItem extends DataObject
     {
         $this->recurringPaymentIntervalUnit = $value;
     }
-
     /**
      * @return string
      */
@@ -149,7 +130,6 @@ class ApplePayLineItem extends DataObject
     {
         return $this->recurringPaymentStartDate;
     }
-
     /**
      * @param string
      */
@@ -157,37 +137,35 @@ class ApplePayLineItem extends DataObject
     {
         $this->recurringPaymentStartDate = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->amount)) {
+        if (!\is_null($this->amount)) {
             $object->amount = $this->amount;
         }
-        if (!is_null($this->label)) {
+        if (!\is_null($this->label)) {
             $object->label = $this->label;
         }
-        if (!is_null($this->paymentTiming)) {
+        if (!\is_null($this->paymentTiming)) {
             $object->paymentTiming = $this->paymentTiming;
         }
-        if (!is_null($this->recurringPaymentEndDate)) {
+        if (!\is_null($this->recurringPaymentEndDate)) {
             $object->recurringPaymentEndDate = $this->recurringPaymentEndDate;
         }
-        if (!is_null($this->recurringPaymentIntervalCount)) {
+        if (!\is_null($this->recurringPaymentIntervalCount)) {
             $object->recurringPaymentIntervalCount = $this->recurringPaymentIntervalCount;
         }
-        if (!is_null($this->recurringPaymentIntervalUnit)) {
+        if (!\is_null($this->recurringPaymentIntervalUnit)) {
             $object->recurringPaymentIntervalUnit = $this->recurringPaymentIntervalUnit;
         }
-        if (!is_null($this->recurringPaymentStartDate)) {
+        if (!\is_null($this->recurringPaymentStartDate)) {
             $object->recurringPaymentStartDate = $this->recurringPaymentStartDate;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -196,25 +174,25 @@ class ApplePayLineItem extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'amount')) {
+        if (\property_exists($object, 'amount')) {
             $this->amount = $object->amount;
         }
-        if (property_exists($object, 'label')) {
+        if (\property_exists($object, 'label')) {
             $this->label = $object->label;
         }
-        if (property_exists($object, 'paymentTiming')) {
+        if (\property_exists($object, 'paymentTiming')) {
             $this->paymentTiming = $object->paymentTiming;
         }
-        if (property_exists($object, 'recurringPaymentEndDate')) {
+        if (\property_exists($object, 'recurringPaymentEndDate')) {
             $this->recurringPaymentEndDate = $object->recurringPaymentEndDate;
         }
-        if (property_exists($object, 'recurringPaymentIntervalCount')) {
+        if (\property_exists($object, 'recurringPaymentIntervalCount')) {
             $this->recurringPaymentIntervalCount = $object->recurringPaymentIntervalCount;
         }
-        if (property_exists($object, 'recurringPaymentIntervalUnit')) {
+        if (\property_exists($object, 'recurringPaymentIntervalUnit')) {
             $this->recurringPaymentIntervalUnit = $object->recurringPaymentIntervalUnit;
         }
-        if (property_exists($object, 'recurringPaymentStartDate')) {
+        if (\property_exists($object, 'recurringPaymentStartDate')) {
             $this->recurringPaymentStartDate = $object->recurringPaymentStartDate;
         }
         return $this;

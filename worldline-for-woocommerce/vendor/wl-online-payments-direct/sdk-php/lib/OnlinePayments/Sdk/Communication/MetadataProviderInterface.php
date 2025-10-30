@@ -1,10 +1,11 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 /**
  * Interface MetadataProviderInterface
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
+ * @package OnlinePayments\Sdk\Communication
  */
 interface MetadataProviderInterface
 {

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductDisplayHints extends DataObject
 {
@@ -15,17 +15,14 @@ class PaymentProductDisplayHints extends DataObject
      * @var int
      */
     public $displayOrder = null;
-
     /**
      * @var string
      */
     public $label = null;
-
     /**
      * @var string
      */
     public $logo = null;
-
     /**
      * @return int
      */
@@ -33,7 +30,6 @@ class PaymentProductDisplayHints extends DataObject
     {
         return $this->displayOrder;
     }
-
     /**
      * @param int
      */
@@ -41,7 +37,6 @@ class PaymentProductDisplayHints extends DataObject
     {
         $this->displayOrder = $value;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ class PaymentProductDisplayHints extends DataObject
     {
         return $this->label;
     }
-
     /**
      * @param string
      */
@@ -57,7 +51,6 @@ class PaymentProductDisplayHints extends DataObject
     {
         $this->label = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +58,6 @@ class PaymentProductDisplayHints extends DataObject
     {
         return $this->logo;
     }
-
     /**
      * @param string
      */
@@ -73,25 +65,23 @@ class PaymentProductDisplayHints extends DataObject
     {
         $this->logo = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->displayOrder)) {
+        if (!\is_null($this->displayOrder)) {
             $object->displayOrder = $this->displayOrder;
         }
-        if (!is_null($this->label)) {
+        if (!\is_null($this->label)) {
             $object->label = $this->label;
         }
-        if (!is_null($this->logo)) {
+        if (!\is_null($this->logo)) {
             $object->logo = $this->logo;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,13 +90,13 @@ class PaymentProductDisplayHints extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'displayOrder')) {
+        if (\property_exists($object, 'displayOrder')) {
             $this->displayOrder = $object->displayOrder;
         }
-        if (property_exists($object, 'label')) {
+        if (\property_exists($object, 'label')) {
             $this->label = $object->label;
         }
-        if (property_exists($object, 'logo')) {
+        if (\property_exists($object, 'logo')) {
             $this->logo = $object->logo;
         }
         return $this;

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class RefundOutput extends DataObject
 {
@@ -15,52 +15,42 @@ class RefundOutput extends DataObject
      * @var AmountOfMoney
      */
     public $amountOfMoney = null;
-
     /**
      * @var int
      */
     public $amountPaid = null;
-
     /**
      * @var RefundCardMethodSpecificOutput
      */
     public $cardRefundMethodSpecificOutput = null;
-
     /**
      * @var RefundEWalletMethodSpecificOutput
      */
     public $eWalletRefundMethodSpecificOutput = null;
-
     /**
      * @var string
      */
     public $merchantParameters = null;
-
     /**
      * @var RefundMobileMethodSpecificOutput
      */
     public $mobileRefundMethodSpecificOutput = null;
-
     /**
      * @var OperationPaymentReferences
      */
     public $operationReferences = null;
-
     /**
      * @var string
      */
     public $paymentMethod = null;
-
     /**
      * @var RefundRedirectMethodSpecificOutput
      */
     public $redirectRefundMethodSpecificOutput = null;
-
     /**
      * @var PaymentReferences
      */
     public $references = null;
-
     /**
      * @return AmountOfMoney
      */
@@ -68,7 +58,6 @@ class RefundOutput extends DataObject
     {
         return $this->amountOfMoney;
     }
-
     /**
      * @param AmountOfMoney
      */
@@ -76,7 +65,6 @@ class RefundOutput extends DataObject
     {
         $this->amountOfMoney = $value;
     }
-
     /**
      * @return int
      */
@@ -84,7 +72,6 @@ class RefundOutput extends DataObject
     {
         return $this->amountPaid;
     }
-
     /**
      * @param int
      */
@@ -92,7 +79,6 @@ class RefundOutput extends DataObject
     {
         $this->amountPaid = $value;
     }
-
     /**
      * @return RefundCardMethodSpecificOutput
      */
@@ -100,7 +86,6 @@ class RefundOutput extends DataObject
     {
         return $this->cardRefundMethodSpecificOutput;
     }
-
     /**
      * @param RefundCardMethodSpecificOutput
      */
@@ -108,7 +93,6 @@ class RefundOutput extends DataObject
     {
         $this->cardRefundMethodSpecificOutput = $value;
     }
-
     /**
      * @return RefundEWalletMethodSpecificOutput
      */
@@ -116,7 +100,6 @@ class RefundOutput extends DataObject
     {
         return $this->eWalletRefundMethodSpecificOutput;
     }
-
     /**
      * @param RefundEWalletMethodSpecificOutput
      */
@@ -124,7 +107,6 @@ class RefundOutput extends DataObject
     {
         $this->eWalletRefundMethodSpecificOutput = $value;
     }
-
     /**
      * @return string
      */
@@ -132,7 +114,6 @@ class RefundOutput extends DataObject
     {
         return $this->merchantParameters;
     }
-
     /**
      * @param string
      */
@@ -140,7 +121,6 @@ class RefundOutput extends DataObject
     {
         $this->merchantParameters = $value;
     }
-
     /**
      * @return RefundMobileMethodSpecificOutput
      */
@@ -148,7 +128,6 @@ class RefundOutput extends DataObject
     {
         return $this->mobileRefundMethodSpecificOutput;
     }
-
     /**
      * @param RefundMobileMethodSpecificOutput
      */
@@ -156,7 +135,6 @@ class RefundOutput extends DataObject
     {
         $this->mobileRefundMethodSpecificOutput = $value;
     }
-
     /**
      * @return OperationPaymentReferences
      */
@@ -164,7 +142,6 @@ class RefundOutput extends DataObject
     {
         return $this->operationReferences;
     }
-
     /**
      * @param OperationPaymentReferences
      */
@@ -172,7 +149,6 @@ class RefundOutput extends DataObject
     {
         $this->operationReferences = $value;
     }
-
     /**
      * @return string
      */
@@ -180,7 +156,6 @@ class RefundOutput extends DataObject
     {
         return $this->paymentMethod;
     }
-
     /**
      * @param string
      */
@@ -188,7 +163,6 @@ class RefundOutput extends DataObject
     {
         $this->paymentMethod = $value;
     }
-
     /**
      * @return RefundRedirectMethodSpecificOutput
      */
@@ -196,7 +170,6 @@ class RefundOutput extends DataObject
     {
         return $this->redirectRefundMethodSpecificOutput;
     }
-
     /**
      * @param RefundRedirectMethodSpecificOutput
      */
@@ -204,7 +177,6 @@ class RefundOutput extends DataObject
     {
         $this->redirectRefundMethodSpecificOutput = $value;
     }
-
     /**
      * @return PaymentReferences
      */
@@ -212,7 +184,6 @@ class RefundOutput extends DataObject
     {
         return $this->references;
     }
-
     /**
      * @param PaymentReferences
      */
@@ -220,46 +191,44 @@ class RefundOutput extends DataObject
     {
         $this->references = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->amountOfMoney)) {
+        if (!\is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if (!is_null($this->amountPaid)) {
+        if (!\is_null($this->amountPaid)) {
             $object->amountPaid = $this->amountPaid;
         }
-        if (!is_null($this->cardRefundMethodSpecificOutput)) {
+        if (!\is_null($this->cardRefundMethodSpecificOutput)) {
             $object->cardRefundMethodSpecificOutput = $this->cardRefundMethodSpecificOutput->toObject();
         }
-        if (!is_null($this->eWalletRefundMethodSpecificOutput)) {
+        if (!\is_null($this->eWalletRefundMethodSpecificOutput)) {
             $object->eWalletRefundMethodSpecificOutput = $this->eWalletRefundMethodSpecificOutput->toObject();
         }
-        if (!is_null($this->merchantParameters)) {
+        if (!\is_null($this->merchantParameters)) {
             $object->merchantParameters = $this->merchantParameters;
         }
-        if (!is_null($this->mobileRefundMethodSpecificOutput)) {
+        if (!\is_null($this->mobileRefundMethodSpecificOutput)) {
             $object->mobileRefundMethodSpecificOutput = $this->mobileRefundMethodSpecificOutput->toObject();
         }
-        if (!is_null($this->operationReferences)) {
+        if (!\is_null($this->operationReferences)) {
             $object->operationReferences = $this->operationReferences->toObject();
         }
-        if (!is_null($this->paymentMethod)) {
+        if (!\is_null($this->paymentMethod)) {
             $object->paymentMethod = $this->paymentMethod;
         }
-        if (!is_null($this->redirectRefundMethodSpecificOutput)) {
+        if (!\is_null($this->redirectRefundMethodSpecificOutput)) {
             $object->redirectRefundMethodSpecificOutput = $this->redirectRefundMethodSpecificOutput->toObject();
         }
-        if (!is_null($this->references)) {
+        if (!\is_null($this->references)) {
             $object->references = $this->references->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -268,60 +237,60 @@ class RefundOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'amountOfMoney')) {
-            if (!is_object($object->amountOfMoney)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->amountOfMoney, true) . '\' is not an object');
+        if (\property_exists($object, 'amountOfMoney')) {
+            if (!\is_object($object->amountOfMoney)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->amountOfMoney, \true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->amountOfMoney = $value->fromObject($object->amountOfMoney);
         }
-        if (property_exists($object, 'amountPaid')) {
+        if (\property_exists($object, 'amountPaid')) {
             $this->amountPaid = $object->amountPaid;
         }
-        if (property_exists($object, 'cardRefundMethodSpecificOutput')) {
-            if (!is_object($object->cardRefundMethodSpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->cardRefundMethodSpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'cardRefundMethodSpecificOutput')) {
+            if (!\is_object($object->cardRefundMethodSpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->cardRefundMethodSpecificOutput, \true) . '\' is not an object');
             }
             $value = new RefundCardMethodSpecificOutput();
             $this->cardRefundMethodSpecificOutput = $value->fromObject($object->cardRefundMethodSpecificOutput);
         }
-        if (property_exists($object, 'eWalletRefundMethodSpecificOutput')) {
-            if (!is_object($object->eWalletRefundMethodSpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->eWalletRefundMethodSpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'eWalletRefundMethodSpecificOutput')) {
+            if (!\is_object($object->eWalletRefundMethodSpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->eWalletRefundMethodSpecificOutput, \true) . '\' is not an object');
             }
             $value = new RefundEWalletMethodSpecificOutput();
             $this->eWalletRefundMethodSpecificOutput = $value->fromObject($object->eWalletRefundMethodSpecificOutput);
         }
-        if (property_exists($object, 'merchantParameters')) {
+        if (\property_exists($object, 'merchantParameters')) {
             $this->merchantParameters = $object->merchantParameters;
         }
-        if (property_exists($object, 'mobileRefundMethodSpecificOutput')) {
-            if (!is_object($object->mobileRefundMethodSpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->mobileRefundMethodSpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'mobileRefundMethodSpecificOutput')) {
+            if (!\is_object($object->mobileRefundMethodSpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->mobileRefundMethodSpecificOutput, \true) . '\' is not an object');
             }
             $value = new RefundMobileMethodSpecificOutput();
             $this->mobileRefundMethodSpecificOutput = $value->fromObject($object->mobileRefundMethodSpecificOutput);
         }
-        if (property_exists($object, 'operationReferences')) {
-            if (!is_object($object->operationReferences)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->operationReferences, true) . '\' is not an object');
+        if (\property_exists($object, 'operationReferences')) {
+            if (!\is_object($object->operationReferences)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->operationReferences, \true) . '\' is not an object');
             }
             $value = new OperationPaymentReferences();
             $this->operationReferences = $value->fromObject($object->operationReferences);
         }
-        if (property_exists($object, 'paymentMethod')) {
+        if (\property_exists($object, 'paymentMethod')) {
             $this->paymentMethod = $object->paymentMethod;
         }
-        if (property_exists($object, 'redirectRefundMethodSpecificOutput')) {
-            if (!is_object($object->redirectRefundMethodSpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->redirectRefundMethodSpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'redirectRefundMethodSpecificOutput')) {
+            if (!\is_object($object->redirectRefundMethodSpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->redirectRefundMethodSpecificOutput, \true) . '\' is not an object');
             }
             $value = new RefundRedirectMethodSpecificOutput();
             $this->redirectRefundMethodSpecificOutput = $value->fromObject($object->redirectRefundMethodSpecificOutput);
         }
-        if (property_exists($object, 'references')) {
-            if (!is_object($object->references)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->references, true) . '\' is not an object');
+        if (\property_exists($object, 'references')) {
+            if (!\is_object($object->references)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->references, \true) . '\' is not an object');
             }
             $value = new PaymentReferences();
             $this->references = $value->fromObject($object->references);

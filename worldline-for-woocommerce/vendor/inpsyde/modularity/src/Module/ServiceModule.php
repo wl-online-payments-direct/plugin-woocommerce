@@ -19,5 +19,5 @@ interface ServiceModule extends Module
      *
      * @return array<string, Service>
      */
-    public function services(): array;
+    public function services() : array;
 }

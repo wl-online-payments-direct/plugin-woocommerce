@@ -12,5 +12,5 @@ interface PaymentFieldsRendererInterface
      * @return string Rendered HTML.
      * @throws Throwable
      */
-    public function renderFields(): string;
+    public function renderFields() : string;
 }

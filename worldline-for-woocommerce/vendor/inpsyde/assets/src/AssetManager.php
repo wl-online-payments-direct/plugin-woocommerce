@@ -16,7 +16,6 @@ use Inpsyde\Assets\Handler\OutputFilterAwareAssetHandler;
 use Inpsyde\Assets\Handler\ScriptHandler;
 use Inpsyde\Assets\Handler\StyleHandler;
 use Inpsyde\Assets\Util\AssetHookResolver;
-use Inpsyde\Assets\Asset;
 final class AssetManager
 {
     public const ACTION_SETUP = 'inpsyde.assets.setup';
@@ -26,23 +25,17 @@ final class AssetManager
      *
      * @var array<string, bool>
      */
-    private $hooksAdded = [];
+    private array $hooksAdded = [];
     /**
      * @var \SplObjectStorage<Asset, array{string, string}>
      */
-    private $assets;
+    private \SplObjectStorage $assets;
     /**
      * @var array<AssetHandler>
      */
-    private $handlers = [];
-    /**
-     * @var AssetHookResolver
-     */
-    private $hookResolver;
-    /**
-     * @var bool
-     */
-    private $setupDone = \false;
+    private array $handlers = [];
+    private AssetHookResolver $hookResolver;
+    private bool $setupDone = \false;
     /**
      * @param AssetHookResolver|null $hookResolver
      */
@@ -54,10 +47,10 @@ final class AssetManager
     /**
      * @return static
      */
-    public function useDefaultHandlers(): \Inpsyde\Assets\AssetManager
+    public function useDefaultHandlers() : \Inpsyde\Assets\AssetManager
     {
-        empty($this->handlers[StyleHandler::class]) and $this->handlers[StyleHandler::class] = new StyleHandler(wp_styles());
-        empty($this->handlers[ScriptHandler::class]) and $this->handlers[ScriptHandler::class] = new ScriptHandler(wp_scripts());
+        empty($this->handlers[StyleHandler::class]) and $this->handlers[StyleHandler::class] = new StyleHandler(\wp_styles());
+        empty($this->handlers[ScriptHandler::class]) and $this->handlers[ScriptHandler::class] = new ScriptHandler(\wp_scripts());
         return $this;
     }
     /**
@@ -66,7 +59,7 @@ final class AssetManager
      *
      * @return static
      */
-    public function withHandler(string $name, AssetHandler $handler): \Inpsyde\Assets\AssetManager
+    public function withHandler(string $name, AssetHandler $handler) : \Inpsyde\Assets\AssetManager
     {
         $this->handlers[$name] = $handler;
         return $this;
@@ -74,7 +67,7 @@ final class AssetManager
     /**
      * @return array<AssetHandler>
      */
-    public function handlers(): array
+    public function handlers() : array
     {
         return $this->handlers;
     }
@@ -84,13 +77,13 @@ final class AssetManager
      *
      * @return static
      */
-    public function register(Asset $asset, Asset ...$assets): \Inpsyde\Assets\AssetManager
+    public function register(\Inpsyde\Assets\Asset $asset, \Inpsyde\Assets\Asset ...$assets) : \Inpsyde\Assets\AssetManager
     {
-        array_unshift($assets, $asset);
+        \array_unshift($assets, $asset);
         foreach ($assets as $asset) {
             $handle = $asset->handle();
             if ($handle) {
-                $this->assets->attach($asset, [$handle, get_class($asset)]);
+                $this->assets->attach($asset, [$handle, \get_class($asset)]);
             }
         }
         return $this;
@@ -98,7 +91,7 @@ final class AssetManager
     /**
      * @return array<string, array<string, Asset>>
      */
-    public function assets(): array
+    public function assets() : array
     {
         $this->ensureSetup();
         $found = [];
@@ -125,7 +118,7 @@ final class AssetManager
      *
      * @return Asset|null
      */
-    public function asset(string $handle, ?string $type = null): ?Asset
+    public function asset(string $handle, ?string $type = null) : ?\Inpsyde\Assets\Asset
     {
         $this->ensureSetup();
         /** @var Asset|null $found */
@@ -134,7 +127,7 @@ final class AssetManager
         while ($this->assets->valid()) {
             $asset = $this->assets->current();
             $this->assets->next();
-            if ($asset->handle() !== $handle || $type && !is_a($asset, $type)) {
+            if ($asset->handle() !== $handle || $type && !\is_a($asset, $type)) {
                 continue;
             }
             if ($found) {
@@ -148,7 +141,7 @@ final class AssetManager
     /**
      * @return bool
      */
-    public function setup(): bool
+    public function setup() : bool
     {
         $hooksAdded = 0;
         /**
@@ -162,12 +155,12 @@ final class AssetManager
          */
         foreach ($this->hookResolver->resolve() as $hook) {
             // If the hook was already added, or it is in the past, don't bother adding.
-            if (!empty($this->hooksAdded[$hook]) || did_action($hook) && !doing_action($hook)) {
+            if (!empty($this->hooksAdded[$hook]) || \did_action($hook) && !\doing_action($hook)) {
                 continue;
             }
             $hooksAdded++;
             $this->hooksAdded[$hook] = \true;
-            add_action($hook, function () use ($hook) {
+            \add_action($hook, function () use($hook) {
                 $this->processAssets($hook);
             });
         }
@@ -180,7 +173,7 @@ final class AssetManager
      *
      * @return array<Asset>
      */
-    public function currentAssets(string $currentHook): array
+    public function currentAssets(string $currentHook) : array
     {
         return $this->loopCurrentHookAssets($currentHook, \false);
     }
@@ -189,7 +182,7 @@ final class AssetManager
      *
      * @return void
      */
-    private function processAssets(string $currentHook): void
+    private function processAssets(string $currentHook) : void
     {
         $this->loopCurrentHookAssets($currentHook, \true);
     }
@@ -201,14 +194,14 @@ final class AssetManager
      *
      * phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
      */
-    private function loopCurrentHookAssets(string $currentHook, bool $process): array
+    private function loopCurrentHookAssets(string $currentHook, bool $process) : array
     {
         $this->ensureSetup();
         if (!$this->assets->count()) {
             return [];
         }
         /** @var int|null $locationId */
-        $locationId = Asset::HOOK_TO_LOCATION[$currentHook] ?? null;
+        $locationId = \Inpsyde\Assets\Asset::HOOK_TO_LOCATION[$currentHook] ?? null;
         if (!$locationId) {
             return [];
         }
@@ -240,7 +233,7 @@ final class AssetManager
     /**
      * @return void
      */
-    private function ensureSetup(): void
+    private function ensureSetup() : void
     {
         if ($this->setupDone) {
             return;
@@ -252,11 +245,11 @@ final class AssetManager
          *
          * @psalm-suppress PossiblyNullArgument
          */
-        if (!$lastHook && did_action($lastHook) && !doing_action($lastHook)) {
+        if (!$lastHook && \did_action($lastHook) && !\doing_action($lastHook)) {
             $this->assets = new \SplObjectStorage();
             return;
         }
         $this->useDefaultHandlers();
-        do_action(self::ACTION_SETUP, $this);
+        \do_action(self::ACTION_SETUP, $this);
     }
 }

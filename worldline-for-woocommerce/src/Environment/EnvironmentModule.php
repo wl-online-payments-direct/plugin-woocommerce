@@ -10,7 +10,7 @@ use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class EnvironmentModule implements ExecutableModule
 {
     use ModuleClassNameIdTrait;
-    public function run(ContainerInterface $container): bool
+    public function run(ContainerInterface $container) : bool
     {
         /** @var ValidatorInterface $validator */
         $validator = $container->get('core.environment_validator');

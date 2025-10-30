@@ -22,9 +22,9 @@ class CoreModule implements ExecutableModule, ServiceModule, ExtendingModule
      * @throws ContainerExceptionInterface
      * @throws NotFoundExceptionInterface
      */
-    public function run(ContainerInterface $container): bool
+    public function run(ContainerInterface $container) : bool
     {
-        add_action('pre_current_active_plugins', static function () use ($container) {
+        \add_action('pre_current_active_plugins', static function () use($container) {
             /** @var PluginActionLinkRegistry $pluginActionLinksRegistry */
             $pluginActionLinksRegistry = $container->get('core.plugin.plugin_action_links.registry');
             $pluginActionLinksRegistry->init();
@@ -34,12 +34,12 @@ class CoreModule implements ExecutableModule, ServiceModule, ExtendingModule
     /**
      * @inheritDoc
      */
-    public function services(): array
+    public function services() : array
     {
         static $services;
-        $moduleRootPath = dirname(__DIR__, 2);
+        $moduleRootPath = \dirname(__DIR__, 2);
         if ($services === null) {
-            $services = require_once "{$moduleRootPath}/inc/services.php";
+            $services = (require_once "{$moduleRootPath}/inc/services.php");
         }
         /** @var callable(string): array<string, callable(ContainerInterface $c):mixed> $services */
         return $services($moduleRootPath);
@@ -47,12 +47,12 @@ class CoreModule implements ExecutableModule, ServiceModule, ExtendingModule
     /**
      * @inheritDoc
      */
-    public function extensions(): array
+    public function extensions() : array
     {
         static $extensions;
-        $moduleRootPath = dirname(__DIR__, 2);
+        $moduleRootPath = \dirname(__DIR__, 2);
         if ($extensions === null) {
-            $extensions = require_once "{$moduleRootPath}/inc/extensions.php";
+            $extensions = (require_once "{$moduleRootPath}/inc/extensions.php");
         }
         /** @var callable(string): array<string, callable(mixed $service, ContainerInterface $c):mixed> $extensions */
         return $extensions($moduleRootPath);

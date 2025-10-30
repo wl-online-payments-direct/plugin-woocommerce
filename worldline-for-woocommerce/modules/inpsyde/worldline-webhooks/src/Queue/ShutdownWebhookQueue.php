@@ -16,17 +16,17 @@ class ShutdownWebhookQueue implements WebhookQueueInterface
     {
         $this->executor = $executor;
     }
-    public function add(WebhooksEvent $webhook): void
+    public function add(WebhooksEvent $webhook) : void
     {
         $this->webhooks[$webhook->id] = $webhook;
         $this->registerShutdownHandler();
     }
-    protected function registerShutdownHandler(): void
+    protected function registerShutdownHandler() : void
     {
         if ($this->hookRegistered) {
             return;
         }
-        add_action('shutdown', function (): void {
+        \add_action('shutdown', function () : void {
             foreach ($this->webhooks as $webhook) {
                 $this->executor->handle($webhook);
             }

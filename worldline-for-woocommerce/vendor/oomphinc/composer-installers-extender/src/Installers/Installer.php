@@ -17,7 +17,7 @@ class Installer extends InstallerBase
     /**
      * {@inheritDoc}
      */
-    public function getInstallPath(PackageInterface $package): string
+    public function getInstallPath(PackageInterface $package) : string
     {
         $installer = new \OomphInc\ComposerInstallersExtender\Installers\CustomInstaller($package, $this->composer, $this->io);
         $path = $installer->getInstallPath($package, $package->getType());
@@ -26,16 +26,16 @@ class Installer extends InstallerBase
     /**
      * {@inheritDoc}
      */
-    public function supports($packageType): bool
+    public function supports($packageType) : bool
     {
-        return in_array($packageType, $this->getInstallerTypes());
+        return \in_array($packageType, $this->getInstallerTypes());
     }
     /**
      * Get a list of custom installer types.
      *
      * @return array
      */
-    public function getInstallerTypes(): array
+    public function getInstallerTypes() : array
     {
         if (!$this->installerTypes) {
             $extra = $this->composer->getPackage()->getExtra();

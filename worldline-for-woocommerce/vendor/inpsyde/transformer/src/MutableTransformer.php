@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 namespace Syde\Vendor\Worldline\Inpsyde\Transformer;
 
 use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
@@ -22,7 +23,7 @@ interface MutableTransformer extends Transformer
      * @return mixed
      * @throws TransformerException
      */
-    public function addTransformer(callable $transformer): self;
+    public function addTransformer(callable $transformer) : self;
     /**
      * Pushes a transformer extension function to the extension stack.
      * The callback signature follows a similar structure like the $transformer of addTransformer().
@@ -35,5 +36,5 @@ interface MutableTransformer extends Transformer
      * @return mixed
      * @throws TransformerException
      */
-    public function addMiddleware(callable $middleware, int $priority = 50): self;
+    public function addMiddleware(callable $middleware, int $priority = 50) : self;
 }

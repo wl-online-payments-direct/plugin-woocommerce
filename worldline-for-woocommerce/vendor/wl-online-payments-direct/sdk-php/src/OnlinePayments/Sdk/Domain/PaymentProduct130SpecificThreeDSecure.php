@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct130SpecificThreeDSecure extends DataObject
 {
@@ -15,22 +15,18 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
      * @var bool
      */
     public $acquirerExemption = null;
-
     /**
      * @var string
      */
     public $merchantScore = null;
-
     /**
      * @var int
      */
     public $numberOfItems = null;
-
     /**
      * @var string
      */
     public $usecase = null;
-
     /**
      * @return bool
      */
@@ -38,7 +34,6 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         return $this->acquirerExemption;
     }
-
     /**
      * @param bool
      */
@@ -46,7 +41,6 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         $this->acquirerExemption = $value;
     }
-
     /**
      * @return string
      */
@@ -54,7 +48,6 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         return $this->merchantScore;
     }
-
     /**
      * @param string
      */
@@ -62,7 +55,6 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         $this->merchantScore = $value;
     }
-
     /**
      * @return int
      */
@@ -70,7 +62,6 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         return $this->numberOfItems;
     }
-
     /**
      * @param int
      */
@@ -78,7 +69,6 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         $this->numberOfItems = $value;
     }
-
     /**
      * @return string
      */
@@ -86,7 +76,6 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         return $this->usecase;
     }
-
     /**
      * @param string
      */
@@ -94,28 +83,26 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     {
         $this->usecase = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->acquirerExemption)) {
+        if (!\is_null($this->acquirerExemption)) {
             $object->acquirerExemption = $this->acquirerExemption;
         }
-        if (!is_null($this->merchantScore)) {
+        if (!\is_null($this->merchantScore)) {
             $object->merchantScore = $this->merchantScore;
         }
-        if (!is_null($this->numberOfItems)) {
+        if (!\is_null($this->numberOfItems)) {
             $object->numberOfItems = $this->numberOfItems;
         }
-        if (!is_null($this->usecase)) {
+        if (!\is_null($this->usecase)) {
             $object->usecase = $this->usecase;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,16 +111,16 @@ class PaymentProduct130SpecificThreeDSecure extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'acquirerExemption')) {
+        if (\property_exists($object, 'acquirerExemption')) {
             $this->acquirerExemption = $object->acquirerExemption;
         }
-        if (property_exists($object, 'merchantScore')) {
+        if (\property_exists($object, 'merchantScore')) {
             $this->merchantScore = $object->merchantScore;
         }
-        if (property_exists($object, 'numberOfItems')) {
+        if (\property_exists($object, 'numberOfItems')) {
             $this->numberOfItems = $object->numberOfItems;
         }
-        if (property_exists($object, 'usecase')) {
+        if (\property_exists($object, 'usecase')) {
             $this->usecase = $object->usecase;
         }
         return $this;

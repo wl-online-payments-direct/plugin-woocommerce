@@ -5,5 +5,5 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Utils;
 
 interface LockerFactoryInterface
 {
-    public function create(int $orderId): LockerInterface;
+    public function create(int $orderId) : LockerInterface;
 }

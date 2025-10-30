@@ -25,11 +25,11 @@ class CustomSettingsFields implements CustomSettingsFieldsDefinition
         $this->renderers = $renderers;
         $this->sanitizers = $sanitizers;
     }
-    public function renderers(): array
+    public function renderers() : array
     {
         return $this->renderers;
     }
-    public function sanitizers(): array
+    public function sanitizers() : array
     {
         return $this->sanitizers;
     }

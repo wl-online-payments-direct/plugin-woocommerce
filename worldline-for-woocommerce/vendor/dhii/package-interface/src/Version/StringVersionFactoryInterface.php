@@ -20,5 +20,5 @@ interface StringVersionFactoryInterface
      * @throws DomainException If version string is malformed.
      * @throws Exception If problem creating.
      */
-    public function createVersionFromString(string $version): VersionInterface;
+    public function createVersionFromString(string $version) : VersionInterface;
 }

@@ -10,7 +10,7 @@ class ExemptionAmountChecker
     {
         $this->limit = $limit;
     }
-    public function isUnderLimit(int $orderAmount, string $currencyCode): bool
+    public function isUnderLimit(int $orderAmount, string $currencyCode) : bool
     {
         if ($currencyCode !== 'EUR') {
             return \false;

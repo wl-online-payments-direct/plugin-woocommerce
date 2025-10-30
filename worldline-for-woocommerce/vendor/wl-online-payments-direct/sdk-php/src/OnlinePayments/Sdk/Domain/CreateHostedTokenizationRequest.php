@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CreateHostedTokenizationRequest extends DataObject
 {
@@ -15,32 +15,26 @@ class CreateHostedTokenizationRequest extends DataObject
      * @var bool
      */
     public $askConsumerConsent = null;
-
     /**
      * @var CreditCardSpecificInputHostedTokenization
      */
     public $creditCardSpecificInput = null;
-
     /**
      * @var string
      */
     public $locale = null;
-
     /**
      * @var PaymentProductFiltersHostedTokenization
      */
     public $paymentProductFilters = null;
-
     /**
      * @var string
      */
     public $tokens = null;
-
     /**
      * @var string
      */
     public $variant = null;
-
     /**
      * @return bool
      */
@@ -48,7 +42,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         return $this->askConsumerConsent;
     }
-
     /**
      * @param bool
      */
@@ -56,7 +49,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         $this->askConsumerConsent = $value;
     }
-
     /**
      * @return CreditCardSpecificInputHostedTokenization
      */
@@ -64,7 +56,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         return $this->creditCardSpecificInput;
     }
-
     /**
      * @param CreditCardSpecificInputHostedTokenization
      */
@@ -72,7 +63,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         $this->creditCardSpecificInput = $value;
     }
-
     /**
      * @return string
      */
@@ -80,7 +70,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         return $this->locale;
     }
-
     /**
      * @param string
      */
@@ -88,7 +77,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         $this->locale = $value;
     }
-
     /**
      * @return PaymentProductFiltersHostedTokenization
      */
@@ -96,7 +84,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         return $this->paymentProductFilters;
     }
-
     /**
      * @param PaymentProductFiltersHostedTokenization
      */
@@ -104,7 +91,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         $this->paymentProductFilters = $value;
     }
-
     /**
      * @return string
      */
@@ -112,7 +98,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         return $this->tokens;
     }
-
     /**
      * @param string
      */
@@ -120,7 +105,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         $this->tokens = $value;
     }
-
     /**
      * @return string
      */
@@ -128,7 +112,6 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         return $this->variant;
     }
-
     /**
      * @param string
      */
@@ -136,34 +119,32 @@ class CreateHostedTokenizationRequest extends DataObject
     {
         $this->variant = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->askConsumerConsent)) {
+        if (!\is_null($this->askConsumerConsent)) {
             $object->askConsumerConsent = $this->askConsumerConsent;
         }
-        if (!is_null($this->creditCardSpecificInput)) {
+        if (!\is_null($this->creditCardSpecificInput)) {
             $object->creditCardSpecificInput = $this->creditCardSpecificInput->toObject();
         }
-        if (!is_null($this->locale)) {
+        if (!\is_null($this->locale)) {
             $object->locale = $this->locale;
         }
-        if (!is_null($this->paymentProductFilters)) {
+        if (!\is_null($this->paymentProductFilters)) {
             $object->paymentProductFilters = $this->paymentProductFilters->toObject();
         }
-        if (!is_null($this->tokens)) {
+        if (!\is_null($this->tokens)) {
             $object->tokens = $this->tokens;
         }
-        if (!is_null($this->variant)) {
+        if (!\is_null($this->variant)) {
             $object->variant = $this->variant;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -172,30 +153,30 @@ class CreateHostedTokenizationRequest extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'askConsumerConsent')) {
+        if (\property_exists($object, 'askConsumerConsent')) {
             $this->askConsumerConsent = $object->askConsumerConsent;
         }
-        if (property_exists($object, 'creditCardSpecificInput')) {
-            if (!is_object($object->creditCardSpecificInput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->creditCardSpecificInput, true) . '\' is not an object');
+        if (\property_exists($object, 'creditCardSpecificInput')) {
+            if (!\is_object($object->creditCardSpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->creditCardSpecificInput, \true) . '\' is not an object');
             }
             $value = new CreditCardSpecificInputHostedTokenization();
             $this->creditCardSpecificInput = $value->fromObject($object->creditCardSpecificInput);
         }
-        if (property_exists($object, 'locale')) {
+        if (\property_exists($object, 'locale')) {
             $this->locale = $object->locale;
         }
-        if (property_exists($object, 'paymentProductFilters')) {
-            if (!is_object($object->paymentProductFilters)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProductFilters, true) . '\' is not an object');
+        if (\property_exists($object, 'paymentProductFilters')) {
+            if (!\is_object($object->paymentProductFilters)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProductFilters, \true) . '\' is not an object');
             }
             $value = new PaymentProductFiltersHostedTokenization();
             $this->paymentProductFilters = $value->fromObject($object->paymentProductFilters);
         }
-        if (property_exists($object, 'tokens')) {
+        if (\property_exists($object, 'tokens')) {
             $this->tokens = $object->tokens;
         }
-        if (property_exists($object, 'variant')) {
+        if (\property_exists($object, 'variant')) {
             $this->variant = $object->variant;
         }
         return $this;

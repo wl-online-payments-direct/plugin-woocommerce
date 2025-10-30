@@ -1,22 +1,20 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 /**
  * Class ResponseBuilder
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
+ * @package OnlinePayments\Sdk\Communication
  */
 class ResponseBuilder
 {
     /** @var int */
     private $httpStatusCode;
-
     /** @var array */
     private $headers;
-
     /** @var string */
     private $body = '';
-
     /**
      * @param int $httpStatusCode
      */
@@ -24,7 +22,6 @@ class ResponseBuilder
     {
         $this->httpStatusCode = $httpStatusCode;
     }
-
     /**
      * @param array $headers
      */
@@ -32,7 +29,6 @@ class ResponseBuilder
     {
         $this->headers = $headers;
     }
-
     /**
      * @param string $data
      */
@@ -40,7 +36,6 @@ class ResponseBuilder
     {
         $this->body .= $data;
     }
-
     /**
      * @param string $body
      */
@@ -48,7 +43,6 @@ class ResponseBuilder
     {
         $this->body = $body;
     }
-
     /**
      * @return ConnectionResponseInterface
      */

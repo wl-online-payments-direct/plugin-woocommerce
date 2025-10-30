@@ -15,10 +15,7 @@ use Syde\Vendor\Worldline\Inpsyde\WpContext;
 use Inpsyde\Assets\Asset;
 class AssetHookResolver
 {
-    /**
-     * @var WpContext
-     */
-    protected $context;
+    protected WpContext $context;
     /**
      * @param WpContext|null $context
      */
@@ -31,7 +28,7 @@ class AssetHookResolver
      *
      * @return string[]
      */
-    public function resolve(): array
+    public function resolve() : array
     {
         $isLogin = $this->context->isLogin();
         $isFront = $this->context->isFrontoffice();
@@ -60,7 +57,7 @@ class AssetHookResolver
     /**
      * @return string|null
      */
-    public function lastHook(): ?string
+    public function lastHook() : ?string
     {
         switch (\true) {
             case $this->context->isLogin():

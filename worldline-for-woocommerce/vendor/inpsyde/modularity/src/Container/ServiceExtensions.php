@@ -18,7 +18,7 @@ class ServiceExtensions
      * @param string $type
      * @return string
      */
-    final public static function typeId(string $type): string
+    public static final function typeId(string $type) : string
     {
         return "@instanceof<{$type}>";
     }
@@ -27,7 +27,7 @@ class ServiceExtensions
      * @param ExtendingService $extender
      * @return static
      */
-    public function add(string $extensionId, callable $extender): ServiceExtensions
+    public function add(string $extensionId, callable $extender) : ServiceExtensions
     {
         isset($this->extensions[$extensionId]) or $this->extensions[$extensionId] = [];
         $this->extensions[$extensionId][] = $extender;
@@ -37,7 +37,7 @@ class ServiceExtensions
      * @param string $extensionId
      * @return bool
      */
-    public function has(string $extensionId): bool
+    public function has(string $extensionId) : bool
     {
         return isset($this->extensions[$extensionId]);
     }
@@ -47,10 +47,10 @@ class ServiceExtensions
      * @param Container $container
      * @return mixed
      */
-    final public function resolve($service, string $id, Container $container)
+    public final function resolve($service, string $id, Container $container)
     {
         $service = $this->resolveById($id, $service, $container);
-        return is_object($service) ? $this->resolveByType(get_class($service), $service, $container) : $service;
+        return \is_object($service) ? $this->resolveByType(\get_class($service), $service, $container) : $service;
     }
     /**
      * @param string $id
@@ -88,7 +88,7 @@ class ServiceExtensions
             $allCallbacks[$className] = $byClass;
         }
         // 2nd group of extensions: targeting parent classes
-        $parents = class_parents($service, \false);
+        $parents = \class_parents($service, \false);
         $parents === \false and $parents = [];
         foreach ($parents as $parentName) {
             $byParent = $this->extensions[self::typeId($parentName)] ?? null;
@@ -97,7 +97,7 @@ class ServiceExtensions
             }
         }
         // 3rd group of extensions: targeting implemented interfaces
-        $interfaces = class_implements($service, \false);
+        $interfaces = \class_implements($service, \false);
         $interfaces === \false and $interfaces = [];
         foreach ($interfaces as $interfaceName) {
             $byInterface = $this->extensions[self::typeId($interfaceName)] ?? null;
@@ -110,7 +110,7 @@ class ServiceExtensions
         foreach ($allCallbacks as $type => $extenders) {
             // When the previous group of callbacks resulted in a type change, we need to check
             // type before processing next group.
-            if ($resultType === self::SERVICE_TYPE_CHANGED && !is_a($service, $type)) {
+            if ($resultType === self::SERVICE_TYPE_CHANGED && !\is_a($service, $type)) {
                 continue;
             }
             /** @var object $service */
@@ -125,8 +125,8 @@ class ServiceExtensions
         // `-> extend(A): B -> extend(B): A -> *loop* ->`
         // we have:
         // `-> extend(A): B -> extend(B): A -> return A`.
-        $newClassName = get_class($service);
-        if (!in_array($newClassName, $extendedClasses, \true)) {
+        $newClassName = \get_class($service);
+        if (!\in_array($newClassName, $extendedClasses, \true)) {
             return $this->resolveByType($newClassName, $service, $container, $extendedClasses);
         }
         return $service;
@@ -138,14 +138,14 @@ class ServiceExtensions
      * @param list<ExtendingService> $extenders
      * @return list{mixed, int}
      */
-    private function extendByType(string $type, object $service, Container $container, array $extenders): array
+    private function extendByType(string $type, object $service, Container $container, array $extenders) : array
     {
         foreach ($extenders as $extender) {
             $service = $extender($service, $container);
-            if (!is_object($service)) {
+            if (!\is_object($service)) {
                 return [$service, self::SERVICE_TYPE_NOT_OBJECT];
             }
-            if (!is_a($service, $type)) {
+            if (!\is_a($service, $type)) {
                 return [$service, self::SERVICE_TYPE_CHANGED];
             }
         }

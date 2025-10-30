@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductFilterHostedTokenization extends DataObject
 {
@@ -15,7 +15,6 @@ class PaymentProductFilterHostedTokenization extends DataObject
      * @var int[]
      */
     public $products = null;
-
     /**
      * @return int[]
      */
@@ -23,7 +22,6 @@ class PaymentProductFilterHostedTokenization extends DataObject
     {
         return $this->products;
     }
-
     /**
      * @param int[]
      */
@@ -31,24 +29,22 @@ class PaymentProductFilterHostedTokenization extends DataObject
     {
         $this->products = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->products)) {
+        if (!\is_null($this->products)) {
             $object->products = [];
             foreach ($this->products as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->products[] = $element;
                 }
             }
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -57,9 +53,9 @@ class PaymentProductFilterHostedTokenization extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'products')) {
-            if (!is_array($object->products) && !is_object($object->products)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->products, true) . '\' is not an array or object');
+        if (\property_exists($object, 'products')) {
+            if (!\is_array($object->products) && !\is_object($object->products)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->products, \true) . '\' is not an array or object');
             }
             $this->products = [];
             foreach ($object->products as $element) {

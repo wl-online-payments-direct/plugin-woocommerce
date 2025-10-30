@@ -25,19 +25,19 @@ class CompositeValidator implements ValidatorInterface
     /**
      * @inheritDoc
      */
-    public function validate($value): void
+    public function validate($value) : void
     {
         $errors = [];
         foreach ($this->validators as $validator) {
             /** @psalm-suppress RedundantConditionGivenDocblockType */
-            assert($validator instanceof ValidatorInterface);
+            \assert($validator instanceof ValidatorInterface);
             try {
                 $validator->validate($value);
             } catch (ValidationFailedExceptionInterface $e) {
                 $errors[] = $e;
             }
         }
-        $errCount = count($errors);
+        $errCount = \count($errors);
         if ($errCount) {
             /** @psalm-suppress ImplicitToStringCast Until PHP 8 is minimal requirement */
             throw new ValidationFailedException($this, $value, $errors, $this->__('Validation failed with %1$d errors', [$errCount]));
@@ -50,8 +50,8 @@ class CompositeValidator implements ValidatorInterface
      * @param list<scalar> $params The param values to interpolate into the string.
      * @return string The translated string with params interpolated.
      */
-    protected function __(string $string, array $params = []): string
+    protected function __(string $string, array $params = []) : string
     {
-        return vsprintf($string, $params);
+        return \vsprintf($string, $params);
     }
 }

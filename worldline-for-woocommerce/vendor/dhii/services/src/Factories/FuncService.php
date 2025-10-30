@@ -59,7 +59,7 @@ class FuncService extends Service
          * @psalm-suppress MissingClosureReturnType Cannot declare mixed until PHP 8
          * @psalm-suppress MissingClosureParamType Cannot declare mixed until PHP 8
          */
-        return function (...$args) use ($deps) {
+        return function (...$args) use($deps) {
             return ($this->function)(...$args, ...$deps);
         };
     }

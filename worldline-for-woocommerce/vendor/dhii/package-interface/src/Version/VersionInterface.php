@@ -17,7 +17,7 @@ interface VersionInterface extends Stringable
      *
      * @throws Exception If problem retrieving.
      */
-    public function getMajor(): int;
+    public function getMajor() : int;
     /**
      * Retrieves the version's minor number.
      *
@@ -25,7 +25,7 @@ interface VersionInterface extends Stringable
      *
      * @throws Exception If problem retrieving.
      */
-    public function getMinor(): int;
+    public function getMinor() : int;
     /**
      * Retrieves the version's patch number.
      *
@@ -33,7 +33,7 @@ interface VersionInterface extends Stringable
      *
      * @throws Exception If problem retrieving.
      */
-    public function getPatch(): int;
+    public function getPatch() : int;
     /**
      * Retrieves the version's pre-release identifier.
      *
@@ -43,7 +43,7 @@ interface VersionInterface extends Stringable
      *
      * @throws Exception If problem retrieving.
      */
-    public function getPreRelease(): array;
+    public function getPreRelease() : array;
     /**
      * Retrieves the version's build metadata.
      *
@@ -52,5 +52,5 @@ interface VersionInterface extends Stringable
      *
      * @throws Exception If problem retrieving.
      */
-    public function getBuild(): array;
+    public function getBuild() : array;
 }

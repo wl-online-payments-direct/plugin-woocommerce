@@ -1,28 +1,28 @@
 {
-  "name": "inpsyde\/worldline-product-type",
-  "description": "Worldline Product Type Module",
-  "type": "inpsyde-module",
-  "license": "GPL-2.0-or-later",
-  "autoload": {
-    "psr-4": {
-      "Inpsyde\\WorldlineForWoocommerce\\ProductType\\": "src"
+    "name": "inpsyde\/worldline-product-type",
+    "description": "Worldline Product Type Module",
+    "type": "inpsyde-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\": "src"
+        }
+    },
+    "authors": [
+        {
+            "name": "Marija",
+            "email": "marija.ivic@logeecom.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "psr\/container": "^1.0",
+        "inpsyde\/modularity": "dev-main",
+        "dhii\/services": "^0.1.0-alpha2"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
     }
-  },
-  "authors": [
-    {
-      "name": "Marija",
-      "email": "marija.ivic@logeecom.com"
-    }
-  ],
-  "require": {
-    "php": ">=7.4",
-    "psr/container": "^1.0",
-    "inpsyde/modularity": "dev-main",
-    "dhii/services": "^0.1.0-alpha2"
-  },
-  "config": {
-    "allow-plugins": {
-      "dealerdirect\/phpcodesniffer-composer-installer": true
-    }
-  }
 }

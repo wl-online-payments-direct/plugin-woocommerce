@@ -23,15 +23,15 @@ class WebhookEventFactory
      * @throws SignatureValidationException
      * @throws Exception
      */
-    public function fromRequest(string $body, array $headers): WebhooksEvent
+    public function fromRequest(string $body, array $headers) : WebhooksEvent
     {
         $secretKeyStore = new InMemorySecretKeyStore([$this->webhookId => $this->webhookSecretKey]);
         $helper = new WebhooksHelper($secretKeyStore);
         $headersWithoutArrays = [];
         foreach ($headers as $key => $value) {
-            $originalKey = str_replace('_', '-', $key);
-            assert(is_string($originalKey));
-            $headersWithoutArrays[$originalKey] = is_array($value) ? $value[0] : $value;
+            $originalKey = \str_replace('_', '-', $key);
+            \assert(\is_string($originalKey));
+            $headersWithoutArrays[$originalKey] = \is_array($value) ? $value[0] : $value;
         }
         return $helper->unmarshal($body, $headersWithoutArrays);
     }

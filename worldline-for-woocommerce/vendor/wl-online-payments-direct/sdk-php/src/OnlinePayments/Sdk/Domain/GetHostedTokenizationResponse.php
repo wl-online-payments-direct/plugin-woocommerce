@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class GetHostedTokenizationResponse extends DataObject
 {
@@ -15,12 +15,10 @@ class GetHostedTokenizationResponse extends DataObject
      * @var TokenResponse
      */
     public $token = null;
-
     /**
      * @var string
      */
     public $tokenStatus = null;
-
     /**
      * @return TokenResponse
      */
@@ -28,7 +26,6 @@ class GetHostedTokenizationResponse extends DataObject
     {
         return $this->token;
     }
-
     /**
      * @param TokenResponse
      */
@@ -36,7 +33,6 @@ class GetHostedTokenizationResponse extends DataObject
     {
         $this->token = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class GetHostedTokenizationResponse extends DataObject
     {
         return $this->tokenStatus;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class GetHostedTokenizationResponse extends DataObject
     {
         $this->tokenStatus = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->token)) {
+        if (!\is_null($this->token)) {
             $object->token = $this->token->toObject();
         }
-        if (!is_null($this->tokenStatus)) {
+        if (!\is_null($this->tokenStatus)) {
             $object->tokenStatus = $this->tokenStatus;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,14 +69,14 @@ class GetHostedTokenizationResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'token')) {
-            if (!is_object($object->token)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->token, true) . '\' is not an object');
+        if (\property_exists($object, 'token')) {
+            if (!\is_object($object->token)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->token, \true) . '\' is not an object');
             }
             $value = new TokenResponse();
             $this->token = $value->fromObject($object->token);
         }
-        if (property_exists($object, 'tokenStatus')) {
+        if (\property_exists($object, 'tokenStatus')) {
             $this->tokenStatus = $object->tokenStatus;
         }
         return $this;

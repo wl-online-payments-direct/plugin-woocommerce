@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentResponse extends DataObject
 {
@@ -15,27 +15,22 @@ class PaymentResponse extends DataObject
      * @var HostedCheckoutSpecificOutput
      */
     public $hostedCheckoutSpecificOutput = null;
-
     /**
      * @var string
      */
     public $id = null;
-
     /**
      * @var PaymentOutput
      */
     public $paymentOutput = null;
-
     /**
      * @var string
      */
     public $status = null;
-
     /**
      * @var PaymentStatusOutput
      */
     public $statusOutput = null;
-
     /**
      * @return HostedCheckoutSpecificOutput
      */
@@ -43,7 +38,6 @@ class PaymentResponse extends DataObject
     {
         return $this->hostedCheckoutSpecificOutput;
     }
-
     /**
      * @param HostedCheckoutSpecificOutput
      */
@@ -51,7 +45,6 @@ class PaymentResponse extends DataObject
     {
         $this->hostedCheckoutSpecificOutput = $value;
     }
-
     /**
      * @return string
      */
@@ -59,7 +52,6 @@ class PaymentResponse extends DataObject
     {
         return $this->id;
     }
-
     /**
      * @param string
      */
@@ -67,7 +59,6 @@ class PaymentResponse extends DataObject
     {
         $this->id = $value;
     }
-
     /**
      * @return PaymentOutput
      */
@@ -75,7 +66,6 @@ class PaymentResponse extends DataObject
     {
         return $this->paymentOutput;
     }
-
     /**
      * @param PaymentOutput
      */
@@ -83,7 +73,6 @@ class PaymentResponse extends DataObject
     {
         $this->paymentOutput = $value;
     }
-
     /**
      * @return string
      */
@@ -91,7 +80,6 @@ class PaymentResponse extends DataObject
     {
         return $this->status;
     }
-
     /**
      * @param string
      */
@@ -99,7 +87,6 @@ class PaymentResponse extends DataObject
     {
         $this->status = $value;
     }
-
     /**
      * @return PaymentStatusOutput
      */
@@ -107,7 +94,6 @@ class PaymentResponse extends DataObject
     {
         return $this->statusOutput;
     }
-
     /**
      * @param PaymentStatusOutput
      */
@@ -115,31 +101,29 @@ class PaymentResponse extends DataObject
     {
         $this->statusOutput = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->hostedCheckoutSpecificOutput)) {
+        if (!\is_null($this->hostedCheckoutSpecificOutput)) {
             $object->hostedCheckoutSpecificOutput = $this->hostedCheckoutSpecificOutput->toObject();
         }
-        if (!is_null($this->id)) {
+        if (!\is_null($this->id)) {
             $object->id = $this->id;
         }
-        if (!is_null($this->paymentOutput)) {
+        if (!\is_null($this->paymentOutput)) {
             $object->paymentOutput = $this->paymentOutput->toObject();
         }
-        if (!is_null($this->status)) {
+        if (!\is_null($this->status)) {
             $object->status = $this->status;
         }
-        if (!is_null($this->statusOutput)) {
+        if (!\is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -148,29 +132,29 @@ class PaymentResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'hostedCheckoutSpecificOutput')) {
-            if (!is_object($object->hostedCheckoutSpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->hostedCheckoutSpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'hostedCheckoutSpecificOutput')) {
+            if (!\is_object($object->hostedCheckoutSpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->hostedCheckoutSpecificOutput, \true) . '\' is not an object');
             }
             $value = new HostedCheckoutSpecificOutput();
             $this->hostedCheckoutSpecificOutput = $value->fromObject($object->hostedCheckoutSpecificOutput);
         }
-        if (property_exists($object, 'id')) {
+        if (\property_exists($object, 'id')) {
             $this->id = $object->id;
         }
-        if (property_exists($object, 'paymentOutput')) {
-            if (!is_object($object->paymentOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'paymentOutput')) {
+            if (!\is_object($object->paymentOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentOutput, \true) . '\' is not an object');
             }
             $value = new PaymentOutput();
             $this->paymentOutput = $value->fromObject($object->paymentOutput);
         }
-        if (property_exists($object, 'status')) {
+        if (\property_exists($object, 'status')) {
             $this->status = $object->status;
         }
-        if (property_exists($object, 'statusOutput')) {
-            if (!is_object($object->statusOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'statusOutput')) {
+            if (!\is_object($object->statusOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->statusOutput, \true) . '\' is not an object');
             }
             $value = new PaymentStatusOutput();
             $this->statusOutput = $value->fromObject($object->statusOutput);

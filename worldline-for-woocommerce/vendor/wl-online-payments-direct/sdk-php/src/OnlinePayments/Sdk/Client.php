@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -6,7 +7,6 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClient;
-
 /**
  * Payment platform client.
  */
@@ -14,10 +14,8 @@ class Client extends ApiResource implements ClientInterface
 {
     /** @var CommunicatorInterface */
     private $communicator;
-
     /** @var string */
     private $clientMetaInfo;
-
     /**
      * Construct a new Payment platform API client.
      *
@@ -31,7 +29,6 @@ class Client extends ApiResource implements ClientInterface
         $this->setClientMetaInfo($clientMetaInfo);
         $this->context = array();
     }
-
     /**
      * @return CommunicatorInterface
      */
@@ -39,7 +36,6 @@ class Client extends ApiResource implements ClientInterface
     {
         return $this->communicator;
     }
-
     /**
      * @inheritdoc
      */
@@ -47,7 +43,6 @@ class Client extends ApiResource implements ClientInterface
     {
         $this->getCommunicator()->enableLogging($communicatorLogger);
     }
-
     /**
      * @inheritdoc
      */
@@ -55,16 +50,14 @@ class Client extends ApiResource implements ClientInterface
     {
         $this->getCommunicator()->disableLogging();
     }
-
     /**
      * @inheritdoc
      */
     public function setClientMetaInfo($clientMetaInfo)
     {
-        $this->clientMetaInfo = $clientMetaInfo ? base64_encode($clientMetaInfo) : '';
+        $this->clientMetaInfo = $clientMetaInfo ? \base64_encode($clientMetaInfo) : '';
         return $this;
     }
-
     /**
      * @return string
      */
@@ -72,7 +65,6 @@ class Client extends ApiResource implements ClientInterface
     {
         return $this->clientMetaInfo;
     }
-
     /**
      * @inheritdoc
      */

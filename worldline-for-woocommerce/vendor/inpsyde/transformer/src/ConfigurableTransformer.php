@@ -18,30 +18,30 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      *
      * @var callable[]
      */
-    protected $factories = [];
+    protected array $factories = [];
     /**
      * Flat list of middleware functions
      *
      * @var callable[]
      */
-    protected $middlewares = [];
+    protected array $middlewares = [];
     /**
      * Associative array of compiled transformer functions that use matching middlewares
      *
      * @var callable[]
      */
-    protected $compiled = [];
-    public function addTransformer(callable $transformer): MutableTransformer
+    protected array $compiled = [];
+    public function addTransformer(callable $transformer) : MutableTransformer
     {
         $this->assertValidFunction($transformer);
         $this->factories[] = $transformer;
         $this->compiled = [];
         return $this;
     }
-    public function addMiddleware(callable $middleware, int $priority = 50): MutableTransformer
+    public function addMiddleware(callable $middleware, int $priority = 50) : MutableTransformer
     {
         $this->assertValidFunction($middleware, \false);
-        array_splice($this->middlewares, $priority, 0, $middleware);
+        \array_splice($this->middlewares, $priority, 0, $middleware);
         $this->compiled = [];
         return $this;
     }
@@ -66,16 +66,16 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
         }
         $requiredParamCount = $isTransformer ? 1 : 2;
         if ($reflectionFunction->getNumberOfParameters() < $requiredParamCount) {
-            throw new InvalidTransformerSignatureException(sprintf("Transformer or extension used less or more than %s arguments.", $requiredParamCount));
+            throw new InvalidTransformerSignatureException(\sprintf("Transformer or extension used less or more than %s arguments.", $requiredParamCount));
         }
         $parameters = $reflectionFunction->getParameters();
         $firstParam = $parameters[0];
         $paramType = $firstParam->getType();
         if ($paramType === null) {
-            throw new InvalidTransformerSignatureException(sprintf("Transformer or Extension did not specify a parameter type for its payload."));
+            throw new InvalidTransformerSignatureException(\sprintf("Transformer or Extension did not specify a parameter type for its payload."));
         }
     }
-    private function composeCacheKey(string $returnType, $payload): string
+    private function composeCacheKey(string $returnType, $payload) : string
     {
         $parameterType = $this->getType($payload);
         return $returnType . '|' . $parameterType;
@@ -88,14 +88,14 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      * @throws TransformerReflectionException
      * @throws MissingTransformerException
      */
-    private function searchTransformer(string $returnType, $payload): callable
+    private function searchTransformer(string $returnType, $payload) : callable
     {
         foreach ($this->factories as $transformer) {
             if ($this->isMatchingCallable($returnType, $payload, $transformer)) {
                 return $transformer;
             }
         }
-        throw new MissingTransformerException(sprintf('Could not find a transformer for "%s" with payload type "%s"', $returnType, $this->getType($payload)));
+        throw new MissingTransformerException(\sprintf('Could not find a transformer for "%s" with payload type "%s"', $returnType, $this->getType($payload)));
     }
     /**
      * @param string $returnType
@@ -105,7 +105,7 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      * @return bool
      * @throws TransformerReflectionException
      */
-    private function isMatchingCallable(string $returnType, $payload, callable $callable): bool
+    private function isMatchingCallable(string $returnType, $payload, callable $callable) : bool
     {
         try {
             $reflectionFunction = new \ReflectionFunction($callable);
@@ -127,7 +127,7 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      *
      * @return bool
      */
-    private function isMatchingType(string $type, \ReflectionType $reflectionType): bool
+    private function isMatchingType(string $type, \ReflectionType $reflectionType) : bool
     {
         /**
          * Wrap the given type in an array and check for php8 union types
@@ -145,8 +145,8 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
             if ($type === $reflectionTypeName) {
                 return \true;
             }
-            if (class_exists($type) || interface_exists($type)) {
-                return is_a($type, $reflectionTypeName, \true);
+            if (\class_exists($type) || \interface_exists($type)) {
+                return \is_a($type, $reflectionTypeName, \true);
             }
         }
         return \false;
@@ -158,9 +158,9 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      * @return array
      * @throws TransformerReflectionException
      */
-    private function collectApplicableMiddlewares(string $returnType, $payload): array
+    private function collectApplicableMiddlewares(string $returnType, $payload) : array
     {
-        return array_filter($this->middlewares, function (callable $middleware) use ($returnType, $payload) {
+        return \array_filter($this->middlewares, function (callable $middleware) use($returnType, $payload) {
             return $this->isMatchingCallable($returnType, $payload, $middleware);
         });
     }
@@ -193,16 +193,16 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      * @throws TransformerReflectionException
      * @throws MissingTransformerException
      */
-    private function compileTransformer(string $returnType, $payload): callable
+    private function compileTransformer(string $returnType, $payload) : callable
     {
         $transformer = $this->searchTransformer($returnType, $payload);
         $middlewares = $this->collectApplicableMiddlewares($returnType, $payload);
         $extensionWrapper = function ($previous, $extension) {
-            return function ($payload, Transformer $transformer = null) use ($extension, $previous) {
+            return function ($payload, Transformer $transformer = null) use($extension, $previous) {
                 return $extension($payload, $previous, $transformer ?? $this);
             };
         };
-        return array_reduce($middlewares, $extensionWrapper, $transformer);
+        return \array_reduce($middlewares, $extensionWrapper, $transformer);
     }
     /**
      * If $payload is a class, return its FQCN.
@@ -212,9 +212,9 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      *
      * @return string
      */
-    private function getType($payload): string
+    private function getType($payload) : string
     {
-        $type = is_object($payload) ? get_class($payload) : gettype($payload);
+        $type = \is_object($payload) ? \get_class($payload) : \gettype($payload);
         if ($type === 'int') {
             $type .= 'eger';
         }
@@ -225,7 +225,7 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
      *
      * @return Transformer
      */
-    public function export(): Transformer
+    public function export() : Transformer
     {
         return ReadOnlyTransformer::fromTransformer(clone $this);
     }

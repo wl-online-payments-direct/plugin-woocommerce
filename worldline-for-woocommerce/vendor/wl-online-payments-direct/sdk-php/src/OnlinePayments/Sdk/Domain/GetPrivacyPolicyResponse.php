@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class GetPrivacyPolicyResponse extends DataObject
 {
@@ -15,7 +15,6 @@ class GetPrivacyPolicyResponse extends DataObject
      * @var string
      */
     public $htmlContent = null;
-
     /**
      * @return string
      */
@@ -23,7 +22,6 @@ class GetPrivacyPolicyResponse extends DataObject
     {
         return $this->htmlContent;
     }
-
     /**
      * @param string
      */
@@ -31,19 +29,17 @@ class GetPrivacyPolicyResponse extends DataObject
     {
         $this->htmlContent = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->htmlContent)) {
+        if (!\is_null($this->htmlContent)) {
             $object->htmlContent = $this->htmlContent;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -52,7 +48,7 @@ class GetPrivacyPolicyResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'htmlContent')) {
+        if (\property_exists($object, 'htmlContent')) {
             $this->htmlContent = $object->htmlContent;
         }
         return $this;

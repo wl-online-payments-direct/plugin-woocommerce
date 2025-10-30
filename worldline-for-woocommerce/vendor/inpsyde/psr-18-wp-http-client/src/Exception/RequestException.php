@@ -12,10 +12,7 @@ use Throwable;
  */
 class RequestException extends WpHttpClientException implements RequestExceptionInterface
 {
-    /**
-     * @var RequestInterface
-     */
-    protected $request;
+    protected RequestInterface $request;
     /**
      * @param string $message Exception message
      * @param int $code Error code
@@ -30,7 +27,7 @@ class RequestException extends WpHttpClientException implements RequestException
     /**
      * @inheritDoc
      */
-    public function getRequest(): RequestInterface
+    public function getRequest() : RequestInterface
     {
         return $this->request;
     }

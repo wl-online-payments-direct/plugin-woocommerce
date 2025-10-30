@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ProductDirectory extends DataObject
 {
@@ -15,7 +15,6 @@ class ProductDirectory extends DataObject
      * @var DirectoryEntry[]
      */
     public $entries = null;
-
     /**
      * @return DirectoryEntry[]
      */
@@ -23,7 +22,6 @@ class ProductDirectory extends DataObject
     {
         return $this->entries;
     }
-
     /**
      * @param DirectoryEntry[]
      */
@@ -31,24 +29,22 @@ class ProductDirectory extends DataObject
     {
         $this->entries = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->entries)) {
+        if (!\is_null($this->entries)) {
             $object->entries = [];
             foreach ($this->entries as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->entries[] = $element->toObject();
                 }
             }
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -57,9 +53,9 @@ class ProductDirectory extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'entries')) {
-            if (!is_array($object->entries) && !is_object($object->entries)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->entries, true) . '\' is not an array or object');
+        if (\property_exists($object, 'entries')) {
+            if (!\is_array($object->entries) && !\is_object($object->entries)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->entries, \true) . '\' is not an array or object');
             }
             $this->entries = [];
             foreach ($object->entries as $element) {

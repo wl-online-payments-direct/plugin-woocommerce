@@ -11,10 +11,7 @@ use Syde\Vendor\Worldline\Inpsyde\Transformer\Exception\TransformerException;
  */
 class ImmutableTransformer implements Transformer
 {
-    /**
-     * @var Transformer
-     */
-    private $transformer;
+    private Transformer $transformer;
     /**
      * ImmutableTransformer constructor.
      *
@@ -42,7 +39,7 @@ class ImmutableTransformer implements Transformer
      * @return Transformer
      * @throws TransformerException
      */
-    public static function fromCallables(array $factories, array $middlewares = []): Transformer
+    public static function fromCallables(array $factories, array $middlewares = []) : Transformer
     {
         return new self($factories, $middlewares);
     }

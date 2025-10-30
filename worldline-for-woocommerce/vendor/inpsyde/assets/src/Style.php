@@ -19,21 +19,20 @@ class Style extends \Inpsyde\Assets\BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @link https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#attr-media
      *
-     * @var string
      */
-    protected $media = 'all';
+    protected string $media = 'all';
     /**
      * @var string[]|null
      */
-    protected $inlineStyles = null;
+    protected ?array $inlineStyles = null;
     /**
      * @var array<string, array<string, string>>
      */
-    protected $cssVars = [];
+    protected array $cssVars = [];
     /**
      * @return string
      */
-    public function media(): string
+    public function media() : string
     {
         return $this->media;
     }
@@ -42,7 +41,7 @@ class Style extends \Inpsyde\Assets\BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function forMedia(string $media): \Inpsyde\Assets\Style
+    public function forMedia(string $media) : \Inpsyde\Assets\Style
     {
         $this->media = $media;
         return $this;
@@ -50,7 +49,7 @@ class Style extends \Inpsyde\Assets\BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return string[]|null
      */
-    public function inlineStyles(): ?array
+    public function inlineStyles() : ?array
     {
         return $this->inlineStyles;
     }
@@ -61,7 +60,7 @@ class Style extends \Inpsyde\Assets\BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @see https://codex.wordpress.org/Function_Reference/wp_add_inline_style
      */
-    public function withInlineStyles(string $inline): \Inpsyde\Assets\Style
+    public function withInlineStyles(string $inline) : \Inpsyde\Assets\Style
     {
         if (!$this->inlineStyles) {
             $this->inlineStyles = [];
@@ -83,13 +82,13 @@ class Style extends \Inpsyde\Assets\BaseAsset implements \Inpsyde\Assets\Asset
      * @example Style::withCssVars('.some-element', ['--white' => '#fff']);
      * @example Style::withCssVars('.some-element', ['white' => '#fff']);
      */
-    public function withCssVars(string $element, array $vars): \Inpsyde\Assets\Style
+    public function withCssVars(string $element, array $vars) : \Inpsyde\Assets\Style
     {
         if (!isset($this->cssVars[$element])) {
             $this->cssVars[$element] = [];
         }
         foreach ($vars as $key => $value) {
-            $key = substr($key, 0, 2) === '--' ? $key : '--' . $key;
+            $key = \substr($key, 0, 2) === '--' ? $key : '--' . $key;
             $this->cssVars[$element][$key] = $value;
         }
         return $this;
@@ -97,22 +96,22 @@ class Style extends \Inpsyde\Assets\BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return array<string, array<string, string>>
      */
-    public function cssVars(): array
+    public function cssVars() : array
     {
         return $this->cssVars;
     }
     /**
      * @return string
      */
-    public function cssVarsAsString(): string
+    public function cssVarsAsString() : string
     {
         $return = '';
         foreach ($this->cssVars() as $element => $vars) {
             $values = '';
             foreach ($vars as $key => $value) {
-                $values .= sprintf('%1$s:%2$s;', $key, $value);
+                $values .= \sprintf('%1$s:%2$s;', $key, $value);
             }
-            $return .= sprintf('%1$s{%2$s}', $element, $values);
+            $return .= \sprintf('%1$s{%2$s}', $element, $values);
         }
         return $return;
     }
@@ -121,14 +120,14 @@ class Style extends \Inpsyde\Assets\BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function useAsyncFilter(): \Inpsyde\Assets\Style
+    public function useAsyncFilter() : \Inpsyde\Assets\Style
     {
         return $this->withFilters(AsyncStyleOutputFilter::class);
     }
     /**
      * {@inheritDoc}
      */
-    protected function defaultHandler(): string
+    protected function defaultHandler() : string
     {
         return StyleHandler::class;
     }

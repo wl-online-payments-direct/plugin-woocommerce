@@ -36,13 +36,13 @@ class WcOrderBasedOrderFactory implements WcOrderBasedOrderFactoryInterface
     /**
      * @throws TransformerException
      */
-    public function create(WC_Order $wcOrder): Order
+    public function create(WC_Order $wcOrder) : Order
     {
         $amountOfMoney = $this->transformer->create(AmountOfMoney::class, new WcPriceStruct((string) $wcOrder->get_total(), $wcOrder->get_currency()));
         $wlopOrder = new Order();
         $wlopOrder->setAmountOfMoney($amountOfMoney);
         if ($this->sendShoppingCart) {
-            $lineItems = array_map(function (WC_Order_Item_Product $lineItem): LineItem {
+            $lineItems = \array_map(function (WC_Order_Item_Product $lineItem) : LineItem {
                 return $this->transformer->create(LineItem::class, $lineItem);
             }, $wcOrder->get_items());
             $shoppingCart = new ShoppingCart();

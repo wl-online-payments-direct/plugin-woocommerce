@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentStatusOutput extends DataObject
 {
@@ -15,37 +15,30 @@ class PaymentStatusOutput extends DataObject
      * @var APIError[]
      */
     public $errors = null;
-
     /**
      * @var bool
      */
     public $isAuthorized = null;
-
     /**
      * @var bool
      */
     public $isCancellable = null;
-
     /**
      * @var bool
      */
     public $isRefundable = null;
-
     /**
      * @var string
      */
     public $statusCategory = null;
-
     /**
      * @var int
      */
     public $statusCode = null;
-
     /**
      * @var string
      */
     public $statusCodeChangeDateTime = null;
-
     /**
      * @return APIError[]
      */
@@ -53,7 +46,6 @@ class PaymentStatusOutput extends DataObject
     {
         return $this->errors;
     }
-
     /**
      * @param APIError[]
      */
@@ -61,7 +53,6 @@ class PaymentStatusOutput extends DataObject
     {
         $this->errors = $value;
     }
-
     /**
      * @return bool
      */
@@ -69,7 +60,6 @@ class PaymentStatusOutput extends DataObject
     {
         return $this->isAuthorized;
     }
-
     /**
      * @param bool
      */
@@ -77,7 +67,6 @@ class PaymentStatusOutput extends DataObject
     {
         $this->isAuthorized = $value;
     }
-
     /**
      * @return bool
      */
@@ -85,7 +74,6 @@ class PaymentStatusOutput extends DataObject
     {
         return $this->isCancellable;
     }
-
     /**
      * @param bool
      */
@@ -93,7 +81,6 @@ class PaymentStatusOutput extends DataObject
     {
         $this->isCancellable = $value;
     }
-
     /**
      * @return bool
      */
@@ -101,7 +88,6 @@ class PaymentStatusOutput extends DataObject
     {
         return $this->isRefundable;
     }
-
     /**
      * @param bool
      */
@@ -109,7 +95,6 @@ class PaymentStatusOutput extends DataObject
     {
         $this->isRefundable = $value;
     }
-
     /**
      * @return string
      */
@@ -117,7 +102,6 @@ class PaymentStatusOutput extends DataObject
     {
         return $this->statusCategory;
     }
-
     /**
      * @param string
      */
@@ -125,7 +109,6 @@ class PaymentStatusOutput extends DataObject
     {
         $this->statusCategory = $value;
     }
-
     /**
      * @return int
      */
@@ -133,7 +116,6 @@ class PaymentStatusOutput extends DataObject
     {
         return $this->statusCode;
     }
-
     /**
      * @param int
      */
@@ -141,7 +123,6 @@ class PaymentStatusOutput extends DataObject
     {
         $this->statusCode = $value;
     }
-
     /**
      * @return string
      */
@@ -149,7 +130,6 @@ class PaymentStatusOutput extends DataObject
     {
         return $this->statusCodeChangeDateTime;
     }
-
     /**
      * @param string
      */
@@ -157,42 +137,40 @@ class PaymentStatusOutput extends DataObject
     {
         $this->statusCodeChangeDateTime = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->errors)) {
+        if (!\is_null($this->errors)) {
             $object->errors = [];
             foreach ($this->errors as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->errors[] = $element->toObject();
                 }
             }
         }
-        if (!is_null($this->isAuthorized)) {
+        if (!\is_null($this->isAuthorized)) {
             $object->isAuthorized = $this->isAuthorized;
         }
-        if (!is_null($this->isCancellable)) {
+        if (!\is_null($this->isCancellable)) {
             $object->isCancellable = $this->isCancellable;
         }
-        if (!is_null($this->isRefundable)) {
+        if (!\is_null($this->isRefundable)) {
             $object->isRefundable = $this->isRefundable;
         }
-        if (!is_null($this->statusCategory)) {
+        if (!\is_null($this->statusCategory)) {
             $object->statusCategory = $this->statusCategory;
         }
-        if (!is_null($this->statusCode)) {
+        if (!\is_null($this->statusCode)) {
             $object->statusCode = $this->statusCode;
         }
-        if (!is_null($this->statusCodeChangeDateTime)) {
+        if (!\is_null($this->statusCodeChangeDateTime)) {
             $object->statusCodeChangeDateTime = $this->statusCodeChangeDateTime;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -201,9 +179,9 @@ class PaymentStatusOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'errors')) {
-            if (!is_array($object->errors) && !is_object($object->errors)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->errors, true) . '\' is not an array or object');
+        if (\property_exists($object, 'errors')) {
+            if (!\is_array($object->errors) && !\is_object($object->errors)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->errors, \true) . '\' is not an array or object');
             }
             $this->errors = [];
             foreach ($object->errors as $element) {
@@ -211,22 +189,22 @@ class PaymentStatusOutput extends DataObject
                 $this->errors[] = $value->fromObject($element);
             }
         }
-        if (property_exists($object, 'isAuthorized')) {
+        if (\property_exists($object, 'isAuthorized')) {
             $this->isAuthorized = $object->isAuthorized;
         }
-        if (property_exists($object, 'isCancellable')) {
+        if (\property_exists($object, 'isCancellable')) {
             $this->isCancellable = $object->isCancellable;
         }
-        if (property_exists($object, 'isRefundable')) {
+        if (\property_exists($object, 'isRefundable')) {
             $this->isRefundable = $object->isRefundable;
         }
-        if (property_exists($object, 'statusCategory')) {
+        if (\property_exists($object, 'statusCategory')) {
             $this->statusCategory = $object->statusCategory;
         }
-        if (property_exists($object, 'statusCode')) {
+        if (\property_exists($object, 'statusCode')) {
             $this->statusCode = $object->statusCode;
         }
-        if (property_exists($object, 'statusCodeChangeDateTime')) {
+        if (\property_exists($object, 'statusCodeChangeDateTime')) {
             $this->statusCodeChangeDateTime = $object->statusCodeChangeDateTime;
         }
         return $this;

@@ -21,7 +21,7 @@ interface ValidationFailedExceptionInterface extends Throwable
      *
      * @throws Exception If problem retrieving.
      */
-    public function getValidationErrors(): iterable;
+    public function getValidationErrors() : iterable;
     /**
      * Returns the subject, the validation for which failed.
      *

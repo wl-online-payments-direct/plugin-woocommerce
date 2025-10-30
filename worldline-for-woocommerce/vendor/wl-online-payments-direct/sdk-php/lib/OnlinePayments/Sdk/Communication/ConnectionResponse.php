@@ -1,25 +1,22 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 /**
  * Class ConnectionResponse
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
+ * @package OnlinePayments\Sdk\Communication
  */
 class ConnectionResponse implements ConnectionResponseInterface
 {
     /** @var int */
     private $httpStatusCode;
-
     /** @var array */
     private $headers;
-
     /** @var array */
     private $lowerCasedHeaderKeyMap;
-
     /** @var string */
     private $body;
-
     /**
      * @param int $httpStatusCode
      * @param array $headers
@@ -30,12 +27,11 @@ class ConnectionResponse implements ConnectionResponseInterface
         $this->httpStatusCode = $httpStatusCode;
         $this->headers = $headers;
         $this->lowerCasedHeaderKeyMap = array();
-        foreach (array_keys($headers) as $headerKey) {
-            $this->lowerCasedHeaderKeyMap[strtolower($headerKey)] = $headerKey;
+        foreach (\array_keys($headers) as $headerKey) {
+            $this->lowerCasedHeaderKeyMap[\strtolower($headerKey)] = $headerKey;
         }
         $this->body = $body;
     }
-
     /**
      * @return int
      */
@@ -43,7 +39,6 @@ class ConnectionResponse implements ConnectionResponseInterface
     {
         return $this->httpStatusCode;
     }
-
     /**
      * @return array
      */
@@ -51,20 +46,18 @@ class ConnectionResponse implements ConnectionResponseInterface
     {
         return $this->headers;
     }
-
     /**
      * @param string $name
      * @return string|array
      */
     public function getHeaderValue($name)
     {
-        $lowerCasedName = strtolower($name);
-        if (array_key_exists($lowerCasedName, $this->lowerCasedHeaderKeyMap)) {
+        $lowerCasedName = \strtolower($name);
+        if (\array_key_exists($lowerCasedName, $this->lowerCasedHeaderKeyMap)) {
             return $this->headers[$this->lowerCasedHeaderKeyMap[$lowerCasedName]];
         }
         return '';
     }
-
     /**
      * @return string
      */
@@ -72,7 +65,6 @@ class ConnectionResponse implements ConnectionResponseInterface
     {
         return $this->body;
     }
-
     /**
      * @param array $headers
      * @return string|null The value of the filename parameter of the Content-Disposition header from the given headers,
@@ -81,9 +73,8 @@ class ConnectionResponse implements ConnectionResponseInterface
     public static function getDispositionFilename($headers)
     {
         $headerValue = null;
-        foreach ($headers as $key => $value)
-        {
-            if (strtolower($key) === 'content-disposition') {
+        foreach ($headers as $key => $value) {
+            if (\strtolower($key) === 'content-disposition') {
                 $headerValue = $value;
                 break;
             }
@@ -91,22 +82,20 @@ class ConnectionResponse implements ConnectionResponseInterface
         if (!$headerValue) {
             return null;
         }
-        if (preg_match('/(?i)(?:^|;)\s*fileName\s*=\s*(.*?)\s*(?:;|$)/', $headerValue, $matches)) {
+        if (\preg_match('/(?i)(?:^|;)\\s*fileName\\s*=\\s*(.*?)\\s*(?:;|$)/', $headerValue, $matches)) {
             $filename = $matches[1];
             return self::trimQuotes($filename);
         }
         return null;
     }
-
     private static function trimQuotes($filename)
     {
-        $len = strlen($filename);
+        $len = \strlen($filename);
         if ($len < 2) {
             return $filename;
         }
-        if ((strrpos($filename, '"', -$len) === 0 && strpos($filename, '"', $len - 1) === $len - 1)
-            || (strrpos($filename, "'", -$len) === 0 && strpos($filename, "'", $len - 1) === $len - 1)) {
-            return substr($filename, 1, $len - 2);
+        if (\strrpos($filename, '"', -$len) === 0 && \strpos($filename, '"', $len - 1) === $len - 1 || \strrpos($filename, "'", -$len) === 0 && \strpos($filename, "'", $len - 1) === $len - 1) {
+            return \substr($filename, 1, $len - 2);
         }
         return $filename;
     }

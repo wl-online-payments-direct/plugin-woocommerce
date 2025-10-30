@@ -5,7 +5,7 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Utils;
 
 interface LockerInterface
 {
-    public function lock(): bool;
-    public function unlock(): bool;
-    public function isLocked(): bool;
+    public function lock() : bool;
+    public function unlock() : bool;
+    public function isLocked() : bool;
 }

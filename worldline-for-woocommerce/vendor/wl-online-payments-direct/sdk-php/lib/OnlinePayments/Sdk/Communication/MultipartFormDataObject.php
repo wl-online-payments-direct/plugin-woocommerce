@@ -1,28 +1,24 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 
 use UnexpectedValueException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\UploadableFile;
-
 /**
  * Class MultipartFormDataObject
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication
+ * @package OnlinePayments\Sdk\Communication
  */
 class MultipartFormDataObject
 {
     /** @var string */
     private $boundary;
-
     /** @var string */
     private $contentType;
-
     /** @var array */
     private $values;
-
     /** @var array */
     private $files;
-
     public function __construct()
     {
         $this->boundary = UuidGenerator::generatedUuid();
@@ -30,7 +26,6 @@ class MultipartFormDataObject
         $this->values = [];
         $this->files = [];
     }
-
     /**
      * @return string
      */
@@ -38,7 +33,6 @@ class MultipartFormDataObject
     {
         return $this->boundary;
     }
-
     /**
      * @return string
      */
@@ -46,7 +40,6 @@ class MultipartFormDataObject
     {
         return $this->contentType;
     }
-
     /**
      * @return array
      */
@@ -54,7 +47,6 @@ class MultipartFormDataObject
     {
         return $this->values;
     }
-
     /**
      * @return array
      */
@@ -62,35 +54,33 @@ class MultipartFormDataObject
     {
         return $this->files;
     }
-
     /**
      * @param string $parameterName
      * @param string $value
      */
     public function addValue($parameterName, $value)
     {
-        if (is_null($parameterName) || strlen(trim($parameterName)) == 0) {
+        if (\is_null($parameterName) || \strlen(\trim($parameterName)) == 0) {
             throw new UnexpectedValueException("boundary is required");
         }
-        if (is_null($value)) {
+        if (\is_null($value)) {
             throw new UnexpectedValueException("value is required");
         }
-        if (array_key_exists($parameterName, $this->values) || array_key_exists($parameterName, $this->files)) {
+        if (\array_key_exists($parameterName, $this->values) || \array_key_exists($parameterName, $this->files)) {
             throw new UnexpectedValueException('Duplicate parameter name: ' . $parameterName);
         }
         $this->values[$parameterName] = $value;
     }
-
     /**
      * @param string $parameterName
      * @param UploadableFile $file
      */
     public function addFile($parameterName, UploadableFile $file)
     {
-        if (is_null($parameterName) || strlen(trim($parameterName)) == 0) {
+        if (\is_null($parameterName) || \strlen(\trim($parameterName)) == 0) {
             throw new UnexpectedValueException("boundary is required");
         }
-        if (array_key_exists($parameterName, $this->values) || array_key_exists($parameterName, $this->files)) {
+        if (\array_key_exists($parameterName, $this->values) || \array_key_exists($parameterName, $this->files)) {
             throw new UnexpectedValueException('Duplicate parameter name: ' . $parameterName);
         }
         $this->files[$parameterName] = $file;

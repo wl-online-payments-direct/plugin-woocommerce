@@ -6,10 +6,7 @@ namespace Syde\Vendor\Worldline\Inpsyde\Logger\Formatter;
 use Throwable;
 class ExceptionFormatter implements ObjectFormatterInterface
 {
-    /**
-     * @var bool
-     */
-    private $logExceptionBacktrace;
+    private bool $logExceptionBacktrace;
     public function __construct(bool $logExceptionBacktrace)
     {
         $this->logExceptionBacktrace = $logExceptionBacktrace;
@@ -22,9 +19,9 @@ class ExceptionFormatter implements ObjectFormatterInterface
      *
      * @return string
      */
-    public function format(object $object): string
+    public function format(object $object) : string
     {
-        assert($object instanceof Throwable);
+        \assert($object instanceof Throwable);
         $messages = [];
         do {
             $previous = $object->getPrevious();
@@ -33,7 +30,7 @@ class ExceptionFormatter implements ObjectFormatterInterface
         } while ($previous instanceof Throwable);
         return $this->formatMessages($messages);
     }
-    public function formatSingleException(Throwable $throwable): string
+    public function formatSingleException(Throwable $throwable) : string
     {
         return $this->logExceptionBacktrace ? $this->formatFullExceptionTrace($throwable) : $this->formatShortExceptionTrace($throwable);
     }
@@ -44,9 +41,9 @@ class ExceptionFormatter implements ObjectFormatterInterface
      *
      * @return string
      */
-    private function formatShortExceptionTrace(Throwable $exception): string
+    private function formatShortExceptionTrace(Throwable $exception) : string
     {
-        return sprintf('%1$s: %2$s in %3$s:%4$d', get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine());
+        return \sprintf('%1$s: %2$s in %3$s:%4$d', \get_class($exception), $exception->getMessage(), $exception->getFile(), $exception->getLine());
     }
     /**
      * Returns the full exception trace by string casting
@@ -55,9 +52,9 @@ class ExceptionFormatter implements ObjectFormatterInterface
      *
      * @return string
      */
-    private function formatFullExceptionTrace(Throwable $exception): string
+    private function formatFullExceptionTrace(Throwable $exception) : string
     {
-        return sprintf('%1$s%2$s%3$s', $this->formatShortExceptionTrace($exception), \PHP_EOL, $exception->getTraceAsString());
+        return \sprintf('%1$s%2$s%3$s', $this->formatShortExceptionTrace($exception), \PHP_EOL, $exception->getTraceAsString());
     }
     /**
      * Combine messages into a single string.
@@ -65,8 +62,8 @@ class ExceptionFormatter implements ObjectFormatterInterface
      * @param string[] $messages
      * @return string
      */
-    protected function formatMessages(array $messages): string
+    protected function formatMessages(array $messages) : string
     {
-        return implode(\PHP_EOL . 'Previous:' . \PHP_EOL, $messages);
+        return \implode(\PHP_EOL . 'Previous:' . \PHP_EOL, $messages);
     }
 }

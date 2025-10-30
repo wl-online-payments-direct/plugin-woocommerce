@@ -38,14 +38,14 @@ class ValidationFailedException extends RuntimeException implements ValidationFa
     /**
      * @inheritDoc
      */
-    public function getValidator(): ValidatorInterface
+    public function getValidator() : ValidatorInterface
     {
         return $this->validator;
     }
     /**
      * @inheritDoc
      */
-    public function getValidationErrors(): iterable
+    public function getValidationErrors() : iterable
     {
         return $this->errors;
     }

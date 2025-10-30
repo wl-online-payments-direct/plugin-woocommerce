@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ReattemptInstructions extends DataObject
 {
@@ -15,17 +15,14 @@ class ReattemptInstructions extends DataObject
      * @var ReattemptInstructionsConditions
      */
     public $conditions = null;
-
     /**
      * @var int
      */
     public $frozenPeriod = null;
-
     /**
      * @var string
      */
     public $indicator = null;
-
     /**
      * @return ReattemptInstructionsConditions
      */
@@ -33,7 +30,6 @@ class ReattemptInstructions extends DataObject
     {
         return $this->conditions;
     }
-
     /**
      * @param ReattemptInstructionsConditions
      */
@@ -41,7 +37,6 @@ class ReattemptInstructions extends DataObject
     {
         $this->conditions = $value;
     }
-
     /**
      * @return int
      */
@@ -49,7 +44,6 @@ class ReattemptInstructions extends DataObject
     {
         return $this->frozenPeriod;
     }
-
     /**
      * @param int
      */
@@ -57,7 +51,6 @@ class ReattemptInstructions extends DataObject
     {
         $this->frozenPeriod = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +58,6 @@ class ReattemptInstructions extends DataObject
     {
         return $this->indicator;
     }
-
     /**
      * @param string
      */
@@ -73,25 +65,23 @@ class ReattemptInstructions extends DataObject
     {
         $this->indicator = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->conditions)) {
+        if (!\is_null($this->conditions)) {
             $object->conditions = $this->conditions->toObject();
         }
-        if (!is_null($this->frozenPeriod)) {
+        if (!\is_null($this->frozenPeriod)) {
             $object->frozenPeriod = $this->frozenPeriod;
         }
-        if (!is_null($this->indicator)) {
+        if (!\is_null($this->indicator)) {
             $object->indicator = $this->indicator;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,17 +90,17 @@ class ReattemptInstructions extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'conditions')) {
-            if (!is_object($object->conditions)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->conditions, true) . '\' is not an object');
+        if (\property_exists($object, 'conditions')) {
+            if (!\is_object($object->conditions)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->conditions, \true) . '\' is not an object');
             }
             $value = new ReattemptInstructionsConditions();
             $this->conditions = $value->fromObject($object->conditions);
         }
-        if (property_exists($object, 'frozenPeriod')) {
+        if (\property_exists($object, 'frozenPeriod')) {
             $this->frozenPeriod = $object->frozenPeriod;
         }
-        if (property_exists($object, 'indicator')) {
+        if (\property_exists($object, 'indicator')) {
             $this->indicator = $object->indicator;
         }
         return $this;

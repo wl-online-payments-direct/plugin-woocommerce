@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Assets package.
  *
@@ -18,11 +19,11 @@ interface AssetHandler
      *
      * @return bool
      */
-    public function register(Asset $asset): bool;
+    public function register(Asset $asset) : bool;
     /**
      * @param Asset $asset
      *
      * @return bool
      */
-    public function enqueue(Asset $asset): bool;
+    public function enqueue(Asset $asset) : bool;
 }

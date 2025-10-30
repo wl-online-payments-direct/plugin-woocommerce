@@ -9,7 +9,7 @@ use WC_Order;
  */
 class WcOrderStatusChecker implements StatusCheckerInterface
 {
-    public function determineStatus(?WC_Order $wcOrder): string
+    public function determineStatus(?WC_Order $wcOrder) : string
     {
         if (!$wcOrder) {
             throw new \Exception('WC order required.');

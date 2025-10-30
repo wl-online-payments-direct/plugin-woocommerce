@@ -6,12 +6,8 @@ namespace Syde\Vendor\Worldline\Inpsyde\Logger;
 use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
 class QueryMonitorLogger extends AbstractLogger
 {
-    /** @var string|null */
-    protected $source;
-    /**
-     * @var string|null
-     */
-    protected $version;
+    protected ?string $source = null;
+    protected ?string $version = null;
     public function __construct(ObjectFormatterInterface $formatter, ?string $source, ?string $version, bool $isDebug)
     {
         $this->source = $source;
@@ -21,22 +17,22 @@ class QueryMonitorLogger extends AbstractLogger
     /**
      * @inheritDoc
      */
-    protected function writeToLog(string $level, string $message, array $context = []): void
+    protected function writeToLog(string $level, string $message, array $context = []) : void
     {
         $action = $this->levelToActionName($level);
-        do_action($action, $message, $context);
+        \do_action($action, $message, $context);
     }
     /**
      * @inheritDoc
      */
-    protected function getSource(): ?string
+    protected function getSource() : ?string
     {
         return $this->source;
     }
     /**
      * @inheritDoc
      */
-    protected function getVersion(): ?string
+    protected function getVersion() : ?string
     {
         return $this->version;
     }
@@ -47,8 +43,8 @@ class QueryMonitorLogger extends AbstractLogger
      *
      * @return string Action name, one of described {@link https://querymonitor.com/blog/2018/07/profiling-and-logging}.
      */
-    protected function levelToActionName(string $level): string
+    protected function levelToActionName(string $level) : string
     {
-        return sprintf('qm/%1$s', $level);
+        return \sprintf('qm/%1$s', $level);
     }
 }

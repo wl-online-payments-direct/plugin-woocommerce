@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class ValidateCredentialsResponse extends DataObject
 {
@@ -15,7 +15,6 @@ class ValidateCredentialsResponse extends DataObject
      * @var string
      */
     public $result = null;
-
     /**
      * @return string
      */
@@ -23,7 +22,6 @@ class ValidateCredentialsResponse extends DataObject
     {
         return $this->result;
     }
-
     /**
      * @param string
      */
@@ -31,19 +29,17 @@ class ValidateCredentialsResponse extends DataObject
     {
         $this->result = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->result)) {
+        if (!\is_null($this->result)) {
             $object->result = $this->result;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -52,7 +48,7 @@ class ValidateCredentialsResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'result')) {
+        if (\property_exists($object, 'result')) {
             $this->result = $object->result;
         }
         return $this;

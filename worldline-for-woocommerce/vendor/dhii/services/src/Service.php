@@ -46,7 +46,7 @@ abstract class Service
      * @return array<string|callable> A list containing a mix of callable definitions and string keys.
      * @psalm-return ServiceRef[]
      */
-    public function getDependencies(): array
+    public function getDependencies() : array
     {
         return $this->dependencies;
     }
@@ -72,14 +72,14 @@ abstract class Service
      *
      * @throws RuntimeException If problem retrieving.
      */
-    public static function fromFile(string $path): Service
+    public static function fromFile(string $path) : Service
     {
-        if (!is_file($path) || !is_readable($path)) {
-            throw new RuntimeException(sprintf('Service file "%1$s" is not a file or is not readable', $path));
+        if (!\is_file($path) || !\is_readable($path)) {
+            throw new RuntimeException(\sprintf('Service file "%1$s" is not a file or is not readable', $path));
         }
-        $definition = require $path;
+        $definition = (require $path);
         if (!$definition instanceof Service) {
-            throw new UnexpectedValueException(sprintf('Service file "%1$s" does not contain a valid service', $path));
+            throw new UnexpectedValueException(\sprintf('Service file "%1$s" does not contain a valid service', $path));
         }
         return $definition;
     }
@@ -90,5 +90,5 @@ abstract class Service
      *
      * @return mixed The created service value.
      */
-    abstract public function __invoke(ContainerInterface $c);
+    public abstract function __invoke(ContainerInterface $c);
 }

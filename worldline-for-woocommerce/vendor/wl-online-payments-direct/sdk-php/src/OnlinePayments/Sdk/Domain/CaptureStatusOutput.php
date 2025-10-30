@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CaptureStatusOutput extends DataObject
 {
@@ -15,7 +15,6 @@ class CaptureStatusOutput extends DataObject
      * @var int
      */
     public $statusCode = null;
-
     /**
      * @return int
      */
@@ -23,7 +22,6 @@ class CaptureStatusOutput extends DataObject
     {
         return $this->statusCode;
     }
-
     /**
      * @param int
      */
@@ -31,19 +29,17 @@ class CaptureStatusOutput extends DataObject
     {
         $this->statusCode = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->statusCode)) {
+        if (!\is_null($this->statusCode)) {
             $object->statusCode = $this->statusCode;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -52,7 +48,7 @@ class CaptureStatusOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'statusCode')) {
+        if (\property_exists($object, 'statusCode')) {
             $this->statusCode = $object->statusCode;
         }
         return $this;

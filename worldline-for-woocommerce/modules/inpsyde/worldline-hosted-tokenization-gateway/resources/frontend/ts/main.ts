@@ -256,6 +256,9 @@ addEventListener( 'DOMContentLoaded', () => {
 			'wlop_hosted_tokenization_id',
 			'wlop_screen_height',
 			'wlop_screen_width',
+			'wlop_color_depth',
+			'wlop_java_enabled',
+			'wlop_timezone_offset',
 		].forEach( ( name ) => {
 			document.querySelector( `[name="${ name }"]` )?.remove();
 		} );
@@ -309,6 +312,23 @@ addEventListener( 'DOMContentLoaded', () => {
 				placeOrderButton.insertAdjacentHTML(
 					'afterend',
 					`<input type="hidden" name="wlop_screen_width" value="${ window.screen.width }"/>`
+				);
+
+				placeOrderButton.insertAdjacentHTML(
+					'afterend',
+					`<input type="hidden" name="wlop_color_depth" value="${ window.screen.colorDepth }"/>`
+				);
+
+				const javaEnabled = navigator.javaEnabled() ? 'true' : 'false';
+				placeOrderButton.insertAdjacentHTML(
+					'afterend',
+					`<input type="hidden" name="wlop_java_enabled" value="${ javaEnabled }"/>`
+				);
+
+				const timezoneOffset = new Date().getTimezoneOffset();
+				placeOrderButton.insertAdjacentHTML(
+					'afterend',
+					`<input type="hidden" name="wlop_timezone_offset" value="${ timezoneOffset }"/>`
 				);
 
 				canSubmit = true;

@@ -1,15 +1,3 @@
-# [2.7.0](https://github.com/inpsyde/payment-gateway/compare/2.6.0...2.7.0) (2025-04-02)
-
-
-### Bug Fixes
-
-* Add id in ContentField ([a3747d9](https://github.com/inpsyde/payment-gateway/commit/a3747d90f9b804598158289434f41a2f8b32ef1b))
-
-
-### Features
-
-* Add render_directly option in ContentField ([6becaaf](https://github.com/inpsyde/payment-gateway/commit/6becaaf304cbe676f648f40b769ceccdfb8b36a6))
-
 # [2.6.0](https://github.com/inpsyde/payment-gateway/compare/2.5.0...2.6.0) (2025-03-14)
 
 

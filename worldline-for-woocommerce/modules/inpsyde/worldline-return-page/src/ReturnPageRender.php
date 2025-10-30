@@ -5,7 +5,7 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ReturnPage;
 
 class ReturnPageRender implements ReturnPageRenderInterface
 {
-    public function render(array $parameters): string
+    public function render(array $parameters) : string
     {
         $message = '';
         if (!empty($parameters['message'])) {

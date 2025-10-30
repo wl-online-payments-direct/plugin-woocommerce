@@ -25,7 +25,7 @@ class AutoCaptureHandler
         $this->captureMode = $captureMode;
         $this->apiClient = $apiClient;
     }
-    public function execute(): void
+    public function execute() : void
     {
         $wcOrders = $this->queryCapturableOrders();
         if (empty($wcOrders)) {
@@ -38,17 +38,17 @@ class AutoCaptureHandler
             try {
                 $this->capture($wcOrder);
             } catch (Exception $exception) {
-                do_action('wlop.auto_capture_failed', ['wcOrderId' => $wcOrder->get_id(), 'exception' => $exception]);
+                \do_action('wlop.auto_capture_failed', ['wcOrderId' => $wcOrder->get_id(), 'exception' => $exception]);
             }
         }
     }
-    protected function captureDateTimeReached(WC_Order $wcOrder): bool
+    protected function captureDateTimeReached(WC_Order $wcOrder) : bool
     {
         $captureDateTime = $this->expectedCaptureDateTime($wcOrder);
         $now = new DateTime('now');
         return $now >= $captureDateTime;
     }
-    protected function orderDateTime(WC_Order $wcOrder): ?DateTimeImmutable
+    protected function orderDateTime(WC_Order $wcOrder) : ?DateTimeImmutable
     {
         $timestamp = $wcOrder->get_meta(OrderMetaKeys::CREATION_TIME);
         if (!$timestamp) {
@@ -58,9 +58,9 @@ class AutoCaptureHandler
             }
             return DateTimeImmutable::createFromMutable($wcOrderDateTime);
         }
-        return (new DateTimeImmutable("@{$timestamp}"))->setTimezone(wp_timezone());
+        return (new DateTimeImmutable("@{$timestamp}"))->setTimezone(\wp_timezone());
     }
-    protected function expectedCaptureDateTime(WC_Order $wcOrder): DateTimeImmutable
+    protected function expectedCaptureDateTime(WC_Order $wcOrder) : DateTimeImmutable
     {
         $orderDate = $this->orderDateTime($wcOrder);
         if (!$orderDate) {
@@ -76,11 +76,11 @@ class AutoCaptureHandler
             case CaptureMode::AFTER_5D:
             case CaptureMode::AFTER_6D:
             case CaptureMode::AFTER_7D:
-                return $orderDate->add(new DateInterval('P' . strtoupper($this->captureMode)));
+                return $orderDate->add(new DateInterval('P' . \strtoupper($this->captureMode)));
         }
         return $orderDate->add(new DateInterval('P999Y'));
     }
-    protected function capture(WC_Order $wcOrder): void
+    protected function capture(WC_Order $wcOrder) : void
     {
         $wlopWcOrder = new WlopWcOrder($wcOrder);
         $transactionId = (string) $wcOrder->get_meta(OrderMetaKeys::TRANSACTION_ID);
@@ -90,14 +90,14 @@ class AutoCaptureHandler
         $capturePaymentRequest->setAmount($captureAmount->getAmount());
         $this->apiClient->payments()->capturePayment($transactionId, $capturePaymentRequest);
         $wcOrder->update_meta_data(OrderMetaKeys::AUTO_CAPTURE_SENT, 'yes');
-        $wlopWcOrder->addWorldlineOrderNote(__('Automatic fund capture request is submitted. You will receive a notification in the order notes upon completion.', 'worldline-for-woocommerce'));
+        $wlopWcOrder->addWorldlineOrderNote(\__('Automatic fund capture request is submitted. You will receive a notification in the order notes upon completion.', 'worldline-for-woocommerce'));
         $wcOrder->save();
     }
     /**
      * @return WC_Order[]
      * phpcs:disable Inpsyde.CodeQuality.NestingLevel.High
      */
-    protected function queryCapturableOrders(): array
+    protected function queryCapturableOrders() : array
     {
         $query = ['status' => ['wc-on-hold'], 'payment_method' => GatewayIds::ALL, 'orderby' => 'date', 'limit' => '20'];
         $metaQuery = [['key' => OrderMetaKeys::MANUAL_CAPTURE_SENT, 'compare' => 'NOT EXISTS'], ['key' => OrderMetaKeys::AUTO_CAPTURE_SENT, 'compare' => 'NOT EXISTS'], ['key' => OrderMetaKeys::TRANSACTION_STATUS_CODE, 'compare' => 'IN', 'value' => [5, 56]]];
@@ -106,7 +106,7 @@ class AutoCaptureHandler
         } else {
             // phpcs:ignore Inpsyde.CodeQuality.NoElse.ElseFound
             $query['wlop_meta_query'] = $metaQuery;
-            add_filter(
+            \add_filter(
                 'woocommerce_order_data_store_cpt_get_orders_query',
                 /**
                  * @param array $query - Args for WP_Query.
@@ -116,7 +116,7 @@ class AutoCaptureHandler
                  */
                 static function ($query, $queryVars) {
                     if (!empty($queryVars['wlop_meta_query'])) {
-                        $query['meta_query'] = array_merge($query['meta_query'], $queryVars['wlop_meta_query']);
+                        $query['meta_query'] = \array_merge($query['meta_query'], $queryVars['wlop_meta_query']);
                     }
                     return $query;
                 },
@@ -124,8 +124,8 @@ class AutoCaptureHandler
                 2
             );
         }
-        $result = wc_get_orders($query);
-        assert(is_array($result));
+        $result = \wc_get_orders($query);
+        \assert(\is_array($result));
         return $result;
     }
 }

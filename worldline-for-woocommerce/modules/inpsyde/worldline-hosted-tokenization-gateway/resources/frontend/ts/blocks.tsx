@@ -131,6 +131,12 @@ addEventListener( 'DOMContentLoaded', () => {
 										window.screen.height.toString(),
 									wlop_screen_width:
 										window.screen.width.toString(),
+									wlop_color_depth:
+										window.screen.colorDepth.toString(),
+									wlop_java_enabled:
+										navigator.javaEnabled().toString(),
+									wlop_timezone_offset:
+										new Date().getTimezoneOffset().toString()
 								},
 							},
 						};

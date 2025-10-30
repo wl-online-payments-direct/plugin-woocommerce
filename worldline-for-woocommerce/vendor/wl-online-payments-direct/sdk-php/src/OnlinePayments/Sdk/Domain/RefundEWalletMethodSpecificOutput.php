@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class RefundEWalletMethodSpecificOutput extends DataObject
 {
@@ -15,17 +15,14 @@ class RefundEWalletMethodSpecificOutput extends DataObject
      * @var RefundPaymentProduct840SpecificOutput
      */
     public $paymentProduct840SpecificOutput = null;
-
     /**
      * @var int
      */
     public $totalAmountPaid = null;
-
     /**
      * @var int
      */
     public $totalAmountRefunded = null;
-
     /**
      * @return RefundPaymentProduct840SpecificOutput
      */
@@ -33,7 +30,6 @@ class RefundEWalletMethodSpecificOutput extends DataObject
     {
         return $this->paymentProduct840SpecificOutput;
     }
-
     /**
      * @param RefundPaymentProduct840SpecificOutput
      */
@@ -41,7 +37,6 @@ class RefundEWalletMethodSpecificOutput extends DataObject
     {
         $this->paymentProduct840SpecificOutput = $value;
     }
-
     /**
      * @return int
      */
@@ -49,7 +44,6 @@ class RefundEWalletMethodSpecificOutput extends DataObject
     {
         return $this->totalAmountPaid;
     }
-
     /**
      * @param int
      */
@@ -57,7 +51,6 @@ class RefundEWalletMethodSpecificOutput extends DataObject
     {
         $this->totalAmountPaid = $value;
     }
-
     /**
      * @return int
      */
@@ -65,7 +58,6 @@ class RefundEWalletMethodSpecificOutput extends DataObject
     {
         return $this->totalAmountRefunded;
     }
-
     /**
      * @param int
      */
@@ -73,25 +65,23 @@ class RefundEWalletMethodSpecificOutput extends DataObject
     {
         $this->totalAmountRefunded = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->paymentProduct840SpecificOutput)) {
+        if (!\is_null($this->paymentProduct840SpecificOutput)) {
             $object->paymentProduct840SpecificOutput = $this->paymentProduct840SpecificOutput->toObject();
         }
-        if (!is_null($this->totalAmountPaid)) {
+        if (!\is_null($this->totalAmountPaid)) {
             $object->totalAmountPaid = $this->totalAmountPaid;
         }
-        if (!is_null($this->totalAmountRefunded)) {
+        if (!\is_null($this->totalAmountRefunded)) {
             $object->totalAmountRefunded = $this->totalAmountRefunded;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,17 +90,17 @@ class RefundEWalletMethodSpecificOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'paymentProduct840SpecificOutput')) {
-            if (!is_object($object->paymentProduct840SpecificOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->paymentProduct840SpecificOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'paymentProduct840SpecificOutput')) {
+            if (!\is_object($object->paymentProduct840SpecificOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct840SpecificOutput, \true) . '\' is not an object');
             }
             $value = new RefundPaymentProduct840SpecificOutput();
             $this->paymentProduct840SpecificOutput = $value->fromObject($object->paymentProduct840SpecificOutput);
         }
-        if (property_exists($object, 'totalAmountPaid')) {
+        if (\property_exists($object, 'totalAmountPaid')) {
             $this->totalAmountPaid = $object->totalAmountPaid;
         }
-        if (property_exists($object, 'totalAmountRefunded')) {
+        if (\property_exists($object, 'totalAmountRefunded')) {
             $this->totalAmountRefunded = $object->totalAmountRefunded;
         }
         return $this;

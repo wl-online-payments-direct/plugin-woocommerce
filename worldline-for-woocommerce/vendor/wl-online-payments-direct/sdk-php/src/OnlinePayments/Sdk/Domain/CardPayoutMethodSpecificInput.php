@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CardPayoutMethodSpecificInput extends DataObject
 {
@@ -15,22 +15,18 @@ class CardPayoutMethodSpecificInput extends DataObject
      * @var Card
      */
     public $card = null;
-
     /**
      * @var int
      */
     public $paymentProductId = null;
-
     /**
      * @var string
      */
     public $payoutReason = null;
-
     /**
      * @var string
      */
     public $token = null;
-
     /**
      * @return Card
      */
@@ -38,7 +34,6 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         return $this->card;
     }
-
     /**
      * @param Card
      */
@@ -46,7 +41,6 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         $this->card = $value;
     }
-
     /**
      * @return int
      */
@@ -54,7 +48,6 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         return $this->paymentProductId;
     }
-
     /**
      * @param int
      */
@@ -62,7 +55,6 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         $this->paymentProductId = $value;
     }
-
     /**
      * @return string
      */
@@ -70,7 +62,6 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         return $this->payoutReason;
     }
-
     /**
      * @param string
      */
@@ -78,7 +69,6 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         $this->payoutReason = $value;
     }
-
     /**
      * @return string
      */
@@ -86,7 +76,6 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         return $this->token;
     }
-
     /**
      * @param string
      */
@@ -94,28 +83,26 @@ class CardPayoutMethodSpecificInput extends DataObject
     {
         $this->token = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->card)) {
+        if (!\is_null($this->card)) {
             $object->card = $this->card->toObject();
         }
-        if (!is_null($this->paymentProductId)) {
+        if (!\is_null($this->paymentProductId)) {
             $object->paymentProductId = $this->paymentProductId;
         }
-        if (!is_null($this->payoutReason)) {
+        if (!\is_null($this->payoutReason)) {
             $object->payoutReason = $this->payoutReason;
         }
-        if (!is_null($this->token)) {
+        if (!\is_null($this->token)) {
             $object->token = $this->token;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,20 +111,20 @@ class CardPayoutMethodSpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'card')) {
-            if (!is_object($object->card)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->card, true) . '\' is not an object');
+        if (\property_exists($object, 'card')) {
+            if (!\is_object($object->card)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->card, \true) . '\' is not an object');
             }
             $value = new Card();
             $this->card = $value->fromObject($object->card);
         }
-        if (property_exists($object, 'paymentProductId')) {
+        if (\property_exists($object, 'paymentProductId')) {
             $this->paymentProductId = $object->paymentProductId;
         }
-        if (property_exists($object, 'payoutReason')) {
+        if (\property_exists($object, 'payoutReason')) {
             $this->payoutReason = $object->payoutReason;
         }
-        if (property_exists($object, 'token')) {
+        if (\property_exists($object, 'token')) {
             $this->token = $object->token;
         }
         return $this;

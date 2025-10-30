@@ -33,19 +33,19 @@ final class AssetFactory
      * phpcs:disable Generic.Metrics.CyclomaticComplexity.TooHigh
      * @psalm-suppress MixedArgument, MixedMethodCall
      */
-    public static function create(array $config): \Inpsyde\Assets\Asset
+    public static function create(array $config) : \Inpsyde\Assets\Asset
     {
         $config = self::validateConfig($config);
         $location = $config['location'] ?? \Inpsyde\Assets\Asset::FRONTEND;
         $handle = $config['handle'];
         $url = $config['url'];
         $class = (string) $config['type'];
-        if (!class_exists($class)) {
-            throw new \Inpsyde\Assets\Exception\InvalidArgumentException(sprintf('The given class "%s" does not exists.', $class));
+        if (!\class_exists($class)) {
+            throw new \Inpsyde\Assets\Exception\InvalidArgumentException(\sprintf('The given class "%s" does not exists.', $class));
         }
         $asset = new $class($handle, $url, $location);
         if (!$asset instanceof \Inpsyde\Assets\Asset) {
-            throw new \Inpsyde\Assets\Exception\InvalidArgumentException(sprintf('The given class "%s" is not implementing %s', $class, \Inpsyde\Assets\Asset::class));
+            throw new \Inpsyde\Assets\Exception\InvalidArgumentException(\sprintf('The given class "%s" is not implementing %s', $class, \Inpsyde\Assets\Asset::class));
         }
         $propertiesToMethod = ['filePath' => 'withFilePath', 'version' => 'withVersion', 'location' => 'forLocation', 'enqueue' => 'canEnqueue', 'handler' => 'useHandler', 'condition' => 'withCondition', 'attributes' => 'withAttributes'];
         if ($asset instanceof \Inpsyde\Assets\Script) {
@@ -59,12 +59,12 @@ final class AssetFactory
             }
             $inFooter = $config['inFooter'] ?? \true;
             $inFooter ? $asset->isInFooter() : $asset->isInHeader();
-            if (!empty($config['inline']['before']) && is_array($config['inline']['before'])) {
+            if (!empty($config['inline']['before']) && \is_array($config['inline']['before'])) {
                 foreach ($config['inline']['before'] as $script) {
                     $asset->prependInlineScript((string) $script);
                 }
             }
-            if (!empty($config['inline']['after']) && is_array($config['inline']['after'])) {
+            if (!empty($config['inline']['after']) && \is_array($config['inline']['after'])) {
                 foreach ($config['inline']['after'] as $script) {
                     $asset->appendInlineScript((string) $script);
                 }
@@ -82,9 +82,9 @@ final class AssetFactory
             $asset->{$methodName}($config[$key]);
         }
         $dependencies = $config['dependencies'] ?? null;
-        if (is_array($dependencies)) {
+        if (\is_array($dependencies)) {
             $asset->withDependencies(...$dependencies);
-        } elseif (is_scalar($dependencies)) {
+        } elseif (\is_scalar($dependencies)) {
             $asset->withDependencies((string) $dependencies);
         }
         return $asset;
@@ -96,7 +96,7 @@ final class AssetFactory
      *
      * @throws Exception\MissingArgumentException
      */
-    private static function validateConfig(array $config): array
+    private static function validateConfig(array $config) : array
     {
         self::ensureRequiredConfigFields($config);
         $config = self::normalizeVersionConfig($config);
@@ -104,16 +104,16 @@ final class AssetFactory
         $config = self::normalizeLocalizeConfig($config);
         return $config;
     }
-    private static function ensureRequiredConfigFields(array $config): void
+    private static function ensureRequiredConfigFields(array $config) : void
     {
         $requiredFields = ['type', 'url', 'handle'];
         foreach ($requiredFields as $key) {
             if (!isset($config[$key])) {
-                throw new \Inpsyde\Assets\Exception\MissingArgumentException(sprintf('The given config <code>%s</code> is missing.', $key));
+                throw new \Inpsyde\Assets\Exception\MissingArgumentException(\sprintf('The given config <code>%s</code> is missing.', $key));
             }
         }
     }
-    private static function normalizeVersionConfig(array $config): array
+    private static function normalizeVersionConfig(array $config) : array
     {
         // some existing configurations uses time() as version parameter which leads to
         // fatal errors since 2.5
@@ -122,17 +122,17 @@ final class AssetFactory
         }
         return $config;
     }
-    private static function normalizeTranslationConfig(array $config): array
+    private static function normalizeTranslationConfig(array $config) : array
     {
         if (!isset($config['translation'])) {
             return $config;
         }
-        if (is_string($config['translation'])) {
+        if (\is_string($config['translation'])) {
             // backward compatibility
             $config['translation'] = ['domain' => $config['translation'], 'path' => null];
             return $config;
         }
-        if (!is_array($config['translation'])) {
+        if (!\is_array($config['translation'])) {
             throw new InvalidArgumentException("Config key <code>translation</code> must be of type string or array");
         }
         if (!isset($config['translation']['domain'])) {
@@ -143,16 +143,16 @@ final class AssetFactory
         }
         return $config;
     }
-    private static function normalizeLocalizeConfig(array $config): array
+    private static function normalizeLocalizeConfig(array $config) : array
     {
         if (!isset($config['localize'])) {
             $config['localize'] = [];
             return $config;
         }
-        if (is_callable($config['localize'])) {
+        if (\is_callable($config['localize'])) {
             $config['localize'] = $config['localize']();
         }
-        if (!is_array($config['localize'])) {
+        if (!\is_array($config['localize'])) {
             throw new InvalidArgumentException('Config key <code>localize</code> must evaluate as an array');
         }
         return $config;
@@ -166,7 +166,7 @@ final class AssetFactory
      * @deprecated PhpArrayFileLoader::load(string $filePath)
      *
      */
-    public static function createFromFile(string $file): array
+    public static function createFromFile(string $file) : array
     {
         $loader = new PhpFileLoader();
         return $loader->load($file);
@@ -179,7 +179,7 @@ final class AssetFactory
      * @throws Exception\FileNotFoundException
      * @deprecated ArrayLoader::load(array $data)
      */
-    public static function createFromArray(array $data): array
+    public static function createFromArray(array $data) : array
     {
         $loader = new ArrayLoader();
         return $loader->load($data);

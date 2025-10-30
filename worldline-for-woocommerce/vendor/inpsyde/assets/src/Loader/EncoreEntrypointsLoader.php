@@ -23,17 +23,17 @@ class EncoreEntrypointsLoader extends \Inpsyde\Assets\Loader\AbstractWebpackLoad
     /**
      * {@inheritDoc}
      */
-    protected function parseData(array $data, string $resource): array
+    protected function parseData(array $data, string $resource) : array
     {
-        $directory = trailingslashit(dirname($resource));
+        $directory = \trailingslashit(\dirname($resource));
         /** @var array{entrypoints:array{css?:string[], js?:string[]}} $data */
         $data = $data['entrypoints'] ?? [];
         $assets = [];
         foreach ($data as $handle => $filesByExtension) {
             $files = $filesByExtension['css'] ?? [];
-            $assets = array_merge($assets, $this->extractAssets($handle, $files, $directory));
+            $assets = \array_merge($assets, $this->extractAssets($handle, $files, $directory));
             $files = $filesByExtension['js'] ?? [];
-            $assets = array_merge($assets, $this->extractAssets($handle, $files, $directory));
+            $assets = \array_merge($assets, $this->extractAssets($handle, $files, $directory));
         }
         return $assets;
     }
@@ -44,7 +44,7 @@ class EncoreEntrypointsLoader extends \Inpsyde\Assets\Loader\AbstractWebpackLoad
      *
      * @return array
      */
-    protected function extractAssets(string $handle, array $files, string $directory): array
+    protected function extractAssets(string $handle, array $files, string $directory) : array
     {
         $assets = [];
         foreach ($files as $i => $file) {
@@ -58,9 +58,9 @@ class EncoreEntrypointsLoader extends \Inpsyde\Assets\Loader\AbstractWebpackLoad
             }
         }
         foreach ($assets as $i => $asset) {
-            $dependencies = array_map(static function (Asset $asset): string {
+            $dependencies = \array_map(static function (Asset $asset) : string {
                 return $asset->handle();
-            }, array_slice($assets, 0, $i));
+            }, \array_slice($assets, 0, $i));
             $asset->withDependencies(...$dependencies);
         }
         return $assets;

@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class SessionResponse extends DataObject
 {
@@ -15,27 +15,22 @@ class SessionResponse extends DataObject
      * @var string
      */
     public $assetUrl = null;
-
     /**
      * @var string
      */
     public $clientApiUrl = null;
-
     /**
      * @var string
      */
     public $clientSessionId = null;
-
     /**
      * @var string
      */
     public $customerId = null;
-
     /**
      * @var string[]
      */
     public $invalidTokens = null;
-
     /**
      * @return string
      */
@@ -43,7 +38,6 @@ class SessionResponse extends DataObject
     {
         return $this->assetUrl;
     }
-
     /**
      * @param string
      */
@@ -51,7 +45,6 @@ class SessionResponse extends DataObject
     {
         $this->assetUrl = $value;
     }
-
     /**
      * @return string
      */
@@ -59,7 +52,6 @@ class SessionResponse extends DataObject
     {
         return $this->clientApiUrl;
     }
-
     /**
      * @param string
      */
@@ -67,7 +59,6 @@ class SessionResponse extends DataObject
     {
         $this->clientApiUrl = $value;
     }
-
     /**
      * @return string
      */
@@ -75,7 +66,6 @@ class SessionResponse extends DataObject
     {
         return $this->clientSessionId;
     }
-
     /**
      * @param string
      */
@@ -83,7 +73,6 @@ class SessionResponse extends DataObject
     {
         $this->clientSessionId = $value;
     }
-
     /**
      * @return string
      */
@@ -91,7 +80,6 @@ class SessionResponse extends DataObject
     {
         return $this->customerId;
     }
-
     /**
      * @param string
      */
@@ -99,7 +87,6 @@ class SessionResponse extends DataObject
     {
         $this->customerId = $value;
     }
-
     /**
      * @return string[]
      */
@@ -107,7 +94,6 @@ class SessionResponse extends DataObject
     {
         return $this->invalidTokens;
     }
-
     /**
      * @param string[]
      */
@@ -115,36 +101,34 @@ class SessionResponse extends DataObject
     {
         $this->invalidTokens = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->assetUrl)) {
+        if (!\is_null($this->assetUrl)) {
             $object->assetUrl = $this->assetUrl;
         }
-        if (!is_null($this->clientApiUrl)) {
+        if (!\is_null($this->clientApiUrl)) {
             $object->clientApiUrl = $this->clientApiUrl;
         }
-        if (!is_null($this->clientSessionId)) {
+        if (!\is_null($this->clientSessionId)) {
             $object->clientSessionId = $this->clientSessionId;
         }
-        if (!is_null($this->customerId)) {
+        if (!\is_null($this->customerId)) {
             $object->customerId = $this->customerId;
         }
-        if (!is_null($this->invalidTokens)) {
+        if (!\is_null($this->invalidTokens)) {
             $object->invalidTokens = [];
             foreach ($this->invalidTokens as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->invalidTokens[] = $element;
                 }
             }
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -153,21 +137,21 @@ class SessionResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'assetUrl')) {
+        if (\property_exists($object, 'assetUrl')) {
             $this->assetUrl = $object->assetUrl;
         }
-        if (property_exists($object, 'clientApiUrl')) {
+        if (\property_exists($object, 'clientApiUrl')) {
             $this->clientApiUrl = $object->clientApiUrl;
         }
-        if (property_exists($object, 'clientSessionId')) {
+        if (\property_exists($object, 'clientSessionId')) {
             $this->clientSessionId = $object->clientSessionId;
         }
-        if (property_exists($object, 'customerId')) {
+        if (\property_exists($object, 'customerId')) {
             $this->customerId = $object->customerId;
         }
-        if (property_exists($object, 'invalidTokens')) {
-            if (!is_array($object->invalidTokens) && !is_object($object->invalidTokens)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->invalidTokens, true) . '\' is not an array or object');
+        if (\property_exists($object, 'invalidTokens')) {
+            if (!\is_array($object->invalidTokens) && !\is_object($object->invalidTokens)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->invalidTokens, \true) . '\' is not an array or object');
             }
             $this->invalidTokens = [];
             foreach ($object->invalidTokens as $element) {

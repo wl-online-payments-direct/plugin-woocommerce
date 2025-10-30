@@ -30,7 +30,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
     /**
      * @throws Exception
      */
-    public function run(ContainerInterface $container): bool
+    public function run(ContainerInterface $container) : bool
     {
         $this->registerOrderActions($container);
         $this->registerAdminNotices($container);
@@ -41,34 +41,34 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
         $this->scheduleAutoCapturing($container);
         return \true;
     }
-    public function services(): array
+    public function services() : array
     {
         static $services;
         if ($services === null) {
-            $services = require_once dirname(__DIR__) . '/inc/services.php';
+            $services = (require_once \dirname(__DIR__) . '/inc/services.php');
         }
         return $services();
     }
     /**
      * @inheritDoc
      */
-    public function extensions(): array
+    public function extensions() : array
     {
         static $extensions;
         if ($extensions === null) {
-            $extensions = require_once dirname(__DIR__) . '/inc/extensions.php';
+            $extensions = (require_once \dirname(__DIR__) . '/inc/extensions.php');
         }
         return $extensions();
     }
-    protected function registerOrderActions(ContainerInterface $container): void
+    protected function registerOrderActions(ContainerInterface $container) : void
     {
-        add_filter(
+        \add_filter(
             'woocommerce_order_actions',
             /**
              * @throws NotFoundExceptionInterface
              * @throws ContainerExceptionInterface
              */
-            static function (array $orderActions, WC_Order $wcOrder) use ($container): array {
+            static function (array $orderActions, WC_Order $wcOrder) use($container) : array {
                 $wlopOrderActions = [$container->get('worldline_payment_gateway.admin.render_capture_action'), $container->get('worldline_payment_gateway.admin.status_update_action')];
                 foreach ($wlopOrderActions as $wlopOrderAction) {
                     $orderActions = $wlopOrderAction->render($orderActions, $wcOrder);
@@ -78,20 +78,20 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             10,
             2
         );
-        add_action('woocommerce_order_action_worldline_capture_order', static function (WC_Order $wcOrder) use ($container) {
+        \add_action('woocommerce_order_action_worldline_capture_order', static function (WC_Order $wcOrder) use($container) {
             $authorizedPaymentProcessor = $container->get('worldline_payment_gateway.authorized_payment_processor');
-            assert($authorizedPaymentProcessor instanceof AuthorizedPaymentProcessor);
+            \assert($authorizedPaymentProcessor instanceof AuthorizedPaymentProcessor);
             $authorizedPaymentProcessor->captureAuthorizedPayment($wcOrder);
         });
-        add_action('woocommerce_order_action_worldline_update_order_status', static function (WC_Order $wcOrder) use ($container) {
+        \add_action('woocommerce_order_action_worldline_update_order_status', static function (WC_Order $wcOrder) use($container) {
             $action = $container->get('worldline_payment_gateway.admin.status_update_action');
-            assert($action instanceof StatusUpdateAction);
+            \assert($action instanceof StatusUpdateAction);
             $action->execute($wcOrder);
         });
     }
-    protected function registerCliCommands(ContainerInterface $container): void
+    protected function registerCliCommands(ContainerInterface $container) : void
     {
-        if (defined('Syde\Vendor\Worldline\WP_CLI') && WP_CLI) {
+        if (\defined('Syde\\Vendor\\Worldline\\WP_CLI') && WP_CLI) {
             try {
                 /** @psalm-suppress MixedArgument */
                 WP_CLI::add_command('wlop order', $container->get('worldline_payment_gateway.cli.status_update_command'));
@@ -99,74 +99,74 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             }
         }
     }
-    protected function registerAdminNotices(ContainerInterface $container): void
+    protected function registerAdminNotices(ContainerInterface $container) : void
     {
-        add_action('admin_notices', static function () use ($container) {
+        \add_action('admin_notices', static function () use($container) {
             $orderActionNotice = $container->get('worldline_payment_gateway.order_action_notice');
-            assert($orderActionNotice instanceof OrderActionNotice);
+            \assert($orderActionNotice instanceof OrderActionNotice);
             $message = $orderActionNotice->message();
-            if (!is_null($message)) {
-                echo wp_kses($message, ['p' => [], 'div' => ['class' => \true]]);
+            if (!\is_null($message)) {
+                echo \wp_kses($message, ['p' => [], 'div' => ['class' => \true]]);
             }
         });
         /**
          * Show a notice in the admin when store currency is not supported by Worldline
          */
-        add_action('admin_notices', static function () use ($container): void {
+        \add_action('admin_notices', static function () use($container) : void {
             $wlopGateway = $container->get('worldline_payment_gateway.gateway');
-            assert($wlopGateway instanceof PaymentGateway);
+            \assert($wlopGateway instanceof PaymentGateway);
             if ($wlopGateway->enabled !== 'yes') {
                 return;
             }
             $currencySupportValidator = $container->get('worldline_payment_gateway.currency_support_validator');
-            assert($currencySupportValidator instanceof CurrencySupportValidator);
+            \assert($currencySupportValidator instanceof CurrencySupportValidator);
             if ($currencySupportValidator->wlopSupportStoreCurrency()) {
                 return;
             }
-            $message = __('The currency currently used by your store is not enabled in your Worldline account.', 'worldline-for-woocommerce');
+            $message = \__('The currency currently used by your store is not enabled in your Worldline account.', 'worldline-for-woocommerce');
             $alert = "<div class='notice notice-error is-dismissible'>\n                            <p>" . $message . "</p>\n                        </div>";
-            echo wp_kses($alert, ['p' => [], 'div' => ['class' => \true]]);
+            echo \wp_kses($alert, ['p' => [], 'div' => ['class' => \true]]);
         });
     }
-    protected function registerCurrencyValidator(ContainerInterface $container): void
+    protected function registerCurrencyValidator(ContainerInterface $container) : void
     {
-        add_action('woocommerce_settings_saved', static function () use ($container) {
+        \add_action('woocommerce_settings_saved', static function () use($container) {
             $currencySupportValidator = $container->get('worldline_payment_gateway.currency_support_validator');
-            assert($currencySupportValidator instanceof CurrencySupportValidator);
+            \assert($currencySupportValidator instanceof CurrencySupportValidator);
             $currencySupportValidator->updateWlopStoreCurrencySupport();
         });
     }
-    protected function registerRefundSaving(ContainerInterface $container): void
+    protected function registerRefundSaving(ContainerInterface $container) : void
     {
-        add_action('woocommerce_create_refund', static function (WC_Order_Refund $refund, array $args) use ($container): void {
+        \add_action('woocommerce_create_refund', static function (WC_Order_Refund $refund, array $args) use($container) : void {
             if (!$args['refund_payment']) {
                 return;
             }
-            $wcOrder = wc_get_order($args['order_id']);
+            $wcOrder = \wc_get_order($args['order_id']);
             if (!$wcOrder instanceof WC_Order) {
                 return;
             }
             if ($wcOrder->get_payment_method() !== GatewayIds::HOSTED_CHECKOUT) {
                 return;
             }
-            $refundData = array_merge($args, ['wlop_created_time' => time()]);
+            $refundData = \array_merge($args, ['wlop_created_time' => \time()]);
             $wcOrder->add_meta_data(OrderMetaKeys::PENDING_REFUNDS, $refundData);
             $wcOrder->save();
         }, 10, 2);
     }
-    public function registerCheckoutCompletionHandler(ContainerInterface $container): void
+    public function registerCheckoutCompletionHandler(ContainerInterface $container) : void
     {
-        add_filter('query_vars', static function (array $publicQueryVars): array {
+        \add_filter('query_vars', static function (array $publicQueryVars) : array {
             $publicQueryVars[] = 'hostedCheckoutId';
             return $publicQueryVars;
         });
-        add_action('wlop_order_received_page', static function (WC_Order $wcOrder) use ($container): void {
-            if (!in_array($wcOrder->get_payment_method(), GatewayIds::HOSTED_CHECKOUT_GATEWAYS, \true)) {
+        \add_action('wlop_order_received_page', static function (WC_Order $wcOrder) use($container) : void {
+            if (!\in_array($wcOrder->get_payment_method(), GatewayIds::HOSTED_CHECKOUT_GATEWAYS, \true)) {
                 return;
             }
-            $hostedCheckoutId = (string) get_query_var('hostedCheckoutId');
+            $hostedCheckoutId = (string) \get_query_var('hostedCheckoutId');
             $apiClient = $container->get('worldline_payment_gateway.api.client');
-            assert($apiClient instanceof MerchantClientInterface);
+            \assert($apiClient instanceof MerchantClientInterface);
             if (!$hostedCheckoutId) {
                 throw new Exception("Unable to retrieve hostedCheckoutId for the order {$wcOrder->get_id()}");
             }
@@ -185,15 +185,15 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
                 $wlopWcOrder->setTransactionId($transactionId);
             }
             $orderUpdater = $container->get('worldline_payment_gateway.order_updater');
-            assert($orderUpdater instanceof OrderUpdater);
+            \assert($orderUpdater instanceof OrderUpdater);
             $orderUpdater->updateFromResponse($wlopWcOrder, $payment->getStatusOutput(), $payment->getPaymentOutput());
         });
     }
-    protected function scheduleAutoCapturing(ContainerInterface $container): void
+    protected function scheduleAutoCapturing(ContainerInterface $container) : void
     {
         $hook = 'wlop_auto_capturing';
-        add_action('action_scheduler_init', static function () use ($container, $hook): void {
-            if (as_has_scheduled_action($hook)) {
+        \add_action('action_scheduler_init', static function () use($container, $hook) : void {
+            if (\as_has_scheduled_action($hook)) {
                 return;
             }
             $captureMode = $container->get('config.capture_mode');
@@ -205,9 +205,9 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
                 return;
             }
             $interval = (int) $container->get('worldline_payment_gateway.auto_capture.handler.interval');
-            as_schedule_single_action(time() + $interval, $hook, [], 'wlop', \true);
+            \as_schedule_single_action(\time() + $interval, $hook, [], 'wlop', \true);
         });
-        add_action($hook, static function () use ($container): void {
+        \add_action($hook, static function () use($container) : void {
             $captureMode = $container->get('config.capture_mode');
             if ($captureMode === CaptureMode::MANUAL) {
                 return;
@@ -217,7 +217,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
                 return;
             }
             $handler = $container->get('worldline_payment_gateway.auto_capture.handler');
-            assert($handler instanceof AutoCaptureHandler);
+            \assert($handler instanceof AutoCaptureHandler);
             $handler->execute();
         });
     }

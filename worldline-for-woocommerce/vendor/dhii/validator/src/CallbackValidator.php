@@ -27,7 +27,7 @@ class CallbackValidator implements ValidatorInterface
     /**
      * @inheritDoc
      */
-    public function validate($value): void
+    public function validate($value) : void
     {
         try {
             $callback = $this->callback;
@@ -36,12 +36,12 @@ class CallbackValidator implements ValidatorInterface
             if ($e instanceof ValidationFailedExceptionInterface) {
                 throw $e;
             }
-            throw new RuntimeException(sprintf('Failed validating %1$s', $this->varDump($value)), 0, $e);
+            throw new RuntimeException(\sprintf('Failed validating %1$s', $this->varDump($value)), 0, $e);
         }
         if ($result === null) {
             return;
         }
-        $message = $result === \false ? sprintf('Value is invalid: %1$s', $this->varDump($value)) : (string) $result;
+        $message = $result === \false ? \sprintf('Value is invalid: %1$s', $this->varDump($value)) : (string) $result;
         throw new ValidationFailedException($this, $value, [$message], $message);
     }
 }

@@ -18,7 +18,7 @@ interface PackageInterface
      *
      * @throws Exception If problem retrieving.
      */
-    public function getName(): string;
+    public function getName() : string;
     /**
      * Retrieves the package version.
      *
@@ -26,7 +26,7 @@ interface PackageInterface
      *
      * @throws Exception If problem retrieving.
      */
-    public function getVersion(): VersionInterface;
+    public function getVersion() : VersionInterface;
     /**
      * Retrieves the path to the package base directory.
      *
@@ -34,5 +34,5 @@ interface PackageInterface
      *
      * @throws Exception If problem retrieving.
      */
-    public function getBaseDir(): string;
+    public function getBaseDir() : string;
 }

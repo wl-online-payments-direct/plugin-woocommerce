@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CustomerBankAccount extends DataObject
 {
@@ -15,17 +15,14 @@ class CustomerBankAccount extends DataObject
      * @var string
      */
     public $accountHolderName = null;
-
     /**
      * @var string
      */
     public $bic = null;
-
     /**
      * @var string
      */
     public $iban = null;
-
     /**
      * @return string
      */
@@ -33,7 +30,6 @@ class CustomerBankAccount extends DataObject
     {
         return $this->accountHolderName;
     }
-
     /**
      * @param string
      */
@@ -41,7 +37,6 @@ class CustomerBankAccount extends DataObject
     {
         $this->accountHolderName = $value;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ class CustomerBankAccount extends DataObject
     {
         return $this->bic;
     }
-
     /**
      * @param string
      */
@@ -57,7 +51,6 @@ class CustomerBankAccount extends DataObject
     {
         $this->bic = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +58,6 @@ class CustomerBankAccount extends DataObject
     {
         return $this->iban;
     }
-
     /**
      * @param string
      */
@@ -73,25 +65,23 @@ class CustomerBankAccount extends DataObject
     {
         $this->iban = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->accountHolderName)) {
+        if (!\is_null($this->accountHolderName)) {
             $object->accountHolderName = $this->accountHolderName;
         }
-        if (!is_null($this->bic)) {
+        if (!\is_null($this->bic)) {
             $object->bic = $this->bic;
         }
-        if (!is_null($this->iban)) {
+        if (!\is_null($this->iban)) {
             $object->iban = $this->iban;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,13 +90,13 @@ class CustomerBankAccount extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'accountHolderName')) {
+        if (\property_exists($object, 'accountHolderName')) {
             $this->accountHolderName = $object->accountHolderName;
         }
-        if (property_exists($object, 'bic')) {
+        if (\property_exists($object, 'bic')) {
             $this->bic = $object->bic;
         }
-        if (property_exists($object, 'iban')) {
+        if (\property_exists($object, 'iban')) {
             $this->iban = $object->iban;
         }
         return $this;

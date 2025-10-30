@@ -10,5 +10,5 @@ interface PaymentRequestValidatorInterface
      * @param PaymentGateway $gateway
      * @throws \RuntimeException
      */
-    public function assertIsValid(\WC_Order $order, PaymentGateway $gateway): void;
+    public function assertIsValid(\WC_Order $order, PaymentGateway $gateway) : void;
 }

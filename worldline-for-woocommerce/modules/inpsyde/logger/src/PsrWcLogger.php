@@ -12,18 +12,15 @@ use WC_Logger_Interface;
  */
 class PsrWcLogger extends AbstractLogger
 {
-    /**
-     * @var WC_Logger_Interface
-     */
-    protected $logger;
+    protected WC_Logger_Interface $logger;
     /**
      * @var string|null The source of logs for WC.
      */
-    protected $source;
+    protected ?string $source = null;
     /**
      * @var string|null The version of the plugin logged.
      */
-    protected $version;
+    protected ?string $version = null;
     /**
      * PsrWcLogger constructor.
      * @param WC_Logger_Interface $logger WooCommerce logger instance
@@ -47,21 +44,21 @@ class PsrWcLogger extends AbstractLogger
      *
      * @throws Exception If problem writing.
      */
-    protected function writeToLog(string $level, string $message, array $context = []): void
+    protected function writeToLog(string $level, string $message, array $context = []) : void
     {
         $this->logger->log($level, $message, $context);
     }
     /**
      * @inheritDoc
      */
-    protected function getSource(): ?string
+    protected function getSource() : ?string
     {
         return $this->source;
     }
     /**
      * @inheritDoc
      */
-    protected function getVersion(): ?string
+    protected function getVersion() : ?string
     {
         return $this->version;
     }

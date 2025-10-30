@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CustomerDeviceOutput extends DataObject
 {
@@ -15,7 +15,6 @@ class CustomerDeviceOutput extends DataObject
      * @var string
      */
     public $ipAddressCountryCode = null;
-
     /**
      * @return string
      */
@@ -23,7 +22,6 @@ class CustomerDeviceOutput extends DataObject
     {
         return $this->ipAddressCountryCode;
     }
-
     /**
      * @param string
      */
@@ -31,19 +29,17 @@ class CustomerDeviceOutput extends DataObject
     {
         $this->ipAddressCountryCode = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->ipAddressCountryCode)) {
+        if (!\is_null($this->ipAddressCountryCode)) {
             $object->ipAddressCountryCode = $this->ipAddressCountryCode;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -52,7 +48,7 @@ class CustomerDeviceOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'ipAddressCountryCode')) {
+        if (\property_exists($object, 'ipAddressCountryCode')) {
             $this->ipAddressCountryCode = $object->ipAddressCountryCode;
         }
         return $this;

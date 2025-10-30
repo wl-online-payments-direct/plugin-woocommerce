@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class MandatePersonalInformationResponse extends DataObject
 {
@@ -15,12 +15,10 @@ class MandatePersonalInformationResponse extends DataObject
      * @var MandatePersonalNameResponse
      */
     public $name = null;
-
     /**
      * @var string
      */
     public $title = null;
-
     /**
      * @return MandatePersonalNameResponse
      */
@@ -28,7 +26,6 @@ class MandatePersonalInformationResponse extends DataObject
     {
         return $this->name;
     }
-
     /**
      * @param MandatePersonalNameResponse
      */
@@ -36,7 +33,6 @@ class MandatePersonalInformationResponse extends DataObject
     {
         $this->name = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class MandatePersonalInformationResponse extends DataObject
     {
         return $this->title;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class MandatePersonalInformationResponse extends DataObject
     {
         $this->title = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->name)) {
+        if (!\is_null($this->name)) {
             $object->name = $this->name->toObject();
         }
-        if (!is_null($this->title)) {
+        if (!\is_null($this->title)) {
             $object->title = $this->title;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,14 +69,14 @@ class MandatePersonalInformationResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'name')) {
-            if (!is_object($object->name)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->name, true) . '\' is not an object');
+        if (\property_exists($object, 'name')) {
+            if (!\is_object($object->name)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->name, \true) . '\' is not an object');
             }
             $value = new MandatePersonalNameResponse();
             $this->name = $value->fromObject($object->name);
         }
-        if (property_exists($object, 'title')) {
+        if (\property_exists($object, 'title')) {
             $this->title = $object->title;
         }
         return $this;

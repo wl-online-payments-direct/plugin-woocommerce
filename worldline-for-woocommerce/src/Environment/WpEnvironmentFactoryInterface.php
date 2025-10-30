@@ -13,5 +13,5 @@ interface WpEnvironmentFactoryInterface
      *
      * @return WpEnvironmentInterface
      */
-    public function createFromGlobals(): WpEnvironmentInterface;
+    public function createFromGlobals() : WpEnvironmentInterface;
 }

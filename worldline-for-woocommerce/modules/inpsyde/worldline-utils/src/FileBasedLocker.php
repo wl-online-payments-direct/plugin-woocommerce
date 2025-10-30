@@ -12,25 +12,25 @@ class FileBasedLocker implements LockerInterface
         $this->timeout = $timeout;
         $this->lockFilePath = $lockFilePath;
     }
-    public function lock(): bool
+    public function lock() : bool
     {
-        return (bool) file_put_contents($this->lockFilePath, (string) time());
+        return (bool) \file_put_contents($this->lockFilePath, (string) \time());
     }
-    public function unlock(): bool
+    public function unlock() : bool
     {
-        if (!file_exists($this->lockFilePath)) {
+        if (!\file_exists($this->lockFilePath)) {
             return \true;
         }
-        return unlink($this->lockFilePath);
+        return \unlink($this->lockFilePath);
     }
-    public function isLocked(): bool
+    public function isLocked() : bool
     {
         $file = $this->lockFilePath;
-        if (!file_exists($file)) {
+        if (!\file_exists($file)) {
             return \false;
         }
-        $value = filemtime($file);
-        $expiration = time() - $this->timeout;
+        $value = \filemtime($file);
+        $expiration = \time() - $this->timeout;
         return $value > $expiration;
     }
 }

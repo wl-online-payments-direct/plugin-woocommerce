@@ -24,7 +24,7 @@ class StaticIconProvider implements IconProviderInterface
      *
      * @return Icon[] An array of Icon objects representing the provided icons.
      */
-    public function provideIcons(): array
+    public function provideIcons() : array
     {
         return $this->icons;
     }

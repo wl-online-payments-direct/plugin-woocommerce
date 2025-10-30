@@ -13,5 +13,5 @@ interface StatusUpdaterInterface
      *
      * @throws Exception
      */
-    public function updateStatus(?WC_Order $wcOrder): void;
+    public function updateStatus(?WC_Order $wcOrder) : void;
 }

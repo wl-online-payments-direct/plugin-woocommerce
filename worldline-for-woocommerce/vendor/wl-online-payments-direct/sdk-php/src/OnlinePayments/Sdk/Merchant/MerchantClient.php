@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -21,7 +22,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services\ServicesClient;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Sessions\SessionsClient;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokens\TokensClient;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Webhooks\WebhooksClient;
-
 /**
  * Merchant client.
  */
@@ -34,7 +34,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new HostedCheckoutClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -42,7 +41,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new HostedTokenizationClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -50,7 +48,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new PaymentsClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -58,7 +55,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new CapturesClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -66,7 +62,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new RefundsClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -74,7 +69,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new CompleteClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -82,7 +76,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new ProductGroupsClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -90,7 +83,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new ProductsClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -98,7 +90,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new ServicesClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -106,7 +97,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new WebhooksClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -114,7 +104,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new SessionsClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -122,7 +111,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new TokensClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -130,7 +118,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new PayoutsClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -138,7 +125,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new MandatesClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */
@@ -146,7 +132,6 @@ class MerchantClient extends ApiResource implements MerchantClientInterface
     {
         return new PrivacyPolicyClient($this, $this->context);
     }
-
     /**
      * @inheritdoc
      */

@@ -10,5 +10,5 @@ interface WebhookQueueInterface
     /**
      * @throws Exception
      */
-    public function add(WebhooksEvent $webhook): void;
+    public function add(WebhooksEvent $webhook) : void;
 }

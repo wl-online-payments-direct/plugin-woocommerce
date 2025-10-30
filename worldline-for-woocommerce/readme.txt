@@ -1,10 +1,10 @@
 === Worldline Global Online Pay for WooCommerce ===
-Contributors: worldlinelogeecomsupport
+Contributors: syde
 Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.4.2
+Stable tag: 2.4.4
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,16 +86,25 @@ If you encounter issues with the Worldline buttons not appearing after an update
 
 == Changelog ==
 
+= 2.4.4 - 2025-10-13 =
+* Add missing 3DS parameters for Credit Card payments
+* Fix storing the wrong API key in the database
+
+= 2.4.3 - 2025-09-23 =
+* Fix Apple pay issue
+
 = 2.4.2 - 2025-09-19 =
 * Fix plugin configuration page
+* Fix translation issue
+* Change plugin title to Offre e-commerce de CAWL
 
 = 2.4.1 - 2025-09-17 =
 * Fix fatal error issue
 
-= 2.4.0 - 2025-08-14 =
+= 2.4.0 - 2025-08-11 =
 * Add PayPal payment method
 
-= 2.3.0 - 2025-08-13 =
+= 2.3.0 - 2025-07-29 =
 * Add Mealvouchers payment method
 * Add CVCO payment method
 * Add EPS payment method

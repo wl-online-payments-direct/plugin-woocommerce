@@ -4,10 +4,10 @@ declare (strict_types=1);
 namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api;
 
 use Exception;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication\V1HmacAuthenticator;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\PluginProperties;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironment;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication\V1HmacAuthenticator;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Client;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communicator;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorConfiguration;
@@ -31,27 +31,20 @@ class MerchantClientFactory
     /**
      * @throws Exception
      */
-    public function create(string $pspid, string $apiKey, string $apiSecret, string $apiEndpoint): MerchantClientInterface
+    public function create(string $pspid, string $apiKey, string $apiSecret, string $apiEndpoint) : MerchantClientInterface
     {
         $connection = new DefaultConnection();
         $communicatorConfiguration = new CommunicatorConfiguration($apiKey, $apiSecret, $apiEndpoint, $this->integrator);
         $communicatorConfiguration->setShoppingCartExtension(new ShoppingCartExtension('Worldline-GlobalOnlinePayments', 'WordPress', $this->getPlatformVersion(), $this->pluginVersion));
-
-        $communicator = new \Syde\Vendor\Worldline\OnlinePayments\Sdk\Communicator(
-            $communicatorConfiguration,
-            new V1HmacAuthenticator($communicatorConfiguration),
-            $connection,
-            null
-        );
-
+        $communicator = new Communicator($communicatorConfiguration, new V1HmacAuthenticator($communicatorConfiguration), $connection, null);
         $client = new Client($communicator);
         if ($this->sdkLogger) {
             $client->enableLogging($this->sdkLogger);
         }
         return $client->merchant($pspid);
     }
-    private function getPlatformVersion(): string
+    private function getPlatformVersion() : string
     {
-        return sprintf("WordPress %s | WooCommerce %s", $this->environment->wpVersion(), $this->environment->wcVersion());
+        return \sprintf("WordPress %s | WooCommerce %s", $this->environment->wpVersion(), $this->environment->wcVersion());
     }
 }

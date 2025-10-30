@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class HostedCheckoutSpecificOutput extends DataObject
 {
@@ -15,12 +15,10 @@ class HostedCheckoutSpecificOutput extends DataObject
      * @var string
      */
     public $hostedCheckoutId = null;
-
     /**
      * @var string
      */
     public $variant = null;
-
     /**
      * @return string
      */
@@ -28,7 +26,6 @@ class HostedCheckoutSpecificOutput extends DataObject
     {
         return $this->hostedCheckoutId;
     }
-
     /**
      * @param string
      */
@@ -36,7 +33,6 @@ class HostedCheckoutSpecificOutput extends DataObject
     {
         $this->hostedCheckoutId = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class HostedCheckoutSpecificOutput extends DataObject
     {
         return $this->variant;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class HostedCheckoutSpecificOutput extends DataObject
     {
         $this->variant = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->hostedCheckoutId)) {
+        if (!\is_null($this->hostedCheckoutId)) {
             $object->hostedCheckoutId = $this->hostedCheckoutId;
         }
-        if (!is_null($this->variant)) {
+        if (!\is_null($this->variant)) {
             $object->variant = $this->variant;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,10 +69,10 @@ class HostedCheckoutSpecificOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'hostedCheckoutId')) {
+        if (\property_exists($object, 'hostedCheckoutId')) {
             $this->hostedCheckoutId = $object->hostedCheckoutId;
         }
-        if (property_exists($object, 'variant')) {
+        if (\property_exists($object, 'variant')) {
             $this->variant = $object->variant;
         }
         return $this;

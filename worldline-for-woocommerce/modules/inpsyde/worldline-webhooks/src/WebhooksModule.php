@@ -15,9 +15,9 @@ class WebhooksModule implements ExecutableModule, ServiceModule
     /**
      * @inheritDoc
      */
-    public function run(ContainerInterface $container): bool
+    public function run(ContainerInterface $container) : bool
     {
-        add_action('rest_api_init', static function () use ($container) {
+        \add_action('rest_api_init', static function () use($container) {
             /** @var string $namespace */
             $namespace = $container->get('webhooks.namespace');
             /** @var string $route */
@@ -28,21 +28,21 @@ class WebhooksModule implements ExecutableModule, ServiceModule
             $callback = $container->get('webhooks.callback');
             /** @var callable(): bool $permissionCallback */
             $permissionCallback = $container->get('webhooks.permission_callback');
-            register_rest_route($namespace, $route, ['methods' => $methods, 'callback' => $callback, 'permission_callback' => $permissionCallback]);
+            \register_rest_route($namespace, $route, ['methods' => $methods, 'callback' => $callback, 'permission_callback' => $permissionCallback]);
         });
         /** @var callable(WP_Rest_Request):void $logIncomingWebhookRequest */
         $logIncomingWebhookRequest = $container->get('webhooks.log_incoming_webhooks_request');
-        add_action('wlop.webhook_request', $logIncomingWebhookRequest);
+        \add_action('wlop.webhook_request', $logIncomingWebhookRequest);
         return \true;
     }
     /**
      * @inheritDoc
      */
-    public function services(): array
+    public function services() : array
     {
         static $services;
         if ($services === null) {
-            $services = require_once dirname(__DIR__) . '/inc/services.php';
+            $services = (require_once \dirname(__DIR__) . '/inc/services.php');
         }
         /** @var callable():
          * array<string, callable(ContainerInterface $container):mixed> $services

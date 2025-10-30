@@ -10,5 +10,5 @@ interface RefundProcessorInterface
     /**
      * @throws Exception If failed to refund payment.
      */
-    public function refundOrderPayment(WC_Order $order, float $amount, string $reason): void;
+    public function refundOrderPayment(WC_Order $order, float $amount, string $reason) : void;
 }

@@ -14,5 +14,5 @@ interface ExecutableModule extends Module
      *
      * @return bool     true when successfully booted, otherwise false.
      */
-    public function run(ContainerInterface $container): bool;
+    public function run(ContainerInterface $container) : bool;
 }

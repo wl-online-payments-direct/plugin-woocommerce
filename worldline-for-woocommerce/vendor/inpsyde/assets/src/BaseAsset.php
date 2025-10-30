@@ -22,42 +22,33 @@ use Inpsyde\Assets\OutputFilter\InlineAssetOutputFilter;
 abstract class BaseAsset implements \Inpsyde\Assets\Asset
 {
     use \Inpsyde\Assets\ConfigureAutodiscoverVersionTrait;
-    /**
-     * @var string
-     */
-    protected $url = '';
+    protected string $url = '';
     /**
      * Full filePath to an Asset which can
      * be used to auto-discover version or
      * load Asset content inline.
      *
-     * @var string
      */
-    protected $filePath = '';
-    /**
-     * @var string
-     */
-    protected $handle = '';
+    protected string $filePath = '';
+    protected string $handle = '';
     /**
      * Dependencies to other Asset handles.
      *
      * @var string[]
      */
-    protected $dependencies = [];
+    protected array $dependencies = [];
     /**
      * Location where the Asset will be enqueued.
      *
-     * @var int
      */
-    protected $location = self::FRONTEND;
+    protected int $location = self::FRONTEND;
     /**
      * Version can be auto-discovered if null.
      *
      * @see BaseAsset::enableAutodiscoverVersion().
      *
-     * @var null|string
      */
-    protected $version = null;
+    protected ?string $version = null;
     /**
      * @var bool|callable(): bool
      */
@@ -65,7 +56,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @var callable[]|AssetOutputFilter[]|class-string<AssetOutputFilter>[]
      */
-    protected $filters = [];
+    protected array $filters = [];
     /**
      * @var class-string<AssetHandler>|null
      */
@@ -77,13 +68,13 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @var array<string, mixed>
      */
-    protected $data = [];
+    protected array $data = [];
     /**
      * Additional attributes to "link"- or "script"-tag.
      *
      * @var array<string, mixed>
      */
-    protected $attributes = [];
+    protected array $attributes = [];
     /**
      * @param string $handle
      * @param string $url
@@ -98,21 +89,21 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return string
      */
-    public function url(): string
+    public function url() : string
     {
         return $this->url;
     }
     /**
      * @return string
      */
-    public function handle(): string
+    public function handle() : string
     {
         return $this->handle;
     }
     /**
      * @return string
      */
-    public function filePath(): string
+    public function filePath() : string
     {
         $filePath = $this->filePath;
         if ($filePath !== '') {
@@ -124,7 +115,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
             $filePath = null;
         }
         // if replacement fails, don't set the url as path.
-        if ($filePath === null || !file_exists($filePath)) {
+        if ($filePath === null || !\file_exists($filePath)) {
             return '';
         }
         $this->withFilePath($filePath);
@@ -135,7 +126,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function withFilePath(string $filePath): \Inpsyde\Assets\Asset
+    public function withFilePath(string $filePath) : \Inpsyde\Assets\Asset
     {
         $this->filePath = $filePath;
         return $this;
@@ -145,12 +136,12 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return string|null
      */
-    public function version(): ?string
+    public function version() : ?string
     {
         $version = $this->version;
         if ($version === null && $this->autodiscoverVersion) {
             $filePath = $this->filePath();
-            $version = (string) filemtime($filePath);
+            $version = (string) \filemtime($filePath);
             $this->withVersion($version);
             return $version;
         }
@@ -161,7 +152,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function withVersion(string $version): \Inpsyde\Assets\Asset
+    public function withVersion(string $version) : \Inpsyde\Assets\Asset
     {
         $this->version = $version;
         return $this;
@@ -169,24 +160,24 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return string[]
      */
-    public function dependencies(): array
+    public function dependencies() : array
     {
-        return array_values(array_unique($this->dependencies));
+        return \array_values(\array_unique($this->dependencies));
     }
     /**
      * @param string ...$dependencies
      *
      * @return static
      */
-    public function withDependencies(string ...$dependencies): \Inpsyde\Assets\Asset
+    public function withDependencies(string ...$dependencies) : \Inpsyde\Assets\Asset
     {
-        $this->dependencies = array_merge($this->dependencies, $dependencies);
+        $this->dependencies = \array_merge($this->dependencies, $dependencies);
         return $this;
     }
     /**
      * @return int
      */
-    public function location(): int
+    public function location() : int
     {
         return (int) $this->location;
     }
@@ -195,7 +186,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function forLocation(int $location): \Inpsyde\Assets\Asset
+    public function forLocation(int $location) : \Inpsyde\Assets\Asset
     {
         $this->location = $location;
         return $this;
@@ -203,7 +194,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return callable[]|AssetOutputFilter[]|class-string<AssetOutputFilter>[]
      */
-    public function filters(): array
+    public function filters() : array
     {
         return $this->filters;
     }
@@ -214,9 +205,9 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration
      */
-    public function withFilters(...$filters): \Inpsyde\Assets\Asset
+    public function withFilters(...$filters) : \Inpsyde\Assets\Asset
     {
-        $this->filters = array_merge($this->filters, $filters);
+        $this->filters = \array_merge($this->filters, $filters);
         return $this;
     }
     /**
@@ -224,7 +215,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function useInlineFilter(): \Inpsyde\Assets\Asset
+    public function useInlineFilter() : \Inpsyde\Assets\Asset
     {
         $this->withFilters(InlineAssetOutputFilter::class);
         return $this;
@@ -232,10 +223,10 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return bool
      */
-    public function enqueue(): bool
+    public function enqueue() : bool
     {
         $enqueue = $this->enqueue;
-        is_callable($enqueue) and $enqueue = $enqueue();
+        \is_callable($enqueue) and $enqueue = $enqueue();
         return (bool) $enqueue;
     }
     /**
@@ -246,7 +237,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      * phpcs:disable Inpsyde.CodeQuality.ArgumentTypeDeclaration
      * @psalm-suppress MoreSpecificImplementedParamType
      */
-    public function canEnqueue($enqueue): \Inpsyde\Assets\Asset
+    public function canEnqueue($enqueue) : \Inpsyde\Assets\Asset
     {
         // phpcs:enable Inpsyde.CodeQuality.ArgumentTypeDeclaration
         $this->enqueue = $enqueue;
@@ -257,7 +248,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function useHandler(string $handler): \Inpsyde\Assets\Asset
+    public function useHandler(string $handler) : \Inpsyde\Assets\Asset
     {
         $this->handler = $handler;
         return $this;
@@ -265,7 +256,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return class-string<AssetHandler>
      */
-    public function handler(): string
+    public function handler() : string
     {
         if (!$this->handler) {
             $this->handler = $this->defaultHandler();
@@ -275,11 +266,11 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return class-string<AssetHandler> className of the default handler
      */
-    abstract protected function defaultHandler(): string;
+    protected abstract function defaultHandler() : string;
     /**
      * @return array<string, mixed>
      */
-    public function data(): array
+    public function data() : array
     {
         return $this->data;
     }
@@ -290,9 +281,9 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function withData(array $data): \Inpsyde\Assets\Asset
+    public function withData(array $data) : \Inpsyde\Assets\Asset
     {
-        $this->data = array_merge($this->data, $data);
+        $this->data = \array_merge($this->data, $data);
         return $this;
     }
     /**
@@ -302,7 +293,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function withCondition(string $condition): \Inpsyde\Assets\Asset
+    public function withCondition(string $condition) : \Inpsyde\Assets\Asset
     {
         $this->withData(['conditional' => $condition]);
         return $this;
@@ -310,7 +301,7 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
     /**
      * @return array<string, mixed>
      */
-    public function attributes(): array
+    public function attributes() : array
     {
         return $this->attributes;
     }
@@ -322,9 +313,9 @@ abstract class BaseAsset implements \Inpsyde\Assets\Asset
      *
      * @return static
      */
-    public function withAttributes(array $attributes): \Inpsyde\Assets\Asset
+    public function withAttributes(array $attributes) : \Inpsyde\Assets\Asset
     {
-        $this->attributes = array_merge($this->attributes, $attributes);
+        $this->attributes = \array_merge($this->attributes, $attributes);
         $this->withFilters(AttributesOutputFilter::class);
         return $this;
     }

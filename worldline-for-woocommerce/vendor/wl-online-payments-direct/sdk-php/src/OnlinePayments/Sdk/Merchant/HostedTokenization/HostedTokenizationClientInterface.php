@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -15,7 +16,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
-
 /**
  * HostedTokenization client interface.
  */
@@ -37,7 +37,6 @@ interface HostedTokenizationClientInterface
      * @throws InvalidResponseException
      */
     function createHostedTokenization(CreateHostedTokenizationRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/hostedtokenizations/{hostedTokenizationId} - Get hosted tokenization session
      *

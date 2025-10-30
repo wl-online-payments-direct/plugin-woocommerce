@@ -1,12 +1,12 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
 
 use Exception;
-
 /**
  * Class CommunicatorLogger
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging
+ * @package OnlinePayments\Sdk\Logging
  */
 interface CommunicatorLogger
 {
@@ -14,7 +14,6 @@ interface CommunicatorLogger
      * @param string $message
      */
     public function log($message);
-
     /**
      * @param string $message
      * @param Exception $exception

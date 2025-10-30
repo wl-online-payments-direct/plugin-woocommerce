@@ -8,8 +8,8 @@ class WpEventDispatcher implements EventDispatcherInterface
     /**
      * @inheritDoc
      */
-    public function dispatch(string $eventName, array $eventParams): void
+    public function dispatch(string $eventName, array $eventParams) : void
     {
-        do_action($eventName, ...array_values($eventParams));
+        \do_action($eventName, ...\array_values($eventParams));
     }
 }

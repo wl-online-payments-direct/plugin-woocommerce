@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class SendTestRequest extends DataObject
 {
@@ -15,7 +15,6 @@ class SendTestRequest extends DataObject
      * @var string
      */
     public $url = null;
-
     /**
      * @return string
      */
@@ -23,7 +22,6 @@ class SendTestRequest extends DataObject
     {
         return $this->url;
     }
-
     /**
      * @param string
      */
@@ -31,19 +29,17 @@ class SendTestRequest extends DataObject
     {
         $this->url = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->url)) {
+        if (!\is_null($this->url)) {
             $object->url = $this->url;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -52,7 +48,7 @@ class SendTestRequest extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'url')) {
+        if (\property_exists($object, 'url')) {
             $this->url = $object->url;
         }
         return $this;

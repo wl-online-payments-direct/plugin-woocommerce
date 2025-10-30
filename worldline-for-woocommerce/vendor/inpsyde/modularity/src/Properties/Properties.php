@@ -27,71 +27,71 @@ interface Properties
      * @param string $key
      * @return bool
      */
-    public function has(string $key): bool;
+    public function has(string $key) : bool;
     /**
      * @return bool
      */
-    public function isDebug(): bool;
+    public function isDebug() : bool;
     /**
      * @return string
      */
-    public function baseName(): string;
+    public function baseName() : string;
     /**
      * @return string
      */
-    public function basePath(): string;
+    public function basePath() : string;
     /**
      * @return string|null
      */
-    public function baseUrl(): ?string;
+    public function baseUrl() : ?string;
     /**
      * @return string
      */
-    public function author(): string;
+    public function author() : string;
     /**
      * @return string
      */
-    public function authorUri(): string;
+    public function authorUri() : string;
     /**
      * @return string
      */
-    public function description(): string;
+    public function description() : string;
     /**
      * @return string
      */
-    public function textDomain(): string;
+    public function textDomain() : string;
     /**
      * @return string
      */
-    public function domainPath(): string;
+    public function domainPath() : string;
     /**
      * The name of the plugin, theme or library.
      *
      * @return string
      */
-    public function name(): string;
+    public function name() : string;
     /**
      * The home page of the plugin, theme or library.
      *
      * @return string
      */
-    public function uri(): string;
+    public function uri() : string;
     /**
      * @return string
      */
-    public function version(): string;
+    public function version() : string;
     /**
      * Optional. Specify the minimum required WordPress version.
      *
      * @return string|null
      */
-    public function requiresWp(): ?string;
+    public function requiresWp() : ?string;
     /**
      * Optional. Specify the minimum required PHP version.
      *
      * @return string
      */
-    public function requiresPhp(): ?string;
+    public function requiresPhp() : ?string;
     /**
      * Optional. Currently, only available for Theme and Library.
      * Plugins do not have support for "tags"/"keywords" in header.
@@ -101,5 +101,5 @@ interface Properties
      * @see https://developer.wordpress.org/reference/classes/wp_theme/#properties
      * @see https://getcomposer.org/doc/04-schema.md#keywords
      */
-    public function tags(): array;
+    public function tags() : array;
 }

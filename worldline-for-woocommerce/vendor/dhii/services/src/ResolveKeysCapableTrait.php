@@ -22,7 +22,7 @@ trait ResolveKeysCapableTrait
      *
      * @return array<int,mixed> A list containing the resolved service values, in the same order as in $keys.
      */
-    protected function resolveKeys(ContainerInterface $c, array $keys): array
+    protected function resolveKeys(ContainerInterface $c, array $keys) : array
     {
         return $this->resolveDeps($c, $keys);
     }
@@ -35,7 +35,7 @@ trait ResolveKeysCapableTrait
      *
      * @return array<int,mixed> A list containing the resolved dependencies, in the same order as given in $keys.
      */
-    protected function resolveDeps(ContainerInterface $c, array $deps): array
+    protected function resolveDeps(ContainerInterface $c, array $deps) : array
     {
         $result = [];
         foreach ($deps as $dep) {
@@ -54,6 +54,6 @@ trait ResolveKeysCapableTrait
      */
     protected function resolveSingleDep(ContainerInterface $c, $dep)
     {
-        return is_callable($dep) ? $dep($c) : $c->get($dep);
+        return \is_callable($dep) ? $dep($c) : $c->get($dep);
     }
 }

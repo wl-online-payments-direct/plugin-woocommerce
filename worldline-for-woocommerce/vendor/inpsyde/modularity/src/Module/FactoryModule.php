@@ -16,5 +16,5 @@ interface FactoryModule extends Module
      *
      * @return array<string, Service>
      */
-    public function factories(): array;
+    public function factories() : array;
 }

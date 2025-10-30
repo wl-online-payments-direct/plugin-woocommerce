@@ -1,16 +1,16 @@
 {
-    "name": "inpsyde/worldline-eps-gateway",
+    "name": "inpsyde\/worldline-eps-gateway",
     "description": "Worldline module",
     "type": "inpsyde-module",
     "license": "GPL-2.0-or-later",
     "autoload": {
         "psr-4": {
-            "Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\": "src"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\": "tests\/php"
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\": "tests\/php"
         }
     },
     "authors": [

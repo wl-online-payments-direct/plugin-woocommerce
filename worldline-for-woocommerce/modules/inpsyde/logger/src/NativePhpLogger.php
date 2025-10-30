@@ -10,12 +10,8 @@ use Syde\Vendor\Worldline\Inpsyde\Logger\Formatter\ObjectFormatterInterface;
  */
 class NativePhpLogger extends AbstractLogger
 {
-    /** @var string|null */
-    protected $source;
-    /**
-     * @var string|null
-     */
-    protected $version;
+    protected ?string $source = null;
+    protected ?string $version = null;
     public function __construct(ObjectFormatterInterface $formatter, ?string $source, ?string $version, bool $isDebug)
     {
         $this->source = $source;
@@ -31,12 +27,12 @@ class NativePhpLogger extends AbstractLogger
      *
      * @throws CouldNotWriteToLogException
      */
-    protected function writeToLog(string $level, string $message, array $context = []): void
+    protected function writeToLog(string $level, string $message, array $context = []) : void
     {
-        $level = strtoupper($level);
+        $level = \strtoupper($level);
         $entry = "{$level}: {$message}";
         // phpcs:ignore WordPress.PHP.DevelopmentFunctions
-        $success = error_log($entry);
+        $success = \error_log($entry);
         if (!$success) {
             throw new CouldNotWriteToLogException('Failed writing to the log. Please, check your file permissions and logging settings.');
         }
@@ -44,14 +40,14 @@ class NativePhpLogger extends AbstractLogger
     /**
      * @inheritDoc
      */
-    protected function getSource(): ?string
+    protected function getSource() : ?string
     {
         return $this->source;
     }
     /**
      * @inheritDoc
      */
-    protected function getVersion(): ?string
+    protected function getVersion() : ?string
     {
         return $this->version;
     }

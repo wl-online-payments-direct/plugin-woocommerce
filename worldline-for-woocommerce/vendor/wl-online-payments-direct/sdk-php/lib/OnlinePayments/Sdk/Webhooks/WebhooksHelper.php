@@ -1,24 +1,22 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
 
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseFactory;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
-
 /**
  * Class WebhooksHelper
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks
+ * @package OnlinePayments\Sdk\Webhooks
  */
 class WebhooksHelper
 {
     /** @var SignatureValidator */
     private $signatureValidator;
-
     /** @var ResponseFactory|null */
     private $responseFactory = null;
-
     /**
      * @param SecretKeyStore $secretKeyStore
      */
@@ -26,16 +24,14 @@ class WebhooksHelper
     {
         $this->signatureValidator = new SignatureValidator($secretKeyStore);
     }
-
     /** @return ResponseFactory */
     protected function getResponseFactory()
     {
-        if (is_null($this->responseFactory)) {
+        if (\is_null($this->responseFactory)) {
             $this->responseFactory = new ResponseFactory();
         }
         return $this->responseFactory;
     }
-
     /**
      * Unmarshals the given input stream that contains the body,
      * while also validating its contents using the given request headers.
@@ -48,16 +44,13 @@ class WebhooksHelper
     public function unmarshal($body, $requestHeaders)
     {
         $this->signatureValidator->validate($body, $requestHeaders);
-
         $response = new ConnectionResponse(200, array('Content-Type' => 'application/json'), $body);
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->addResponseClassName(200, WebhooksEvent::class);
-
         $event = $this->getResponseFactory()->createResponse($response, $responseClassMap);
         $this->validateApiVersion($event);
         return $event;
     }
-
     private function validateApiVersion($event)
     {
         if ('v1' !== $event->apiVersion) {

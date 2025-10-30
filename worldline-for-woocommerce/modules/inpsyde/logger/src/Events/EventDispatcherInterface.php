@@ -14,5 +14,5 @@ interface EventDispatcherInterface
      * @param string $eventName Non-empty string.
      * @param array $eventParams Any params in an array to be added to event.
      */
-    public function dispatch(string $eventName, array $eventParams): void;
+    public function dispatch(string $eventName, array $eventParams) : void;
 }

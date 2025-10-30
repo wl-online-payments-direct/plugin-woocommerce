@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductFieldDisplayElement extends DataObject
 {
@@ -15,22 +15,18 @@ class PaymentProductFieldDisplayElement extends DataObject
      * @var string
      */
     public $id = null;
-
     /**
      * @var string
      */
     public $label = null;
-
     /**
      * @var string
      */
     public $type = null;
-
     /**
      * @var string
      */
     public $value = null;
-
     /**
      * @return string
      */
@@ -38,7 +34,6 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->id;
     }
-
     /**
      * @param string
      */
@@ -46,7 +41,6 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         $this->id = $value;
     }
-
     /**
      * @return string
      */
@@ -54,7 +48,6 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->label;
     }
-
     /**
      * @param string
      */
@@ -62,7 +55,6 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         $this->label = $value;
     }
-
     /**
      * @return string
      */
@@ -70,7 +62,6 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->type;
     }
-
     /**
      * @param string
      */
@@ -78,7 +69,6 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         $this->type = $value;
     }
-
     /**
      * @return string
      */
@@ -86,7 +76,6 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         return $this->value;
     }
-
     /**
      * @param string
      */
@@ -94,28 +83,26 @@ class PaymentProductFieldDisplayElement extends DataObject
     {
         $this->value = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->id)) {
+        if (!\is_null($this->id)) {
             $object->id = $this->id;
         }
-        if (!is_null($this->label)) {
+        if (!\is_null($this->label)) {
             $object->label = $this->label;
         }
-        if (!is_null($this->type)) {
+        if (!\is_null($this->type)) {
             $object->type = $this->type;
         }
-        if (!is_null($this->value)) {
+        if (!\is_null($this->value)) {
             $object->value = $this->value;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,16 +111,16 @@ class PaymentProductFieldDisplayElement extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'id')) {
+        if (\property_exists($object, 'id')) {
             $this->id = $object->id;
         }
-        if (property_exists($object, 'label')) {
+        if (\property_exists($object, 'label')) {
             $this->label = $object->label;
         }
-        if (property_exists($object, 'type')) {
+        if (\property_exists($object, 'type')) {
             $this->type = $object->type;
         }
-        if (property_exists($object, 'value')) {
+        if (\property_exists($object, 'value')) {
             $this->value = $object->value;
         }
         return $this;

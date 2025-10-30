@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -15,7 +16,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
-
 /**
  * Tokens client interface.
  */
@@ -37,7 +37,6 @@ interface TokensClientInterface
      * @throws InvalidResponseException
      */
     function getToken($tokenId, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/tokens/{tokenId} - Delete token
      *
@@ -54,7 +53,6 @@ interface TokensClientInterface
      * @throws InvalidResponseException
      */
     function deleteToken($tokenId, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/tokens - Create token
      *

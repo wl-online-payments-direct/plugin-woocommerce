@@ -1,5 +1,6 @@
 <?php
 
+declare (strict_types=1);
 /*
  * This file is part of the Assets package.
  *
@@ -19,5 +20,5 @@ interface AssetOutputFilter
      *
      * @return string $html
      */
-    public function __invoke(string $html, Asset $asset): string;
+    public function __invoke(string $html, Asset $asset) : string;
 }

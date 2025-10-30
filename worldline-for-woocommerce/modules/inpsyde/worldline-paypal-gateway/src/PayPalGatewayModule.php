@@ -1,20 +1,16 @@
 <?php
 
-declare(strict_types=1);
-
+declare (strict_types=1);
 namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\PayPalGateway;
 
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
-
 class PayPalGatewayModule implements ServiceModule, ExtendingModule
 {
     use ModuleClassNameIdTrait;
-
     public const PACKAGE_NAME = 'worldline-paypal-gateway';
-
-    public function services(): array
+    public function services() : array
     {
         static $services;
         if ($services === null) {
@@ -22,11 +18,10 @@ class PayPalGatewayModule implements ServiceModule, ExtendingModule
         }
         return $services();
     }
-
     /**
      * @inheritDoc
      */
-    public function extensions(): array
+    public function extensions() : array
     {
         static $extensions;
         if ($extensions === null) {

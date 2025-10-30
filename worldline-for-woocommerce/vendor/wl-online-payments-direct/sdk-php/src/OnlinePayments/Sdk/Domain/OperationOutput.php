@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class OperationOutput extends DataObject
 {
@@ -15,37 +15,30 @@ class OperationOutput extends DataObject
      * @var AmountOfMoney
      */
     public $amountOfMoney = null;
-
     /**
      * @var string
      */
     public $id = null;
-
     /**
      * @var OperationPaymentReferences
      */
     public $operationReferences = null;
-
     /**
      * @var string
      */
     public $paymentMethod = null;
-
     /**
      * @var PaymentReferences
      */
     public $references = null;
-
     /**
      * @var string
      */
     public $status = null;
-
     /**
      * @var PaymentStatusOutput
      */
     public $statusOutput = null;
-
     /**
      * @return AmountOfMoney
      */
@@ -53,7 +46,6 @@ class OperationOutput extends DataObject
     {
         return $this->amountOfMoney;
     }
-
     /**
      * @param AmountOfMoney
      */
@@ -61,7 +53,6 @@ class OperationOutput extends DataObject
     {
         $this->amountOfMoney = $value;
     }
-
     /**
      * @return string
      */
@@ -69,7 +60,6 @@ class OperationOutput extends DataObject
     {
         return $this->id;
     }
-
     /**
      * @param string
      */
@@ -77,7 +67,6 @@ class OperationOutput extends DataObject
     {
         $this->id = $value;
     }
-
     /**
      * @return OperationPaymentReferences
      */
@@ -85,7 +74,6 @@ class OperationOutput extends DataObject
     {
         return $this->operationReferences;
     }
-
     /**
      * @param OperationPaymentReferences
      */
@@ -93,7 +81,6 @@ class OperationOutput extends DataObject
     {
         $this->operationReferences = $value;
     }
-
     /**
      * @return string
      */
@@ -101,7 +88,6 @@ class OperationOutput extends DataObject
     {
         return $this->paymentMethod;
     }
-
     /**
      * @param string
      */
@@ -109,7 +95,6 @@ class OperationOutput extends DataObject
     {
         $this->paymentMethod = $value;
     }
-
     /**
      * @return PaymentReferences
      */
@@ -117,7 +102,6 @@ class OperationOutput extends DataObject
     {
         return $this->references;
     }
-
     /**
      * @param PaymentReferences
      */
@@ -125,7 +109,6 @@ class OperationOutput extends DataObject
     {
         $this->references = $value;
     }
-
     /**
      * @return string
      */
@@ -133,7 +116,6 @@ class OperationOutput extends DataObject
     {
         return $this->status;
     }
-
     /**
      * @param string
      */
@@ -141,7 +123,6 @@ class OperationOutput extends DataObject
     {
         $this->status = $value;
     }
-
     /**
      * @return PaymentStatusOutput
      */
@@ -149,7 +130,6 @@ class OperationOutput extends DataObject
     {
         return $this->statusOutput;
     }
-
     /**
      * @param PaymentStatusOutput
      */
@@ -157,37 +137,35 @@ class OperationOutput extends DataObject
     {
         $this->statusOutput = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->amountOfMoney)) {
+        if (!\is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if (!is_null($this->id)) {
+        if (!\is_null($this->id)) {
             $object->id = $this->id;
         }
-        if (!is_null($this->operationReferences)) {
+        if (!\is_null($this->operationReferences)) {
             $object->operationReferences = $this->operationReferences->toObject();
         }
-        if (!is_null($this->paymentMethod)) {
+        if (!\is_null($this->paymentMethod)) {
             $object->paymentMethod = $this->paymentMethod;
         }
-        if (!is_null($this->references)) {
+        if (!\is_null($this->references)) {
             $object->references = $this->references->toObject();
         }
-        if (!is_null($this->status)) {
+        if (!\is_null($this->status)) {
             $object->status = $this->status;
         }
-        if (!is_null($this->statusOutput)) {
+        if (!\is_null($this->statusOutput)) {
             $object->statusOutput = $this->statusOutput->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -196,39 +174,39 @@ class OperationOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'amountOfMoney')) {
-            if (!is_object($object->amountOfMoney)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->amountOfMoney, true) . '\' is not an object');
+        if (\property_exists($object, 'amountOfMoney')) {
+            if (!\is_object($object->amountOfMoney)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->amountOfMoney, \true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->amountOfMoney = $value->fromObject($object->amountOfMoney);
         }
-        if (property_exists($object, 'id')) {
+        if (\property_exists($object, 'id')) {
             $this->id = $object->id;
         }
-        if (property_exists($object, 'operationReferences')) {
-            if (!is_object($object->operationReferences)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->operationReferences, true) . '\' is not an object');
+        if (\property_exists($object, 'operationReferences')) {
+            if (!\is_object($object->operationReferences)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->operationReferences, \true) . '\' is not an object');
             }
             $value = new OperationPaymentReferences();
             $this->operationReferences = $value->fromObject($object->operationReferences);
         }
-        if (property_exists($object, 'paymentMethod')) {
+        if (\property_exists($object, 'paymentMethod')) {
             $this->paymentMethod = $object->paymentMethod;
         }
-        if (property_exists($object, 'references')) {
-            if (!is_object($object->references)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->references, true) . '\' is not an object');
+        if (\property_exists($object, 'references')) {
+            if (!\is_object($object->references)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->references, \true) . '\' is not an object');
             }
             $value = new PaymentReferences();
             $this->references = $value->fromObject($object->references);
         }
-        if (property_exists($object, 'status')) {
+        if (\property_exists($object, 'status')) {
             $this->status = $object->status;
         }
-        if (property_exists($object, 'statusOutput')) {
-            if (!is_object($object->statusOutput)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->statusOutput, true) . '\' is not an object');
+        if (\property_exists($object, 'statusOutput')) {
+            if (!\is_object($object->statusOutput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->statusOutput, \true) . '\' is not an object');
             }
             $value = new PaymentStatusOutput();
             $this->statusOutput = $value->fromObject($object->statusOutput);

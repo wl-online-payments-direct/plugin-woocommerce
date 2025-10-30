@@ -7,8 +7,8 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGatewa
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 abstract class AbstractHostedPaymentRequestModifier
 {
-    abstract public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput): CreateHostedCheckoutRequest;
-    protected function removeTokensFromRequest(CreateHostedCheckoutRequest $hostedCheckoutRequest): void
+    public abstract function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput) : CreateHostedCheckoutRequest;
+    protected function removeTokensFromRequest(CreateHostedCheckoutRequest $hostedCheckoutRequest) : void
     {
         $hostedCheckoutSpecificInput = $hostedCheckoutRequest->getHostedCheckoutSpecificInput();
         $hostedCheckoutSpecificInput->setTokens('');

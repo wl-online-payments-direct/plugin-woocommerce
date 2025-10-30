@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -26,7 +27,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
-
 /**
  * Payments client interface.
  */
@@ -49,7 +49,6 @@ interface PaymentsClientInterface
      * @throws InvalidResponseException
      */
     function createPayment(CreatePaymentRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/payments/{paymentId} - Get payment
      *
@@ -66,7 +65,6 @@ interface PaymentsClientInterface
      * @throws InvalidResponseException
      */
     function getPayment($paymentId, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/payments/{paymentId}/details - Get payment details
      *
@@ -83,7 +81,6 @@ interface PaymentsClientInterface
      * @throws InvalidResponseException
      */
     function getPaymentDetails($paymentId, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/payments/{paymentId}/cancel - Cancel payment
      *
@@ -101,7 +98,6 @@ interface PaymentsClientInterface
      * @throws InvalidResponseException
      */
     function cancelPayment($paymentId, CancelPaymentRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/payments/{paymentId}/capture - Capture payment
      *
@@ -119,7 +115,6 @@ interface PaymentsClientInterface
      * @throws InvalidResponseException
      */
     function capturePayment($paymentId, CapturePaymentRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/payments/{paymentId}/refund - Refund payment
      *
@@ -138,7 +133,6 @@ interface PaymentsClientInterface
      * @throws InvalidResponseException
      */
     function refundPayment($paymentId, RefundRequest $body, CallContext $callContext = null);
-
     /**
      * Resource /v2/{merchantId}/payments/{paymentId}/subsequent - Subsequent payment
      *

@@ -9,5 +9,5 @@ interface StatusCheckerInterface
     /**
      * Returns the status of the return page.
      */
-    public function determineStatus(?WC_Order $wcOrder): string;
+    public function determineStatus(?WC_Order $wcOrder) : string;
 }

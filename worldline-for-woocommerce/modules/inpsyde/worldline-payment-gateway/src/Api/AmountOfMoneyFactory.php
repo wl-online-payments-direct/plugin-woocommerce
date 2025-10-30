@@ -17,7 +17,7 @@ class AmountOfMoneyFactory
      * @param WcPriceStruct $priceStruct
      * @return AmountOfMoney
      */
-    public function create(WcPriceStruct $priceStruct): AmountOfMoney
+    public function create(WcPriceStruct $priceStruct) : AmountOfMoney
     {
         $amountOfMoney = new AmountOfMoney();
         $amountOfMoney->setAmount($this->moneyAmountConverter->decimalValueToCentValue((float) $priceStruct->price(), $priceStruct->currency()));

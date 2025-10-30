@@ -6,7 +6,7 @@ namespace Syde\Vendor\Worldline;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\Module;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\WorldlineProperties;
-return static function (string $mainPluginFile, callable $onError, Module ...$modules): Package {
+return static function (string $mainPluginFile, callable $onError, Module ...$modules) : Package {
     $autoload = \dirname($mainPluginFile) . '/vendor/autoload.php';
     /** Older Woocommerce versions don't set version plugin headers.
      * Here we set a version header "WC requires at least", so we are able

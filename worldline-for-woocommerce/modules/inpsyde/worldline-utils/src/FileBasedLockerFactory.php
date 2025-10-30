@@ -12,7 +12,7 @@ class FileBasedLockerFactory implements LockerFactoryInterface
         $this->timeout = $timeout;
         $this->tempDir = $tempDir;
     }
-    public function create(int $orderId): LockerInterface
+    public function create(int $orderId) : LockerInterface
     {
         $lockFilePath = "{$this->tempDir}/wlop_order_{$orderId}.lock";
         return new FileBasedLocker($this->timeout, $lockFilePath);

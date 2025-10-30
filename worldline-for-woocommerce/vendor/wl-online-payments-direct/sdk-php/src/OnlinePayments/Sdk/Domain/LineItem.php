@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class LineItem extends DataObject
 {
@@ -15,22 +15,18 @@ class LineItem extends DataObject
      * @var AmountOfMoney
      */
     public $amountOfMoney = null;
-
     /**
      * @var LineItemInvoiceData
      */
     public $invoiceData = null;
-
     /**
      * @var OrderLineDetails
      */
     public $orderLineDetails = null;
-
     /**
      * @var OtherDetails
      */
     public $otherDetails = null;
-
     /**
      * @return AmountOfMoney
      */
@@ -38,7 +34,6 @@ class LineItem extends DataObject
     {
         return $this->amountOfMoney;
     }
-
     /**
      * @param AmountOfMoney
      */
@@ -46,7 +41,6 @@ class LineItem extends DataObject
     {
         $this->amountOfMoney = $value;
     }
-
     /**
      * @return LineItemInvoiceData
      */
@@ -54,7 +48,6 @@ class LineItem extends DataObject
     {
         return $this->invoiceData;
     }
-
     /**
      * @param LineItemInvoiceData
      */
@@ -62,7 +55,6 @@ class LineItem extends DataObject
     {
         $this->invoiceData = $value;
     }
-
     /**
      * @return OrderLineDetails
      */
@@ -70,7 +62,6 @@ class LineItem extends DataObject
     {
         return $this->orderLineDetails;
     }
-
     /**
      * @param OrderLineDetails
      */
@@ -78,7 +69,6 @@ class LineItem extends DataObject
     {
         $this->orderLineDetails = $value;
     }
-
     /**
      * @return OtherDetails
      */
@@ -86,7 +76,6 @@ class LineItem extends DataObject
     {
         return $this->otherDetails;
     }
-
     /**
      * @param OtherDetails
      */
@@ -94,28 +83,26 @@ class LineItem extends DataObject
     {
         $this->otherDetails = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->amountOfMoney)) {
+        if (!\is_null($this->amountOfMoney)) {
             $object->amountOfMoney = $this->amountOfMoney->toObject();
         }
-        if (!is_null($this->invoiceData)) {
+        if (!\is_null($this->invoiceData)) {
             $object->invoiceData = $this->invoiceData->toObject();
         }
-        if (!is_null($this->orderLineDetails)) {
+        if (!\is_null($this->orderLineDetails)) {
             $object->orderLineDetails = $this->orderLineDetails->toObject();
         }
-        if (!is_null($this->otherDetails)) {
+        if (!\is_null($this->otherDetails)) {
             $object->otherDetails = $this->otherDetails->toObject();
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,30 +111,30 @@ class LineItem extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'amountOfMoney')) {
-            if (!is_object($object->amountOfMoney)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->amountOfMoney, true) . '\' is not an object');
+        if (\property_exists($object, 'amountOfMoney')) {
+            if (!\is_object($object->amountOfMoney)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->amountOfMoney, \true) . '\' is not an object');
             }
             $value = new AmountOfMoney();
             $this->amountOfMoney = $value->fromObject($object->amountOfMoney);
         }
-        if (property_exists($object, 'invoiceData')) {
-            if (!is_object($object->invoiceData)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->invoiceData, true) . '\' is not an object');
+        if (\property_exists($object, 'invoiceData')) {
+            if (!\is_object($object->invoiceData)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->invoiceData, \true) . '\' is not an object');
             }
             $value = new LineItemInvoiceData();
             $this->invoiceData = $value->fromObject($object->invoiceData);
         }
-        if (property_exists($object, 'orderLineDetails')) {
-            if (!is_object($object->orderLineDetails)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->orderLineDetails, true) . '\' is not an object');
+        if (\property_exists($object, 'orderLineDetails')) {
+            if (!\is_object($object->orderLineDetails)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->orderLineDetails, \true) . '\' is not an object');
             }
             $value = new OrderLineDetails();
             $this->orderLineDetails = $value->fromObject($object->orderLineDetails);
         }
-        if (property_exists($object, 'otherDetails')) {
-            if (!is_object($object->otherDetails)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->otherDetails, true) . '\' is not an object');
+        if (\property_exists($object, 'otherDetails')) {
+            if (!\is_object($object->otherDetails)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->otherDetails, \true) . '\' is not an object');
             }
             $value = new OtherDetails();
             $this->otherDetails = $value->fromObject($object->otherDetails);

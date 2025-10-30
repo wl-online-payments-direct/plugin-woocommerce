@@ -17,8 +17,8 @@ use Inpsyde\Assets\Asset;
  */
 class AsyncScriptOutputFilter implements \Inpsyde\Assets\OutputFilter\AssetOutputFilter
 {
-    public function __invoke(string $html, Asset $asset): string
+    public function __invoke(string $html, Asset $asset) : string
     {
-        return str_replace('<script ', '<script async ', $html);
+        return \str_replace('<script ', '<script async ', $html);
     }
 }

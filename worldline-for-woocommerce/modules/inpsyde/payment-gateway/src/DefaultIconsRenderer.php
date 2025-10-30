@@ -22,7 +22,7 @@ class DefaultIconsRenderer implements GatewayIconsRendererInterface
      *
      * @return string HTML content with rendered icons
      */
-    public function renderIcons(): string
+    public function renderIcons() : string
     {
         $html = '<span class="syde-gateway-icons">';
         foreach ($this->iconProvider->provideIcons() as $icon) {

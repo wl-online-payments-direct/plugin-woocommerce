@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class AirlinePassenger extends DataObject
 {
@@ -15,33 +15,27 @@ class AirlinePassenger extends DataObject
      * @var string
      */
     public $airlineLoyaltyStatus = null;
-
     /**
      * @var string
      */
     public $firstName = null;
-
     /**
      * @var string
      */
     public $passengerType = null;
-
     /**
      * @var string
      */
     public $surname = null;
-
     /**
      * @var string
      */
     public $surnamePrefix = null;
-
     /**
      * @var string
      * @deprecated This field is not used by any payment product Title of the passenger (this property is used for fraud screening on the payment platform)
      */
     public $title = null;
-
     /**
      * @return string
      */
@@ -49,7 +43,6 @@ class AirlinePassenger extends DataObject
     {
         return $this->airlineLoyaltyStatus;
     }
-
     /**
      * @param string
      */
@@ -57,7 +50,6 @@ class AirlinePassenger extends DataObject
     {
         $this->airlineLoyaltyStatus = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +57,6 @@ class AirlinePassenger extends DataObject
     {
         return $this->firstName;
     }
-
     /**
      * @param string
      */
@@ -73,7 +64,6 @@ class AirlinePassenger extends DataObject
     {
         $this->firstName = $value;
     }
-
     /**
      * @return string
      */
@@ -81,7 +71,6 @@ class AirlinePassenger extends DataObject
     {
         return $this->passengerType;
     }
-
     /**
      * @param string
      */
@@ -89,7 +78,6 @@ class AirlinePassenger extends DataObject
     {
         $this->passengerType = $value;
     }
-
     /**
      * @return string
      */
@@ -97,7 +85,6 @@ class AirlinePassenger extends DataObject
     {
         return $this->surname;
     }
-
     /**
      * @param string
      */
@@ -105,7 +92,6 @@ class AirlinePassenger extends DataObject
     {
         $this->surname = $value;
     }
-
     /**
      * @return string
      */
@@ -113,7 +99,6 @@ class AirlinePassenger extends DataObject
     {
         return $this->surnamePrefix;
     }
-
     /**
      * @param string
      */
@@ -121,7 +106,6 @@ class AirlinePassenger extends DataObject
     {
         $this->surnamePrefix = $value;
     }
-
     /**
      * @return string
      * @deprecated This field is not used by any payment product Title of the passenger (this property is used for fraud screening on the payment platform)
@@ -130,7 +114,6 @@ class AirlinePassenger extends DataObject
     {
         return $this->title;
     }
-
     /**
      * @param string
      * @deprecated This field is not used by any payment product Title of the passenger (this property is used for fraud screening on the payment platform)
@@ -139,34 +122,32 @@ class AirlinePassenger extends DataObject
     {
         $this->title = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->airlineLoyaltyStatus)) {
+        if (!\is_null($this->airlineLoyaltyStatus)) {
             $object->airlineLoyaltyStatus = $this->airlineLoyaltyStatus;
         }
-        if (!is_null($this->firstName)) {
+        if (!\is_null($this->firstName)) {
             $object->firstName = $this->firstName;
         }
-        if (!is_null($this->passengerType)) {
+        if (!\is_null($this->passengerType)) {
             $object->passengerType = $this->passengerType;
         }
-        if (!is_null($this->surname)) {
+        if (!\is_null($this->surname)) {
             $object->surname = $this->surname;
         }
-        if (!is_null($this->surnamePrefix)) {
+        if (!\is_null($this->surnamePrefix)) {
             $object->surnamePrefix = $this->surnamePrefix;
         }
-        if (!is_null($this->title)) {
+        if (!\is_null($this->title)) {
             $object->title = $this->title;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -175,22 +156,22 @@ class AirlinePassenger extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'airlineLoyaltyStatus')) {
+        if (\property_exists($object, 'airlineLoyaltyStatus')) {
             $this->airlineLoyaltyStatus = $object->airlineLoyaltyStatus;
         }
-        if (property_exists($object, 'firstName')) {
+        if (\property_exists($object, 'firstName')) {
             $this->firstName = $object->firstName;
         }
-        if (property_exists($object, 'passengerType')) {
+        if (\property_exists($object, 'passengerType')) {
             $this->passengerType = $object->passengerType;
         }
-        if (property_exists($object, 'surname')) {
+        if (\property_exists($object, 'surname')) {
             $this->surname = $object->surname;
         }
-        if (property_exists($object, 'surnamePrefix')) {
+        if (\property_exists($object, 'surnamePrefix')) {
             $this->surnamePrefix = $object->surnamePrefix;
         }
-        if (property_exists($object, 'title')) {
+        if (\property_exists($object, 'title')) {
             $this->title = $object->title;
         }
         return $this;

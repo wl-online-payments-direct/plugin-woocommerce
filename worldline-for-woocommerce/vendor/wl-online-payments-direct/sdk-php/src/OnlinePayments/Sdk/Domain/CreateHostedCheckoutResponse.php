@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CreateHostedCheckoutResponse extends DataObject
 {
@@ -15,32 +15,26 @@ class CreateHostedCheckoutResponse extends DataObject
      * @var string
      */
     public $RETURNMAC = null;
-
     /**
      * @var string
      */
     public $hostedCheckoutId = null;
-
     /**
      * @var string[]
      */
     public $invalidTokens = null;
-
     /**
      * @var string
      */
     public $merchantReference = null;
-
     /**
      * @var string
      */
     public $partialRedirectUrl = null;
-
     /**
      * @var string
      */
     public $redirectUrl = null;
-
     /**
      * @return string
      */
@@ -48,7 +42,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         return $this->RETURNMAC;
     }
-
     /**
      * @param string
      */
@@ -56,7 +49,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         $this->RETURNMAC = $value;
     }
-
     /**
      * @return string
      */
@@ -64,7 +56,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         return $this->hostedCheckoutId;
     }
-
     /**
      * @param string
      */
@@ -72,7 +63,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         $this->hostedCheckoutId = $value;
     }
-
     /**
      * @return string[]
      */
@@ -80,7 +70,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         return $this->invalidTokens;
     }
-
     /**
      * @param string[]
      */
@@ -88,7 +77,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         $this->invalidTokens = $value;
     }
-
     /**
      * @return string
      */
@@ -96,7 +84,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         return $this->merchantReference;
     }
-
     /**
      * @param string
      */
@@ -104,7 +91,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         $this->merchantReference = $value;
     }
-
     /**
      * @return string
      */
@@ -112,7 +98,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         return $this->partialRedirectUrl;
     }
-
     /**
      * @param string
      */
@@ -120,7 +105,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         $this->partialRedirectUrl = $value;
     }
-
     /**
      * @return string
      */
@@ -128,7 +112,6 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         return $this->redirectUrl;
     }
-
     /**
      * @param string
      */
@@ -136,39 +119,37 @@ class CreateHostedCheckoutResponse extends DataObject
     {
         $this->redirectUrl = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->RETURNMAC)) {
+        if (!\is_null($this->RETURNMAC)) {
             $object->RETURNMAC = $this->RETURNMAC;
         }
-        if (!is_null($this->hostedCheckoutId)) {
+        if (!\is_null($this->hostedCheckoutId)) {
             $object->hostedCheckoutId = $this->hostedCheckoutId;
         }
-        if (!is_null($this->invalidTokens)) {
+        if (!\is_null($this->invalidTokens)) {
             $object->invalidTokens = [];
             foreach ($this->invalidTokens as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->invalidTokens[] = $element;
                 }
             }
         }
-        if (!is_null($this->merchantReference)) {
+        if (!\is_null($this->merchantReference)) {
             $object->merchantReference = $this->merchantReference;
         }
-        if (!is_null($this->partialRedirectUrl)) {
+        if (!\is_null($this->partialRedirectUrl)) {
             $object->partialRedirectUrl = $this->partialRedirectUrl;
         }
-        if (!is_null($this->redirectUrl)) {
+        if (!\is_null($this->redirectUrl)) {
             $object->redirectUrl = $this->redirectUrl;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -177,28 +158,28 @@ class CreateHostedCheckoutResponse extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'RETURNMAC')) {
+        if (\property_exists($object, 'RETURNMAC')) {
             $this->RETURNMAC = $object->RETURNMAC;
         }
-        if (property_exists($object, 'hostedCheckoutId')) {
+        if (\property_exists($object, 'hostedCheckoutId')) {
             $this->hostedCheckoutId = $object->hostedCheckoutId;
         }
-        if (property_exists($object, 'invalidTokens')) {
-            if (!is_array($object->invalidTokens) && !is_object($object->invalidTokens)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->invalidTokens, true) . '\' is not an array or object');
+        if (\property_exists($object, 'invalidTokens')) {
+            if (!\is_array($object->invalidTokens) && !\is_object($object->invalidTokens)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->invalidTokens, \true) . '\' is not an array or object');
             }
             $this->invalidTokens = [];
             foreach ($object->invalidTokens as $element) {
                 $this->invalidTokens[] = $element;
             }
         }
-        if (property_exists($object, 'merchantReference')) {
+        if (\property_exists($object, 'merchantReference')) {
             $this->merchantReference = $object->merchantReference;
         }
-        if (property_exists($object, 'partialRedirectUrl')) {
+        if (\property_exists($object, 'partialRedirectUrl')) {
             $this->partialRedirectUrl = $object->partialRedirectUrl;
         }
-        if (property_exists($object, 'redirectUrl')) {
+        if (\property_exists($object, 'redirectUrl')) {
             $this->redirectUrl = $object->redirectUrl;
         }
         return $this;

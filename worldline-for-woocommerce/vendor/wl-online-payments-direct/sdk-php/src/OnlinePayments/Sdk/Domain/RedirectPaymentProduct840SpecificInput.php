@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class RedirectPaymentProduct840SpecificInput extends DataObject
 {
@@ -15,22 +15,18 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
      * @var bool
      */
     public $JavaScriptSdkFlow = null;
-
     /**
      * @var bool
      */
     public $addressSelectionAtPayPal = null;
-
     /**
      * @var string
      */
     public $custom = null;
-
     /**
      * @var bool
      */
     public $payLater = null;
-
     /**
      * @return bool
      */
@@ -38,7 +34,6 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         return $this->JavaScriptSdkFlow;
     }
-
     /**
      * @param bool
      */
@@ -46,7 +41,6 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         $this->JavaScriptSdkFlow = $value;
     }
-
     /**
      * @return bool
      */
@@ -54,7 +48,6 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         return $this->addressSelectionAtPayPal;
     }
-
     /**
      * @param bool
      */
@@ -62,7 +55,6 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         $this->addressSelectionAtPayPal = $value;
     }
-
     /**
      * @return string
      */
@@ -70,7 +62,6 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         return $this->custom;
     }
-
     /**
      * @param string
      */
@@ -78,7 +69,6 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         $this->custom = $value;
     }
-
     /**
      * @return bool
      */
@@ -86,7 +76,6 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         return $this->payLater;
     }
-
     /**
      * @param bool
      */
@@ -94,28 +83,26 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     {
         $this->payLater = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->JavaScriptSdkFlow)) {
+        if (!\is_null($this->JavaScriptSdkFlow)) {
             $object->JavaScriptSdkFlow = $this->JavaScriptSdkFlow;
         }
-        if (!is_null($this->addressSelectionAtPayPal)) {
+        if (!\is_null($this->addressSelectionAtPayPal)) {
             $object->addressSelectionAtPayPal = $this->addressSelectionAtPayPal;
         }
-        if (!is_null($this->custom)) {
+        if (!\is_null($this->custom)) {
             $object->custom = $this->custom;
         }
-        if (!is_null($this->payLater)) {
+        if (!\is_null($this->payLater)) {
             $object->payLater = $this->payLater;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,16 +111,16 @@ class RedirectPaymentProduct840SpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'JavaScriptSdkFlow')) {
+        if (\property_exists($object, 'JavaScriptSdkFlow')) {
             $this->JavaScriptSdkFlow = $object->JavaScriptSdkFlow;
         }
-        if (property_exists($object, 'addressSelectionAtPayPal')) {
+        if (\property_exists($object, 'addressSelectionAtPayPal')) {
             $this->addressSelectionAtPayPal = $object->addressSelectionAtPayPal;
         }
-        if (property_exists($object, 'custom')) {
+        if (\property_exists($object, 'custom')) {
             $this->custom = $object->custom;
         }
-        if (property_exists($object, 'payLater')) {
+        if (\property_exists($object, 'payLater')) {
             $this->payLater = $object->payLater;
         }
         return $this;

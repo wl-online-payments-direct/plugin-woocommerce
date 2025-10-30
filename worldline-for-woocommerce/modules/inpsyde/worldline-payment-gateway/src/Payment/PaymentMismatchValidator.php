@@ -14,14 +14,14 @@ class PaymentMismatchValidator
     /**
      * @throws Exception
      */
-    public function validate(Order $wlopOrder): void
+    public function validate(Order $wlopOrder) : void
     {
         $this->validateTotals($wlopOrder);
     }
     /**
      * @throws Exception
      */
-    protected function validateTotals(Order $wlopOrder): void
+    protected function validateTotals(Order $wlopOrder) : void
     {
         $orderCart = $wlopOrder->getShoppingCart();
         if (!$orderCart) {

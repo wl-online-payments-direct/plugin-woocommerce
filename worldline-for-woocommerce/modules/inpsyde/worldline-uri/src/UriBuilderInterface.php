@@ -9,5 +9,5 @@ interface UriBuilderInterface
     /**
      * Creates Uri from the array of parts, like returned by parse_url.
      */
-    public function createUriFromParts(array $parts): UriInterface;
+    public function createUriFromParts(array $parts) : UriInterface;
 }

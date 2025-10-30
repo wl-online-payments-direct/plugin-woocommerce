@@ -11,7 +11,7 @@ class CardBinParser
      * @param string $bin The first 6 (or more) digits of the card number.
      * @return string|null
      */
-    public function detectBrand(string $bin): ?string
+    public function detectBrand(string $bin) : ?string
     {
         if (empty($bin)) {
             return null;
@@ -33,7 +33,7 @@ class CardBinParser
             'mir' => '/^220[0-4]/',
         ];
         foreach ($cardPrefixes as $brand => $regexp) {
-            if (preg_match($regexp, $bin)) {
+            if (\preg_match($regexp, $bin)) {
                 return $brand;
             }
         }

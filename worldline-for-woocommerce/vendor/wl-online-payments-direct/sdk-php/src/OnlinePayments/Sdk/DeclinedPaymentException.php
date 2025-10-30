@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -7,11 +8,10 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentErrorResponse;
-
 /**
  * Class DeclinedPaymentException
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk
+ * @package OnlinePayments\Sdk
  */
 class DeclinedPaymentException extends ResponseException
 {
@@ -22,32 +22,30 @@ class DeclinedPaymentException extends ResponseException
      */
     public function __construct($httpStatusCode, DataObject $response, $message = null)
     {
-        if (is_null($message)) {
+        if (\is_null($message)) {
             $message = DeclinedPaymentException::buildMessage($response);
         }
         parent::__construct($httpStatusCode, $response, $message);
     }
-
     private static function buildMessage(DataObject $response)
     {
         if ($response instanceof PaymentErrorResponse && $response->paymentResult != null && $response->paymentResult->payment != null) {
             $payment = $response->paymentResult->payment;
-            return "declined payment '$payment->id' with status '$payment->status'";
+            return "declined payment '{$payment->id}' with status '{$payment->status}'";
         }
         return 'the payment platform returned a declined payment response';
     }
-
     /**
      * @return CreatePaymentResponse
      */
     public function getCreatePaymentResponse()
     {
-        $responseVariables = get_object_vars($this->getResponse());
-        if (!array_key_exists('paymentResult', $responseVariables)) {
+        $responseVariables = \get_object_vars($this->getResponse());
+        if (!\array_key_exists('paymentResult', $responseVariables)) {
             return new CreatePaymentResponse();
         }
         $paymentResult = $responseVariables['paymentResult'];
-        if (!($paymentResult instanceof CreatePaymentResponse)) {
+        if (!$paymentResult instanceof CreatePaymentResponse) {
             return new CreatePaymentResponse();
         }
         return $paymentResult;

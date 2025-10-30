@@ -27,8 +27,8 @@
     },
     "require-dev": {
         "brain\/monkey": "^2.6.1",
-        "inpsyde\/php-coding-standards": "^2@dev",
-        "inpsyde\/wp-stubs-versions": "dev-latest",
+        "inpsyde\/php-coding-standards": "dev-main",
+        "inpsyde\/wp-stubs-versions": "dev-main",
         "roots\/wordpress-no-content": "@dev",
         "mikey179\/vfsstream": "^v1.6.11",
         "phpunit\/phpunit": "^9.6.19",

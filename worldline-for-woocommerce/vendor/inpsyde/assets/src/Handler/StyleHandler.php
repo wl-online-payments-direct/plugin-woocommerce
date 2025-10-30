@@ -19,10 +19,7 @@ use Inpsyde\Assets\Style;
 class StyleHandler implements \Inpsyde\Assets\Handler\AssetHandler, \Inpsyde\Assets\Handler\OutputFilterAwareAssetHandler
 {
     use \Inpsyde\Assets\Handler\OutputFilterAwareAssetHandlerTrait;
-    /**
-     * @var \WP_Styles
-     */
-    protected $wpStyles;
+    protected \WP_Styles $wpStyles;
     /**
      * StyleHandler constructor.
      *
@@ -39,36 +36,36 @@ class StyleHandler implements \Inpsyde\Assets\Handler\AssetHandler, \Inpsyde\Ass
             $this->withOutputFilter($name, $callable);
         }
     }
-    public function enqueue(Asset $asset): bool
+    public function enqueue(Asset $asset) : bool
     {
         $this->register($asset);
         if ($asset->enqueue()) {
-            wp_enqueue_style($asset->handle());
+            \wp_enqueue_style($asset->handle());
             return \true;
         }
         return \false;
     }
-    public function register(Asset $asset): bool
+    public function register(Asset $asset) : bool
     {
         /** @var Style $asset */
         $handle = $asset->handle();
-        wp_register_style($handle, $asset->url(), $asset->dependencies(), $asset->version(), $asset->media());
+        \wp_register_style($handle, $asset->url(), $asset->dependencies(), $asset->version(), $asset->media());
         $inlineStyles = $asset->inlineStyles();
         if ($inlineStyles !== null) {
-            wp_add_inline_style($handle, implode("\n", $inlineStyles));
+            \wp_add_inline_style($handle, \implode("\n", $inlineStyles));
         }
         $cssVars = $asset->cssVars();
-        if (count($cssVars) > 0) {
-            wp_add_inline_style($handle, $asset->cssVarsAsString());
+        if (\count($cssVars) > 0) {
+            \wp_add_inline_style($handle, $asset->cssVarsAsString());
         }
-        if (count($asset->data()) > 0) {
+        if (\count($asset->data()) > 0) {
             foreach ($asset->data() as $key => $value) {
                 $this->wpStyles->add_data($handle, $key, $value);
             }
         }
         return \true;
     }
-    public function filterHook(): string
+    public function filterHook() : string
     {
         return 'style_loader_tag';
     }

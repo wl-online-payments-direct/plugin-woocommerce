@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class AcquirerSelectionInformation extends DataObject
 {
@@ -15,17 +15,14 @@ class AcquirerSelectionInformation extends DataObject
      * @var int
      */
     public $fallbackLevel = null;
-
     /**
      * @var string
      */
     public $result = null;
-
     /**
      * @var string
      */
     public $ruleName = null;
-
     /**
      * @return int
      */
@@ -33,7 +30,6 @@ class AcquirerSelectionInformation extends DataObject
     {
         return $this->fallbackLevel;
     }
-
     /**
      * @param int
      */
@@ -41,7 +37,6 @@ class AcquirerSelectionInformation extends DataObject
     {
         $this->fallbackLevel = $value;
     }
-
     /**
      * @return string
      */
@@ -49,7 +44,6 @@ class AcquirerSelectionInformation extends DataObject
     {
         return $this->result;
     }
-
     /**
      * @param string
      */
@@ -57,7 +51,6 @@ class AcquirerSelectionInformation extends DataObject
     {
         $this->result = $value;
     }
-
     /**
      * @return string
      */
@@ -65,7 +58,6 @@ class AcquirerSelectionInformation extends DataObject
     {
         return $this->ruleName;
     }
-
     /**
      * @param string
      */
@@ -73,25 +65,23 @@ class AcquirerSelectionInformation extends DataObject
     {
         $this->ruleName = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->fallbackLevel)) {
+        if (!\is_null($this->fallbackLevel)) {
             $object->fallbackLevel = $this->fallbackLevel;
         }
-        if (!is_null($this->result)) {
+        if (!\is_null($this->result)) {
             $object->result = $this->result;
         }
-        if (!is_null($this->ruleName)) {
+        if (!\is_null($this->ruleName)) {
             $object->ruleName = $this->ruleName;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -100,13 +90,13 @@ class AcquirerSelectionInformation extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'fallbackLevel')) {
+        if (\property_exists($object, 'fallbackLevel')) {
             $this->fallbackLevel = $object->fallbackLevel;
         }
-        if (property_exists($object, 'result')) {
+        if (\property_exists($object, 'result')) {
             $this->result = $object->result;
         }
-        if (property_exists($object, 'ruleName')) {
+        if (\property_exists($object, 'ruleName')) {
             $this->ruleName = $object->ruleName;
         }
         return $this;

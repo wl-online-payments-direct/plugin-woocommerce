@@ -1,4 +1,5 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
@@ -9,7 +10,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
-
 /**
  * Refunds client.
  */
@@ -17,7 +17,6 @@ class RefundsClient extends ApiResource implements RefundsClientInterface
 {
     /** @var ExceptionFactory|null */
     private $responseExceptionFactory = null;
-
     /**
      * @inheritdoc
      */
@@ -25,29 +24,18 @@ class RefundsClient extends ApiResource implements RefundsClientInterface
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundsResponse';
-        $responseClassMap->defaultErrorResponseClassName = '\Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\RefundsResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
-            return $this->getCommunicator()->get(
-                $responseClassMap,
-                $this->instantiateUri('/v2/{merchantId}/payments/{paymentId}/refunds'),
-                $this->getClientMetaInfo(),
-                null,
-                $callContext
-            );
+            return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/payments/{paymentId}/refunds'), $this->getClientMetaInfo(), null, $callContext);
         } catch (ErrorResponseException $e) {
-            throw $this->getResponseExceptionFactory()->createException(
-                $e->getHttpStatusCode(),
-                $e->getErrorResponse(),
-                $callContext
-            );
+            throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
         }
     }
-
     /** @return ExceptionFactory */
     private function getResponseExceptionFactory()
     {
-        if (is_null($this->responseExceptionFactory)) {
+        if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();
         }
         return $this->responseExceptionFactory;

@@ -12,11 +12,11 @@ class WcPriceStruct
         $this->price = $price;
         $this->currency = $currency;
     }
-    public function price(): string
+    public function price() : string
     {
         return $this->price;
     }
-    public function currency(): string
+    public function currency() : string
     {
         return $this->currency;
     }

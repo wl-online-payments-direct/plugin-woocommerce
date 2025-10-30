@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProductFilter extends DataObject
 {
@@ -15,12 +15,10 @@ class PaymentProductFilter extends DataObject
      * @var string[]
      */
     public $groups = null;
-
     /**
      * @var int[]
      */
     public $products = null;
-
     /**
      * @return string[]
      */
@@ -28,7 +26,6 @@ class PaymentProductFilter extends DataObject
     {
         return $this->groups;
     }
-
     /**
      * @param string[]
      */
@@ -36,7 +33,6 @@ class PaymentProductFilter extends DataObject
     {
         $this->groups = $value;
     }
-
     /**
      * @return int[]
      */
@@ -44,7 +40,6 @@ class PaymentProductFilter extends DataObject
     {
         return $this->products;
     }
-
     /**
      * @param int[]
      */
@@ -52,32 +47,30 @@ class PaymentProductFilter extends DataObject
     {
         $this->products = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->groups)) {
+        if (!\is_null($this->groups)) {
             $object->groups = [];
             foreach ($this->groups as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->groups[] = $element;
                 }
             }
         }
-        if (!is_null($this->products)) {
+        if (!\is_null($this->products)) {
             $object->products = [];
             foreach ($this->products as $element) {
-                if (!is_null($element)) {
+                if (!\is_null($element)) {
                     $object->products[] = $element;
                 }
             }
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -86,18 +79,18 @@ class PaymentProductFilter extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'groups')) {
-            if (!is_array($object->groups) && !is_object($object->groups)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->groups, true) . '\' is not an array or object');
+        if (\property_exists($object, 'groups')) {
+            if (!\is_array($object->groups) && !\is_object($object->groups)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->groups, \true) . '\' is not an array or object');
             }
             $this->groups = [];
             foreach ($object->groups as $element) {
                 $this->groups[] = $element;
             }
         }
-        if (property_exists($object, 'products')) {
-            if (!is_array($object->products) && !is_object($object->products)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->products, true) . '\' is not an array or object');
+        if (\property_exists($object, 'products')) {
+            if (!\is_array($object->products) && !\is_object($object->products)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->products, \true) . '\' is not an array or object');
             }
             $this->products = [];
             foreach ($object->products as $element) {

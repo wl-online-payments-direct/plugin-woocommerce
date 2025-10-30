@@ -28,28 +28,28 @@ class WpEnvironment implements WpEnvironmentInterface
     /**
      * @inheritDoc
      */
-    public function phpVersion(): string
+    public function phpVersion() : string
     {
         return $this->phpVersion;
     }
     /**
      * @inheritDoc
      */
-    public function wpVersion(): string
+    public function wpVersion() : string
     {
         return $this->wpVersion;
     }
     /**
      * @inheritDoc
      */
-    public function wcVersion(): string
+    public function wcVersion() : string
     {
         return $this->wcVersion;
     }
     /**
      * @inheritDoc
      */
-    public function isWcActive(): bool
+    public function isWcActive() : bool
     {
         return $this->isWcActive;
     }

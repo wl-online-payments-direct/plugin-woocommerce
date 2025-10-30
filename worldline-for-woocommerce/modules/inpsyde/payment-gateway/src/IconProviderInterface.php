@@ -17,5 +17,5 @@ interface IconProviderInterface
      * @return Icon[]
      *      An array containing instances of the `Icon` class, each representing a specific icon.
      */
-    public function provideIcons(): array;
+    public function provideIcons() : array;
 }

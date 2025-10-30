@@ -36,7 +36,7 @@ class PaymentGatewayBlocks extends AbstractPaymentMethodType
     public function is_active()
     {
         $gateway = $this->gateway();
-        return filter_var($gateway->get_option('enabled', \false), \FILTER_VALIDATE_BOOLEAN);
+        return \filter_var($gateway->get_option('enabled', \false), \FILTER_VALIDATE_BOOLEAN);
     }
     /**
      * Returns an array of scripts/handles to be registered for this payment method.
@@ -49,27 +49,27 @@ class PaymentGatewayBlocks extends AbstractPaymentMethodType
     {
         $scriptPath = '/js/frontend/blocks.js';
         $scriptAssetPath = $this->container->get('payment_gateways.assets_path') . '/js/frontend/blocks.asset.php';
-        $scriptAsset = file_exists($scriptAssetPath) ? require $scriptAssetPath : ['dependencies' => [], 'version' => '0.1.0'];
+        $scriptAsset = \file_exists($scriptAssetPath) ? require $scriptAssetPath : ['dependencies' => [], 'version' => '0.1.0'];
         $scriptUrl = $this->container->get('payment_gateways.assets_url') . $scriptPath;
         $scriptId = 'inpsyde-blocks';
         /**
          * @psalm-suppress MixedArgument
          */
-        wp_register_script($scriptId, $scriptUrl, $scriptAsset['dependencies'], $scriptAsset['version'], \true);
+        \wp_register_script($scriptId, $scriptUrl, $scriptAsset['dependencies'], $scriptAsset['version'], \true);
         /**
          * @psalm-suppress MixedArgument
          */
-        wp_localize_script($scriptId, 'inpsydeGateways', $this->container->get('payment_gateways.methods_supporting_blocks'));
+        \wp_localize_script($scriptId, 'inpsydeGateways', $this->container->get('payment_gateways.methods_supporting_blocks'));
         return [$scriptId];
     }
     public function get_payment_method_data()
     {
         $gateway = $this->gateway();
         $iconProvider = $this->container->get($this->serviceKeyGenerator->createKey('method_icon_provider'));
-        assert($iconProvider instanceof IconProviderInterface);
-        return ['title' => $gateway->get_title(), 'description' => $gateway->get_description(), 'supports' => array_filter($gateway->supports, [$gateway, 'supports']), 'placeOrderButtonLabel' => $gateway->order_button_text, 'icons' => array_map(static fn(Icon $i) => ['id' => $i->id(), 'alt' => $i->alt(), 'src' => $i->src()], $iconProvider->provideIcons())];
+        \assert($iconProvider instanceof IconProviderInterface);
+        return ['title' => $gateway->get_title(), 'description' => $gateway->get_description(), 'supports' => \array_filter($gateway->supports, [$gateway, 'supports']), 'placeOrderButtonLabel' => $gateway->order_button_text, 'icons' => \array_map(static fn(Icon $i) => ['id' => $i->id(), 'alt' => $i->alt(), 'src' => $i->src()], $iconProvider->provideIcons())];
     }
-    protected function gateway(): PaymentGateway
+    protected function gateway() : PaymentGateway
     {
         if ($this->gateway !== null) {
             return $this->gateway;
@@ -78,7 +78,7 @@ class PaymentGatewayBlocks extends AbstractPaymentMethodType
         $gateways = $wcPaymentGateways->payment_gateways();
         foreach ($gateways as $gatewayId => $gateway) {
             if ($gatewayId === $this->name) {
-                assert($gateway instanceof PaymentGateway);
+                \assert($gateway instanceof PaymentGateway);
                 $this->gateway = $gateway;
                 return $this->gateway;
             }

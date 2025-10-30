@@ -34,7 +34,7 @@ class ConfigContainer implements ContainerInterface
          */
         return $this->gateway->get_option($id) !== null;
     }
-    public function set(string $id, $value): void
+    public function set(string $id, $value) : void
     {
         $this->gateway->update_option($id, $value);
     }

@@ -22,5 +22,5 @@ interface ExtendingModule extends Module
      *
      * @return array<string, ExtendingService>
      */
-    public function extensions(): array;
+    public function extensions() : array;
 }

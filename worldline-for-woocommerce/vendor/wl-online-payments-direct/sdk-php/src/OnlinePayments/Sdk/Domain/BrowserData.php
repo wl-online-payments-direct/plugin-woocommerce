@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class BrowserData extends DataObject
 {
@@ -15,27 +15,22 @@ class BrowserData extends DataObject
      * @var int
      */
     public $colorDepth = null;
-
     /**
      * @var bool
      */
     public $javaEnabled = null;
-
     /**
      * @var bool
      */
     public $javaScriptEnabled = null;
-
     /**
      * @var string
      */
     public $screenHeight = null;
-
     /**
      * @var string
      */
     public $screenWidth = null;
-
     /**
      * @return int
      */
@@ -43,7 +38,6 @@ class BrowserData extends DataObject
     {
         return $this->colorDepth;
     }
-
     /**
      * @param int
      */
@@ -51,7 +45,6 @@ class BrowserData extends DataObject
     {
         $this->colorDepth = $value;
     }
-
     /**
      * @return bool
      */
@@ -59,7 +52,6 @@ class BrowserData extends DataObject
     {
         return $this->javaEnabled;
     }
-
     /**
      * @param bool
      */
@@ -67,7 +59,6 @@ class BrowserData extends DataObject
     {
         $this->javaEnabled = $value;
     }
-
     /**
      * @return bool
      */
@@ -75,7 +66,6 @@ class BrowserData extends DataObject
     {
         return $this->javaScriptEnabled;
     }
-
     /**
      * @param bool
      */
@@ -83,7 +73,6 @@ class BrowserData extends DataObject
     {
         $this->javaScriptEnabled = $value;
     }
-
     /**
      * @return string
      */
@@ -91,7 +80,6 @@ class BrowserData extends DataObject
     {
         return $this->screenHeight;
     }
-
     /**
      * @param string
      */
@@ -99,7 +87,6 @@ class BrowserData extends DataObject
     {
         $this->screenHeight = $value;
     }
-
     /**
      * @return string
      */
@@ -107,7 +94,6 @@ class BrowserData extends DataObject
     {
         return $this->screenWidth;
     }
-
     /**
      * @param string
      */
@@ -115,31 +101,29 @@ class BrowserData extends DataObject
     {
         $this->screenWidth = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->colorDepth)) {
+        if (!\is_null($this->colorDepth)) {
             $object->colorDepth = $this->colorDepth;
         }
-        if (!is_null($this->javaEnabled)) {
+        if (!\is_null($this->javaEnabled)) {
             $object->javaEnabled = $this->javaEnabled;
         }
-        if (!is_null($this->javaScriptEnabled)) {
+        if (!\is_null($this->javaScriptEnabled)) {
             $object->javaScriptEnabled = $this->javaScriptEnabled;
         }
-        if (!is_null($this->screenHeight)) {
+        if (!\is_null($this->screenHeight)) {
             $object->screenHeight = $this->screenHeight;
         }
-        if (!is_null($this->screenWidth)) {
+        if (!\is_null($this->screenWidth)) {
             $object->screenWidth = $this->screenWidth;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -148,19 +132,19 @@ class BrowserData extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'colorDepth')) {
+        if (\property_exists($object, 'colorDepth')) {
             $this->colorDepth = $object->colorDepth;
         }
-        if (property_exists($object, 'javaEnabled')) {
+        if (\property_exists($object, 'javaEnabled')) {
             $this->javaEnabled = $object->javaEnabled;
         }
-        if (property_exists($object, 'javaScriptEnabled')) {
+        if (\property_exists($object, 'javaScriptEnabled')) {
             $this->javaScriptEnabled = $object->javaScriptEnabled;
         }
-        if (property_exists($object, 'screenHeight')) {
+        if (\property_exists($object, 'screenHeight')) {
             $this->screenHeight = $object->screenHeight;
         }
-        if (property_exists($object, 'screenWidth')) {
+        if (\property_exists($object, 'screenWidth')) {
             $this->screenWidth = $object->screenWidth;
         }
         return $this;

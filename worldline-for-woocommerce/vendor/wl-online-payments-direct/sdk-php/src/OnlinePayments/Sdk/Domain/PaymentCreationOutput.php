@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentCreationOutput extends DataObject
 {
@@ -15,22 +15,18 @@ class PaymentCreationOutput extends DataObject
      * @var string
      */
     public $externalReference = null;
-
     /**
      * @var bool
      */
     public $isNewToken = null;
-
     /**
      * @var string
      */
     public $token = null;
-
     /**
      * @var bool
      */
     public $tokenizationSucceeded = null;
-
     /**
      * @return string
      */
@@ -38,7 +34,6 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->externalReference;
     }
-
     /**
      * @param string
      */
@@ -46,7 +41,6 @@ class PaymentCreationOutput extends DataObject
     {
         $this->externalReference = $value;
     }
-
     /**
      * @return bool
      */
@@ -54,7 +48,6 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->isNewToken;
     }
-
     /**
      * @param bool
      */
@@ -62,7 +55,6 @@ class PaymentCreationOutput extends DataObject
     {
         $this->isNewToken = $value;
     }
-
     /**
      * @return string
      */
@@ -70,7 +62,6 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->token;
     }
-
     /**
      * @param string
      */
@@ -78,7 +69,6 @@ class PaymentCreationOutput extends DataObject
     {
         $this->token = $value;
     }
-
     /**
      * @return bool
      */
@@ -86,7 +76,6 @@ class PaymentCreationOutput extends DataObject
     {
         return $this->tokenizationSucceeded;
     }
-
     /**
      * @param bool
      */
@@ -94,28 +83,26 @@ class PaymentCreationOutput extends DataObject
     {
         $this->tokenizationSucceeded = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->externalReference)) {
+        if (!\is_null($this->externalReference)) {
             $object->externalReference = $this->externalReference;
         }
-        if (!is_null($this->isNewToken)) {
+        if (!\is_null($this->isNewToken)) {
             $object->isNewToken = $this->isNewToken;
         }
-        if (!is_null($this->token)) {
+        if (!\is_null($this->token)) {
             $object->token = $this->token;
         }
-        if (!is_null($this->tokenizationSucceeded)) {
+        if (!\is_null($this->tokenizationSucceeded)) {
             $object->tokenizationSucceeded = $this->tokenizationSucceeded;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,16 +111,16 @@ class PaymentCreationOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'externalReference')) {
+        if (\property_exists($object, 'externalReference')) {
             $this->externalReference = $object->externalReference;
         }
-        if (property_exists($object, 'isNewToken')) {
+        if (\property_exists($object, 'isNewToken')) {
             $this->isNewToken = $object->isNewToken;
         }
-        if (property_exists($object, 'token')) {
+        if (\property_exists($object, 'token')) {
             $this->token = $object->token;
         }
-        if (property_exists($object, 'tokenizationSucceeded')) {
+        if (\property_exists($object, 'tokenizationSucceeded')) {
             $this->tokenizationSucceeded = $object->tokenizationSucceeded;
         }
         return $this;

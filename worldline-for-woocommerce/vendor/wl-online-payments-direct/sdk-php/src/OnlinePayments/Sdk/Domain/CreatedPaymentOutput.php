@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class CreatedPaymentOutput extends DataObject
 {
@@ -15,12 +15,10 @@ class CreatedPaymentOutput extends DataObject
      * @var PaymentResponse
      */
     public $payment = null;
-
     /**
      * @var string
      */
     public $paymentStatusCategory = null;
-
     /**
      * @return PaymentResponse
      */
@@ -28,7 +26,6 @@ class CreatedPaymentOutput extends DataObject
     {
         return $this->payment;
     }
-
     /**
      * @param PaymentResponse
      */
@@ -36,7 +33,6 @@ class CreatedPaymentOutput extends DataObject
     {
         $this->payment = $value;
     }
-
     /**
      * @return string
      */
@@ -44,7 +40,6 @@ class CreatedPaymentOutput extends DataObject
     {
         return $this->paymentStatusCategory;
     }
-
     /**
      * @param string
      */
@@ -52,22 +47,20 @@ class CreatedPaymentOutput extends DataObject
     {
         $this->paymentStatusCategory = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->payment)) {
+        if (!\is_null($this->payment)) {
             $object->payment = $this->payment->toObject();
         }
-        if (!is_null($this->paymentStatusCategory)) {
+        if (!\is_null($this->paymentStatusCategory)) {
             $object->paymentStatusCategory = $this->paymentStatusCategory;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -76,14 +69,14 @@ class CreatedPaymentOutput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'payment')) {
-            if (!is_object($object->payment)) {
-                throw new UnexpectedValueException('value \'' . print_r($object->payment, true) . '\' is not an object');
+        if (\property_exists($object, 'payment')) {
+            if (!\is_object($object->payment)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->payment, \true) . '\' is not an object');
             }
             $value = new PaymentResponse();
             $this->payment = $value->fromObject($object->payment);
         }
-        if (property_exists($object, 'paymentStatusCategory')) {
+        if (\property_exists($object, 'paymentStatusCategory')) {
             $this->paymentStatusCategory = $object->paymentStatusCategory;
         }
         return $this;

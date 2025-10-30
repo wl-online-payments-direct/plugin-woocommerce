@@ -19,9 +19,8 @@ trait ConfigureAutodiscoverVersionTrait
      * @see self::disableAutodiscoverVersion()
      * @see self::enableAutodiscoverVersion()
      *
-     * @var bool
      */
-    protected $autodiscoverVersion = \true;
+    protected bool $autodiscoverVersion = \true;
     /**
      * Enable automatic discovering of the version if no version is set.
      *

@@ -15,7 +15,7 @@ class ReturnPageStatusUpdater implements StatusUpdaterInterface
     {
         $this->orderUpdater = $orderUpdater;
     }
-    public function updateStatus(?WC_Order $wcOrder): void
+    public function updateStatus(?WC_Order $wcOrder) : void
     {
         if (!$wcOrder) {
             throw new Exception('WC order required.');

@@ -12,10 +12,7 @@ use Throwable;
  */
 class NetworkException extends WpHttpClientException implements NetworkExceptionInterface
 {
-    /**
-     * @var RequestInterface
-     */
-    protected $request;
+    protected RequestInterface $request;
     /**
      * @param string $message Exception message
      * @param int $code Error code
@@ -30,7 +27,7 @@ class NetworkException extends WpHttpClientException implements NetworkException
     /**
      * @inheritDoc
      */
-    public function getRequest(): RequestInterface
+    public function getRequest() : RequestInterface
     {
         return $this->request;
     }

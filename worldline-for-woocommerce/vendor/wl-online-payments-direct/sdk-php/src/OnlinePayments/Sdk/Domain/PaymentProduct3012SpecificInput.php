@@ -1,13 +1,13 @@
 <?php
+
 /*
  * This file was automatically generated.
  */
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
-
 /**
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain
+ * @package OnlinePayments\Sdk\Domain
  */
 class PaymentProduct3012SpecificInput extends DataObject
 {
@@ -15,22 +15,18 @@ class PaymentProduct3012SpecificInput extends DataObject
      * @var bool
      */
     public $forceAuthentication = null;
-
     /**
      * @var bool
      */
     public $isDeferredPayment = null;
-
     /**
      * @var bool
      */
     public $isWipTransaction = null;
-
     /**
      * @var string
      */
     public $wipMerchantAuthenticationMethod = null;
-
     /**
      * @return bool
      */
@@ -38,7 +34,6 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         return $this->forceAuthentication;
     }
-
     /**
      * @param bool
      */
@@ -46,7 +41,6 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         $this->forceAuthentication = $value;
     }
-
     /**
      * @return bool
      */
@@ -54,7 +48,6 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         return $this->isDeferredPayment;
     }
-
     /**
      * @param bool
      */
@@ -62,7 +55,6 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         $this->isDeferredPayment = $value;
     }
-
     /**
      * @return bool
      */
@@ -70,7 +62,6 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         return $this->isWipTransaction;
     }
-
     /**
      * @param bool
      */
@@ -78,7 +69,6 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         $this->isWipTransaction = $value;
     }
-
     /**
      * @return string
      */
@@ -86,7 +76,6 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         return $this->wipMerchantAuthenticationMethod;
     }
-
     /**
      * @param string
      */
@@ -94,28 +83,26 @@ class PaymentProduct3012SpecificInput extends DataObject
     {
         $this->wipMerchantAuthenticationMethod = $value;
     }
-
     /**
      * @return object
      */
     public function toObject()
     {
         $object = parent::toObject();
-        if (!is_null($this->forceAuthentication)) {
+        if (!\is_null($this->forceAuthentication)) {
             $object->forceAuthentication = $this->forceAuthentication;
         }
-        if (!is_null($this->isDeferredPayment)) {
+        if (!\is_null($this->isDeferredPayment)) {
             $object->isDeferredPayment = $this->isDeferredPayment;
         }
-        if (!is_null($this->isWipTransaction)) {
+        if (!\is_null($this->isWipTransaction)) {
             $object->isWipTransaction = $this->isWipTransaction;
         }
-        if (!is_null($this->wipMerchantAuthenticationMethod)) {
+        if (!\is_null($this->wipMerchantAuthenticationMethod)) {
             $object->wipMerchantAuthenticationMethod = $this->wipMerchantAuthenticationMethod;
         }
         return $object;
     }
-
     /**
      * @param object $object
      * @return $this
@@ -124,16 +111,16 @@ class PaymentProduct3012SpecificInput extends DataObject
     public function fromObject($object)
     {
         parent::fromObject($object);
-        if (property_exists($object, 'forceAuthentication')) {
+        if (\property_exists($object, 'forceAuthentication')) {
             $this->forceAuthentication = $object->forceAuthentication;
         }
-        if (property_exists($object, 'isDeferredPayment')) {
+        if (\property_exists($object, 'isDeferredPayment')) {
             $this->isDeferredPayment = $object->isDeferredPayment;
         }
-        if (property_exists($object, 'isWipTransaction')) {
+        if (\property_exists($object, 'isWipTransaction')) {
             $this->isWipTransaction = $object->isWipTransaction;
         }
-        if (property_exists($object, 'wipMerchantAuthenticationMethod')) {
+        if (\property_exists($object, 'wipMerchantAuthenticationMethod')) {
             $this->wipMerchantAuthenticationMethod = $object->wipMerchantAuthenticationMethod;
         }
         return $this;

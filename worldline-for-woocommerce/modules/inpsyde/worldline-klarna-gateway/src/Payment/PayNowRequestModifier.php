@@ -5,7 +5,7 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\KlarnaGateway\Pa
 
 class PayNowRequestModifier extends AbstractKlarnaRequestModifier
 {
-    public function klarnaPaymentProductId(): int
+    public function klarnaPaymentProductId() : int
     {
         return 3301;
     }

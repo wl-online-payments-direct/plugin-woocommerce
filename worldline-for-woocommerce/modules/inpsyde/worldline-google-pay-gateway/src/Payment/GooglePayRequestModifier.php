@@ -15,7 +15,7 @@ class GooglePayRequestModifier extends AbstractHostedPaymentRequestModifier
     {
         $this->threedSecureFactory = $threedSecureFactory;
     }
-    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput): CreateHostedCheckoutRequest
+    public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput) : CreateHostedCheckoutRequest
     {
         $mobilePaymentSpecificInput = $hostedCheckoutRequest->getMobilePaymentMethodSpecificInput();
         $mobilePaymentSpecificInput->setPaymentProductId(320);
@@ -26,7 +26,7 @@ class GooglePayRequestModifier extends AbstractHostedPaymentRequestModifier
         $hostedCheckoutRequest->setCardPaymentMethodSpecificInput(null);
         return $hostedCheckoutRequest;
     }
-    protected function threeDSecure(HostedCheckoutInput $hostedCheckoutInput): GPayThreeDSecure
+    protected function threeDSecure(HostedCheckoutInput $hostedCheckoutInput) : GPayThreeDSecure
     {
         $threedSecure = $this->threedSecureFactory->create($hostedCheckoutInput->order()->getAmountOfMoney()->getAmount(), $hostedCheckoutInput->order()->getAmountOfMoney()->getCurrencyCode(), $hostedCheckoutInput->wcOrder()->get_checkout_order_received_url());
         return $threedSecure;

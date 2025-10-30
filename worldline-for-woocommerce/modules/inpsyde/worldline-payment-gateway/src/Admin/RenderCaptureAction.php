@@ -15,12 +15,12 @@ class RenderCaptureAction
     {
         $this->paymentCaptureValidator = $paymentCaptureValidator;
     }
-    public function render(array $orderActions, WC_Order $wcOrder): array
+    public function render(array $orderActions, WC_Order $wcOrder) : array
     {
         if (!$this->paymentCaptureValidator->validate($wcOrder)) {
             return $orderActions;
         }
-        $orderActions['worldline_capture_order'] = esc_html__('Capture authorized Worldline payment', 'worldline-for-woocommerce');
+        $orderActions['worldline_capture_order'] = \esc_html__('Capture authorized Worldline payment', 'worldline-for-woocommerce');
         return $orderActions;
     }
 }

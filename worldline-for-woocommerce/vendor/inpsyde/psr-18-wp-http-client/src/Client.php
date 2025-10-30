@@ -24,26 +24,11 @@ use function wp_remote_retrieve_response_message;
  */
 class Client implements ClientInterface
 {
-    /**
-     * @var WP_Http
-     */
-    protected $wpHttp;
-    /**
-     * @var RequestFactoryInterface
-     */
-    protected $requestFactory;
-    /**
-     * @var ResponseFactoryInterface
-     */
-    protected $responseFactory;
-    /**
-     * @var StreamFactoryInterface
-     */
-    protected $streamFactory;
-    /**
-     * @var array
-     */
-    protected $clientOptions;
+    protected WP_Http $wpHttp;
+    protected RequestFactoryInterface $requestFactory;
+    protected ResponseFactoryInterface $responseFactory;
+    protected StreamFactoryInterface $streamFactory;
+    protected array $clientOptions;
     /**
      * @param WP_Http $wpHttp WordPress class instance to make actual requests
      * @param RequestFactoryInterface $requestFactory The factory that creates requests
@@ -62,15 +47,15 @@ class Client implements ClientInterface
     /**
      * @inheritDoc
      */
-    public function sendRequest(RequestInterface $request): ResponseInterface
+    public function sendRequest(RequestInterface $request) : ResponseInterface
     {
         $target = (string) $request->getUri();
-        $target = trim($target);
-        if (strlen($target) === 0) {
+        $target = \trim($target);
+        if (\strlen($target) === 0) {
             throw new RequestException('URI is empty', 0, null, $request);
         }
         $result = $this->wpHttp->request($target, $this->getRequestArgs($request));
-        if (is_wp_error($result)) {
+        if (\is_wp_error($result)) {
             throw new NetworkException($result->get_error_message(), 0, null, $request);
         }
         return $this->prepareResponse($result);
@@ -85,10 +70,10 @@ class Client implements ClientInterface
      *
      * @return array The arguments for {@link WP_Http::request()}
      */
-    protected function getRequestArgs(RequestInterface $request): array
+    protected function getRequestArgs(RequestInterface $request) : array
     {
         $args = [
-            'method' => strtoupper($request->getMethod()),
+            'method' => \strtoupper($request->getMethod()),
             //forced http 1.0 because we don't support responses with 1.x.x code, which is required by PSR-18
             'httpversion' => '1.0',
             'blocking' => \true,
@@ -97,9 +82,9 @@ class Client implements ClientInterface
             'cookies' => $request->getHeader('Cookie'),
             'body' => (string) $request->getBody(),
         ];
-        return array_merge($this->clientOptions, $args);
+        return \array_merge($this->clientOptions, $args);
     }
-    protected function getFormattedHeadersFromRequest(RequestInterface $request): array
+    protected function getFormattedHeadersFromRequest(RequestInterface $request) : array
     {
         $headers = [];
         foreach ($request->getHeaders() as $headerName => $headerValue) {
@@ -117,7 +102,7 @@ class Client implements ClientInterface
      *
      * @return ResponseInterface PSR-7 response created from response data array
      */
-    protected function prepareResponse(array $result): ResponseInterface
+    protected function prepareResponse(array $result) : ResponseInterface
     {
         $code = wp_remote_retrieve_response_code($result);
         $reasonPhrase = wp_remote_retrieve_response_message($result);
@@ -137,7 +122,7 @@ class Client implements ClientInterface
      *
      * @return ResponseInterface PSR-7 response with added body
      */
-    protected function setResponseBodyFromWpResponseData(ResponseInterface $response, array $result): ResponseInterface
+    protected function setResponseBodyFromWpResponseData(ResponseInterface $response, array $result) : ResponseInterface
     {
         $bodyContent = (string) $result['body'];
         $stream = $this->createStream($bodyContent);
@@ -150,7 +135,7 @@ class Client implements ClientInterface
      *
      * @return StreamInterface Created stream
      */
-    protected function createStream(string $content): StreamInterface
+    protected function createStream(string $content) : StreamInterface
     {
         return $this->streamFactory->createStream($content);
     }
@@ -166,7 +151,7 @@ class Client implements ClientInterface
      *
      * @return ResponseInterface Response object with headers added
      */
-    protected function setResponseHeadersFromWpResponseData(ResponseInterface $response, array $result): ResponseInterface
+    protected function setResponseHeadersFromWpResponseData(ResponseInterface $response, array $result) : ResponseInterface
     {
         foreach ($result['headers'] as $headerName => $headerValue) {
             $response = $response->withHeader($headerName, $headerValue);
@@ -175,7 +160,7 @@ class Client implements ClientInterface
          * @var WP_Http_Cookie[] $wpCookies
          */
         $wpCookies = $result['cookies'];
-        $cookiesValues = array_map(static function (WP_Http_Cookie $wpCookie): string {
+        $cookiesValues = \array_map(static function (WP_Http_Cookie $wpCookie) : string {
             return $wpCookie->getHeaderValue();
         }, $wpCookies);
         if ($cookiesValues) {

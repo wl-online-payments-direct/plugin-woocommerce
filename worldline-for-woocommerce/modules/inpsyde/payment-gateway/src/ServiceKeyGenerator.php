@@ -26,7 +26,7 @@ class ServiceKeyGenerator
      *
      * @return string A generated key in the format `base.id.item`.
      */
-    public function createKey(string $item): string
+    public function createKey(string $item) : string
     {
         return $this->base . '.' . $this->id . '.' . $item;
     }
@@ -37,7 +37,7 @@ class ServiceKeyGenerator
      * @return string A generated fallback key in the format `base.id`.
      *
      */
-    public function createFallbackKey(string $item): string
+    public function createFallbackKey(string $item) : string
     {
         return $this->fallbackBase . '.' . $item;
     }

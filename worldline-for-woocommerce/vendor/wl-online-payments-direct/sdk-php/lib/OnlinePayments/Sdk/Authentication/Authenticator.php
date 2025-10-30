@@ -1,10 +1,11 @@
 <?php
+
 namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication;
 
 /**
  * Class Authenticator
  *
- * @package Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication
+ * @package OnlinePayments\Sdk\Authentication
  */
 interface Authenticator
 {
@@ -17,6 +18,6 @@ interface Authenticator
      * @param array<string, string> $requestHeaders
      *
      * @return string The full value for the Authorization header
-    */
-    public function getAuthorization(string $httpMethod, string $uriPath, array $requestHeaders = []): string;
+     */
+    public function getAuthorization(string $httpMethod, string $uriPath, array $requestHeaders = []) : string;
 }
