@@ -246,6 +246,7 @@ return array(
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\CheckoutModule' => $baseDir . '/modules/inpsyde/worldline-checkout/src/CheckoutModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusChecker' => $baseDir . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusChecker.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusUpdater' => $baseDir . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusUpdater.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\CancellationIntervals' => $baseDir . '/modules/inpsyde/worldline-config/src/CancellationIntervals.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\CaptureMode' => $baseDir . '/modules/inpsyde/worldline-config/src/CaptureMode.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\ConfigContainer' => $baseDir . '/modules/inpsyde/worldline-config/src/ConfigContainer.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\ConfigModule' => $baseDir . '/modules/inpsyde/worldline-config/src/ConfigModule.php',

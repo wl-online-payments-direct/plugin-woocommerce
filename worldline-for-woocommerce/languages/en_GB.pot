@@ -313,7 +313,7 @@ msgstr ""
 
 #: modules.local/config/inc/fields.php:178
 #: modules/inpsyde/worldline-config/inc/fields.php:178
-msgid "Surcharge settings"
+msgid "Surcharge Settings (For merchants in Australia)"
 msgstr ""
 
 #: modules.local/config/inc/fields.php:182
@@ -1114,4 +1114,79 @@ msgstr ""
 
 #: assets/uninstall-backend-main.js:1
 msgid "Are you sure you want to clear all Worldline plugin data from the database? This action cannot be undone."
+msgstr ""
+
+#: modules.local/config/inc/fields.php:28
+#: modules/inpsyde/worldline-config/inc/fields.php:28
+msgid "Upload"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:31
+#: modules/inpsyde/worldline-config/inc/fields.php:31
+msgid "Delete"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:180
+#: modules/inpsyde/worldline-config/inc/fields.php:21
+msgid "Generic logo displayed on your payment page"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:182
+#: modules/inpsyde/worldline-config/inc/fields.php:21
+msgid "You can upload here a new logo (file types accepted for logos are: .png .gif .jpg only). We recommend that you use images with 20px height & 120px length maximum"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:278
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "Automatic cancellation"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:282
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "Disabled"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:283
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 1 hour"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:284
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 3 hours"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:285
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 6 hours"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:286
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 12 hours"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:287
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 18 hours"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:288
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 24 hours"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:289
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 2 days"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:290
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "In 3 days"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:292
+#: modules/inpsyde/worldline-config/inc/fields.php:37
+msgid "Set up automatic cancellation of pending orders. The selected value defines after how many hours orders in Pending payment status will be cancelled. For example, if 3 hours is selected, all pending orders older than 3 hours will be automatically cancelled. This depends on the website activity since it relies on the WordPress cron."
 msgstr ""

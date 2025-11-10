@@ -72,6 +72,8 @@ return static function () : array {
             return CaptureMode::MANUAL;
         }
         return $captureMode;
+    }), 'config.automatic_cancellation_hours' => new Factory(['config.container'], static function (ConfigContainer $config) : int {
+        return (int) $config->get('automatic_cancellation_hours');
     }), 'config.enable_3ds' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
         return $config->get('enable_3ds') === 'yes';
     }), 'config.enforce_3dsv2' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
@@ -112,6 +114,8 @@ return static function () : array {
             return null;
         }
         return $templateName;
+    }), 'config.logo_url' => new Factory(['config.container'], static function (ConfigContainer $config) : string {
+        return (string) $config->get('logo_url');
     }), 'payment_gateway.worldline-for-woocommerce.order_button_text' => new Factory(['config.payment_button_title'], static function (string $paymentButtonTitleRaw) : ?string {
         $paymentButtonTitle = \wp_strip_all_tags($paymentButtonTitleRaw);
         return $paymentButtonTitle !== '' ? $paymentButtonTitle : null;

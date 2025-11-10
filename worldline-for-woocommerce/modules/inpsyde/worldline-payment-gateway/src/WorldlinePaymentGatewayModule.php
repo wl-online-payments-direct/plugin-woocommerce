@@ -10,6 +10,7 @@ use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
 use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CancellationIntervals;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CaptureMode;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
@@ -27,6 +28,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
 {
     use ModuleClassNameIdTrait;
     public const PACKAGE_NAME = 'worldline-payment-gateway';
+    public const CANCELLATION_RECURRENCE_INTERVAL = 30 * \MINUTE_IN_SECONDS;
     /**
      * @throws Exception
      */
@@ -39,6 +41,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
         $this->registerRefundSaving($container);
         $this->registerCheckoutCompletionHandler($container);
         $this->scheduleAutoCapturing($container);
+        $this->schedulePendingOrderCleanup($container);
         return \true;
     }
     public function services() : array
@@ -219,6 +222,42 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             $handler = $container->get('worldline_payment_gateway.auto_capture.handler');
             \assert($handler instanceof AutoCaptureHandler);
             $handler->execute();
+        });
+    }
+    protected function schedulePendingOrderCleanup(ContainerInterface $container) : void
+    {
+        $hook = 'wlop_cleanup_pending_orders';
+        \add_action('action_scheduler_init', static function () use($container, $hook) : void {
+            $group = 'wlop';
+            $cancellationHours = $container->get('config.automatic_cancellation_hours');
+            if ($cancellationHours === CancellationIntervals::DISABLED) {
+                \as_unschedule_all_actions($hook, [], $group);
+                return;
+            }
+            if (\as_has_scheduled_action($hook, [], $group)) {
+                return;
+            }
+            $startTime = \time() + self::CANCELLATION_RECURRENCE_INTERVAL;
+            \as_schedule_recurring_action($startTime, self::CANCELLATION_RECURRENCE_INTERVAL, $hook, [], $group);
+        });
+        \add_action($hook, static function () use($container) : void {
+            $cancellationHours = $container->get('config.automatic_cancellation_hours');
+            if ($cancellationHours === CancellationIntervals::DISABLED) {
+                return;
+            }
+            $threshold = new \DateTimeImmutable("-{$cancellationHours} hours", new \DateTimeZone('UTC'));
+            $args = ['status' => 'pending', 'limit' => -1, 'orderby' => 'date', 'order' => 'ASC', 'date_before' => $threshold->format('Y-m-d H:i:s'), 'return' => 'ids'];
+            $order_ids = \wc_get_orders($args);
+            if (empty($order_ids)) {
+                return;
+            }
+            foreach ($order_ids as $order_id) {
+                $order = \wc_get_order($order_id);
+                if (!$order instanceof WC_Order || $order->get_status() !== 'pending') {
+                    continue;
+                }
+                $order->update_status('cancelled', 'Automatically cancelled after ' . $cancellationHours . ' hours (Worldline plugin).');
+            }
         });
     }
 }

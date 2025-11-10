@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitedWorldlineForWoocommerce4f8ca67
+class ComposerStaticInitedWorldlineForWoocommercec6f299e
 {
     public static $files = array (
         '75224de648373daee048deff719e279d' => __DIR__ . '/..' . '/inpsyde/assets/inc/functions.php',
@@ -514,6 +514,7 @@ class ComposerStaticInitedWorldlineForWoocommerce4f8ca67
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\CheckoutModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/CheckoutModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusChecker' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusChecker.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\ReturnPageStatusUpdater' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/ReturnPageStatusUpdater.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\CancellationIntervals' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-config/src/CancellationIntervals.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\CaptureMode' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-config/src/CaptureMode.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\ConfigContainer' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-config/src/ConfigContainer.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\ConfigModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-config/src/ConfigModule.php',
@@ -1070,9 +1071,9 @@ class ComposerStaticInitedWorldlineForWoocommerce4f8ca67
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitedWorldlineForWoocommerce4f8ca67::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitedWorldlineForWoocommerce4f8ca67::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitedWorldlineForWoocommerce4f8ca67::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitedWorldlineForWoocommercec6f299e::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitedWorldlineForWoocommercec6f299e::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitedWorldlineForWoocommercec6f299e::$classMap;
 
         }, null, ClassLoader::class);
     }
