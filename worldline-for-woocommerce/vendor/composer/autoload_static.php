@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitedWorldlineForWoocommercec6f299e
+class ComposerStaticInitedWorldlineForWoocommerce5ffb033
 {
     public static $files = array (
         '75224de648373daee048deff719e279d' => __DIR__ . '/..' . '/inpsyde/assets/inc/functions.php',
@@ -1071,9 +1071,9 @@ class ComposerStaticInitedWorldlineForWoocommercec6f299e
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitedWorldlineForWoocommercec6f299e::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitedWorldlineForWoocommercec6f299e::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitedWorldlineForWoocommercec6f299e::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitedWorldlineForWoocommerce5ffb033::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitedWorldlineForWoocommerce5ffb033::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitedWorldlineForWoocommerce5ffb033::$classMap;
 
         }, null, ClassLoader::class);
     }

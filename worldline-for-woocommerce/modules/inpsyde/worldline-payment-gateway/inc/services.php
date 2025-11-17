@@ -131,13 +131,11 @@ return static function () : array {
             // WL does not support locales like de_DE_formal, so returning just de_DE
             return \implode('_', \array_slice($parts, 0, 2));
         },
-        'worldline_payment_gateway.wc_base_country' => static function () : string {
-            return \WC()->countries->get_base_country();
-        },
-        'worldline_payment_gateway.hosted_checkout_language' => new Factory(['worldline_payment_gateway.wc_base_country'], static function (string $wcBaseCountry) : ?string {
-            $countriesAndLanguages = ['DE' => 'de_DE', 'FR' => 'fr_FR', 'NL' => 'nl_NL', 'ES' => 'es_ES', 'IT' => 'it_IT'];
-            if (isset($countriesAndLanguages[$wcBaseCountry])) {
-                return $countriesAndLanguages[$wcBaseCountry];
+        'worldline_payment_gateway.hosted_checkout_language' => new Factory([], static function () : ?string {
+            $siteLocale = \get_locale();
+            $supportedLocales = ['ar_AE', 'ca_ES', 'zh_CN', 'hr_HR', 'cs_CZ', 'da_DK', 'nl_NL', 'nl_BE', 'et_EE', 'en_GB', 'en_UK', 'en_US', 'fi_FI', 'fr_FR', 'de_DE', 'de_AT', 'de_CH', 'el_GR', 'he_IL', 'hu_HU', 'it_IT', 'ja_JP', 'ko_KR', 'lt_LT', 'lv_LV', 'no_NO', 'pl_PL', 'pt_PT', 'ro_RO', 'ru_RU', 'sk_SK', 'sl_SI', 'es_ES', 'sv_SE', 'tr_TR'];
+            if (\in_array($siteLocale, $supportedLocales, \true)) {
+                return $siteLocale;
             }
             return null;
         }),

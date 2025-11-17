@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.7
 Requires PHP: 7.4
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -86,15 +86,19 @@ If you encounter issues with the Worldline buttons not appearing after an update
 
 == Changelog ==
 
-= 2.4.5 - 2025-10-29 =
+= 2.4.6 - 2025-10-29 =
 * Change surcharge settings title
 * Add pending order cancellation cron job logic
 * Add upload logo for hosted payment to plugin settings page
 * Change author URI and contributor
 
-= 2.4.4 - 2025-10-13 =
+= 2.4.5 - 2025-10-13 =
 * Add missing 3DS parameters for Credit Card payments
 * Fix storing the wrong API key in the database
+
+= 2.4.4 - 2025-09-24 =
+* Change webhook URL to inpsyde/woocommerce-for-cawl
+* Remove "Global Online Pay" when using CAWL
 
 = 2.4.3 - 2025-09-23 =
 * Fix Apple pay issue
