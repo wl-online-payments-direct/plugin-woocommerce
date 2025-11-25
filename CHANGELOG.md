@@ -1,3 +1,12 @@
+# 3.2.8
+- Old orders processing command
+
+# 3.2.7
+- Additional logs
+
+# 3.2.6
+- Switch status issue fix
+
 # 3.2.5
 - Automatic capture fix
 

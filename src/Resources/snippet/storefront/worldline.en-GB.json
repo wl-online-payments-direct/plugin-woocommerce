@@ -54,6 +54,7 @@
         "maxAmountExceeded": "Maximum amount exceeded.",
         "wrongAmountRequested": "Wrong amount requested.",
         "gettingPaymentDetails": "Getting payment details",
+        "paymentStatusIs": "Payment status is",
         "paymentOpen": "Payment is open",
         "paymentInProgress": "Payment is in progress",
         "paymentPaid": "Paid",

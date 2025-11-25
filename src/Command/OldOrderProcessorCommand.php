@@ -1,21 +1,20 @@
 <?php declare(strict_types=1);
 
-/**
- * @author Mediaopt GmbH
- * @package MoptWorldline\Service
- */
+namespace MoptWorldline\Command;
 
-namespace MoptWorldline\Service;
-
-use Monolog\Level;
+use MoptWorldline\Service\OldOrderProcessor;
 use Shopware\Core\Checkout\Order\Aggregate\OrderTransaction\OrderTransactionStateHandler;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
-use Shopware\Core\Framework\MessageQueue\ScheduledTask\ScheduledTaskHandler;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
+use Symfony\Component\Console\Attribute\AsCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-class CronTaskHandler extends ScheduledTaskHandler
+#[AsCommand(name: 'mopt-worldline:old_order_processor')]
+class OldOrderProcessorCommand extends Command
 {
     private EntityRepository $salesChannelRepository;
     private SystemConfigService $systemConfigService;
@@ -25,8 +24,16 @@ class CronTaskHandler extends ScheduledTaskHandler
     private TranslatorInterface $translator;
     private StateMachineRegistry $stateMachineRegistry;
 
+    /**
+     * @param EntityRepository $salesChannelRepository
+     * @param SystemConfigService $systemConfigService
+     * @param EntityRepository $orderRepository
+     * @param EntityRepository $customerRepository
+     * @param OrderTransactionStateHandler $transactionStateHandler
+     * @param TranslatorInterface $translator
+     * @param StateMachineRegistry $stateMachineRegistry
+     */
     public function __construct(
-        EntityRepository             $scheduledTaskRepository,
         EntityRepository             $salesChannelRepository,
         SystemConfigService          $systemConfigService,
         EntityRepository             $orderRepository,
@@ -36,6 +43,7 @@ class CronTaskHandler extends ScheduledTaskHandler
         StateMachineRegistry         $stateMachineRegistry
     )
     {
+        parent::__construct();
         $this->salesChannelRepository = $salesChannelRepository;
         $this->systemConfigService = $systemConfigService;
         $this->orderRepository = $orderRepository;
@@ -43,10 +51,12 @@ class CronTaskHandler extends ScheduledTaskHandler
         $this->transactionStateHandler = $transactionStateHandler;
         $this->translator = $translator;
         $this->stateMachineRegistry = $stateMachineRegistry;
-        parent::__construct($scheduledTaskRepository);
     }
 
-    public function run(): void
+    /**
+     * {@inheritdoc}
+     */
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         try {
             $oldOrderProcessor = new OldOrderProcessor(
@@ -60,8 +70,14 @@ class CronTaskHandler extends ScheduledTaskHandler
             );
 
             $oldOrderProcessor->process();
-        } catch (\Throwable $e) {
-            LogHelper::addLog(Level::Error, $e->getMessage(), $e->getTrace());
+
+            $output->writeln('All old orders successfully processed.');
+            return Command::SUCCESS;
+        } catch (\Exception $exception) {
+            $output->writeln('There was an error:');
+            $output->writeln($exception->getMessage());
+            $output->writeln($exception->getTraceAsString());
+            return Command::FAILURE;
         }
     }
 }

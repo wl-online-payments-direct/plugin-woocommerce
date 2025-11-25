@@ -69,7 +69,8 @@ Component.override('sw-order-detail-details', {
 
         isNoCompleteTransactionPresent() {
             if (this.isNoTransactionPresent) return true;
-            return this.transactionStatusId == 0;
+            // We shouldn't show admin pay button if we have transaction ID.
+            return false;
         },
     },
 

@@ -22,4 +22,9 @@ class CronTask extends ScheduledTask
     {
         return self::CRON_INTERVAL;
     }
+
+    public static function shouldRescheduleOnFailure(): bool
+    {
+        return false;
+    }
 }

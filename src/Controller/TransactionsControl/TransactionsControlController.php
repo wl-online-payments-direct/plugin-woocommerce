@@ -85,7 +85,7 @@ class TransactionsControlController extends AbstractController
             return $this->response($success, $message);
         }
         $handler = $this->getHandler($hostedCheckoutId, $context);
-        if ($handler->updatePaymentStatus($hostedCheckoutId)) {
+        if (!is_null($handler->updatePaymentStatus($hostedCheckoutId))) {
             $success = true;
             $message = AdminTranslate::trans($this->translator->getLocale(), "statusUpdateRequestSent");
         }
