@@ -4,7 +4,7 @@
     {% if (payment.translated.customFields.selected or ((payment.id == selectedPaymentMethodId) and payment.translated.customFields.token == null))
         and (moptPageId == 'cartConfirm')
         and ((payment.translated.customFields.worldline_payment_method_id == "moptWorldlineIframe") or (payment.translated.customFields.token !== null)) %}
-        <script type="text/javascript" src="https://payment.preprod.direct.worldline-solutions.com/hostedtokenization/js/client/tokenizer.min.js"></script>
+        <script type="text/javascript" src="{{ tokenizerLink }}"></script>
         <script type="text/javascript"></script>
         <div>
             <div data-ajax-helper>

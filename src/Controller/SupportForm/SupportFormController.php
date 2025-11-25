@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 /**
  * @author Mediaopt GmbH
@@ -65,8 +64,8 @@ class SupportFormController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/support-form/check-user-rights',
-        name: 'api.action.support-form.check-user-rights',
+        path: '/api/_action/worldline/support-form/check-user-rights',
+        name: 'api.action.worldline.support-form.check-user-rights',
         methods: ['POST']
     )]
     public function checkUserRights(Request $request, Context $context): JsonResponse
@@ -79,8 +78,8 @@ class SupportFormController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/support-form/send',
-        name: 'api.action.support-form.send',
+        path: '/api/_action/worldline/support-form/send',
+        name: 'api.action.worldline.support-form.send',
         methods: ['POST']
     )]
     public function send(Request $request, Context $context): JsonResponse
@@ -114,8 +113,8 @@ class SupportFormController extends AbstractController
     }
 
     #[Route(
-        path: '/api/_action/support-form/download_log',
-        name: 'api.action.support-form.download_log',
+        path: '/api/_action/worldline/support-form/download_log',
+        name: 'api.action.worldline.support-form.download_log',
         methods: ['POST']
     )]
     public function downloadLog(): JsonResponse
@@ -215,7 +214,7 @@ class SupportFormController extends AbstractController
                 $this->clearMedia($this->getDuplicateId(), $context);
                 $url = $this->getUrl($archivePath);
             }
-        } catch (\Exception $e) {
+        }  catch (\Exception $e) {
             $this->clearMedia($mediaId, $context);
         }
         return $url;

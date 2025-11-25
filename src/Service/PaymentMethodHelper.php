@@ -9,7 +9,6 @@ namespace MoptWorldline\Service;
 
 use MoptWorldline\Bootstrap\Form;
 use MoptWorldline\MoptWorldline;
-use Shopware\Core\Checkout\Payment\PaymentMethodEntity;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -295,6 +294,28 @@ class PaymentMethodHelper
             if (in_array($salesChannelId, $method['salesChannels'])) {
                 $dbMethods[$key]['isLinked'] = true;
             }
+        }
+    }
+
+    /**
+     * @param EntityRepository $paymentMethodRepository
+     * @param EntityRepository $ruleRepository
+     * @param EntityRepository $ruleConditionRepository
+     * @param string $internalMethodId
+     * @param string $methodId
+     * @return void
+     */
+    public static function applyRuleToMethod(
+        EntityRepository $paymentMethodRepository,
+        EntityRepository $ruleRepository,
+        EntityRepository $ruleConditionRepository,
+        string $internalMethodId,
+        string $methodId
+    ): void
+    {
+        $ruleHelper = new RuleHelper($ruleRepository,$paymentMethodRepository, $ruleConditionRepository);
+        if (array_key_exists($methodId, PaymentProducts::PAYMENT_PRODUCT_RULES)) {
+            $ruleHelper->applyRule($methodId, $internalMethodId);
         }
     }
 }

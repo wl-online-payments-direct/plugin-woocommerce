@@ -10,7 +10,7 @@ namespace MoptWorldline\Service;
 use Monolog\Level;
 use MoptWorldline\Bootstrap\Form;
 use Shopware\Core\Checkout\Order\OrderEntity;
-use Shopware\Core\Checkout\Payment\Exception\InvalidTransactionException;
+use Shopware\Core\Checkout\Payment\PaymentException;
 use Shopware\Core\Framework\Context;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
@@ -61,7 +61,7 @@ class OrderHelper
 
         if ($order === null) {
             LogHelper::addLog(Level::Error, "The order with hostedCheckoutId $hostedCheckoutId could not be found.");
-            throw new InvalidTransactionException('');
+            throw PaymentException::invalidTransaction ('');
         }
 
         return $order;

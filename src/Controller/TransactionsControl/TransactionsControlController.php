@@ -23,16 +23,14 @@ use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Symfony\Component\HttpFoundation\RequestStack;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"api"}})
- */
+#[Route(defaults: ['_routeScope' => ['api']])]
 class TransactionsControlController extends AbstractController
 {
     private SystemConfigService $systemConfigService;
@@ -72,13 +70,11 @@ class TransactionsControlController extends AbstractController
         $this->stateMachineRegistry = $stateMachineRegistry;
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/status",
-     *     name="api.action.transactions.control.status",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/status',
+        name: 'api.action.worldline.transactions.control.status',
+        methods: ['POST']
+    )]
     public function status(Request $request, Context $context): JsonResponse
     {
         $success = false;
@@ -96,49 +92,41 @@ class TransactionsControlController extends AbstractController
         return $this->response($success, $message);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/capture",
-     *     name="api.action.transactions.control.capture",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/capture',
+        name: 'api.action.worldline.transactions.control.capture',
+        methods: ['POST']
+    )]
     public function capture(Request $request, Context $context): JsonResponse
     {
         return $this->processPayment($request, $context, 'capturePayment');
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/cancel",
-     *     name="api.action.transactions.control.cancel",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/cancel',
+        name: 'api.action.worldline.transactions.control.cancel',
+        methods: ['POST']
+    )]
     public function cancel(Request $request, Context $context): JsonResponse
     {
         return $this->processPayment($request, $context, 'cancelPayment');
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/refund",
-     *     name="api.action.transactions.control.refund",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/refund',
+        name: 'api.action.worldline.transactions.control.refund',
+        methods: ['POST']
+    )]
     public function refund(Request $request, Context $context): JsonResponse
     {
         return $this->processPayment($request, $context, 'refundPayment');
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/getConfig",
-     *     name="api.action.transactions.control.getConfig",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/getConfig',
+        name: 'api.action.worldline.transactions.control.getConfig',
+        methods: ['POST']
+    )]
     public function getConfig(Request $request, Context $context): JsonResponse
     {
         $orderId = $request->request->get('orderId');
@@ -172,13 +160,11 @@ class TransactionsControlController extends AbstractController
             ]);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/enableButtons",
-     *     name="api.action.transactions.control.enableButtons",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/enableButtons',
+        name: 'api.action.worldline.transactions.control.enableButtons',
+        methods: ['POST']
+    )]
     public function enableButtons(Request $request, Context $context): JsonResponse
     {
         try {
@@ -224,33 +210,44 @@ class TransactionsControlController extends AbstractController
             ]);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/getOneyPaymentOption",
-     *     name="api.action.transactions.control.getOneyPaymentOption",
-     *     methods={"POST"}
-     * )
-     */
-    public function getOneyPaymentOption(): JsonResponse
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/getPaymentPluginOption',
+        name: 'api.action.worldline.transactions.control.getPaymentPluginOption',
+        methods: ['POST']
+    )]
+    public function getPaymentPluginOption(): JsonResponse
     {
         return new JsonResponse([
-            'value' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD)
+            'oneyValue' => $this->systemConfigService->get(Form::ONEY_PAYMENT_OPTION_FIELD),
+            'bankTransferValue' => $this->systemConfigService->get(Form::BANK_TRANSFER_INSTANT_PAYMENT_FIELD)
         ]);
     }
 
-    /**
-     * @Route(
-     *     "/api/_action/transactions-control/setOneyPaymentOption",
-     *     name="api.action.transactions.control.setOneyPaymentOption",
-     *     methods={"POST"}
-     * )
-     */
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/setOneyPaymentOption',
+        name: 'api.action.worldline.transactions.control.setOneyPaymentOption',
+        methods: ['POST']
+    )]
     public function setOneyPaymentOption(Request $request): JsonResponse
     {
         $oneyPaymentOption = $request->request->get('oneyPaymentOption');
         $this->systemConfigService->set(Form::ONEY_PAYMENT_OPTION_FIELD, $oneyPaymentOption);
         return new JsonResponse([
             'value' => $oneyPaymentOption
+        ]);
+    }
+
+    #[Route(
+        path: '/api/_action/worldline/transactions-control/setBankTransferPaymentOption',
+        name: 'api.action.worldline.transactions.control.setBankTransferPaymentOption',
+        methods: ['POST']
+    )]
+    public function setBankTransferPaymentOption(Request $request): JsonResponse
+    {
+        $bankTransferPaymentOption = $request->request->get('bankTransferPaymentOption');
+        $this->systemConfigService->set(Form::BANK_TRANSFER_INSTANT_PAYMENT_FIELD, $bankTransferPaymentOption);
+        return new JsonResponse([
+            'value' => $bankTransferPaymentOption
         ]);
     }
 
@@ -280,11 +277,13 @@ class TransactionsControlController extends AbstractController
         $handler = $this->getHandler($hostedCheckoutId, $context);
 
         Payment::lockOrder($this->requestStack->getSession(), $handler->getOrderId());
-        $message = AdminTranslate::trans($this->translator->getLocale(), "failed");
+        $warning = false;
         try {
-            if ($result = $handler->$action($hostedCheckoutId, $amount, $itemsChanges)) {
-                $message = AdminTranslate::trans($this->translator->getLocale(), "success");
+            [$result, $message] = $handler->$action($hostedCheckoutId, $amount, $itemsChanges);
+            if ($message !== 'success') {
+                $warning = true;
             }
+            $message = AdminTranslate::trans($this->translator->getLocale(), $message);
         } catch (ValidationException $e) {
             $result = false;
             $errors = $e->getErrors();
@@ -297,19 +296,21 @@ class TransactionsControlController extends AbstractController
         }
         Payment::unlockOrder($this->requestStack->getSession(), $handler->getOrderId());
 
-        return $this->response($result, $message);
+        return $this->response($result, $message, $warning);
     }
 
     /**
      * @param bool $success
      * @param string $message
+     * @param bool $warning
      * @return JsonResponse
      */
-    private function response(bool $success, string $message): JsonResponse
+    private function response(bool $success, string $message, bool $warning = false): JsonResponse
     {
         return new JsonResponse([
             'success' => $success,
-            'message' => $message
+            'message' => $message,
+            'warning' => $warning,
         ]);
     }
 

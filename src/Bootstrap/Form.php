@@ -47,6 +47,8 @@ class Form
     const AUTO_CAPTURE_5_DAYS = '5_days';
     const GROUP_CARDS = 'MoptWorldline.config.groupCards';
     const PARTIAL_OPERATIONS_ENABLED = 'MoptWorldline.config.partialOperationsEnabled';
+    const BANK_TRANSFER_INSTANT_PAYMENT_FIELD = 'MoptWorldline.config.bankTransferInstantPayment';
+    const ORDER_NUMBER_AS_REFERENCE_FIELD = 'MoptWorldline.config.orderNumberAsReference';
 
     /** @var string Fieldset name for the plugin custom field */
     const CUSTOM_FIELD_WORLDLINE_PAYMENT_TRANSACTION_FIELDSET = 'payment_transaction_fieldset';
@@ -67,6 +69,7 @@ class Form
 
     /** @var string Field name for the cart form */
     const WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID = 'moptWorldlineHostedTokenizationId';
+    const WORLDLINE_CART_FORM_REDIRECT_TOKEN = 'moptWorldlineRedirectToken';
     const WORLDLINE_CART_FORM_BROWSER_DATA_COLOR_DEPTH = 'moptWorldlineBrowserDataColorDepth';
     const WORLDLINE_CART_FORM_BROWSER_DATA_JAVA_ENABLED = 'moptWorldlineBrowserDataJavaEnabled';
     const WORLDLINE_CART_FORM_LOCALE = 'moptWorldlineLocale';
@@ -77,6 +80,7 @@ class Form
 
     const WORLDLINE_CART_FORM_KEYS = [
         self::WORLDLINE_CART_FORM_HOSTED_TOKENIZATION_ID,
+        self::WORLDLINE_CART_FORM_REDIRECT_TOKEN,
         self::WORLDLINE_CART_FORM_BROWSER_DATA_COLOR_DEPTH,
         self::WORLDLINE_CART_FORM_BROWSER_DATA_JAVA_ENABLED,
         self::WORLDLINE_CART_FORM_LOCALE,
@@ -86,11 +90,8 @@ class Form
         self::WORLDLINE_CART_FORM_USER_AGENT,
     ];
 
-    const WORLDLINE_CART_FORM_REDIRECT_TOKEN = 'moptWorldlineRedirectToken';
-
     /** @var string Field name for the plugin session key */
-    const SESSION_OPERATIONS_LOCK = 'order_locked';
-    const SESSION_IFRAME_DATA = 'worldline_iframe_data';
+    const SESSION_OPERATIONS_LOCK = 'worldline_order_locked';
     const SESSION_SERVER_URL = 'worldline_server_url';
 
     const LOG_DIR_PATH = '/var/log/worldline/';

@@ -1,8 +1,23 @@
-# 2.2.2
-- Add default api endpoints (in case no endpoint is specified in config)
-    - LIVE: https://payment.direct.worldline-solutions.com
-    - SANDBOX: https://payment.preprod.direct.worldline-solutions.com
+# 2.3.5
+- Automatic capture fix
+
+# 2.3.4
+- Plugin csv fix
+
+# 2.3.3
+- New Visa fields
 - Plugin icon fix
+
+# 2.3.2
+- Add default api endpoints (in case no endpoint is specified in config)
+- LIVE: https://payment.direct.worldline-solutions.com
+- SANDBOX: https://payment.preprod.direct.worldline-solutions.com
+
+# 2.3.1
+- Shipping cost as separated parameter
+
+# 2.3.0
+- New payment methods: Bank Transfer, P24, Twint, Carte Bancaire, PostFinane
 
 # 2.2.1
 - Webhook fix

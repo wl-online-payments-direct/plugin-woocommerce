@@ -14,34 +14,41 @@ use Shopware\Core\Checkout\Payment\PaymentMethodEntity;
 use Shopware\Core\Framework\DataAbstractionLayer\EntityRepository;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\Criteria;
 use Shopware\Core\Framework\DataAbstractionLayer\Search\EntitySearchResult;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Filter\EqualsFilter;
-use Shopware\Core\Framework\DataAbstractionLayer\Search\Sorting\FieldSorting;
 use Shopware\Core\Framework\Plugin\Exception\DecorationPatternException;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Shopware\Core\System\SalesChannel\Entity\SalesChannelRepository;
 use Shopware\Core\System\SalesChannel\SalesChannelContext;
 use Symfony\Component\HttpFoundation\Request;
 use Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRouteResponse;
 use Shopware\Core\Checkout\Payment\SalesChannel\PaymentMethodRoute;
 use Symfony\Component\HttpFoundation\Session\Session;
+use Shopware\Core\Framework\Script\Execution\ScriptExecutor;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"store-api"}})
- */
+#[Route(defaults: ['_routeScope' => ['store-api']])]
 class OverwritePaymentMethodRoute extends PaymentMethodRoute
 {
-    private SalesChannelRepository $paymentMethodsRepository;
     private Session $session;
     private EntityRepository $customerRepository;
 
     /**
      * @param SalesChannelRepository $paymentMethodsRepository
+     * @param EventDispatcherInterface $dispatcher
+     * @param ScriptExecutor $scriptExecutor
      * @param EntityRepository $customerRepository
      */
-    public function __construct(SalesChannelRepository $paymentMethodsRepository, EntityRepository $customerRepository)
+    public function __construct(
+        SalesChannelRepository   $paymentMethodsRepository,
+        EventDispatcherInterface $dispatcher,
+        ScriptExecutor           $scriptExecutor,
+        EntityRepository         $customerRepository
+    )
     {
-        parent::__construct($paymentMethodsRepository);
-        $this->paymentMethodsRepository = $paymentMethodsRepository;
+        parent::__construct(
+            $paymentMethodsRepository,
+            $dispatcher,
+            $scriptExecutor
+        );
         $this->session = new Session();
         $this->customerRepository = $customerRepository;
     }
@@ -62,23 +69,17 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
      */
     public function load(Request $request, SalesChannelContext $context, Criteria $criteria): PaymentMethodRouteResponse
     {
+        $result = parent::load($request, $context, $criteria);
+        $paymentMethods = $this->enrichPaymentMethod($result->getPaymentMethods(), $context);
+        return $this->buildResponse($result->getObject(), $paymentMethods);
+    }
+
+    private function enrichPaymentMethod(PaymentMethodCollection $paymentMethods, SalesChannelContext $context)
+    {
         $defaultPaymentMethodId = null;
         $customer = $context->getCustomer();
         if (!is_null($customer)) {
             $defaultPaymentMethodId = $context->getCustomer()->getDefaultPaymentMethodId();
-        }
-        $criteria
-            ->addFilter(new EqualsFilter('active', true))
-            ->addSorting(new FieldSorting('position'))
-            ->addAssociation('media');
-
-        $result = $this->paymentMethodsRepository->search($criteria, $context);
-
-        /** @var PaymentMethodCollection $paymentMethods */
-        $paymentMethods = $result->getEntities();
-
-        if ($request->query->getBoolean('onlyAvailable')) {
-            $paymentMethods = $paymentMethods->filterByActiveRules($context);
         }
 
         $isDefaultSet = false;
@@ -108,7 +109,7 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
             }
         }
 
-        return $this->buildResponse($result, $paymentMethods);
+        return $paymentMethods;
     }
 
     /**
@@ -116,7 +117,7 @@ class OverwritePaymentMethodRoute extends PaymentMethodRoute
      * @param PaymentMethodCollection $methods
      * @return PaymentMethodRouteResponse
      */
-    private function buildResponse(EntitySearchResult &$result, PaymentMethodCollection $methods): PaymentMethodRouteResponse
+    private function buildResponse(EntitySearchResult $result, PaymentMethodCollection $methods): PaymentMethodRouteResponse
     {
         $result->assign(['entities' => $methods, 'elements' => $methods, 'total' => $methods->count()]);
         return new PaymentMethodRouteResponse($result);

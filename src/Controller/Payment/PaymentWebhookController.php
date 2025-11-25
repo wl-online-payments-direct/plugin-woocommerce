@@ -22,14 +22,12 @@ use Shopware\Core\System\StateMachine\StateMachineRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Routing\RouterInterface;
 use Shopware\Core\System\SystemConfig\SystemConfigService;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
-/**
- * @Route(defaults={"_routeScope"={"storefront"}})
- */
+#[Route(defaults: ['_routeScope' => ['storefront']])]
 class PaymentWebhookController extends AbstractController
 {
     private RouterInterface $router;
@@ -63,16 +61,16 @@ class PaymentWebhookController extends AbstractController
     }
 
     /**
-     * @Route(
-     *     "/worldline/payment/webhook",
-     *     name="worldline.payment.webhook",
-     *     methods={"POST"}
-     * )
      * @param Request $request
      * @param SalesChannelContext $salesChannelContext
      * @return Response
      * @throws \Exception
      */
+    #[Route(
+        path: '/worldline/payment/webhook',
+        name: 'worldline.payment.webhook',
+        methods: ['POST']
+    )]
     public function webhook(Request $request, SalesChannelContext $salesChannelContext): Response
     {
         $data = $this->parseRequest($request, $salesChannelContext->getSalesChannelId());
