@@ -90,13 +90,16 @@ If you encounter issues with the Worldline buttons not appearing after an update
 * Add new payment method: Pledg
 * Manage exemption for FR markets
 
-= 2.4.6 - 2025-10-29 =
+= 2.4.6 - 2025-11-17 =
+* Fix language used for hosted checkout
+
+= 2.4.5 - 2025-10-29 =
 * Change surcharge settings title
 * Add pending order cancellation cron job logic
 * Add upload logo for hosted payment to plugin settings page
 * Change author URI and contributor
 
-= 2.4.5 - 2025-10-13 =
+= 2.4.4 - 2025-10-13 =
 * Add missing 3DS parameters for Credit Card payments
 * Fix storing the wrong API key in the database
 
