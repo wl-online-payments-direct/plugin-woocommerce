@@ -35,7 +35,21 @@ class CardThreeDSecureFactory
             $threedSecure->setChallengeIndicator($this->enforce3ds ? ChallengeIndicator::CHALLENGE_REQUIRED : ChallengeIndicator::NO_PREFERENCE);
             return $threedSecure;
         }
-        $threedSecure->setSkipAuthentication(\true);
+        return $this->manageExemptionForOrdersUnderLimit($threedSecure);
+    }
+    private function manageExemptionForOrdersUnderLimit(ThreeDSecure $threedSecure) : ThreeDSecure
+    {
+        switch ($this->exemptionType) {
+            case 'transaction-risk-analysis':
+                $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_CHALLENGE_REQUESTED_RISK_ANALYSIS_PERFORMED);
+                break;
+            case 'low-value':
+                $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_CHALLENGE_REQUESTED);
+                break;
+            default:
+                $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_PREFERENCE);
+        }
+        $threedSecure->setSkipAuthentication(\false);
         $threedSecure->setExemptionRequest($this->exemptionType);
         $threedSecure->setSkipSoftDecline(\false);
         return $threedSecure;

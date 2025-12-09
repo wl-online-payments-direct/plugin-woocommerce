@@ -1190,3 +1190,13 @@ msgstr ""
 #: modules/inpsyde/worldline-config/inc/fields.php:37
 msgid "Set up automatic cancellation of pending orders. The selected value defines after how many hours orders in Pending payment status will be cancelled. For example, if 3 hours is selected, all pending orders older than 3 hours will be automatically cancelled. This depends on the website activity since it relies on the WordPress cron."
 msgstr ""
+
+#: modules.local/config/inc/fields.php:278
+#: modules/inpsyde/worldline-config/inc/fields.php:247
+msgid "Fixed soft descriptor"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:281
+#: modules/inpsyde/worldline-config/inc/fields.php:247
+msgid "Minimum 2, maximum 15 characters. You can specify a fixed value that will be sent to the banks handling the payment. If the consumer's bank supports it, this value may appear on the bank statement. Important: this field must be filled in to use the Pledg payment method."
+msgstr ""

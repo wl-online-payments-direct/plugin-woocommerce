@@ -1566,6 +1566,53 @@
             "install-path": "..\/..\/modules\/inpsyde\/worldline-paypal-gateway"
         },
         {
+            "name": "inpsyde\/worldline-pledg-gateway",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/pledg-gateway",
+                "reference": "ce13f1728da2195ca21fff2b889dae3299234bff"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline Pledg payment gateway module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-pledg-gateway"
+        },
+        {
             "name": "inpsyde\/worldline-postfinance-gateway",
             "version": "dev-main",
             "version_normalized": "dev-main",

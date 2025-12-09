@@ -43,6 +43,7 @@
         "inpsyde\/worldline-hosted-tokenization-gateway": "dev-main",
         "inpsyde\/worldline-ideal-gateway": "dev-main",
         "inpsyde\/worldline-paypal-gateway": "dev-main",
+        "inpsyde\/worldline-pledg-gateway": "dev-master",
         "inpsyde\/worldline-klarna-gateway": "dev-main",
         "inpsyde\/worldline-logging": "dev-main",
         "inpsyde\/worldline-payment-gateway": "dev-main",

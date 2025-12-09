@@ -285,6 +285,8 @@ return array(
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\Payment\\MealvouchersRequestModifier' => $baseDir . '/modules/inpsyde/worldline-mealvouchers-gateway/src/Payment/MealvouchersRequestModifier.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\PayPalGatewayModule' => $baseDir . '/modules/inpsyde/worldline-paypal-gateway/src/PayPalGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\Payment\\PayPalRequestModifier' => $baseDir . '/modules/inpsyde/worldline-paypal-gateway/src/Payment/PayPalRequestModifier.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\Payment\\PledgRequestModifier' => $baseDir . '/modules/inpsyde/worldline-pledg-gateway/src/Payment/PledgRequestModifier.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\PledgGatewayModule' => $baseDir . '/modules/inpsyde/worldline-pledg-gateway/src/PledgGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\Payment\\PostfinanceRequestModifier' => $baseDir . '/modules/inpsyde/worldline-postfinance-gateway/src/Payment/PostfinanceRequestModifier.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\Postfinance' => $baseDir . '/modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\PostfinanceGatewayModule' => $baseDir . '/modules/inpsyde/worldline-postfinance-gateway/src/PostfinanceGatewayModule.php',

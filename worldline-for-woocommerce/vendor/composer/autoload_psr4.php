@@ -27,6 +27,7 @@ return array(
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => array($baseDir . '/modules/inpsyde/worldline-return-page/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\' => array($baseDir . '/modules/inpsyde/worldline-product-type/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => array($baseDir . '/modules/inpsyde/worldline-postfinance-gateway/src'),
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\' => array($baseDir . '/modules/inpsyde/worldline-pledg-gateway/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\' => array($baseDir . '/modules/inpsyde/worldline-paypal-gateway/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\' => array($baseDir . '/modules/inpsyde/worldline-mealvouchers-gateway/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' => array($baseDir . '/modules/inpsyde/worldline-klarna-gateway/src'),
