@@ -1,0 +1,57 @@
+<?php
+
+declare (strict_types=1);
+namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure;
+
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectionData;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ThreeDSecure;
+class CardThreeDSecureFactory
+{
+    private bool $enable3ds;
+    private bool $enforce3ds;
+    private ?string $exemptionType;
+    private ExemptionAmountChecker $exemptionAmountChecker;
+    public function __construct(bool $enable3ds, bool $enforce3ds, ?string $exemptionType, ExemptionAmountChecker $exemptionAmountChecker)
+    {
+        $this->enable3ds = $enable3ds;
+        $this->enforce3ds = $enforce3ds;
+        $this->exemptionType = $exemptionType;
+        $this->exemptionAmountChecker = $exemptionAmountChecker;
+    }
+    public function create(int $orderAmount, string $currencyCode, string $returnUrl = '') : ThreeDSecure
+    {
+        $threedSecure = new ThreeDSecure();
+        if (!empty($returnUrl)) {
+            $redirectionData = new RedirectionData();
+            $redirectionData->setReturnUrl($returnUrl);
+            $threedSecure->setRedirectionData($redirectionData);
+        }
+        if (!$this->enable3ds) {
+            $threedSecure->setSkipAuthentication(\true);
+            return $threedSecure;
+        }
+        if ($this->exemptionType === null || !$this->exemptionAmountChecker->isUnderLimit($orderAmount, $currencyCode)) {
+            $threedSecure->setSkipAuthentication(\false);
+            $threedSecure->setChallengeIndicator($this->enforce3ds ? ChallengeIndicator::CHALLENGE_REQUIRED : ChallengeIndicator::NO_PREFERENCE);
+            return $threedSecure;
+        }
+        return $this->manageExemptionForOrdersUnderLimit($threedSecure);
+    }
+    private function manageExemptionForOrdersUnderLimit(ThreeDSecure $threedSecure) : ThreeDSecure
+    {
+        switch ($this->exemptionType) {
+            case 'transaction-risk-analysis':
+                $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_CHALLENGE_REQUESTED_RISK_ANALYSIS_PERFORMED);
+                break;
+            case 'low-value':
+                $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_CHALLENGE_REQUESTED);
+                break;
+            default:
+                $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_PREFERENCE);
+        }
+        $threedSecure->setSkipAuthentication(\false);
+        $threedSecure->setExemptionRequest($this->exemptionType);
+        $threedSecure->setSkipSoftDecline(\false);
+        return $threedSecure;
+    }
+}

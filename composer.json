@@ -1,0 +1,148 @@
+{
+    "name": "inpsyde\/worldline-for-woocommerce",
+    "type": "wordpress-plugin",
+    "description": "Worldline payment gateway for WooCommerce.",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "homepage": "https:\/\/syde.com",
+            "email": "hello@syde.com",
+            "role": "Company"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": ".\/modules.local\/*",
+            "options": {
+                "symlink": false
+            }
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "ext-json": "*",
+        "dhii\/services": "^0.1.1-alpha3",
+        "dhii\/validator": "^0.1.0@alpha",
+        "dhii\/versions": "^0.1.0@alpha",
+        "inpsyde\/logger": "dev-main",
+        "inpsyde\/modularity": "dev-main",
+        "inpsyde\/payment-gateway": "dev-main",
+        "inpsyde\/psr-18-wp-http-client": "dev-main",
+        "inpsyde\/transformer": "dev-main",
+        "inpsyde\/worldline-apple-pay-gateway": "dev-main",
+        "inpsyde\/worldline-bank-transfer-gateway": "dev-main",
+        "inpsyde\/worldline-checkout": "dev-main",
+        "inpsyde\/worldline-config": "dev-main",
+        "inpsyde\/worldline-cvco-gateway": "dev-main",
+        "inpsyde\/worldline-documentation": "dev-main",
+        "inpsyde\/worldline-eps-gateway": "dev-main",
+        "inpsyde\/worldline-google-pay-gateway": "dev-main",
+        "inpsyde\/worldline-mealvouchers-gateway": "dev-main",
+        "inpsyde\/worldline-hosted-tokenization-gateway": "dev-main",
+        "inpsyde\/worldline-ideal-gateway": "dev-main",
+        "inpsyde\/worldline-paypal-gateway": "dev-main",
+        "inpsyde\/worldline-pledg-gateway": "dev-master",
+        "inpsyde\/worldline-klarna-gateway": "dev-main",
+        "inpsyde\/worldline-logging": "dev-main",
+        "inpsyde\/worldline-payment-gateway": "dev-main",
+        "inpsyde\/worldline-postfinance-gateway": "dev-main",
+        "inpsyde\/worldline-return-page": "dev-main",
+        "inpsyde\/worldline-twint-gateway": "dev-main",
+        "inpsyde\/worldline-uninstall": "dev-main",
+        "inpsyde\/worldline-uri": "dev-main",
+        "inpsyde\/worldline-utils": "dev-main",
+        "inpsyde\/worldline-vaulting": "dev-main",
+        "inpsyde\/worldline-wc-support": "dev-main",
+        "inpsyde\/worldline-webhooks": "dev-main",
+        "inpsyde\/worldline-product-type": "dev-main",
+        "oomphinc\/composer-installers-extender": "^2.0",
+        "psr\/container": "^1.1",
+        "psr\/log": "^1.1",
+        "sniccowp\/php-scoper-wordpress-excludes": "^6.4",
+        "symfony\/polyfill-php80": "^1.29",
+        "wl-online-payments-direct\/sdk-php": "6.1.0"
+    },
+    "require-dev": {
+        "brain\/monkey": "^2.6",
+        "brainmaestro\/composer-git-hooks": "^2.8",
+        "inpsyde\/composer-assets-compiler": "dev-main",
+        "inpsyde\/ddev-tools": "dev-main",
+        "inpsyde\/modularity-test-case": "dev-main",
+        "inpsyde\/php-coding-standards": "dev-main",
+        "mockery\/mockery": "^1.3",
+        "php-stubs\/woocommerce-stubs": "^5.0",
+        "php-stubs\/wordpress-stubs": "^5.3",
+        "phpunit\/phpunit": "^9.0",
+        "symfony\/var-dumper": "^5.0",
+        "vimeo\/psalm": "^5.20"
+    },
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Test\\": "tests\/PHPUnit\/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "phpcs": "@php .\/vendor\/bin\/phpcs -n -s --parallel=24",
+        "phpcs:phpcbf": "@php .\/vendor\/bin\/phpcbf  --parallel=24;exit 0",
+        "phpcs:interactive": "@php .\/vendor\/bin\/phpcs -a",
+        "phpcs:dev": [
+            "@cs:phpcbf",
+            "@cs:interactive"
+        ],
+        "phpunit": "vendor\/bin\/phpunit",
+        "test": [
+            "@phpunit"
+        ]
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true,
+            "inpsyde\/composer-assets-compiler": true,
+            "composer\/installers": true,
+            "oomphinc\/composer-installers-extender": true
+        },
+        "preferred-install": {
+            "*": "dist"
+        }
+    },
+    "extra": {
+        "installer-paths": {
+            "modules\/{$vendor}\/{$name}": [
+                "type:inpsyde-module"
+            ]
+        },
+        "installer-types": [
+            "inpsyde-module"
+        ],
+        "hooks": {
+            "pre-commit": [
+                "vendor\/bin\/phpcbf -q --parallel=24; exit 0"
+            ]
+        },
+        "composer-asset-compiler": {
+            "auto-run": false,
+            "dependencies": "install",
+            "script": "build",
+            "packages": {
+                "inpsyde\/*": {
+                    "dependencies": "install",
+                    "script": "build"
+                }
+            },
+            "default-env": {
+                "WEBPACK_ENV": "production"
+            }
+        }
+    }
+}
