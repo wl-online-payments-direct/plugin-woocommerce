@@ -1191,12 +1191,75 @@ msgstr ""
 msgid "Set up automatic cancellation of pending orders. The selected value defines after how many hours orders in Pending payment status will be cancelled. For example, if 3 hours is selected, all pending orders older than 3 hours will be automatically cancelled. This depends on the website activity since it relies on the WordPress cron."
 msgstr ""
 
-#: modules.local/config/inc/fields.php:278
-#: modules/inpsyde/worldline-config/inc/fields.php:247
+#: modules.local/webhooks/inc/fields.php:60
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:10
+msgid "Webhook URL Configuration"
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:73
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:10
+msgid "Store Webhook URL"
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:65
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:10
+msgid "Manual"
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:64
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:10
+msgid "Automatic (Recommended)"
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:100
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:16
+msgid "Additional Webhook URLs"
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:102
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:16
+msgid "Optional"
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:105
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:16
+msgid "Specify up to four additional URLs to receive a copy of every webhook event. This is an advanced feature for synchronizing payment data across multiple platforms (e.g., accounting software, fulfillment services). Each URL must be a valid and accessible HTTPS URL capable of receiving POST requests."
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:141
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:16
+msgid "You can add up to 4 additional webhook URLs"
+msgstr ""
+
+#: modules.local/webhooks/inc/fields.php:12
+#: modules/inpsyde/worldline-webhooks/inc/fields.php:9
+msgid "Webhooks are the primary method your store uses to receive real-time payment notifications (e.g., paid, failed, refunded), which are essential for creating and updating your orders. Automatic Mode Explained: The plugin automatically sends the store webhook URL with every payment request, which is the safest and most reliable option. This mode also allows you to add up to 4 additional URLs to send notifications to external services, like accounting or subscription management. Please be aware that in this mode, any webhook URLs configured in your merchant portal will be ignored for transactions originating from this specific store. Manual Mode Explained: You will be required to manually copy the Store Webhook URL and paste it into your merchant portal\'s webhook configuration. Crucially for multistore users, this URL is unique for each store, and this process must be repeated for every single one."
+msgstr ""
+
+#: assets/config-backend-main.js:1
+msgid "Please enter a valid HTTPS URL (max 325 characters)"
+msgstr ""
+
+#: assets/config-backend-main.js:1
+msgid "Automatic: The URL(s) below will be used for transactions from this store, any webhook URL(s) configured in the merchant portal will be ignored.<br>Manual: You are fully responsible for adding your store webhook URL in the merchant portal. Failure to do so could result in missing or incomplete orders!"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:37
+#: modules/inpsyde/worldline-config/inc/fields.php:278
 msgid "Fixed soft descriptor"
 msgstr ""
 
-#: modules.local/config/inc/fields.php:281
-#: modules/inpsyde/worldline-config/inc/fields.php:247
-msgid "Minimum 2, maximum 15 characters. You can specify a fixed value that will be sent to the banks handling the payment. If the consumer's bank supports it, this value may appear on the bank statement. Important: this field must be filled in to use the Pledg payment method."
+#: modules.local/config/inc/fields.php:37
+#: modules/inpsyde/worldline-config/inc/fields.php:281
+msgid "Minimum 2, maximum 15 characters. You can specify a fixed value that will be sent to the banks handling the payment. If the consumer's bank is supporting that, this value can be displayed on the consumer's bank slip. Important note : setting a value here is mandatory in order to use Pledg payment method."
+msgstr ""
+
+#: modules.local/chosted-tokenization-gateway/inc/fields.php:32
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/fields.php:9
+msgid "Custom credit card icons"
+msgstr ""
+
+#: modules.local/hosted-tokenization-gateway/inc/fields.php:42
+#: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/fields.php:16
+msgid "Manage your custom credit card icons. Icons you upload here will be available to select from the card icons field"
 msgstr ""

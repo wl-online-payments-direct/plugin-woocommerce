@@ -96,8 +96,6 @@ return static function () : array {
         return (string) $config->get('primary_gateway_title');
     }), 'config.payment_button_title' => new Factory(['config.container'], static function (ConfigContainer $config) : string {
         return (string) $config->get('payment_button_title');
-    }), 'config.is_hosted_checkout' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
-        return $config->get('checkout_type') === 'hosted';
     }), 'config.surcharge_enabled' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
         return (string) $config->get('surcharge_enable') === 'yes';
     }), 'config.send_shopping_cart' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
@@ -116,6 +114,17 @@ return static function () : array {
         return $templateName;
     }), 'config.logo_url' => new Factory(['config.container'], static function (ConfigContainer $config) : string {
         return (string) $config->get('logo_url');
+    }), 'config.webhook_mode_is_automatic' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
+        return $config->get('webhook_mode_is_automatic') === 'yes';
+    }), 'config.additional_webhook_urls' => new Factory(['config.container'], static function (ConfigContainer $config) : array {
+        $urls = [];
+        for ($i = 1; $i <= 4; $i++) {
+            $url = (string) $config->get("additional_webhook_url_{$i}");
+            if ($url !== '') {
+                $urls[] = $url;
+            }
+        }
+        return $urls;
     }), 'payment_gateway.worldline-for-woocommerce.order_button_text' => new Factory(['config.payment_button_title'], static function (string $paymentButtonTitleRaw) : ?string {
         $paymentButtonTitle = \wp_strip_all_tags($paymentButtonTitleRaw);
         return $paymentButtonTitle !== '' ? $paymentButtonTitle : null;

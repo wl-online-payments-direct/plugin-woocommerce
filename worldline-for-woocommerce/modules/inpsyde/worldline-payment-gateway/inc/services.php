@@ -124,7 +124,7 @@ return static function () : array {
         'worldline_payment_gateway.wc_order_factory' => new Constructor(WcOrderBasedOrderFactory::class, ['worldline_payment_gateway.transformer.wc_order_to_wlop_order', 'worldline_payment_gateway.payment_mismatch_validator', 'worldline_payment_gateway.details_dropping_mismatch_handler', 'config.surcharge_enabled', 'config.send_shopping_cart']),
         'worldline_payment_gateway.amount_of_money_factory' => new Constructor(AmountOfMoneyFactory::class, ['worldline_payment_gateway.money_amount_converter']),
         'worldline_payment_gateway.transformer.hosted_checkout_request' => Service::fromFile("{$moduleRoot}/inc/transformers/hosted-checkout-request.php"),
-        'worldline_payment_gateway.hosted_checkout_url_factory' => new Constructor(HostedCheckoutUrlFactory::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.transformer.hosted_checkout_request', 'config.surcharge_enabled']),
+        'worldline_payment_gateway.hosted_checkout_url_factory' => new Constructor(HostedCheckoutUrlFactory::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.transformer.hosted_checkout_request', 'webhooks.notification_url', 'config.webhook_mode_is_automatic', 'config.additional_webhook_urls']),
         'worldline_payment_gateway.locale' => static function () : string {
             $locale = \get_user_locale();
             $parts = \explode('_', $locale);

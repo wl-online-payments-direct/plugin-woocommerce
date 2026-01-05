@@ -1,22 +1,186 @@
 .wlop-hidden {
-	display: none !important;
+  display: none !important;
 }
 
 .wp-admin .wlop-button-copy {
-	display: block;
-	margin-top: 12px;
+  display: block;
+  margin-top: 12px;
 }
 
 .wlop-warning-field {
-	max-width: 800px;
+  max-width: 800px;
+  padding: 10px;
+  background-color: #ffffe0;
+  border: 1px solid #ffa500;
+  border-radius: 8px;
+  margin-bottom: 10px;
+}
+
+.wlop-input-error {
+  border-color: #d63638 !important;
+  box-shadow: 0 0 0 1px #d63638 !important;
+}
+
+.wlop-global-webhook-error {
+  th {
+    padding: 0;
+  }
+
+  td {
+    padding-top: 0 !important;
+  }
+}
+
+.wlop-webhook-error-message {
+  margin: 0;
+  padding: 8px 12px;
+  background-color: #fcf0f1;
+  border-left: 4px solid #d63638;
+  color: #d63638;
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.wlop-custom-icons-wrapper {
+	max-width: 100%;
+	margin-top: 0;
+}
+
+.wlop-custom-icons-upload-button {
+	background-color: #007cba;
+	color: #ffffff;
+	border-color: #007cba;
+	box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+	transition: background-color 0.1s ease;
+	margin-bottom: 20px;
+	font-weight: 500;
+}
+
+.wlop-custom-icons-upload-button:hover,
+.wlop-custom-icons-upload-button:focus {
+	background-color: #006fa3;
+	border-color: #006fa3;
+	color: #ffffff;
+}
+
+#wlop-custom-icons-grid {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 15px;
+	padding: 10px 0;
+}
+
+.wlop-custom-icon-item {
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 120px;
 	padding: 10px;
-	background-color: #ffffe0;
-	border: 1px solid #ffa500;
-	border-radius: 8px;
+	background-color: #ffffff;
+	border: 1px solid #ddd;
+	border-radius: 6px;
+	box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+	transition: box-shadow 0.2s ease;
+}
+
+.wlop-custom-icon-item:hover {
+	box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.wlop-custom-icon-image {
+	width: 80px;
+	height: 50px;
+	object-fit: contain;
+	margin-bottom: 8px;
+	border: 1px solid #f0f0f0;
+	padding: 5px;
+	border-radius: 4px;
+}
+
+.wlop-custom-icon-title {
+	font-size: 11px;
+	color: #555;
+	text-align: center;
+	word-break: break-word;
+	max-width: 100%;
+	line-height: 1.2;
+	margin-top: 5px;
+}
+
+.wlop-custom-icon-delete {
+	position: absolute;
+	top: -8px;
+	right: -8px;
+	width: 20px;
+	height: 20px;
+	line-height: 18px;
+	text-align: center;
+	border-radius: 50%;
+	background-color: #dc3232;
+	color: #ffffff;
+	font-size: 10px;
+	font-weight: bold;
+	cursor: pointer;
+	border: 2px solid #ffffff;
+	box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+	transition: background-color 0.1s ease, transform 0.1s ease;
+	z-index: 10;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+}
+
+.wlop-custom-icon-delete:hover {
+	background-color: #900;
+	transform: scale(1.1);
 }
 
 #woocommerce_worldline-for-woocommerce_3ds_exemption_warning { /* stylelint-disable-line selector-id-pattern */
-	td {
-		padding-top: 0;
-	}
+  td {
+    padding-top: 0;
+  }
+}
+
+td:has(div#wlop-webhook-mode-warning) {
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+tr:has(.wlop-additional-webhook-field) td.forminp {
+  padding-bottom: 0 !important;
+  padding-top: 0 !important;
+}
+
+tr:has(#woocommerce_worldline-for-woocommerce_additional_webhook_url_1) th {
+  height: 1px;
+  line-height: 1;
+  padding-bottom: 0;
+  padding-top: 0;
+  vertical-align: middle;
+}
+
+tr:has(#woocommerce_worldline-for-woocommerce_webhook_mode_is_automatic) th {
+  height: 1px;
+  line-height: 1;
+  padding-bottom: 0;
+  padding-top: 0;
+  vertical-align: middle;
+}
+
+tr:has(#woocommerce_worldline-for-woocommerce_webhook_mode_is_automatic) td.forminp {
+  margin-bottom: 0 !important;
+}
+
+.form-table td:has(.wlop-custom-icons-wrapper) {
+	padding-top: 0 !important;
+}
+
+.form-table td:has(.wlop-custom-icons-wrapper) p {
+	margin: 0 !important;
+}
+
+tr:has(#woocommerce_worldline-hosted-tokenization_custom_icons) {
+	display: none !important;
 }

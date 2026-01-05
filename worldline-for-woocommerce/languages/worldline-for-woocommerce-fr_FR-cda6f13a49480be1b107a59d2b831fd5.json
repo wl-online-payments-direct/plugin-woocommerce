@@ -1,0 +1,21 @@
+{
+    "translation-revision-date": "2025-12-01 10:36+0000",
+    "generator": "WP-CLI\/2.12.0",
+    "source": "assets\/config-backend-main.js",
+    "domain": "messages",
+    "locale_data": {
+        "messages": {
+            "": {
+                "domain": "messages",
+                "lang": "fr_FR",
+                "plural-forms": "nplurals=2; plural=n > 1;"
+            },
+            "Automatic: The URL(s) below will be used for transactions from this store, any webhook URL(s) configured in the merchant portal will be ignored.<br>Manual: You are fully responsible for adding your store webhook URL in the merchant portal. Failure to do so could result in missing or incomplete orders!": [
+                "Automatique :\u00a0Les URL ci-dessous seront utilis\u00e9es pour les transactions de cette boutique, toute URL de webhook configur\u00e9e dans le portail marchand sera ignor\u00e9e.<br>Manuelle :\u00a0Vous \u00eates enti\u00e8rement responsable de l'ajout de l'URL du webhook de votre boutique dans le portail marchand.\u00a0Un oubli de votre part pourrait entra\u00eener des commandes manquantes ou incompl\u00e8tes !"
+            ],
+            "Please enter a valid HTTPS URL (max 325 characters)": [
+                "Merci d\u2019entrer une URL HTTPS valide (maximum 325 charact\u00e8res)"
+            ]
+        }
+    }
+}

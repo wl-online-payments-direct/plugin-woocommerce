@@ -17,8 +17,10 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ErrorResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Feedbacks;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
+use Syde\Vendor\Worldline\Psr\Http\Message\UriInterface;
 use Throwable;
 use WC_Order;
 class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
@@ -30,7 +32,10 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
     private MerchantClientInterface $client;
     private string $authorizationMode;
     private CardThreeDSecureFactory $cardThreedSecureFactory;
-    public function __construct(HostedPaymentProcessor $hostedPaymentProcessor, WcOrderBasedOrderFactoryInterface $wcOrderBasedFactory, Transformer $requestTransformer, MerchantClientInterface $client, string $authorizationMode, CardThreeDSecureFactory $threedSecureFactory)
+    private ?UriInterface $notificationUrl;
+    private bool $webhookModeIsAutomatic;
+    private array $additionalWebhookUrls;
+    public function __construct(HostedPaymentProcessor $hostedPaymentProcessor, WcOrderBasedOrderFactoryInterface $wcOrderBasedFactory, Transformer $requestTransformer, MerchantClientInterface $client, string $authorizationMode, CardThreeDSecureFactory $threedSecureFactory, ?UriInterface $notificationUrl = null, bool $webhookModeIsAutomatic = \false, array $additionalWebhookUrls = [])
     {
         $this->hostedPaymentProcessor = $hostedPaymentProcessor;
         $this->wcOrderBasedFactory = $wcOrderBasedFactory;
@@ -38,6 +43,9 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
         $this->client = $client;
         $this->authorizationMode = $authorizationMode;
         $this->cardThreedSecureFactory = $threedSecureFactory;
+        $this->notificationUrl = $notificationUrl;
+        $this->webhookModeIsAutomatic = $webhookModeIsAutomatic;
+        $this->additionalWebhookUrls = $additionalWebhookUrls;
     }
     /**
      * @throws Throwable
@@ -58,6 +66,15 @@ class HostedTokenizationPaymentProcessor implements PaymentProcessorInterface
             $this->initWlopWcOrder($wcOrder);
             $paymentRequest = new CreatePaymentRequest();
             $paymentRequest->setHostedTokenizationId($hostedTokenizationId);
+            if ($this->webhookModeIsAutomatic && $this->notificationUrl !== null) {
+                $webhookUrls = [(string) $this->notificationUrl];
+                foreach ($this->additionalWebhookUrls as $url) {
+                    $webhookUrls[] = $url;
+                }
+                $feedbacks = new Feedbacks();
+                $feedbacks->setWebhooksUrls($webhookUrls);
+                $paymentRequest->setFeedbacks($feedbacks);
+            }
             $cardPaymentMethodSpecificInput = $this->requestTransformer->create(CardPaymentMethodSpecificInput::class, new HostedCheckoutInput($wlopOrder, $wcOrder, '', null, null, null));
             \assert($cardPaymentMethodSpecificInput instanceof CardPaymentMethodSpecificInput);
             $cardPaymentMethodSpecificInput->setThreeDSecure($this->cardThreedSecureFactory->create($wlopOrder->getAmountOfMoney()->getAmount(), $wlopOrder->getAmountOfMoney()->getCurrencyCode(), $wcOrder->get_checkout_order_received_url()));

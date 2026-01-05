@@ -32,6 +32,15 @@ class PaymentCapturedHandler implements WebhookHandlerInterface
             \__('Payment of %s successfully captured.', 'worldline-for-woocommerce'),
             $this->moneyAmountConverter->amountOfMoneyAsString($capturedAmount)
         ));
+        $order = $wlopWcOrder->order();
+        if (!$order) {
+            return;
+        }
+        $transactionId = WebhookHelper::transactionId($webhook);
+        $order->payment_complete($transactionId);
+        if ($order->get_status() === 'processing' && !$order->needs_processing()) {
+            $order->update_status('completed');
+        }
         $wlopWcOrder->order()->save();
     }
 }

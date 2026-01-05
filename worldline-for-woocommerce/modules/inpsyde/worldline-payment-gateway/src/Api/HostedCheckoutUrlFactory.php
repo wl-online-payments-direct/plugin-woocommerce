@@ -7,6 +7,7 @@ use Exception;
 use Syde\Vendor\Worldline\Inpsyde\Transformer\Transformer;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\Feedbacks;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\OrderReferences;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductFilter;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductFiltersHostedCheckout;
@@ -14,14 +15,21 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecifi
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5300SpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5403SpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\Psr\Http\Message\UriInterface;
 class HostedCheckoutUrlFactory
 {
     private MerchantClientInterface $apiClient;
     private Transformer $requestTransformer;
-    public function __construct(MerchantClientInterface $apiClient, Transformer $requestTransformer)
+    private ?UriInterface $notificationUrl;
+    private bool $webhookModeIsAutomatic;
+    private array $additionalWebhookUrls;
+    public function __construct(MerchantClientInterface $apiClient, Transformer $requestTransformer, ?UriInterface $notificationUrl = null, bool $webhookModeIsAutomatic = \false, array $additionalWebhookUrls = [])
     {
         $this->apiClient = $apiClient;
         $this->requestTransformer = $requestTransformer;
+        $this->notificationUrl = $notificationUrl;
+        $this->webhookModeIsAutomatic = $webhookModeIsAutomatic;
+        $this->additionalWebhookUrls = $additionalWebhookUrls;
     }
     /**
      * @throws Exception
@@ -29,6 +37,15 @@ class HostedCheckoutUrlFactory
     public function create(HostedCheckoutInput $input) : CreateHostedCheckoutResponse
     {
         $request = $this->requestTransformer->create(CreateHostedCheckoutRequest::class, $input);
+        if ($this->webhookModeIsAutomatic && $this->notificationUrl !== null) {
+            $webhookUrls = [(string) $this->notificationUrl];
+            foreach ($this->additionalWebhookUrls as $url) {
+                $webhookUrls[] = $url;
+            }
+            $feedbacks = new Feedbacks();
+            $feedbacks->setWebhooksUrls($webhookUrls);
+            $request->setFeedbacks($feedbacks);
+        }
         $productFilterHostedCheckout = new PaymentProductFiltersHostedCheckout();
         $excludeMealVoucherFilter = new PaymentProductFilter();
         $excludeMealVoucherFilter->setProducts([5402]);
