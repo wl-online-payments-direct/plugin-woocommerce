@@ -121,6 +121,10 @@ class OrderUpdater
         if (!\in_array($statusOutput->getStatusCategory(), ['PENDING_PAYMENT', 'PENDING_MERCHANT', 'PENDING_CONNECT_OR_3RD_PARTY', 'COMPLETED'], \true)) {
             return;
         }
+        //skip changing 3DS related data
+        if ($statusOutput->getStatusCategory() === 'PENDING_CONNECT_OR_3RD_PARTY' && \in_array($statusOutput->getStatusCode(), [46, 71, 72, 81, 82])) {
+            return;
+        }
         $methodOutput = $paymentOutput->getCardPaymentMethodSpecificOutput();
         if (!$methodOutput) {
             $methodOutput = $paymentOutput->getMobilePaymentMethodSpecificOutput();
@@ -134,8 +138,7 @@ class OrderUpdater
         }
         $appliedExemption = $threedsResults->getAppliedExemption();
         $liability = $threedsResults->getLiability();
-        //Weak comparison is used purposely since '' and nullish valuesshould be treated the same way
-        if ($wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_LIABILITY) !== $liability || $wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_APPLIED_EXEMPTION) !== $appliedExemption) {
+        if ($wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_LIABILITY) !== ($liability ?? '') || $wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_APPLIED_EXEMPTION) !== ($appliedExemption ?? '')) {
             $wlopWcOrder->addWorldlineOrderNote(\sprintf(
                 /* translators: %1$s - newline, %2$s, %3$s - values from the API like 'low-value',  'issuer' */
                 \__('3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s', 'worldline-for-woocommerce'),
@@ -162,7 +165,7 @@ class OrderUpdater
     {
         $paymentMethodProductId = $this->getPaymentMethodProductId($paymentResponse->getPaymentOutput());
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_PRODUCT_ID, $paymentMethodProductId);
-        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_NAME, $this->getPaymentMethodName($wlopWcOrder, $paymentMethodProductId));
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_NAME, $this->getPaymentMethodName($wlopWcOrder, $paymentMethodProductId, $paymentResponse->getPaymentOutput()));
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_STATUS, $paymentResponse->getStatus());
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_TOTAL_AMOUNT, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getAmount());
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CURRENCY_CODE, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getCurrencyCode());
@@ -177,7 +180,7 @@ class OrderUpdater
         $paymentMethod = $paymentOutput->getCardPaymentMethodSpecificOutput() ?? $paymentOutput->getRedirectPaymentMethodSpecificOutput() ?? $paymentOutput->getMobilePaymentMethodSpecificOutput() ?? $paymentOutput->getSepaDirectDebitPaymentMethodSpecificOutput();
         return $paymentMethod !== null ? $paymentMethod->getPaymentProductId() : null;
     }
-    private function getPaymentMethodName(WlopWcOrder $wlopWcOrder, ?int $paymentProductId) : ?string
+    private function getPaymentMethodName(WlopWcOrder $wlopWcOrder, ?int $paymentProductId, ?PaymentOutput $paymentOutput) : ?string
     {
         if ($paymentProductId === null) {
             return null;
@@ -187,7 +190,10 @@ class OrderUpdater
         $query->setCurrencyCode($this->getCurrencyCode($wlopWcOrder));
         $query->setHide(['fields', 'accountsOnFile', 'translations']);
         $product = $this->apiClient->products()->getPaymentProduct($paymentProductId, $query);
-        return $product !== null ? $product->getDisplayHints()->getLabel() : null;
+        $mobileOutput = $paymentOutput ? $paymentOutput->getMobilePaymentMethodSpecificOutput() : null;
+        $network = $mobileOutput ? $mobileOutput->getNetwork() : null;
+        $mobileSubbrand = $network ? ' (' . $network . ')' : '';
+        return $product !== null ? $product->getDisplayHints()->getLabel() . $mobileSubbrand : null;
     }
     private function getPaymentMethodFraudResult(PaymentOutput $paymentOutput) : ?string
     {

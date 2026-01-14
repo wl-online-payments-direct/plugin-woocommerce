@@ -306,7 +306,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
         // Left Column: Payment Information
         echo '<div class="wl-col">';
         echo '<h4>Payment information</h4>';
-        echo '<div class="wl-row"><span class="wl-label">Payment method</span><span class="wl-val">Worldline [' . $order->paymentMethodName() . ']</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Payment method</span><span class="wl-val">Worldline' . ($order->paymentMethodName() ? ' [' . $order->paymentMethodName() . ']' : '') . '</span></div>';
         echo '<div class="wl-row"><span class="wl-label">Status</span><span class="wl-val"><span class="wl-val">' . $order->status() . ' (' . $order->statusCode() . ')</span></span></div>';
         echo '<div class="wl-row"><span class="wl-label">Payment ID</span><span class="wl-val">' . $order->transactionId() . '</span></div>';
         echo '<div class="wl-row"><span class="wl-label">Amount</span><span class="wl-val">' . $order->amount() . '</span></div>';
