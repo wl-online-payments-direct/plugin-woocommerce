@@ -28,11 +28,7 @@ return static function () : array {
         return ['products', 'refunds'];
     }, "payment_gateway.{$gatewayId}.refund_processor" => new Alias('payment_gateway.' . GatewayIds::HOSTED_CHECKOUT . '.refund_processor'), "payment_gateway.{$gatewayId}.availability_callback" => static function () : callable {
         return static function () : bool {
-            if (!isset($_SERVER['HTTP_USER_AGENT'])) {
-                return \false;
-            }
-            $userAgent = \sanitize_text_field(\wp_unslash($_SERVER['HTTP_USER_AGENT']));
-            return \strpos($userAgent, 'Safari') !== \false && \strpos($userAgent, 'Chrome') === \false;
+            return \true;
         };
     }, "payment_gateway.{$gatewayId}.method_icon_provider" => new Factory(['assets.get_module_static_asset_url'], static function (callable $getStaticAssetUrl) : IconProviderInterface {
         /** @var string $src */

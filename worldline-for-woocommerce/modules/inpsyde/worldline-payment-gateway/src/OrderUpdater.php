@@ -12,6 +12,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentOutput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentStatusOutput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams;
 class OrderUpdater
 {
     protected MerchantClientInterface $apiClient;
@@ -54,6 +55,7 @@ class OrderUpdater
                 $this->addSurchargeIfPossible($wlopWcOrder, $paymentDetails->getPaymentOutput());
                 $this->adjustWcStatus($wlopWcOrder, $paymentDetails->getPaymentOutput());
                 $this->checkExemptionInfo($wlopWcOrder, $paymentDetails->getPaymentOutput(), $paymentDetails->getStatusOutput());
+                $this->updateOrderDetailsMeta($wlopWcOrder, $paymentDetails);
                 $wlopWcOrder->order()->save();
             }
         });
@@ -62,13 +64,14 @@ class OrderUpdater
      * Saves the current status from the given API response,
      * updates WC status/notes if needed.
      */
-    public function updateFromResponse(WlopWcOrder $wlopWcOrder, PaymentStatusOutput $statusOutput, PaymentOutput $paymentOutput) : void
+    public function updateFromResponse(WlopWcOrder $wlopWcOrder, PaymentResponse $paymentResponse) : void
     {
-        $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder, $statusOutput, $paymentOutput) : void {
-            $this->updateStatusMeta($wlopWcOrder, $statusOutput);
-            $this->addSurchargeIfPossible($wlopWcOrder, $paymentOutput);
-            $this->adjustWcStatus($wlopWcOrder, $paymentOutput);
-            $this->checkExemptionInfo($wlopWcOrder, $paymentOutput, $statusOutput);
+        $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder, $paymentResponse) : void {
+            $this->updateStatusMeta($wlopWcOrder, $paymentResponse->getStatusOutput());
+            $this->addSurchargeIfPossible($wlopWcOrder, $paymentResponse->getPaymentOutput());
+            $this->adjustWcStatus($wlopWcOrder, $paymentResponse->getPaymentOutput());
+            $this->checkExemptionInfo($wlopWcOrder, $paymentResponse->getPaymentOutput(), $paymentResponse->getStatusOutput());
+            $this->updateOrderDetailsMeta($wlopWcOrder, $paymentResponse);
             $wlopWcOrder->order()->save();
         });
     }
@@ -114,10 +117,6 @@ class OrderUpdater
     }
     protected function checkExemptionInfo(WlopWcOrder $wlopWcOrder, PaymentOutput $paymentOutput, PaymentStatusOutput $statusOutput) : void
     {
-        // already saved
-        if ($wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_RESULT_PROCESSED)) {
-            return;
-        }
         // skip failed/cancelled
         if (!\in_array($statusOutput->getStatusCategory(), ['PENDING_PAYMENT', 'PENDING_MERCHANT', 'PENDING_CONNECT_OR_3RD_PARTY', 'COMPLETED'], \true)) {
             return;
@@ -135,16 +134,80 @@ class OrderUpdater
         }
         $appliedExemption = $threedsResults->getAppliedExemption();
         $liability = $threedsResults->getLiability();
+        //Weak comparison is used purposely since '' and nullish valuesshould be treated the same way
+        if ($wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_LIABILITY) !== $liability || $wlopWcOrder->order()->get_meta(OrderMetaKeys::THREE_D_SECURE_APPLIED_EXEMPTION) !== $appliedExemption) {
+            $wlopWcOrder->addWorldlineOrderNote(\sprintf(
+                /* translators: %1$s - newline, %2$s, %3$s - values from the API like 'low-value',  'issuer' */
+                \__('3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s', 'worldline-for-woocommerce'),
+                '<br/>',
+                $appliedExemption ?: 'na',
+                $liability ?: 'na'
+            ));
+        }
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_APPLIED_EXEMPTION, $appliedExemption);
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_LIABILITY, $liability);
-        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_RESULT_PROCESSED, 'yes');
-        $wlopWcOrder->addWorldlineOrderNote(\sprintf(
-            /* translators: %1$s - newline, %2$s, %3$s - values from the API like 'low-value',  'issuer' */
-            \__('3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s', 'worldline-for-woocommerce'),
-            '<br/>',
-            $appliedExemption ?: 'na',
-            $liability ?: 'na'
-        ));
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::THREE_D_SECURE_AUTHENTICATION_STATUS, $this->getThreeDSAuthenticationStatus($threedsResults->getAuthenticationStatus()));
+    }
+    private function getThreeDSAuthenticationStatus(?string $key) : string
+    {
+        $statusMap = ['Y' => 'Authentication succeeded', 'A' => 'Authentication attempted', 'I' => 'Information only, liability shifted to the merchant', 'N' => 'Authentication failed', 'R' => 'Authentication rejected', 'U' => 'Authentication unavailable', 'C' => 'Authentication required'];
+        return $statusMap[$key] ?? '';
+    }
+    /**
+     * @param WlopWcOrder $wlopWcOrder
+     * @param PaymentDetailsResponse|PaymentResponse|null $paymentResponse
+     * @return void
+     */
+    protected function updateOrderDetailsMeta(WlopWcOrder $wlopWcOrder, $paymentResponse = null) : void
+    {
+        $paymentMethodProductId = $this->getPaymentMethodProductId($paymentResponse->getPaymentOutput());
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_PRODUCT_ID, $paymentMethodProductId);
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_NAME, $this->getPaymentMethodName($wlopWcOrder, $paymentMethodProductId));
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_STATUS, $paymentResponse->getStatus());
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_TOTAL_AMOUNT, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getAmount());
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CURRENCY_CODE, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getCurrencyCode());
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_FRAUD_RESULT, $this->getPaymentMethodFraudResult($paymentResponse->getPaymentOutput()));
+        if ($paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()) {
+            $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_BIN, $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getBin());
+            $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_NUMBER, $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
+        }
+    }
+    private function getPaymentMethodProductId(PaymentOutput $paymentOutput) : ?int
+    {
+        $paymentMethod = $paymentOutput->getCardPaymentMethodSpecificOutput() ?? $paymentOutput->getRedirectPaymentMethodSpecificOutput() ?? $paymentOutput->getMobilePaymentMethodSpecificOutput() ?? $paymentOutput->getSepaDirectDebitPaymentMethodSpecificOutput();
+        return $paymentMethod !== null ? $paymentMethod->getPaymentProductId() : null;
+    }
+    private function getPaymentMethodName(WlopWcOrder $wlopWcOrder, ?int $paymentProductId) : ?string
+    {
+        if ($paymentProductId === null) {
+            return null;
+        }
+        $query = new GetPaymentProductParams();
+        $query->setCountryCode($this->getCountryCode($wlopWcOrder));
+        $query->setCurrencyCode($this->getCurrencyCode($wlopWcOrder));
+        $query->setHide(['fields', 'accountsOnFile', 'translations']);
+        $product = $this->apiClient->products()->getPaymentProduct($paymentProductId, $query);
+        return $product !== null ? $product->getDisplayHints()->getLabel() : null;
+    }
+    private function getPaymentMethodFraudResult(PaymentOutput $paymentOutput) : ?string
+    {
+        $paymentMethod = $paymentOutput->getCardPaymentMethodSpecificOutput() ?? $paymentOutput->getRedirectPaymentMethodSpecificOutput() ?? $paymentOutput->getMobilePaymentMethodSpecificOutput() ?? $paymentOutput->getSepaDirectDebitPaymentMethodSpecificOutput();
+        return $paymentMethod !== null ? $paymentMethod->getFraudResults()->getFraudServiceResult() : null;
+    }
+    private function getCountryCode(WlopWcOrder $wlopWcOrder) : ?string
+    {
+        $country = $wlopWcOrder->order()->get_billing_country();
+        if ($country) {
+            return $country;
+        }
+        if (!\is_null(\WC()->customer)) {
+            return \WC()->customer->get_billing_country();
+        }
+        return \WC()->countries->get_base_country();
+    }
+    private function getCurrencyCode(WlopWcOrder $wlopWcOrder) : ?string
+    {
+        return $wlopWcOrder->order()->get_currency() ?: \get_woocommerce_currency();
     }
     protected function updateStatusMeta(WlopWcOrder $wlopWcOrder, PaymentStatusOutput $statusOutput) : void
     {

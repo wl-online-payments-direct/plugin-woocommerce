@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60
+class ComposerStaticInit484a0c2492435ca520d0287d002f94de
 {
     public static $files = array (
         '75224de648373daee048deff719e279d' => __DIR__ . '/..' . '/inpsyde/assets/inc/functions.php',
@@ -38,6 +38,7 @@ class ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => 73,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\' => 67,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\' => 68,
+            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\' => 61,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\' => 74,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' => 68,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' => 67,
@@ -171,6 +172,10 @@ class ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\' =>
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src',
+        ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-orders/src',
         ),
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\' =>
         array (
@@ -556,6 +561,7 @@ class ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayWithKlarnaRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayWithKlarnaRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\MealvouchersGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/MealvouchersGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\Payment\\MealvouchersRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/Payment/MealvouchersRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\OrdersModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-orders/src/OrdersModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\PayPalGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src/PayPalGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\Payment\\PayPalRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-paypal-gateway/src/Payment/PayPalRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\Payment\\PledgRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-pledg-gateway/src/Payment/PledgRequestModifier.php',
@@ -1078,9 +1084,9 @@ class ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit22e6473b18e2214e29fc2db8687e7e60::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInit484a0c2492435ca520d0287d002f94de::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInit484a0c2492435ca520d0287d002f94de::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInit484a0c2492435ca520d0287d002f94de::$classMap;
 
         }, null, ClassLoader::class);
     }

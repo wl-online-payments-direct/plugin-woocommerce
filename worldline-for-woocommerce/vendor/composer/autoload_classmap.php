@@ -283,6 +283,7 @@ return array(
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayWithKlarnaRequestModifier' => $baseDir . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayWithKlarnaRequestModifier.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\MealvouchersGatewayModule' => $baseDir . '/modules/inpsyde/worldline-mealvouchers-gateway/src/MealvouchersGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\Payment\\MealvouchersRequestModifier' => $baseDir . '/modules/inpsyde/worldline-mealvouchers-gateway/src/Payment/MealvouchersRequestModifier.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\OrdersModule' => $baseDir . '/modules/inpsyde/worldline-orders/src/OrdersModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\PayPalGatewayModule' => $baseDir . '/modules/inpsyde/worldline-paypal-gateway/src/PayPalGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\Payment\\PayPalRequestModifier' => $baseDir . '/modules/inpsyde/worldline-paypal-gateway/src/Payment/PayPalRequestModifier.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\Payment\\PledgRequestModifier' => $baseDir . '/modules/inpsyde/worldline-pledg-gateway/src/Payment/PledgRequestModifier.php',

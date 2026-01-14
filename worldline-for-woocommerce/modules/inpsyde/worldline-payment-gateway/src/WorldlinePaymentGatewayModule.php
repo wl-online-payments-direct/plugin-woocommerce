@@ -5,6 +5,10 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePayment
 
 use Automattic\WooCommerce\Utilities\OrderUtil;
 use Exception;
+use Inpsyde\Assets\Asset;
+use Inpsyde\Assets\AssetManager;
+use Inpsyde\Assets\Script;
+use Inpsyde\Assets\Style;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
@@ -42,6 +46,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
         $this->registerCheckoutCompletionHandler($container);
         $this->scheduleAutoCapturing($container);
         $this->schedulePendingOrderCleanup($container);
+        $this->registerAdminOrderDetails($container);
         return \true;
     }
     public function services() : array
@@ -189,7 +194,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             }
             $orderUpdater = $container->get('worldline_payment_gateway.order_updater');
             \assert($orderUpdater instanceof OrderUpdater);
-            $orderUpdater->updateFromResponse($wlopWcOrder, $payment->getStatusOutput(), $payment->getPaymentOutput());
+            $orderUpdater->updateFromResponse($wlopWcOrder, $payment);
         });
     }
     protected function scheduleAutoCapturing(ContainerInterface $container) : void
@@ -259,5 +264,62 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
                 $order->update_status('cancelled', 'Automatically cancelled after ' . $cancellationHours . ' hours (Worldline plugin).');
             }
         });
+    }
+    protected function registerAdminOrderDetails(ContainerInterface $container) : void
+    {
+        \add_action(AssetManager::ACTION_SETUP, static function (AssetManager $assetManager) use($container) {
+            /** @var callable(string,string):string $getModuleAssetUrl */
+            $getModuleAssetUrl = $container->get('assets.get_module_asset_url');
+            $assetManager->register(new Script("worldline-" . self::PACKAGE_NAME, $getModuleAssetUrl(self::PACKAGE_NAME, 'backend-main.js'), Asset::BACKEND), new Style("worldline-" . self::PACKAGE_NAME, $getModuleAssetUrl(self::PACKAGE_NAME, 'backend-main.css'), Asset::BACKEND));
+        });
+        \add_action('add_meta_boxes', function (string $post_type, $post = null) {
+            if ($post_type !== 'shop_order') {
+                return;
+            }
+            if (!$post) {
+                return;
+            }
+            $wcOrder = \wc_get_order($post->ID);
+            if (!\in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true)) {
+                return;
+            }
+            \add_meta_box('worldline_payment_info', 'Worldline Online Payments', [$this, 'render_worldline_meta_box'], 'shop_order', 'normal', 'high');
+        }, 10, 2);
+        \add_action('add_meta_boxes_woocommerce_page_wc-orders', function ($wcOrder) {
+            if (!$wcOrder instanceof WC_Order) {
+                return;
+            }
+            if (!\in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true)) {
+                return;
+            }
+            \add_meta_box('worldline_payment_info', 'Worldline Online Payments', [$this, 'render_worldline_meta_box'], \wc_get_page_screen_id('shop-order'), 'normal', 'high');
+        });
+    }
+    public function render_worldline_meta_box(WC_Order $wcOrder) : void
+    {
+        $order = new WlopWcOrder($wcOrder);
+        if ($order->statusCode() === -1) {
+            echo '<div class="wl-wrapper">Pending payment</div>';
+            return;
+        }
+        echo '<div class="wl-wrapper">';
+        // Left Column: Payment Information
+        echo '<div class="wl-col">';
+        echo '<h4>Payment information</h4>';
+        echo '<div class="wl-row"><span class="wl-label">Payment method</span><span class="wl-val">Worldline [' . $order->paymentMethodName() . ']</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Status</span><span class="wl-val"><span class="wl-val">' . $order->status() . ' (' . $order->statusCode() . ')</span></span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Payment ID</span><span class="wl-val">' . $order->transactionId() . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Amount</span><span class="wl-val">' . $order->amount() . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Card</span><span class="wl-val">' . $order->creditCard() . '</span></div>';
+        echo '</div>';
+        // Right Column: Fraud Information
+        echo '<div class="wl-col">';
+        echo '<h4>Fraud information</h4>';
+        echo '<div class="wl-row"><span class="wl-label">Fraud result</span><span class="wl-val">' . $order->fraudResult() . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">3DS Liability</span><span class="wl-val">' . $order->threeDSecureLiability() . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Exemption</span><span class="wl-val">' . $order->threeDSecureExemption() . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Authentication</span><span class="wl-val">' . $order->threeDSecureAuthStatus() . '</span></div>';
+        echo '</div>';
+        echo '</div>';
     }
 }

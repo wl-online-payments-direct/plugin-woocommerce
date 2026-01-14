@@ -21,6 +21,9 @@ const modulesAssets = {
         'frontend/ts/main.ts',
         'frontend/ts/blocks.tsx',
     ],
+    'worldline-payment-gateway': [
+        'backend/ts/main.ts',
+    ]
 };
 
 const entries = {};

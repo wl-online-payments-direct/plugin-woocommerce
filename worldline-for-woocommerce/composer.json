@@ -46,6 +46,7 @@
         "inpsyde\/worldline-pledg-gateway": "dev-master",
         "inpsyde\/worldline-klarna-gateway": "dev-main",
         "inpsyde\/worldline-logging": "dev-main",
+        "inpsyde\/worldline-orders": "dev-master",
         "inpsyde\/worldline-payment-gateway": "dev-main",
         "inpsyde\/worldline-postfinance-gateway": "dev-main",
         "inpsyde\/worldline-return-page": "dev-main",
