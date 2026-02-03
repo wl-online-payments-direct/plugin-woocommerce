@@ -49,18 +49,20 @@ If your acquirer rejects the exemption and requires SCA, this is referred to as 
     ], '3ds_exemption_warning' => ['type' => 'content', 'render_directly' => \true, 'description' => '<div class="wlop-warning-field">' . \__('Please be aware that if fraud occurs on a transaction that has been granted an exemption, the liability falls on the merchant!', 'worldline-for-woocommerce') . '</div>'], '3ds_exemption_type' => [
         'title' => \__('Exemption type', 'worldline-for-woocommerce'),
         'type' => 'select',
-        'default' => ExemptionType::LOW_VALUE,
-        'options' => [ExemptionType::LOW_VALUE => \__('Low-Value', 'worldline-for-woocommerce'), ExemptionType::TRA => \__('Transaction-Risk-Analysis', 'worldline-for-woocommerce')],
+        'default' => ExemptionType::NO_CHALLENGE_REQUESTED,
+        'options' => [ExemptionType::NO_CHALLENGE_REQUESTED => \__('Preference: No challenge request', 'worldline-for-woocommerce'), ExemptionType::LOW_VALUE => \__('Exemption: Low-Value', 'worldline-for-woocommerce'), ExemptionType::TRA => \__('Exemption: Transaction-Risk-Analysis (acquirer)', 'worldline-for-woocommerce')],
         /*
          * translators: %1$s - newlines
          */
-        'description' => \sprintf(\__('The Low-Value exemption is suitable for transactions below the specified monetary threshold of 30 EUR, allowing these low-value transactions to bypass Strong Customer Authentication (SCA) and streamline the checkout process.
+        'description' => \sprintf(\__('The No-Challenge Preference requests the card issuer (and the customer\'s card) not to apply Strong Customer Authentication (SCA). The issuer will approve or deny this request, and the transaction will proceed accordingly.
 %1$s
-On the other hand, the Transaction-Risk-Analysis exemption enables a dynamic risk assessment for your transactions. The card issuer will evaluate the transaction based on various risk factors, allowing transactions up to a limit of 100 EUR to qualify for exemption if they are deemed low risk.
+The Low-Value exemption applies to transactions below the defined threshold (30 EUR), allowing these low-value payments to bypass SCA and speed up checkout.
 %1$s
-Make your selection carefully to optimize the balance between customer experience and security for your transactions.', 'worldline-for-woocommerce'), '<br/></br>'),
+The Transaction Risk Analysis (TRA) exemption enables a dynamic risk assessment; the issuer and your acquirer will evaluate risk factors, allowing transactions up to 100 EUR to qualify for exemption if deemed low risk. Note that TRA typically requires a formal agreement with your acquirer; enable TRA only after such an agreement is in place. Otherwise, all card transactions may be blocked.
+%1$s
+Choose carefully to balance user experience and security.', 'worldline-for-woocommerce'), '<br/></br>'),
         'desc_tip' => \true,
-    ], '3ds_exemption_limit' => [
+    ], '3ds_exemption_tra_warning' => ['type' => 'content', 'render_directly' => \true, 'description' => '<div class="wlop-warning-field wlop-tra-warning">' . \__('Please ensure that Transaction Risk Analysis (TRA) is enabled with your acquirer before enabling this option. If not, all card transactions may be blocked.', 'worldline-for-woocommerce') . '</div>'], '3ds_exemption_limit' => [
         'title' => \__('Exemption limit', 'worldline-for-woocommerce'),
         'type' => 'number',
         'default' => 30,

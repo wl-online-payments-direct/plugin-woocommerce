@@ -488,7 +488,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	) as HTMLInputElement | null;
 
 	let prevExemptionType: string | null = null;
-	let lastTraLimit: number | null = null;
+	const exemptionValuesCache: Record<string, string> = {};
 
 	const webhookModeCheckbox = document.querySelector(
 		'#woocommerce_worldline-for-woocommerce_webhook_mode_is_automatic'
@@ -652,34 +652,51 @@ document.addEventListener('DOMContentLoaded', () => {
 		}
 
 		const currentType = lst3dsExemptionType.value;
-		const currentLimit = parseInt(num3dsExemptionLimit.value);
+		const inputValueBeforeSwitch = num3dsExemptionLimit.value;
 
-		const max = currentType === 'low-value' ? 30 : 100;
+        const isHighLimitExemption = (type: string | null) => {
+            return (
+                type === 'transaction-risk-analysis' ||
+                type === 'none'
+            );
+        };
 
-		num3dsExemptionLimit.setAttribute('max', max.toString());
-		if (currentLimit > max) {
-			num3dsExemptionLimit.value = max.toString();
+        if (prevExemptionType && prevExemptionType !== currentType) {
+            exemptionValuesCache[prevExemptionType] = inputValueBeforeSwitch;
+        }
 
-			if (
-				prevExemptionType === 'transaction-risk-analysis' &&
-				currentType === 'low-value'
-			) {
-				lastTraLimit = currentLimit;
-			}
-		}
+        const newMax = isHighLimitExemption(currentType) ? 100 : 30;
 
-		if (
-			prevExemptionType === 'low-value' &&
-			currentType === 'transaction-risk-analysis'
-		) {
-			if (lastTraLimit && lastTraLimit > 30) {
-				num3dsExemptionLimit.value = lastTraLimit.toString();
-				lastTraLimit = null;
-			}
-		}
+        let newValue;
 
-		prevExemptionType = currentType;
-	}
+        if (currentType in exemptionValuesCache) {
+            newValue = exemptionValuesCache[currentType] as string;
+        } else if (prevExemptionType === null) {
+            newValue = inputValueBeforeSwitch;
+        } else {
+            const numericValue = parseFloat(inputValueBeforeSwitch);
+
+            if (!isNaN(numericValue)) {
+                newValue = numericValue > newMax ? newMax.toString() : inputValueBeforeSwitch;
+            } else {
+                newValue = newMax.toString();
+            }
+        }
+
+        num3dsExemptionLimit.setAttribute('max', newMax.toString());
+        num3dsExemptionLimit.value = newValue;
+
+        prevExemptionType = currentType;
+
+        const traWarning = document.querySelector('.wlop-tra-warning');
+        if (traWarning) {
+            setVisibleByClass(
+                traWarning.closest('tr'),
+                currentType === 'transaction-risk-analysis',
+                'wlop-hidden'
+            );
+        }
+    }
 
 	function updateWebhookModeFields() {
 		if (!webhookModeCheckbox || !webhookWarningBox) {

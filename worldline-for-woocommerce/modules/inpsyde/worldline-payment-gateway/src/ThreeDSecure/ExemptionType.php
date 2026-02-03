@@ -5,6 +5,7 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePayment
 
 interface ExemptionType
 {
+    public const NO_CHALLENGE_REQUESTED = 'none';
     public const LOW_VALUE = 'low-value';
     public const TRA = 'transaction-risk-analysis';
 }

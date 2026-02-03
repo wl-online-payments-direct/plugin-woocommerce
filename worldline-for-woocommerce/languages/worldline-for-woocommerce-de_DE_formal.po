@@ -611,6 +611,11 @@ msgstr "Freistellungsgrenze"
 msgid "Exemption type"
 msgstr "Art der Befreiung"
 
+#: modules.local/config/inc/fields.php:347
+#: modules/inpsyde/worldline-config/inc/fields.php:347
+msgid "Preference: No challenge request"
+msgstr "Präferenz: Keine Challengenequest"
+
 #. translators: 1 Worldline transaction ID
 #: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:52
 #: modules/inpsyde/worldline-webhooks/src/Handler/PaymentRefundedHandler.php:52
@@ -977,8 +982,8 @@ msgstr "Live Webhook Schlüssel"
 
 #: modules.local/config/inc/fields.php:290
 #: modules/inpsyde/worldline-config/inc/fields.php:290
-msgid "Low-Value"
-msgstr "Geringwertig"
+msgid "Exemption: Low-Value"
+msgstr "Ausnahme: Geringwertig"
 
 #: modules.local/hosted-tokenization-gateway/inc/services.php:127
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:127
@@ -1281,35 +1286,50 @@ msgstr ""
 "Emittenten oder Ihrem Erwerber berücksichtigt wird."
 
 #. translators: %1$s - newlines
-#: modules.local/config/inc/fields.php:296
-#: modules/inpsyde/worldline-config/inc/fields.php:296
+#: modules.local/config/inc/fields.php:354
+#: modules/inpsyde/worldline-config/inc/fields.php:354
 msgid ""
-"The Low-Value exemption is suitable for transactions below the specified "
-"monetary threshold of 30 EUR, allowing these low-value transactions to "
-"bypass Strong Customer Authentication (SCA) and streamline the checkout "
-"process.\n"
+"The No-Challenge Preference requests the card issuer (and the customer's card) "
+"not to apply Strong Customer Authentication (SCA). The issuer will approve or "
+"deny this request, and the transaction will proceed accordingly.\n"
 "%1$s\n"
-"On the other hand, the Transaction-Risk-Analysis exemption enables a dynamic "
-"risk assessment for your transactions. The card issuer will evaluate the "
-"transaction based on various risk factors, allowing transactions up to a "
-"limit of 100 EUR to qualify for exemption if they are deemed low risk.\n"
+"The Low-Value exemption applies to transactions below the defined threshold (30 "
+"EUR), allowing these low-value payments to bypass SCA and speed up checkout.\n"
 "%1$s\n"
-"Make your selection carefully to optimize the balance between customer "
-"experience and security for your transactions."
+"The Transaction Risk Analysis (TRA) exemption enables a dynamic risk assessment; "
+"the issuer and your acquirer will evaluate risk factors, allowing transactions "
+"up to 100 EUR to qualify for exemption if deemed low risk. Note that TRA "
+"typically requires a formal agreement with your acquirer; enable TRA only after "
+"such an agreement is in place. Otherwise, all card transactions may be blocked.\n"
+"%1$s\n"
+"Choose carefully to balance user experience and security."
 msgstr ""
-"Die Ausnahmeregelung für niedrige Beträge eignet sich für Transaktionen "
-"unter dem festgelegten Schwellenwert von 30 EUR, so dass diese Transaktionen "
-"mit niedrigem Wert die starke Kundenauthentifizierung (Strong Customer "
-"Authentication, SCA) umgehen und den Checkout-Prozess vereinfachen können.\n"
+"Präferenz: Kein Challenge-Antrag: Diese Präferenz bittet den Aussteller, keine "
+"starke Kundenauthentifizierung (SCA) anzuwenden. Der Aussteller genehmigt oder "
+"verweigert diese Anfrage, und die Transaktion wird entsprechend fortgesetzt.\n"
 "%1$s\n"
-"Die Ausnahmeregelung für die Transaktions-Risikoanalyse ermöglicht dagegen "
-"eine dynamische Risikobewertung für Ihre Transaktionen. Der Kartenaussteller "
-"bewertet die Transaktion auf der Grundlage verschiedener Risikofaktoren und "
-"kann Transaktionen bis zu einem Betrag von 100 EUR ausnehmen, wenn sie als "
-"risikoarm eingestuft werden.\n"
+"Die Niedrigwert-Exemption gilt für Transaktionen unter dem festgelegten "
+"Schwellenwert (30 EUR), wodurch SCA vermieden und der Checkout beschleunigt "
+"wird.\n"
 "%1$s\n"
-"Treffen Sie Ihre Wahl sorgfältig, um ein optimales Gleichgewicht zwischen "
-"Kundenerfahrung und Sicherheit für Ihre Transaktionen zu erreichen."
+"Die Transaktionsrisikobewertung (TRA) ermöglicht eine dynamische "
+"Risikobewertung; der Aussteller und Ihr Acquirer bewerten Risikofaktoren, und "
+"Transaktionen bis 100 EUR können freigestellt werden, wenn das Risiko als gering "
+"gilt. Beachten Sie, dass TRA in der Regel eine formelle Vereinbarung mit dem "
+"Acquirer erfordert; TRA erst nach dieser Vereinbarung aktivieren. Andernfalls "
+"könnten alle Karten Transaktionen blockiert werden.\n"
+"%1$s\n"
+"Wählen Sie sorgfältig, um Benutzererlebnis und Sicherheit abzuwägen."
+
+#: modules.local/config/inc/fields.php:370
+#: modules/inpsyde/worldline-config/inc/fields.php:370
+msgid ""
+"Please ensure that Transaction Risk Analysis (TRA) is enabled with your acquirer "
+"before enabling this option. If not, all card transactions may be blocked."
+msgstr ""
+"Stellen Sie sicher, dass die Transaction Risk Analysis (TRA) vor der Aktivierung "
+"dieser Option bei Ihrem Acquirer aktiviert ist. Andernfalls könnten alle "
+"Kartentransaktionen blockiert werden."
 
 #: modules.local/worldline-payment-gateway/src/Notice/OrderActionNotice.php:62
 #: modules/inpsyde/worldline-payment-gateway/src/Notice/OrderActionNotice.php:62
@@ -1334,8 +1354,8 @@ msgstr "Gesamtbetrag mit Zuschlag"
 
 #: modules.local/config/inc/fields.php:291
 #: modules/inpsyde/worldline-config/inc/fields.php:291
-msgid "Transaction-Risk-Analysis"
-msgstr "Transaktions-Risiko-Analyse"
+msgid "Exemption: Transaction-Risk-Analysis (acquirer)"
+msgstr "Ausnahme: Transaktions-Risiko-Analyse (Acquirer)"
 
 #: modules.local/twint-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-twint-gateway/inc/services.php:35

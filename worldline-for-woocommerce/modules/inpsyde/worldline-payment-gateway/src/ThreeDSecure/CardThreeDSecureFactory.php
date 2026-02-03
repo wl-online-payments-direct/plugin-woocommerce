@@ -32,7 +32,7 @@ class CardThreeDSecureFactory
         }
         if ($this->exemptionType === null || !$this->exemptionAmountChecker->isUnderLimit($orderAmount, $currencyCode)) {
             $threedSecure->setSkipAuthentication(\false);
-            $threedSecure->setChallengeIndicator($this->enforce3ds ? ChallengeIndicator::CHALLENGE_REQUIRED : ChallengeIndicator::NO_PREFERENCE);
+            $threedSecure->setChallengeIndicator(($this->enforce3ds ? ChallengeIndicator::CHALLENGE_REQUIRED : $this->exemptionType === ExemptionType::NO_CHALLENGE_REQUESTED) ? ChallengeIndicator::NO_CHALLENGE_REQUESTED : ChallengeIndicator::NO_PREFERENCE);
             return $threedSecure;
         }
         return $this->manageExemptionForOrdersUnderLimit($threedSecure);
@@ -40,10 +40,11 @@ class CardThreeDSecureFactory
     private function manageExemptionForOrdersUnderLimit(ThreeDSecure $threedSecure) : ThreeDSecure
     {
         switch ($this->exemptionType) {
-            case 'transaction-risk-analysis':
+            case ExemptionType::TRA:
                 $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_CHALLENGE_REQUESTED_RISK_ANALYSIS_PERFORMED);
                 break;
-            case 'low-value':
+            case ExemptionType::LOW_VALUE:
+            case ExemptionType::NO_CHALLENGE_REQUESTED:
                 $threedSecure->setChallengeIndicator(ChallengeIndicator::NO_CHALLENGE_REQUESTED);
                 break;
             default:

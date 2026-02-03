@@ -610,6 +610,11 @@ msgstr "Limite di esenzione"
 msgid "Exemption type"
 msgstr "Tipo di esenzione"
 
+#: modules.local/config/inc/fields.php:347
+#: modules/inpsyde/worldline-config/inc/fields.php:347
+msgid "Preference: No challenge request"
+msgstr "Preferenza: Nessuna richiesta di sfida"
+
 #. translators: 1 Worldline transaction ID
 #: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:52
 #: modules/inpsyde/worldline-webhooks/src/Handler/PaymentRefundedHandler.php:52
@@ -970,8 +975,8 @@ msgstr "ID webhook live"
 
 #: modules.local/config/inc/fields.php:290
 #: modules/inpsyde/worldline-config/inc/fields.php:290
-msgid "Low-Value"
-msgstr "Di basso valore"
+msgid "Exemption: Low-Value"
+msgstr "Esenzione Di basso valore"
 
 #: modules.local/hosted-tokenization-gateway/inc/services.php:127
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:127
@@ -1275,8 +1280,8 @@ msgstr ""
 "presa in considerazione dall'emittente o dal tuo acquirente."
 
 #. translators: %1$s - newlines
-#: modules.local/config/inc/fields.php:296
-#: modules/inpsyde/worldline-config/inc/fields.php:296
+#: modules.local/config/inc/fields.php:354
+#: modules/inpsyde/worldline-config/inc/fields.php:354
 msgid ""
 "The Low-Value exemption is suitable for transactions below the specified "
 "monetary threshold of 30 EUR, allowing these low-value transactions to "
@@ -1291,19 +1296,31 @@ msgid ""
 "Make your selection carefully to optimize the balance between customer "
 "experience and security for your transactions."
 msgstr ""
-"L'esenzione per importi ridotti è adatta per le transazioni inferiori alla "
-"soglia monetaria specificata di 30 EUR, consentendo a queste transazioni di "
-"basso valore di aggirare l'autenticazione forte del cliente (SCA) e "
-"semplificare la procedura di pagamento.\n"
+"Preferenza: Nessuna sfida: Questa preferenza richiede all’emittente di non "
+"applicare l’autenticazione forte (SCA). L’emittente approverà o meno la "
+"richiesta e la transazione procederà di conseguenza.\n"
 "%1$s\n"
-"D'altro canto, l'esenzione per l'analisi del rischio delle transazioni "
-"consente una valutazione dinamica del rischio per le tue transazioni. "
-"L'emittente della carta valuterà la transazione in base a vari fattori di "
-"rischio, consentendo alle transazioni fino a un limite di 100 EUR di "
-"qualificarsi per l'esenzione se considerate a basso rischio.\n"
+"L’esenzione Basso Valore si applica alle transazioni al di sotto della soglia "
+"definita (30 EUR), consentendo di evitare la SCA e accelerare il checkout.\n"
 "%1$s\n"
-"Effettua la tua selezione con attenzione per ottimizzare l'equilibrio tra "
-"esperienza del cliente e sicurezza delle tue transazioni."
+"L’esenzione di Analisi del Rischio di Transazione (TRA) permette una valutazione "
+"dinamica del rischio; l’emittente e il vostro acquirer valuteranno i fattori di "
+"rischio e le transazioni fino a 100 EUR possono essere esentate se ritenute a "
+"basso rischio. Nota: TRA richiede tipicamente un accordo formale con l’acquirer; "
+"attiva TRA solo dopo tale accordo. In caso contrario, tutte le transazioni con "
+"carta potrebbero essere bloccate.\n"
+"%1$s\n"
+"Scegli con attenzione per bilanciare esperienza utente e sicurezza."
+
+#: modules.local/config/inc/fields.php:370
+#: modules/inpsyde/worldline-config/inc/fields.php:370
+msgid ""
+"Please ensure that Transaction Risk Analysis (TRA) is enabled with your acquirer "
+"before enabling this option. If not, all card transactions may be blocked."
+msgstr ""
+"Assicurarsi che la Transaction Risk Analysis (TRA) sia abilitata presso l'acquirer "
+"prima di attivare questa opzione. In caso contrario, tutte le transazioni con carta "
+"potrebbero essere bloccate."
 
 #: modules.local/worldline-payment-gateway/src/Notice/OrderActionNotice.php:62
 #: modules/inpsyde/worldline-payment-gateway/src/Notice/OrderActionNotice.php:62
@@ -1326,8 +1343,8 @@ msgstr "Totale con maggiorazione"
 
 #: modules.local/config/inc/fields.php:291
 #: modules/inpsyde/worldline-config/inc/fields.php:291
-msgid "Transaction-Risk-Analysis"
-msgstr "Analisi del rischio di transazione"
+msgid "Exemption: Transaction-Risk-Analysis (acquirer)"
+msgstr "Esenzione Analisi del rischio di transazione (acquirer)"
 
 #: modules.local/twint-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-twint-gateway/inc/services.php:35

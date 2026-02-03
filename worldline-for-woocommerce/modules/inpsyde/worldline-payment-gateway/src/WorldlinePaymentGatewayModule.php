@@ -283,7 +283,9 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             if (!\in_array($wcOrder->get_payment_method(), GatewayIds::ALL, \true)) {
                 return;
             }
-            \add_meta_box('worldline_payment_info', 'Worldline Online Payments', [$this, 'render_worldline_meta_box'], 'shop_order', 'normal', 'high');
+            \add_meta_box('worldline_payment_info', 'Worldline Online Payments', function () use($wcOrder) {
+                $this->render_worldline_meta_box($wcOrder);
+            }, 'shop_order', 'normal', 'high');
         }, 10, 2);
         \add_action('add_meta_boxes_woocommerce_page_wc-orders', function ($wcOrder) {
             if (!$wcOrder instanceof WC_Order) {

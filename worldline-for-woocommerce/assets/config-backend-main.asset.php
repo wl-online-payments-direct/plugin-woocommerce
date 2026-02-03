@@ -2,4 +2,4 @@
 
 namespace Syde\Vendor\Worldline;
 
-return array('dependencies' => array('regenerator-runtime'), 'version' => '7673503e953bbfac48f2');
+return array('dependencies' => array('regenerator-runtime'), 'version' => 'f276139896a6f916744a');
