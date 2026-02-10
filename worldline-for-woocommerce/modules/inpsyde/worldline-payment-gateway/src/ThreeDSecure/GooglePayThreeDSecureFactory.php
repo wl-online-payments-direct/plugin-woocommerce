@@ -30,12 +30,20 @@ class GooglePayThreeDSecureFactory
             $threedSecure->setSkipAuthentication(\true);
             return $threedSecure;
         }
-        if ($this->exemptionType === null || !$this->exemptionAmountChecker->isUnderLimit($orderAmount, $currencyCode)) {
+        if ($this->enforce3ds) {
             $threedSecure->setSkipAuthentication(\false);
-            $threedSecure->setChallengeIndicator(($this->enforce3ds ? ChallengeIndicator::CHALLENGE_REQUIRED : $this->exemptionType === ExemptionType::NO_CHALLENGE_REQUESTED) ? ChallengeIndicator::NO_CHALLENGE_REQUESTED : ChallengeIndicator::NO_PREFERENCE);
+            $threedSecure->setChallengeIndicator(ChallengeIndicator::CHALLENGE_REQUIRED);
             return $threedSecure;
         }
-        return $this->manageExemptionForOrdersUnderLimit($threedSecure);
+        if ($this->exemptionType !== null) {
+            if (!$this->exemptionAmountChecker->isUnderLimit($orderAmount, $currencyCode)) {
+                $threedSecure->setSkipAuthentication(\false);
+                return $threedSecure;
+            } else {
+                return $this->manageExemptionForOrdersUnderLimit($threedSecure);
+            }
+        }
+        return $threedSecure;
     }
     private function manageExemptionForOrdersUnderLimit(GPayThreeDSecure $threedSecure) : GPayThreeDSecure
     {

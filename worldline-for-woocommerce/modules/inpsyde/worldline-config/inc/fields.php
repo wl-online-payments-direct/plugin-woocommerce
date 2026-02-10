@@ -65,8 +65,8 @@ Choose carefully to balance user experience and security.', 'worldline-for-wooco
     ], '3ds_exemption_tra_warning' => ['type' => 'content', 'render_directly' => \true, 'description' => '<div class="wlop-warning-field wlop-tra-warning">' . \__('Please ensure that Transaction Risk Analysis (TRA) is enabled with your acquirer before enabling this option. If not, all card transactions may be blocked.', 'worldline-for-woocommerce') . '</div>'], '3ds_exemption_limit' => [
         'title' => \__('Exemption limit', 'worldline-for-woocommerce'),
         'type' => 'number',
-        'default' => 30,
-        'custom_attributes' => ['min' => 0, 'max' => 30],
+        'default' => 100,
+        'custom_attributes' => ['min' => 0, 'max' => 100],
         /*
          * translators: %1$s - newlines
          */
