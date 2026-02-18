@@ -174,6 +174,13 @@ class OrderUpdater
             $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_BIN, $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getBin());
             $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_NUMBER, $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
         }
+        $sepaOutput = $paymentResponse->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput();
+        if ($sepaOutput && $sepaOutput->getPaymentProduct771SpecificOutput()) {
+            $mandateReference = $sepaOutput->getPaymentProduct771SpecificOutput()->getMandateReference();
+            if (!empty($mandateReference)) {
+                $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::SEPA_MANDATE_REFERENCE, $mandateReference);
+            }
+        }
     }
     private function getPaymentMethodProductId(PaymentOutput $paymentOutput) : ?int
     {
@@ -198,7 +205,14 @@ class OrderUpdater
     private function getPaymentMethodFraudResult(PaymentOutput $paymentOutput) : ?string
     {
         $paymentMethod = $paymentOutput->getCardPaymentMethodSpecificOutput() ?? $paymentOutput->getRedirectPaymentMethodSpecificOutput() ?? $paymentOutput->getMobilePaymentMethodSpecificOutput() ?? $paymentOutput->getSepaDirectDebitPaymentMethodSpecificOutput();
-        return $paymentMethod !== null ? $paymentMethod->getFraudResults()->getFraudServiceResult() : null;
+        if ($paymentMethod === null) {
+            return null;
+        }
+        $fraudResults = $paymentMethod->getFraudResults();
+        if ($fraudResults === null) {
+            return null;
+        }
+        return $fraudResults->getFraudServiceResult();
     }
     private function getCountryCode(WlopWcOrder $wlopWcOrder) : ?string
     {

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-01-12 09:20+0000\n"
+"PO-Revision-Date: 2026-02-02 15:45+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -439,6 +439,15 @@ msgstr "Cartes de crédit (Worldline)"
 msgid "Custom credit card icons"
 msgstr "Icônes de cartes de crédit personnalisées"
 
+#: modules.local/config/inc/fields.php:414
+#: modules/inpsyde/worldline-config/inc/fields.php:414
+msgid "Define how you want the SEPA mandate to be signed. SMS will send a message "
+"to the phone number your customer has provided, and UNSIGNED will proceed "
+"with the payment without signature."
+msgstr "Définissez la manière dont le mandat SEPA doit être signé. SMS enverra un "
+"message au numéro fourni par le client, et UNSIGNED permettra de traiter le "
+"paiement sans signature."
+
 #: modules.local/config/inc/fields.php:204
 #: modules/inpsyde/worldline-config/inc/fields.php:204
 msgid ""
@@ -622,10 +631,15 @@ msgstr "Limite d'exonération"
 msgid "Exemption type"
 msgstr "Type d'exemption"
 
-#: modules.local/config/inc/fields.php:347
-#: modules/inpsyde/worldline-config/inc/fields.php:347
-msgid "Preference: No challenge request"
-msgstr "Préférence: Pas de demande de challenge"
+#: modules.local/config/inc/fields.php:290
+#: modules/inpsyde/worldline-config/inc/fields.php:290
+msgid "Exemption: Low-Value"
+msgstr "Exemption: Faible valeur"
+
+#: modules.local/config/inc/fields.php:291
+#: modules/inpsyde/worldline-config/inc/fields.php:291
+msgid "Exemption: Transaction-Risk-Analysis (acquirer)"
+msgstr "Exemption: Analyse des risques liés aux transactions (acquéreur)"
 
 #. translators: 1 Worldline transaction ID
 #: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:52
@@ -989,11 +1003,6 @@ msgstr "Secret du webhook en direct"
 msgid "Live Webhook ID"
 msgstr "ID Webhook en direct"
 
-#: modules.local/config/inc/fields.php:290
-#: modules/inpsyde/worldline-config/inc/fields.php:290
-msgid "Exemption: Low-Value"
-msgstr "Exemption: Faible valeur"
-
 #: modules.local/hosted-tokenization-gateway/inc/services.php:127
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:127
 msgid "Maestro"
@@ -1106,6 +1115,17 @@ msgstr ""
 "Sachez que si une fraude est commise lors d'une transaction pour laquelle "
 "une exemption a été accordée, la responsabilité incombe au commerçant !"
 
+#: modules.local/config/inc/fields.php:370
+#: modules/inpsyde/worldline-config/inc/fields.php:370
+msgid ""
+"Please ensure that Transaction Risk Analysis (TRA) is enabled with your "
+"acquirer before enabling this option. If not, all card transactions may be "
+"blocked."
+msgstr ""
+"Veuillez vous assurer que la Transaction Risk Analysis (TRA) est activée "
+"auprès de votre acquéreur avant d’activer cette option. À défaut, toutes vos "
+"transactions par carte pourraient être bloquées."
+
 #: assets/config-backend-main.js:1
 msgid "Please enter a valid HTTPS URL (max 325 characters)"
 msgstr "Merci d’entrer une URL HTTPS valide (maximum 325 charactères)"
@@ -1133,6 +1153,11 @@ msgstr "PostFinance (Worldline)"
 #: modules/inpsyde/worldline-config/inc/fields.php:216
 msgid "Pre-authorization"
 msgstr "Pré-autorisation"
+
+#: modules.local/config/inc/fields.php:347
+#: modules/inpsyde/worldline-config/inc/fields.php:347
+msgid "Preference: No challenge request"
+msgstr "Préférence: Pas de demande de challenge"
 
 #: modules.local/config/inc/fields.php:126
 #: modules/inpsyde/worldline-config/inc/fields.php:126
@@ -1163,6 +1188,11 @@ msgstr "Remboursement traité."
 #: modules/inpsyde/worldline-config/inc/fields.php:202
 msgid "Sale"
 msgstr "Vente"
+
+#: modules.local/config/inc/fields.php:405
+#: modules/inpsyde/worldline-config/inc/fields.php:405
+msgid "SDD signature type"
+msgstr "Type de signature SEPA"
 
 #: modules.local/config/inc/fields.php:328
 #: modules/inpsyde/worldline-config/inc/fields.php:328
@@ -1302,46 +1332,38 @@ msgstr ""
 #: modules.local/config/inc/fields.php:354
 #: modules/inpsyde/worldline-config/inc/fields.php:354
 msgid ""
-"The No-Challenge Preference requests the card issuer (and the customer's card) "
-"not to apply Strong Customer Authentication (SCA). The issuer will approve or "
-"deny this request, and the transaction will proceed accordingly.\n"
+"The No-Challenge Preference requests the card issuer (and the customer's "
+"card) not to apply Strong Customer Authentication (SCA). The issuer will "
+"approve or deny this request, and the transaction will proceed accordingly.\n"
 "%1$s\n"
-"The Low-Value exemption applies to transactions below the defined threshold (30 "
-"EUR), allowing these low-value payments to bypass SCA and speed up checkout.\n"
+"The Low-Value exemption applies to transactions below the defined threshold "
+"(30 EUR), allowing these low-value payments to bypass SCA and speed up "
+"checkout.\n"
 "%1$s\n"
-"The Transaction Risk Analysis (TRA) exemption enables a dynamic risk assessment; "
-"the issuer and your acquirer will evaluate risk factors, allowing transactions "
-"up to 100 EUR to qualify for exemption if deemed low risk. Note that TRA "
-"typically requires a formal agreement with your acquirer; enable TRA only after "
-"such an agreement is in place. Otherwise, all card transactions may be blocked.\n"
+"The Transaction Risk Analysis (TRA) exemption enables a dynamic risk "
+"assessment; the issuer and your acquirer will evaluate risk factors, "
+"allowing transactions up to 100 EUR to qualify for exemption if deemed low "
+"risk. Note that TRA typically requires a formal agreement with your acquirer;"
+" enable TRA only after such an agreement is in place. Otherwise, all card "
+"transactions may be blocked.\n"
 "%1$s\n"
 "Choose carefully to balance user experience and security."
 msgstr ""
 "Préférence Pas de challenge: Cette préférence demande à l’émetteur de ne pas "
-"appliquer une authentification forte (SCA). L’émetteur approuvera ou non cette "
-"demande et la transaction sera traitée en conséquence.\n"
+"appliquer une authentification forte (SCA). L’émetteur approuvera ou non "
+"cette demande et la transaction sera traitée en conséquence.\n"
 "%1$s\n"
-"L’exemption à faible valeur s’applique aux transactions en dessous du seuil défini "
-"(30 EUR), permettant d’éviter la SCA et d’accélérer le paiement.\n"
+"L’exemption à faible valeur s’applique aux transactions en dessous du seuil "
+"défini (30 EUR), permettant d’éviter la SCA et d’accélérer le paiement.\n"
 "%1$s\n"
 "L’exemption d’analyse du risque de transaction (TRA) permet une évaluation "
-"dynamique du risque; l’émetteur et l’acquéreur évalueront les facteurs de risque "
-"et les transactions jusqu’à 100 EUR peuvent être exemptées si le risque est jugé "
-"faible. Noter que TRA nécessite généralement un accord formel avec l’acquéreur; "
-"activez TRA uniquement après cet accord. Sinon, toutes les transactions par carte "
-"peuvent être bloquées.\n"
+"dynamique du risque; l’émetteur et l’acquéreur évalueront les facteurs de "
+"risque et les transactions jusqu’à 100 EUR peuvent être exemptées si le "
+"risque est jugé faible. Noter que TRA nécessite généralement un accord "
+"formel avec l’acquéreur; activez TRA uniquement après cet accord. Sinon, "
+"toutes les transactions par carte peuvent être bloquées.\n"
 "%1$s\n"
 "Choisissez prudemment pour équilibrer expérience utilisateur et sécurité."
-
-#: modules.local/config/inc/fields.php:370
-#: modules/inpsyde/worldline-config/inc/fields.php:370
-msgid ""
-"Please ensure that Transaction Risk Analysis (TRA) is enabled with your acquirer "
-"before enabling this option. If not, all card transactions may be blocked."
-msgstr ""
-"Veuillez vous assurer que la Transaction Risk Analysis (TRA) est activée auprès de "
-"votre acquéreur avant d’activer cette option. À défaut, toutes vos transactions par "
-"carte pourraient être bloquées."
 
 #: modules.local/worldline-payment-gateway/src/Notice/OrderActionNotice.php:62
 #: modules/inpsyde/worldline-payment-gateway/src/Notice/OrderActionNotice.php:62
@@ -1364,11 +1386,6 @@ msgstr "Titre"
 #: assets/hosted-tokenization-gateway-frontend-blocks.js:8
 msgid "Total With Surcharge"
 msgstr "Total avec majoration"
-
-#: modules.local/config/inc/fields.php:291
-#: modules/inpsyde/worldline-config/inc/fields.php:291
-msgid "Exemption: Transaction-Risk-Analysis (acquirer)"
-msgstr "Exemption: Analyse des risques liés aux transactions (acquéreur)"
 
 #: modules.local/twint-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-twint-gateway/inc/services.php:35

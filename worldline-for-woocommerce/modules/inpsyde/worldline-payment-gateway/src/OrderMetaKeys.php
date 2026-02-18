@@ -25,4 +25,5 @@ interface OrderMetaKeys
     public const THREE_D_SECURE_AUTHENTICATION_STATUS = '_wlop_three_d_secure_authentication_status';
     public const PAYMENT_CARD_BIN = '_wlop_payment_card_bin';
     public const PAYMENT_CARD_NUMBER = '_wlop_payment_card_number';
+    public const SEPA_MANDATE_REFERENCE = '_wlop_sepa_mandate_reference';
 }

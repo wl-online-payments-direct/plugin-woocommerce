@@ -25,6 +25,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
 use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use WC_Order;
 use WC_Order_Refund;
 use Syde\Vendor\Worldline\WP_CLI;
@@ -304,6 +305,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             echo '<div class="wl-wrapper">Pending payment</div>';
             return;
         }
+        $mandateRef = (string) $wcOrder->get_meta(OrderMetaKeys::SEPA_MANDATE_REFERENCE);
         echo '<div class="wl-wrapper">';
         // Left Column: Payment Information
         echo '<div class="wl-col">';
@@ -313,6 +315,9 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
         echo '<div class="wl-row"><span class="wl-label">Payment ID</span><span class="wl-val">' . $order->transactionId() . '</span></div>';
         echo '<div class="wl-row"><span class="wl-label">Amount</span><span class="wl-val">' . $order->amount() . '</span></div>';
         echo '<div class="wl-row"><span class="wl-label">Card</span><span class="wl-val">' . $order->creditCard() . '</span></div>';
+        if ($mandateRef !== '') {
+            echo '<div class="wl-row"><span class="wl-label">Mandate reference</span><span class="wl-val">' . \esc_html($mandateRef) . '</span></div>';
+        }
         echo '</div>';
         // Right Column: Fraud Information
         echo '<div class="wl-col">';

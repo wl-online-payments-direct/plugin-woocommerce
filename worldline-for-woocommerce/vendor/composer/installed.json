@@ -1791,6 +1791,53 @@
             "install-path": "..\/..\/modules\/inpsyde\/worldline-return-page"
         },
         {
+            "name": "inpsyde\/worldline-sepa-direct-debit-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/sepa-direct-debit-gateway",
+                "reference": "06589a9db678ff043948cd1652c3c7928bdf81d1"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline SEPA Direct Debit payment gateway module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-sepa-direct-debit-gateway"
+        },
+        {
             "name": "inpsyde\/worldline-twint-gateway",
             "version": "dev-main",
             "version_normalized": "dev-main",

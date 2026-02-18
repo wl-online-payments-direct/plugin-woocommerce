@@ -100,6 +100,9 @@ return static function () : array {
         return (string) $config->get('surcharge_enable') === 'yes';
     }), 'config.send_shopping_cart' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
         return $config->get('send_shopping_cart') === 'yes';
+    }), 'config.sdd_signature_type' => new Factory(['config.container'], static function (ConfigContainer $config) : string {
+        $value = (string) $config->get('sdd_signature_type');
+        return $value !== '' ? $value : 'SMS';
     }), 'config.hosted_page_default_template' => new Value('SimplifiedCustomPaymentPage'), 'config.hosted_checkout_page_template' => new Factory(['config.container', 'config.hosted_page_default_template'], static function (ConfigContainer $config, string $defaultTemplateName) : string {
         $templateName = $config->get('hosted_checkout_page_template');
         if (empty($templateName)) {

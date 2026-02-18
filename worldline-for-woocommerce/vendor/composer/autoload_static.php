@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInit484a0c2492435ca520d0287d002f94de
+class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
 {
     public static $files = array (
         '75224de648373daee048deff719e279d' => __DIR__ . '/..' . '/inpsyde/assets/inc/functions.php',
@@ -33,6 +33,7 @@ class ComposerStaticInit484a0c2492435ca520d0287d002f94de
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\' => 58,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' => 64,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' => 67,
+            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\' => 77,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => 65,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\' => 66,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => 73,
@@ -152,6 +153,10 @@ class ComposerStaticInit484a0c2492435ca520d0287d002f94de
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' =>
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-twint-gateway/src',
+        ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-sepa-direct-debit-gateway/src',
         ),
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' =>
         array (
@@ -580,6 +585,8 @@ class ComposerStaticInit484a0c2492435ca520d0287d002f94de
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\StatusCheckerInterface' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/StatusCheckerInterface.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\StatusUpdaterInterface' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/StatusUpdaterInterface.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\WcOrderStatusChecker' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/WcOrderStatusChecker.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\Payment\\SepaDirectDebitRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-sepa-direct-debit-gateway/src/Payment/SepaDirectDebitRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\SepaDirectDebitGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-sepa-direct-debit-gateway/src/SepaDirectDebitGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\Payment\\TwintRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-twint-gateway/src/Payment/TwintRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\TwintGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-twint-gateway/src/TwintGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\DatabaseCleaner' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-uninstall/src/DatabaseCleaner.php',
@@ -1084,9 +1091,9 @@ class ComposerStaticInit484a0c2492435ca520d0287d002f94de
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInit484a0c2492435ca520d0287d002f94de::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInit484a0c2492435ca520d0287d002f94de::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInit484a0c2492435ca520d0287d002f94de::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b::$classMap;
 
         }, null, ClassLoader::class);
     }

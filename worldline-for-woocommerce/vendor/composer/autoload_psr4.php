@@ -24,6 +24,7 @@ return array(
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\' => array($baseDir . '/modules/inpsyde/worldline-uri/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\' => array($baseDir . '/modules/inpsyde/worldline-uninstall/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' => array($baseDir . '/modules/inpsyde/worldline-twint-gateway/src'),
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\' => array($baseDir . '/modules/inpsyde/worldline-sepa-direct-debit-gateway/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => array($baseDir . '/modules/inpsyde/worldline-return-page/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\' => array($baseDir . '/modules/inpsyde/worldline-product-type/src'),
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => array($baseDir . '/modules/inpsyde/worldline-postfinance-gateway/src'),

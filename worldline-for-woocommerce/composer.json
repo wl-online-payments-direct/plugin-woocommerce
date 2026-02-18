@@ -44,6 +44,7 @@
         "inpsyde\/worldline-ideal-gateway": "dev-main",
         "inpsyde\/worldline-paypal-gateway": "dev-main",
         "inpsyde\/worldline-pledg-gateway": "dev-master",
+        "inpsyde\/worldline-sepa-direct-debit-gateway": "dev-main",
         "inpsyde\/worldline-klarna-gateway": "dev-main",
         "inpsyde\/worldline-logging": "dev-main",
         "inpsyde\/worldline-orders": "dev-master",

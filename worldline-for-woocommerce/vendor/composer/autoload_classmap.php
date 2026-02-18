@@ -302,6 +302,8 @@ return array(
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\StatusCheckerInterface' => $baseDir . '/modules/inpsyde/worldline-return-page/src/StatusCheckerInterface.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\StatusUpdaterInterface' => $baseDir . '/modules/inpsyde/worldline-return-page/src/StatusUpdaterInterface.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\WcOrderStatusChecker' => $baseDir . '/modules/inpsyde/worldline-return-page/src/WcOrderStatusChecker.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\Payment\\SepaDirectDebitRequestModifier' => $baseDir . '/modules/inpsyde/worldline-sepa-direct-debit-gateway/src/Payment/SepaDirectDebitRequestModifier.php',
+    'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\SepaDirectDebitGatewayModule' => $baseDir . '/modules/inpsyde/worldline-sepa-direct-debit-gateway/src/SepaDirectDebitGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\Payment\\TwintRequestModifier' => $baseDir . '/modules/inpsyde/worldline-twint-gateway/src/Payment/TwintRequestModifier.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\TwintGatewayModule' => $baseDir . '/modules/inpsyde/worldline-twint-gateway/src/TwintGatewayModule.php',
     'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\DatabaseCleaner' => $baseDir . '/modules/inpsyde/worldline-uninstall/src/DatabaseCleaner.php',

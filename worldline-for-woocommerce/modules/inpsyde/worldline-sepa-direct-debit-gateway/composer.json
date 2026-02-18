@@ -1,0 +1,32 @@
+{
+    "name": "inpsyde\/worldline-sepa-direct-debit-gateway",
+    "description": "Worldline SEPA Direct Debit payment gateway module",
+    "type": "inpsyde-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "email": "hello@syde.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "psr\/container": "^1.1",
+        "inpsyde\/modularity": "dev-main",
+        "dhii\/services": "^0.1.1-alpha3",
+        "inpsyde\/assets": "dev-main"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^9.0"
+    }
+}

@@ -1282,3 +1282,13 @@ msgstr ""
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/fields.php:16
 msgid "Manage your custom credit card icons. Icons you upload here will be available to select from the card icons field"
 msgstr ""
+
+#: modules.local/config/inc/fields.php:405
+#: modules/inpsyde/worldline-config/inc/fields.php:405
+msgid "SDD signature type"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:414
+#: modules/inpsyde/worldline-config/inc/fields.php:414
+msgid "Define how you want the SEPA mandate to be signed. SMS will send a message to the phone number your customer has provided, and UNSIGNED will proceed with the payment without signature."
+msgstr ""
