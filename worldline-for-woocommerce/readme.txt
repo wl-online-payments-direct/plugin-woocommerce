@@ -87,7 +87,7 @@ If you encounter issues with the Worldline buttons not appearing after an update
 == Changelog ==
 
 = 2.5.7 - 2026-02-10 =
-* Added: New payment method - SEPA Direct Debit
+* Added: Support of payment method “SEPA Direct Debit”
 
 = 2.5.6 - 2026-02-04 =
 * Fix: Stability for 3DS exemption capabilities
