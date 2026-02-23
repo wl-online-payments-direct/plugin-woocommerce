@@ -71,19 +71,19 @@ We combine scale (over 18,000 professionals operating in 40+ countries), cutting
 
 ## Screenshots
 
-![Introduction.png](screenshots/Introduction.png)
+![Introduction.png](worldline-for-woocommerce/screenshots/Introduction.png)
 
-![WP orders dashboard.png](screenshots/WP%20orders%20dashboard.png)
+![WP orders dashboard.png](worldline-for-woocommerce/screenshots/WP%20orders%20dashboard.png)
 
-![Settings.png](screenshots/Settings.png)
+![Settings.png](worldline-for-woocommerce/screenshots/Settings.png)
 
-![Payment page branded.png](screenshots/Payment%20page%20branded.png)
+![Payment page branded.png](worldline-for-woocommerce/screenshots/Payment%20page%20branded.png)
 
-![Pay with single payment buttons.png](screenshots/Pay%20with%20single%20payment%20buttons.png)
+![Pay with single payment buttons.png](worldline-for-woocommerce/screenshots/Pay%20with%20single%20payment%20buttons.png)
 
-![Merchant portal.png](screenshots/Merchant%20portal.png)
+![Merchant portal.png](worldline-for-woocommerce/screenshots/Merchant%20portal.png)
 
-![Merchant portal transactions dashboard.png](screenshots/Merchant%20portal%20transactions%20dashboard.png)
+![Merchant portal transactions dashboard.png](worldline-for-woocommerce/screenshots/Merchant%20portal%20transactions%20dashboard.png)
 
 ## Installation
 
