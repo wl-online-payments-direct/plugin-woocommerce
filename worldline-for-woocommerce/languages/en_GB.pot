@@ -85,12 +85,12 @@ msgstr ""
 
 #: modules.local/bank-transfer-gateway/inc/fields.php:17
 #: modules/inpsyde/worldline-bank-transfer-gateway/inc/fields.php:17
-msgid "Enable Bank transfer (Worldline)"
+msgid "Enable Bank Transfer by Worldline"
 msgstr ""
 
 #: modules.local/bank-transfer-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:35
-msgid "Bank transfer (Worldline)"
+msgid "Bank Transfer by Worldline"
 msgstr ""
 
 #: modules.local/bank-transfer-gateway/inc/services.php:37
@@ -1291,4 +1291,15 @@ msgstr ""
 #: modules.local/config/inc/fields.php:414
 #: modules/inpsyde/worldline-config/inc/fields.php:414
 msgid "Define how you want the SEPA mandate to be signed. SMS will send a message to the phone number your customer has provided, and UNSIGNED will proceed with the payment without signature."
+msgstr ""
+
+
+#: modules.local/bank-transfer-gateway/inc/fields.php:21
+#: modules/worldline-bank-transfer-gateway/inc/fields.php:9
+msgid "Accept instant payment only for Bank Transfers"
+msgstr ""
+
+#: modules.local/bank-transfer-gateway/inc/fields.php:26
+#: modules/worldline-bank-transfer-gateway/inc/fields.php:9
+msgid "By enabling this option, you will only accept bank transfers from your customers where the payment is done instantly."
 msgstr ""

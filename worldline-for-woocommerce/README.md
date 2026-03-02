@@ -134,6 +134,10 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.8 - 2026-02-24
+* Improved: Offer the possibility to only accept instant bank transfer.
+* Fixed: Branding for Worldline Bank Transfer solution
+
 ### 2.5.7 - 2026-02-10
 * Added: Support of payment method “SEPA Direct Debit”
 

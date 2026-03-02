@@ -15,6 +15,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductFiltersHostedC
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5300SpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5403SpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5408SpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SepaDirectDebitPaymentMethodSpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SepaDirectDebitPaymentProduct771SpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
@@ -69,12 +70,16 @@ class HostedCheckoutUrlFactory
         $redirectInput->setPaymentProduct5403SpecificInput($cvcoSpecificInput);
         $pledgSpecificInput = new RedirectPaymentProduct5300SpecificInput();
         $redirectInput->setPaymentProduct5300SpecificInput($pledgSpecificInput);
-        $request->setRedirectPaymentMethodSpecificInput($redirectInput);
         $sepaSpecificInput = $sepaInput->getPaymentProduct771SpecificInput();
         if (!$sepaSpecificInput) {
             $sepaSpecificInput = new SepaDirectDebitPaymentProduct771SpecificInput();
         }
+        $bankTransferSpecificInput = new RedirectPaymentProduct5408SpecificInput();
+        $redirectInput->setPaymentProduct5408SpecificInput($bankTransferSpecificInput);
+        $request->setRedirectPaymentMethodSpecificInput($redirectInput);
         $settings = \get_option('woocommerce_worldline-for-woocommerce_settings', []);
+        $bankTransferSettings = \get_option('woocommerce_worldline-bank-transfer_settings', []);
+        $request->getRedirectPaymentMethodSpecificInput()->getPaymentProduct5408SpecificInput()->setInstantPaymentOnly(($bankTransferSettings['instant_payment'] ?? 'yes') === 'yes');
         $signatureTypeSetting = isset($settings['sdd_signature_type']) ? (string) $settings['sdd_signature_type'] : 'SMS';
         $signatureType = $signatureTypeSetting === 'UNSIGNED' ? 'UNSIGNED' : 'SMS';
         $uniqueReference = $request->getOrder()->getReferences()->getMerchantReference() ?? '';

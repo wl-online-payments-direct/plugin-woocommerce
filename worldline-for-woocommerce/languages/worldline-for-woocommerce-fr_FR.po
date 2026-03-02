@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-02 15:45+0000\n"
+"PO-Revision-Date: 2026-02-23 13:32+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-22 08:29+0000\n"
 "Last-Translator: \n"
-"X-Loco-Version: 2.8.1; wp-6.9; php-8.3.13"
+"X-Loco-Version: 2.8.0; wp-6.9.1; php-8.3.13"
 
 #. translators: %s transaction ID
 #: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:177
@@ -77,6 +77,11 @@ msgstr "Authentification 3-D Secure"
 #: modules/inpsyde/worldline-payment-gateway/src/OrderUpdater.php:192
 msgid "3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s"
 msgstr "3DS results%1$sExemption appliquée : %2$s%1$sResponsabilité : %3$s"
+
+#: modules.local/bank-transfer-gateway/inc/fields.php:21
+#: modules/worldline-bank-transfer-gateway/inc/fields.php:9
+msgid "Accept instant payment only for Bank Transfers"
+msgstr "Accepter uniquement les transferts bancaires instantannés"
 
 #: modules.local/worldline-payment-gateway/inc/services.php:169
 #: modules/inpsyde/worldline-payment-gateway/inc/services.php:169
@@ -333,8 +338,9 @@ msgstr "Virement bancaire"
 
 #: modules.local/bank-transfer-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:35
-msgid "Bank transfer (Worldline)"
-msgstr "Virement bancaire (Worldline)"
+#| msgid "Bank transfer by Worldline"
+msgid "Bank Transfer by Worldline"
+msgstr "Virement Bancaire par Worldline"
 
 #. translators: %1$s - newlines
 #: modules.local/config/inc/fields.php:270
@@ -358,6 +364,15 @@ msgstr ""
 "Si votre acquéreur rejette l'exemption et exige la SCA, il s'agit d'un refus "
 "tacite. Dans ce cas, nous tenterons d'inviter le client à s'authentifier et "
 "nous réinitialiserons la transaction si le client s'authentifie avec succès."
+
+#: modules.local/bank-transfer-gateway/inc/fields.php:26
+#: modules/worldline-bank-transfer-gateway/inc/fields.php:9
+msgid ""
+"By enabling this option, you will only accept bank transfers from your "
+"customers where the payment is done instantly."
+msgstr ""
+"En activant cette option, vous n’accepterez que les virements de vos clients "
+"où le paiement est effectué de manière instantannée."
 
 #: modules.local/worldline-payment-gateway/src/Admin/RenderCaptureAction.php:28
 #: modules/inpsyde/worldline-payment-gateway/src/Admin/RenderCaptureAction.php:28
@@ -441,10 +456,12 @@ msgstr "Icônes de cartes de crédit personnalisées"
 
 #: modules.local/config/inc/fields.php:414
 #: modules/inpsyde/worldline-config/inc/fields.php:414
-msgid "Define how you want the SEPA mandate to be signed. SMS will send a message "
+msgid ""
+"Define how you want the SEPA mandate to be signed. SMS will send a message "
 "to the phone number your customer has provided, and UNSIGNED will proceed "
 "with the payment without signature."
-msgstr "Définissez la manière dont le mandat SEPA doit être signé. SMS enverra un "
+msgstr ""
+"Définissez la manière dont le mandat SEPA doit être signé. SMS enverra un "
 "message au numéro fourni par le client, et UNSIGNED permettra de traiter le "
 "paiement sans signature."
 
@@ -513,8 +530,9 @@ msgstr "Activer Apple Pay (Worldline)"
 
 #: modules.local/bank-transfer-gateway/inc/fields.php:17
 #: modules/inpsyde/worldline-bank-transfer-gateway/inc/fields.php:17
-msgid "Enable Bank transfer (Worldline)"
-msgstr "Activer le virement bancaire (Worldline)"
+#| msgid "Enable Bank transfer by Worldline"
+msgid "Enable Bank Transfer by Worldline"
+msgstr "Activer le Virement Bancaire par Worldline"
 
 #: modules.local/config/inc/fields.php:148
 #: modules/inpsyde/worldline-config/inc/fields.php:148

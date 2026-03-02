@@ -17,6 +17,7 @@ class BankTransferRequestModifier extends AbstractHostedPaymentRequestModifier
         $redirectionData->setReturnUrl($hostedCheckoutInput->returnUrl());
         $redirectPaymentMethodSpecificInput->setPaymentProductId(5408);
         $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
+        $redirectPaymentMethodSpecificInput->setPaymentProduct5408SpecificInput($hostedCheckoutRequest->getRedirectPaymentMethodSpecificInput()->getPaymentProduct5408SpecificInput());
         $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
         $this->removeTokensFromRequest($hostedCheckoutRequest);
         return $hostedCheckoutRequest;

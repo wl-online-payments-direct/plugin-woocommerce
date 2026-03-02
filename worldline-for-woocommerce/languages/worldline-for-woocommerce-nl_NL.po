@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-13 08:36+0000\n"
+"PO-Revision-Date: 2026-02-23 13:31+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -77,6 +77,11 @@ msgstr "3-D Secure verificatie"
 #: modules/inpsyde/worldline-payment-gateway/src/OrderUpdater.php:192
 msgid "3DS results%1$sApplied exemption: %2$s%1$sLiability: %3$s"
 msgstr "3DS-resultaten%1$sGevraagde vrijstelling: %2$s%1$sVerplichting: %3$s"
+
+#: modules.local/bank-transfer-gateway/inc/fields.php:21
+#: modules/worldline-bank-transfer-gateway/inc/fields.php:9
+msgid "Accept instant payment only for Bank Transfers"
+msgstr "Alleen directe betaling accepteren voor bankoverschrijvingen"
 
 #: modules.local/worldline-payment-gateway/inc/services.php:169
 #: modules/inpsyde/worldline-payment-gateway/inc/services.php:169
@@ -325,8 +330,9 @@ msgstr "Overschrijving"
 
 #: modules.local/bank-transfer-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-bank-transfer-gateway/inc/services.php:35
-msgid "Bank transfer (Worldline)"
-msgstr "Bankoverschrijving (Worldline)"
+#| msgid "Bank transfer by Worldline"
+msgid "Bank Transfer by Worldline"
+msgstr "Bankoverschrijving door Worldline"
 
 #. translators: %1$s - newlines
 #: modules.local/config/inc/fields.php:270
@@ -351,6 +357,15 @@ msgstr ""
 "weigering genoemd. In dergelijke gevallen zullen we proberen de klant om SCA "
 "te vragen en de transactie opnieuw starten als de klant zich met succes "
 "heeft geverifieerd."
+
+#: modules.local/bank-transfer-gateway/inc/fields.php:26
+#: modules/worldline-bank-transfer-gateway/inc/fields.php:9
+msgid ""
+"By enabling this option, you will only accept bank transfers from your "
+"customers where the payment is done instantly."
+msgstr ""
+"Door deze optie in te schakelen accepteert u alleen bankoverschrijvingen van "
+"uw klanten waarbij de betaling onmiddellijk is gedaan."
 
 #: modules.local/worldline-payment-gateway/src/Admin/RenderCaptureAction.php:28
 #: modules/inpsyde/worldline-payment-gateway/src/Admin/RenderCaptureAction.php:28
@@ -432,10 +447,12 @@ msgstr "Aangepaste creditcardpictogrammen"
 
 #: modules.local/config/inc/fields.php:414
 #: modules/inpsyde/worldline-config/inc/fields.php:414
-msgid "Define how you want the SEPA mandate to be signed. SMS will send a message "
+msgid ""
+"Define how you want the SEPA mandate to be signed. SMS will send a message "
 "to the phone number your customer has provided, and UNSIGNED will proceed "
 "with the payment without signature."
-msgstr "Bepaal hoe u wilt dat het SEPA-mandaat wordt ondertekend. Een sms-bericht "
+msgstr ""
+"Bepaal hoe u wilt dat het SEPA-mandaat wordt ondertekend. Een sms-bericht "
 "wordt verzonden naar het telefoonnummer dat uw klant heeft opgegeven, en "
 "UNSIGNED gaat verder met de betaling zonder handtekening."
 
@@ -502,8 +519,9 @@ msgstr "Apple Pay inschakelen (Worldline)"
 
 #: modules.local/bank-transfer-gateway/inc/fields.php:17
 #: modules/inpsyde/worldline-bank-transfer-gateway/inc/fields.php:17
-msgid "Enable Bank transfer (Worldline)"
-msgstr "Bankoverschrijving inschakelen (Worldline)"
+#| msgid "Enable Bank transfer by Worldline"
+msgid "Enable Bank Transfer by Worldline"
+msgstr "Bankoverschrijving door Worldline inschakelen"
 
 #: modules.local/config/inc/fields.php:148
 #: modules/inpsyde/worldline-config/inc/fields.php:148
