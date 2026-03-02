@@ -2,19 +2,19 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-23 13:34+0000\n"
+"PO-Revision-Date: 2026-02-24 15:40+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"Language: es_ES\n"
+"Language: es-ES\n"
 "Project-Id-Version: Worldline for WooCommerce\n"
 "Language-Team: Spanish (Spain)\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-22 09:47+0000\n"
 "Last-Translator: \n"
-"X-Loco-Version: 2.8.0; wp-6.9.1; php-8.3.13"
+"X-Loco-Version: 2.8.1; wp-6.9.1; php-8.3.13"
 
 #. translators: %s transaction ID
 #: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:177
@@ -110,8 +110,8 @@ msgstr "Acepte pagos con Google Pay."
 
 #: modules.local/ideal-gateway/inc/services.php:37
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:37
-msgid "Accept payments with iDEAL."
-msgstr "Acepte pagos con iDEAL."
+msgid "Accept payments with iDEAL | Wero."
+msgstr "Acepte pagos con iDEAL | Wero."
 
 #: modules.local/klarna-gateway/inc/services.php:209
 #: modules/inpsyde/worldline-klarna-gateway/inc/services.php:209
@@ -550,8 +550,8 @@ msgstr "Activar Google Pay (Worldline)"
 
 #: modules.local/ideal-gateway/inc/fields.php:17
 #: modules/inpsyde/worldline-ideal-gateway/inc/fields.php:17
-msgid "Enable iDEAL (Worldline)"
-msgstr "Activar iDEAL (Worldline)"
+msgid "Enable iDEAL | Wero (Worldline)"
+msgstr "Activar iDEAL | Wero (Worldline)"
 
 #: modules.local/postfinance/src/Postfinance.php:170
 #: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:170
@@ -798,13 +798,13 @@ msgstr "https://worldline.com"
 
 #: modules.local/ideal-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:35
-msgid "iDEAL"
-msgstr "iDEAL"
+msgid "iDEAL | Wero"
+msgstr "iDEAL | Wero"
 
 #: modules.local/ideal-gateway/inc/services.php:33
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:33
-msgid "iDEAL (Worldline)"
-msgstr "iDEAL (Worldline)"
+msgid "iDEAL | Wero (Worldline)"
+msgstr "iDEAL | Wero (Worldline)"
 
 #: modules.local/config/inc/fields.php:283
 #: modules/inpsyde/worldline-config/inc/fields.php:37
@@ -1038,14 +1038,14 @@ msgid ""
 "Minimum 2, maximum 15 characters. You can specify a fixed value that will be "
 "sent to the banks handling the payment. If the consumer's bank is supporting "
 "that, this value can be displayed on the consumer's bank slip. Important "
-"note : setting a value here is mandatory in order to use Pledg payment "
+"note : setting a value here is mandatory in order to use Sofinco payment "
 "method."
 msgstr ""
 "Mínimo 2, máximo 15 caracteres. Puedes especificar un valor fijo que se "
 "enviará a los bancos que gestionan el pago. Si el banco del consumidor es "
 "compatible con esto, este valor puede mostrarse en el recibo bancario del "
 "consumidor. Nota importante: establecer un valor aquí es obligatorio para "
-"utilizar el método de pago Pledg."
+"utilizar el método de pago Sofinco."
 
 #: modules.local/webhooks/inc/fields.php:102
 #: modules/inpsyde/worldline-webhooks/inc/fields.php:16

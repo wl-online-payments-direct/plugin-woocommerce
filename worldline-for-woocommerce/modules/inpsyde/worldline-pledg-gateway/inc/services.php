@@ -28,9 +28,9 @@ return static function () : array {
         // Form fields definition
         "payment_gateway.{$gatewayId}.form_fields" => Service::fromFile("{$moduleRoot}/inc/fields.php"),
         // Titles & descriptions
-        "payment_gateway.{$gatewayId}.method_title" => static fn(): string => \__('Pledg (Worldline)', 'worldline-for-woocommerce'),
-        "payment_gateway.{$gatewayId}.title" => static fn(): string => \__('Pledg', 'worldline-for-woocommerce'),
-        "payment_gateway.{$gatewayId}.method_description" => static fn(): string => \__('Pay easily in instalments with Pledg. Merchant is paid upfront.', 'worldline-for-woocommerce'),
+        "payment_gateway.{$gatewayId}.method_title" => static fn(): string => \__('Sofinco (Worldline)', 'worldline-for-woocommerce'),
+        "payment_gateway.{$gatewayId}.title" => static fn(): string => \__('Sofinco', 'worldline-for-woocommerce'),
+        "payment_gateway.{$gatewayId}.method_description" => static fn(): string => \__('Pay easily in instalments with Sofinco. Merchant is paid upfront.', 'worldline-for-woocommerce'),
         "payment_gateway.{$gatewayId}.description" => static fn(): string => '',
         "payment_gateway.{$gatewayId}.order_button_text" => static fn(): ?string => null,
         "payment_gateway.{$gatewayId}.payment_request_validator" => new Alias('payment_gateways.noop_payment_request_validator'),

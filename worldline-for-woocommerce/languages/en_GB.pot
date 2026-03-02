@@ -726,22 +726,22 @@ msgstr ""
 
 #: modules.local/ideal-gateway/inc/fields.php:17
 #: modules/inpsyde/worldline-ideal-gateway/inc/fields.php:17
-msgid "Enable iDEAL (Worldline)"
+msgid "Enable iDEAL | Wero (Worldline)"
 msgstr ""
 
 #: modules.local/ideal-gateway/inc/services.php:33
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:33
-msgid "iDEAL (Worldline)"
+msgid "iDEAL | Wero (Worldline)"
 msgstr ""
 
 #: modules.local/ideal-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:35
-msgid "iDEAL"
+msgid "iDEAL | Wero"
 msgstr ""
 
 #: modules.local/ideal-gateway/inc/services.php:37
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:37
-msgid "Accept payments with iDEAL."
+msgid "Accept payments with iDEAL | Wero."
 msgstr ""
 
 #. translators: %s: Name of the gateway.
@@ -1270,7 +1270,7 @@ msgstr ""
 
 #: modules.local/config/inc/fields.php:37
 #: modules/inpsyde/worldline-config/inc/fields.php:281
-msgid "Minimum 2, maximum 15 characters. You can specify a fixed value that will be sent to the banks handling the payment. If the consumer's bank is supporting that, this value can be displayed on the consumer's bank slip. Important note : setting a value here is mandatory in order to use Pledg payment method."
+msgid "Minimum 2, maximum 15 characters. You can specify a fixed value that will be sent to the banks handling the payment. If the consumer's bank is supporting that, this value can be displayed on the consumer's bank slip. Important note : setting a value here is mandatory in order to use Sofinco payment method."
 msgstr ""
 
 #: modules.local/chosted-tokenization-gateway/inc/fields.php:32
