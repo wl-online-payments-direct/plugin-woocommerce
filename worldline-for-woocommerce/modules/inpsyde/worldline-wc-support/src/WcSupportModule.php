@@ -22,7 +22,7 @@ class WcSupportModule implements ExecutableModule
     {
         \add_action('before_woocommerce_init', static function () {
             if (\class_exists(FeaturesUtil::class)) {
-                FeaturesUtil::declare_compatibility('custom_order_tables', 'worldline-for-woocommerce');
+                FeaturesUtil::declare_compatibility('custom_order_tables', MAIN_PLUGIN_FILE);
             }
         });
     }

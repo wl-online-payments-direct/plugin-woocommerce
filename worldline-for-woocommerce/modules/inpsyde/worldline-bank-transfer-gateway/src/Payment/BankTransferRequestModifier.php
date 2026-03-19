@@ -18,6 +18,8 @@ class BankTransferRequestModifier extends AbstractHostedPaymentRequestModifier
         $redirectPaymentMethodSpecificInput->setPaymentProductId(5408);
         $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
         $redirectPaymentMethodSpecificInput->setPaymentProduct5408SpecificInput($hostedCheckoutRequest->getRedirectPaymentMethodSpecificInput()->getPaymentProduct5408SpecificInput());
+        $settings = \get_option('woocommerce_worldline-bank-transfer_settings', []);
+        $redirectPaymentMethodSpecificInput->getPaymentProduct5408SpecificInput()->setInstantPaymentOnly(($settings['instant_payment'] ?? 'yes') === 'yes');
         $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
         $this->removeTokensFromRequest($hostedCheckoutRequest);
         return $hostedCheckoutRequest;
