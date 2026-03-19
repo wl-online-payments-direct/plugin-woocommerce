@@ -117,7 +117,7 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
                     if (!$token instanceof WC_Payment_Token_CC) {
                         return;
                     }
-                    if ($token->get_gateway_id() !== GatewayIds::HOSTED_CHECKOUT) {
+                    if ($token->get_gateway_id() !== GatewayIds::HOSTED_CHECKOUT && $token->get_gateway_id() !== GatewayIds::HOSTED_TOKENIZATION) {
                         return;
                     }
                     $apiClient = $container->get('worldline_payment_gateway.api.client');
