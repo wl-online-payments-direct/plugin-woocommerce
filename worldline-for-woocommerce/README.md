@@ -71,19 +71,19 @@ We combine scale (over 18,000 professionals operating in 40+ countries), cutting
 
 ## Screenshots
 
-![Introduction.png](worldline-for-woocommerce/screenshots/Introduction.png)
+![Introduction.png](screenshots/Introduction.png)
 
-![WP orders dashboard.png](worldline-for-woocommerce/screenshots/WP%20orders%20dashboard.png)
+![WP orders dashboard.png](screenshots/WP%20orders%20dashboard.png)
 
-![Settings.png](worldline-for-woocommerce/screenshots/Settings.png)
+![Settings.png](screenshots/Settings.png)
 
-![Payment page branded.png](worldline-for-woocommerce/screenshots/Payment%20page%20branded.png)
+![Payment page branded.png](screenshots/Payment%20page%20branded.png)
 
-![Pay with single payment buttons.png](worldline-for-woocommerce/screenshots/Pay%20with%20single%20payment%20buttons.png)
+![Pay with single payment buttons.png](screenshots/Pay%20with%20single%20payment%20buttons.png)
 
-![Merchant portal.png](worldline-for-woocommerce/screenshots/Merchant%20portal.png)
+![Merchant portal.png](screenshots/Merchant%20portal.png)
 
-![Merchant portal transactions dashboard.png](worldline-for-woocommerce/screenshots/Merchant%20portal%20transactions%20dashboard.png)
+![Merchant portal transactions dashboard.png](screenshots/Merchant%20portal%20transactions%20dashboard.png)
 
 ## Installation
 
@@ -133,6 +133,25 @@ If you encounter any issues with the plugin or its functions after an update, pu
 If that doesn’t solve the problem, create a thread on the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or contact our support team through [this form](https://docs.direct.worldline-solutions.com/en/about/contact/).
 
 ## Changelog
+
+### 2.5.12 - 2026-03-09
+* Added: Support of payment method “Blik”
+* Added: Support of payment method “Przelewy24”
+* Added: Support of payment method “Linxo Connect”
+
+### 2.5.11 - 2026-03-03 
+* Improved: Offer the possibility to only accept instant bank transfer on CAWL Gateway.
+  
+### 2.5.10 - 2026-02-27
+* Added: Deleting a consumer’s stored token from their account now also deletes the token on the payment platform
+
+### 2.5.9 - 2026-02-24
+* Updated: Branding of Pledg changed to Sofinco
+* Updated: Branding of iDeal changed to iDEAL | Wero
+
+### 2.5.8 - 2026-02-24
+* Improved: Offer the possibility to only accept instant bank transfer.
+* Fixed: Branding for Worldline Bank Transfer solution
 
 ### 2.5.7 - 2026-02-10
 * Added: Support of payment method “SEPA Direct Debit”

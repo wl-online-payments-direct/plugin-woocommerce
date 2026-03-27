@@ -955,6 +955,53 @@
             "install-path": "..\/..\/modules\/inpsyde\/worldline-bank-transfer-gateway"
         },
         {
+            "name": "inpsyde\/worldline-blik-gateway",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/blik-gateway",
+                "reference": "c7cc977e522f3348589a587a509414abd00ed239"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-blik-gateway"
+        },
+        {
             "name": "inpsyde\/worldline-checkout",
             "version": "dev-main",
             "version_normalized": "dev-main",
@@ -1379,6 +1426,53 @@
             "install-path": "..\/..\/modules\/inpsyde\/worldline-klarna-gateway"
         },
         {
+            "name": "inpsyde\/worldline-linxo-connect-gateway",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/linxo-connect-gateway",
+                "reference": "b5942ac7f2c27b99bd7f3daaeaaced1a8b990586"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-linxo-connect-gateway"
+        },
+        {
             "name": "inpsyde\/worldline-logging",
             "version": "dev-main",
             "version_normalized": "dev-main",
@@ -1742,6 +1836,53 @@
                 "relative": true
             },
             "install-path": "..\/..\/modules\/inpsyde\/worldline-product-type"
+        },
+        {
+            "name": "inpsyde\/worldline-przelewy24-gateway",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/przelewy24-gateway",
+                "reference": "d818beac5597a8d7a91a880e9411194825455683"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-przelewy24-gateway"
         },
         {
             "name": "inpsyde\/worldline-return-page",

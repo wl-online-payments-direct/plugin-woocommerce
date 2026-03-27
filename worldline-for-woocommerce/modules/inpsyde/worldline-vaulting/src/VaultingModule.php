@@ -123,6 +123,7 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
                     $apiClient = $container->get('worldline_payment_gateway.api.client');
                     \assert($apiClient instanceof MerchantClientInterface);
                     $apiClient->tokens()->deleteToken($token->get_token());
+                    \do_action('wlop.card_token_deleted', ['last4' => $token->get_last4(), 'userId' => $token->get_user_id()]);
                 } catch (Throwable $exception) {
                     \do_action('wlop.card_token_delete_error', ['token' => $token->get_token(), 'userId' => $token->get_user_id(), 'exception' => $exception]);
                 }

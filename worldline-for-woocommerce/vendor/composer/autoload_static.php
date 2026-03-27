@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
+class ComposerStaticInitd5d74f518cd12805d758ff726edcc4a6
 {
     public static $files = array (
         '75224de648373daee048deff719e279d' => __DIR__ . '/..' . '/inpsyde/assets/inc/functions.php',
@@ -35,12 +35,14 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\' => 67,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\' => 77,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\' => 65,
+            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\' => 72,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\' => 66,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\' => 73,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\' => 67,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\' => 68,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\' => 61,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\' => 74,
+            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\' => 74,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' => 68,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\' => 67,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\' => 80,
@@ -50,6 +52,7 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\' => 61,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\' => 63,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\' => 66,
+            'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\' => 66,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' => 74,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\' => 70,
             'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\' => 54,
@@ -162,6 +165,10 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src',
         ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-przelewy24-gateway/src',
+        ),
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\' =>
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-product-type/src',
@@ -185,6 +192,10 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\' =>
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src',
+        ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-linxo-connect-gateway/src',
         ),
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\' =>
         array (
@@ -221,6 +232,10 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\' =>
         array (
             0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src',
+        ),
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\' =>
+        array (
+            0 => __DIR__ . '/../..' . '/modules/inpsyde/worldline-blik-gateway/src',
         ),
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\' =>
         array (
@@ -524,6 +539,8 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\Payment\\ApplePayRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-apple-pay-gateway/src/Payment/ApplePayRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\BankTransferGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src/BankTransferGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\Payment\\BankTransferRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-bank-transfer-gateway/src/Payment/BankTransferRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\BlikGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-blik-gateway/src/BlikGatewayModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\Payment\\BlikRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-blik-gateway/src/Payment/BlikRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\CVCOGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src/CVCOGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\Payment\\CVCORequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-cvco-gateway/src/Payment/CVCORequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\CheckoutModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-checkout/src/CheckoutModule.php',
@@ -564,6 +581,8 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayLaterRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayLaterRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayNowRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayNowRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\Payment\\PayWithKlarnaRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-klarna-gateway/src/Payment/PayWithKlarnaRequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\LinxoConnectGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-linxo-connect-gateway/src/LinxoConnectGatewayModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\Payment\\LinxoConnectRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-linxo-connect-gateway/src/Payment/LinxoConnectRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\MealvouchersGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/MealvouchersGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\Payment\\MealvouchersRequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-mealvouchers-gateway/src/Payment/MealvouchersRequestModifier.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\OrdersModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-orders/src/OrdersModule.php',
@@ -575,6 +594,8 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\Postfinance' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\PostfinanceGatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-postfinance-gateway/src/PostfinanceGatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\ProductTypeModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-product-type/src/ProductTypeModule.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\Payment\\Przelewy24RequestModifier' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-przelewy24-gateway/src/Payment/Przelewy24RequestModifier.php',
+        'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\Przelewy24GatewayModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-przelewy24-gateway/src/Przelewy24GatewayModule.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\PayOrderRedirectAction' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/PayOrderRedirectAction.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\ReturnPage' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/ReturnPage.php',
         'Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\ReturnPageModule' => __DIR__ . '/../..' . '/modules/inpsyde/worldline-return-page/src/ReturnPageModule.php',
@@ -1091,9 +1112,9 @@ class ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->prefixLengthsPsr4 = ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b::$prefixLengthsPsr4;
-            $loader->prefixDirsPsr4 = ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b::$prefixDirsPsr4;
-            $loader->classMap = ComposerStaticInitb9b243be5370f6d05b39bd52f01d560b::$classMap;
+            $loader->prefixLengthsPsr4 = ComposerStaticInitd5d74f518cd12805d758ff726edcc4a6::$prefixLengthsPsr4;
+            $loader->prefixDirsPsr4 = ComposerStaticInitd5d74f518cd12805d758ff726edcc4a6::$prefixDirsPsr4;
+            $loader->classMap = ComposerStaticInitd5d74f518cd12805d758ff726edcc4a6::$classMap;
 
         }, null, ClassLoader::class);
     }

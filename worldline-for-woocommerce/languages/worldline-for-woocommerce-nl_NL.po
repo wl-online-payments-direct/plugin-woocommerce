@@ -2,19 +2,19 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-02-24 15:40+0000\n"
+"PO-Revision-Date: 2026-03-09 09:00+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Loco https://localise.biz/\n"
-"Language: nl-NL\n"
+"Language: nl_NL\n"
 "Project-Id-Version: Worldline for WooCommerce\n"
 "Language-Team: Dutch\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-22 08:34+0000\n"
 "Last-Translator: \n"
-"X-Loco-Version: 2.8.1; wp-6.9.1; php-8.3.13"
+"X-Loco-Version: 2.8.0; wp-6.9.1; php-8.3.13"
 
 #. translators: %s transaction ID
 #: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:177
@@ -98,6 +98,11 @@ msgstr "Accepteer betalingen met Apple Pay."
 msgid "Accept payments with Bank transfer."
 msgstr "Accepteer betalingen via bankoverschrijving."
 
+#: modules.local/blik-gateway/inc/services.php:40
+#: modules/worldline-blik-gateway/inc/services.php:40
+msgid "Accept payments with BLIK."
+msgstr "Accepteer betalingen met BLIK."
+
 #: modules.local/hosted-tokenization-gateway/inc/services.php:65
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:65
 msgid "Accept payments with credit cards."
@@ -149,10 +154,20 @@ msgstr "Accepteer betalingen met Klarna - Nu betalen."
 msgid "Accept payments with Klarna."
 msgstr "Accepteer betalingen met Klarna."
 
+#: modules.local/linxo-connect-gateway/inc/services.php:40
+#: modules/worldline-linxo-connect-gateway/inc/services.php:40
+msgid "Accept payments with Linxo Connect."
+msgstr "Accepteer betalingen met Linxo Connect."
+
 #: modules.local/postfinance/src/Postfinance.php:101
 #: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:101
 msgid "Accept payments with PostFinance."
 msgstr "Accepteer betalingen met PostFinance."
+
+#: modules.local/przelewy24-gateway/inc/services.php:40
+#: modules/worldline-przelewy24-gateway/inc/services.php:40
+msgid "Accept payments with Przelewy24."
+msgstr "Accepteer betalingen met Przelewy24."
 
 #: modules.local/twint-gateway/inc/services.php:37
 #: modules/inpsyde/worldline-twint-gateway/inc/services.php:37
@@ -523,6 +538,11 @@ msgstr "Apple Pay inschakelen (Worldline)"
 msgid "Enable Bank Transfer by Worldline"
 msgstr "Bankoverschrijving door Worldline inschakelen"
 
+#: modules.local/blik-gateway/inc/fields.php:17
+#: modules/worldline-blik-gateway/inc/fields.php:9
+msgid "Enable BLIK (Worldline)"
+msgstr "BLIK inschakelen (Worldline)"
+
 #: modules.local/config/inc/fields.php:148
 #: modules/inpsyde/worldline-config/inc/fields.php:148
 msgid "Enable card grouping"
@@ -553,10 +573,20 @@ msgstr "Google Pay inschakelen (Worldline)"
 msgid "Enable iDEAL | Wero (Worldline)"
 msgstr "iDEAL | Wero inschakelen (Worldline)"
 
+#: modules.local/linxo-connect-gateway/inc/fields.php:17
+#: modules/worldline-linxo-connect-gateway/inc/fields.php:9
+msgid "Enable Linxo Connect (Worldline)"
+msgstr "Linxo Connect inschakelen (Worldline)"
+
 #: modules.local/postfinance/src/Postfinance.php:170
 #: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:170
 msgid "Enable PostFinance (Worldline)"
 msgstr "PostFinance (Worldline) inschakelen"
+
+#: modules.local/przelewy24-gateway/inc/fields.php:17
+#: modules/worldline-przelewy24-gateway/inc/fields.php:9
+msgid "Enable Przelewy24 (Worldline)"
+msgstr "Przelewy24 inschakelen (Worldline)"
 
 #: modules.local/twint-gateway/inc/fields.php:15
 #: modules/inpsyde/worldline-twint-gateway/inc/fields.php:15

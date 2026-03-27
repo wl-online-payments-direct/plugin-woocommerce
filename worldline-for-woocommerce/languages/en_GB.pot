@@ -1303,3 +1303,33 @@ msgstr ""
 #: modules/worldline-bank-transfer-gateway/inc/fields.php:9
 msgid "By enabling this option, you will only accept bank transfers from your customers where the payment is done instantly."
 msgstr ""
+
+#: modules.local/linxo-connect-gateway/inc/fields.php:17
+#: modules/worldline-linxo-connect-gateway/inc/fields.php:9
+msgid "Enable Linxo Connect (Worldline)"
+msgstr ""
+
+#: modules.local/linxo-connect-gateway/inc/services.php:40
+#: modules/worldline-linxo-connect-gateway/inc/services.php:40
+msgid "Accept payments with Linxo Connect."
+msgstr ""
+
+#: modules.local/blik-gateway/inc/fields.php:17
+#: modules/worldline-blik-gateway/inc/fields.php:9
+msgid "Enable BLIK (Worldline)"
+msgstr ""
+
+#: modules.local/blik-gateway/inc/services.php:40
+#: modules/worldline-blik-gateway/inc/services.php:40
+msgid "Accept payments with BLIK."
+msgstr ""
+
+#: modules.local/przelewy24-gateway/inc/fields.php:17
+#: modules/worldline-przelewy24-gateway/inc/fields.php:9
+msgid "Enable Przelewy24 (Worldline)"
+msgstr ""
+
+#: modules.local/przelewy24-gateway/inc/services.php:40
+#: modules/worldline-przelewy24-gateway/inc/services.php:40
+msgid "Accept payments with Przelewy24."
+msgstr ""
