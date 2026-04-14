@@ -12,18 +12,18 @@ interface ConnectionResponseInterface
     /**
      * @return int
      */
-    public function getHttpStatusCode();
+    public function getHttpStatusCode() : int;
     /**
      * @return array
      */
-    public function getHeaders();
+    public function getHeaders() : array;
     /**
      * @param string $name
      * @return mixed
      */
-    public function getHeaderValue($name);
+    public function getHeaderValue(string $name);
     /**
      * @return string
      */
-    public function getBody();
+    public function getBody() : string;
 }

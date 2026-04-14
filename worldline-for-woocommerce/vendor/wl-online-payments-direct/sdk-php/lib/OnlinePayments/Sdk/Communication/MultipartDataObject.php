@@ -13,7 +13,7 @@ abstract class MultipartDataObject
     /**
      * @return MultipartFormDataObject
      */
-    public abstract function toMultipartFormDataObject();
+    public abstract function toMultipartFormDataObject() : MultipartFormDataObject;
     public function __set($name, $value)
     {
         throw new Exception('Cannot add new property ' . $name . ' to instances of class ' . \get_class($this));

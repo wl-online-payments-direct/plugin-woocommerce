@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class PaymentProduct3203SpecificOutput extends DataObject
 {
     /**
-     * @var AddressPersonal
+     * @var AddressPersonal|null
      */
-    public $billingAddress = null;
+    public ?AddressPersonal $billingAddress = null;
     /**
-     * @var AddressPersonal
+     * @var AddressPersonal|null
      */
-    public $shippingAddress = null;
+    public ?AddressPersonal $shippingAddress = null;
     /**
-     * @return AddressPersonal
+     * @return AddressPersonal|null
      */
-    public function getBillingAddress()
+    public function getBillingAddress() : ?AddressPersonal
     {
         return $this->billingAddress;
     }
     /**
-     * @param AddressPersonal
+     * @param AddressPersonal|null $value
      */
-    public function setBillingAddress($value)
+    public function setBillingAddress(?AddressPersonal $value) : void
     {
         $this->billingAddress = $value;
     }
     /**
-     * @return AddressPersonal
+     * @return AddressPersonal|null
      */
-    public function getShippingAddress()
+    public function getShippingAddress() : ?AddressPersonal
     {
         return $this->shippingAddress;
     }
     /**
-     * @param AddressPersonal
+     * @param AddressPersonal|null $value
      */
-    public function setShippingAddress($value)
+    public function setShippingAddress(?AddressPersonal $value) : void
     {
         $this->shippingAddress = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->billingAddress)) {
@@ -66,7 +66,7 @@ class PaymentProduct3203SpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : PaymentProduct3203SpecificOutput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'billingAddress')) {

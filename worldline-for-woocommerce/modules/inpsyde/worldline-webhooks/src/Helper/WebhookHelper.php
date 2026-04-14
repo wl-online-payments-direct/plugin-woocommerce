@@ -108,4 +108,16 @@ class WebhookHelper
         }
         return $output->getAmountOfMoney();
     }
+    public static function cleanupId(?string $id) : ?string
+    {
+        if ($id === null) {
+            return null;
+        }
+        if (\str_contains($id, '_')) {
+            // ID like 9322370898_1
+            $parts = \explode('_', $id);
+            return $parts[0];
+        }
+        return \substr($id, 0, 10);
+    }
 }

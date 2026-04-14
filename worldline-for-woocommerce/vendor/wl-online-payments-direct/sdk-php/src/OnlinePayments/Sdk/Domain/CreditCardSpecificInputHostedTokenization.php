@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class CreditCardSpecificInputHostedTokenization extends DataObject
 {
     /**
-     * @var CreditCardValidationRulesHostedTokenization
+     * @var CreditCardValidationRules|null
      */
-    public $ValidationRules = null;
+    public ?CreditCardValidationRules $ValidationRules = null;
     /**
-     * @var int[]
+     * @var int[]|null
      */
-    public $paymentProductPreferredOrder = null;
+    public ?array $paymentProductPreferredOrder = null;
     /**
-     * @return CreditCardValidationRulesHostedTokenization
+     * @return CreditCardValidationRules|null
      */
-    public function getValidationRules()
+    public function getValidationRules() : ?CreditCardValidationRules
     {
         return $this->ValidationRules;
     }
     /**
-     * @param CreditCardValidationRulesHostedTokenization
+     * @param CreditCardValidationRules|null $value
      */
-    public function setValidationRules($value)
+    public function setValidationRules(?CreditCardValidationRules $value) : void
     {
         $this->ValidationRules = $value;
     }
     /**
-     * @return int[]
+     * @return int[]|null
      */
-    public function getPaymentProductPreferredOrder()
+    public function getPaymentProductPreferredOrder() : ?array
     {
         return $this->paymentProductPreferredOrder;
     }
     /**
-     * @param int[]
+     * @param int[]|null $value
      */
-    public function setPaymentProductPreferredOrder($value)
+    public function setPaymentProductPreferredOrder(?array $value) : void
     {
         $this->paymentProductPreferredOrder = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->ValidationRules)) {
@@ -71,14 +71,14 @@ class CreditCardSpecificInputHostedTokenization extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CreditCardSpecificInputHostedTokenization
     {
         parent::fromObject($object);
         if (\property_exists($object, 'ValidationRules')) {
             if (!\is_object($object->ValidationRules)) {
                 throw new UnexpectedValueException('value \'' . \print_r($object->ValidationRules, \true) . '\' is not an object');
             }
-            $value = new CreditCardValidationRulesHostedTokenization();
+            $value = new CreditCardValidationRules();
             $this->ValidationRules = $value->fromObject($object->ValidationRules);
         }
         if (\property_exists($object, 'paymentProductPreferredOrder')) {

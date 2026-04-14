@@ -14,17 +14,17 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 class IdempotenceException extends ResponseException
 {
     /** @var string */
-    private $idempotenceKey;
+    private string $idempotenceKey;
     /** @var string */
-    private $idempotenceRequestTimestamp;
+    private string $idempotenceRequestTimestamp;
     /**
      * @param int $httpStatusCode
      * @param DataObject $response
-     * @param string $message
+     * @param string|null $message
      * @param string $idempotenceKey
      * @param string $idempotenceRequestTimestamp;
      */
-    public function __construct($httpStatusCode, DataObject $response, $message = null, $idempotenceKey = '', $idempotenceRequestTimestamp = '')
+    public function __construct(int $httpStatusCode, DataObject $response, ?string $message = null, string $idempotenceKey = '', string $idempotenceRequestTimestamp = '')
     {
         if ($message == null) {
             $message = 'the payment platform returned a duplicate request error response';
@@ -36,14 +36,14 @@ class IdempotenceException extends ResponseException
     /**
      * @return string
      */
-    public function getIdempotenceKey()
+    public function getIdempotenceKey() : string
     {
         return $this->idempotenceKey;
     }
     /**
      * @return string
      */
-    public function getIdempotenceRequestTimestamp()
+    public function getIdempotenceRequestTimestamp() : string
     {
         return $this->idempotenceRequestTimestamp;
     }

@@ -8,31 +8,32 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
 use UnexpectedValueException;
 /**
  * @package OnlinePayments\Sdk\Domain
+ * @deprecated Deprecated, this is no longer used.
  */
 class RedirectPaymentProduct809SpecificInput extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $issuerId = null;
+    public ?string $issuerId = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIssuerId()
+    public function getIssuerId() : ?string
     {
         return $this->issuerId;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setIssuerId($value)
+    public function setIssuerId(?string $value) : void
     {
         $this->issuerId = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->issuerId)) {
@@ -45,7 +46,7 @@ class RedirectPaymentProduct809SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : RedirectPaymentProduct809SpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'issuerId')) {

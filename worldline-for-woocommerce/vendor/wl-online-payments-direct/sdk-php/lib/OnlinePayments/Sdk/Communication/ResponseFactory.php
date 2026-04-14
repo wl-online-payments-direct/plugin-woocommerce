@@ -18,7 +18,7 @@ class ResponseFactory
      * @param ResponseClassMap $responseClassMap
      * @return DataObject|null
      */
-    public function createResponse(ConnectionResponseInterface $response, ResponseClassMap $responseClassMap)
+    public function createResponse(ConnectionResponseInterface $response, ResponseClassMap $responseClassMap) : ?DataObject
     {
         try {
             return $this->getResponseObject($response, $responseClassMap);
@@ -31,17 +31,17 @@ class ResponseFactory
      * @param ResponseClassMap $responseClassMap
      * @return DataObject|null
      */
-    protected function getResponseObject(ConnectionResponseInterface $response, ResponseClassMap $responseClassMap)
+    protected function getResponseObject(ConnectionResponseInterface $response, ResponseClassMap $responseClassMap) : ?DataObject
     {
         $httpStatusCode = $response->getHttpStatusCode();
         if (!$httpStatusCode) {
             throw new UnexpectedValueException('HTTP status code is missing');
         }
         $contentType = $response->getHeaderValue('Content-Type');
-        if (!$contentType && $httpStatusCode !== 204) {
+        if (!$contentType && $httpStatusCode !== 204 && $httpStatusCode !== 202) {
             throw new UnexpectedValueException('Content type is missing or empty');
         }
-        if (!$this->isJsonContentType($contentType) && $httpStatusCode !== 204) {
+        if (!$this->isJsonContentType($contentType) && $httpStatusCode !== 204 && $httpStatusCode !== 202) {
             throw new UnexpectedValueException("Invalid content type; got '{$contentType}', expected '" . static::MIME_APPLICATION_JSON . "' or '" . static::MIME_APPLICATION_PROBLEM_JSON . "'");
         }
         $responseClassName = $responseClassMap->getResponseClassName($httpStatusCode);
@@ -60,7 +60,7 @@ class ResponseFactory
         }
         return $responseObject->fromJson($response->getBody());
     }
-    private function isJsonContentType($contentType)
+    private function isJsonContentType(string $contentType) : bool
     {
         return $contentType === static::MIME_APPLICATION_JSON || $contentType === static::MIME_APPLICATION_PROBLEM_JSON || \substr($contentType, 0, \strlen(static::MIME_APPLICATION_JSON)) === static::MIME_APPLICATION_JSON || \substr($contentType, 0, \strlen(static::MIME_APPLICATION_PROBLEM_JSON)) === static::MIME_APPLICATION_PROBLEM_JSON;
     }

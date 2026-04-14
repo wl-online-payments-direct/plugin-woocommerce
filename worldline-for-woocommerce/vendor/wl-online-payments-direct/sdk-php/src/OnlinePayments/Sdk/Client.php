@@ -13,16 +13,16 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClient;
 class Client extends ApiResource implements ClientInterface
 {
     /** @var CommunicatorInterface */
-    private $communicator;
+    private CommunicatorInterface $communicator;
     /** @var string */
-    private $clientMetaInfo;
+    private string $clientMetaInfo;
     /**
      * Construct a new Payment platform API client.
      *
      * @param CommunicatorInterface $communicator
      * @param string $clientMetaInfo
      */
-    public function __construct(CommunicatorInterface $communicator, $clientMetaInfo = '')
+    public function __construct(CommunicatorInterface $communicator, string $clientMetaInfo = '')
     {
         parent::__construct();
         $this->communicator = $communicator;
@@ -32,28 +32,28 @@ class Client extends ApiResource implements ClientInterface
     /**
      * @return CommunicatorInterface
      */
-    protected function getCommunicator()
+    protected function getCommunicator() : CommunicatorInterface
     {
         return $this->communicator;
     }
     /**
      * @inheritdoc
      */
-    public function enableLogging(CommunicatorLogger $communicatorLogger)
+    public function enableLogging(CommunicatorLogger $communicatorLogger) : void
     {
         $this->getCommunicator()->enableLogging($communicatorLogger);
     }
     /**
      * @inheritdoc
      */
-    public function disableLogging()
+    public function disableLogging() : void
     {
         $this->getCommunicator()->disableLogging();
     }
     /**
      * @inheritdoc
      */
-    public function setClientMetaInfo($clientMetaInfo)
+    public function setClientMetaInfo(string $clientMetaInfo) : ClientInterface
     {
         $this->clientMetaInfo = $clientMetaInfo ? \base64_encode($clientMetaInfo) : '';
         return $this;
@@ -61,14 +61,14 @@ class Client extends ApiResource implements ClientInterface
     /**
      * @return string
      */
-    protected function getClientMetaInfo()
+    protected function getClientMetaInfo() : string
     {
         return $this->clientMetaInfo;
     }
     /**
      * @inheritdoc
      */
-    public function merchant($merchantId)
+    public function merchant(string $merchantId) : MerchantClient
     {
         $newContext = $this->context;
         $newContext['merchantId'] = $merchantId;

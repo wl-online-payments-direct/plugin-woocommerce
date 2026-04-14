@@ -49,11 +49,15 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGatewa
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\WorldlinePaymentGatewayModule;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cancel\CancelProcessor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cancel\CancelValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Capture\CaptureProcessor;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Capture\CaptureValidator;
 return static function () : array {
     $moduleRoot = \dirname(__FILE__, 2);
     $config = (require \dirname(__FILE__, 5) . '/config.php');
     $gatewayId = GatewayIds::HOSTED_CHECKOUT;
-    return [
+    $services = [
         'worldline_payment_gateway.gateway' => new Factory([], static function () use($gatewayId) : PaymentGateway {
             if (!\did_action('plugins_loaded')) {
                 throw new \RuntimeException("Service 'worldline_payment_gateway.gateway' called too early.");
@@ -85,8 +89,12 @@ return static function () : array {
         "payment_gateway.{$gatewayId}.payment_processor" => new Factory(['worldline_payment_gateway.hosted_checkout_url_factory', 'worldline_payment_gateway.wc_order_factory', 'vaulting.repository.wc.tokens.' . GatewayIds::HOSTED_CHECKOUT, 'worldline_payment_gateway.hosted_checkout_language'], static function (HostedCheckoutUrlFactory $hostedCheckoutUrlFactory, WcOrderBasedOrderFactoryInterface $wcOrderBasedOrderFactory, WcTokenRepository $wcTokenRepository, ?string $hostedCheckoutLanguage) : HostedPaymentProcessor {
             return new HostedPaymentProcessor($hostedCheckoutUrlFactory, $wcOrderBasedOrderFactory, $wcTokenRepository, $hostedCheckoutLanguage);
         }),
-        "payment_gateway.{$gatewayId}.refund_processor" => new Constructor(RefundProcessor::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.refund_validator']),
+        "payment_gateway.worldline-for-woocommerce.refund_processor" => new Constructor(RefundProcessor::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.refund_validator']),
         'worldline_payment_gateway.refund_validator' => new Constructor(RefundValidator::class),
+        'worldline_payment_gateway.cancel_processor' => new Constructor(CancelProcessor::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.cancel_validator']),
+        'worldline_payment_gateway.cancel_validator' => new Constructor(CancelValidator::class),
+        'worldline_payment_gateway.capture_processor' => new Constructor(CaptureProcessor::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.amount_of_money_factory', 'worldline_payment_gateway.capture_validator']),
+        'worldline_payment_gateway.capture_validator' => new Constructor(CaptureValidator::class),
         "payment_gateway.{$gatewayId}.method_title" => static fn(): string => \__($config['GATEWAY_METHOD_TITLE'], 'worldline-for-woocommerce'),
         "payment_gateway.{$gatewayId}.title" => new Factory(['config.primary_gateway_title'], static function (string $customTitle) : string {
             if (!empty($customTitle)) {
@@ -203,4 +211,9 @@ return static function () : array {
             return null;
         },
     ];
+    foreach (GatewayIds::ALL as $id) {
+        $services["payment_gateway.{$id}.cancel_processor"] = new Alias('worldline_payment_gateway.cancel_processor');
+        $services["payment_gateway.{$id}.capture_processor"] = new Alias('worldline_payment_gateway.capture_processor');
+    }
+    return $services;
 };

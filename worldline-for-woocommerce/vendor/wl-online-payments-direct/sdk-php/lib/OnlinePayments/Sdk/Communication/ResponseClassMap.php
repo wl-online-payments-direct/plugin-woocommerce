@@ -10,17 +10,17 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 class ResponseClassMap
 {
     /** @var string */
-    public $defaultSuccessResponseClassName = '';
+    public string $defaultSuccessResponseClassName = '';
     /** @var string */
-    public $defaultErrorResponseClassName = '';
+    public string $defaultErrorResponseClassName = '';
     /** @var string[]  */
-    private $responseClassNamesByHttpStatusCode = array();
+    private array $responseClassNamesByHttpStatusCode = array();
     /**
      * @param int $httpStatusCode
      * @param string $responseClassName
      * @return $this
      */
-    public function addResponseClassName($httpStatusCode, $responseClassName)
+    public function addResponseClassName(int $httpStatusCode, string $responseClassName) : ResponseClassMap
     {
         $this->responseClassNamesByHttpStatusCode[$httpStatusCode] = $responseClassName;
         return $this;
@@ -29,7 +29,7 @@ class ResponseClassMap
      * @param int $httpStatusCode
      * @return string
      */
-    public function getResponseClassName($httpStatusCode)
+    public function getResponseClassName(int $httpStatusCode) : string
     {
         if (\array_key_exists($httpStatusCode, $this->responseClassNamesByHttpStatusCode)) {
             return $this->responseClassNamesByHttpStatusCode[$httpStatusCode];

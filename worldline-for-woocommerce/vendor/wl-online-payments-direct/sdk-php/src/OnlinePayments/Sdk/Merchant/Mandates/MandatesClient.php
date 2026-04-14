@@ -10,6 +10,9 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateMandateRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateMandateResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetMandateResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RevokeMandateRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * Mandates client.
@@ -17,11 +20,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class MandatesClient extends ApiResource implements MandatesClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function createMandate(CreateMandateRequest $body, CallContext $callContext = null)
+    public function createMandate(CreateMandateRequest $body, ?CallContext $callContext = null) : CreateMandateResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CreateMandateResponse';
@@ -35,7 +38,7 @@ class MandatesClient extends ApiResource implements MandatesClientInterface
     /**
      * @inheritdoc
      */
-    public function getMandate($uniqueMandateReference, CallContext $callContext = null)
+    public function getMandate(string $uniqueMandateReference, ?CallContext $callContext = null) : GetMandateResponse
     {
         $this->context['uniqueMandateReference'] = $uniqueMandateReference;
         $responseClassMap = new ResponseClassMap();
@@ -50,7 +53,7 @@ class MandatesClient extends ApiResource implements MandatesClientInterface
     /**
      * @inheritdoc
      */
-    public function blockMandate($uniqueMandateReference, CallContext $callContext = null)
+    public function blockMandate(string $uniqueMandateReference, ?CallContext $callContext = null) : GetMandateResponse
     {
         $this->context['uniqueMandateReference'] = $uniqueMandateReference;
         $responseClassMap = new ResponseClassMap();
@@ -65,7 +68,7 @@ class MandatesClient extends ApiResource implements MandatesClientInterface
     /**
      * @inheritdoc
      */
-    public function unblockMandate($uniqueMandateReference, CallContext $callContext = null)
+    public function unblockMandate(string $uniqueMandateReference, ?CallContext $callContext = null) : GetMandateResponse
     {
         $this->context['uniqueMandateReference'] = $uniqueMandateReference;
         $responseClassMap = new ResponseClassMap();
@@ -80,20 +83,20 @@ class MandatesClient extends ApiResource implements MandatesClientInterface
     /**
      * @inheritdoc
      */
-    public function revokeMandate($uniqueMandateReference, CallContext $callContext = null)
+    public function revokeMandate(string $uniqueMandateReference, RevokeMandateRequest $body, ?CallContext $callContext = null) : GetMandateResponse
     {
         $this->context['uniqueMandateReference'] = $uniqueMandateReference;
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\GetMandateResponse';
         $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
-            return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/mandates/{uniqueMandateReference}/revoke'), $this->getClientMetaInfo(), null, null, $callContext);
+            return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/mandates/{uniqueMandateReference}/revoke'), $this->getClientMetaInfo(), $body, null, $callContext);
         } catch (ErrorResponseException $e) {
             throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
         }
     }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

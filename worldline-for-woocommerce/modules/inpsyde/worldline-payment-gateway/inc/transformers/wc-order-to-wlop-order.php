@@ -57,14 +57,14 @@ return new Factory(['worldline_payment_gateway.amount_of_money_factory', 'worldl
         }
         if ($screenHeight !== null && $screenWidth !== null || $colorDepth !== null || $javaEnabled !== null) {
             $browserData = new BrowserData();
-            $browserData->setScreenHeight($screenHeight);
-            $browserData->setScreenWidth($screenWidth);
+            $browserData->setScreenHeight($screenHeight !== null ? (string) $screenHeight : null);
+            $browserData->setScreenWidth($screenWidth !== null ? (string) $screenWidth : null);
             $browserData->setColorDepth($colorDepth);
             $browserData->setJavaEnabled($javaEnabled);
             $customerDevice->setBrowserData($browserData);
         }
         if ($timezoneOffsetUtcMinutes !== null) {
-            $customerDevice->setTimezoneOffsetUtcMinutes($timezoneOffsetUtcMinutes);
+            $customerDevice->setTimezoneOffsetUtcMinutes((string) $timezoneOffsetUtcMinutes);
         }
         $customer->setDevice($customerDevice);
         $contact = new ContactDetails();

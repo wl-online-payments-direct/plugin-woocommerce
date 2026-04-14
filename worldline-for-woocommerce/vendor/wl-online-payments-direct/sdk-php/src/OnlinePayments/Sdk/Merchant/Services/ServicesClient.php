@@ -10,8 +10,12 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TestConnection;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * Services client.
@@ -19,11 +23,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class ServicesClient extends ApiResource implements ServicesClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function testConnection(CallContext $callContext = null)
+    public function testConnection(?CallContext $callContext = null) : TestConnection
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\TestConnection';
@@ -37,7 +41,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
     /**
      * @inheritdoc
      */
-    public function getIINDetails(GetIINDetailsRequest $body, CallContext $callContext = null)
+    public function getIINDetails(GetIINDetailsRequest $body, ?CallContext $callContext = null) : GetIINDetailsResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\GetIINDetailsResponse';
@@ -51,7 +55,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
     /**
      * @inheritdoc
      */
-    public function getDccRateInquiry(CurrencyConversionRequest $body, CallContext $callContext = null)
+    public function getDccRateInquiry(CurrencyConversionRequest $body, ?CallContext $callContext = null) : CurrencyConversionResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CurrencyConversionResponse';
@@ -65,7 +69,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
     /**
      * @inheritdoc
      */
-    public function surchargeCalculation(CalculateSurchargeRequest $body, CallContext $callContext = null)
+    public function surchargeCalculation(CalculateSurchargeRequest $body, ?CallContext $callContext = null) : CalculateSurchargeResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CalculateSurchargeResponse';
@@ -77,7 +81,7 @@ class ServicesClient extends ApiResource implements ServicesClientInterface
         }
     }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

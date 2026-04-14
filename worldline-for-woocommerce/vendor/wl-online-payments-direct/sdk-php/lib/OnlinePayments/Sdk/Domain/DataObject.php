@@ -16,7 +16,7 @@ abstract class DataObject
     /**
      * @return string
      */
-    public function toJson()
+    public function toJson() : string
     {
         return \json_encode($this->toObject());
     }
@@ -25,7 +25,7 @@ abstract class DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromJson($value)
+    public function fromJson(string $value) : DataObject
     {
         $object = JSONUtil::decode($value);
         return $this->fromObject($object);
@@ -33,7 +33,7 @@ abstract class DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         return new stdClass();
     }
@@ -42,7 +42,7 @@ abstract class DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : DataObject
     {
         if (!\is_object($object)) {
             throw new UnexpectedValueException('Expected object, got ' . \gettype($object));

@@ -174,6 +174,26 @@ class PaymentGateway extends WC_Payment_Gateway
         $refundProcessor->refundOrderPayment($order, $amount, $reason);
         return \true;
     }
+    public function process_cancel(int $orderId, float $amount) : void
+    {
+        $order = \wc_get_order($orderId);
+        if (!$order instanceof WC_Order) {
+            throw new Exception('Invalid order');
+        }
+        $cancelProcessor = $this->locate('cancel_processor');
+        \assert($cancelProcessor instanceof CancelProcessorInterface);
+        $cancelProcessor->cancelOrderAuthorization($order, $amount, \false);
+    }
+    public function process_capture(int $orderId, float $amount) : void
+    {
+        $order = \wc_get_order($orderId);
+        if (!$order instanceof WC_Order) {
+            throw new Exception('Invalid order');
+        }
+        $captureProcessor = $this->locate('capture_processor');
+        \assert($captureProcessor instanceof CaptureProcessorInterface);
+        $captureProcessor->captureOrderAuthorization($order, $amount, \false);
+    }
     /**
      * @inheritDoc
      */

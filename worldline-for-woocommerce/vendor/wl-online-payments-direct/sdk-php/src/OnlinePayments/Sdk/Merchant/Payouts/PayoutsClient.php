@@ -10,6 +10,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePayoutRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * Payouts client.
@@ -17,11 +18,25 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class PayoutsClient extends ApiResource implements PayoutsClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function getPayout($payoutId, CallContext $callContext = null)
+    public function createPayout(CreatePayoutRequest $body, ?CallContext $callContext = null) : PayoutResponse
+    {
+        $responseClassMap = new ResponseClassMap();
+        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PayoutResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PayoutErrorResponse';
+        try {
+            return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/payouts'), $this->getClientMetaInfo(), $body, null, $callContext);
+        } catch (ErrorResponseException $e) {
+            throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
+        }
+    }
+    /**
+     * @inheritdoc
+     */
+    public function getPayout(string $payoutId, ?CallContext $callContext = null) : PayoutResponse
     {
         $this->context['payoutId'] = $payoutId;
         $responseClassMap = new ResponseClassMap();
@@ -33,22 +48,8 @@ class PayoutsClient extends ApiResource implements PayoutsClientInterface
             throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
         }
     }
-    /**
-     * @inheritdoc
-     */
-    public function createPayout(CreatePayoutRequest $body, CallContext $callContext = null)
-    {
-        $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PayoutResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PayoutErrorResponse';
-        try {
-            return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/payouts'), $this->getClientMetaInfo(), $body, null, $callContext);
-        } catch (ErrorResponseException $e) {
-            throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
-        }
-    }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

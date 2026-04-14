@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class ProductDirectory extends DataObject
 {
     /**
-     * @var DirectoryEntry[]
+     * @var DirectoryEntry[]|null
      */
-    public $entries = null;
+    public ?array $entries = null;
     /**
-     * @return DirectoryEntry[]
+     * @return DirectoryEntry[]|null
      */
-    public function getEntries()
+    public function getEntries() : ?array
     {
         return $this->entries;
     }
     /**
-     * @param DirectoryEntry[]
+     * @param DirectoryEntry[]|null $value
      */
-    public function setEntries($value)
+    public function setEntries(?array $value) : void
     {
         $this->entries = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->entries)) {
@@ -50,7 +50,7 @@ class ProductDirectory extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : ProductDirectory
     {
         parent::fromObject($object);
         if (\property_exists($object, 'entries')) {

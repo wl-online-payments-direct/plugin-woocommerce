@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class SepaDirectDebitPaymentProduct771SpecificInput extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $existingUniqueMandateReference = null;
+    public ?string $existingUniqueMandateReference = null;
     /**
-     * @var CreateMandateWithReturnUrl
+     * @var CreateMandateWithReturnUrl|null
      */
-    public $mandate = null;
+    public ?CreateMandateWithReturnUrl $mandate = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getExistingUniqueMandateReference()
+    public function getExistingUniqueMandateReference() : ?string
     {
         return $this->existingUniqueMandateReference;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setExistingUniqueMandateReference($value)
+    public function setExistingUniqueMandateReference(?string $value) : void
     {
         $this->existingUniqueMandateReference = $value;
     }
     /**
-     * @return CreateMandateWithReturnUrl
+     * @return CreateMandateWithReturnUrl|null
      */
-    public function getMandate()
+    public function getMandate() : ?CreateMandateWithReturnUrl
     {
         return $this->mandate;
     }
     /**
-     * @param CreateMandateWithReturnUrl
+     * @param CreateMandateWithReturnUrl|null $value
      */
-    public function setMandate($value)
+    public function setMandate(?CreateMandateWithReturnUrl $value) : void
     {
         $this->mandate = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->existingUniqueMandateReference)) {
@@ -66,7 +66,7 @@ class SepaDirectDebitPaymentProduct771SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : SepaDirectDebitPaymentProduct771SpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'existingUniqueMandateReference')) {

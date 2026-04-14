@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class CreditCardValidationRulesHostedTokenization extends DataObject
 {
     /**
-     * @var bool
+     * @var bool|null
      */
-    public $cvvMandatoryForExistingToken = null;
+    public ?bool $cvvMandatoryForExistingToken = null;
     /**
-     * @var bool
+     * @var bool|null
      */
-    public $cvvMandatoryForNewToken = null;
+    public ?bool $cvvMandatoryForNewToken = null;
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getCvvMandatoryForExistingToken()
+    public function getCvvMandatoryForExistingToken() : ?bool
     {
         return $this->cvvMandatoryForExistingToken;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setCvvMandatoryForExistingToken($value)
+    public function setCvvMandatoryForExistingToken(?bool $value) : void
     {
         $this->cvvMandatoryForExistingToken = $value;
     }
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getCvvMandatoryForNewToken()
+    public function getCvvMandatoryForNewToken() : ?bool
     {
         return $this->cvvMandatoryForNewToken;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setCvvMandatoryForNewToken($value)
+    public function setCvvMandatoryForNewToken(?bool $value) : void
     {
         $this->cvvMandatoryForNewToken = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->cvvMandatoryForExistingToken)) {
@@ -66,7 +66,7 @@ class CreditCardValidationRulesHostedTokenization extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CreditCardValidationRulesHostedTokenization
     {
         parent::fromObject($object);
         if (\property_exists($object, 'cvvMandatoryForExistingToken')) {

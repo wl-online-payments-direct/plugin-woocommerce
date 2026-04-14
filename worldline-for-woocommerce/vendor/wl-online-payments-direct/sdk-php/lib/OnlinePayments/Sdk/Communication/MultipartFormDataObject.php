@@ -12,13 +12,13 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\UploadableFile;
 class MultipartFormDataObject
 {
     /** @var string */
-    private $boundary;
+    private string $boundary;
     /** @var string */
-    private $contentType;
+    private string $contentType;
     /** @var array */
-    private $values;
+    private array $values;
     /** @var array */
-    private $files;
+    private array $files;
     public function __construct()
     {
         $this->boundary = UuidGenerator::generatedUuid();
@@ -29,28 +29,28 @@ class MultipartFormDataObject
     /**
      * @return string
      */
-    public function getBoundary()
+    public function getBoundary() : string
     {
         return $this->boundary;
     }
     /**
      * @return string
      */
-    public function getContentType()
+    public function getContentType() : string
     {
         return $this->contentType;
     }
     /**
      * @return array
      */
-    public function getValues()
+    public function getValues() : array
     {
         return $this->values;
     }
     /**
      * @return array
      */
-    public function getFiles()
+    public function getFiles() : array
     {
         return $this->files;
     }
@@ -58,13 +58,10 @@ class MultipartFormDataObject
      * @param string $parameterName
      * @param string $value
      */
-    public function addValue($parameterName, $value)
+    public function addValue(string $parameterName, string $value) : void
     {
-        if (\is_null($parameterName) || \strlen(\trim($parameterName)) == 0) {
+        if (\strlen(\trim($parameterName)) == 0) {
             throw new UnexpectedValueException("boundary is required");
-        }
-        if (\is_null($value)) {
-            throw new UnexpectedValueException("value is required");
         }
         if (\array_key_exists($parameterName, $this->values) || \array_key_exists($parameterName, $this->files)) {
             throw new UnexpectedValueException('Duplicate parameter name: ' . $parameterName);
@@ -75,9 +72,9 @@ class MultipartFormDataObject
      * @param string $parameterName
      * @param UploadableFile $file
      */
-    public function addFile($parameterName, UploadableFile $file)
+    public function addFile(string $parameterName, UploadableFile $file) : void
     {
-        if (\is_null($parameterName) || \strlen(\trim($parameterName)) == 0) {
+        if (\strlen(\trim($parameterName)) == 0) {
             throw new UnexpectedValueException("boundary is required");
         }
         if (\array_key_exists($parameterName, $this->values) || \array_key_exists($parameterName, $this->files)) {

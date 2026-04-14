@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class PersonalInformationToken extends DataObject
 {
     /**
-     * @var PersonalNameToken
+     * @var PersonalNameToken|null
      */
-    public $name = null;
+    public ?PersonalNameToken $name = null;
     /**
-     * @return PersonalNameToken
+     * @return PersonalNameToken|null
      */
-    public function getName()
+    public function getName() : ?PersonalNameToken
     {
         return $this->name;
     }
     /**
-     * @param PersonalNameToken
+     * @param PersonalNameToken|null $value
      */
-    public function setName($value)
+    public function setName(?PersonalNameToken $value) : void
     {
         $this->name = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->name)) {
@@ -45,7 +45,7 @@ class PersonalInformationToken extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : PersonalInformationToken
     {
         parent::fromObject($object);
         if (\property_exists($object, 'name')) {

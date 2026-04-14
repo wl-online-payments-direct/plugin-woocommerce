@@ -12,81 +12,99 @@ use UnexpectedValueException;
 class CapturePaymentRequest extends DataObject
 {
     /**
-     * @var int
+     * @var int|null
      */
-    public $amount = null;
+    public ?int $amount = null;
     /**
-     * @var bool
+     * @var bool|null
      */
-    public $isFinal = null;
+    public ?bool $isFinal = null;
     /**
-     * @var OperationPaymentReferences
+     * @var LineItemDetail[]|null
      */
-    public $operationReferences = null;
+    public ?array $lineItemDetails = null;
     /**
-     * @var PaymentReferences
+     * @var OperationPaymentReferences|null
      */
-    public $references = null;
+    public ?OperationPaymentReferences $operationReferences = null;
     /**
-     * @return int
+     * @var PaymentReferences|null
      */
-    public function getAmount()
+    public ?PaymentReferences $references = null;
+    /**
+     * @return int|null
+     */
+    public function getAmount() : ?int
     {
         return $this->amount;
     }
     /**
-     * @param int
+     * @param int|null $value
      */
-    public function setAmount($value)
+    public function setAmount(?int $value) : void
     {
         $this->amount = $value;
     }
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsFinal()
+    public function getIsFinal() : ?bool
     {
         return $this->isFinal;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setIsFinal($value)
+    public function setIsFinal(?bool $value) : void
     {
         $this->isFinal = $value;
     }
     /**
-     * @return OperationPaymentReferences
+     * @return LineItemDetail[]|null
      */
-    public function getOperationReferences()
+    public function getLineItemDetails() : ?array
+    {
+        return $this->lineItemDetails;
+    }
+    /**
+     * @param LineItemDetail[]|null $value
+     */
+    public function setLineItemDetails(?array $value) : void
+    {
+        $this->lineItemDetails = $value;
+    }
+    /**
+     * @return OperationPaymentReferences|null
+     */
+    public function getOperationReferences() : ?OperationPaymentReferences
     {
         return $this->operationReferences;
     }
     /**
-     * @param OperationPaymentReferences
+     * @param OperationPaymentReferences|null $value
      */
-    public function setOperationReferences($value)
+    public function setOperationReferences(?OperationPaymentReferences $value) : void
     {
         $this->operationReferences = $value;
     }
     /**
-     * @return PaymentReferences
+     * @return PaymentReferences|null
      */
-    public function getReferences()
+    public function getReferences() : ?PaymentReferences
     {
         return $this->references;
     }
     /**
-     * @param PaymentReferences
+     * @param PaymentReferences|null $value
      */
-    public function setReferences($value)
+    public function setReferences(?PaymentReferences $value) : void
     {
         $this->references = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->amount)) {
@@ -94,6 +112,14 @@ class CapturePaymentRequest extends DataObject
         }
         if (!\is_null($this->isFinal)) {
             $object->isFinal = $this->isFinal;
+        }
+        if (!\is_null($this->lineItemDetails)) {
+            $object->lineItemDetails = [];
+            foreach ($this->lineItemDetails as $element) {
+                if (!\is_null($element)) {
+                    $object->lineItemDetails[] = $element->toObject();
+                }
+            }
         }
         if (!\is_null($this->operationReferences)) {
             $object->operationReferences = $this->operationReferences->toObject();
@@ -108,7 +134,7 @@ class CapturePaymentRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CapturePaymentRequest
     {
         parent::fromObject($object);
         if (\property_exists($object, 'amount')) {
@@ -116,6 +142,16 @@ class CapturePaymentRequest extends DataObject
         }
         if (\property_exists($object, 'isFinal')) {
             $this->isFinal = $object->isFinal;
+        }
+        if (\property_exists($object, 'lineItemDetails')) {
+            if (!\is_array($object->lineItemDetails) && !\is_object($object->lineItemDetails)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->lineItemDetails, \true) . '\' is not an array or object');
+            }
+            $this->lineItemDetails = [];
+            foreach ($object->lineItemDetails as $element) {
+                $value = new LineItemDetail();
+                $this->lineItemDetails[] = $value->fromObject($element);
+            }
         }
         if (\property_exists($object, 'operationReferences')) {
             if (!\is_object($object->operationReferences)) {

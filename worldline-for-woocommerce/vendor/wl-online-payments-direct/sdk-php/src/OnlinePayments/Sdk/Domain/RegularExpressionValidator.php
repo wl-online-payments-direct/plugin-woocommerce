@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class RegularExpressionValidator extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $regularExpression = null;
+    public ?string $regularExpression = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRegularExpression()
+    public function getRegularExpression() : ?string
     {
         return $this->regularExpression;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setRegularExpression($value)
+    public function setRegularExpression(?string $value) : void
     {
         $this->regularExpression = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->regularExpression)) {
@@ -45,7 +45,7 @@ class RegularExpressionValidator extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : RegularExpressionValidator
     {
         parent::fromObject($object);
         if (\property_exists($object, 'regularExpression')) {

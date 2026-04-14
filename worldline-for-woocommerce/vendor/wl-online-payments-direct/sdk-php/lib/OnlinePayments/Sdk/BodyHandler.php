@@ -12,13 +12,13 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
 class BodyHandler
 {
     /** @var bool */
-    private $initialized = \false;
+    private bool $initialized = \false;
     /**
      * Initializes this body handler if not done yet, then calls doHandleBodyPart.
      * @param string $bodyPart
      * @param array $headers
      */
-    public final function handleBodyPart($bodyPart, $headers)
+    public final function handleBodyPart(string $bodyPart, array $headers) : void
     {
         if (!$this->initialized) {
             $this->initialize($headers);
@@ -30,7 +30,7 @@ class BodyHandler
      * Calls doCleanup, then marks this body handler as not initialized.
      * Afterwards this instance can be reused again.
      */
-    public final function close()
+    public final function close() : void
     {
         $this->doCleanup();
         $this->initialized = \false;
@@ -40,7 +40,7 @@ class BodyHandler
      * The default implementation does nothing.
      * @param array $headers
      */
-    protected function initialize($headers)
+    protected function initialize(array $headers) : void
     {
     }
     /**
@@ -48,14 +48,14 @@ class BodyHandler
      * The default implementation does nothing.
      * @param string $bodyPart
      */
-    protected function doHandleBodyPart($bodyPart)
+    protected function doHandleBodyPart(string $bodyPart) : void
     {
     }
     /**
      * Can be used to do cleanup resources allocated by this body handler.
      * The default implementation does nothing.
      */
-    protected function doCleanup()
+    protected function doCleanup() : void
     {
     }
 }

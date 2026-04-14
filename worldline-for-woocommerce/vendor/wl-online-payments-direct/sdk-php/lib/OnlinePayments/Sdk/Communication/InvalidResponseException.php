@@ -13,12 +13,12 @@ class InvalidResponseException extends RuntimeException
     /**
      * @var ConnectionResponseInterface
      */
-    private $response;
+    private ConnectionResponse $response;
     /**
      * @param ConnectionResponseInterface $response
      * @param string|null $message
      */
-    public function __construct(ConnectionResponseInterface $response, $message = null)
+    public function __construct(ConnectionResponseInterface $response, ?string $message = null)
     {
         if (\is_null($message)) {
             $message = 'The server returned an invalid response.';
@@ -29,7 +29,7 @@ class InvalidResponseException extends RuntimeException
     /**
      * @return ConnectionResponseInterface
      */
-    public function getResponse()
+    public function getResponse() : ConnectionResponse
     {
         return $this->response;
     }

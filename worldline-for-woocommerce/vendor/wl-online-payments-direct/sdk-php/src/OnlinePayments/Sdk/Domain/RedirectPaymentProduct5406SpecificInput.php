@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class RedirectPaymentProduct5406SpecificInput extends DataObject
 {
     /**
-     * @var CustomerBankAccount
+     * @var CustomerBankAccount|null
      */
-    public $customerBankAccount = null;
+    public ?CustomerBankAccount $customerBankAccount = null;
     /**
-     * @return CustomerBankAccount
+     * @return CustomerBankAccount|null
      */
-    public function getCustomerBankAccount()
+    public function getCustomerBankAccount() : ?CustomerBankAccount
     {
         return $this->customerBankAccount;
     }
     /**
-     * @param CustomerBankAccount
+     * @param CustomerBankAccount|null $value
      */
-    public function setCustomerBankAccount($value)
+    public function setCustomerBankAccount(?CustomerBankAccount $value) : void
     {
         $this->customerBankAccount = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->customerBankAccount)) {
@@ -45,7 +45,7 @@ class RedirectPaymentProduct5406SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : RedirectPaymentProduct5406SpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'customerBankAccount')) {

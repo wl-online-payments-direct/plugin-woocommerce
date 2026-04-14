@@ -10,6 +10,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CompletePaymentResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * Complete client.
@@ -17,11 +18,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class CompleteClient extends ApiResource implements CompleteClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function completePayment($paymentId, CompletePaymentRequest $body, CallContext $callContext = null)
+    public function completePayment(string $paymentId, CompletePaymentRequest $body, ?CallContext $callContext = null) : CompletePaymentResponse
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
@@ -34,7 +35,7 @@ class CompleteClient extends ApiResource implements CompleteClientInterface
         }
     }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

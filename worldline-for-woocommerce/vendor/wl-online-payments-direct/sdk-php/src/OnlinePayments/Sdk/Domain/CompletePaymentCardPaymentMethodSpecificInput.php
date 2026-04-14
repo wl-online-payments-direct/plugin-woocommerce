@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class CompletePaymentCardPaymentMethodSpecificInput extends DataObject
 {
     /**
-     * @var CardWithoutCvv
+     * @var CardWithoutCvv|null
      */
-    public $card = null;
+    public ?CardWithoutCvv $card = null;
     /**
-     * @return CardWithoutCvv
+     * @return CardWithoutCvv|null
      */
-    public function getCard()
+    public function getCard() : ?CardWithoutCvv
     {
         return $this->card;
     }
     /**
-     * @param CardWithoutCvv
+     * @param CardWithoutCvv|null $value
      */
-    public function setCard($value)
+    public function setCard(?CardWithoutCvv $value) : void
     {
         $this->card = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->card)) {
@@ -45,7 +45,7 @@ class CompletePaymentCardPaymentMethodSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CompletePaymentCardPaymentMethodSpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'card')) {

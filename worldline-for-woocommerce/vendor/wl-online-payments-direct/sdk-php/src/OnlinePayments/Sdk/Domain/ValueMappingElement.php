@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class ValueMappingElement extends DataObject
 {
     /**
-     * @var PaymentProductFieldDisplayElement[]
+     * @var PaymentProductFieldDisplayElement[]|null
      */
-    public $displayElements = null;
+    public ?array $displayElements = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $value = null;
+    public ?string $value = null;
     /**
-     * @return PaymentProductFieldDisplayElement[]
+     * @return PaymentProductFieldDisplayElement[]|null
      */
-    public function getDisplayElements()
+    public function getDisplayElements() : ?array
     {
         return $this->displayElements;
     }
     /**
-     * @param PaymentProductFieldDisplayElement[]
+     * @param PaymentProductFieldDisplayElement[]|null $value
      */
-    public function setDisplayElements($value)
+    public function setDisplayElements(?array $value) : void
     {
         $this->displayElements = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getValue()
+    public function getValue() : ?string
     {
         return $this->value;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setValue($value)
+    public function setValue(?string $value) : void
     {
         $this->value = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->displayElements)) {
@@ -71,7 +71,7 @@ class ValueMappingElement extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : ValueMappingElement
     {
         parent::fromObject($object);
         if (\property_exists($object, 'displayElements')) {

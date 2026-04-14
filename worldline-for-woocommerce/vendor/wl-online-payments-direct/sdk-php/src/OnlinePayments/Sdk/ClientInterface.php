@@ -15,21 +15,21 @@ interface ClientInterface
     /**
      * @param CommunicatorLogger $communicatorLogger
      */
-    function enableLogging(CommunicatorLogger $communicatorLogger);
+    function enableLogging(CommunicatorLogger $communicatorLogger) : void;
     /**
      * @return void
      */
-    function disableLogging();
+    function disableLogging() : void;
     /**
      * @param string $clientMetaInfo
      * @return $this
      */
-    function setClientMetaInfo($clientMetaInfo);
+    function setClientMetaInfo(string $clientMetaInfo) : ClientInterface;
     /**
      * Resource /v2/{merchantId}
      *
      * @param string $merchantId
      * @return MerchantClientInterface
      */
-    function merchant($merchantId);
+    function merchant(string $merchantId) : MerchantClientInterface;
 }

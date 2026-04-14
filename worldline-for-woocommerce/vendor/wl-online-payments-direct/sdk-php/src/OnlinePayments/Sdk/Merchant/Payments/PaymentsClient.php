@@ -10,10 +10,15 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CancelPaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CancelPaymentResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CapturePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CaptureResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SubsequentPaymentRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * Payments client.
@@ -21,11 +26,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class PaymentsClient extends ApiResource implements PaymentsClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function createPayment(CreatePaymentRequest $body, CallContext $callContext = null)
+    public function createPayment(CreatePaymentRequest $body, ?CallContext $callContext = null) : CreatePaymentResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CreatePaymentResponse';
@@ -39,7 +44,7 @@ class PaymentsClient extends ApiResource implements PaymentsClientInterface
     /**
      * @inheritdoc
      */
-    public function getPayment($paymentId, CallContext $callContext = null)
+    public function getPayment(string $paymentId, ?CallContext $callContext = null) : PaymentResponse
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
@@ -54,7 +59,7 @@ class PaymentsClient extends ApiResource implements PaymentsClientInterface
     /**
      * @inheritdoc
      */
-    public function getPaymentDetails($paymentId, CallContext $callContext = null)
+    public function getPaymentDetails(string $paymentId, ?CallContext $callContext = null) : PaymentDetailsResponse
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
@@ -69,7 +74,7 @@ class PaymentsClient extends ApiResource implements PaymentsClientInterface
     /**
      * @inheritdoc
      */
-    public function cancelPayment($paymentId, CancelPaymentRequest $body, CallContext $callContext = null)
+    public function cancelPayment(string $paymentId, CancelPaymentRequest $body, ?CallContext $callContext = null) : CancelPaymentResponse
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
@@ -84,7 +89,7 @@ class PaymentsClient extends ApiResource implements PaymentsClientInterface
     /**
      * @inheritdoc
      */
-    public function capturePayment($paymentId, CapturePaymentRequest $body, CallContext $callContext = null)
+    public function capturePayment(string $paymentId, CapturePaymentRequest $body, ?CallContext $callContext = null) : CaptureResponse
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
@@ -99,7 +104,7 @@ class PaymentsClient extends ApiResource implements PaymentsClientInterface
     /**
      * @inheritdoc
      */
-    public function refundPayment($paymentId, RefundRequest $body, CallContext $callContext = null)
+    public function refundPayment(string $paymentId, RefundRequest $body, ?CallContext $callContext = null) : RefundResponse
     {
         $this->context['paymentId'] = $paymentId;
         $responseClassMap = new ResponseClassMap();
@@ -111,23 +116,8 @@ class PaymentsClient extends ApiResource implements PaymentsClientInterface
             throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
         }
     }
-    /**
-     * @inheritdoc
-     */
-    public function subsequentPayment($paymentId, SubsequentPaymentRequest $body, CallContext $callContext = null)
-    {
-        $this->context['paymentId'] = $paymentId;
-        $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SubsequentPaymentResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentErrorResponse';
-        try {
-            return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/payments/{paymentId}/subsequent'), $this->getClientMetaInfo(), $body, null, $callContext);
-        } catch (ErrorResponseException $e) {
-            throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
-        }
-    }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

@@ -134,6 +134,16 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.14 - 2026-03-30
+* Added: Support of Illicado payment method
+* Added: Support of Wero payment method
+* Fixed: Cancel webhook cancelling orders with a different transaction ID
+* Fixed: Remove handling of canceled payment from the refund flow
+
+### 2.5.13 - 2026-03-17
+* Added: Possibility to cancel partially or fully authorized transactions
+* Added: Possibility to capture partially authorized transactions
+
 ### 2.5.12 - 2026-03-09
 * Added: Support of payment method “Blik”
 * Added: Support of payment method “Przelewy24”

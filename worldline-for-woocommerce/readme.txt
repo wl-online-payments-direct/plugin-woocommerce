@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.5.12
+Stable tag: 2.5.14
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,16 @@ If you encounter any issues with the plugin or its functions after an update, pu
 If that doesn’t solve the problem, create a thread on the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or contact our support team through [this form](https://docs.direct.worldline-solutions.com/en/about/contact/).
 
 == Changelog ==
+
+= 2.5.14 - 2026-03-30 =
+* Added: Support of Illicado payment method
+* Added: Support of Wero payment method
+* Fixed: Cancel webhook cancelling orders with a different transaction ID
+* Fixed: Remove handling of canceled payment from the refund flow
+
+= 2.5.13 - 2026-03-17 =
+* Added: Possibility to cancel partially or fully authorized transactions
+* Added: Possibility to capture partially authorized transactions
 
 = 2.5.12 - 2026-03-09 =
 * Added: Support of payment method “Blik”

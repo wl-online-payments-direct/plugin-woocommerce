@@ -37,9 +37,7 @@ class RefundProcessor implements RefundProcessorInterface
         $amountOfMoney = $this->amountOfMoneyFactory->create(new WcPriceStruct((string) $amount, $currency));
         try {
             // phpcs:disable Inpsyde.CodeQuality.NoElse.ElseFound
-            if ($this->refundValidator->canCancelAuthorization($wcOrder)) {
-                $this->handleCancellation((string) $transactionId, $amountOfMoney);
-            } elseif ($this->refundValidator->canRefund($wcOrder)) {
+            if ($this->refundValidator->canRefund($wcOrder)) {
                 $this->handleRefund((string) $transactionId, $amountOfMoney);
             } else {
                 throw new Exception(\__("This order doesn't meet the requirements to issue a refund.", 'worldline-for-woocommerce'));

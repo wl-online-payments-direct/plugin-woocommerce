@@ -14,6 +14,7 @@ use Syde\Vendor\Worldline\Dhii\Versions\StringVersionFactory;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\PluginProperties;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\Properties;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Admin\CancelAuthorizationUi;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLink;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentFactory;
@@ -22,6 +23,7 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironm
 use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 use Syde\Vendor\Worldline\Psr\Http\Message\UriFactoryInterface;
 use Syde\Vendor\Worldline\Psr\Http\Message\UriInterface;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Admin\CaptureAuthorizationUi;
 return static function (string $rootPath) : array {
     $config = (require __DIR__ . '/../config.php');
     return ['assets.get_module_asset_url' => new Factory([Package::PROPERTIES], static function (PluginProperties $props) : callable {
@@ -122,5 +124,9 @@ return static function (string $rootPath) : array {
         return \wc_get_logger();
     }, 'core.is_debug_logging_enabled' => new Alias('config.debug_logging'), 'core.is_logging_enabled' => new Factory(['core.is_debug_logging_enabled'], static function (bool $debugLogging) : bool {
         return $debugLogging || \apply_filters('wlop.logging_enabled', \true);
-    })];
+    }), 'core.admin.cancel_authorization_ui' => static function () : CancelAuthorizationUi {
+        return new CancelAuthorizationUi();
+    }, 'core.admin.capture_authorization_ui' => static function () : CaptureAuthorizationUi {
+        return new CaptureAuthorizationUi();
+    }];
 };

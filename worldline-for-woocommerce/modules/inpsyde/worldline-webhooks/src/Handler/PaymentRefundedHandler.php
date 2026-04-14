@@ -31,12 +31,17 @@ class PaymentRefundedHandler implements WebhookHandlerInterface
     public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : void
     {
         if ($webhook->type === 'payment.cancelled') {
-            // cancelled during checkout
-            if ($wlopWcOrder->statusCode() === 1 || WebhookHelper::statusCode($webhook) === 1) {
+            $webhookPayIdPrefix = WebhookHelper::cleanupId(WebhookHelper::transactionId($webhook));
+            $orderPayIdPrefix = WebhookHelper::cleanupId($wlopWcOrder->transactionId());
+            if ($wlopWcOrder->statusCode() === 1 || WebhookHelper::statusCode($webhook) === 1 || $webhookPayIdPrefix && $orderPayIdPrefix && $webhookPayIdPrefix !== $orderPayIdPrefix) {
                 return;
             }
         }
         try {
+            if ($webhook->type === 'payment.cancelled') {
+                $this->issueCancelled($webhook, $wlopWcOrder);
+                return;
+            }
             $this->issueRefund($webhook, $wlopWcOrder);
         } catch (\Throwable $exception) {
             /* translators: 1 Worldline transaction ID */
@@ -123,6 +128,20 @@ class PaymentRefundedHandler implements WebhookHandlerInterface
     /**
      * @throws Exception
      */
+    protected function issueCancelled(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : void
+    {
+        $refundAmountOfMoney = WebhookHelper::paymentRefundedAmount($webhook);
+        if (\is_null($refundAmountOfMoney)) {
+            throw new Exception('Cancel amount does not exist in the received webhook object.');
+        }
+        $refundValue = $this->moneyAmountConverter->centValueToDecimalValue($refundAmountOfMoney->getAmount(), $refundAmountOfMoney->getCurrencyCode());
+        $wlopWcOrder->addWorldlineOrderNote(\sprintf(
+            /* translators: 1 Amount of money */
+            \__('%s was cancelled.', 'worldline-for-woocommerce'),
+            \wc_price($refundValue)
+        ));
+        $wlopWcOrder->order()->save();
+    }
     protected function issueRefund(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : void
     {
         $refundAmountOfMoney = WebhookHelper::paymentRefundedAmount($webhook);
@@ -135,14 +154,8 @@ class PaymentRefundedHandler implements WebhookHandlerInterface
         if ($refund instanceof \WP_Error) {
             throw new Exception(' Amount: ' . (string) $refundValue . ', ' . $refund->get_error_message());
         }
-        $note = '';
-        if ($webhook->type === 'payment.refunded') {
-            /* translators: 1 Amount of money */
-            $note = \__('%s was refunded.', 'worldline-for-woocommerce');
-        } elseif ($webhook->type === 'payment.cancelled') {
-            /* translators: 1 Amount of money */
-            $note = \__('%s was cancelled.', 'worldline-for-woocommerce');
-        }
+        /* translators: 1 Amount of money */
+        $note = \__('%s was refunded.', 'worldline-for-woocommerce');
         $wlopWcOrder->addWorldlineOrderNote(\sprintf($note, \wc_price($refundValue)));
         $wlopWcOrder->order()->save();
         \do_action('wlop.refund_wc_success', ['orderId' => $wlopWcOrder->order()->get_id(), 'amount' => $this->moneyAmountConverter->centValueToDecimalValue($refundAmountOfMoney->getAmount(), $refundAmountOfMoney->getCurrencyCode())]);

@@ -12,355 +12,493 @@ use UnexpectedValueException;
 class RedirectPaymentMethodSpecificInput extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $paymentOption = null;
+    public ?string $paymentOption = null;
     /**
-     * @var RedirectPaymentProduct3203SpecificInput
+     * @var RedirectPaymentProduct11SpecificInput|null
      */
-    public $paymentProduct3203SpecificInput = null;
+    public ?RedirectPaymentProduct11SpecificInput $paymentProduct11SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct3204SpecificInput
+     * @var RedirectPaymentProduct3103SpecificInput|null
      */
-    public $paymentProduct3204SpecificInput = null;
+    public ?RedirectPaymentProduct3103SpecificInput $paymentProduct3103SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct3302SpecificInput
+     * @var RedirectPaymentProduct3112SpecificInput|null
      */
-    public $paymentProduct3302SpecificInput = null;
+    public ?RedirectPaymentProduct3112SpecificInput $paymentProduct3112SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct3306SpecificInput
+     * @var RedirectPaymentProduct3116SpecificInput|null
      */
-    public $paymentProduct3306SpecificInput = null;
+    public ?RedirectPaymentProduct3116SpecificInput $paymentProduct3116SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct5001SpecificInput
+     * @var RedirectPaymentProduct3203SpecificInput|null
      */
-    public $paymentProduct5001SpecificInput = null;
+    public ?RedirectPaymentProduct3203SpecificInput $paymentProduct3203SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct5300SpecificInput
+     * @var RedirectPaymentProduct3204SpecificInput|null
      */
-    public $paymentProduct5300SpecificInput = null;
+    public ?RedirectPaymentProduct3204SpecificInput $paymentProduct3204SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct5402SpecificInput
+     * @var RedirectPaymentProduct3302SpecificInput|null
      */
-    public $paymentProduct5402SpecificInput = null;
+    public ?RedirectPaymentProduct3302SpecificInput $paymentProduct3302SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct5403SpecificInput
+     * @var RedirectPaymentProduct3306SpecificInput|null
      */
-    public $paymentProduct5403SpecificInput = null;
+    public ?RedirectPaymentProduct3306SpecificInput $paymentProduct3306SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct5406SpecificInput
+     * @var RedirectPaymentProduct3307SpecificInput|null
      */
-    public $paymentProduct5406SpecificInput = null;
+    public ?RedirectPaymentProduct3307SpecificInput $paymentProduct3307SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct5408SpecificInput
+     * @var RedirectPaymentProduct5001SpecificInput|null
      */
-    public $paymentProduct5408SpecificInput = null;
+    public ?RedirectPaymentProduct5001SpecificInput $paymentProduct5001SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct5410SpecificInput
+     * @var RedirectPaymentProduct5300SpecificInput|null
      */
-    public $paymentProduct5410SpecificInput = null;
+    public ?RedirectPaymentProduct5300SpecificInput $paymentProduct5300SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct809SpecificInput
+     * @var RedirectPaymentProduct5402SpecificInput|null
      */
-    public $paymentProduct809SpecificInput = null;
+    public ?RedirectPaymentProduct5402SpecificInput $paymentProduct5402SpecificInput = null;
     /**
-     * @var RedirectPaymentProduct840SpecificInput
+     * @var RedirectPaymentProduct5403SpecificInput|null
      */
-    public $paymentProduct840SpecificInput = null;
+    public ?RedirectPaymentProduct5403SpecificInput $paymentProduct5403SpecificInput = null;
     /**
-     * @var int
+     * @var RedirectPaymentProduct5406SpecificInput|null
      */
-    public $paymentProductId = null;
+    public ?RedirectPaymentProduct5406SpecificInput $paymentProduct5406SpecificInput = null;
     /**
-     * @var RedirectionData
+     * @var RedirectPaymentProduct5408SpecificInput|null
      */
-    public $redirectionData = null;
+    public ?RedirectPaymentProduct5408SpecificInput $paymentProduct5408SpecificInput = null;
     /**
-     * @var bool
+     * @var RedirectPaymentProduct5410SpecificInput|null
      */
-    public $requiresApproval = null;
+    public ?RedirectPaymentProduct5410SpecificInput $paymentProduct5410SpecificInput = null;
     /**
-     * @var string
+     * @var RedirectPaymentProduct5412SpecificInput|null
      */
-    public $token = null;
+    public ?RedirectPaymentProduct5412SpecificInput $paymentProduct5412SpecificInput = null;
     /**
-     * @var bool
+     * @var RedirectPaymentProduct5601SpecificInput|null
      */
-    public $tokenize = null;
+    public ?RedirectPaymentProduct5601SpecificInput $paymentProduct5601SpecificInput = null;
     /**
-     * @return string
+     * @var RedirectPaymentProduct809SpecificInput|null
      */
-    public function getPaymentOption()
+    public ?RedirectPaymentProduct809SpecificInput $paymentProduct809SpecificInput = null;
+    /**
+     * @var RedirectPaymentProduct840SpecificInput|null
+     */
+    public ?RedirectPaymentProduct840SpecificInput $paymentProduct840SpecificInput = null;
+    /**
+     * @var int|null
+     */
+    public ?int $paymentProductId = null;
+    /**
+     * @var RedirectionData|null
+     */
+    public ?RedirectionData $redirectionData = null;
+    /**
+     * @var bool|null
+     */
+    public ?bool $requiresApproval = null;
+    /**
+     * @var string|null
+     */
+    public ?string $token = null;
+    /**
+     * @var bool|null
+     */
+    public ?bool $tokenize = null;
+    /**
+     * @return string|null
+     */
+    public function getPaymentOption() : ?string
     {
         return $this->paymentOption;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setPaymentOption($value)
+    public function setPaymentOption(?string $value) : void
     {
         $this->paymentOption = $value;
     }
     /**
-     * @return RedirectPaymentProduct3203SpecificInput
+     * @return RedirectPaymentProduct11SpecificInput|null
      */
-    public function getPaymentProduct3203SpecificInput()
+    public function getPaymentProduct11SpecificInput() : ?RedirectPaymentProduct11SpecificInput
+    {
+        return $this->paymentProduct11SpecificInput;
+    }
+    /**
+     * @param RedirectPaymentProduct11SpecificInput|null $value
+     */
+    public function setPaymentProduct11SpecificInput(?RedirectPaymentProduct11SpecificInput $value) : void
+    {
+        $this->paymentProduct11SpecificInput = $value;
+    }
+    /**
+     * @return RedirectPaymentProduct3103SpecificInput|null
+     */
+    public function getPaymentProduct3103SpecificInput() : ?RedirectPaymentProduct3103SpecificInput
+    {
+        return $this->paymentProduct3103SpecificInput;
+    }
+    /**
+     * @param RedirectPaymentProduct3103SpecificInput|null $value
+     */
+    public function setPaymentProduct3103SpecificInput(?RedirectPaymentProduct3103SpecificInput $value) : void
+    {
+        $this->paymentProduct3103SpecificInput = $value;
+    }
+    /**
+     * @return RedirectPaymentProduct3112SpecificInput|null
+     */
+    public function getPaymentProduct3112SpecificInput() : ?RedirectPaymentProduct3112SpecificInput
+    {
+        return $this->paymentProduct3112SpecificInput;
+    }
+    /**
+     * @param RedirectPaymentProduct3112SpecificInput|null $value
+     */
+    public function setPaymentProduct3112SpecificInput(?RedirectPaymentProduct3112SpecificInput $value) : void
+    {
+        $this->paymentProduct3112SpecificInput = $value;
+    }
+    /**
+     * @return RedirectPaymentProduct3116SpecificInput|null
+     */
+    public function getPaymentProduct3116SpecificInput() : ?RedirectPaymentProduct3116SpecificInput
+    {
+        return $this->paymentProduct3116SpecificInput;
+    }
+    /**
+     * @param RedirectPaymentProduct3116SpecificInput|null $value
+     */
+    public function setPaymentProduct3116SpecificInput(?RedirectPaymentProduct3116SpecificInput $value) : void
+    {
+        $this->paymentProduct3116SpecificInput = $value;
+    }
+    /**
+     * @return RedirectPaymentProduct3203SpecificInput|null
+     */
+    public function getPaymentProduct3203SpecificInput() : ?RedirectPaymentProduct3203SpecificInput
     {
         return $this->paymentProduct3203SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct3203SpecificInput
+     * @param RedirectPaymentProduct3203SpecificInput|null $value
      */
-    public function setPaymentProduct3203SpecificInput($value)
+    public function setPaymentProduct3203SpecificInput(?RedirectPaymentProduct3203SpecificInput $value) : void
     {
         $this->paymentProduct3203SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct3204SpecificInput
+     * @return RedirectPaymentProduct3204SpecificInput|null
      */
-    public function getPaymentProduct3204SpecificInput()
+    public function getPaymentProduct3204SpecificInput() : ?RedirectPaymentProduct3204SpecificInput
     {
         return $this->paymentProduct3204SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct3204SpecificInput
+     * @param RedirectPaymentProduct3204SpecificInput|null $value
      */
-    public function setPaymentProduct3204SpecificInput($value)
+    public function setPaymentProduct3204SpecificInput(?RedirectPaymentProduct3204SpecificInput $value) : void
     {
         $this->paymentProduct3204SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct3302SpecificInput
+     * @return RedirectPaymentProduct3302SpecificInput|null
      */
-    public function getPaymentProduct3302SpecificInput()
+    public function getPaymentProduct3302SpecificInput() : ?RedirectPaymentProduct3302SpecificInput
     {
         return $this->paymentProduct3302SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct3302SpecificInput
+     * @param RedirectPaymentProduct3302SpecificInput|null $value
      */
-    public function setPaymentProduct3302SpecificInput($value)
+    public function setPaymentProduct3302SpecificInput(?RedirectPaymentProduct3302SpecificInput $value) : void
     {
         $this->paymentProduct3302SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct3306SpecificInput
+     * @return RedirectPaymentProduct3306SpecificInput|null
      */
-    public function getPaymentProduct3306SpecificInput()
+    public function getPaymentProduct3306SpecificInput() : ?RedirectPaymentProduct3306SpecificInput
     {
         return $this->paymentProduct3306SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct3306SpecificInput
+     * @param RedirectPaymentProduct3306SpecificInput|null $value
      */
-    public function setPaymentProduct3306SpecificInput($value)
+    public function setPaymentProduct3306SpecificInput(?RedirectPaymentProduct3306SpecificInput $value) : void
     {
         $this->paymentProduct3306SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct5001SpecificInput
+     * @return RedirectPaymentProduct3307SpecificInput|null
      */
-    public function getPaymentProduct5001SpecificInput()
+    public function getPaymentProduct3307SpecificInput() : ?RedirectPaymentProduct3307SpecificInput
+    {
+        return $this->paymentProduct3307SpecificInput;
+    }
+    /**
+     * @param RedirectPaymentProduct3307SpecificInput|null $value
+     */
+    public function setPaymentProduct3307SpecificInput(?RedirectPaymentProduct3307SpecificInput $value) : void
+    {
+        $this->paymentProduct3307SpecificInput = $value;
+    }
+    /**
+     * @return RedirectPaymentProduct5001SpecificInput|null
+     */
+    public function getPaymentProduct5001SpecificInput() : ?RedirectPaymentProduct5001SpecificInput
     {
         return $this->paymentProduct5001SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct5001SpecificInput
+     * @param RedirectPaymentProduct5001SpecificInput|null $value
      */
-    public function setPaymentProduct5001SpecificInput($value)
+    public function setPaymentProduct5001SpecificInput(?RedirectPaymentProduct5001SpecificInput $value) : void
     {
         $this->paymentProduct5001SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct5300SpecificInput
+     * @return RedirectPaymentProduct5300SpecificInput|null
      */
-    public function getPaymentProduct5300SpecificInput()
+    public function getPaymentProduct5300SpecificInput() : ?RedirectPaymentProduct5300SpecificInput
     {
         return $this->paymentProduct5300SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct5300SpecificInput
+     * @param RedirectPaymentProduct5300SpecificInput|null $value
      */
-    public function setPaymentProduct5300SpecificInput($value)
+    public function setPaymentProduct5300SpecificInput(?RedirectPaymentProduct5300SpecificInput $value) : void
     {
         $this->paymentProduct5300SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct5402SpecificInput
+     * @return RedirectPaymentProduct5402SpecificInput|null
      */
-    public function getPaymentProduct5402SpecificInput()
+    public function getPaymentProduct5402SpecificInput() : ?RedirectPaymentProduct5402SpecificInput
     {
         return $this->paymentProduct5402SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct5402SpecificInput
+     * @param RedirectPaymentProduct5402SpecificInput|null $value
      */
-    public function setPaymentProduct5402SpecificInput($value)
+    public function setPaymentProduct5402SpecificInput(?RedirectPaymentProduct5402SpecificInput $value) : void
     {
         $this->paymentProduct5402SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct5403SpecificInput
+     * @return RedirectPaymentProduct5403SpecificInput|null
      */
-    public function getPaymentProduct5403SpecificInput()
+    public function getPaymentProduct5403SpecificInput() : ?RedirectPaymentProduct5403SpecificInput
     {
         return $this->paymentProduct5403SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct5403SpecificInput
+     * @param RedirectPaymentProduct5403SpecificInput|null $value
      */
-    public function setPaymentProduct5403SpecificInput($value)
+    public function setPaymentProduct5403SpecificInput(?RedirectPaymentProduct5403SpecificInput $value) : void
     {
         $this->paymentProduct5403SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct5406SpecificInput
+     * @return RedirectPaymentProduct5406SpecificInput|null
      */
-    public function getPaymentProduct5406SpecificInput()
+    public function getPaymentProduct5406SpecificInput() : ?RedirectPaymentProduct5406SpecificInput
     {
         return $this->paymentProduct5406SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct5406SpecificInput
+     * @param RedirectPaymentProduct5406SpecificInput|null $value
      */
-    public function setPaymentProduct5406SpecificInput($value)
+    public function setPaymentProduct5406SpecificInput(?RedirectPaymentProduct5406SpecificInput $value) : void
     {
         $this->paymentProduct5406SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct5408SpecificInput
+     * @return RedirectPaymentProduct5408SpecificInput|null
      */
-    public function getPaymentProduct5408SpecificInput()
+    public function getPaymentProduct5408SpecificInput() : ?RedirectPaymentProduct5408SpecificInput
     {
         return $this->paymentProduct5408SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct5408SpecificInput
+     * @param RedirectPaymentProduct5408SpecificInput|null $value
      */
-    public function setPaymentProduct5408SpecificInput($value)
+    public function setPaymentProduct5408SpecificInput(?RedirectPaymentProduct5408SpecificInput $value) : void
     {
         $this->paymentProduct5408SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct5410SpecificInput
+     * @return RedirectPaymentProduct5410SpecificInput|null
      */
-    public function getPaymentProduct5410SpecificInput()
+    public function getPaymentProduct5410SpecificInput() : ?RedirectPaymentProduct5410SpecificInput
     {
         return $this->paymentProduct5410SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct5410SpecificInput
+     * @param RedirectPaymentProduct5410SpecificInput|null $value
      */
-    public function setPaymentProduct5410SpecificInput($value)
+    public function setPaymentProduct5410SpecificInput(?RedirectPaymentProduct5410SpecificInput $value) : void
     {
         $this->paymentProduct5410SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct809SpecificInput
+     * @return RedirectPaymentProduct5412SpecificInput|null
      */
-    public function getPaymentProduct809SpecificInput()
+    public function getPaymentProduct5412SpecificInput() : ?RedirectPaymentProduct5412SpecificInput
+    {
+        return $this->paymentProduct5412SpecificInput;
+    }
+    /**
+     * @param RedirectPaymentProduct5412SpecificInput|null $value
+     */
+    public function setPaymentProduct5412SpecificInput(?RedirectPaymentProduct5412SpecificInput $value) : void
+    {
+        $this->paymentProduct5412SpecificInput = $value;
+    }
+    /**
+     * @return RedirectPaymentProduct5601SpecificInput|null
+     */
+    public function getPaymentProduct5601SpecificInput() : ?RedirectPaymentProduct5601SpecificInput
+    {
+        return $this->paymentProduct5601SpecificInput;
+    }
+    /**
+     * @param RedirectPaymentProduct5601SpecificInput|null $value
+     */
+    public function setPaymentProduct5601SpecificInput(?RedirectPaymentProduct5601SpecificInput $value) : void
+    {
+        $this->paymentProduct5601SpecificInput = $value;
+    }
+    /**
+     * @return RedirectPaymentProduct809SpecificInput|null
+     */
+    public function getPaymentProduct809SpecificInput() : ?RedirectPaymentProduct809SpecificInput
     {
         return $this->paymentProduct809SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct809SpecificInput
+     * @param RedirectPaymentProduct809SpecificInput|null $value
      */
-    public function setPaymentProduct809SpecificInput($value)
+    public function setPaymentProduct809SpecificInput(?RedirectPaymentProduct809SpecificInput $value) : void
     {
         $this->paymentProduct809SpecificInput = $value;
     }
     /**
-     * @return RedirectPaymentProduct840SpecificInput
+     * @return RedirectPaymentProduct840SpecificInput|null
      */
-    public function getPaymentProduct840SpecificInput()
+    public function getPaymentProduct840SpecificInput() : ?RedirectPaymentProduct840SpecificInput
     {
         return $this->paymentProduct840SpecificInput;
     }
     /**
-     * @param RedirectPaymentProduct840SpecificInput
+     * @param RedirectPaymentProduct840SpecificInput|null $value
      */
-    public function setPaymentProduct840SpecificInput($value)
+    public function setPaymentProduct840SpecificInput(?RedirectPaymentProduct840SpecificInput $value) : void
     {
         $this->paymentProduct840SpecificInput = $value;
     }
     /**
-     * @return int
+     * @return int|null
      */
-    public function getPaymentProductId()
+    public function getPaymentProductId() : ?int
     {
         return $this->paymentProductId;
     }
     /**
-     * @param int
+     * @param int|null $value
      */
-    public function setPaymentProductId($value)
+    public function setPaymentProductId(?int $value) : void
     {
         $this->paymentProductId = $value;
     }
     /**
-     * @return RedirectionData
+     * @return RedirectionData|null
      */
-    public function getRedirectionData()
+    public function getRedirectionData() : ?RedirectionData
     {
         return $this->redirectionData;
     }
     /**
-     * @param RedirectionData
+     * @param RedirectionData|null $value
      */
-    public function setRedirectionData($value)
+    public function setRedirectionData(?RedirectionData $value) : void
     {
         $this->redirectionData = $value;
     }
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getRequiresApproval()
+    public function getRequiresApproval() : ?bool
     {
         return $this->requiresApproval;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setRequiresApproval($value)
+    public function setRequiresApproval(?bool $value) : void
     {
         $this->requiresApproval = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getToken()
+    public function getToken() : ?string
     {
         return $this->token;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setToken($value)
+    public function setToken(?string $value) : void
     {
         $this->token = $value;
     }
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getTokenize()
+    public function getTokenize() : ?bool
     {
         return $this->tokenize;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setTokenize($value)
+    public function setTokenize(?bool $value) : void
     {
         $this->tokenize = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->paymentOption)) {
             $object->paymentOption = $this->paymentOption;
+        }
+        if (!\is_null($this->paymentProduct11SpecificInput)) {
+            $object->paymentProduct11SpecificInput = $this->paymentProduct11SpecificInput->toObject();
+        }
+        if (!\is_null($this->paymentProduct3103SpecificInput)) {
+            $object->paymentProduct3103SpecificInput = $this->paymentProduct3103SpecificInput->toObject();
+        }
+        if (!\is_null($this->paymentProduct3112SpecificInput)) {
+            $object->paymentProduct3112SpecificInput = $this->paymentProduct3112SpecificInput->toObject();
+        }
+        if (!\is_null($this->paymentProduct3116SpecificInput)) {
+            $object->paymentProduct3116SpecificInput = $this->paymentProduct3116SpecificInput->toObject();
         }
         if (!\is_null($this->paymentProduct3203SpecificInput)) {
             $object->paymentProduct3203SpecificInput = $this->paymentProduct3203SpecificInput->toObject();
@@ -373,6 +511,9 @@ class RedirectPaymentMethodSpecificInput extends DataObject
         }
         if (!\is_null($this->paymentProduct3306SpecificInput)) {
             $object->paymentProduct3306SpecificInput = $this->paymentProduct3306SpecificInput->toObject();
+        }
+        if (!\is_null($this->paymentProduct3307SpecificInput)) {
+            $object->paymentProduct3307SpecificInput = $this->paymentProduct3307SpecificInput->toObject();
         }
         if (!\is_null($this->paymentProduct5001SpecificInput)) {
             $object->paymentProduct5001SpecificInput = $this->paymentProduct5001SpecificInput->toObject();
@@ -394,6 +535,12 @@ class RedirectPaymentMethodSpecificInput extends DataObject
         }
         if (!\is_null($this->paymentProduct5410SpecificInput)) {
             $object->paymentProduct5410SpecificInput = $this->paymentProduct5410SpecificInput->toObject();
+        }
+        if (!\is_null($this->paymentProduct5412SpecificInput)) {
+            $object->paymentProduct5412SpecificInput = $this->paymentProduct5412SpecificInput->toObject();
+        }
+        if (!\is_null($this->paymentProduct5601SpecificInput)) {
+            $object->paymentProduct5601SpecificInput = $this->paymentProduct5601SpecificInput->toObject();
         }
         if (!\is_null($this->paymentProduct809SpecificInput)) {
             $object->paymentProduct809SpecificInput = $this->paymentProduct809SpecificInput->toObject();
@@ -423,11 +570,39 @@ class RedirectPaymentMethodSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : RedirectPaymentMethodSpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'paymentOption')) {
             $this->paymentOption = $object->paymentOption;
+        }
+        if (\property_exists($object, 'paymentProduct11SpecificInput')) {
+            if (!\is_object($object->paymentProduct11SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct11SpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct11SpecificInput();
+            $this->paymentProduct11SpecificInput = $value->fromObject($object->paymentProduct11SpecificInput);
+        }
+        if (\property_exists($object, 'paymentProduct3103SpecificInput')) {
+            if (!\is_object($object->paymentProduct3103SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct3103SpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct3103SpecificInput();
+            $this->paymentProduct3103SpecificInput = $value->fromObject($object->paymentProduct3103SpecificInput);
+        }
+        if (\property_exists($object, 'paymentProduct3112SpecificInput')) {
+            if (!\is_object($object->paymentProduct3112SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct3112SpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct3112SpecificInput();
+            $this->paymentProduct3112SpecificInput = $value->fromObject($object->paymentProduct3112SpecificInput);
+        }
+        if (\property_exists($object, 'paymentProduct3116SpecificInput')) {
+            if (!\is_object($object->paymentProduct3116SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct3116SpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct3116SpecificInput();
+            $this->paymentProduct3116SpecificInput = $value->fromObject($object->paymentProduct3116SpecificInput);
         }
         if (\property_exists($object, 'paymentProduct3203SpecificInput')) {
             if (!\is_object($object->paymentProduct3203SpecificInput)) {
@@ -456,6 +631,13 @@ class RedirectPaymentMethodSpecificInput extends DataObject
             }
             $value = new RedirectPaymentProduct3306SpecificInput();
             $this->paymentProduct3306SpecificInput = $value->fromObject($object->paymentProduct3306SpecificInput);
+        }
+        if (\property_exists($object, 'paymentProduct3307SpecificInput')) {
+            if (!\is_object($object->paymentProduct3307SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct3307SpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct3307SpecificInput();
+            $this->paymentProduct3307SpecificInput = $value->fromObject($object->paymentProduct3307SpecificInput);
         }
         if (\property_exists($object, 'paymentProduct5001SpecificInput')) {
             if (!\is_object($object->paymentProduct5001SpecificInput)) {
@@ -505,6 +687,20 @@ class RedirectPaymentMethodSpecificInput extends DataObject
             }
             $value = new RedirectPaymentProduct5410SpecificInput();
             $this->paymentProduct5410SpecificInput = $value->fromObject($object->paymentProduct5410SpecificInput);
+        }
+        if (\property_exists($object, 'paymentProduct5412SpecificInput')) {
+            if (!\is_object($object->paymentProduct5412SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct5412SpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct5412SpecificInput();
+            $this->paymentProduct5412SpecificInput = $value->fromObject($object->paymentProduct5412SpecificInput);
+        }
+        if (\property_exists($object, 'paymentProduct5601SpecificInput')) {
+            if (!\is_object($object->paymentProduct5601SpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentProduct5601SpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RedirectPaymentProduct5601SpecificInput();
+            $this->paymentProduct5601SpecificInput = $value->fromObject($object->paymentProduct5601SpecificInput);
         }
         if (\property_exists($object, 'paymentProduct809SpecificInput')) {
             if (!\is_object($object->paymentProduct809SpecificInput)) {

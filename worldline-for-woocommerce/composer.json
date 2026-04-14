@@ -31,6 +31,7 @@
         "inpsyde\/payment-gateway": "dev-main",
         "inpsyde\/psr-18-wp-http-client": "dev-main",
         "inpsyde\/transformer": "dev-main",
+        "inpsyde\/worldline-admin-actions": "dev-master",
         "inpsyde\/worldline-apple-pay-gateway": "dev-main",
         "inpsyde\/worldline-bank-transfer-gateway": "dev-main",
         "inpsyde\/worldline-checkout": "dev-main",
@@ -42,6 +43,8 @@
         "inpsyde\/worldline-mealvouchers-gateway": "dev-main",
         "inpsyde\/worldline-hosted-tokenization-gateway": "dev-main",
         "inpsyde\/worldline-ideal-gateway": "dev-main",
+        "inpsyde\/worldline-illicado-gateway": "dev-master",
+        "inpsyde\/worldline-wero-gateway": "dev-master",
         "inpsyde\/worldline-paypal-gateway": "dev-main",
         "inpsyde\/worldline-pledg-gateway": "dev-master",
         "inpsyde\/worldline-przelewy24-gateway": "dev-master",
@@ -67,7 +70,7 @@
         "psr\/log": "^1.1",
         "sniccowp\/php-scoper-wordpress-excludes": "^6.4",
         "symfony\/polyfill-php80": "^1.29",
-        "wl-online-payments-direct\/sdk-php": "6.1.0"
+        "wl-online-payments-direct\/sdk-php": "8.3.0"
     },
     "require-dev": {
         "brain\/monkey": "^2.6",

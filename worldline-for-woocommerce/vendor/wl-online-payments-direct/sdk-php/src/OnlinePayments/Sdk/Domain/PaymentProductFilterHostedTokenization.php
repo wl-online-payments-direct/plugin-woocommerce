@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class PaymentProductFilterHostedTokenization extends DataObject
 {
     /**
-     * @var int[]
+     * @var int[]|null
      */
-    public $products = null;
+    public ?array $products = null;
     /**
-     * @return int[]
+     * @return int[]|null
      */
-    public function getProducts()
+    public function getProducts() : ?array
     {
         return $this->products;
     }
     /**
-     * @param int[]
+     * @param int[]|null $value
      */
-    public function setProducts($value)
+    public function setProducts(?array $value) : void
     {
         $this->products = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->products)) {
@@ -50,7 +50,7 @@ class PaymentProductFilterHostedTokenization extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : PaymentProductFilterHostedTokenization
     {
         parent::fromObject($object);
         if (\property_exists($object, 'products')) {

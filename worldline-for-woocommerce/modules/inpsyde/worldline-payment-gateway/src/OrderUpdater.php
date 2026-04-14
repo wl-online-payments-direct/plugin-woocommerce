@@ -170,9 +170,11 @@ class OrderUpdater
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_TOTAL_AMOUNT, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getAmount());
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CURRENCY_CODE, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getCurrencyCode());
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_FRAUD_RESULT, $this->getPaymentMethodFraudResult($paymentResponse->getPaymentOutput()));
-        if ($paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()) {
-            $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_BIN, $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getBin());
-            $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_NUMBER, $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput()->getCard()->getCardNumber());
+        $cardOutput = $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput();
+        $card = $cardOutput ? $cardOutput->getCard() : null;
+        if ($card) {
+            $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_BIN, $card->getBin());
+            $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_NUMBER, $card->getCardNumber());
         }
         $sepaOutput = $paymentResponse->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput();
         if ($sepaOutput && $sepaOutput->getPaymentProduct771SpecificOutput()) {
@@ -181,6 +183,10 @@ class OrderUpdater
                 $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::SEPA_MANDATE_REFERENCE, $mandateReference);
             }
         }
+        $totals = $this->calculateCapturedAndCancelledAmounts($paymentResponse);
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CAPTURED_AMOUNT, $totals['captured']);
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CANCELED_AMOUNT, $totals['cancelled']);
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_PENDING_CAPTURE_AMOUNT, $totals['pending_capture']);
     }
     private function getPaymentMethodProductId(PaymentOutput $paymentOutput) : ?int
     {
@@ -343,5 +349,52 @@ class OrderUpdater
             }
         }
         return \false;
+    }
+    private function calculateCapturedAndCancelledAmounts($paymentDetailsResponse) : array
+    {
+        $totals = ['captured' => 0, 'cancelled' => 0, 'pending_capture' => 0, 'pending_cancel' => 0];
+        if (!\is_object($paymentDetailsResponse) || !\method_exists($paymentDetailsResponse, 'getId')) {
+            return $totals;
+        }
+        $paymentId = (string) $paymentDetailsResponse->getId();
+        if ($paymentId === '') {
+            return $totals;
+        }
+        try {
+            $capturesResponse = $this->apiClient->captures()->getCaptures($paymentId);
+            foreach ((array) $capturesResponse->getCaptures() as $capture) {
+                $status = \strtoupper((string) $capture->getStatus());
+                $money = $capture->getCaptureOutput()->getAmountOfMoney();
+                $amount = (int) $money->getAmount();
+                if ($amount <= 0) {
+                    continue;
+                }
+                if ($status === 'CAPTURE_REQUESTED') {
+                    $totals['pending_capture'] += $amount;
+                } elseif ($status === 'CAPTURED') {
+                    $totals['captured'] += $amount;
+                }
+            }
+        } catch (\Throwable $e) {
+        }
+        if (\method_exists($paymentDetailsResponse, 'getOperations')) {
+            foreach ((array) $paymentDetailsResponse->getOperations() as $op) {
+                $status = \strtoupper((string) $op->getStatus());
+                $money = $op->getAmountOfMoney();
+                if (!$money) {
+                    continue;
+                }
+                $amount = (int) $money->getAmount();
+                if ($amount <= 0) {
+                    continue;
+                }
+                if ($status === 'CANCELLED') {
+                    $totals['cancelled'] += $amount;
+                } elseif ($status === 'CANCEL_REQUESTED') {
+                    $totals['pending_cancel'] += $amount;
+                }
+            }
+        }
+        return $totals;
     }
 }

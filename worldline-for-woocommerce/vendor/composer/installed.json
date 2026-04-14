@@ -861,6 +861,37 @@
             "install-path": "..\/inpsyde\/transformer"
         },
         {
+            "name": "inpsyde\/worldline-admin-actions",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/admin-actions",
+                "reference": "f2d4c8b18528e8e332f8c93930ad710858a45a05"
+            },
+            "require": {
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline Admin Actions module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-admin-actions"
+        },
+        {
             "name": "inpsyde\/worldline-apple-pay-gateway",
             "version": "dev-main",
             "version_normalized": "dev-main",
@@ -1377,6 +1408,53 @@
                 "relative": true
             },
             "install-path": "..\/..\/modules\/inpsyde\/worldline-ideal-gateway"
+        },
+        {
+            "name": "inpsyde\/worldline-illicado-gateway",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/illicado-gateway",
+                "reference": "92959ec2007ea9e122176cb95050f5ce2f64873c"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IllicadoGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IllicadoGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-illicado-gateway"
         },
         {
             "name": "inpsyde\/worldline-klarna-gateway",
@@ -2309,6 +2387,53 @@
             "install-path": "..\/..\/modules\/inpsyde\/worldline-webhooks"
         },
         {
+            "name": "inpsyde\/worldline-wero-gateway",
+            "version": "dev-master",
+            "version_normalized": "dev-master",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/wero-gateway",
+                "reference": "7b733ca00d93f3586174a5b4eb0bb570fb576af6"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "inpsyde\/assets": "dev-main",
+                "inpsyde\/modularity": "dev-main",
+                "php": ">=7.4",
+                "psr\/container": "^1.1"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "inpsyde-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WeroGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WeroGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Syde GmbH",
+                    "email": "hello@syde.com"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/inpsyde\/worldline-wero-gateway"
+        },
+        {
             "name": "inpsyde\/wp-context",
             "version": "dev-main",
             "version_normalized": "dev-main",
@@ -3031,30 +3156,33 @@
         },
         {
             "name": "wl-online-payments-direct\/sdk-php",
-            "version": "6.1.0",
-            "version_normalized": "6.1.0.0",
+            "version": "8.3.0",
+            "version_normalized": "8.3.0.0",
             "source": {
                 "type": "git",
                 "url": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php.git",
-                "reference": "0e5bfb4671e090a7b837dcf4fd9c31669711e890"
+                "reference": "8f48fccf76bc31b687c0b36e1752db5232912ccd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https:\/\/api.github.com\/repos\/wl-online-payments-direct\/sdk-php\/zipball\/0e5bfb4671e090a7b837dcf4fd9c31669711e890",
-                "reference": "0e5bfb4671e090a7b837dcf4fd9c31669711e890",
+                "url": "https:\/\/api.github.com\/repos\/wl-online-payments-direct\/sdk-php\/zipball\/8f48fccf76bc31b687c0b36e1752db5232912ccd",
+                "reference": "8f48fccf76bc31b687c0b36e1752db5232912ccd",
                 "shasum": ""
             },
             "require": {
                 "ext-curl": "*",
                 "ext-json": "*",
                 "ext-mbstring": "*",
+                "ext-zlib": "*",
                 "php": ">=7.4",
                 "robtimus\/multipart": "~1.0"
             },
             "require-dev": {
-                "phpunit\/phpunit": "~9"
+                "phpstan\/phpstan": "2.1.32",
+                "phpunit\/phpunit": "~9",
+                "squizlabs\/php_codesniffer": "3.*"
             },
-            "time": "2025-05-14T12:24:59+00:00",
+            "time": "2026-03-09T11:19:50+00:00",
             "type": "library",
             "installation-source": "dist",
             "autoload": {
@@ -3080,7 +3208,7 @@
             ],
             "support": {
                 "issues": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php\/issues",
-                "source": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php\/tree\/6.1.0"
+                "source": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php\/tree\/8.3.0"
             },
             "install-path": "..\/wl-online-payments-direct\/sdk-php"
         }

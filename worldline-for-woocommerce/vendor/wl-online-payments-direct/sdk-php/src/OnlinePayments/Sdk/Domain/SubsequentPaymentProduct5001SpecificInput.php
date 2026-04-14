@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class SubsequentPaymentProduct5001SpecificInput extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $subsequentType = null;
+    public ?string $subsequentType = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSubsequentType()
+    public function getSubsequentType() : ?string
     {
         return $this->subsequentType;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setSubsequentType($value)
+    public function setSubsequentType(?string $value) : void
     {
         $this->subsequentType = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->subsequentType)) {
@@ -45,7 +45,7 @@ class SubsequentPaymentProduct5001SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : SubsequentPaymentProduct5001SpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'subsequentType')) {

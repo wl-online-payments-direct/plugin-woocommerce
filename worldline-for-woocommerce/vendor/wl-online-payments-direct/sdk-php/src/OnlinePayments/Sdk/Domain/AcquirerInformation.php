@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class AcquirerInformation extends DataObject
 {
     /**
-     * @var AcquirerSelectionInformation
+     * @var AcquirerSelectionInformation|null
      */
-    public $acquirerSelectionInformation = null;
+    public ?AcquirerSelectionInformation $acquirerSelectionInformation = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $name = null;
+    public ?string $name = null;
     /**
-     * @return AcquirerSelectionInformation
+     * @return AcquirerSelectionInformation|null
      */
-    public function getAcquirerSelectionInformation()
+    public function getAcquirerSelectionInformation() : ?AcquirerSelectionInformation
     {
         return $this->acquirerSelectionInformation;
     }
     /**
-     * @param AcquirerSelectionInformation
+     * @param AcquirerSelectionInformation|null $value
      */
-    public function setAcquirerSelectionInformation($value)
+    public function setAcquirerSelectionInformation(?AcquirerSelectionInformation $value) : void
     {
         $this->acquirerSelectionInformation = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getName()
+    public function getName() : ?string
     {
         return $this->name;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setName($value)
+    public function setName(?string $value) : void
     {
         $this->name = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->acquirerSelectionInformation)) {
@@ -66,7 +66,7 @@ class AcquirerInformation extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : AcquirerInformation
     {
         parent::fromObject($object);
         if (\property_exists($object, 'acquirerSelectionInformation')) {

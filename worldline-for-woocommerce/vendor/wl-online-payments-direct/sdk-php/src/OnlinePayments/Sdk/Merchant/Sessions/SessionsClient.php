@@ -10,6 +10,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SessionResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * Sessions client.
@@ -17,11 +18,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class SessionsClient extends ApiResource implements SessionsClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function createSession(SessionRequest $body, CallContext $callContext = null)
+    public function createSession(SessionRequest $body, ?CallContext $callContext = null) : SessionResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\SessionResponse';
@@ -33,7 +34,7 @@ class SessionsClient extends ApiResource implements SessionsClientInterface
         }
     }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

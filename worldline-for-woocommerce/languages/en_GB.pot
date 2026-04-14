@@ -1333,3 +1333,70 @@ msgstr ""
 #: modules/worldline-przelewy24-gateway/inc/services.php:40
 msgid "Accept payments with Przelewy24."
 msgstr ""
+
+#: src/Admin/CancelAuthorizationUi.php.php:41
+#: src/Admin/CancelAuthorizationUi.php:41
+msgid "Amount to cancel is not correct. Please provide a valid amount."
+msgstr ""
+
+#: src/Admin/CaptureAuthorizationUi.php.php:41
+#: src/Admin/CaptureAuthorizationUi.php:41
+msgid "Amount to capture is not correct. Please provide a valid amount."
+msgstr ""
+
+msgid "Amount already captured:"
+msgstr ""
+
+msgid "Amount pending capture:"
+msgstr ""
+
+msgid "Total available to capture:"
+msgstr ""
+
+msgid "Capture amount:"
+msgstr ""
+
+msgid "Capture"
+msgstr ""
+
+msgid "Capture submitted successfully."
+msgstr ""
+
+msgid "Amount already cancelled:"
+msgstr ""
+
+msgid "Total available to cancel:"
+msgstr ""
+
+msgid "Cancel amount:"
+msgstr ""
+
+msgid "Cancel"
+msgstr ""
+
+msgid "Cancellation submitted successfully."
+msgstr ""
+
+msgid "Accept payments with Illicado."
+msgstr ""
+
+msgid "Enable Illicado (Worldline)"
+msgstr ""
+
+msgid "Accept payments with Wero."
+msgstr ""
+
+msgid "Enable Wero (Worldline)"
+msgstr ""
+
+msgid "Capture trigger"
+msgstr ""
+
+msgid "If you work in two steps (authorization followed by a capture), this field will be displayed to your customer when you initiate the capture within their WERO portal. Several values are possible: shipping: upon shipping the order, delivery: upon delivering the order, availability: as soon as the order is available, serviceFulfilment: upon fulfilling the service, other: for any other use case"
+msgstr ""
+
+msgid "Reason for refund (Wero):"
+msgstr ""
+
+msgid "Required refund reason sent to Wero"
+msgstr ""

@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class CalculateSurchargeResponse extends DataObject
 {
     /**
-     * @var Surcharge[]
+     * @var Surcharge[]|null
      */
-    public $surcharges = null;
+    public ?array $surcharges = null;
     /**
-     * @return Surcharge[]
+     * @return Surcharge[]|null
      */
-    public function getSurcharges()
+    public function getSurcharges() : ?array
     {
         return $this->surcharges;
     }
     /**
-     * @param Surcharge[]
+     * @param Surcharge[]|null $value
      */
-    public function setSurcharges($value)
+    public function setSurcharges(?array $value) : void
     {
         $this->surcharges = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->surcharges)) {
@@ -50,7 +50,7 @@ class CalculateSurchargeResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CalculateSurchargeResponse
     {
         parent::fromObject($object);
         if (\property_exists($object, 'surcharges')) {

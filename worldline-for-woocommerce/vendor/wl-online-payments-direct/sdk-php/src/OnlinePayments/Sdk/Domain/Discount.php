@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class Discount extends DataObject
 {
     /**
-     * @var int
+     * @var int|null
      */
-    public $amount = null;
+    public ?int $amount = null;
     /**
-     * @return int
+     * @return int|null
      */
-    public function getAmount()
+    public function getAmount() : ?int
     {
         return $this->amount;
     }
     /**
-     * @param int
+     * @param int|null $value
      */
-    public function setAmount($value)
+    public function setAmount(?int $value) : void
     {
         $this->amount = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->amount)) {
@@ -45,7 +45,7 @@ class Discount extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : Discount
     {
         parent::fromObject($object);
         if (\property_exists($object, 'amount')) {

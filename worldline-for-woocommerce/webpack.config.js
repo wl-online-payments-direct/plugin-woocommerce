@@ -23,7 +23,10 @@ const modulesAssets = {
     ],
     'worldline-payment-gateway': [
         'backend/ts/main.ts',
-    ]
+    ],
+    'admin-actions': [
+        'frontend/ts/main.ts',
+    ],
 };
 
 const entries = {};

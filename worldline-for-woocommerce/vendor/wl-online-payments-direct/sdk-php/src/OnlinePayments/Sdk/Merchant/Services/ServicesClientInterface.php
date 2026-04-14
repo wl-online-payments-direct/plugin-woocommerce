@@ -39,7 +39,7 @@ interface ServicesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function testConnection(CallContext $callContext = null);
+    function testConnection(?CallContext $callContext = null) : TestConnection;
     /**
      * Resource /v2/{merchantId}/services/getIINdetails - Get IIN details
      *
@@ -55,7 +55,7 @@ interface ServicesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function getIINDetails(GetIINDetailsRequest $body, CallContext $callContext = null);
+    function getIINDetails(GetIINDetailsRequest $body, ?CallContext $callContext = null) : GetIINDetailsResponse;
     /**
      * Resource /v2/{merchantId}/services/dccrate - Get currency conversion quote
      *
@@ -71,7 +71,7 @@ interface ServicesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function getDccRateInquiry(CurrencyConversionRequest $body, CallContext $callContext = null);
+    function getDccRateInquiry(CurrencyConversionRequest $body, ?CallContext $callContext = null) : CurrencyConversionResponse;
     /**
      * Resource /v2/{merchantId}/services/surchargecalculation - Surcharge Calculation
      *
@@ -87,5 +87,5 @@ interface ServicesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function surchargeCalculation(CalculateSurchargeRequest $body, CallContext $callContext = null);
+    function surchargeCalculation(CalculateSurchargeRequest $body, ?CallContext $callContext = null) : CalculateSurchargeResponse;
 }

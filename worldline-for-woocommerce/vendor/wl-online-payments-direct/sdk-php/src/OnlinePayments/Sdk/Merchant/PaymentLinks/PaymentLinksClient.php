@@ -10,6 +10,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreatePaymentLinkRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentLinkResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * PaymentLinks client.
@@ -17,11 +18,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class PaymentLinksClient extends ApiResource implements PaymentLinksClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function createPaymentLink(CreatePaymentLinkRequest $body, CallContext $callContext = null)
+    public function createPaymentLink(CreatePaymentLinkRequest $body, ?CallContext $callContext = null) : PaymentLinkResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentLinkResponse';
@@ -35,7 +36,7 @@ class PaymentLinksClient extends ApiResource implements PaymentLinksClientInterf
     /**
      * @inheritdoc
      */
-    public function getPaymentLinkById($paymentLinkId, CallContext $callContext = null)
+    public function getPaymentLinkById(string $paymentLinkId, ?CallContext $callContext = null) : PaymentLinkResponse
     {
         $this->context['paymentLinkId'] = $paymentLinkId;
         $responseClassMap = new ResponseClassMap();
@@ -50,19 +51,19 @@ class PaymentLinksClient extends ApiResource implements PaymentLinksClientInterf
     /**
      * @inheritdoc
      */
-    public function cancelPaymentLinkById($paymentLinkId, CallContext $callContext = null)
+    public function cancelPaymentLinkById(string $paymentLinkId, ?CallContext $callContext = null) : void
     {
         $this->context['paymentLinkId'] = $paymentLinkId;
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
-            return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/paymentlinks/{paymentLinkId}/cancel'), $this->getClientMetaInfo(), null, null, $callContext);
+            $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/paymentlinks/{paymentLinkId}/cancel'), $this->getClientMetaInfo(), null, null, $callContext);
         } catch (ErrorResponseException $e) {
             throw $this->getResponseExceptionFactory()->createException($e->getHttpStatusCode(), $e->getErrorResponse(), $callContext);
         }
     }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

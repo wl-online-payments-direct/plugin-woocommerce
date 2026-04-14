@@ -10,6 +10,8 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedTokenizationRequest;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedTokenizationResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * HostedTokenization client.
@@ -17,11 +19,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class HostedTokenizationClient extends ApiResource implements HostedTokenizationClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function createHostedTokenization(CreateHostedTokenizationRequest $body, CallContext $callContext = null)
+    public function createHostedTokenization(CreateHostedTokenizationRequest $body, ?CallContext $callContext = null) : CreateHostedTokenizationResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CreateHostedTokenizationResponse';
@@ -35,7 +37,7 @@ class HostedTokenizationClient extends ApiResource implements HostedTokenization
     /**
      * @inheritdoc
      */
-    public function getHostedTokenization($hostedTokenizationId, CallContext $callContext = null)
+    public function getHostedTokenization(string $hostedTokenizationId, ?CallContext $callContext = null) : GetHostedTokenizationResponse
     {
         $this->context['hostedTokenizationId'] = $hostedTokenizationId;
         $responseClassMap = new ResponseClassMap();
@@ -48,7 +50,7 @@ class HostedTokenizationClient extends ApiResource implements HostedTokenization
         }
     }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

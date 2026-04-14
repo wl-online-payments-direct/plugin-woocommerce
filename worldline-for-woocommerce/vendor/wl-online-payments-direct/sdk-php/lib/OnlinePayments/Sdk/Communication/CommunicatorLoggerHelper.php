@@ -14,7 +14,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\HeaderObfuscator;
 class CommunicatorLoggerHelper
 {
     /** @var HttpObfuscator|null */
-    private $httpObfuscator = null;
+    private ?HttpObfuscator $httpObfuscator = null;
     /**
      * @param CommunicatorLogger $communicatorLogger
      * @param string $requestId
@@ -23,7 +23,7 @@ class CommunicatorLoggerHelper
      * @param array $requestHeaders
      * @param string $requestBody
      */
-    public function logRequest(CommunicatorLogger $communicatorLogger, $requestId, $requestMethod, $requestUri, array $requestHeaders, $requestBody = '')
+    public function logRequest(CommunicatorLogger $communicatorLogger, string $requestId, string $requestMethod, string $requestUri, array $requestHeaders, string $requestBody = '') : void
     {
         $communicatorLogger->log(\sprintf("Outgoing request to %s (requestId='%s')\n%s", $this->getEndpoint($requestUri), $requestId, $this->getHttpObfuscator()->getRawObfuscatedRequest($requestMethod, $this->getRelativeUriPathWithRequestParameters($requestUri), $requestHeaders, $requestBody)));
     }
@@ -33,7 +33,7 @@ class CommunicatorLoggerHelper
      * @param string $requestUri
      * @param ConnectionResponseInterface $response
      */
-    public function logResponse(CommunicatorLogger $communicatorLogger, $requestId, $requestUri, ConnectionResponseInterface $response)
+    public function logResponse(CommunicatorLogger $communicatorLogger, string $requestId, string $requestUri, ConnectionResponseInterface $response) : void
     {
         $communicatorLogger->log(\sprintf("Incoming response from %s (requestId='%s')\n%s", $this->getEndpoint($requestUri), $requestId, $this->getHttpObfuscator()->getRawObfuscatedResponse($response)));
     }
@@ -43,12 +43,12 @@ class CommunicatorLoggerHelper
      * @param string $requestUri
      * @param Exception $exception
      */
-    public function logException(CommunicatorLogger $communicatorLogger, $requestId, $requestUri, Exception $exception)
+    public function logException(CommunicatorLogger $communicatorLogger, string $requestId, string $requestUri, Exception $exception) : void
     {
         $communicatorLogger->logException(\sprintf("Error occurred while executing request to %s (requestId='%s')", $this->getEndpoint($requestUri), $requestId), $exception);
     }
     /** @return HttpObfuscator */
-    protected function getHttpObfuscator()
+    protected function getHttpObfuscator() : HttpObfuscator
     {
         if (\is_null($this->httpObfuscator)) {
             $this->httpObfuscator = new HttpObfuscator();
@@ -58,14 +58,14 @@ class CommunicatorLoggerHelper
     /**
      * @param BodyObfuscator $bodyObfuscator
      */
-    public function setBodyObfuscator(BodyObfuscator $bodyObfuscator)
+    public function setBodyObfuscator(BodyObfuscator $bodyObfuscator) : void
     {
         $this->getHttpObfuscator()->setBodyObfuscator($bodyObfuscator);
     }
     /**
      * @param HeaderObfuscator $headerObfuscator
      */
-    public function setHeaderObfuscator(HeaderObfuscator $headerObfuscator)
+    public function setHeaderObfuscator(HeaderObfuscator $headerObfuscator) : void
     {
         $this->getHttpObfuscator()->setHeaderObfuscator($headerObfuscator);
     }
@@ -73,7 +73,7 @@ class CommunicatorLoggerHelper
      * @param string $requestUri
      * @return string
      */
-    public function getEndpoint($requestUri)
+    public function getEndpoint(string $requestUri) : string
     {
         $index = \strpos($requestUri, '://');
         if ($index !== \false) {
@@ -89,7 +89,7 @@ class CommunicatorLoggerHelper
      * @param string $requestUri
      * @return string
      */
-    public function getRelativeUriPathWithRequestParameters($requestUri)
+    public function getRelativeUriPathWithRequestParameters(string $requestUri) : string
     {
         $index = \strpos($requestUri, '://');
         if ($index !== \false) {

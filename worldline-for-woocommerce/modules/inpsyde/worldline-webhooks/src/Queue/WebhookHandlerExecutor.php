@@ -12,6 +12,8 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
 use WC_Meta_Data;
 class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
 {
+    const VOUCHER_IDS = [3112, 5402, 5403];
+    const VOUCHER_SKIP_EVENTS = ['payment.authorization_requested', 'payment.pending_approval', 'payment.pending_completion', 'payment.pending_capture', 'payment.captured', 'payment.cancelled', 'payment.rejected'];
     /**
      * @var WebhookHandlerInterface[]
      */
@@ -36,7 +38,7 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
             if (!$handler->accepts($webhook)) {
                 continue;
             }
-            if ($this->shouldSkipMealvoucherWebhook($webhook) || $this->shouldSkipCVCOWebhook($webhook)) {
+            if ($this->shouldSkipVoucherWebhook($webhook)) {
                 continue;
             }
             $handlerEventData = \array_merge($eventData, ['handler' => (new \ReflectionClass($handler))->getShortName()]);
@@ -75,49 +77,20 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
         return \in_array($this->wlopWebhookId($webhook), $processedWebhooks, \true);
     }
     /**
-     * Determines whether a Mealvouchers webhook event should be skipped.
+     * @param WebhooksEvent $webhook
      *
-     * @param WebhooksEvent $webhook The incoming webhook event.
-     *
-     * @return bool True if the webhook should be skipped, false otherwise.
+     * @return bool
      */
-    private function shouldSkipMealvoucherWebhook(WebhooksEvent $webhook) : bool
+    private function shouldSkipVoucherWebhook(WebhooksEvent $webhook) : bool
     {
         $type = $webhook->type;
-        $mealvouchersEvents = ['payment.authorization_requested', 'payment.pending_approval', 'payment.pending_completion', 'payment.pending_capture', 'payment.captured', 'payment.cancelled', 'payment.rejected'];
-        if (!\in_array($type, $mealvouchersEvents, \true)) {
+        if (!\in_array($type, self::VOUCHER_SKIP_EVENTS, \true)) {
             return \false;
         }
         $paymentOutput = $webhook->getPayment()->getPaymentOutput();
         $redirectOutput = $paymentOutput->getRedirectPaymentMethodSpecificOutput();
         $productId = $redirectOutput ? $redirectOutput->getPaymentProductId() : null;
-        if ((int) $productId !== 5402) {
-            // MEALVOCUHERS_PRODUCT_ID
-            return \false;
-        }
-        $amount = $paymentOutput->getAmountOfMoney()->getAmount();
-        $acquired = $paymentOutput->getAcquiredAmount() ? $paymentOutput->getAcquiredAmount()->getAmount() : 0;
-        return $amount !== $acquired;
-    }
-    /**
-     * Determines whether a CVCO webhook event should be skipped.
-     *
-     * @param WebhooksEvent $webhook The incoming webhook event.
-     *
-     * @return bool True if the webhook should be skipped, false otherwise.
-     */
-    private function shouldSkipCVCOWebhook(WebhooksEvent $webhook) : bool
-    {
-        $type = $webhook->type;
-        $cvcoEvents = ['payment.authorization_requested', 'payment.pending_approval', 'payment.pending_completion', 'payment.pending_capture', 'payment.captured', 'payment.cancelled', 'payment.rejected'];
-        if (!\in_array($type, $cvcoEvents, \true)) {
-            return \false;
-        }
-        $paymentOutput = $webhook->getPayment()->getPaymentOutput();
-        $redirectOutput = $paymentOutput->getRedirectPaymentMethodSpecificOutput();
-        $productId = $redirectOutput ? $redirectOutput->getPaymentProductId() : null;
-        if ((int) $productId !== 5403) {
-            // CVCO_PRODUCT_ID
+        if (!\in_array((int) $productId, self::VOUCHER_IDS, \true)) {
             return \false;
         }
         $amount = $paymentOutput->getAmountOfMoney()->getAmount();

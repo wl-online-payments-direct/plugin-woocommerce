@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-03-09 09:00+0000\n"
+"PO-Revision-Date: 2026-03-26 15:15+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -14,7 +14,7 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-09-22 08:34+0000\n"
 "Last-Translator: \n"
-"X-Loco-Version: 2.8.0; wp-6.9.1; php-8.3.13"
+"X-Loco-Version: 2.8.0; wp-6.9.4; php-8.3.13"
 
 #. translators: %s transaction ID
 #: modules.local/webhooks/src/Handler/PaymentRefundedHandler.php:177
@@ -118,6 +118,9 @@ msgstr "Accepteer betalingen met Google Pay."
 msgid "Accept payments with iDEAL | Wero."
 msgstr "Accepteer betalingen met iDEAL | Wero."
 
+msgid "Accept payments with Illicado."
+msgstr "Accepteer betalingen met Illicado."
+
 #: modules.local/klarna-gateway/inc/services.php:209
 #: modules/inpsyde/worldline-klarna-gateway/inc/services.php:209
 msgid "Accept payments with Klarna - Bank transfer."
@@ -173,6 +176,9 @@ msgstr "Accepteer betalingen met Przelewy24."
 #: modules/inpsyde/worldline-twint-gateway/inc/services.php:37
 msgid "Accept payments with TWINT."
 msgstr "Accepteer betalingen met TWINT."
+
+msgid "Accept payments with Wero."
+msgstr "Accepteer betalingen met Wero."
 
 #: modules.local/worldline-payment-gateway/inc/services.php:183
 #: modules/inpsyde/worldline-payment-gateway/inc/services.php:183
@@ -255,6 +261,28 @@ msgstr ""
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:121
 msgid "American Express"
 msgstr "American Express"
+
+msgid "Amount already cancelled:"
+msgstr "Bedrag reeds geannuleerd:"
+
+msgid "Amount already captured:"
+msgstr "Bedrag reeds geïnd:"
+
+msgid "Amount pending capture:"
+msgstr "Bedrag in afwachting van inning:"
+
+#: src/Admin/CancelAuthorizationUi.php.php:41
+#: src/Admin/CancelAuthorizationUi.php:41
+msgid "Amount to cancel is not correct. Please provide a valid amount."
+msgstr ""
+"Het bedrag om te annuleren klopt niet. Gelieve een geldig bedrag op te geven."
+
+#: src/Admin/CaptureAuthorizationUi.php.php:41
+#: src/Admin/CaptureAuthorizationUi.php:41
+msgid "Amount to capture is not correct. Please provide a valid amount."
+msgstr ""
+"Der zu erfassende Betrag ist nicht korrekt. Bitte einen gültigen Betrag "
+"angeben."
 
 #: modules.local/apple-pay-gateway/inc/services.php:35
 #: modules/inpsyde/worldline-apple-pay-gateway/inc/services.php:35
@@ -382,6 +410,21 @@ msgstr ""
 "Door deze optie in te schakelen accepteert u alleen bankoverschrijvingen van "
 "uw klanten waarbij de betaling onmiddellijk is gedaan."
 
+msgid "Cancel"
+msgstr "Annuleren"
+
+msgid "Cancel amount:"
+msgstr "Annuleringsbedrag:"
+
+msgid "Cancellation submitted successfully."
+msgstr "Annulering succesvol ingediend."
+
+msgid "Capture"
+msgstr "Innen"
+
+msgid "Capture amount:"
+msgstr "Inningsbedrag:"
+
 #: modules.local/worldline-payment-gateway/src/Admin/RenderCaptureAction.php:28
 #: modules/inpsyde/worldline-payment-gateway/src/Admin/RenderCaptureAction.php:28
 msgid "Capture authorized Worldline payment"
@@ -391,6 +434,12 @@ msgstr "Vastleggen van geautoriseerde Worldline-betaling"
 #: modules/inpsyde/worldline-config/inc/fields.php:225
 msgid "Capture mode"
 msgstr "Opnamemodus"
+
+msgid "Capture submitted successfully."
+msgstr "Inning succesvol ingediend."
+
+msgid "Capture trigger"
+msgstr "Capture-trigger"
 
 #: modules.local/hosted-tokenization-gateway/inc/fields.php:32
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/fields.php:32
@@ -573,6 +622,9 @@ msgstr "Google Pay inschakelen (Worldline)"
 msgid "Enable iDEAL | Wero (Worldline)"
 msgstr "iDEAL | Wero inschakelen (Worldline)"
 
+msgid "Enable Illicado (Worldline)"
+msgstr "Illicado inschakelen (Worldline)"
+
 #: modules.local/linxo-connect-gateway/inc/fields.php:17
 #: modules/worldline-linxo-connect-gateway/inc/fields.php:9
 msgid "Enable Linxo Connect (Worldline)"
@@ -592,6 +644,9 @@ msgstr "Przelewy24 inschakelen (Worldline)"
 #: modules/inpsyde/worldline-twint-gateway/inc/fields.php:15
 msgid "Enable TWINT (Worldline)"
 msgstr "TWINT inschakelen (Worldline)"
+
+msgid "Enable Wero (Worldline)"
+msgstr "Wero inschakelen (Worldline)"
 
 #: modules.local/config/inc/fields.php:359
 #: modules/inpsyde/worldline-config/inc/fields.php:359
@@ -834,6 +889,28 @@ msgstr "iDEAL | Wero"
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:33
 msgid "iDEAL | Wero (Worldline)"
 msgstr "iDEAL | Wero (Worldline)"
+
+#| msgid ""
+#| "If you work in two steps (authorization followed by a capture), this "
+#| "field will display to your customer when you will initiate the capture "
+#| "within their WERO portal. Several values are possible: shipping: upon "
+#| "shipping the order, delivery: upon delivering the order, availability: as "
+#| "soon as the order is available, serviceFulfilment: upon fulfilling the "
+#| "service, other: for any other use case"
+msgid ""
+"If you work in two steps (authorization followed by a capture), this field "
+"will be displayed to your customer when you initiate the capture within "
+"their WERO portal. Several values are possible: shipping: upon shipping the "
+"order, delivery: upon delivering the order, availability: as soon as the "
+"order is available, serviceFulfilment: upon fulfilling the service, other: "
+"for any other use case"
+msgstr ""
+"Als u in twee stappen werkt (autorisatie gevolgd door een vastlegging), "
+"wordt dit veld aan uw klant getoond wanneer u de vastlegging in zijn WERO-"
+"portal start. Er zijn verschillende waarden mogelijk: shipping: bij "
+"verzending van de bestelling, delivery: bij het afleveren van de bestelling, "
+"availability: zodra de bestelling beschikbaar is, serviceFulfilment: bij het "
+"vervullen van de dienst, other: voor elk ander gebruiksgeval"
 
 #: modules.local/config/inc/fields.php:283
 #: modules/inpsyde/worldline-config/inc/fields.php:37
@@ -1203,6 +1280,9 @@ msgstr "Je betaling wordt verwerkt. Even geduld..."
 msgid "PSPID"
 msgstr "PSPID"
 
+msgid "Reason for refund (Wero):"
+msgstr "Reden voor terugbetaling (Wero):"
+
 #: modules.local/worldline-payment-gateway/src/Admin/StatusUpdateAction.php:32
 #: modules/inpsyde/worldline-payment-gateway/src/Admin/StatusUpdateAction.php:32
 msgid "Refresh Worldline status"
@@ -1212,6 +1292,9 @@ msgstr "Vernieuw de Worldline-status"
 #: modules/inpsyde/worldline-webhooks/src/Handler/PaymentRefundedHandler.php:170
 msgid "Refund processed."
 msgstr "Restitutie verwerkt."
+
+msgid "Required refund reason sent to Wero"
+msgstr "Vereiste reden voor terugbetaling verzonden naar Wero"
 
 #: modules.local/config/inc/fields.php:202
 #: modules/inpsyde/worldline-config/inc/fields.php:202
@@ -1409,6 +1492,12 @@ msgstr "Deze bestelling voldoet niet aan de vereisten voor restitutie."
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/fields.php:25
 msgid "Title"
 msgstr "Titel"
+
+msgid "Total available to cancel:"
+msgstr "Totaal beschikbaar voor annulering:"
+
+msgid "Total available to capture:"
+msgstr "Totaal beschikbaar voor inning:"
 
 #: assets/hosted-tokenization-gateway-frontend-blocks.js:8
 msgid "Total With Surcharge"

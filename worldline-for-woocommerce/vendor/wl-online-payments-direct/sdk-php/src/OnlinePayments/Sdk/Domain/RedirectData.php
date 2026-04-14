@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class RedirectData extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $RETURNMAC = null;
+    public ?string $RETURNMAC = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $redirectURL = null;
+    public ?string $redirectURL = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRETURNMAC()
+    public function getRETURNMAC() : ?string
     {
         return $this->RETURNMAC;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setRETURNMAC($value)
+    public function setRETURNMAC(?string $value) : void
     {
         $this->RETURNMAC = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRedirectURL()
+    public function getRedirectURL() : ?string
     {
         return $this->redirectURL;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setRedirectURL($value)
+    public function setRedirectURL(?string $value) : void
     {
         $this->redirectURL = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->RETURNMAC)) {
@@ -66,7 +66,7 @@ class RedirectData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : RedirectData
     {
         parent::fromObject($object);
         if (\property_exists($object, 'RETURNMAC')) {

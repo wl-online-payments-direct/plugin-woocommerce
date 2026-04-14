@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class GetPaymentProductGroupsResponse extends DataObject
 {
     /**
-     * @var PaymentProductGroup[]
+     * @var PaymentProductGroup[]|null
      */
-    public $paymentProductGroups = null;
+    public ?array $paymentProductGroups = null;
     /**
-     * @return PaymentProductGroup[]
+     * @return PaymentProductGroup[]|null
      */
-    public function getPaymentProductGroups()
+    public function getPaymentProductGroups() : ?array
     {
         return $this->paymentProductGroups;
     }
     /**
-     * @param PaymentProductGroup[]
+     * @param PaymentProductGroup[]|null $value
      */
-    public function setPaymentProductGroups($value)
+    public function setPaymentProductGroups(?array $value) : void
     {
         $this->paymentProductGroups = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->paymentProductGroups)) {
@@ -50,7 +50,7 @@ class GetPaymentProductGroupsResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : GetPaymentProductGroupsResponse
     {
         parent::fromObject($object);
         if (\property_exists($object, 'paymentProductGroups')) {

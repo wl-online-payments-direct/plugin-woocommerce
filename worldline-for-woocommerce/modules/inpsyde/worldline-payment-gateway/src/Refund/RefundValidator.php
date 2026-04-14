@@ -15,15 +15,7 @@ class RefundValidator
     public function canRefund(WC_Order $wcOrder) : bool
     {
         $statusCode = (int) $wcOrder->get_meta(OrderMetaKeys::TRANSACTION_STATUS_CODE);
-        return \in_array($statusCode, [9], \true) || $this->canCancelAuthorization($wcOrder);
-    }
-    /**
-     * @throws Exception
-     */
-    public function canCancelAuthorization(WC_Order $wcOrder) : bool
-    {
-        $statusCode = (int) $wcOrder->get_meta(OrderMetaKeys::TRANSACTION_STATUS_CODE);
-        return \in_array($statusCode, [5, 56], \true);
+        return \in_array($statusCode, [9], \true);
     }
     public function isWlopPaymentMethod(WC_Order $wcOrder) : bool
     {

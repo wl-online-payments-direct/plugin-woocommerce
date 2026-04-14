@@ -29,6 +29,14 @@ class WebhooksEvent extends DataObject
      */
     public $type = null;
     /**
+     * @var GetBatchStatusResponse
+     */
+    public $directBatch = null;
+    /**
+     * @var PaymentLinkResponse
+     */
+    public $paymentLink = null;
+    /**
      * @var PaymentResponse
      */
     public $payment = null;
@@ -44,6 +52,34 @@ class WebhooksEvent extends DataObject
      * @var TokenResponse
      */
     public $token = null;
+    /**
+     * @return GetBatchStatusResponse
+     */
+    public function getDirectBatch()
+    {
+        return $this->directBatch;
+    }
+    /**
+     * @param GetBatchStatusResponse $directBatch
+     */
+    public function setDirectBatch($directBatch)
+    {
+        $this->directBatch = $directBatch;
+    }
+    /**
+     * @return PaymentLinkResponse
+     */
+    public function getPaymentLink()
+    {
+        return $this->paymentLink;
+    }
+    /**
+     * @param PaymentLinkResponse $paymentLink
+     */
+    public function setPaymentLink($paymentLink)
+    {
+        $this->paymentLink = $paymentLink;
+    }
     /**
      * @return PaymentResponse
      */
@@ -103,7 +139,7 @@ class WebhooksEvent extends DataObject
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->apiVersion)) {
@@ -120,6 +156,12 @@ class WebhooksEvent extends DataObject
         }
         if (!\is_null($this->type)) {
             $object->type = $this->type;
+        }
+        if (!\is_null($this->directBatch)) {
+            $object->directBatch = $this->directBatch->toObject();
+        }
+        if (!\is_null($this->paymentLink)) {
+            $object->paymentLink = $this->paymentLink->toObject();
         }
         if (!\is_null($this->payment)) {
             $object->payment = $this->payment->toObject();
@@ -140,7 +182,7 @@ class WebhooksEvent extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : DataObject
     {
         parent::fromObject($object);
         if (\property_exists($object, 'apiVersion')) {
@@ -157,6 +199,20 @@ class WebhooksEvent extends DataObject
         }
         if (\property_exists($object, 'type')) {
             $this->type = $object->type;
+        }
+        if (\property_exists($object, 'directBatch')) {
+            if (!\is_object($object->directBatch)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->directBatch, \true) . '\' is not an object');
+            }
+            $value = new GetBatchStatusResponse();
+            $this->directBatch = $value->fromObject($object->directBatch);
+        }
+        if (\property_exists($object, 'paymentLink')) {
+            if (!\is_object($object->paymentLink)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->paymentLink, \true) . '\' is not an object');
+            }
+            $value = new PaymentLinkResponse();
+            $this->paymentLink = $value->fromObject($object->paymentLink);
         }
         if (\property_exists($object, 'payment')) {
             if (!\is_object($object->payment)) {

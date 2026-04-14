@@ -12,5 +12,5 @@ interface MetadataProviderInterface
     /**
      * @return string
      */
-    function getServerMetaInfoValue();
+    public function getServerMetaInfoValue();
 }

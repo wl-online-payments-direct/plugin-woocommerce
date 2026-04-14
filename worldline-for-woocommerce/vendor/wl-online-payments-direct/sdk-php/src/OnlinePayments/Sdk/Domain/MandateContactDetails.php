@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class MandateContactDetails extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $emailAddress = null;
+    public ?string $emailAddress = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getEmailAddress()
+    public function getEmailAddress() : ?string
     {
         return $this->emailAddress;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setEmailAddress($value)
+    public function setEmailAddress(?string $value) : void
     {
         $this->emailAddress = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->emailAddress)) {
@@ -45,7 +45,7 @@ class MandateContactDetails extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : MandateContactDetails
     {
         parent::fromObject($object);
         if (\property_exists($object, 'emailAddress')) {

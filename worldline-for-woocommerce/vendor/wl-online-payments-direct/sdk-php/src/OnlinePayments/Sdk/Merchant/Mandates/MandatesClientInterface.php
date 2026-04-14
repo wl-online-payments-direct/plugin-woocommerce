@@ -12,6 +12,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseExcept
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateMandateRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateMandateResponse;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetMandateResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RevokeMandateRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
@@ -36,7 +37,7 @@ interface MandatesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function createMandate(CreateMandateRequest $body, CallContext $callContext = null);
+    function createMandate(CreateMandateRequest $body, ?CallContext $callContext = null) : CreateMandateResponse;
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference} - Get mandate
      *
@@ -52,7 +53,7 @@ interface MandatesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function getMandate($uniqueMandateReference, CallContext $callContext = null);
+    function getMandate(string $uniqueMandateReference, ?CallContext $callContext = null) : GetMandateResponse;
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference}/block - Block mandate
      *
@@ -68,7 +69,7 @@ interface MandatesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function blockMandate($uniqueMandateReference, CallContext $callContext = null);
+    function blockMandate(string $uniqueMandateReference, ?CallContext $callContext = null) : GetMandateResponse;
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference}/unblock - Unblock mandate
      *
@@ -84,11 +85,12 @@ interface MandatesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function unblockMandate($uniqueMandateReference, CallContext $callContext = null);
+    function unblockMandate(string $uniqueMandateReference, ?CallContext $callContext = null) : GetMandateResponse;
     /**
      * Resource /v2/{merchantId}/mandates/{uniqueMandateReference}/revoke - Revoke mandate
      *
      * @param string $uniqueMandateReference
+     * @param RevokeMandateRequest $body
      * @param CallContext|null $callContext
      * @return GetMandateResponse
      *
@@ -100,5 +102,5 @@ interface MandatesClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function revokeMandate($uniqueMandateReference, CallContext $callContext = null);
+    function revokeMandate(string $uniqueMandateReference, RevokeMandateRequest $body, ?CallContext $callContext = null) : GetMandateResponse;
 }

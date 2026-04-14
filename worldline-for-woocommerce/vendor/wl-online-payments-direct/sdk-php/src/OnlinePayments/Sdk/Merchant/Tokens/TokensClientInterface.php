@@ -22,6 +22,22 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
 interface TokensClientInterface
 {
     /**
+     * Resource /v2/{merchantId}/tokens - Create token
+     *
+     * @param CreateTokenRequest $body
+     * @param CallContext|null $callContext
+     * @return CreatedTokenResponse
+     *
+     * @throws IdempotenceException
+     * @throws ValidationException
+     * @throws AuthorizationException
+     * @throws ReferenceException
+     * @throws PlatformException
+     * @throws ApiException
+     * @throws InvalidResponseException
+     */
+    function createToken(CreateTokenRequest $body, ?CallContext $callContext = null) : CreatedTokenResponse;
+    /**
      * Resource /v2/{merchantId}/tokens/{tokenId} - Get token
      *
      * @param string $tokenId
@@ -36,7 +52,7 @@ interface TokensClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function getToken($tokenId, CallContext $callContext = null);
+    function getToken(string $tokenId, ?CallContext $callContext = null) : TokenResponse;
     /**
      * Resource /v2/{merchantId}/tokens/{tokenId} - Delete token
      *
@@ -52,21 +68,5 @@ interface TokensClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function deleteToken($tokenId, CallContext $callContext = null);
-    /**
-     * Resource /v2/{merchantId}/tokens - Create token
-     *
-     * @param CreateTokenRequest $body
-     * @param CallContext|null $callContext
-     * @return CreatedTokenResponse
-     *
-     * @throws IdempotenceException
-     * @throws ValidationException
-     * @throws AuthorizationException
-     * @throws ReferenceException
-     * @throws PlatformException
-     * @throws ApiException
-     * @throws InvalidResponseException
-     */
-    function createToken(CreateTokenRequest $body, CallContext $callContext = null);
+    function deleteToken(string $tokenId, ?CallContext $callContext = null) : void;
 }

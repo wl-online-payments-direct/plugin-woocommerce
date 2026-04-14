@@ -10,43 +10,43 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 class ResponseBuilder
 {
     /** @var int */
-    private $httpStatusCode;
+    private int $httpStatusCode = 0;
     /** @var array */
-    private $headers;
+    private array $headers = array();
     /** @var string */
-    private $body = '';
+    private string $body = '';
     /**
      * @param int $httpStatusCode
      */
-    public function setHttpStatusCode($httpStatusCode)
+    public function setHttpStatusCode(int $httpStatusCode) : void
     {
         $this->httpStatusCode = $httpStatusCode;
     }
     /**
      * @param array $headers
      */
-    public function setHeaders(array $headers)
+    public function setHeaders(array $headers) : void
     {
         $this->headers = $headers;
     }
     /**
      * @param string $data
      */
-    public function appendBody($data)
+    public function appendBody(string $data) : void
     {
         $this->body .= $data;
     }
     /**
      * @param string $body
      */
-    public function setBody($body)
+    public function setBody(string $body) : void
     {
         $this->body = $body;
     }
     /**
      * @return ConnectionResponseInterface
      */
-    public function getResponse()
+    public function getResponse() : ConnectionResponse
     {
         return new ConnectionResponse($this->httpStatusCode, $this->headers, $this->body);
     }

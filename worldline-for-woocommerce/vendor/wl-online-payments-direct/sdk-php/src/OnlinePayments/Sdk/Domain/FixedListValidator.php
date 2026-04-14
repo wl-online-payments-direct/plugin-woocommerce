@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class FixedListValidator extends DataObject
 {
     /**
-     * @var string[]
+     * @var string[]|null
      */
-    public $allowedValues = null;
+    public ?array $allowedValues = null;
     /**
-     * @return string[]
+     * @return string[]|null
      */
-    public function getAllowedValues()
+    public function getAllowedValues() : ?array
     {
         return $this->allowedValues;
     }
     /**
-     * @param string[]
+     * @param string[]|null $value
      */
-    public function setAllowedValues($value)
+    public function setAllowedValues(?array $value) : void
     {
         $this->allowedValues = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->allowedValues)) {
@@ -50,7 +50,7 @@ class FixedListValidator extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : FixedListValidator
     {
         parent::fromObject($object);
         if (\property_exists($object, 'allowedValues')) {

@@ -18,7 +18,7 @@ class HttpHeaderHelper
      * @param string[] $rawHeaders
      * @return array
      */
-    public static function parseRawHeaders(array $rawHeaders)
+    public static function parseRawHeaders(array $rawHeaders) : array
     {
         $headers = array();
         $key = '';
@@ -55,7 +55,7 @@ class HttpHeaderHelper
      * @param array $headers
      * @return string[]
      */
-    public static function generateRawHeaders(array $headers)
+    public static function generateRawHeaders(array $headers) : array
     {
         $rawHeaders = array();
         foreach ($headers as $key => $values) {

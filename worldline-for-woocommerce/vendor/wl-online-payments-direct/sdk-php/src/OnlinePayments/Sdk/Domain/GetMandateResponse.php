@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class GetMandateResponse extends DataObject
 {
     /**
-     * @var MandateResponse
+     * @var MandateResponse|null
      */
-    public $mandate = null;
+    public ?MandateResponse $mandate = null;
     /**
-     * @return MandateResponse
+     * @return MandateResponse|null
      */
-    public function getMandate()
+    public function getMandate() : ?MandateResponse
     {
         return $this->mandate;
     }
     /**
-     * @param MandateResponse
+     * @param MandateResponse|null $value
      */
-    public function setMandate($value)
+    public function setMandate(?MandateResponse $value) : void
     {
         $this->mandate = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->mandate)) {
@@ -45,7 +45,7 @@ class GetMandateResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : GetMandateResponse
     {
         parent::fromObject($object);
         if (\property_exists($object, 'mandate')) {

@@ -13,10 +13,10 @@ interface CommunicatorLogger
     /**
      * @param string $message
      */
-    public function log($message);
+    public function log(string $message) : void;
     /**
      * @param string $message
      * @param Exception $exception
      */
-    public function logException($message, Exception $exception);
+    public function logException(string $message, Exception $exception) : void;
 }

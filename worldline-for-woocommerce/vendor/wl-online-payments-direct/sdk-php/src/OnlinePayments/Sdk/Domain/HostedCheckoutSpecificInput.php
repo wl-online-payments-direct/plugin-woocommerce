@@ -12,189 +12,225 @@ use UnexpectedValueException;
 class HostedCheckoutSpecificInput extends DataObject
 {
     /**
-     * @var int
+     * @var int|null
      */
-    public $allowedNumberOfPaymentAttempts = null;
+    public ?int $allowedNumberOfPaymentAttempts = null;
     /**
-     * @var CardPaymentMethodSpecificInputForHostedCheckout
+     * @var CardPaymentMethodSpecificInputForHostedCheckout|null
      */
-    public $cardPaymentMethodSpecificInput = null;
+    public ?CardPaymentMethodSpecificInputForHostedCheckout $cardPaymentMethodSpecificInput = null;
     /**
-     * @var bool
+     * @var bool|null
      */
-    public $isRecurring = null;
+    public ?bool $isNewUnscheduledCardOnFileSeries = null;
     /**
-     * @var string
+     * @var bool|null
      */
-    public $locale = null;
+    public ?bool $isRecurring = null;
     /**
-     * @var PaymentProductFiltersHostedCheckout
+     * @var string|null
      */
-    public $paymentProductFilters = null;
+    public ?string $locale = null;
     /**
-     * @var string
+     * @var PaymentProductFiltersHostedCheckout|null
      */
-    public $returnUrl = null;
+    public ?PaymentProductFiltersHostedCheckout $paymentProductFilters = null;
     /**
-     * @var int
+     * @var string|null
      */
-    public $sessionTimeout = null;
+    public ?string $returnUrl = null;
     /**
-     * @var bool
+     * @var int|null
      */
-    public $showResultPage = null;
+    public ?int $sessionTimeout = null;
     /**
-     * @var string
+     * @var bool|null
      */
-    public $tokens = null;
+    public ?bool $showResultPage = null;
     /**
-     * @var string
+     * @var SplitPaymentProductFiltersHostedCheckout|null
      */
-    public $variant = null;
+    public ?SplitPaymentProductFiltersHostedCheckout $splitPaymentProductFilters = null;
     /**
-     * @return int
+     * @var string|null
      */
-    public function getAllowedNumberOfPaymentAttempts()
+    public ?string $tokens = null;
+    /**
+     * @var string|null
+     */
+    public ?string $variant = null;
+    /**
+     * @return int|null
+     */
+    public function getAllowedNumberOfPaymentAttempts() : ?int
     {
         return $this->allowedNumberOfPaymentAttempts;
     }
     /**
-     * @param int
+     * @param int|null $value
      */
-    public function setAllowedNumberOfPaymentAttempts($value)
+    public function setAllowedNumberOfPaymentAttempts(?int $value) : void
     {
         $this->allowedNumberOfPaymentAttempts = $value;
     }
     /**
-     * @return CardPaymentMethodSpecificInputForHostedCheckout
+     * @return CardPaymentMethodSpecificInputForHostedCheckout|null
      */
-    public function getCardPaymentMethodSpecificInput()
+    public function getCardPaymentMethodSpecificInput() : ?CardPaymentMethodSpecificInputForHostedCheckout
     {
         return $this->cardPaymentMethodSpecificInput;
     }
     /**
-     * @param CardPaymentMethodSpecificInputForHostedCheckout
+     * @param CardPaymentMethodSpecificInputForHostedCheckout|null $value
      */
-    public function setCardPaymentMethodSpecificInput($value)
+    public function setCardPaymentMethodSpecificInput(?CardPaymentMethodSpecificInputForHostedCheckout $value) : void
     {
         $this->cardPaymentMethodSpecificInput = $value;
     }
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsRecurring()
+    public function getIsNewUnscheduledCardOnFileSeries() : ?bool
+    {
+        return $this->isNewUnscheduledCardOnFileSeries;
+    }
+    /**
+     * @param bool|null $value
+     */
+    public function setIsNewUnscheduledCardOnFileSeries(?bool $value) : void
+    {
+        $this->isNewUnscheduledCardOnFileSeries = $value;
+    }
+    /**
+     * @return bool|null
+     */
+    public function getIsRecurring() : ?bool
     {
         return $this->isRecurring;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setIsRecurring($value)
+    public function setIsRecurring(?bool $value) : void
     {
         $this->isRecurring = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getLocale()
+    public function getLocale() : ?string
     {
         return $this->locale;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setLocale($value)
+    public function setLocale(?string $value) : void
     {
         $this->locale = $value;
     }
     /**
-     * @return PaymentProductFiltersHostedCheckout
+     * @return PaymentProductFiltersHostedCheckout|null
      */
-    public function getPaymentProductFilters()
+    public function getPaymentProductFilters() : ?PaymentProductFiltersHostedCheckout
     {
         return $this->paymentProductFilters;
     }
     /**
-     * @param PaymentProductFiltersHostedCheckout
+     * @param PaymentProductFiltersHostedCheckout|null $value
      */
-    public function setPaymentProductFilters($value)
+    public function setPaymentProductFilters(?PaymentProductFiltersHostedCheckout $value) : void
     {
         $this->paymentProductFilters = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getReturnUrl()
+    public function getReturnUrl() : ?string
     {
         return $this->returnUrl;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setReturnUrl($value)
+    public function setReturnUrl(?string $value) : void
     {
         $this->returnUrl = $value;
     }
     /**
-     * @return int
+     * @return int|null
      */
-    public function getSessionTimeout()
+    public function getSessionTimeout() : ?int
     {
         return $this->sessionTimeout;
     }
     /**
-     * @param int
+     * @param int|null $value
      */
-    public function setSessionTimeout($value)
+    public function setSessionTimeout(?int $value) : void
     {
         $this->sessionTimeout = $value;
     }
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getShowResultPage()
+    public function getShowResultPage() : ?bool
     {
         return $this->showResultPage;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setShowResultPage($value)
+    public function setShowResultPage(?bool $value) : void
     {
         $this->showResultPage = $value;
     }
     /**
-     * @return string
+     * @return SplitPaymentProductFiltersHostedCheckout|null
      */
-    public function getTokens()
+    public function getSplitPaymentProductFilters() : ?SplitPaymentProductFiltersHostedCheckout
+    {
+        return $this->splitPaymentProductFilters;
+    }
+    /**
+     * @param SplitPaymentProductFiltersHostedCheckout|null $value
+     */
+    public function setSplitPaymentProductFilters(?SplitPaymentProductFiltersHostedCheckout $value) : void
+    {
+        $this->splitPaymentProductFilters = $value;
+    }
+    /**
+     * @return string|null
+     */
+    public function getTokens() : ?string
     {
         return $this->tokens;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setTokens($value)
+    public function setTokens(?string $value) : void
     {
         $this->tokens = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getVariant()
+    public function getVariant() : ?string
     {
         return $this->variant;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setVariant($value)
+    public function setVariant(?string $value) : void
     {
         $this->variant = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->allowedNumberOfPaymentAttempts)) {
@@ -202,6 +238,9 @@ class HostedCheckoutSpecificInput extends DataObject
         }
         if (!\is_null($this->cardPaymentMethodSpecificInput)) {
             $object->cardPaymentMethodSpecificInput = $this->cardPaymentMethodSpecificInput->toObject();
+        }
+        if (!\is_null($this->isNewUnscheduledCardOnFileSeries)) {
+            $object->isNewUnscheduledCardOnFileSeries = $this->isNewUnscheduledCardOnFileSeries;
         }
         if (!\is_null($this->isRecurring)) {
             $object->isRecurring = $this->isRecurring;
@@ -221,6 +260,9 @@ class HostedCheckoutSpecificInput extends DataObject
         if (!\is_null($this->showResultPage)) {
             $object->showResultPage = $this->showResultPage;
         }
+        if (!\is_null($this->splitPaymentProductFilters)) {
+            $object->splitPaymentProductFilters = $this->splitPaymentProductFilters->toObject();
+        }
         if (!\is_null($this->tokens)) {
             $object->tokens = $this->tokens;
         }
@@ -234,7 +276,7 @@ class HostedCheckoutSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : HostedCheckoutSpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'allowedNumberOfPaymentAttempts')) {
@@ -246,6 +288,9 @@ class HostedCheckoutSpecificInput extends DataObject
             }
             $value = new CardPaymentMethodSpecificInputForHostedCheckout();
             $this->cardPaymentMethodSpecificInput = $value->fromObject($object->cardPaymentMethodSpecificInput);
+        }
+        if (\property_exists($object, 'isNewUnscheduledCardOnFileSeries')) {
+            $this->isNewUnscheduledCardOnFileSeries = $object->isNewUnscheduledCardOnFileSeries;
         }
         if (\property_exists($object, 'isRecurring')) {
             $this->isRecurring = $object->isRecurring;
@@ -268,6 +313,13 @@ class HostedCheckoutSpecificInput extends DataObject
         }
         if (\property_exists($object, 'showResultPage')) {
             $this->showResultPage = $object->showResultPage;
+        }
+        if (\property_exists($object, 'splitPaymentProductFilters')) {
+            if (!\is_object($object->splitPaymentProductFilters)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->splitPaymentProductFilters, \true) . '\' is not an object');
+            }
+            $value = new SplitPaymentProductFiltersHostedCheckout();
+            $this->splitPaymentProductFilters = $value->fromObject($object->splitPaymentProductFilters);
         }
         if (\property_exists($object, 'tokens')) {
             $this->tokens = $object->tokens;

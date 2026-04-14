@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class PaymentProduct5407 extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $pairingToken = null;
+    public ?string $pairingToken = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $qrCode = null;
+    public ?string $qrCode = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPairingToken()
+    public function getPairingToken() : ?string
     {
         return $this->pairingToken;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setPairingToken($value)
+    public function setPairingToken(?string $value) : void
     {
         $this->pairingToken = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getQrCode()
+    public function getQrCode() : ?string
     {
         return $this->qrCode;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setQrCode($value)
+    public function setQrCode(?string $value) : void
     {
         $this->qrCode = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->pairingToken)) {
@@ -66,7 +66,7 @@ class PaymentProduct5407 extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : PaymentProduct5407
     {
         parent::fromObject($object);
         if (\property_exists($object, 'pairingToken')) {

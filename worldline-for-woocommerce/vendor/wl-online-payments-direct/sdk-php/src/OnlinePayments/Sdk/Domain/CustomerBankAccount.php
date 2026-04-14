@@ -12,63 +12,63 @@ use UnexpectedValueException;
 class CustomerBankAccount extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $accountHolderName = null;
+    public ?string $accountHolderName = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $bic = null;
+    public ?string $bic = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $iban = null;
+    public ?string $iban = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getAccountHolderName()
+    public function getAccountHolderName() : ?string
     {
         return $this->accountHolderName;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setAccountHolderName($value)
+    public function setAccountHolderName(?string $value) : void
     {
         $this->accountHolderName = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBic()
+    public function getBic() : ?string
     {
         return $this->bic;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setBic($value)
+    public function setBic(?string $value) : void
     {
         $this->bic = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getIban()
+    public function getIban() : ?string
     {
         return $this->iban;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setIban($value)
+    public function setIban(?string $value) : void
     {
         $this->iban = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->accountHolderName)) {
@@ -87,7 +87,7 @@ class CustomerBankAccount extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CustomerBankAccount
     {
         parent::fromObject($object);
         if (\property_exists($object, 'accountHolderName')) {

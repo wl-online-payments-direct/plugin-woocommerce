@@ -8,6 +8,8 @@ use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Admin\CancelAuthorizationUi;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Admin\CaptureAuthorizationUi;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
 use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
 use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
@@ -28,6 +30,14 @@ class CoreModule implements ExecutableModule, ServiceModule, ExtendingModule
             /** @var PluginActionLinkRegistry $pluginActionLinksRegistry */
             $pluginActionLinksRegistry = $container->get('core.plugin.plugin_action_links.registry');
             $pluginActionLinksRegistry->init();
+        });
+        \add_action('admin_init', static function () use($container) {
+            /** @var CancelAuthorizationUi $ui */
+            $ui = $container->get('core.admin.cancel_authorization_ui');
+            $ui->register();
+            /** @var CaptureAuthorizationUi $captureUi */
+            $captureUi = $container->get('core.admin.capture_authorization_ui');
+            $captureUi->register();
         });
         return \true;
     }

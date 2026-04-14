@@ -14,65 +14,45 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
 class GetProductDirectoryParams extends RequestObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $countryCode;
+    public ?string $countryCode = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $currencyCode;
+    public ?string $currencyCode = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCountryCode()
+    public function getCountryCode() : ?string
     {
         return $this->countryCode;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setCountryCode($value)
+    public function setCountryCode(?string $value) : void
     {
         $this->countryCode = $value;
     }
     /**
-     * @param string
+     * @return string|null
      */
-    public function addCountryCode($value)
-    {
-        if (\is_null($this->countryCode)) {
-            $this->countryCode = [];
-        }
-        $this->countryCode[] = $value;
-    }
-    /**
-     * @return string
-     */
-    public function getCurrencyCode()
+    public function getCurrencyCode() : ?string
     {
         return $this->currencyCode;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setCurrencyCode($value)
+    public function setCurrencyCode(?string $value) : void
     {
         $this->currencyCode = $value;
     }
     /**
-     * @param string
-     */
-    public function addCurrencyCode($value)
-    {
-        if (\is_null($this->currencyCode)) {
-            $this->currencyCode = [];
-        }
-        $this->currencyCode[] = $value;
-    }
-    /**
      * @return array
      */
-    public function toArray()
+    public function toArray() : array
     {
         $array = [];
         if ($this->countryCode != null) {

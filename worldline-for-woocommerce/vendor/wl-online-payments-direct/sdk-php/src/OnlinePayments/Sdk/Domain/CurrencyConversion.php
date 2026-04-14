@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class CurrencyConversion extends DataObject
 {
     /**
-     * @var bool
+     * @var bool|null
      */
-    public $acceptedByUser = null;
+    public ?bool $acceptedByUser = null;
     /**
-     * @var DccProposal
+     * @var DccProposal|null
      */
-    public $proposal = null;
+    public ?DccProposal $proposal = null;
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getAcceptedByUser()
+    public function getAcceptedByUser() : ?bool
     {
         return $this->acceptedByUser;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setAcceptedByUser($value)
+    public function setAcceptedByUser(?bool $value) : void
     {
         $this->acceptedByUser = $value;
     }
     /**
-     * @return DccProposal
+     * @return DccProposal|null
      */
-    public function getProposal()
+    public function getProposal() : ?DccProposal
     {
         return $this->proposal;
     }
     /**
-     * @param DccProposal
+     * @param DccProposal|null $value
      */
-    public function setProposal($value)
+    public function setProposal(?DccProposal $value) : void
     {
         $this->proposal = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->acceptedByUser)) {
@@ -66,7 +66,7 @@ class CurrencyConversion extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CurrencyConversion
     {
         parent::fromObject($object);
         if (\property_exists($object, 'acceptedByUser')) {

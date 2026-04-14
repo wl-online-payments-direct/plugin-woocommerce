@@ -12,11 +12,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
  */
 class MetadataProvider implements MetadataProviderInterface
 {
-    const SDK_VERSION = '6.1.0';
+    const SDK_VERSION = '8.3.0';
     /** @var string */
-    private $integrator;
+    private string $integrator;
     /** @var ShoppingCartExtension|null */
-    private $shoppingCartExtension;
+    private ?ShoppingCartExtension $shoppingCartExtension;
     /**
      * @param CommunicatorConfiguration $communicatorConfiguration
      */
@@ -28,7 +28,7 @@ class MetadataProvider implements MetadataProviderInterface
     /**
      * @return string
      */
-    public function getServerMetaInfoValue()
+    public function getServerMetaInfoValue() : string
     {
         // use a stdClass instead of specific class to keep out null properties
         $serverMetaInfo = new stdClass();

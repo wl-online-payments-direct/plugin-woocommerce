@@ -9,6 +9,8 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPaymentProductGroupsResponse;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductGroup;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * ProductGroups client.
@@ -16,11 +18,11 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
 class ProductGroupsClient extends ApiResource implements ProductGroupsClientInterface
 {
     /** @var ExceptionFactory|null */
-    private $responseExceptionFactory = null;
+    private ?ExceptionFactory $responseExceptionFactory = null;
     /**
      * @inheritdoc
      */
-    public function getProductGroups(GetProductGroupsParams $query, CallContext $callContext = null)
+    public function getProductGroups(GetProductGroupsParams $query, ?CallContext $callContext = null) : GetPaymentProductGroupsResponse
     {
         $responseClassMap = new ResponseClassMap();
         $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\GetPaymentProductGroupsResponse';
@@ -34,7 +36,7 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
     /**
      * @inheritdoc
      */
-    public function getProductGroup($paymentProductGroupId, GetProductGroupParams $query, CallContext $callContext = null)
+    public function getProductGroup(string $paymentProductGroupId, GetProductGroupParams $query, ?CallContext $callContext = null) : PaymentProductGroup
     {
         $this->context['paymentProductGroupId'] = $paymentProductGroupId;
         $responseClassMap = new ResponseClassMap();
@@ -47,7 +49,7 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
         }
     }
     /** @return ExceptionFactory */
-    private function getResponseExceptionFactory()
+    private function getResponseExceptionFactory() : ExceptionFactory
     {
         if (\is_null($this->responseExceptionFactory)) {
             $this->responseExceptionFactory = new ExceptionFactory();

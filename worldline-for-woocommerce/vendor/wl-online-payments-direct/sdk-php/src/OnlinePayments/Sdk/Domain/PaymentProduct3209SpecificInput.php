@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class PaymentProduct3209SpecificInput extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $merchantFinanceCode = null;
+    public ?string $merchantFinanceCode = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getMerchantFinanceCode()
+    public function getMerchantFinanceCode() : ?string
     {
         return $this->merchantFinanceCode;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setMerchantFinanceCode($value)
+    public function setMerchantFinanceCode(?string $value) : void
     {
         $this->merchantFinanceCode = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->merchantFinanceCode)) {
@@ -45,7 +45,7 @@ class PaymentProduct3209SpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : PaymentProduct3209SpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'merchantFinanceCode')) {

@@ -10,19 +10,19 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
 class ConnectionResponse implements ConnectionResponseInterface
 {
     /** @var int */
-    private $httpStatusCode;
+    private int $httpStatusCode;
     /** @var array */
-    private $headers;
+    private array $headers;
     /** @var array */
-    private $lowerCasedHeaderKeyMap;
+    private array $lowerCasedHeaderKeyMap;
     /** @var string */
-    private $body;
+    private string $body;
     /**
      * @param int $httpStatusCode
      * @param array $headers
      * @param string $body
      */
-    public function __construct($httpStatusCode, array $headers, $body)
+    public function __construct(int $httpStatusCode, array $headers, string $body)
     {
         $this->httpStatusCode = $httpStatusCode;
         $this->headers = $headers;
@@ -35,14 +35,14 @@ class ConnectionResponse implements ConnectionResponseInterface
     /**
      * @return int
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode() : int
     {
         return $this->httpStatusCode;
     }
     /**
      * @return array
      */
-    public function getHeaders()
+    public function getHeaders() : array
     {
         return $this->headers;
     }
@@ -50,7 +50,7 @@ class ConnectionResponse implements ConnectionResponseInterface
      * @param string $name
      * @return string|array
      */
-    public function getHeaderValue($name)
+    public function getHeaderValue(string $name)
     {
         $lowerCasedName = \strtolower($name);
         if (\array_key_exists($lowerCasedName, $this->lowerCasedHeaderKeyMap)) {
@@ -61,7 +61,7 @@ class ConnectionResponse implements ConnectionResponseInterface
     /**
      * @return string
      */
-    public function getBody()
+    public function getBody() : string
     {
         return $this->body;
     }
@@ -70,7 +70,7 @@ class ConnectionResponse implements ConnectionResponseInterface
      * @return string|null The value of the filename parameter of the Content-Disposition header from the given headers,
      *                     or null if there was no such header or parameter.
      */
-    public static function getDispositionFilename($headers)
+    public static function getDispositionFilename(array $headers) : ?string
     {
         $headerValue = null;
         foreach ($headers as $key => $value) {
@@ -88,7 +88,7 @@ class ConnectionResponse implements ConnectionResponseInterface
         }
         return null;
     }
-    private static function trimQuotes($filename)
+    private static function trimQuotes(string $filename) : string
     {
         $len = \strlen($filename);
         if ($len < 2) {

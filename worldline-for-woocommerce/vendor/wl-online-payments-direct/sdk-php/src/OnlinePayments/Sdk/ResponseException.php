@@ -16,17 +16,17 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
 class ResponseException extends RuntimeException
 {
     /** @var int */
-    private $httpStatusCode;
+    private int $httpStatusCode;
     /**
      * @var DataObject
      */
-    private $response;
+    private DataObject $response;
     /**
      * @param int $httpStatusCode
      * @param DataObject $response
-     * @param string $message
+     * @param string|null $message
      */
-    public function __construct($httpStatusCode, DataObject $response, $message = null)
+    public function __construct(int $httpStatusCode, DataObject $response, ?string $message = null)
     {
         if (\is_null($message)) {
             $message = 'the payment platform returned an error response';
@@ -35,39 +35,39 @@ class ResponseException extends RuntimeException
         $this->httpStatusCode = $httpStatusCode;
         $this->response = $response;
     }
-    public function __toString()
+    public function __toString() : string
     {
         return \sprintf("exception '%s' with message '%s'. in %s:%d\nHTTP status code: %s\nResponse:\n%s\nStack trace:\n%s", __CLASS__, $this->getMessage(), $this->getFile(), $this->getLine(), $this->getHttpStatusCode(), \json_encode($this->getResponse(), \JSON_PRETTY_PRINT), $this->getTraceAsString());
     }
     /**
      * @return int
      */
-    public function getHttpStatusCode()
+    public function getHttpStatusCode() : int
     {
         return $this->httpStatusCode;
     }
     /**
      * @return DataObject
      */
-    public function getResponse()
+    public function getResponse() : DataObject
     {
         return $this->response;
     }
     /**
      * @return string
      */
-    public function getErrorId()
+    public function getErrorId() : string
     {
         $responseVariables = \get_object_vars($this->getResponse());
         if (!\array_key_exists('errorId', $responseVariables)) {
             return '';
         }
-        return $responseVariables['errorId'];
+        return $responseVariables['errorId'] ?? '';
     }
     /**
      * @return APIError[]
      */
-    public function getErrors()
+    public function getErrors() : array
     {
         $responseVariables = \get_object_vars($this->getResponse());
         if (!\array_key_exists('errors', $responseVariables)) {

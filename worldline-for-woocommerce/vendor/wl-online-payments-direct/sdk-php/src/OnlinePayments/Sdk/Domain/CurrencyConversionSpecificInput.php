@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class CurrencyConversionSpecificInput extends DataObject
 {
     /**
-     * @var bool
+     * @var bool|null
      */
-    public $dccEnabled = null;
+    public ?bool $dccEnabled = null;
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getDccEnabled()
+    public function getDccEnabled() : ?bool
     {
         return $this->dccEnabled;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setDccEnabled($value)
+    public function setDccEnabled(?bool $value) : void
     {
         $this->dccEnabled = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->dccEnabled)) {
@@ -45,7 +45,7 @@ class CurrencyConversionSpecificInput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : CurrencyConversionSpecificInput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'dccEnabled')) {

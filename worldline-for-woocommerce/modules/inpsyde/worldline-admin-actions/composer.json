@@ -1,0 +1,16 @@
+{
+    "name": "inpsyde\/worldline-admin-actions",
+    "description": "Worldline Admin Actions module",
+    "type": "inpsyde-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Syde GmbH",
+            "email": "hello@syde.com"
+        }
+    ],
+    "require": {
+        "inpsyde\/modularity": "dev-main",
+        "inpsyde\/assets": "dev-main"
+    }
+}

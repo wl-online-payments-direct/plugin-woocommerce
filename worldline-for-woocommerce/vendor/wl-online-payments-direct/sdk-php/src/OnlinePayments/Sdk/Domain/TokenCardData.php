@@ -12,47 +12,68 @@ use UnexpectedValueException;
 class TokenCardData extends DataObject
 {
     /**
-     * @var CardWithoutCvv
+     * @var CardBinDetails|null
      */
-    public $cardWithoutCvv = null;
+    public ?CardBinDetails $cardBinDetails = null;
     /**
-     * @var string
+     * @var CardWithoutCvv|null
      */
-    public $cobrandSelectionIndicator = null;
+    public ?CardWithoutCvv $cardWithoutCvv = null;
     /**
-     * @return CardWithoutCvv
+     * @var string|null
      */
-    public function getCardWithoutCvv()
+    public ?string $cobrandSelectionIndicator = null;
+    /**
+     * @return CardBinDetails|null
+     */
+    public function getCardBinDetails() : ?CardBinDetails
+    {
+        return $this->cardBinDetails;
+    }
+    /**
+     * @param CardBinDetails|null $value
+     */
+    public function setCardBinDetails(?CardBinDetails $value) : void
+    {
+        $this->cardBinDetails = $value;
+    }
+    /**
+     * @return CardWithoutCvv|null
+     */
+    public function getCardWithoutCvv() : ?CardWithoutCvv
     {
         return $this->cardWithoutCvv;
     }
     /**
-     * @param CardWithoutCvv
+     * @param CardWithoutCvv|null $value
      */
-    public function setCardWithoutCvv($value)
+    public function setCardWithoutCvv(?CardWithoutCvv $value) : void
     {
         $this->cardWithoutCvv = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCobrandSelectionIndicator()
+    public function getCobrandSelectionIndicator() : ?string
     {
         return $this->cobrandSelectionIndicator;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setCobrandSelectionIndicator($value)
+    public function setCobrandSelectionIndicator(?string $value) : void
     {
         $this->cobrandSelectionIndicator = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
+        if (!\is_null($this->cardBinDetails)) {
+            $object->cardBinDetails = $this->cardBinDetails->toObject();
+        }
         if (!\is_null($this->cardWithoutCvv)) {
             $object->cardWithoutCvv = $this->cardWithoutCvv->toObject();
         }
@@ -66,9 +87,16 @@ class TokenCardData extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : TokenCardData
     {
         parent::fromObject($object);
+        if (\property_exists($object, 'cardBinDetails')) {
+            if (!\is_object($object->cardBinDetails)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->cardBinDetails, \true) . '\' is not an object');
+            }
+            $value = new CardBinDetails();
+            $this->cardBinDetails = $value->fromObject($object->cardBinDetails);
+        }
         if (\property_exists($object, 'cardWithoutCvv')) {
             if (!\is_object($object->cardWithoutCvv)) {
                 throw new UnexpectedValueException('value \'' . \print_r($object->cardWithoutCvv, \true) . '\' is not an object');

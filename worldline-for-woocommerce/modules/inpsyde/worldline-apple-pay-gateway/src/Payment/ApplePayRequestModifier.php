@@ -6,12 +6,12 @@ namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\ApplePayGateway\
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\HostedCheckoutInput;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\AbstractHostedPaymentRequestModifier;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\MobilePaymentMethodHostedCheckoutSpecificInput;
 class ApplePayRequestModifier extends AbstractHostedPaymentRequestModifier
 {
     public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput) : CreateHostedCheckoutRequest
     {
-        $mobilePaymentMethodSpecificInput = new MobilePaymentMethodSpecificInput();
+        $mobilePaymentMethodSpecificInput = new MobilePaymentMethodHostedCheckoutSpecificInput();
         $authorizationMode = $hostedCheckoutRequest->getMobilePaymentMethodSpecificInput()->getAuthorizationMode();
         $mobilePaymentMethodSpecificInput->setAuthorizationMode($authorizationMode);
         $mobilePaymentMethodSpecificInput->setPaymentProductId(302);

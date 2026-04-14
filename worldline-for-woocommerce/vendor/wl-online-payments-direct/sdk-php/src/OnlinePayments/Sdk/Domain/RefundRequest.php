@@ -12,81 +12,153 @@ use UnexpectedValueException;
 class RefundRequest extends DataObject
 {
     /**
-     * @var AmountOfMoney
+     * @var AmountOfMoney|null
      */
-    public $amountOfMoney = null;
+    public ?AmountOfMoney $amountOfMoney = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $captureId = null;
+    public ?string $captureId = null;
     /**
-     * @var OperationPaymentReferences
+     * @var LineItemDetail[]|null
      */
-    public $operationReferences = null;
+    public ?array $lineItemDetails = null;
     /**
-     * @var PaymentReferences
+     * @var OmnichannelRefundSpecificInput|null
      */
-    public $references = null;
+    public ?OmnichannelRefundSpecificInput $omnichannelRefundSpecificInput = null;
     /**
-     * @return AmountOfMoney
+     * @var OperationPaymentReferences|null
      */
-    public function getAmountOfMoney()
+    public ?OperationPaymentReferences $operationReferences = null;
+    /**
+     * @var string|null
+     */
+    public ?string $reason = null;
+    /**
+     * @var PaymentReferences|null
+     */
+    public ?PaymentReferences $references = null;
+    /**
+     * @var RefundRedirectPaymentMethodSpecificInput|null
+     */
+    public ?RefundRedirectPaymentMethodSpecificInput $refundRedirectPaymentMethodSpecificInput = null;
+    /**
+     * @return AmountOfMoney|null
+     */
+    public function getAmountOfMoney() : ?AmountOfMoney
     {
         return $this->amountOfMoney;
     }
     /**
-     * @param AmountOfMoney
+     * @param AmountOfMoney|null $value
      */
-    public function setAmountOfMoney($value)
+    public function setAmountOfMoney(?AmountOfMoney $value) : void
     {
         $this->amountOfMoney = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getCaptureId()
+    public function getCaptureId() : ?string
     {
         return $this->captureId;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setCaptureId($value)
+    public function setCaptureId(?string $value) : void
     {
         $this->captureId = $value;
     }
     /**
-     * @return OperationPaymentReferences
+     * @return LineItemDetail[]|null
      */
-    public function getOperationReferences()
+    public function getLineItemDetails() : ?array
+    {
+        return $this->lineItemDetails;
+    }
+    /**
+     * @param LineItemDetail[]|null $value
+     */
+    public function setLineItemDetails(?array $value) : void
+    {
+        $this->lineItemDetails = $value;
+    }
+    /**
+     * @return OmnichannelRefundSpecificInput|null
+     */
+    public function getOmnichannelRefundSpecificInput() : ?OmnichannelRefundSpecificInput
+    {
+        return $this->omnichannelRefundSpecificInput;
+    }
+    /**
+     * @param OmnichannelRefundSpecificInput|null $value
+     */
+    public function setOmnichannelRefundSpecificInput(?OmnichannelRefundSpecificInput $value) : void
+    {
+        $this->omnichannelRefundSpecificInput = $value;
+    }
+    /**
+     * @return OperationPaymentReferences|null
+     */
+    public function getOperationReferences() : ?OperationPaymentReferences
     {
         return $this->operationReferences;
     }
     /**
-     * @param OperationPaymentReferences
+     * @param OperationPaymentReferences|null $value
      */
-    public function setOperationReferences($value)
+    public function setOperationReferences(?OperationPaymentReferences $value) : void
     {
         $this->operationReferences = $value;
     }
     /**
-     * @return PaymentReferences
+     * @return string|null
      */
-    public function getReferences()
+    public function getReason() : ?string
+    {
+        return $this->reason;
+    }
+    /**
+     * @param string|null $value
+     */
+    public function setReason(?string $value) : void
+    {
+        $this->reason = $value;
+    }
+    /**
+     * @return PaymentReferences|null
+     */
+    public function getReferences() : ?PaymentReferences
     {
         return $this->references;
     }
     /**
-     * @param PaymentReferences
+     * @param PaymentReferences|null $value
      */
-    public function setReferences($value)
+    public function setReferences(?PaymentReferences $value) : void
     {
         $this->references = $value;
     }
     /**
+     * @return RefundRedirectPaymentMethodSpecificInput|null
+     */
+    public function getRefundRedirectPaymentMethodSpecificInput() : ?RefundRedirectPaymentMethodSpecificInput
+    {
+        return $this->refundRedirectPaymentMethodSpecificInput;
+    }
+    /**
+     * @param RefundRedirectPaymentMethodSpecificInput|null $value
+     */
+    public function setRefundRedirectPaymentMethodSpecificInput(?RefundRedirectPaymentMethodSpecificInput $value) : void
+    {
+        $this->refundRedirectPaymentMethodSpecificInput = $value;
+    }
+    /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->amountOfMoney)) {
@@ -95,11 +167,28 @@ class RefundRequest extends DataObject
         if (!\is_null($this->captureId)) {
             $object->captureId = $this->captureId;
         }
+        if (!\is_null($this->lineItemDetails)) {
+            $object->lineItemDetails = [];
+            foreach ($this->lineItemDetails as $element) {
+                if (!\is_null($element)) {
+                    $object->lineItemDetails[] = $element->toObject();
+                }
+            }
+        }
+        if (!\is_null($this->omnichannelRefundSpecificInput)) {
+            $object->omnichannelRefundSpecificInput = $this->omnichannelRefundSpecificInput->toObject();
+        }
         if (!\is_null($this->operationReferences)) {
             $object->operationReferences = $this->operationReferences->toObject();
         }
+        if (!\is_null($this->reason)) {
+            $object->reason = $this->reason;
+        }
         if (!\is_null($this->references)) {
             $object->references = $this->references->toObject();
+        }
+        if (!\is_null($this->refundRedirectPaymentMethodSpecificInput)) {
+            $object->refundRedirectPaymentMethodSpecificInput = $this->refundRedirectPaymentMethodSpecificInput->toObject();
         }
         return $object;
     }
@@ -108,7 +197,7 @@ class RefundRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : RefundRequest
     {
         parent::fromObject($object);
         if (\property_exists($object, 'amountOfMoney')) {
@@ -121,6 +210,23 @@ class RefundRequest extends DataObject
         if (\property_exists($object, 'captureId')) {
             $this->captureId = $object->captureId;
         }
+        if (\property_exists($object, 'lineItemDetails')) {
+            if (!\is_array($object->lineItemDetails) && !\is_object($object->lineItemDetails)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->lineItemDetails, \true) . '\' is not an array or object');
+            }
+            $this->lineItemDetails = [];
+            foreach ($object->lineItemDetails as $element) {
+                $value = new LineItemDetail();
+                $this->lineItemDetails[] = $value->fromObject($element);
+            }
+        }
+        if (\property_exists($object, 'omnichannelRefundSpecificInput')) {
+            if (!\is_object($object->omnichannelRefundSpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->omnichannelRefundSpecificInput, \true) . '\' is not an object');
+            }
+            $value = new OmnichannelRefundSpecificInput();
+            $this->omnichannelRefundSpecificInput = $value->fromObject($object->omnichannelRefundSpecificInput);
+        }
         if (\property_exists($object, 'operationReferences')) {
             if (!\is_object($object->operationReferences)) {
                 throw new UnexpectedValueException('value \'' . \print_r($object->operationReferences, \true) . '\' is not an object');
@@ -128,12 +234,22 @@ class RefundRequest extends DataObject
             $value = new OperationPaymentReferences();
             $this->operationReferences = $value->fromObject($object->operationReferences);
         }
+        if (\property_exists($object, 'reason')) {
+            $this->reason = $object->reason;
+        }
         if (\property_exists($object, 'references')) {
             if (!\is_object($object->references)) {
                 throw new UnexpectedValueException('value \'' . \print_r($object->references, \true) . '\' is not an object');
             }
             $value = new PaymentReferences();
             $this->references = $value->fromObject($object->references);
+        }
+        if (\property_exists($object, 'refundRedirectPaymentMethodSpecificInput')) {
+            if (!\is_object($object->refundRedirectPaymentMethodSpecificInput)) {
+                throw new UnexpectedValueException('value \'' . \print_r($object->refundRedirectPaymentMethodSpecificInput, \true) . '\' is not an object');
+            }
+            $value = new RefundRedirectPaymentMethodSpecificInput();
+            $this->refundRedirectPaymentMethodSpecificInput = $value->fromObject($object->refundRedirectPaymentMethodSpecificInput);
         }
         return $this;
     }

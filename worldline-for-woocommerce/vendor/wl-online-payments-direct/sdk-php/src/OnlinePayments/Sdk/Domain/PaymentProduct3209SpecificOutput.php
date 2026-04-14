@@ -12,27 +12,27 @@ use UnexpectedValueException;
 class PaymentProduct3209SpecificOutput extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $buyerCompliantBankMessage = null;
+    public ?string $buyerCompliantBankMessage = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getBuyerCompliantBankMessage()
+    public function getBuyerCompliantBankMessage() : ?string
     {
         return $this->buyerCompliantBankMessage;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setBuyerCompliantBankMessage($value)
+    public function setBuyerCompliantBankMessage(?string $value) : void
     {
         $this->buyerCompliantBankMessage = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->buyerCompliantBankMessage)) {
@@ -45,7 +45,7 @@ class PaymentProduct3209SpecificOutput extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : PaymentProduct3209SpecificOutput
     {
         parent::fromObject($object);
         if (\property_exists($object, 'buyerCompliantBankMessage')) {

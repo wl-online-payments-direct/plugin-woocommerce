@@ -12,45 +12,45 @@ use UnexpectedValueException;
 class ValidateCredentialsRequest extends DataObject
 {
     /**
-     * @var string
+     * @var string|null
      */
-    public $key = null;
+    public ?string $key = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $secret = null;
+    public ?string $secret = null;
     /**
-     * @return string
+     * @return string|null
      */
-    public function getKey()
+    public function getKey() : ?string
     {
         return $this->key;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setKey($value)
+    public function setKey(?string $value) : void
     {
         $this->key = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getSecret()
+    public function getSecret() : ?string
     {
         return $this->secret;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setSecret($value)
+    public function setSecret(?string $value) : void
     {
         $this->secret = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->key)) {
@@ -66,7 +66,7 @@ class ValidateCredentialsRequest extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : ValidateCredentialsRequest
     {
         parent::fromObject($object);
         if (\property_exists($object, 'key')) {

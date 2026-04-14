@@ -10,9 +10,9 @@ namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
 class HeaderObfuscator
 {
     /** @var ValueObfuscator */
-    protected $valueObfuscator;
+    protected ValueObfuscator $valueObfuscator;
     /** @var array<string, callable> */
-    private $customRules = array();
+    private array $customRules = array();
     public function __construct()
     {
         $this->valueObfuscator = new ValueObfuscator();
@@ -21,7 +21,7 @@ class HeaderObfuscator
      * @param string[] $headers
      * @return string[]
      */
-    public function obfuscateHeaders(array $headers)
+    public function obfuscateHeaders(array $headers) : array
     {
         foreach ($headers as $headerName => &$headerValue) {
             $headerValue = $this->obfuscateHeaderValue($headerName, $headerValue);
@@ -33,9 +33,9 @@ class HeaderObfuscator
      * @param array|string $value
      * @return array|string
      */
-    protected function obfuscateHeaderValue($key, $value)
+    protected function obfuscateHeaderValue(string $key, $value)
     {
-        $lowerKey = \mb_strtolower(\strval($key), 'UTF-8');
+        $lowerKey = \mb_strtolower($key, 'UTF-8');
         if (isset($this->customRules[$lowerKey])) {
             return $this->replaceHeaderValueWithCustomRule($value, $this->customRules[$lowerKey]);
         }
@@ -58,7 +58,7 @@ class HeaderObfuscator
      * @param int $numberOfCharacters
      * @return array|string
      */
-    protected function replaceHeaderValueWithFixedNumberOfCharacters($value, $numberOfCharacters)
+    protected function replaceHeaderValueWithFixedNumberOfCharacters($value, int $numberOfCharacters)
     {
         if (\is_array($value)) {
             return \array_fill(0, \count($value), $this->valueObfuscator->obfuscateFixedLength($numberOfCharacters));
@@ -85,9 +85,9 @@ class HeaderObfuscator
      * @param string $headerName
      * @param callable $customRule
      */
-    public function setCustomRule($headerName, callable $customRule)
+    public function setCustomRule(string $headerName, callable $customRule) : void
     {
-        $lowerName = \mb_strtolower(\strval($headerName), 'UTF-8');
+        $lowerName = \mb_strtolower($headerName, 'UTF-8');
         $this->customRules[$lowerName] = $customRule;
     }
 }

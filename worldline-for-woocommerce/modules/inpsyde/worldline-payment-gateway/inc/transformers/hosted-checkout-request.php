@@ -14,21 +14,24 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGatewa
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\CarteBancaireThreeDSecureFactory;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\ThreeDSecure\GooglePayThreeDSecureFactory;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputBase;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CardPaymentMethodSpecificInputForHostedCheckout;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\HostedCheckoutSpecificInput;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\MobilePaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\MobilePaymentMethodHostedCheckoutSpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\MobilePaymentProduct320SpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProduct130SpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ThreeDSecure;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ThreeDSecureBase;
 return new Factory(['config.authorization_mode', 'worldline_payment_gateway.3ds.card_3ds_factory', 'worldline_payment_gateway.3ds.carte_bancaire_3ds_factory', 'worldline_payment_gateway.3ds.google_pay_3ds_factory', 'config.card_brands_grouped', 'config.stored_card_buttons', 'vaulting.repository.wc.tokens.' . GatewayIds::HOSTED_CHECKOUT, 'config.hosted_checkout_page_template'], static function (string $authorizationMode, CardThreeDSecureFactory $cardThreedSecureFactory, CarteBancaireThreeDSecureFactory $carteBancaireThreedSecureFactory, GooglePayThreeDSecureFactory $gpayThreedSecureFactory, bool $cardBrandsGrouped, bool $showTokens, WcTokenRepository $wcTokenRepository, string $hostedCheckoutPageTemplate) : Transformer {
     $transformer = new ConfigurableTransformer();
     $transformer->addTransformer(static function (HostedCheckoutInput $input, Transformer $transformer) : CreateHostedCheckoutRequest {
         $request = new CreateHostedCheckoutRequest();
         $request->setOrder($input->order());
         $request->setHostedCheckoutSpecificInput($transformer->create(HostedCheckoutSpecificInput::class, $input));
-        $request->setCardPaymentMethodSpecificInput($transformer->create(CardPaymentMethodSpecificInput::class, $input));
-        $request->setMobilePaymentMethodSpecificInput($transformer->create(MobilePaymentMethodSpecificInput::class, $input));
+        $request->setCardPaymentMethodSpecificInput($transformer->create(CardPaymentMethodSpecificInputBase::class, $input));
+        $request->setMobilePaymentMethodSpecificInput($transformer->create(MobilePaymentMethodHostedCheckoutSpecificInput::class, $input));
         $request->setRedirectPaymentMethodSpecificInput($transformer->create(RedirectPaymentMethodSpecificInput::class, $input));
         return $request;
     });
@@ -55,10 +58,13 @@ return new Factory(['config.authorization_mode', 'worldline_payment_gateway.3ds.
         }
         return $specificInput;
     });
-    $transformer->addTransformer(static function (HostedCheckoutInput $input) use($cardThreedSecureFactory, $carteBancaireThreedSecureFactory, $authorizationMode) : CardPaymentMethodSpecificInput {
-        $cardSpecificInput = new CardPaymentMethodSpecificInput();
+    $transformer->addTransformer(static function (HostedCheckoutInput $input) use($cardThreedSecureFactory, $carteBancaireThreedSecureFactory, $authorizationMode) : CardPaymentMethodSpecificInputBase {
+        $cardSpecificInput = new CardPaymentMethodSpecificInputBase();
         $cardSpecificInput->setAuthorizationMode($authorizationMode);
-        $cardSpecificInput->setThreeDSecure($cardThreedSecureFactory->create($input->order()->getAmountOfMoney()->getAmount(), $input->order()->getAmountOfMoney()->getCurrencyCode()));
+        $threeDSecureResult = $cardThreedSecureFactory->create($input->order()->getAmountOfMoney()->getAmount(), $input->order()->getAmountOfMoney()->getCurrencyCode());
+        $threeDSecureBase = new ThreeDSecureBase();
+        $threeDSecureBase->fromObject($threeDSecureResult->toObject());
+        $cardSpecificInput->setThreeDSecure($threeDSecureBase);
         $token = $input->token();
         if (\is_string($token) && !empty($token)) {
             $cardSpecificInput->setToken($token);
@@ -72,8 +78,28 @@ return new Factory(['config.authorization_mode', 'worldline_payment_gateway.3ds.
         }
         return $cardSpecificInput;
     });
-    $transformer->addTransformer(static function (HostedCheckoutInput $input) use($authorizationMode, $gpayThreedSecureFactory) : MobilePaymentMethodSpecificInput {
-        $mobileSpecificInput = new MobilePaymentMethodSpecificInput();
+    $transformer->addTransformer(static function (HostedCheckoutInput $input) use($cardThreedSecureFactory, $carteBancaireThreedSecureFactory, $authorizationMode) : CardPaymentMethodSpecificInput {
+        $cardSpecificInput = new CardPaymentMethodSpecificInput();
+        $cardSpecificInput->setAuthorizationMode($authorizationMode);
+        $threeDSecureResult = $cardThreedSecureFactory->create($input->order()->getAmountOfMoney()->getAmount(), $input->order()->getAmountOfMoney()->getCurrencyCode());
+        $threeDSecure = new ThreeDSecure();
+        $threeDSecure->fromObject($threeDSecureResult->toObject());
+        $cardSpecificInput->setThreeDSecure($threeDSecure);
+        $token = $input->token();
+        if (\is_string($token) && !empty($token)) {
+            $cardSpecificInput->setToken($token);
+            $cardSpecificInput->setUnscheduledCardOnFileRequestor('cardholderInitiated');
+            $cardSpecificInput->setUnscheduledCardOnFileSequenceIndicator('subsequent');
+        }
+        $carteBancaireSpecificInput = new PaymentProduct130SpecificInput();
+        $carteBancaireSpecificInput->setThreeDSecure($carteBancaireThreedSecureFactory->create($input->order()->getAmountOfMoney()->getAmount(), $input->order()->getAmountOfMoney()->getCurrencyCode(), (int) $input->wcOrder()->get_item_count()));
+        if ($carteBancaireSpecificInput->getThreeDSecure() !== null) {
+            $cardSpecificInput->setPaymentProduct130SpecificInput($carteBancaireSpecificInput);
+        }
+        return $cardSpecificInput;
+    });
+    $transformer->addTransformer(static function (HostedCheckoutInput $input) use($authorizationMode, $gpayThreedSecureFactory) : MobilePaymentMethodHostedCheckoutSpecificInput {
+        $mobileSpecificInput = new MobilePaymentMethodHostedCheckoutSpecificInput();
         $mobileSpecificInput->setAuthorizationMode($authorizationMode);
         $gpaySpecificInput = new MobilePaymentProduct320SpecificInput();
         $gpaySpecificInput->setThreeDSecure($gpayThreedSecureFactory->create($input->order()->getAmountOfMoney()->getAmount(), $input->order()->getAmountOfMoney()->getCurrencyCode()));

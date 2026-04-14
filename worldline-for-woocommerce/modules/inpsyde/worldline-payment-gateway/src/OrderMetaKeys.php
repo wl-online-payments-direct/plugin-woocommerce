@@ -26,4 +26,7 @@ interface OrderMetaKeys
     public const PAYMENT_CARD_BIN = '_wlop_payment_card_bin';
     public const PAYMENT_CARD_NUMBER = '_wlop_payment_card_number';
     public const SEPA_MANDATE_REFERENCE = '_wlop_sepa_mandate_reference';
+    public const PAYMENT_CAPTURED_AMOUNT = '_wlop_payment_captured_amount';
+    public const PAYMENT_CANCELED_AMOUNT = '_wlop_payment_canceled_amount';
+    public const PAYMENT_PENDING_CAPTURE_AMOUNT = '_wlop_payment_pending_capture_amount';
 }

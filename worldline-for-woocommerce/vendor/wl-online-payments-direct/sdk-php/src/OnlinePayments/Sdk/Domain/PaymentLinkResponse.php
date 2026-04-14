@@ -13,171 +13,189 @@ use UnexpectedValueException;
 class PaymentLinkResponse extends DataObject
 {
     /**
-     * @var DateTime
+     * @var DateTime|null
      */
-    public $expirationDate = null;
+    public ?DateTime $expirationDate = null;
     /**
-     * @var bool
+     * @var bool|null
      */
-    public $isReusableLink = null;
+    public ?bool $isReusableLink = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $paymentId = null;
+    public ?string $paymentId = null;
     /**
-     * @var PaymentLinkEvent[]
+     * @var PaymentLinkEvent[]|null
      */
-    public $paymentLinkEvents = null;
+    public ?array $paymentLinkEvents = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $paymentLinkId = null;
+    public ?string $paymentLinkId = null;
     /**
-     * @var PaymentLinkOrderOutput
+     * @var PaymentLinkOrderOutput|null
      */
-    public $paymentLinkOrder = null;
+    public ?PaymentLinkOrderOutput $paymentLinkOrder = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $recipientName = null;
+    public ?string $qrCodeBase64 = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $redirectionUrl = null;
+    public ?string $recipientName = null;
     /**
-     * @var string
+     * @var string|null
      */
-    public $status = null;
+    public ?string $redirectionUrl = null;
     /**
-     * @return DateTime
+     * @var string|null
      */
-    public function getExpirationDate()
+    public ?string $status = null;
+    /**
+     * @return DateTime|null
+     */
+    public function getExpirationDate() : ?DateTime
     {
         return $this->expirationDate;
     }
     /**
-     * @param DateTime
+     * @param DateTime|null $value
      */
-    public function setExpirationDate($value)
+    public function setExpirationDate(?DateTime $value) : void
     {
         $this->expirationDate = $value;
     }
     /**
-     * @return bool
+     * @return bool|null
      */
-    public function getIsReusableLink()
+    public function getIsReusableLink() : ?bool
     {
         return $this->isReusableLink;
     }
     /**
-     * @param bool
+     * @param bool|null $value
      */
-    public function setIsReusableLink($value)
+    public function setIsReusableLink(?bool $value) : void
     {
         $this->isReusableLink = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentId()
+    public function getPaymentId() : ?string
     {
         return $this->paymentId;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setPaymentId($value)
+    public function setPaymentId(?string $value) : void
     {
         $this->paymentId = $value;
     }
     /**
-     * @return PaymentLinkEvent[]
+     * @return PaymentLinkEvent[]|null
      */
-    public function getPaymentLinkEvents()
+    public function getPaymentLinkEvents() : ?array
     {
         return $this->paymentLinkEvents;
     }
     /**
-     * @param PaymentLinkEvent[]
+     * @param PaymentLinkEvent[]|null $value
      */
-    public function setPaymentLinkEvents($value)
+    public function setPaymentLinkEvents(?array $value) : void
     {
         $this->paymentLinkEvents = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getPaymentLinkId()
+    public function getPaymentLinkId() : ?string
     {
         return $this->paymentLinkId;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setPaymentLinkId($value)
+    public function setPaymentLinkId(?string $value) : void
     {
         $this->paymentLinkId = $value;
     }
     /**
-     * @return PaymentLinkOrderOutput
+     * @return PaymentLinkOrderOutput|null
      */
-    public function getPaymentLinkOrder()
+    public function getPaymentLinkOrder() : ?PaymentLinkOrderOutput
     {
         return $this->paymentLinkOrder;
     }
     /**
-     * @param PaymentLinkOrderOutput
+     * @param PaymentLinkOrderOutput|null $value
      */
-    public function setPaymentLinkOrder($value)
+    public function setPaymentLinkOrder(?PaymentLinkOrderOutput $value) : void
     {
         $this->paymentLinkOrder = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRecipientName()
+    public function getQrCodeBase64() : ?string
+    {
+        return $this->qrCodeBase64;
+    }
+    /**
+     * @param string|null $value
+     */
+    public function setQrCodeBase64(?string $value) : void
+    {
+        $this->qrCodeBase64 = $value;
+    }
+    /**
+     * @return string|null
+     */
+    public function getRecipientName() : ?string
     {
         return $this->recipientName;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setRecipientName($value)
+    public function setRecipientName(?string $value) : void
     {
         $this->recipientName = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getRedirectionUrl()
+    public function getRedirectionUrl() : ?string
     {
         return $this->redirectionUrl;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setRedirectionUrl($value)
+    public function setRedirectionUrl(?string $value) : void
     {
         $this->redirectionUrl = $value;
     }
     /**
-     * @return string
+     * @return string|null
      */
-    public function getStatus()
+    public function getStatus() : ?string
     {
         return $this->status;
     }
     /**
-     * @param string
+     * @param string|null $value
      */
-    public function setStatus($value)
+    public function setStatus(?string $value) : void
     {
         $this->status = $value;
     }
     /**
      * @return object
      */
-    public function toObject()
+    public function toObject() : object
     {
         $object = parent::toObject();
         if (!\is_null($this->expirationDate)) {
@@ -203,6 +221,9 @@ class PaymentLinkResponse extends DataObject
         if (!\is_null($this->paymentLinkOrder)) {
             $object->paymentLinkOrder = $this->paymentLinkOrder->toObject();
         }
+        if (!\is_null($this->qrCodeBase64)) {
+            $object->qrCodeBase64 = $this->qrCodeBase64;
+        }
         if (!\is_null($this->recipientName)) {
             $object->recipientName = $this->recipientName;
         }
@@ -219,7 +240,7 @@ class PaymentLinkResponse extends DataObject
      * @return $this
      * @throws UnexpectedValueException
      */
-    public function fromObject($object)
+    public function fromObject(object $object) : PaymentLinkResponse
     {
         parent::fromObject($object);
         if (\property_exists($object, 'expirationDate')) {
@@ -250,6 +271,9 @@ class PaymentLinkResponse extends DataObject
             }
             $value = new PaymentLinkOrderOutput();
             $this->paymentLinkOrder = $value->fromObject($object->paymentLinkOrder);
+        }
+        if (\property_exists($object, 'qrCodeBase64')) {
+            $this->qrCodeBase64 = $object->qrCodeBase64;
         }
         if (\property_exists($object, 'recipientName')) {
             $this->recipientName = $object->recipientName;

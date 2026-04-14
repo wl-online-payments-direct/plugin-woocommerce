@@ -35,7 +35,7 @@ interface PaymentLinksClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function createPaymentLink(CreatePaymentLinkRequest $body, CallContext $callContext = null);
+    function createPaymentLink(CreatePaymentLinkRequest $body, ?CallContext $callContext = null) : PaymentLinkResponse;
     /**
      * Resource /v2/{merchantId}/paymentlinks/{paymentLinkId} - Get payment link by ID
      *
@@ -51,7 +51,7 @@ interface PaymentLinksClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function getPaymentLinkById($paymentLinkId, CallContext $callContext = null);
+    function getPaymentLinkById(string $paymentLinkId, ?CallContext $callContext = null) : PaymentLinkResponse;
     /**
      * Resource /v2/{merchantId}/paymentlinks/{paymentLinkId}/cancel - Cancel PaymentLink by ID
      *
@@ -67,5 +67,5 @@ interface PaymentLinksClientInterface
      * @throws ApiException
      * @throws InvalidResponseException
      */
-    function cancelPaymentLinkById($paymentLinkId, CallContext $callContext = null);
+    function cancelPaymentLinkById(string $paymentLinkId, ?CallContext $callContext = null) : void;
 }
