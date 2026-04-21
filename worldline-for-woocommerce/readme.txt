@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.5.14
+Stable tag: 2.5.16
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
