@@ -22,6 +22,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
 use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
+use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
 use WC_Cart;
 use WC_Order;
 use WC_Payment_Token;
@@ -119,8 +120,12 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
                     $config['tokens'] = $tokensMap;
                 }
             }
-            $response = $client->hostedTokenization()->createHostedTokenization($request);
-            $config['url'] = $response->getHostedTokenizationUrl();
+            try {
+                $response = $client->hostedTokenization()->createHostedTokenization($request);
+                $config['url'] = $response->getHostedTokenizationUrl();
+            } catch (InvalidResponseException $exception) {
+                \do_action('wlop.hosted_tokenization_config_error', ['exception' => $exception]);
+            }
         }
         $total = $this->determineTotal($container);
         if (!\is_null($total)) {

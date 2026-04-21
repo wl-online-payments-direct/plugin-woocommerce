@@ -136,6 +136,13 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 == Changelog ==
 
+= 2.5.16 - 2026-04-08 =
+* Fixed: Add exception handling for when the API is unavailable
+
+= 2.5.15 - 2026-04-07 =
+* Fixed: Renaming actions to prevent the WlopHtConfig object from being overwritten
+* Added: Add SECURITY.md file
+
 = 2.5.14 - 2026-03-30 =
 * Added: Support of Illicado payment method
 * Added: Support of Wero payment method

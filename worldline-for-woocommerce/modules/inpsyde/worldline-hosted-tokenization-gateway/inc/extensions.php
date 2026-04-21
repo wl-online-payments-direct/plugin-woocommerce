@@ -12,7 +12,7 @@ return static function () : array {
         $gateways[] = GatewayIds::HOSTED_TOKENIZATION;
         return $gateways;
     }, 'inpsyde_logger.log_events' => static function (array $previous, ContainerInterface $container) : array {
-        $logEventsToAdd = [['name' => 'wlop.hosted_tokenization_payment_error', 'log_level' => LogLevel::ERROR, 'message' => 'Error encountered while creating hosted tokenization payment: {exception} Errors: {errors}'], ['name' => 'wlop.hosted_tokenization_fallback', 'log_level' => LogLevel::WARNING, 'message' => 'Hosted tokenization ID is missing, redirecting to hosted checkout page.']];
+        $logEventsToAdd = [['name' => 'wlop.hosted_tokenization_payment_error', 'log_level' => LogLevel::ERROR, 'message' => 'Error encountered while creating hosted tokenization payment: {exception} Errors: {errors}'], ['name' => 'wlop.hosted_tokenization_fallback', 'log_level' => LogLevel::WARNING, 'message' => 'Hosted tokenization ID is missing, redirecting to hosted checkout page.'], ['name' => 'wlop.hosted_tokenization_config_error', 'log_level' => LogLevel::ERROR, 'message' => 'Error encountered while creating hosted tokenization config: {exception}']];
         return \array_merge($previous, $logEventsToAdd);
     }];
 };

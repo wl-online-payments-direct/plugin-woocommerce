@@ -57,7 +57,7 @@ class ConfigModule implements ExecutableModule, ServiceModule
             $self->handleLogoOnSave($settings);
             return $settings;
         });
-        \add_action('wp_ajax_wlop_hosted_tokenization_config', function () use($container) {
+        \add_action('wp_ajax_wlop_hosted_tokenization_logo', function () use($container) {
             $this->handleConfigAjax($container);
         });
         \add_filter('woocommerce_settings_api_sanitized_fields_' . GatewayIds::HOSTED_TOKENIZATION, static function (array $settings) use($container, $self) : array {

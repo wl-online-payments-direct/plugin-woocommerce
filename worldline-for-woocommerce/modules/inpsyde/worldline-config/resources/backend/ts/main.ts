@@ -77,7 +77,7 @@ async function fetchLogoPreview() {
 			dataType: 'json',
 			url: '/wp-admin/admin-ajax.php',
 			data: {
-				action: 'wlop_hosted_tokenization_config',
+				action: 'wlop_hosted_tokenization_logo',
 			},
 		});
 
@@ -103,7 +103,7 @@ async function fetchLogoPreview() {
  */
 function handleLogoUpload(file: File) {
 	const formData = new FormData();
-	formData.append('action', 'wlop_hosted_tokenization_config');
+	formData.append('action', 'wlop_hosted_tokenization_logo');
 	formData.append('logo_file', file);
 
 	jQuery.ajax({

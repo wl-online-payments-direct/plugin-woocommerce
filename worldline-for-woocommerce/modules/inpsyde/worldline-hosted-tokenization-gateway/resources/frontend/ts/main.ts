@@ -370,12 +370,20 @@ addEventListener( 'DOMContentLoaded', () => {
 			},
 		} );
 
-		const newWlopHtConfig = data.data;
-		if ( withoutUrl ) {
-			newWlopHtConfig.url = WlopHtConfig.url;
-			newWlopHtConfig.tokens = WlopHtConfig.tokens;
+		if (
+			! data?.success ||
+			typeof data.data !== 'object' ||
+			data.data === null
+		) {
+			return;
 		}
-		WlopHtConfig = newWlopHtConfig;
+
+		const newConfig = data.data;
+		if ( withoutUrl ) {
+			newConfig.url = WlopHtConfig.url;
+			newConfig.tokens = WlopHtConfig.tokens;
+		}
+		Object.assign( WlopHtConfig, newConfig );
 	};
 
 	initTokenizer();
