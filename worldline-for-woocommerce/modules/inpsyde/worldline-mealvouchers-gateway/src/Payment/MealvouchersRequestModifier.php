@@ -35,7 +35,7 @@ class MealvouchersRequestModifier extends AbstractHostedPaymentRequestModifier
         $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
         $hostedCheckoutRequest->setRedirectPaymentMethodSpecificInput($redirectPaymentMethodSpecificInput);
         $customer = $hostedCheckoutRequest->getOrder()->getCustomer();
-        $customer->setMerchantCustomerId(\get_current_user_id());
+        $customer->setMerchantCustomerId((string) \get_current_user_id());
         $this->mergeCartItems($hostedCheckoutRequest, $hostedCheckoutInput);
         $this->removeTokensFromRequest($hostedCheckoutRequest);
         return $hostedCheckoutRequest;

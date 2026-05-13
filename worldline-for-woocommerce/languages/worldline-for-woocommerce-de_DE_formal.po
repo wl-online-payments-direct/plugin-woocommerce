@@ -1692,3 +1692,27 @@ msgid "Your refund request for %s has been submitted and is pending approval."
 msgstr ""
 "Ihr Erstattungsantrag für %s wurde eingereicht und muss noch genehmigt "
 "werden."
+
+#: modules.local/config/inc/fields.php:166
+#: modules/inpsyde/worldline-config/inc/fields.php:166
+msgid "Display payment confirmation page"
+msgstr "Zahlungsbestätigungsseite anzeigen"
+
+#: modules.local/config/inc/fields.php:168
+#: modules/inpsyde/worldline-config/inc/fields.php:168
+msgid ""
+"By enabling this option, your customers will see the Worldline payment "
+"confirmation page"
+msgstr ""
+"Wenn Sie diese Option aktivieren, sehen Ihre Kunden die "
+"Worldline-Zahlungsbestätigungsseite"
+
+#: modules.local/config/inc/fields.php:172
+#: modules/inpsyde/worldline-config/inc/fields.php:172
+msgid ""
+"If enabled, customers will see a dedicated confirmation screen after payment "
+"is processed, confirming the payment and providing key details."
+msgstr ""
+"Wenn aktiviert, sehen Kunden nach der Zahlungsabwicklung einen speziellen "
+"Bestätigungsbildschirm, der die Zahlung bestätigt und wichtige Details "
+"bereitstellt."

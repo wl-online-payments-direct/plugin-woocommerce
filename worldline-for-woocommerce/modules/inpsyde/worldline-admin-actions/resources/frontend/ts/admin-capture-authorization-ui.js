@@ -220,7 +220,8 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!btn) return;
 
         const amount = document.querySelector('.wl-capture-amount').value;
-        const orderId = new URLSearchParams(window.location.search).get('id');
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('id') || params.get('post');
 
         fetch(ajaxurl, {
             method: 'POST',

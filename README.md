@@ -134,6 +134,12 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.17 - 2026-05-05
+* Added: Configuration option to skip the Worldline payment confirmation page
+* Fixed: PostFinance, TWINT and Bank Transfer translation labels
+* Fixed: Compatibility with new SDK version
+* Fixed: Fix capture and cancel actions on legacy WooCommerce order pages
+
 ### 2.5.16 - 2026-04-08
 * Fixed: Add exception handling for when the API is unavailable
 

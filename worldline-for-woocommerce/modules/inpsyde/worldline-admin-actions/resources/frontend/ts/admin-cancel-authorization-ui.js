@@ -18,9 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function parsePriceComma(v) {
         const s = String(v || '')
-            .replace(/\s/g, '')
-            .replace(',', '.')
-            .replace(/[^0-9.\-]/g, '');
+          .replace(/\s/g, '')
+          .replace(',', '.')
+          .replace(/[^0-9.\-]/g, '');
         const n = parseFloat(s);
         return Number.isFinite(n) ? n : 0;
     }
@@ -31,9 +31,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function extractNumber(text) {
         const normalized = text
-            .replace(/\./g, '')
-            .replace(',', '.')
-            .replace(/[^0-9.\-]/g, '');
+          .replace(/\./g, '')
+          .replace(',', '.')
+          .replace(/[^0-9.\-]/g, '');
         const n = parseFloat(normalized);
         return Number.isFinite(n) ? n : 0;
     }
@@ -53,8 +53,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const displayed = amountInput && manualCancelAmount
-            ? parsePriceComma(amountInput.value)
-            : total;
+          ? parsePriceComma(amountInput.value)
+          : total;
 
         if (btnTotal) btnTotal.textContent = formatComma(displayed);
     }
@@ -119,9 +119,9 @@ ${totalTd.dataset.wlOrig}
 
     function parseLocalizedPrice(v) {
         const s = String(v || '')
-            .replace(/\s/g, '')
-            .replace(',', '.')
-            .replace(/[^0-9.\-]/g, '');
+          .replace(/\s/g, '')
+          .replace(',', '.')
+          .replace(/[^0-9.\-]/g, '');
         const n = parseFloat(s);
         return Number.isFinite(n) ? n : 0;
     }
@@ -220,7 +220,8 @@ ${totalTd.dataset.wlOrig}
         if (!btn) return;
 
         const amount = document.querySelector('.wl-cancel-amount').value;
-        const orderId = new URLSearchParams(window.location.search).get('id');
+        const params = new URLSearchParams(window.location.search);
+        const orderId = params.get('id') || params.get('post');
 
         fetch(ajaxurl, {
             method: 'POST',
@@ -230,15 +231,15 @@ ${totalTd.dataset.wlOrig}
                 amount: amount
             })
         })
-            .then(r => r.json())
-            .then(res => {
-                if (!res.success) {
-                    alert(res.data.message);
-                } else {
-                    alert(res.data.message || 'Cancellation submitted successfully.');
-                    setTimeout(() => window.location.reload(), 1500);
-                }
-            });
+          .then(r => r.json())
+          .then(res => {
+              if (!res.success) {
+                  alert(res.data.message);
+              } else {
+                  alert(res.data.message || 'Cancellation submitted successfully.');
+                  setTimeout(() => window.location.reload(), 1500);
+              }
+          });
     });
 
     hide(cancelRow);

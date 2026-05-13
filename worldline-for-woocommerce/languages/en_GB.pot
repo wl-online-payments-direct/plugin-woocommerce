@@ -306,6 +306,21 @@ msgstr ""
 msgid "Leave it empty for the default template."
 msgstr ""
 
+#: modules.local/config/inc/fields.php:166
+#: modules/inpsyde/worldline-config/inc/fields.php:166
+msgid "Display payment confirmation page"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:168
+#: modules/inpsyde/worldline-config/inc/fields.php:168
+msgid "By enabling this option, your customers will see the Worldline payment confirmation page"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:172
+#: modules/inpsyde/worldline-config/inc/fields.php:172
+msgid "If enabled, customers will see a dedicated confirmation screen after payment is processed, confirming the payment and providing key details."
+msgstr ""
+
 #: modules.local/config/inc/fields.php:169
 #: modules/inpsyde/worldline-config/inc/fields.php:169
 msgid "Hosted tokenization page template"

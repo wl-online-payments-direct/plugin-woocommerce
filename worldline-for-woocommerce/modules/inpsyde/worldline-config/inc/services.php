@@ -109,6 +109,8 @@ return static function () : array {
             return $defaultTemplateName;
         }
         return $templateName;
+    }), 'config.show_payment_confirmation_page' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
+        return $config->get('show_payment_confirmation_page') !== 'no';
     }), 'config.hosted_tokenization_page_template' => new Factory(['config.container'], static function (ConfigContainer $config) : ?string {
         $templateName = $config->get('hosted_tokenization_page_template');
         if (empty($templateName)) {

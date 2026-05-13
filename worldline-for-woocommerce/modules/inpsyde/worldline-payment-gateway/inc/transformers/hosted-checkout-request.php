@@ -24,7 +24,7 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProduct130SpecificInp
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ThreeDSecure;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ThreeDSecureBase;
-return new Factory(['config.authorization_mode', 'worldline_payment_gateway.3ds.card_3ds_factory', 'worldline_payment_gateway.3ds.carte_bancaire_3ds_factory', 'worldline_payment_gateway.3ds.google_pay_3ds_factory', 'config.card_brands_grouped', 'config.stored_card_buttons', 'vaulting.repository.wc.tokens.' . GatewayIds::HOSTED_CHECKOUT, 'config.hosted_checkout_page_template'], static function (string $authorizationMode, CardThreeDSecureFactory $cardThreedSecureFactory, CarteBancaireThreeDSecureFactory $carteBancaireThreedSecureFactory, GooglePayThreeDSecureFactory $gpayThreedSecureFactory, bool $cardBrandsGrouped, bool $showTokens, WcTokenRepository $wcTokenRepository, string $hostedCheckoutPageTemplate) : Transformer {
+return new Factory(['config.authorization_mode', 'worldline_payment_gateway.3ds.card_3ds_factory', 'worldline_payment_gateway.3ds.carte_bancaire_3ds_factory', 'worldline_payment_gateway.3ds.google_pay_3ds_factory', 'config.card_brands_grouped', 'config.stored_card_buttons', 'vaulting.repository.wc.tokens.' . GatewayIds::HOSTED_CHECKOUT, 'config.hosted_checkout_page_template', 'config.show_payment_confirmation_page'], static function (string $authorizationMode, CardThreeDSecureFactory $cardThreedSecureFactory, CarteBancaireThreeDSecureFactory $carteBancaireThreedSecureFactory, GooglePayThreeDSecureFactory $gpayThreedSecureFactory, bool $cardBrandsGrouped, bool $showTokens, WcTokenRepository $wcTokenRepository, string $hostedCheckoutPageTemplate, bool $showPaymentConfirmationPage) : Transformer {
     $transformer = new ConfigurableTransformer();
     $transformer->addTransformer(static function (HostedCheckoutInput $input, Transformer $transformer) : CreateHostedCheckoutRequest {
         $request = new CreateHostedCheckoutRequest();
@@ -35,13 +35,14 @@ return new Factory(['config.authorization_mode', 'worldline_payment_gateway.3ds.
         $request->setRedirectPaymentMethodSpecificInput($transformer->create(RedirectPaymentMethodSpecificInput::class, $input));
         return $request;
     });
-    $transformer->addTransformer(static function (HostedCheckoutInput $input) use($cardBrandsGrouped, $wcTokenRepository, $showTokens, $hostedCheckoutPageTemplate) : HostedCheckoutSpecificInput {
+    $transformer->addTransformer(static function (HostedCheckoutInput $input) use($cardBrandsGrouped, $wcTokenRepository, $showTokens, $hostedCheckoutPageTemplate, $showPaymentConfirmationPage) : HostedCheckoutSpecificInput {
         $specificInput = new HostedCheckoutSpecificInput();
         $specificInput->setReturnUrl($input->returnUrl());
         $cardSpecificInputForHostedCheckout = new CardPaymentMethodSpecificInputForHostedCheckout();
         $cardSpecificInputForHostedCheckout->setGroupCards($cardBrandsGrouped);
         $specificInput->setCardPaymentMethodSpecificInput($cardSpecificInputForHostedCheckout);
         $specificInput->setVariant($hostedCheckoutPageTemplate);
+        $specificInput->setShowResultPage($showPaymentConfirmationPage);
         $userId = \get_current_user_id();
         if ($showTokens && $userId > 0) {
             $tokens = $wcTokenRepository->customerTokens($userId);

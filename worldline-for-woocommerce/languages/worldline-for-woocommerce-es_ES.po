@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Worldline for WooCommerce package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2026-03-26 15:20+0000\n"
+"PO-Revision-Date: 2026-04-27 13:44+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -408,6 +408,15 @@ msgstr ""
 "Al habilitar esta opción, solo aceptará transferencias bancarias de sus "
 "clientes cuando el pago se haya realizado de forma instantánea."
 
+#: modules.local/config/inc/fields.php:168
+#: modules/inpsyde/worldline-config/inc/fields.php:168
+msgid ""
+"By enabling this option, your customers will see the Worldline payment "
+"confirmation page"
+msgstr ""
+"Al habilitar esta opción, sus clientes verán la página de confirmación de "
+"pago de Worldline"
+
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -555,6 +564,11 @@ msgstr "Discapacitados"
 #: modules/inpsyde/worldline-hosted-tokenization-gateway/inc/services.php:125
 msgid "Discover"
 msgstr "Discover"
+
+#: modules.local/config/inc/fields.php:166
+#: modules/inpsyde/worldline-config/inc/fields.php:166
+msgid "Display payment confirmation page"
+msgstr "Mostrar la página de confirmación de pago"
 
 #: modules.local/config/inc/fields.php:156
 #: modules.local/config/inc/fields.php:184
@@ -889,6 +903,16 @@ msgstr "iDEAL | Wero"
 #: modules/inpsyde/worldline-ideal-gateway/inc/services.php:33
 msgid "iDEAL | Wero (Worldline)"
 msgstr "iDEAL | Wero (Worldline)"
+
+#: modules.local/config/inc/fields.php:172
+#: modules/inpsyde/worldline-config/inc/fields.php:172
+msgid ""
+"If enabled, customers will see a dedicated confirmation screen after payment "
+"is processed, confirming the payment and providing key details."
+msgstr ""
+"Si está habilitado, los clientes verán una pantalla de confirmación dedicada "
+"después de procesar el pago, confirmando el pago y proporcionando detalles "
+"clave."
 
 #| msgid ""
 #| "If you work in two steps (authorization followed by a capture), this "
@@ -1249,7 +1273,7 @@ msgstr ""
 #: modules.local/postfinance/src/Postfinance.php:84
 #: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:84
 msgid "PostFinance"
-msgstr "PostFinanzas"
+msgstr "PostFinance"
 
 #: modules.local/postfinance/src/Postfinance.php:89
 #: modules/inpsyde/worldline-postfinance-gateway/src/Postfinance.php:89
