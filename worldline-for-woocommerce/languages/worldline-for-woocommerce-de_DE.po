@@ -1711,3 +1711,9 @@ msgstr ""
 "Wenn aktiviert, sehen Kunden nach der Zahlungsabwicklung einen speziellen "
 "Bestätigungsbildschirm, der die Zahlung bestätigt und wichtige Details "
 "bereitstellt."
+
+msgid "Personalize the payment method title on the checkout page."
+msgstr "Passen Sie den Titel der Zahlungsmethode auf der Checkout-Seite an."
+
+msgid "If left empty, the default payment method name will be displayed on the checkout page."
+msgstr "Wenn dieses Feld leer bleibt, wird der Standardname der Zahlungsmethode auf der Checkout-Seite angezeigt."

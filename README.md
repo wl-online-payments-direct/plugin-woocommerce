@@ -134,6 +134,16 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.20 - 2026-05-28
+* Fixed: Support new PAYID format
+* Changed: Order details display for split payments
+
+### 2.5.19 - 2026-05-27
+* Fix transaction error when coupon is applied
+
+### 2.5.18 - 2026-05-15
+* Added: Customize title of the payment methods for Single Payment Buttons
+
 ### 2.5.17 - 2026-05-05
 * Added: Configuration option to skip the Worldline payment confirmation page
 * Fixed: PostFinance, TWINT and Bank Transfer translation labels

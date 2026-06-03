@@ -1699,3 +1699,9 @@ msgid "Your refund request for %s has been submitted and is pending approval."
 msgstr ""
 "Su solicitud de reembolso de %s ha sido enviada y está pendiente de "
 "aprobación."
+
+msgid "Personalize the payment method title on the checkout page."
+msgstr "Personalice el título del método de pago en la página de pago."
+
+msgid "If left empty, the default payment method name will be displayed on the checkout page."
+msgstr "Si se deja vacío, se mostrará el nombre predeterminado del método de pago en la página de pago."

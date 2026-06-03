@@ -51,7 +51,7 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
         if (\in_array($statusCategory, ['UNSUCCESSFUL', 'REFUNDED'], \true)) {
             return \false;
         }
-        if (WebhookHelper::cleanupId($newTransactionId) === WebhookHelper::cleanupId($newTransactionId)) {
+        if (WebhookHelper::cleanupId($newTransactionId) === WebhookHelper::cleanupId($wcTransactionId)) {
             return \false;
         }
         return \true;

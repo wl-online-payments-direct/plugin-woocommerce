@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.5.17
+Stable tag: 2.5.19
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,16 @@ If you encounter any issues with the plugin or its functions after an update, pu
 If that doesn’t solve the problem, create a thread on the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or contact our support team through [this form](https://docs.direct.worldline-solutions.com/en/about/contact/).
 
 == Changelog ==
+
+= 2.5.20 - 2026-05-28 =
+* Fixed: Support new PAYID format
+* Changed: Order details display for split payments
+
+= 2.5.19 - 2026-05-27 =
+* Fix transaction error when coupon is applied
+
+= 2.5.18 - 2026-05-15 =
+* Customize title of the payment methods for Single Payment Buttons
 
 = 2.5.17 - 2026-04-27 =
 * Added: Configuration option to skip the Worldline payment confirmation page

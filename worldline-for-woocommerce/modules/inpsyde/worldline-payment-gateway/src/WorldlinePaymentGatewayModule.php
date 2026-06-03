@@ -19,6 +19,7 @@ use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CaptureMode;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Cron\AutoCaptureHandler;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice\OrderActionNotice;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Validator\CurrencySupportValidator;
 use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
@@ -305,28 +306,89 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             echo '<div class="wl-wrapper">Pending payment</div>';
             return;
         }
-        $mandateRef = (string) $wcOrder->get_meta(OrderMetaKeys::SEPA_MANDATE_REFERENCE);
+        $payments = $order->payments();
+        if ($payments === []) {
+            echo '<div class="wl-wrapper">Pending payment</div>';
+            return;
+        }
+        $showHeaders = \count($payments) > 1;
+        echo '<div class="wl-meta">';
+        foreach ($payments as $entry) {
+            $this->renderPaymentSection($entry, $showHeaders);
+        }
+        echo '</div>';
+    }
+    /**
+     * @param array<string, mixed> $entry
+     */
+    private function renderPaymentSection(array $entry, bool $showHeader) : void
+    {
+        $methodName = (string) ($entry['methodName'] ?? '');
+        $statusCode = $entry['statusCode'] ?? null;
+        $status = (string) ($entry['status'] ?? '');
+        $paymentId = (string) ($entry['paymentId'] ?? '');
+        $card = $this->formatCard($entry['card'] ?? []);
+        $mandateRef = (string) ($entry['sepaMandateReference'] ?? '');
+        $threeDs = \is_array($entry['threeDS'] ?? null) ? $entry['threeDS'] : [];
+        echo '<section class="wl-payment">';
+        if ($showHeader) {
+            echo '<header class="wl-payment-head">';
+            echo '<span class="wl-payment-title">' . \esc_html($methodName !== '' ? $methodName : \__('Payment', 'worldline-for-woocommerce')) . '</span>';
+            echo '<span class="wl-payment-amount">' . \wp_kses_post($this->formatAmount($entry)) . '</span>';
+            echo '</header>';
+        }
         echo '<div class="wl-wrapper">';
-        // Left Column: Payment Information
         echo '<div class="wl-col">';
         echo '<h4>Payment information</h4>';
-        echo '<div class="wl-row"><span class="wl-label">Payment method</span><span class="wl-val">Worldline' . ($order->paymentMethodName() ? ' [' . $order->paymentMethodName() . ']' : '') . '</span></div>';
-        echo '<div class="wl-row"><span class="wl-label">Status</span><span class="wl-val"><span class="wl-val">' . $order->status() . ' (' . $order->statusCode() . ')</span></span></div>';
-        echo '<div class="wl-row"><span class="wl-label">Payment ID</span><span class="wl-val">' . $order->transactionId() . '</span></div>';
-        echo '<div class="wl-row"><span class="wl-label">Amount</span><span class="wl-val">' . $order->amount() . '</span></div>';
-        echo '<div class="wl-row"><span class="wl-label">Card</span><span class="wl-val">' . $order->creditCard() . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Payment method</span><span class="wl-val">Worldline' . ($methodName !== '' ? ' [' . \esc_html($methodName) . ']' : '') . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Status</span><span class="wl-val">' . \esc_html($status) . ($statusCode !== null ? ' (' . \esc_html((string) $statusCode) . ')' : '') . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Payment ID</span><span class="wl-val">' . \esc_html($paymentId) . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Amount</span><span class="wl-val">' . \wp_kses_post($this->formatAmount($entry)) . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Card</span><span class="wl-val">' . \esc_html($card) . '</span></div>';
         if ($mandateRef !== '') {
             echo '<div class="wl-row"><span class="wl-label">Mandate reference</span><span class="wl-val">' . \esc_html($mandateRef) . '</span></div>';
         }
         echo '</div>';
-        // Right Column: Fraud Information
         echo '<div class="wl-col">';
         echo '<h4>Fraud information</h4>';
-        echo '<div class="wl-row"><span class="wl-label">Fraud result</span><span class="wl-val">' . $order->fraudResult() . '</span></div>';
-        echo '<div class="wl-row"><span class="wl-label">3DS Liability</span><span class="wl-val">' . $order->threeDSecureLiability() . '</span></div>';
-        echo '<div class="wl-row"><span class="wl-label">Exemption</span><span class="wl-val">' . $order->threeDSecureExemption() . '</span></div>';
-        echo '<div class="wl-row"><span class="wl-label">Authentication</span><span class="wl-val">' . $order->threeDSecureAuthStatus() . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Fraud result</span><span class="wl-val">' . \esc_html(\ucfirst((string) ($entry['fraudResult'] ?? ''))) . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">3DS Liability</span><span class="wl-val">' . \esc_html(\ucfirst((string) ($threeDs['liability'] ?? ''))) . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Exemption</span><span class="wl-val">' . \esc_html(\ucfirst((string) ($threeDs['appliedExemption'] ?? ''))) . '</span></div>';
+        echo '<div class="wl-row"><span class="wl-label">Authentication</span><span class="wl-val">' . \esc_html((string) ($threeDs['authenticationStatus'] ?? '')) . '</span></div>';
         echo '</div>';
         echo '</div>';
+        echo '</section>';
+    }
+    /**
+     * @param array<string, mixed> $entry
+     */
+    private function formatAmount(array $entry) : string
+    {
+        $cents = (int) ($entry['amountCents'] ?? 0);
+        $currency = (string) ($entry['currency'] ?? '');
+        if ($currency === '') {
+            return '';
+        }
+        $converter = new MoneyAmountConverter();
+        $decimal = $converter->centValueToDecimalValue($cents, $currency);
+        return (string) \wc_price($decimal, ['currency' => $currency, 'thousand_separator' => '']);
+    }
+    /**
+     * @param mixed $card
+     */
+    private function formatCard($card) : string
+    {
+        if (!\is_array($card)) {
+            return '';
+        }
+        $bin = (string) ($card['bin'] ?? '');
+        $number = (string) ($card['number'] ?? '');
+        if ($bin === '') {
+            return $number;
+        }
+        if (\substr($number, 0, \strlen($bin)) === $bin) {
+            return $number;
+        }
+        return \substr_replace($number, $bin, 0, \strlen($bin));
     }
 }

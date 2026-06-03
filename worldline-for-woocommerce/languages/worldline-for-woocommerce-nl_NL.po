@@ -1700,3 +1700,9 @@ msgstr ""
 #: modules/inpsyde/worldline-payment-gateway/src/Refund/RefundProcessor.php:43
 msgid "Your refund request for %s has been submitted and is pending approval."
 msgstr "Je restitutieverzoek voor %s is ingediend en wacht op goedkeuring."
+
+msgid "Personalize the payment method title on the checkout page."
+msgstr "Pas de titel van de betaalmethode aan op de afrekenpagina."
+
+msgid "If left empty, the default payment method name will be displayed on the checkout page."
+msgstr "Indien leeg gelaten, wordt de standaardnaam van de betaalmethode weergegeven op de afrekenpagina."

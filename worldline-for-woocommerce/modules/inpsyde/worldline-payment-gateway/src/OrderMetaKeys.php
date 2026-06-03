@@ -29,4 +29,5 @@ interface OrderMetaKeys
     public const PAYMENT_CAPTURED_AMOUNT = '_wlop_payment_captured_amount';
     public const PAYMENT_CANCELED_AMOUNT = '_wlop_payment_canceled_amount';
     public const PAYMENT_PENDING_CAPTURE_AMOUNT = '_wlop_payment_pending_capture_amount';
+    public const PAYMENTS = '_wlop_payments';
 }

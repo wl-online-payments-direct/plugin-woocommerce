@@ -22,7 +22,14 @@ use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 return static function () : array {
     $moduleRoot = \dirname(__FILE__, 2);
     $gatewayId = GatewayIds::MEALVOUCHERS;
-    return ["payment_gateway.{$gatewayId}.form_fields" => Service::fromFile("{$moduleRoot}/inc/fields.php"), "payment_gateway.{$gatewayId}.method_title" => static fn(): string => \__('Mealvouchers (Worldline)', 'worldline-for-woocommerce'), "payment_gateway.{$gatewayId}.title" => static fn() => \__('Mealvouchers', 'worldline-for-woocommerce'), "payment_gateway.{$gatewayId}.method_description" => static fn(): string => \__('Accept payments using Mealvouchers.', 'worldline-for-woocommerce'), "payment_gateway.{$gatewayId}.description" => static fn(): string => '', "payment_gateway.{$gatewayId}.order_button_text" => static fn(): ?string => null, "payment_gateway.{$gatewayId}.availability_callback" => static function (ContainerInterface $container) : callable {
+    return ["payment_gateway.{$gatewayId}.form_fields" => Service::fromFile("{$moduleRoot}/inc/fields.php"), "payment_gateway.{$gatewayId}.method_title" => static fn(): string => \__('Mealvouchers (Worldline)', 'worldline-for-woocommerce'), "payment_gateway.{$gatewayId}.title" => new Factory([], static function () use($gatewayId) : string {
+        $settings = (array) \get_option("woocommerce_{$gatewayId}_settings", []);
+        $custom = isset($settings['title']) && \is_string($settings['title']) ? \trim($settings['title']) : '';
+        if ($custom !== '') {
+            return $custom;
+        }
+        return \__('Mealvouchers', 'worldline-for-woocommerce');
+    }), "payment_gateway.{$gatewayId}.method_description" => static fn(): string => \__('Accept payments using Mealvouchers.', 'worldline-for-woocommerce'), "payment_gateway.{$gatewayId}.description" => static fn(): string => '', "payment_gateway.{$gatewayId}.order_button_text" => static fn(): ?string => null, "payment_gateway.{$gatewayId}.availability_callback" => static function (ContainerInterface $container) : callable {
         return static function () use($container) : bool {
             try {
                 $settings = \get_option('woocommerce_worldline-for-woocommerce_settings', []);

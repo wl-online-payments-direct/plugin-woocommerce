@@ -1,1 +1,1 @@
-Built from Worldline-Plugins/plugin-woocomerce-PRE-RELEASE@v2.5.17 on Wed May 13 12:32:21 UTC 2026
+Built from Worldline-Plugins/plugin-woocomerce-PRE-RELEASE@v2.5.20 on Wed Jun  3 07:40:14 UTC 2026

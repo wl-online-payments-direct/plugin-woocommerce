@@ -62,10 +62,20 @@ class OrdersModule implements ExecutableModule
     protected function get_brand_content(WC_Order $order) : string
     {
         $wlopOrder = new WlopWcOrder($order);
-        $brand = $wlopOrder->paymentMethodName();
-        if (!$brand) {
-            return '<span style="color: #999;">—</span>';
+        $names = [];
+        foreach ($wlopOrder->payments() as $entry) {
+            $name = isset($entry['methodName']) ? \trim((string) $entry['methodName']) : '';
+            if ($name !== '' && !\in_array($name, $names, \true)) {
+                $names[] = $name;
+            }
         }
-        return \esc_html('Worldline Online Payments [' . $brand . ']');
+        if ($names === []) {
+            $fallback = $wlopOrder->paymentMethodName();
+            if ($fallback === '') {
+                return '<span style="color: #999;">—</span>';
+            }
+            $names[] = $fallback;
+        }
+        return \esc_html('Worldline Online Payments [' . \implode(' + ', $names) . ']');
     }
 }

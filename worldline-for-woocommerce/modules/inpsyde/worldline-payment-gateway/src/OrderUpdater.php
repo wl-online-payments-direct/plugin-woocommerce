@@ -56,6 +56,7 @@ class OrderUpdater
                 $this->adjustWcStatus($wlopWcOrder, $paymentDetails->getPaymentOutput());
                 $this->checkExemptionInfo($wlopWcOrder, $paymentDetails->getPaymentOutput(), $paymentDetails->getStatusOutput());
                 $this->updateOrderDetailsMeta($wlopWcOrder, $paymentDetails);
+                $this->rebuildPaymentsFromOperations($wlopWcOrder, $paymentDetails);
                 $wlopWcOrder->order()->save();
             }
         });
@@ -72,8 +73,198 @@ class OrderUpdater
             $this->adjustWcStatus($wlopWcOrder, $paymentResponse->getPaymentOutput());
             $this->checkExemptionInfo($wlopWcOrder, $paymentResponse->getPaymentOutput(), $paymentResponse->getStatusOutput());
             $this->updateOrderDetailsMeta($wlopWcOrder, $paymentResponse);
+            $this->rebuildPaymentsFromOperations($wlopWcOrder, $paymentResponse);
             $wlopWcOrder->order()->save();
         });
+    }
+    /**
+     * Rebuilds the per-tender list from PaymentDetailsResponse->getOperations().
+     *
+     * @param PaymentDetailsResponse|PaymentResponse $response
+     */
+    private function rebuildPaymentsFromOperations(WlopWcOrder $wlopWcOrder, $response) : void
+    {
+        if (!\method_exists($response, 'getOperations')) {
+            $paymentId = (string) $response->getId();
+            if ($paymentId === '') {
+                return;
+            }
+            try {
+                $response = $this->apiClient->payments()->getPaymentDetails($this->basePaymentId($paymentId));
+            } catch (\Throwable $e) {
+                return;
+            }
+        }
+        $operations = $response->getOperations() ?? [];
+        if (empty($operations)) {
+            return;
+        }
+        $methodTotals = $this->aggregateOperationTotalsByMethod($operations);
+        $methodCaptures = $this->aggregateCapturesByMethod($response);
+        $entries = [];
+        foreach ($operations as $op) {
+            $statusOutput = $op->getStatusOutput();
+            $statusCode = $statusOutput ? (int) $statusOutput->getStatusCode() : null;
+            if (!$this->isTenderOperationStatus($statusCode)) {
+                continue;
+            }
+            $opId = (string) $op->getId();
+            if ($opId === '') {
+                continue;
+            }
+            try {
+                $payment = $this->apiClient->payments()->getPayment($opId);
+            } catch (\Throwable $e) {
+                continue;
+            }
+            $paymentOutput = $payment->getPaymentOutput();
+            if (!$paymentOutput) {
+                continue;
+            }
+            $productId = $this->getPaymentMethodProductId($paymentOutput);
+            $methodName = $this->getPaymentMethodName($wlopWcOrder, $productId, $paymentOutput);
+            $fraudResult = $this->getPaymentMethodFraudResult($paymentOutput);
+            $money = $op->getAmountOfMoney();
+            $cardOutput = $paymentOutput->getCardPaymentMethodSpecificOutput();
+            $card = $cardOutput ? $cardOutput->getCard() : null;
+            $methodOutput = $cardOutput;
+            if (!$methodOutput) {
+                $methodOutput = $paymentOutput->getMobilePaymentMethodSpecificOutput();
+            }
+            $threeds = $methodOutput ? $methodOutput->getThreeDSecureResults() : null;
+            $sepaOutput = $paymentOutput->getSepaDirectDebitPaymentMethodSpecificOutput();
+            $sepaMandateRef = '';
+            if ($sepaOutput && $sepaOutput->getPaymentProduct771SpecificOutput()) {
+                $sepaMandateRef = (string) $sepaOutput->getPaymentProduct771SpecificOutput()->getMandateReference();
+            }
+            $tenderAmount = $money ? (int) $money->getAmount() : 0;
+            $method = (string) $op->getPaymentMethod();
+            $refundedCents = (int) ($methodTotals[$method]['refunded'] ?? 0);
+            $pendingRefundCents = (int) ($methodTotals[$method]['pending_refund'] ?? 0);
+            $methodCapturedCents = (int) ($methodCaptures[$method] ?? 0);
+            $displayStatus = (string) $op->getStatus();
+            $displayStatusCode = $statusCode;
+            if ($tenderAmount > 0 && $refundedCents >= $tenderAmount) {
+                $displayStatus = 'REFUNDED';
+                $displayStatusCode = 8;
+            } elseif ($pendingRefundCents > 0) {
+                $displayStatus = 'PENDING_REFUND';
+                $displayStatusCode = 81;
+            } elseif ($tenderAmount > 0 && $methodCapturedCents >= $tenderAmount && \in_array($statusCode, [5, 52, 56, 91, 92, 99], \true)) {
+                $displayStatus = 'CAPTURED';
+                $displayStatusCode = 9;
+            }
+            $entries[] = ['paymentId' => $opId, 'productId' => $productId, 'methodName' => (string) ($methodName ?? ''), 'amountCents' => $tenderAmount, 'currency' => $money ? (string) $money->getCurrencyCode() : '', 'statusCode' => $displayStatusCode, 'status' => $displayStatus, 'card' => ['bin' => $card ? (string) $card->getBin() : '', 'number' => $card ? (string) $card->getCardNumber() : ''], 'fraudResult' => (string) ($fraudResult ?? ''), 'threeDS' => ['liability' => $threeds ? (string) $threeds->getLiability() : '', 'appliedExemption' => $threeds ? (string) $threeds->getAppliedExemption() : '', 'authenticationStatus' => $threeds ? $this->getThreeDSAuthenticationStatus($threeds->getAuthenticationStatus()) : ''], 'sepaMandateReference' => $sepaMandateRef, 'capturedAmountCents' => $tenderAmount, 'cancelledAmountCents' => 0, 'pendingCaptureAmountCents' => 0, 'refundedAmountCents' => $refundedCents, 'pendingRefundAmountCents' => $pendingRefundCents, 'updatedAt' => \time()];
+        }
+        if ($entries === []) {
+            return;
+        }
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENTS, (string) \wp_json_encode($entries));
+    }
+    /**
+     * Walk operations[] and bucket amounts by Worldline paymentMethod string
+     * ("redirect", "card", ...) so each tender can be matched to its refunds.
+     *
+     * @param array $operations
+     * @return array<string, array{captured: int, refunded: int, pending_refund: int}>
+     */
+    private function aggregateOperationTotalsByMethod(array $operations) : array
+    {
+        $totals = [];
+        foreach ($operations as $op) {
+            $method = (string) $op->getPaymentMethod();
+            if ($method === '') {
+                continue;
+            }
+            $statusOutput = $op->getStatusOutput();
+            $statusCode = $statusOutput ? (int) $statusOutput->getStatusCode() : null;
+            $bucket = $this->statusBucket($statusCode);
+            if ($bucket === null) {
+                continue;
+            }
+            $money = $op->getAmountOfMoney();
+            $amount = $money ? (int) $money->getAmount() : 0;
+            if (!isset($totals[$method])) {
+                $totals[$method] = ['captured' => 0, 'refunded' => 0, 'pending_refund' => 0];
+            }
+            $totals[$method][$bucket] += $amount;
+        }
+        return $totals;
+    }
+    private function statusBucket(?int $statusCode) : ?string
+    {
+        if ($statusCode === 9) {
+            return 'captured';
+        }
+        if ($statusCode === 8) {
+            return 'refunded';
+        }
+        if ($statusCode === 81) {
+            return 'pending_refund';
+        }
+        return null;
+    }
+    /**
+     * Tender operations are the original payment captures/authorizations.
+     * Refund and cancel operations (status codes 8, 81, 1, 6, 61, 62, 64, 75)
+     * are sibling entries in operations[] that fold into a tender via paymentMethod.
+     */
+    /**
+     * @param mixed $response
+     * @return array<string, int>
+     */
+    private function aggregateCapturesByMethod($response) : array
+    {
+        $byMethod = [];
+        if (!\is_object($response) || !\method_exists($response, 'getId')) {
+            return $byMethod;
+        }
+        $paymentId = (string) $response->getId();
+        if ($paymentId === '') {
+            return $byMethod;
+        }
+        try {
+            $capturesResponse = $this->apiClient->captures()->getCaptures($this->basePaymentId($paymentId));
+            foreach ((array) $capturesResponse->getCaptures() as $capture) {
+                if (\strtoupper((string) $capture->getStatus()) !== 'CAPTURED') {
+                    continue;
+                }
+                $captureOutput = $capture->getCaptureOutput();
+                if (!$captureOutput) {
+                    continue;
+                }
+                $method = (string) $captureOutput->getPaymentMethod();
+                if ($method === '') {
+                    continue;
+                }
+                $money = $captureOutput->getAmountOfMoney();
+                $amount = $money ? (int) $money->getAmount() : 0;
+                if ($amount <= 0) {
+                    continue;
+                }
+                $byMethod[$method] = ($byMethod[$method] ?? 0) + $amount;
+            }
+        } catch (\Throwable $e) {
+        }
+        return $byMethod;
+    }
+    private function basePaymentId(?string $id) : string
+    {
+        if ($id === null || $id === '') {
+            return (string) $id;
+        }
+        if (\str_contains($id, '_')) {
+            return $id;
+        }
+        return \substr($id, 0, -3) . '000';
+    }
+    private function isTenderOperationStatus(?int $statusCode) : bool
+    {
+        if ($statusCode === null) {
+            return \false;
+        }
+        $nonTender = [8, 81, 85, 1, 6, 61, 62, 64, 75, 2, 57, 59, 73, 83, 93];
+        return !\in_array($statusCode, $nonTender, \true);
     }
     /**
      * @param WlopWcOrder $wlopWcOrder
@@ -163,30 +354,87 @@ class OrderUpdater
      */
     protected function updateOrderDetailsMeta(WlopWcOrder $wlopWcOrder, $paymentResponse = null) : void
     {
-        $paymentMethodProductId = $this->getPaymentMethodProductId($paymentResponse->getPaymentOutput());
-        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_PRODUCT_ID, $paymentMethodProductId);
-        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_NAME, $this->getPaymentMethodName($wlopWcOrder, $paymentMethodProductId, $paymentResponse->getPaymentOutput()));
+        $paymentOutput = $paymentResponse->getPaymentOutput();
+        $productId = $this->getPaymentMethodProductId($paymentOutput);
+        $methodName = $this->getPaymentMethodName($wlopWcOrder, $productId, $paymentOutput);
+        $fraudResult = $this->getPaymentMethodFraudResult($paymentOutput);
+        $totals = $this->calculateCapturedAndCancelledAmounts($paymentResponse);
+        $acquired = $paymentOutput->getAcquiredAmount();
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_PRODUCT_ID, $productId);
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_METHOD_NAME, $methodName);
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_STATUS, $paymentResponse->getStatus());
-        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_TOTAL_AMOUNT, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getAmount());
-        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CURRENCY_CODE, $paymentResponse->getPaymentOutput()->getAcquiredAmount()->getCurrencyCode());
-        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_FRAUD_RESULT, $this->getPaymentMethodFraudResult($paymentResponse->getPaymentOutput()));
-        $cardOutput = $paymentResponse->getPaymentOutput()->getCardPaymentMethodSpecificOutput();
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_TOTAL_AMOUNT, $acquired->getAmount());
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CURRENCY_CODE, $acquired->getCurrencyCode());
+        $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_FRAUD_RESULT, $fraudResult);
+        $cardOutput = $paymentOutput->getCardPaymentMethodSpecificOutput();
         $card = $cardOutput ? $cardOutput->getCard() : null;
         if ($card) {
             $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_BIN, $card->getBin());
             $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CARD_NUMBER, $card->getCardNumber());
         }
-        $sepaOutput = $paymentResponse->getPaymentOutput()->getSepaDirectDebitPaymentMethodSpecificOutput();
+        $sepaOutput = $paymentOutput->getSepaDirectDebitPaymentMethodSpecificOutput();
         if ($sepaOutput && $sepaOutput->getPaymentProduct771SpecificOutput()) {
             $mandateReference = $sepaOutput->getPaymentProduct771SpecificOutput()->getMandateReference();
             if (!empty($mandateReference)) {
                 $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::SEPA_MANDATE_REFERENCE, $mandateReference);
             }
         }
-        $totals = $this->calculateCapturedAndCancelledAmounts($paymentResponse);
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CAPTURED_AMOUNT, $totals['captured']);
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_CANCELED_AMOUNT, $totals['cancelled']);
         $wlopWcOrder->order()->update_meta_data(OrderMetaKeys::PAYMENT_PENDING_CAPTURE_AMOUNT, $totals['pending_capture']);
+        $this->upsertPaymentEntry($wlopWcOrder, $paymentResponse, $productId, $methodName, $fraudResult, $totals);
+    }
+    /**
+     * @param PaymentDetailsResponse|PaymentResponse $paymentResponse
+     * @param array{captured: int, cancelled: int, pending_capture: int, pending_cancel: int} $totals
+     */
+    private function upsertPaymentEntry(WlopWcOrder $wlopWcOrder, $paymentResponse, ?int $productId, ?string $methodName, ?string $fraudResult, array $totals) : void
+    {
+        $paymentId = (string) $paymentResponse->getId();
+        if ($paymentId === '') {
+            return;
+        }
+        $entry = $this->buildPaymentEntry($paymentResponse, $productId, $methodName, $fraudResult, $totals);
+        $order = $wlopWcOrder->order();
+        $raw = (string) $order->get_meta(OrderMetaKeys::PAYMENTS);
+        $decoded = $raw !== '' ? \json_decode($raw, \true) : [];
+        $list = \is_array($decoded) ? $decoded : [];
+        $matched = \false;
+        foreach ($list as $i => $existing) {
+            if (\is_array($existing) && isset($existing['paymentId']) && $existing['paymentId'] === $paymentId) {
+                $list[$i] = $entry;
+                $matched = \true;
+                break;
+            }
+        }
+        if (!$matched) {
+            $list[] = $entry;
+        }
+        $order->update_meta_data(OrderMetaKeys::PAYMENTS, (string) \wp_json_encode(\array_values($list)));
+    }
+    /**
+     * @param PaymentDetailsResponse|PaymentResponse $paymentResponse
+     * @param array{captured: int, cancelled: int, pending_capture: int, pending_cancel: int} $totals
+     * @return array<string, mixed>
+     */
+    private function buildPaymentEntry($paymentResponse, ?int $productId, ?string $methodName, ?string $fraudResult, array $totals) : array
+    {
+        $paymentOutput = $paymentResponse->getPaymentOutput();
+        $statusOutput = $paymentResponse->getStatusOutput();
+        $acquired = $paymentOutput ? $paymentOutput->getAcquiredAmount() : null;
+        $cardOutput = $paymentOutput ? $paymentOutput->getCardPaymentMethodSpecificOutput() : null;
+        $card = $cardOutput ? $cardOutput->getCard() : null;
+        $methodOutput = $cardOutput;
+        if (!$methodOutput && $paymentOutput) {
+            $methodOutput = $paymentOutput->getMobilePaymentMethodSpecificOutput();
+        }
+        $threeds = $methodOutput ? $methodOutput->getThreeDSecureResults() : null;
+        $sepaOutput = $paymentOutput ? $paymentOutput->getSepaDirectDebitPaymentMethodSpecificOutput() : null;
+        $sepaMandateReference = '';
+        if ($sepaOutput && $sepaOutput->getPaymentProduct771SpecificOutput()) {
+            $sepaMandateReference = (string) $sepaOutput->getPaymentProduct771SpecificOutput()->getMandateReference();
+        }
+        return ['paymentId' => (string) $paymentResponse->getId(), 'productId' => $productId, 'methodName' => (string) ($methodName ?? ''), 'amountCents' => $acquired ? (int) $acquired->getAmount() : 0, 'currency' => $acquired ? (string) $acquired->getCurrencyCode() : '', 'statusCode' => $statusOutput ? (int) $statusOutput->getStatusCode() : null, 'status' => (string) $paymentResponse->getStatus(), 'card' => ['bin' => $card ? (string) $card->getBin() : '', 'number' => $card ? (string) $card->getCardNumber() : ''], 'fraudResult' => (string) ($fraudResult ?? ''), 'threeDS' => ['liability' => $threeds ? (string) $threeds->getLiability() : '', 'appliedExemption' => $threeds ? (string) $threeds->getAppliedExemption() : '', 'authenticationStatus' => $threeds ? $this->getThreeDSAuthenticationStatus($threeds->getAuthenticationStatus()) : ''], 'sepaMandateReference' => $sepaMandateReference, 'capturedAmountCents' => (int) ($totals['captured'] ?? 0), 'cancelledAmountCents' => (int) ($totals['cancelled'] ?? 0), 'pendingCaptureAmountCents' => (int) ($totals['pending_capture'] ?? 0), 'updatedAt' => \time()];
     }
     private function getPaymentMethodProductId(PaymentOutput $paymentOutput) : ?int
     {
