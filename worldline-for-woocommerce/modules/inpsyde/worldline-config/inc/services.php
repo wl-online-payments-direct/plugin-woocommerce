@@ -9,6 +9,7 @@ use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
 use Syde\Vendor\Worldline\Dhii\Services\Factory;
 use Syde\Vendor\Worldline\Dhii\Services\Service;
 use Syde\Vendor\Worldline\Dhii\Validator\CallbackValidator;
+use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CancellationIntervals;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CaptureMode;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\ConfigContainer;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\Sanitizer\ApiEndpointSanitizer;
@@ -72,8 +73,12 @@ return static function () : array {
             return CaptureMode::MANUAL;
         }
         return $captureMode;
-    }), 'config.automatic_cancellation_hours' => new Factory(['config.container'], static function (ConfigContainer $config) : int {
-        return (int) $config->get('automatic_cancellation_hours');
+    }), 'config.session_timeout' => new Factory(['config.container'], static function (ConfigContainer $config) : int {
+        $hours = (int) $config->get('session_timeout');
+        if ($hours < 1 || $hours > CancellationIntervals::ONE_DAY) {
+            return CancellationIntervals::THREE_HOURS;
+        }
+        return $hours;
     }), 'config.enable_3ds' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
         return $config->get('enable_3ds') === 'yes';
     }), 'config.enforce_3dsv2' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {

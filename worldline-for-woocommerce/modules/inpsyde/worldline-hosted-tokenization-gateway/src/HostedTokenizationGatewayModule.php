@@ -22,7 +22,6 @@ use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Syde\Vendor\Worldline\Psr\Container\ContainerExceptionInterface;
 use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 use Syde\Vendor\Worldline\Psr\Container\NotFoundExceptionInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
 use WC_Cart;
 use WC_Order;
 use WC_Payment_Token;
@@ -41,7 +40,7 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
     public function run(ContainerInterface $container) : bool
     {
         \add_action(AssetManager::ACTION_SETUP, function (AssetManager $assetManager) use($container) : void {
-            if (!$this->isGatewayEnabled($container)) {
+            if (!$this->isGatewayEnabled($container) || !$this->isCheckoutContext()) {
                 return;
             }
             $moduleName = 'hosted-tokenization-gateway';
@@ -67,6 +66,17 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
         $gateway = $container->get('hosted_tokenization_gateway.gateway');
         \assert($gateway instanceof PaymentGateway);
         return $gateway->is_available();
+    }
+    /**
+     * The card field, the external tokenizer script and the Worldline API call
+     * in makeFrontendConfig() are only needed where checkout is rendered.
+     * Registering them on every front-end page caused needless external
+     * requests (and a site-wide fatal when the API was unavailable), so the
+     * whole asset registration is restricted to the checkout/order-pay pages.
+     */
+    private function isCheckoutContext() : bool
+    {
+        return \is_checkout() || \is_checkout_pay_page();
     }
     private function handleConfigAjax(ContainerInterface $container) : void
     {
@@ -123,7 +133,7 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
             try {
                 $response = $client->hostedTokenization()->createHostedTokenization($request);
                 $config['url'] = $response->getHostedTokenizationUrl();
-            } catch (InvalidResponseException $exception) {
+            } catch (\Throwable $exception) {
                 \do_action('wlop.hosted_tokenization_config_error', ['exception' => $exception]);
             }
         }

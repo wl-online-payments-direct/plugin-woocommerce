@@ -10,13 +10,18 @@ use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
 class ProductTypeModule implements ExecutableModule, ServiceModule
 {
     use ModuleClassNameIdTrait;
+    /**
+     * Bump when the table schema changes so dbDelta runs again.
+     */
+    private const TABLE_VERSION = '1.0';
+    private const TABLE_VERSION_OPTION = 'wlop_product_type_table_version';
     private \wpdb $db;
     public function run(ContainerInterface $container) : bool
     {
         global $wpdb;
         $this->db = $wpdb;
         \add_action('init', function () {
-            $this->createProductTypeTable();
+            $this->createProductTypeTableIfVersionChanged();
         });
         \add_action('add_meta_boxes', [$this, 'addProductMetaBox'], 10, 2);
         \add_action('save_post_product', [$this, 'saveProductType']);
@@ -30,6 +35,20 @@ class ProductTypeModule implements ExecutableModule, ServiceModule
             $services = (require_once \dirname(__DIR__) . '/inc/services.php');
         }
         return $services();
+    }
+    /**
+     * Runs the (relatively expensive) dbDelta table creation only once per
+     * table version instead of on every request via the `init` hook. The
+     * version flag is stored in an autoloaded option, so the check costs no
+     * extra query on subsequent loads.
+     */
+    private function createProductTypeTableIfVersionChanged() : void
+    {
+        if (\get_option(self::TABLE_VERSION_OPTION) === self::TABLE_VERSION) {
+            return;
+        }
+        $this->createProductTypeTable();
+        \update_option(self::TABLE_VERSION_OPTION, self::TABLE_VERSION);
     }
     /**
      * Creates a custom table for storing product types if it does not already exist.

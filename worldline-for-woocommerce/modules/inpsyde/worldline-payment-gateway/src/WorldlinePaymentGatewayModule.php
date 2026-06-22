@@ -14,7 +14,6 @@ use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExtendingModule;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
 use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ServiceModule;
 use Syde\Vendor\Worldline\Inpsyde\PaymentGateway\PaymentGateway;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CancellationIntervals;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Config\CaptureMode;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Admin\StatusUpdateAction;
 use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
@@ -34,7 +33,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
 {
     use ModuleClassNameIdTrait;
     public const PACKAGE_NAME = 'worldline-payment-gateway';
-    public const CANCELLATION_RECURRENCE_INTERVAL = 30 * \MINUTE_IN_SECONDS;
+    public const SESSION_TIMEOUT_SWEEP_INTERVAL = 30 * \MINUTE_IN_SECONDS;
     /**
      * @throws Exception
      */
@@ -234,38 +233,67 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
     protected function schedulePendingOrderCleanup(ContainerInterface $container) : void
     {
         $hook = 'wlop_cleanup_pending_orders';
-        \add_action('action_scheduler_init', static function () use($container, $hook) : void {
+        \add_action('action_scheduler_init', static function () use($hook) : void {
             $group = 'wlop';
-            $cancellationHours = $container->get('config.automatic_cancellation_hours');
-            if ($cancellationHours === CancellationIntervals::DISABLED) {
-                \as_unschedule_all_actions($hook, [], $group);
-                return;
-            }
             if (\as_has_scheduled_action($hook, [], $group)) {
                 return;
             }
-            $startTime = \time() + self::CANCELLATION_RECURRENCE_INTERVAL;
-            \as_schedule_recurring_action($startTime, self::CANCELLATION_RECURRENCE_INTERVAL, $hook, [], $group);
+            $startTime = \time() + self::SESSION_TIMEOUT_SWEEP_INTERVAL;
+            \as_schedule_recurring_action($startTime, self::SESSION_TIMEOUT_SWEEP_INTERVAL, $hook, [], $group);
         });
         \add_action($hook, static function () use($container) : void {
-            $cancellationHours = $container->get('config.automatic_cancellation_hours');
-            if ($cancellationHours === CancellationIntervals::DISABLED) {
-                return;
-            }
-            $threshold = new \DateTimeImmutable("-{$cancellationHours} hours", new \DateTimeZone('UTC'));
-            $args = ['status' => 'pending', 'limit' => -1, 'orderby' => 'date', 'order' => 'ASC', 'date_before' => $threshold->format('Y-m-d H:i:s'), 'return' => 'ids'];
-            $order_ids = \wc_get_orders($args);
-            if (empty($order_ids)) {
-                return;
-            }
-            foreach ($order_ids as $order_id) {
-                $order = \wc_get_order($order_id);
-                if (!$order instanceof WC_Order || $order->get_status() !== 'pending') {
-                    continue;
-                }
-                $order->update_status('cancelled', 'Automatically cancelled after ' . $cancellationHours . ' hours (Worldline plugin).');
-            }
+            self::failTimedOutPendingOrders($container);
         });
+    }
+    /**
+     * Session-timeout enforcement: fail pending Worldline orders whose hosted
+     * checkout session has expired (creation time + configured timeout elapsed),
+     * so that WooCommerce releases the reserved stock back into inventory.
+     *
+     * The timeout is measured from the moment the customer clicked "Pay", which
+     * is recorded as the `_wlop_creation_time` meta. Querying by that meta also
+     * naturally scopes the sweep to Worldline orders only.
+     */
+    protected static function failTimedOutPendingOrders(ContainerInterface $container) : void
+    {
+        // Stored in hours.
+        $sessionTimeout = (int) $container->get('config.session_timeout');
+        $thresholdTs = \time() - $sessionTimeout * \HOUR_IN_SECONDS;
+        $query = ['status' => 'pending', 'payment_method' => GatewayIds::ALL, 'limit' => -1, 'return' => 'ids'];
+        $metaQuery = [['key' => OrderMetaKeys::CREATION_TIME, 'value' => $thresholdTs, 'compare' => '<', 'type' => 'NUMERIC']];
+        if (OrderUtil::custom_orders_table_usage_is_enabled()) {
+            $query['meta_query'] = $metaQuery;
+        } else {
+            $query['wlop_meta_query'] = $metaQuery;
+            \add_filter(
+                'woocommerce_order_data_store_cpt_get_orders_query',
+                /**
+                 * @param array $query - Args for WP_Query.
+                 * @param array $queryVars - Query vars from WC_Order_Query.
+                 * @return array modified $query
+                 * @psalm-suppress MixedArgument, MixedArrayAccess, MixedAssignment
+                 */
+                static function ($query, $queryVars) {
+                    if (!empty($queryVars['wlop_meta_query'])) {
+                        $query['meta_query'] = \array_merge($query['meta_query'] ?? [], $queryVars['wlop_meta_query']);
+                    }
+                    return $query;
+                },
+                10,
+                2
+            );
+        }
+        $order_ids = \wc_get_orders($query);
+        if (empty($order_ids)) {
+            return;
+        }
+        foreach ($order_ids as $order_id) {
+            $order = \wc_get_order($order_id);
+            if (!$order instanceof WC_Order || $order->get_status() !== 'pending') {
+                continue;
+            }
+            $order->update_status('failed', \sprintf('Session timed out after %d hour(s) without a completed payment. Reserved stock released (Worldline plugin).', $sessionTimeout));
+        }
     }
     protected function registerAdminOrderDetails(ContainerInterface $container) : void
     {

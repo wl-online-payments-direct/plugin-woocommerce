@@ -17,7 +17,7 @@ return static function () : array {
     }, 'uninstall.worldline-all-cleanup-action-names' => static function (ContainerInterface $container) : array {
         return [];
     }, 'uninstall.worldline-all-scheduled-action-names' => static function () : array {
-        return ['wlop_update_status'];
+        return ['wlop_update_status', 'wlop_cleanup_pending_orders'];
     }, 'uninstall.db-cleaner' => new Factory(['uninstall.worldline-all-option-names', 'uninstall.worldline-all-scheduled-action-names', 'uninstall.worldline-all-cleanup-action-names'], static function (array $optionNames, array $actionNames, array $scheduledActionNames) : DatabaseCleaner {
         return new DatabaseCleaner($optionNames, $actionNames, $scheduledActionNames);
     }), 'uninstall.db-cleaner-url' => static function () : string {

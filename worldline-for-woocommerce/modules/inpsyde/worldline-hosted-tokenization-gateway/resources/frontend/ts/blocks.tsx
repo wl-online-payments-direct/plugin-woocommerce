@@ -211,6 +211,14 @@ addEventListener( 'DOMContentLoaded', () => {
 } );
 
 addEventListener( 'DOMContentLoaded', () => {
+	if (
+		typeof wc === 'undefined' ||
+		! wc.blocksCheckout?.ExperimentalOrderMeta ||
+		typeof wp === 'undefined' ||
+		! wp.plugins?.registerPlugin
+	) {
+		return;
+	}
 	const ExperimentalOrderMeta = wc.blocksCheckout.ExperimentalOrderMeta;
 	const { registerPlugin } = wp.plugins;
 

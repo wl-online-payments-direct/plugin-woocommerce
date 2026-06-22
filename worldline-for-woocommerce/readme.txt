@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.5.20
+Stable tag: 2.5.22
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,10 @@ If you encounter any issues with the plugin or its functions after an update, pu
 If that doesn’t solve the problem, create a thread on the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or contact our support team through [this form](https://docs.direct.worldline-solutions.com/en/about/contact/).
 
 == Changelog ==
+
+= 2.5.22 - 2026-06-05 =
+* Added: Timeout settings for hosted checkout
+* Fixed: Load hosted tokenization only on checkout, harden API failure handling
 
 = 2.5.20 - 2026-05-28 =
 * Fixed: Support new PAYID format
