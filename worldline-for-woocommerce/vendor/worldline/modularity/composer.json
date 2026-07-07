@@ -1,0 +1,72 @@
+{
+    "name": "worldline\/modularity",
+    "type": "library",
+    "description": "Modular PSR-11 implementation for WordPress plugins, themes or libraries.",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Worldline",
+            "homepage": "https:\/\/worldline.com\/",
+            "role": "Company"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https:\/\/raw.githubusercontent.com\/worldline\/wp-stubs\/main",
+            "only": [
+                "worldline\/wp-stubs-versions"
+            ]
+        }
+    ],
+    "require": {
+        "php": ">=7.4 <8.4",
+        "ext-json": "*",
+        "psr\/container": "^1.1.0 || ^2"
+    },
+    "require-dev": {
+        "brain\/monkey": "^2.6.1",
+        "worldline\/php-coding-standards": "dev-main",
+        "worldline\/wp-stubs-versions": "dev-main",
+        "roots\/wordpress-no-content": "@dev",
+        "mikey179\/vfsstream": "^v1.6.11",
+        "phpunit\/phpunit": "^9.6.19",
+        "vimeo\/psalm": "^5.24.0"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.x-dev"
+        }
+    },
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\Modularity\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\Modularity\\Tests\\": "tests\/src\/",
+            "Worldline\\Vendor\\Worldline\\Modularity\\Tests\\Unit\\": "tests\/unit\/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "cs": "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs",
+        "psalm": "@php .\/vendor\/vimeo\/psalm\/psalm --no-suggestions --report-show-info=false --find-unused-psalm-suppress --no-diff --no-cache --no-file-cache --output-format=compact",
+        "tests": "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage",
+        "tests:coverage": "@php .\/vendor\/phpunit\/phpunit\/phpunit",
+        "qa": [
+            "@cs",
+            "@psalm",
+            "@tests"
+        ]
+    },
+    "config": {
+        "allow-plugins": {
+            "composer\/*": true,
+            "worldline\/*": true,
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    }
+}

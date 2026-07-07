@@ -1,0 +1,30 @@
+{
+    "name": "worldline\/worldline-orders",
+    "description": "Worldline WooCommerce Orders features",
+    "type": "worldline-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Orders\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Orders\\Tests\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Worldline"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "dhii\/services": "^0.1.0",
+        "psr\/container": "^1.1",
+        "worldline\/modularity": "dev-main"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^9.0"
+    }
+}

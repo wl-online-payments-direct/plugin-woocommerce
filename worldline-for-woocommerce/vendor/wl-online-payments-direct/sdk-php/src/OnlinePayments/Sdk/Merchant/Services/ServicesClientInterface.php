@@ -3,23 +3,23 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\Services;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CalculateSurchargeResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CurrencyConversionResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetIINDetailsResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\TestConnection;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiException;
+use Worldline\Vendor\OnlinePayments\Sdk\AuthorizationException;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CalculateSurchargeRequest;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CalculateSurchargeResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CurrencyConversionRequest;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CurrencyConversionResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\GetIINDetailsRequest;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\GetIINDetailsResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\TestConnection;
+use Worldline\Vendor\OnlinePayments\Sdk\IdempotenceException;
+use Worldline\Vendor\OnlinePayments\Sdk\PlatformException;
+use Worldline\Vendor\OnlinePayments\Sdk\ReferenceException;
+use Worldline\Vendor\OnlinePayments\Sdk\ValidationException;
 /**
  * Services client interface.
  */

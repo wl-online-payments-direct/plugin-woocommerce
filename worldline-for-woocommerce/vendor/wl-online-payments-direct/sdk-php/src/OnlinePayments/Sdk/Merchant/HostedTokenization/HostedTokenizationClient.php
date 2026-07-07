@@ -3,16 +3,16 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedTokenization;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\HostedTokenization;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedTokenizationRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedTokenizationResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiResource;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CreateHostedTokenizationRequest;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CreateHostedTokenizationResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\GetHostedTokenizationResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * HostedTokenization client.
  */
@@ -26,8 +26,8 @@ class HostedTokenizationClient extends ApiResource implements HostedTokenization
     public function createHostedTokenization(CreateHostedTokenizationRequest $body, ?CallContext $callContext = null) : CreateHostedTokenizationResponse
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CreateHostedTokenizationResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\CreateHostedTokenizationResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
             return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/hostedtokenizations'), $this->getClientMetaInfo(), $body, null, $callContext);
         } catch (ErrorResponseException $e) {
@@ -41,8 +41,8 @@ class HostedTokenizationClient extends ApiResource implements HostedTokenization
     {
         $this->context['hostedTokenizationId'] = $hostedTokenizationId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\GetHostedTokenizationResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\GetHostedTokenizationResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
             return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/hostedtokenizations/{hostedTokenizationId}'), $this->getClientMetaInfo(), null, $callContext);
         } catch (ErrorResponseException $e) {

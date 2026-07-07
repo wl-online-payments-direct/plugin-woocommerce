@@ -3,9 +3,9 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PaymentLinks;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\PaymentLinks;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\RequestObject;
 /**
  * Query parameters for Get payment links
  *

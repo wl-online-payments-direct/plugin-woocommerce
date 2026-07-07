@@ -1,29 +1,29 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline;
+namespace Worldline\Vendor;
 
-use Syde\Vendor\Worldline\Dhii\Package\Version\StringVersionFactoryInterface;
-use Syde\Vendor\Worldline\Dhii\Services\Factories\Alias;
-use Syde\Vendor\Worldline\Dhii\Services\Factories\Value;
-use Syde\Vendor\Worldline\Dhii\Services\Factory;
-use Syde\Vendor\Worldline\Dhii\Validation\ValidatorInterface;
-use Syde\Vendor\Worldline\Dhii\Validator\CallbackValidator;
-use Syde\Vendor\Worldline\Dhii\Validator\CompositeValidator;
-use Syde\Vendor\Worldline\Dhii\Versions\StringVersionFactory;
-use Syde\Vendor\Worldline\Inpsyde\Modularity\Package;
-use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\PluginProperties;
-use Syde\Vendor\Worldline\Inpsyde\Modularity\Properties\Properties;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Admin\CancelAuthorizationUi;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLink;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentFactory;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentFactoryInterface;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment\WpEnvironmentInterface;
-use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
-use Syde\Vendor\Worldline\Psr\Http\Message\UriFactoryInterface;
-use Syde\Vendor\Worldline\Psr\Http\Message\UriInterface;
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Admin\CaptureAuthorizationUi;
+use Worldline\Vendor\Dhii\Package\Version\StringVersionFactoryInterface;
+use Worldline\Vendor\Dhii\Services\Factories\Alias;
+use Worldline\Vendor\Dhii\Services\Factories\Value;
+use Worldline\Vendor\Dhii\Services\Factory;
+use Worldline\Vendor\Dhii\Validation\ValidatorInterface;
+use Worldline\Vendor\Dhii\Validator\CallbackValidator;
+use Worldline\Vendor\Dhii\Validator\CompositeValidator;
+use Worldline\Vendor\Dhii\Versions\StringVersionFactory;
+use Worldline\Vendor\Worldline\Modularity\Package;
+use Worldline\Vendor\Worldline\Modularity\Properties\PluginProperties;
+use Worldline\Vendor\Worldline\Modularity\Properties\Properties;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Admin\CancelAuthorizationUi;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLink;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Core\PluginActionLink\PluginActionLinkRegistry;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Environment\WpEnvironmentFactory;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Environment\WpEnvironmentFactoryInterface;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Environment\WpEnvironmentInterface;
+use Worldline\Vendor\Psr\Container\ContainerInterface;
+use Worldline\Vendor\Psr\Http\Message\UriFactoryInterface;
+use Worldline\Vendor\Psr\Http\Message\UriInterface;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Admin\CaptureAuthorizationUi;
 return static function (string $rootPath) : array {
     $config = (require __DIR__ . '/../config.php');
     return ['assets.get_module_asset_url' => new Factory([Package::PROPERTIES], static function (PluginProperties $props) : callable {
@@ -32,7 +32,7 @@ return static function (string $rootPath) : array {
         };
     }), 'assets.get_module_static_asset_url' => new Factory([Package::PROPERTIES], static function (PluginProperties $props) : callable {
         return static function (string $packageName, string $assetName) use($props) : string {
-            return $props->baseUrl() . "modules/inpsyde/{$packageName}/assets/{$assetName}";
+            return $props->baseUrl() . "modules/worldline/{$packageName}/assets/{$assetName}";
         };
     }), 'core.environment_validator' => static function (ContainerInterface $container) : ValidatorInterface {
         /** @var ValidatorInterface $phpVersionValidator */
@@ -120,7 +120,7 @@ return static function (string $rootPath) : array {
             return null;
         }
         return $uriFactory->createUri($restUrl);
-    }), 'inpsyde_logger.native_wc_logger' => static function () : \WC_Logger_Interface {
+    }), 'worldline_logger.native_wc_logger' => static function () : \WC_Logger_Interface {
         return \wc_get_logger();
     }, 'core.is_debug_logging_enabled' => new Alias('config.debug_logging'), 'core.is_logging_enabled' => new Factory(['core.is_debug_logging_enabled'], static function (bool $debugLogging) : bool {
         return $debugLogging || \apply_filters('wlop.logging_enabled', \true);

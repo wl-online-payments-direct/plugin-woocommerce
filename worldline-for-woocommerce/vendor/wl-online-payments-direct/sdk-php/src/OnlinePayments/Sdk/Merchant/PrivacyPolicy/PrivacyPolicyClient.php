@@ -3,14 +3,14 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PrivacyPolicy;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\PrivacyPolicy;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPrivacyPolicyResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiResource;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\GetPrivacyPolicyResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * PrivacyPolicy client.
  */
@@ -24,8 +24,8 @@ class PrivacyPolicyClient extends ApiResource implements PrivacyPolicyClientInte
     public function getPrivacyPolicy(GetPrivacyPolicyParams $query, ?CallContext $callContext = null) : GetPrivacyPolicyResponse
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\GetPrivacyPolicyResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\GetPrivacyPolicyResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
             return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/services/privacypolicy'), $this->getClientMetaInfo(), $query, $callContext);
         } catch (ErrorResponseException $e) {

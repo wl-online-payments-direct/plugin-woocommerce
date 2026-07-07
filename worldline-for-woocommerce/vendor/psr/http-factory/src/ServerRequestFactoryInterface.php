@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\Psr\Http\Message;
+namespace Worldline\Vendor\Psr\Http\Message;
 
 interface ServerRequestFactoryInterface
 {

@@ -3,15 +3,15 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedFields;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\HostedFields;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedFieldsSessionRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\CreateHostedFieldsSessionResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiResource;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CreateHostedFieldsSessionRequest;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\CreateHostedFieldsSessionResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * HostedFields client.
  */
@@ -25,8 +25,8 @@ class HostedFieldsClient extends ApiResource implements HostedFieldsClientInterf
     public function createHostedFieldsSession(CreateHostedFieldsSessionRequest $body, ?CallContext $callContext = null) : CreateHostedFieldsSessionResponse
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\CreateHostedFieldsSessionResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\CreateHostedFieldsSessionResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
             return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/hostedfields/sessions'), $this->getClientMetaInfo(), $body, null, $callContext);
         } catch (ErrorResponseException $e) {

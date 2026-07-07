@@ -3,11 +3,11 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
+namespace Worldline\Vendor\OnlinePayments\Sdk;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundErrorResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\DataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\RefundErrorResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\RefundResponse;
 /**
  * Class DeclinedRefundException
  *

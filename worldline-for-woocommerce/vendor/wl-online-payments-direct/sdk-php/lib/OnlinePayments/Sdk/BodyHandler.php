@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
+namespace Worldline\Vendor\OnlinePayments\Sdk;
 
 /**
  * Class BodyHandler

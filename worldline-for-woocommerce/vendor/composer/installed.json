@@ -121,10 +121,10 @@
                 "roundcube",
                 "shopware",
                 "silverstripe",
-                "sydes",
                 "sylius",
                 "tastyigniter",
                 "wordpress",
+                "worldlines",
                 "yawik",
                 "zend",
                 "zikula"
@@ -179,7 +179,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Dhii\\Package\\": "src"
+                    "Worldline\\Vendor\\Dhii\\Package\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -229,7 +229,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Dhii\\Services\\": "src"
+                    "Worldline\\Vendor\\Dhii\\Services\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -284,7 +284,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Dhii\\Validation\\": "src\/"
+                    "Worldline\\Vendor\\Dhii\\Validation\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -338,7 +338,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Dhii\\Validator\\": "src"
+                    "Worldline\\Vendor\\Dhii\\Validator\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -389,7 +389,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Dhii\\Versions\\": "src"
+                    "Worldline\\Vendor\\Dhii\\Versions\\": "src"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -408,2113 +408,6 @@
                 "source": "https:\/\/github.com\/Dhii\/versions\/tree\/v0.1.0-alpha3"
             },
             "install-path": "..\/dhii\/versions"
-        },
-        {
-            "name": "inpsyde\/assets",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/assets",
-                "reference": "eeda9fcdf6bdc08fbe51e795fcae4d9889a69062"
-            },
-            "require": {
-                "ext-dom": "*",
-                "ext-json": "*",
-                "inpsyde\/wp-context": "dev-main",
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "brain\/monkey": "^2.5.0",
-                "inpsyde\/php-coding-standards": "dev-main",
-                "johnpbloch\/wordpress-core": ">=6.2",
-                "mikey179\/vfsstream": "^1.6.8",
-                "php-stubs\/wordpress-stubs": ">=6.2@stable",
-                "phpunit\/phpunit": "^8.5.14 || ^9.0",
-                "vimeo\/psalm": "@stable"
-            },
-            "type": "library",
-            "extra": {
-                "wordpress-install-dir": "vendor\/wordpress\/wordpress"
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Inpsyde\\Assets\\": "src\/"
-                },
-                "files": [
-                    "inc\/functions.php",
-                    "inc\/bootstrap.php"
-                ]
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Inpsyde\\Assets\\Tests\\Unit\\": "tests\/phpunit\/Unit\/"
-                }
-            },
-            "scripts": {
-                "cs": [
-                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs"
-                ],
-                "psalm": [
-                    "@php .\/vendor\/bin\/psalm --output-format=compact --no-cache"
-                ],
-                "tests": [
-                    "@php .\/vendor\/phpunit\/phpunit\/phpunit"
-                ],
-                "tests:no-cov": [
-                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage"
-                ],
-                "tests:codecov": [
-                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --coverage-clover coverage.xml"
-                ],
-                "qa": [
-                    "@cs",
-                    "@tests:no-cov"
-                ]
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Inpsyde",
-                    "email": "hello@inpsyde.com",
-                    "homepage": "https:\/\/inpsyde.com",
-                    "role": "Company"
-                },
-                {
-                    "name": "Christian Leucht",
-                    "email": "c.leucht@inpsyde.com",
-                    "homepage": "https:\/\/www.chrico.info",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Package to manage assets in WordPress.",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/inpsyde\/assets"
-        },
-        {
-            "name": "inpsyde\/logger",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/logger",
-                "reference": "0a3e87936dee4f92fdac7a2ad3445e142df40759"
-            },
-            "require": {
-                "inpsyde\/modularity": "dev-main",
-                "php": "^7.2 | ^8.0",
-                "psr\/container": "^1.0 | ^2.0",
-                "psr\/log": "^1.1"
-            },
-            "require-dev": {
-                "brain\/monkey": "^2",
-                "inpsyde\/php-coding-standards": "dev-main",
-                "php-stubs\/woocommerce-stubs": "^5.0",
-                "php-stubs\/wordpress-stubs": ">=5.0",
-                "phpunit\/phpunit": "^8.0",
-                "vimeo\/psalm": "^4.6"
-            },
-            "type": "inpsyde-module",
-            "extra": {
-                "installer-disable": true
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\": "src\/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Logger\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Inpsyde GmbH",
-                    "homepage": "https:\/\/inpsyde.com\/",
-                    "email": "hello@inpsyde.com",
-                    "role": "Company"
-                },
-                {
-                    "name": "Aleksas Pantechovskis",
-                    "email": "alex.pantec@gmail.com",
-                    "role": "Developer"
-                },
-                {
-                    "name": "Kirill Braslavskyi",
-                    "email": "strangerkir@gmail.com",
-                    "role": "developer"
-                }
-            ],
-            "description": "Logger module for inpsyde\/modularity based on WooCommerce logger",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/logger"
-        },
-        {
-            "name": "inpsyde\/modularity",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/modularity",
-                "reference": "085ba5357bb9a1671b27b4cdc90dda129302ea1d"
-            },
-            "require": {
-                "ext-json": "*",
-                "php": ">=7.4 <8.4",
-                "psr\/container": "^1.1.0 || ^2"
-            },
-            "require-dev": {
-                "brain\/monkey": "^2.6.1",
-                "inpsyde\/php-coding-standards": "dev-main",
-                "inpsyde\/wp-stubs-versions": "dev-main",
-                "mikey179\/vfsstream": "^v1.6.11",
-                "phpunit\/phpunit": "^9.6.19",
-                "roots\/wordpress-no-content": "@dev",
-                "vimeo\/psalm": "^5.24.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "1.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\": "src\/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\Tests\\": "tests\/src\/",
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Modularity\\Tests\\Unit\\": "tests\/unit\/"
-                }
-            },
-            "scripts": {
-                "cs": [
-                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs"
-                ],
-                "psalm": [
-                    "@php .\/vendor\/vimeo\/psalm\/psalm --no-suggestions --report-show-info=false --find-unused-psalm-suppress --no-diff --no-cache --no-file-cache --output-format=compact"
-                ],
-                "tests": [
-                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage"
-                ],
-                "tests:coverage": [
-                    "@php .\/vendor\/phpunit\/phpunit\/phpunit"
-                ],
-                "qa": [
-                    "@cs",
-                    "@psalm",
-                    "@tests"
-                ]
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com",
-                    "homepage": "https:\/\/syde.com\/",
-                    "role": "Company"
-                }
-            ],
-            "description": "Modular PSR-11 implementation for WordPress plugins, themes or libraries.",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/inpsyde\/modularity"
-        },
-        {
-            "name": "inpsyde\/payment-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/payment-gateway",
-                "reference": "66dc64b706751b3a3c5dc29156ac18ed3220a269"
-            },
-            "require": {
-                "inpsyde\/modularity": "dev-main",
-                "php": "^7.4 | ^8.0"
-            },
-            "require-dev": {
-                "brain\/monkey": "^2.0",
-                "brainmaestro\/composer-git-hooks": "^2.8",
-                "inpsyde\/composer-assets-compiler": "dev-main",
-                "inpsyde\/ddev-tools": "dev-main",
-                "inpsyde\/php-coding-standards": "dev-main",
-                "mockery\/mockery": "^1.3",
-                "php-stubs\/woocommerce-stubs": "^5.0@stable",
-                "php-stubs\/wordpress-stubs": "^5.0@stable",
-                "phpunit\/phpunit": "^8.0 | ^9.0",
-                "vimeo\/psalm": "^4.3"
-            },
-            "type": "inpsyde-module",
-            "extra": {
-                "hooks": {
-                    "pre-commit": [
-                        "vendor\/bin\/phpcbf -q --parallel=24; exit 0"
-                    ]
-                },
-                "wp-translation-downloader": {
-                    "auto-run": false,
-                    "languageRootDir": ".\/",
-                    "languages": [
-                        "de_DE",
-                        "en_US"
-                    ],
-                    "api": {
-                        "names": {
-                            "inpsyde\/*": "https:\/\/translate.inpsyde.com\/products\/api\/translations\/%projectName%"
-                        }
-                    },
-                    "directories": {
-                        "names": {
-                            "inpsyde\/*": "languages\/"
-                        }
-                    }
-                },
-                "composer-asset-compiler": {
-                    "auto-run": false,
-                    "dependencies": "install",
-                    "script": "build",
-                    "default-env": {
-                        "WEBPACK_ENV": "production"
-                    }
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\": "src\/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\PaymentGateway\\Test\\": "tests\/PHPUnit\/Helper"
-                }
-            },
-            "scripts": {
-                "phpcs": [
-                    "@php .\/vendor\/bin\/phpcs -n -s --parallel=24"
-                ],
-                "phpcs:phpcbf": [
-                    "@php .\/vendor\/bin\/phpcbf  --parallel=24;exit 0"
-                ],
-                "phpcs:interactive": [
-                    "@php .\/vendor\/bin\/phpcs -a"
-                ],
-                "phpcs:dev": [
-                    "@cs:phpcbf",
-                    "@cs:interactive"
-                ],
-                "phpunit": [
-                    "vendor\/bin\/phpunit"
-                ],
-                "test": [
-                    "@phpunit"
-                ],
-                "cghooks": [
-                    "vendor\/bin\/cghooks"
-                ],
-                "post-install-cmd": [
-                    "@cghooks add --ignore-lock"
-                ],
-                "post-update-cmd": [
-                    "@cghooks update"
-                ]
-            },
-            "license": [
-                "GPL-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "Inpsyde GmbH",
-                    "homepage": "https:\/\/inpsyde.com\/",
-                    "email": "hello@inpsyde.com",
-                    "role": "Company"
-                }
-            ],
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/payment-gateway"
-        },
-        {
-            "name": "inpsyde\/psr-18-wp-http-client",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/psr-18-wp-http-client",
-                "reference": "ee9c5caad51932d44cdeaf947184297f450423dc"
-            },
-            "require": {
-                "php": "^7.0 | ^8.0",
-                "psr\/http-client": "^1.0",
-                "psr\/http-factory": "^1.0",
-                "psr\/http-message": "^1.0"
-            },
-            "provide": {
-                "psr\/http-client-implementation": "^1.0"
-            },
-            "require-dev": {
-                "brain\/monkey": "2.*",
-                "inpsyde\/php-coding-standards": "dev-main",
-                "johnpbloch\/wordpress-core": "^5.0",
-                "phpunit\/phpunit": "^6.0 | ^7.0 | ^8.0 | ^9.0",
-                "squizlabs\/php_codesniffer": "^3.4",
-                "voku\/httpful": "^2.4"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-develop": "0.1.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Wp\\HttpClient\\Test\\Func\\": "tests\/functional"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Inpsyde GmbH",
-                    "email": "hello@inpsyde.com",
-                    "role": "Company"
-                },
-                {
-                    "name": "Anton Ukhanev",
-                    "email": "xedin.unknown@gmail.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A PSR-18 compatible wrapper for WordPress HTTP requests",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/inpsyde\/psr-18-wp-http-client"
-        },
-        {
-            "name": "inpsyde\/transformer",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/transformer",
-                "reference": "cb6cadf76b8629b708d226e6cd6ae17ddfd6e5aa"
-            },
-            "require-dev": {
-                "brianium\/paratest": "^6.0",
-                "inpsyde\/monkery-test-case": "^6.0",
-                "phpunit\/phpunit": "^9.5",
-                "spatie\/phpunit-watcher": "^1.10"
-            },
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\": "src\/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Transformer\\Tests\\": "tests\/PHPUnit\/Helper"
-                }
-            },
-            "license": [
-                "MIT"
-            ],
-            "description": "Transforms object types using middleware-enabled transformation functions",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/inpsyde\/transformer"
-        },
-        {
-            "name": "inpsyde\/worldline-admin-actions",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/admin-actions",
-                "reference": "f2d4c8b18528e8e332f8c93930ad710858a45a05"
-            },
-            "require": {
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline Admin Actions module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-admin-actions"
-        },
-        {
-            "name": "inpsyde\/worldline-apple-pay-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/apple-pay-gateway",
-                "reference": "b851052429188d9e679001fa9b6a9f276f01273f"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ApplePayGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-apple-pay-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-bank-transfer-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/bank-transfer-gateway",
-                "reference": "fb218707866f34dc091a8b4993b1d8987bf2f8cf"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BankTransferGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-bank-transfer-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-blik-gateway",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/blik-gateway",
-                "reference": "c7cc977e522f3348589a587a509414abd00ed239"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\BlikGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-blik-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-checkout",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/checkout",
-                "reference": "87b5a2e0fdbd54f8c44e24066d6bc446caa703b0"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Checkout\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-checkout"
-        },
-        {
-            "name": "inpsyde\/worldline-config",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/config",
-                "reference": "8cce07c2c5a261b429165321c3da74ee47c53ddf"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.0"
-            },
-            "require-dev": {
-                "php-stubs\/woocommerce-stubs": "^5.0",
-                "php-stubs\/wordpress-stubs": "^5.0",
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Config\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-config"
-        },
-        {
-            "name": "inpsyde\/worldline-cvco-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/cvco-gateway",
-                "reference": "304c1bc5d19f0e881f69e1fae6d1cb8ae15d51f3"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\CVCOGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-cvco-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-documentation",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/documentation",
-                "reference": "d5a76a452d9d283d766c3bd4c22e9c079c7ecf3d"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Documentation\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-documentation"
-        },
-        {
-            "name": "inpsyde\/worldline-eps-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/eps-gateway",
-                "reference": "aab24274ef8a8ab45ac873a9e9dec0cad2360952"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\EpsGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-eps-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-google-pay-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/google-pay-gateway",
-                "reference": "1f84479f27d1c1be5095442f9a9289220bd0fc59"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\GooglePayGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-google-pay-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-hosted-tokenization-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/hosted-tokenization-gateway",
-                "reference": "294b02408a01e196d136f725532dd8e95b8df965"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\HostedTokenizationGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-hosted-tokenization-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-ideal-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/ideal-gateway",
-                "reference": "fc513809b3456312301f1b3b1c03976b5acff7f9"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IdealGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-ideal-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-illicado-gateway",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/illicado-gateway",
-                "reference": "92959ec2007ea9e122176cb95050f5ce2f64873c"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IllicadoGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\IllicadoGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-illicado-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-klarna-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/klarna-gateway",
-                "reference": "ef5e0f947be78520745f1ffae565e37d82713175"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "*",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\KlarnaGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-klarna-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-linxo-connect-gateway",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/linxo-connect-gateway",
-                "reference": "b5942ac7f2c27b99bd7f3daaeaaced1a8b990586"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\LinxoConnectGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-linxo-connect-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-logging",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/worldline-logging",
-                "reference": "1df85333b29a07b021bfe79a562f465dbb2193f7"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.0"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlineLogging\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlineLogging\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-logging"
-        },
-        {
-            "name": "inpsyde\/worldline-mealvouchers-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/mealvouchers-gateway",
-                "reference": "6cf0c3698d71007ea866ec57f69ae6331f3e622d"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "*",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\MealvouchersGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-mealvouchers-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-orders",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/orders",
-                "reference": "952128322a16c15fd65bdc54536b8ac9fa68d134"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Orders\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline WooCommerce Orders features",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-orders"
-        },
-        {
-            "name": "inpsyde\/worldline-payment-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/worldline-payment-gateway",
-                "reference": "184f57538e830f2d8ae584666d09ea36d757bd8d"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.0"
-            },
-            "require-dev": {
-                "brain\/monkey": "^2.6",
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-payment-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-paypal-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/paypal-gateway",
-                "reference": "797d75735414b76ba83d6a803bcb0b953e57460b"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PayPalGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-paypal-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-pledg-gateway",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/pledg-gateway",
-                "reference": "ce13f1728da2195ca21fff2b889dae3299234bff"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PledgGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline Pledg payment gateway module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-pledg-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-postfinance-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/postfinance",
-                "reference": "a7cccb834eda6ab7ef85a4a77402490b1e772f13"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\PostfinanceGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-postfinance-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-product-type",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/worldline-product-type",
-                "reference": "b7ed011a6e7fdf22de01cc834fb4257ff45f99f8"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ProductType\\": "src"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Marija",
-                    "email": "marija.ivic@logeecom.com"
-                }
-            ],
-            "description": "Worldline Product Type Module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-product-type"
-        },
-        {
-            "name": "inpsyde\/worldline-przelewy24-gateway",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/przelewy24-gateway",
-                "reference": "d818beac5597a8d7a91a880e9411194825455683"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Przelewy24Gateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-przelewy24-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-return-page",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/return-page",
-                "reference": "46510cde1c25272279c5f66bb92ec9fedef1fb26"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "inpsyde\/assets": "*",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.0"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\ReturnPage\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-return-page"
-        },
-        {
-            "name": "inpsyde\/worldline-sepa-direct-debit-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/sepa-direct-debit-gateway",
-                "reference": "06589a9db678ff043948cd1652c3c7928bdf81d1"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline SEPA Direct Debit payment gateway module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-sepa-direct-debit-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-twint-gateway",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/twint-gateway",
-                "reference": "c0286f24536cf6dab7800e32e5796996f3be93f9"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\TwintGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline TWINT gateway module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-twint-gateway"
-        },
-        {
-            "name": "inpsyde\/worldline-uninstall",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/uninstall",
-                "reference": "ecabbbcee029f21d8c3a972e06eb662ed2ee3973"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.0"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^8.0 | ^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uninstall\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline Uninstall Module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-uninstall"
-        },
-        {
-            "name": "inpsyde\/worldline-uri",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/uri",
-                "reference": "87fbfcd39d2e00457817fd955e21097589bd1700"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.0",
-                "psr\/http-message": "^1.0"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^8.0 | ^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Uri\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline Uri",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-uri"
-        },
-        {
-            "name": "inpsyde\/worldline-utils",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/utils",
-                "reference": "138f699da5fa6e3eb83c2b0c19034403e1c685a6"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "php": ">=7.4"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^8.0 | ^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Utils\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Utils\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline Utils",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-utils"
-        },
-        {
-            "name": "inpsyde\/worldline-vaulting",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/vaulting",
-                "reference": "dc9e26dfc73b4ecb976db4fc4345da71bf41e97f"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Vaulting\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Vaulting\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-vaulting"
-        },
-        {
-            "name": "inpsyde\/worldline-wc-support",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/wc-support",
-                "reference": "536109e1efa2997e218897b5f077aa193865bcba"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WcSupport\\Tests\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "WooCommerce support features",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-wc-support"
-        },
-        {
-            "name": "inpsyde\/worldline-webhooks",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/webhooks",
-                "reference": "91b94af7c172613fd00ac87a79273f6f970c5e64"
-            },
-            "require": {
-                "dhii\/services": "^0.1.0-alpha2",
-                "dhii\/validator": "^0.1",
-                "inpsyde\/modularity": "dev-main",
-                "php": "^7.2 | ^8.0",
-                "psr\/container": "^1.0",
-                "psr\/http-server-handler": "^1.0.0",
-                "psr\/http-server-middleware": "^1.0.0"
-            },
-            "require-dev": {
-                "brain\/monkey": "^2",
-                "inpsyde\/php-coding-standards": "dev-main",
-                "php-stubs\/woocommerce-stubs": "^5.0",
-                "php-stubs\/wordpress-stubs": "^5.0",
-                "phpunit\/phpunit": "^8.0 | ^9.0",
-                "vimeo\/psalm": "^4.6"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\": "src\/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Webhooks\\Tests\\": "tests\/php\/"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline webhooks module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-webhooks"
-        },
-        {
-            "name": "inpsyde\/worldline-wero-gateway",
-            "version": "dev-master",
-            "version_normalized": "dev-master",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/wero-gateway",
-                "reference": "7b733ca00d93f3586174a5b4eb0bb570fb576af6"
-            },
-            "require": {
-                "dhii\/services": "^0.1.1-alpha3",
-                "inpsyde\/assets": "dev-main",
-                "inpsyde\/modularity": "dev-main",
-                "php": ">=7.4",
-                "psr\/container": "^1.1"
-            },
-            "require-dev": {
-                "phpunit\/phpunit": "^9.0"
-            },
-            "type": "inpsyde-module",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WeroGateway\\": "src"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\WeroGateway\\": "tests\/php"
-                }
-            },
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Syde GmbH",
-                    "email": "hello@syde.com"
-                }
-            ],
-            "description": "Worldline module",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/..\/modules\/inpsyde\/worldline-wero-gateway"
-        },
-        {
-            "name": "inpsyde\/wp-context",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "dist": {
-                "type": "path",
-                "url": ".\/modules.local\/wp-context",
-                "reference": "6c2a042db65a119feded3bc974edb0aa740967db"
-            },
-            "require": {
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "brain\/monkey": "^2.6.1",
-                "inpsyde\/php-coding-standards": "dev-main",
-                "inpsyde\/wp-stubs": "dev-main",
-                "mockery\/mockery": "~1.3.6",
-                "phpunit\/phpunit": "~7.5.20 || ^8",
-                "vimeo\/psalm": "^4.27.0"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-main": "1.x-dev"
-                }
-            },
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\": "src\/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Inpsyde\\Tests\\": "tests\/"
-                }
-            },
-            "scripts": {
-                "cs": [
-                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs"
-                ],
-                "psalm": [
-                    "@php .\/vendor\/vimeo\/psalm\/psalm --no-cache --output-format=compact"
-                ],
-                "tests": [
-                    "@php .\/vendor\/phpunit\/phpunit\/phpunit"
-                ],
-                "tests:no-cov": [
-                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage"
-                ],
-                "phpcompat": [
-                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs -p . --standard=PHPCompatibility --ignore=*\/vendor\/* --extensions=php --basepath=.\/ --runtime-set testVersion 7.1-"
-                ],
-                "qa": [
-                    "@cs",
-                    "@phpcompat",
-                    "@psalm",
-                    "@tests:no-cov"
-                ]
-            },
-            "license": [
-                "gpl-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Inpsyde GmbH",
-                    "homepage": "https:\/\/inpsyde.com\/",
-                    "email": "hello@inpsyde.com",
-                    "role": "Company"
-                },
-                {
-                    "name": "Giuseppe Mazzapica",
-                    "email": "g.mazzapica@inpsyde.com",
-                    "role": "Developer"
-                }
-            ],
-            "description": "A single-class utility to check the running context in WordPress sites.",
-            "transport-options": {
-                "symlink": false,
-                "relative": true
-            },
-            "install-path": "..\/inpsyde\/wp-context"
         },
         {
             "name": "oomphinc\/composer-installers-extender",
@@ -2599,7 +492,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Psr\\Container\\": "src\/"
+                    "Worldline\\Vendor\\Psr\\Container\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2656,7 +549,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Psr\\Http\\Client\\": "src\/"
+                    "Worldline\\Vendor\\Psr\\Http\\Client\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2711,7 +604,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Psr\\Http\\Message\\": "src\/"
+                    "Worldline\\Vendor\\Psr\\Http\\Message\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2768,7 +661,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Psr\\Http\\Message\\": "src\/"
+                    "Worldline\\Vendor\\Psr\\Http\\Message\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2825,7 +718,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Psr\\Http\\Server\\": "src\/"
+                    "Worldline\\Vendor\\Psr\\Http\\Server\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2885,7 +778,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Psr\\Http\\Server\\": "src\/"
+                    "Worldline\\Vendor\\Psr\\Http\\Server\\": "src\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2943,7 +836,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Psr\\Log\\": "Psr\/Log\/"
+                    "Worldline\\Vendor\\Psr\\Log\\": "Psr\/Log\/"
                 }
             },
             "notification-url": "https:\/\/packagist.org\/downloads\/",
@@ -2994,7 +887,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Robtimus\\Multipart\\": [
+                    "Worldline\\Vendor\\Robtimus\\Multipart\\": [
                         "src\/Robtimus\/Multipart"
                     ]
                 }
@@ -3072,6 +965,90 @@
             "install-path": "..\/sniccowp\/php-scoper-wordpress-excludes"
         },
         {
+            "name": "symfony\/polyfill-mbstring",
+            "version": "v1.32.0",
+            "version_normalized": "1.32.0.0",
+            "source": {
+                "type": "git",
+                "url": "https:\/\/github.com\/symfony\/polyfill-mbstring.git",
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https:\/\/api.github.com\/repos\/symfony\/polyfill-mbstring\/zipball\/6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "reference": "6d857f4d76bd4b343eac26d6b539585d2bc56493",
+                "shasum": ""
+            },
+            "require": {
+                "ext-iconv": "*",
+                "php": ">=7.2"
+            },
+            "provide": {
+                "ext-mbstring": "*"
+            },
+            "suggest": {
+                "ext-mbstring": "For best performance"
+            },
+            "time": "2024-12-23T08:48:59+00:00",
+            "type": "library",
+            "extra": {
+                "thanks": {
+                    "url": "https:\/\/github.com\/symfony\/polyfill",
+                    "name": "symfony\/polyfill"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Worldline\\Vendor\\Symfony\\Polyfill\\Mbstring\\": ""
+                }
+            },
+            "notification-url": "https:\/\/packagist.org\/downloads\/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https:\/\/symfony.com\/contributors"
+                }
+            ],
+            "description": "Symfony polyfill for the Mbstring extension",
+            "homepage": "https:\/\/symfony.com",
+            "keywords": [
+                "compatibility",
+                "mbstring",
+                "polyfill",
+                "portable",
+                "shim"
+            ],
+            "support": {
+                "source": "https:\/\/github.com\/symfony\/polyfill-mbstring\/tree\/v1.32.0"
+            },
+            "funding": [
+                {
+                    "url": "https:\/\/symfony.com\/sponsor",
+                    "type": "custom"
+                },
+                {
+                    "url": "https:\/\/github.com\/fabpot",
+                    "type": "github"
+                },
+                {
+                    "url": "https:\/\/tidelift.com\/funding\/github\/packagist\/symfony\/symfony",
+                    "type": "tidelift"
+                }
+            ],
+            "install-path": "..\/symfony\/polyfill-mbstring"
+        },
+        {
             "name": "symfony\/polyfill-php80",
             "version": "v1.32.0",
             "version_normalized": "1.32.0.0",
@@ -3103,7 +1080,7 @@
                     "bootstrap.php"
                 ],
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\Symfony\\Polyfill\\Php80\\": ""
+                    "Worldline\\Vendor\\Symfony\\Polyfill\\Php80\\": ""
                 },
                 "classmap": [
                     "Resources\/stubs"
@@ -3187,7 +1164,7 @@
             "installation-source": "dist",
             "autoload": {
                 "psr-4": {
-                    "Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\": [
+                    "Worldline\\Vendor\\OnlinePayments\\Sdk\\": [
                         "src\/OnlinePayments\/Sdk",
                         "lib\/OnlinePayments\/Sdk"
                     ]
@@ -3211,6 +1188,2072 @@
                 "source": "https:\/\/github.com\/wl-online-payments-direct\/sdk-php\/tree\/8.3.0"
             },
             "install-path": "..\/wl-online-payments-direct\/sdk-php"
+        },
+        {
+            "name": "worldline\/assets",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/assets",
+                "reference": "8de891cf32929e9456393044f8222a5a1bbc3edb"
+            },
+            "require": {
+                "ext-dom": "*",
+                "ext-json": "*",
+                "php": ">=7.2",
+                "worldline\/wp-context": "dev-main"
+            },
+            "require-dev": {
+                "brain\/monkey": "^2.5.0",
+                "johnpbloch\/wordpress-core": ">=6.2",
+                "mikey179\/vfsstream": "^1.6.8",
+                "php-stubs\/wordpress-stubs": ">=6.2@stable",
+                "phpunit\/phpunit": "^8.5.14 || ^9.0",
+                "vimeo\/psalm": "@stable",
+                "worldline\/php-coding-standards": "dev-main"
+            },
+            "type": "library",
+            "extra": {
+                "wordpress-install-dir": "vendor\/wordpress\/wordpress"
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Assets\\": "src\/"
+                },
+                "files": [
+                    "inc\/functions.php",
+                    "inc\/bootstrap.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Assets\\Tests\\Unit\\": "tests\/phpunit\/Unit\/"
+                }
+            },
+            "scripts": {
+                "cs": [
+                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs"
+                ],
+                "psalm": [
+                    "@php .\/vendor\/bin\/psalm --output-format=compact --no-cache"
+                ],
+                "tests": [
+                    "@php .\/vendor\/phpunit\/phpunit\/phpunit"
+                ],
+                "tests:no-cov": [
+                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage"
+                ],
+                "tests:codecov": [
+                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --coverage-clover coverage.xml"
+                ],
+                "qa": [
+                    "@cs",
+                    "@tests:no-cov"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline",
+                    "homepage": "https:\/\/worldline.com",
+                    "role": "Company"
+                },
+                {
+                    "name": "Christian Leucht",
+                    "homepage": "https:\/\/www.chrico.info",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Package to manage assets in WordPress.",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/worldline\/assets"
+        },
+        {
+            "name": "worldline\/logger",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/logger",
+                "reference": "8bcba0c0cc5e8754becd60e42e08c5003eebba5d"
+            },
+            "require": {
+                "php": "^7.2 | ^8.0",
+                "psr\/container": "^1.0 | ^2.0",
+                "psr\/log": "^1.1",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "brain\/monkey": "^2",
+                "php-stubs\/woocommerce-stubs": "^5.0",
+                "php-stubs\/wordpress-stubs": ">=5.0",
+                "phpunit\/phpunit": "^8.0",
+                "vimeo\/psalm": "^4.6",
+                "worldline\/php-coding-standards": "dev-main"
+            },
+            "type": "worldline-module",
+            "extra": {
+                "installer-disable": true
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Logger\\": "src\/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Logger\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline",
+                    "homepage": "https:\/\/worldline.com\/",
+                    "role": "Company"
+                },
+                {
+                    "name": "Aleksas Pantechovskis",
+                    "email": "alex.pantec@gmail.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Kirill Braslavskyi",
+                    "email": "strangerkir@gmail.com",
+                    "role": "developer"
+                }
+            ],
+            "description": "Logger module for worldline\/modularity based on WooCommerce logger",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/logger"
+        },
+        {
+            "name": "worldline\/modularity",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/modularity",
+                "reference": "839743b0dfc0f61f7cafb21df8d19cef15b23509"
+            },
+            "require": {
+                "ext-json": "*",
+                "php": ">=7.4 <8.4",
+                "psr\/container": "^1.1.0 || ^2"
+            },
+            "require-dev": {
+                "brain\/monkey": "^2.6.1",
+                "mikey179\/vfsstream": "^v1.6.11",
+                "phpunit\/phpunit": "^9.6.19",
+                "roots\/wordpress-no-content": "@dev",
+                "vimeo\/psalm": "^5.24.0",
+                "worldline\/php-coding-standards": "dev-main",
+                "worldline\/wp-stubs-versions": "dev-main"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Modularity\\": "src\/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Modularity\\Tests\\": "tests\/src\/",
+                    "Worldline\\Vendor\\Worldline\\Modularity\\Tests\\Unit\\": "tests\/unit\/"
+                }
+            },
+            "scripts": {
+                "cs": [
+                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs"
+                ],
+                "psalm": [
+                    "@php .\/vendor\/vimeo\/psalm\/psalm --no-suggestions --report-show-info=false --find-unused-psalm-suppress --no-diff --no-cache --no-file-cache --output-format=compact"
+                ],
+                "tests": [
+                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage"
+                ],
+                "tests:coverage": [
+                    "@php .\/vendor\/phpunit\/phpunit\/phpunit"
+                ],
+                "qa": [
+                    "@cs",
+                    "@psalm",
+                    "@tests"
+                ]
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline",
+                    "homepage": "https:\/\/worldline.com\/",
+                    "role": "Company"
+                }
+            ],
+            "description": "Modular PSR-11 implementation for WordPress plugins, themes or libraries.",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/worldline\/modularity"
+        },
+        {
+            "name": "worldline\/payment-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/payment-gateway",
+                "reference": "3fb6b2d979bc5ee6d94645ffeb26df9a61806c50"
+            },
+            "require": {
+                "php": "^7.4 | ^8.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "brain\/monkey": "^2.0",
+                "brainmaestro\/composer-git-hooks": "^2.8",
+                "mockery\/mockery": "^1.3",
+                "php-stubs\/woocommerce-stubs": "^5.0@stable",
+                "php-stubs\/wordpress-stubs": "^5.0@stable",
+                "phpunit\/phpunit": "^8.0 | ^9.0",
+                "vimeo\/psalm": "^4.3",
+                "worldline\/composer-assets-compiler": "dev-main",
+                "worldline\/ddev-tools": "dev-main",
+                "worldline\/php-coding-standards": "dev-main"
+            },
+            "type": "worldline-module",
+            "extra": {
+                "hooks": {
+                    "pre-commit": [
+                        "vendor\/bin\/phpcbf -q --parallel=24; exit 0"
+                    ]
+                },
+                "wp-translation-downloader": {
+                    "auto-run": false,
+                    "languageRootDir": ".\/",
+                    "languages": [
+                        "de_DE",
+                        "en_US"
+                    ],
+                    "api": {
+                        "names": {
+                            "worldline\/*": "https:\/\/translate.worldline.com\/products\/api\/translations\/%projectName%"
+                        }
+                    },
+                    "directories": {
+                        "names": {
+                            "worldline\/*": "languages\/"
+                        }
+                    }
+                },
+                "composer-asset-compiler": {
+                    "auto-run": false,
+                    "dependencies": "install",
+                    "script": "build",
+                    "default-env": {
+                        "WEBPACK_ENV": "production"
+                    }
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\PaymentGateway\\": "src\/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\PaymentGateway\\Test\\": "tests\/PHPUnit\/Helper"
+                }
+            },
+            "scripts": {
+                "phpcs": [
+                    "@php .\/vendor\/bin\/phpcs -n -s --parallel=24"
+                ],
+                "phpcs:phpcbf": [
+                    "@php .\/vendor\/bin\/phpcbf  --parallel=24;exit 0"
+                ],
+                "phpcs:interactive": [
+                    "@php .\/vendor\/bin\/phpcs -a"
+                ],
+                "phpcs:dev": [
+                    "@cs:phpcbf",
+                    "@cs:interactive"
+                ],
+                "phpunit": [
+                    "vendor\/bin\/phpunit"
+                ],
+                "test": [
+                    "@phpunit"
+                ],
+                "cghooks": [
+                    "vendor\/bin\/cghooks"
+                ],
+                "post-install-cmd": [
+                    "@cghooks add --ignore-lock"
+                ],
+                "post-update-cmd": [
+                    "@cghooks update"
+                ]
+            },
+            "license": [
+                "GPL-2.0"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline",
+                    "homepage": "https:\/\/worldline.com\/",
+                    "role": "Company"
+                }
+            ],
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/payment-gateway"
+        },
+        {
+            "name": "worldline\/psr-18-wp-http-client",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/psr-18-wp-http-client",
+                "reference": "4cc81f1e5640f3b0c447699a012b278015c5af26"
+            },
+            "require": {
+                "php": "^7.0 | ^8.0",
+                "psr\/http-client": "^1.0",
+                "psr\/http-factory": "^1.0",
+                "psr\/http-message": "^1.0"
+            },
+            "provide": {
+                "psr\/http-client-implementation": "^1.0"
+            },
+            "require-dev": {
+                "brain\/monkey": "2.*",
+                "johnpbloch\/wordpress-core": "^5.0",
+                "phpunit\/phpunit": "^6.0 | ^7.0 | ^8.0 | ^9.0",
+                "squizlabs\/php_codesniffer": "^3.4",
+                "voku\/httpful": "^2.4",
+                "worldline\/php-coding-standards": "dev-main"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-develop": "0.1.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Wp\\HttpClient\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Wp\\HttpClient\\Test\\Func\\": "tests\/functional"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline",
+                    "role": "Company"
+                },
+                {
+                    "name": "Anton Ukhanev",
+                    "email": "xedin.unknown@gmail.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A PSR-18 compatible wrapper for WordPress HTTP requests",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/worldline\/psr-18-wp-http-client"
+        },
+        {
+            "name": "worldline\/transformer",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/transformer",
+                "reference": "237c37c2fa887d774e7bbcffc30eafc80267ab1f"
+            },
+            "require-dev": {
+                "brianium\/paratest": "^6.0",
+                "phpunit\/phpunit": "^9.5",
+                "spatie\/phpunit-watcher": "^1.10",
+                "worldline\/monkery-test-case": "^6.0"
+            },
+            "type": "library",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Transformer\\": "src\/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Transformer\\Tests\\": "tests\/PHPUnit\/Helper"
+                }
+            },
+            "license": [
+                "MIT"
+            ],
+            "description": "Transforms object types using middleware-enabled transformation functions",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/worldline\/transformer"
+        },
+        {
+            "name": "worldline\/worldline-admin-actions",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/admin-actions",
+                "reference": "eabd9348bddeb7bace4a288b3c10dd58042a0984"
+            },
+            "require": {
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline Admin Actions module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-admin-actions"
+        },
+        {
+            "name": "worldline\/worldline-apple-pay-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/apple-pay-gateway",
+                "reference": "c047f980d16a43eb39068179548fd500068c833a"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\ApplePayGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\ApplePayGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-apple-pay-gateway"
+        },
+        {
+            "name": "worldline\/worldline-bank-transfer-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/bank-transfer-gateway",
+                "reference": "aa6a129e538a6c9e61533647fe13d3a8aba5f3d9"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\BankTransferGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\BankTransferGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-bank-transfer-gateway"
+        },
+        {
+            "name": "worldline\/worldline-blik-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/blik-gateway",
+                "reference": "73acfa3632be0e69d109785c5b5251b13d2acb85"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\BlikGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\BlikGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-blik-gateway"
+        },
+        {
+            "name": "worldline\/worldline-checkout",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/checkout",
+                "reference": "90f271509566f8cd4be2aef1c37ab8c75da30433"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Checkout\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Checkout\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-checkout"
+        },
+        {
+            "name": "worldline\/worldline-config",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/config",
+                "reference": "c53ca3125d2f8fe366830d9bcb0f5656d57a6c3e"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4",
+                "psr\/container": "^1.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "php-stubs\/woocommerce-stubs": "^5.0",
+                "php-stubs\/wordpress-stubs": "^5.0",
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Config\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Config\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-config"
+        },
+        {
+            "name": "worldline\/worldline-cvco-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/cvco-gateway",
+                "reference": "6e58bff170b40f3f8153f36fc5d2b376b3af2b40"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\CVCOGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\CVCOGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-cvco-gateway"
+        },
+        {
+            "name": "worldline\/worldline-documentation",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/documentation",
+                "reference": "0867a299b7592c0ce939908811644e8534963fb5"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Documentation\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Documentation\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-documentation"
+        },
+        {
+            "name": "worldline\/worldline-eps-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/eps-gateway",
+                "reference": "b38395c8414d405fa9e333fd89d2572aaa2efc87"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\EpsGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\EpsGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-eps-gateway"
+        },
+        {
+            "name": "worldline\/worldline-google-pay-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/google-pay-gateway",
+                "reference": "bb1fa3d60c40a30e1c063375537dd7b928fa3c3f"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\GooglePayGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\GooglePayGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-google-pay-gateway"
+        },
+        {
+            "name": "worldline\/worldline-hosted-tokenization-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/hosted-tokenization-gateway",
+                "reference": "23a5fef6fc4aaa4aa4b3f2510f7233c9202f4e15"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\HostedTokenizationGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\HostedTokenizationGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-hosted-tokenization-gateway"
+        },
+        {
+            "name": "worldline\/worldline-ideal-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/ideal-gateway",
+                "reference": "31f808beadc594159839c666b978edf7710f51e1"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\IdealGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\IdealGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-ideal-gateway"
+        },
+        {
+            "name": "worldline\/worldline-illicado-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/illicado-gateway",
+                "reference": "9d3915d8eff62230c3386d797f615db518c776ab"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\IllicadoGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\IllicadoGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-illicado-gateway"
+        },
+        {
+            "name": "worldline\/worldline-klarna-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/klarna-gateway",
+                "reference": "2a27c48cf9b644afd7fdf80eea41359a4916bed4"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "*",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\KlarnaGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\KlarnaGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-klarna-gateway"
+        },
+        {
+            "name": "worldline\/worldline-linxo-connect-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/linxo-connect-gateway",
+                "reference": "5b9267ce26d8e106eb035ad9e2f5f777de90400d"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\LinxoConnectGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\LinxoConnectGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-linxo-connect-gateway"
+        },
+        {
+            "name": "worldline\/worldline-logging",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/worldline-logging",
+                "reference": "d48213c33feeb49de3b98535cd6979df3c6908f7"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4",
+                "psr\/container": "^1.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WorldlineLogging\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WorldlineLogging\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-logging"
+        },
+        {
+            "name": "worldline\/worldline-mealvouchers-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/mealvouchers-gateway",
+                "reference": "a5c28184476f4bd0712a57c73a6d9c36511b7ec6"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "*",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\MealvouchersGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\MealvouchersGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-mealvouchers-gateway"
+        },
+        {
+            "name": "worldline\/worldline-orders",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/orders",
+                "reference": "93cda25bd9a15d6ed9449b58a3628d953028e673"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Orders\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Orders\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline WooCommerce Orders features",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-orders"
+        },
+        {
+            "name": "worldline\/worldline-payment-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/worldline-payment-gateway",
+                "reference": "288006c6cfd16e0de3287b9a58f3b8278de82067"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4",
+                "psr\/container": "^1.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "brain\/monkey": "^2.6",
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-payment-gateway"
+        },
+        {
+            "name": "worldline\/worldline-paypal-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/paypal-gateway",
+                "reference": "aa02e13fd64f76fa34462b2534eb64eef4b9c442"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\PayPalGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\PayPalGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-paypal-gateway"
+        },
+        {
+            "name": "worldline\/worldline-pledg-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/pledg-gateway",
+                "reference": "9f32a6990acb1114bc5c37058f19e3fcbd9196b4"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\PledgGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\PledgGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline Pledg payment gateway module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-pledg-gateway"
+        },
+        {
+            "name": "worldline\/worldline-postfinance-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/postfinance",
+                "reference": "dfb4314bcc7dd2f89be9ed681b9459ec0cb13f64"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\PostfinanceGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\PostfinanceGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-postfinance-gateway"
+        },
+        {
+            "name": "worldline\/worldline-product-type",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/worldline-product-type",
+                "reference": "b9a7ba7b6f3627bff68919dbb90cd2473f214f15"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4",
+                "psr\/container": "^1.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\ProductType\\": "src"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Marija",
+                    "email": "marija.ivic@logeecom.com"
+                }
+            ],
+            "description": "Worldline Product Type Module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-product-type"
+        },
+        {
+            "name": "worldline\/worldline-przelewy24-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/przelewy24-gateway",
+                "reference": "3ff5e9c823b39a1b4092864fa8c5d5d09de2ed2c"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Przelewy24Gateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Przelewy24Gateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-przelewy24-gateway"
+        },
+        {
+            "name": "worldline\/worldline-return-page",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/return-page",
+                "reference": "ce4bb2731b6154b1ccb94a4fb81eeaa351320682"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4",
+                "psr\/container": "^1.0",
+                "worldline\/assets": "*",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\ReturnPage\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\ReturnPage\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-return-page"
+        },
+        {
+            "name": "worldline\/worldline-sepa-direct-debit-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/sepa-direct-debit-gateway",
+                "reference": "a7aba605d7a5a0cd0d4489b485c0c6325008c7f1"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\SepaDirectDebitGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline SEPA Direct Debit payment gateway module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-sepa-direct-debit-gateway"
+        },
+        {
+            "name": "worldline\/worldline-twint-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/twint-gateway",
+                "reference": "a14e1a309f866654dfc961c2b00c855a09a84647"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\TwintGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\TwintGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline TWINT gateway module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-twint-gateway"
+        },
+        {
+            "name": "worldline\/worldline-uninstall",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/uninstall",
+                "reference": "32fd443ccd307a391036aab4bc273d1bdab2efb9"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4",
+                "psr\/container": "^1.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^8.0 | ^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Uninstall\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Uninstall\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline Uninstall Module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-uninstall"
+        },
+        {
+            "name": "worldline\/worldline-uri",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/uri",
+                "reference": "02e2f0e17bb1d83d7912fcc4166f30acd2187725"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4",
+                "psr\/container": "^1.0",
+                "psr\/http-message": "^1.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^8.0 | ^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Uri\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Uri\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline Uri",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-uri"
+        },
+        {
+            "name": "worldline\/worldline-utils",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/utils",
+                "reference": "76f6970e7c2cc90660c381967ae2ea7ae0151b65"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "php": ">=7.4"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^8.0 | ^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Utils\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Utils\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline Utils",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-utils"
+        },
+        {
+            "name": "worldline\/worldline-vaulting",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/vaulting",
+                "reference": "c026b62422e3723c4c969444c667dee64a0d5b38"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Vaulting\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Vaulting\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-vaulting"
+        },
+        {
+            "name": "worldline\/worldline-wc-support",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/wc-support",
+                "reference": "ff0fb526e32cc9fff33e2aefca7d7b3cf660c4e0"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WcSupport\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WcSupport\\Tests\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "WooCommerce support features",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-wc-support"
+        },
+        {
+            "name": "worldline\/worldline-webhooks",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/webhooks",
+                "reference": "8cd1465919e2397e42d11a9014ef09cf1c7100a2"
+            },
+            "require": {
+                "dhii\/services": "^0.1.0-alpha2",
+                "dhii\/validator": "^0.1",
+                "php": "^7.2 | ^8.0",
+                "psr\/container": "^1.0",
+                "psr\/http-server-handler": "^1.0.0",
+                "psr\/http-server-middleware": "^1.0.0",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "brain\/monkey": "^2",
+                "php-stubs\/woocommerce-stubs": "^5.0",
+                "php-stubs\/wordpress-stubs": "^5.0",
+                "phpunit\/phpunit": "^8.0 | ^9.0",
+                "vimeo\/psalm": "^4.6",
+                "worldline\/php-coding-standards": "dev-main"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Webhooks\\": "src\/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Webhooks\\Tests\\": "tests\/php\/"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline webhooks module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-webhooks"
+        },
+        {
+            "name": "worldline\/worldline-wero-gateway",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/wero-gateway",
+                "reference": "1675d12289dc08425381f09efff1c09f47131f13"
+            },
+            "require": {
+                "dhii\/services": "^0.1.1-alpha3",
+                "php": ">=7.4",
+                "psr\/container": "^1.1",
+                "worldline\/assets": "dev-main",
+                "worldline\/modularity": "dev-main"
+            },
+            "require-dev": {
+                "phpunit\/phpunit": "^9.0"
+            },
+            "type": "worldline-module",
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WeroGateway\\": "src"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WeroGateway\\": "tests\/php"
+                }
+            },
+            "license": [
+                "GPL-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline"
+                }
+            ],
+            "description": "Worldline module",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/..\/modules\/worldline\/worldline-wero-gateway"
+        },
+        {
+            "name": "worldline\/wp-context",
+            "version": "dev-main",
+            "version_normalized": "dev-main",
+            "dist": {
+                "type": "path",
+                "url": ".\/modules.local\/wp-context",
+                "reference": "eee6ad8343b815178b526379884eb566f43c86ff"
+            },
+            "require": {
+                "php": ">=7.1"
+            },
+            "require-dev": {
+                "brain\/monkey": "^2.6.1",
+                "mockery\/mockery": "~1.3.6",
+                "phpunit\/phpunit": "~7.5.20 || ^8",
+                "vimeo\/psalm": "^4.27.0",
+                "worldline\/php-coding-standards": "dev-main",
+                "worldline\/wp-stubs": "dev-main"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-main": "1.x-dev"
+                }
+            },
+            "installation-source": "dist",
+            "autoload": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\": "src\/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Worldline\\Vendor\\Worldline\\Tests\\": "tests\/"
+                }
+            },
+            "scripts": {
+                "cs": [
+                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs"
+                ],
+                "psalm": [
+                    "@php .\/vendor\/vimeo\/psalm\/psalm --no-cache --output-format=compact"
+                ],
+                "tests": [
+                    "@php .\/vendor\/phpunit\/phpunit\/phpunit"
+                ],
+                "tests:no-cov": [
+                    "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage"
+                ],
+                "phpcompat": [
+                    "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs -p . --standard=PHPCompatibility --ignore=*\/vendor\/* --extensions=php --basepath=.\/ --runtime-set testVersion 7.1-"
+                ],
+                "qa": [
+                    "@cs",
+                    "@phpcompat",
+                    "@psalm",
+                    "@tests:no-cov"
+                ]
+            },
+            "license": [
+                "gpl-2.0-or-later"
+            ],
+            "authors": [
+                {
+                    "name": "Worldline",
+                    "homepage": "https:\/\/worldline.com\/",
+                    "role": "Company"
+                },
+                {
+                    "name": "Giuseppe Mazzapica",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A single-class utility to check the running context in WordPress sites.",
+            "transport-options": {
+                "symlink": false,
+                "relative": true
+            },
+            "install-path": "..\/worldline\/wp-context"
         }
     ],
     "dev": false,

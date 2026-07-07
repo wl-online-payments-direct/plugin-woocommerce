@@ -1,10 +1,10 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Dhii\Package;
+namespace Worldline\Vendor\Dhii\Package;
 
 use Exception;
-use Syde\Vendor\Worldline\Dhii\Package\Version\VersionInterface;
+use Worldline\Vendor\Dhii\Package\Version\VersionInterface;
 /**
  * Represents a software package.
  */

@@ -1,0 +1,70 @@
+{
+    "name": "worldline\/assets",
+    "description": "Package to manage assets in WordPress.",
+    "type": "library",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Worldline",
+            "homepage": "https:\/\/worldline.com",
+            "role": "Company"
+        },
+        {
+            "name": "Christian Leucht",
+            "homepage": "https:\/\/www.chrico.info",
+            "role": "Developer"
+        }
+    ],
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "require": {
+        "php": ">=7.2",
+        "ext-json": "*",
+        "ext-dom": "*",
+        "worldline\/wp-context": "dev-main"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^8.5.14 || ^9.0",
+        "brain\/monkey": "^2.5.0",
+        "mikey179\/vfsstream": "^1.6.8",
+        "worldline\/php-coding-standards": "dev-main",
+        "vimeo\/psalm": "@stable",
+        "php-stubs\/wordpress-stubs": ">=6.2@stable",
+        "johnpbloch\/wordpress-core": ">=6.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Assets\\": "src\/"
+        },
+        "files": [
+            "inc\/functions.php",
+            "inc\/bootstrap.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Assets\\Tests\\Unit\\": "tests\/phpunit\/Unit\/"
+        }
+    },
+    "scripts": {
+        "cs": "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs",
+        "psalm": "@php .\/vendor\/bin\/psalm --output-format=compact --no-cache",
+        "tests": "@php .\/vendor\/phpunit\/phpunit\/phpunit",
+        "tests:no-cov": "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage",
+        "tests:codecov": "@php .\/vendor\/phpunit\/phpunit\/phpunit --coverage-clover coverage.xml",
+        "qa": [
+            "@cs",
+            "@tests:no-cov"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "roots\/wordpress-core-installer": true,
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    },
+    "extra": {
+        "wordpress-install-dir": "vendor\/wordpress\/wordpress"
+    }
+}

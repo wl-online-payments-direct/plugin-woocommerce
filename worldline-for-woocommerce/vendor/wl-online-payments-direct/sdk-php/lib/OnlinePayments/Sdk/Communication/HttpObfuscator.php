@@ -1,9 +1,9 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Communication;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\BodyObfuscator;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\HeaderObfuscator;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\BodyObfuscator;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\HeaderObfuscator;
 /**
  * Class HttpObfuscator
  *

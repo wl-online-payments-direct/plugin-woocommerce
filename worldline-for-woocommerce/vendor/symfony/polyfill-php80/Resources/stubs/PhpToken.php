@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline;
+namespace Worldline\Vendor;
 
 /*
  * This file is part of the Symfony package.
@@ -11,7 +11,7 @@ namespace Syde\Vendor\Worldline;
  * file that was distributed with this source code.
  */
 if (\PHP_VERSION_ID < 80000 && \extension_loaded('tokenizer')) {
-    class PhpToken extends \Syde\Vendor\Worldline\Symfony\Polyfill\Php80\PhpToken
+    class PhpToken extends \Worldline\Vendor\Symfony\Polyfill\Php80\PhpToken
     {
     }
 }

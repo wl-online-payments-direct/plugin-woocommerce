@@ -3,7 +3,7 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Domain;
 
 use UnexpectedValueException;
 /**

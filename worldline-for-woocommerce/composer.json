@@ -1,13 +1,12 @@
 {
-    "name": "inpsyde\/worldline-for-woocommerce",
+    "name": "worldline\/worldline-for-woocommerce",
     "type": "wordpress-plugin",
     "description": "Worldline payment gateway for WooCommerce.",
     "license": "GPL-2.0-or-later",
     "authors": [
         {
-            "name": "Syde GmbH",
-            "homepage": "https:\/\/syde.com",
-            "email": "hello@syde.com",
+            "name": "Worldline",
+            "homepage": "https:\/\/worldline.com",
             "role": "Company"
         }
     ],
@@ -26,45 +25,45 @@
         "dhii\/services": "^0.1.1-alpha3",
         "dhii\/validator": "^0.1.0@alpha",
         "dhii\/versions": "^0.1.0@alpha",
-        "inpsyde\/logger": "dev-main",
-        "inpsyde\/modularity": "dev-main",
-        "inpsyde\/payment-gateway": "dev-main",
-        "inpsyde\/psr-18-wp-http-client": "dev-main",
-        "inpsyde\/transformer": "dev-main",
-        "inpsyde\/worldline-admin-actions": "dev-master",
-        "inpsyde\/worldline-apple-pay-gateway": "dev-main",
-        "inpsyde\/worldline-bank-transfer-gateway": "dev-main",
-        "inpsyde\/worldline-checkout": "dev-main",
-        "inpsyde\/worldline-config": "dev-main",
-        "inpsyde\/worldline-cvco-gateway": "dev-main",
-        "inpsyde\/worldline-documentation": "dev-main",
-        "inpsyde\/worldline-eps-gateway": "dev-main",
-        "inpsyde\/worldline-google-pay-gateway": "dev-main",
-        "inpsyde\/worldline-mealvouchers-gateway": "dev-main",
-        "inpsyde\/worldline-hosted-tokenization-gateway": "dev-main",
-        "inpsyde\/worldline-ideal-gateway": "dev-main",
-        "inpsyde\/worldline-illicado-gateway": "dev-master",
-        "inpsyde\/worldline-wero-gateway": "dev-master",
-        "inpsyde\/worldline-paypal-gateway": "dev-main",
-        "inpsyde\/worldline-pledg-gateway": "dev-master",
-        "inpsyde\/worldline-przelewy24-gateway": "dev-master",
-        "inpsyde\/worldline-blik-gateway": "dev-master",
-        "inpsyde\/worldline-linxo-connect-gateway": "dev-master",
-        "inpsyde\/worldline-sepa-direct-debit-gateway": "dev-main",
-        "inpsyde\/worldline-klarna-gateway": "dev-main",
-        "inpsyde\/worldline-logging": "dev-main",
-        "inpsyde\/worldline-orders": "dev-master",
-        "inpsyde\/worldline-payment-gateway": "dev-main",
-        "inpsyde\/worldline-postfinance-gateway": "dev-main",
-        "inpsyde\/worldline-return-page": "dev-main",
-        "inpsyde\/worldline-twint-gateway": "dev-main",
-        "inpsyde\/worldline-uninstall": "dev-main",
-        "inpsyde\/worldline-uri": "dev-main",
-        "inpsyde\/worldline-utils": "dev-main",
-        "inpsyde\/worldline-vaulting": "dev-main",
-        "inpsyde\/worldline-wc-support": "dev-main",
-        "inpsyde\/worldline-webhooks": "dev-main",
-        "inpsyde\/worldline-product-type": "dev-main",
+        "worldline\/logger": "dev-main",
+        "worldline\/modularity": "dev-main",
+        "worldline\/payment-gateway": "dev-main",
+        "worldline\/psr-18-wp-http-client": "dev-main",
+        "worldline\/transformer": "dev-main",
+        "worldline\/worldline-admin-actions": "dev-main",
+        "worldline\/worldline-apple-pay-gateway": "dev-main",
+        "worldline\/worldline-bank-transfer-gateway": "dev-main",
+        "worldline\/worldline-checkout": "dev-main",
+        "worldline\/worldline-config": "dev-main",
+        "worldline\/worldline-cvco-gateway": "dev-main",
+        "worldline\/worldline-documentation": "dev-main",
+        "worldline\/worldline-eps-gateway": "dev-main",
+        "worldline\/worldline-google-pay-gateway": "dev-main",
+        "worldline\/worldline-mealvouchers-gateway": "dev-main",
+        "worldline\/worldline-hosted-tokenization-gateway": "dev-main",
+        "worldline\/worldline-ideal-gateway": "dev-main",
+        "worldline\/worldline-illicado-gateway": "dev-main",
+        "worldline\/worldline-wero-gateway": "dev-main",
+        "worldline\/worldline-paypal-gateway": "dev-main",
+        "worldline\/worldline-pledg-gateway": "dev-main",
+        "worldline\/worldline-przelewy24-gateway": "dev-main",
+        "worldline\/worldline-blik-gateway": "dev-main",
+        "worldline\/worldline-linxo-connect-gateway": "dev-main",
+        "worldline\/worldline-sepa-direct-debit-gateway": "dev-main",
+        "worldline\/worldline-klarna-gateway": "dev-main",
+        "worldline\/worldline-logging": "dev-main",
+        "worldline\/worldline-orders": "dev-main",
+        "worldline\/worldline-payment-gateway": "dev-main",
+        "worldline\/worldline-postfinance-gateway": "dev-main",
+        "worldline\/worldline-return-page": "dev-main",
+        "worldline\/worldline-twint-gateway": "dev-main",
+        "worldline\/worldline-uninstall": "dev-main",
+        "worldline\/worldline-uri": "dev-main",
+        "worldline\/worldline-utils": "dev-main",
+        "worldline\/worldline-vaulting": "dev-main",
+        "worldline\/worldline-wc-support": "dev-main",
+        "worldline\/worldline-webhooks": "dev-main",
+        "worldline\/worldline-product-type": "dev-main",
         "oomphinc\/composer-installers-extender": "^2.0",
         "psr\/container": "^1.1",
         "psr\/log": "^1.1",
@@ -75,10 +74,10 @@
     "require-dev": {
         "brain\/monkey": "^2.6",
         "brainmaestro\/composer-git-hooks": "^2.8",
-        "inpsyde\/composer-assets-compiler": "dev-main",
-        "inpsyde\/ddev-tools": "dev-main",
-        "inpsyde\/modularity-test-case": "dev-main",
-        "inpsyde\/php-coding-standards": "dev-main",
+        "worldline\/composer-assets-compiler": "dev-main",
+        "worldline\/ddev-tools": "dev-main",
+        "worldline\/modularity-test-case": "dev-main",
+        "worldline\/php-coding-standards": "dev-main",
         "mockery\/mockery": "^1.3",
         "php-stubs\/woocommerce-stubs": "^5.0",
         "php-stubs\/wordpress-stubs": "^5.3",
@@ -88,12 +87,12 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\": "src\/"
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\": "src\/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\Inpsyde\\WorldlineForWoocommerce\\Test\\": "tests\/PHPUnit\/"
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Test\\": "tests\/PHPUnit\/"
         }
     },
     "minimum-stability": "dev",
@@ -116,7 +115,7 @@
         "optimize-autoloader": true,
         "allow-plugins": {
             "dealerdirect\/phpcodesniffer-composer-installer": true,
-            "inpsyde\/composer-assets-compiler": true,
+            "worldline\/composer-assets-compiler": true,
             "composer\/installers": true,
             "oomphinc\/composer-installers-extender": true
         },
@@ -127,11 +126,11 @@
     "extra": {
         "installer-paths": {
             "modules\/{$vendor}\/{$name}": [
-                "type:inpsyde-module"
+                "type:worldline-module"
             ]
         },
         "installer-types": [
-            "inpsyde-module"
+            "worldline-module"
         ],
         "hooks": {
             "pre-commit": [
@@ -143,7 +142,7 @@
             "dependencies": "install",
             "script": "build",
             "packages": {
-                "inpsyde\/*": {
+                "worldline\/*": {
                     "dependencies": "install",
                     "script": "build"
                 }

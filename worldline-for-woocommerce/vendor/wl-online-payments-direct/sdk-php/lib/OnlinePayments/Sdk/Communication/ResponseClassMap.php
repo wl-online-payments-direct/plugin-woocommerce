@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Communication;
 
 /**
  * Class ResponseClassMap

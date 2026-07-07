@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Webhooks;
 
 use UnexpectedValueException;
 /**

@@ -3,19 +3,19 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantBatch;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\MerchantBatch;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetBatchStatusResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SubmitBatchRequestBody;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\SubmitBatchResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiException;
+use Worldline\Vendor\OnlinePayments\Sdk\AuthorizationException;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\GetBatchStatusResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\SubmitBatchRequestBody;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\SubmitBatchResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\IdempotenceException;
+use Worldline\Vendor\OnlinePayments\Sdk\PlatformException;
+use Worldline\Vendor\OnlinePayments\Sdk\ReferenceException;
+use Worldline\Vendor\OnlinePayments\Sdk\ValidationException;
 /**
  * MerchantBatch client interface.
  */

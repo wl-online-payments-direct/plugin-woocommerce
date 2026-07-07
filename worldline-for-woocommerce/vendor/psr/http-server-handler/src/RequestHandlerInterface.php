@@ -1,9 +1,9 @@
 <?php
 
-namespace Syde\Vendor\Worldline\Psr\Http\Server;
+namespace Worldline\Vendor\Psr\Http\Server;
 
-use Syde\Vendor\Worldline\Psr\Http\Message\ResponseInterface;
-use Syde\Vendor\Worldline\Psr\Http\Message\ServerRequestInterface;
+use Worldline\Vendor\Psr\Http\Message\ResponseInterface;
+use Worldline\Vendor\Psr\Http\Message\ServerRequestInterface;
 /**
  * Handles a server request and produces a response.
  *

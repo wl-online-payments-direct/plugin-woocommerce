@@ -3,15 +3,15 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\ProductGroups;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPaymentProductGroupsResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductGroup;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiResource;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\GetPaymentProductGroupsResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\PaymentProductGroup;
+use Worldline\Vendor\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * ProductGroups client.
  */
@@ -25,8 +25,8 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
     public function getProductGroups(GetProductGroupsParams $query, ?CallContext $callContext = null) : GetPaymentProductGroupsResponse
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\GetPaymentProductGroupsResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\GetPaymentProductGroupsResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
             return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/productgroups'), $this->getClientMetaInfo(), $query, $callContext);
         } catch (ErrorResponseException $e) {
@@ -40,8 +40,8 @@ class ProductGroupsClient extends ApiResource implements ProductGroupsClientInte
     {
         $this->context['paymentProductGroupId'] = $paymentProductGroupId;
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\PaymentProductGroup';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\PaymentProductGroup';
+        $responseClassMap->defaultErrorResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
             return $this->getCommunicator()->get($responseClassMap, $this->instantiateUri('/v2/{merchantId}/productgroups/{paymentProductGroupId}'), $this->getClientMetaInfo(), $query, $callContext);
         } catch (ErrorResponseException $e) {

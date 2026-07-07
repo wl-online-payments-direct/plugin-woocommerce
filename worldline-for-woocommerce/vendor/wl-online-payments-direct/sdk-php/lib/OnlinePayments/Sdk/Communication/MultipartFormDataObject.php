@@ -1,9 +1,9 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Communication;
 
 use UnexpectedValueException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\UploadableFile;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\UploadableFile;
 /**
  * Class MultipartFormDataObject
  *

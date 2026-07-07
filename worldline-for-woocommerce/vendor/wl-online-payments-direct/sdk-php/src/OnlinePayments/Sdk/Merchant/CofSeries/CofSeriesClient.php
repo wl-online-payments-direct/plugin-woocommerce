@@ -3,15 +3,15 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\CofSeries;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\CofSeries;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiResource;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ImportCofSeriesRequest;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ImportCofSeriesResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ExceptionFactory;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiResource;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\ImportCofSeriesRequest;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\ImportCofSeriesResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\ExceptionFactory;
 /**
  * CofSeries client.
  */
@@ -25,8 +25,8 @@ class CofSeriesClient extends ApiResource implements CofSeriesClientInterface
     public function importCofSeries(ImportCofSeriesRequest $body, ?CallContext $callContext = null) : ImportCofSeriesResponse
     {
         $responseClassMap = new ResponseClassMap();
-        $responseClassMap->defaultSuccessResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ImportCofSeriesResponse';
-        $responseClassMap->defaultErrorResponseClassName = 'Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
+        $responseClassMap->defaultSuccessResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ImportCofSeriesResponse';
+        $responseClassMap->defaultErrorResponseClassName = 'Worldline\\Vendor\\OnlinePayments\\Sdk\\Domain\\ErrorResponse';
         try {
             return $this->getCommunicator()->post($responseClassMap, $this->instantiateUri('/v2/{merchantId}/tokens/importCofSeries'), $this->getClientMetaInfo(), $body, null, $callContext);
         } catch (ErrorResponseException $e) {

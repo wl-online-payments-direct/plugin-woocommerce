@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Admin;
+namespace Worldline\Vendor\Worldline\WorldlineForWoocommerce\Admin;
 
-use Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use WC_Order;
 class CaptureAuthorizationUi
 {

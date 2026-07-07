@@ -3,11 +3,11 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
+namespace Worldline\Vendor\OnlinePayments\Sdk;
 
 use RuntimeException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\APIError;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\DataObject;
 /**
  * Class ResponseException
  *

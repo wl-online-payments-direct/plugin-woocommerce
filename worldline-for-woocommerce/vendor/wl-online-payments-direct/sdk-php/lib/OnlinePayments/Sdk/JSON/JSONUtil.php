@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\JSON;
+namespace Worldline\Vendor\OnlinePayments\Sdk\JSON;
 
 use stdClass;
 use UnexpectedValueException;

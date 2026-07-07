@@ -1,25 +1,25 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
+namespace Worldline\Vendor\OnlinePayments\Sdk;
 
 use DateTime;
 use Exception;
 use UnexpectedValueException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication\Authenticator;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\Connection;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponseInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\DefaultConnection;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ErrorResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\MetadataProvider;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\MetadataProviderInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\MultipartDataObject;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\MultipartFormDataObject;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseBuilder;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseFactory;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Worldline\Vendor\OnlinePayments\Sdk\Authentication\Authenticator;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\Connection;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ConnectionResponseInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\DefaultConnection;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ErrorResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\MetadataProvider;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\MetadataProviderInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\MultipartDataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\MultipartFormDataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\RequestObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseBuilder;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseFactory;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\DataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 /**
  * Class Communicator
  *

@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline;
+namespace Worldline\Vendor;
 
 use Composer\Autoload\ClassLoader;
 function includeIfExists(string $file) : ?ClassLoader

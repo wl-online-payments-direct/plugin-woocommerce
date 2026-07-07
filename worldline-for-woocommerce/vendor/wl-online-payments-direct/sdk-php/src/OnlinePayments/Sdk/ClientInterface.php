@@ -3,10 +3,10 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
+namespace Worldline\Vendor\OnlinePayments\Sdk;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 /**
  * Payment platform client interface.
  */

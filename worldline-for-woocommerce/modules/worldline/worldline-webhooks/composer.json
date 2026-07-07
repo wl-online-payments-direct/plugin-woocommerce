@@ -1,0 +1,38 @@
+{
+    "name": "worldline\/worldline-webhooks",
+    "description": "Worldline webhooks module",
+    "type": "worldline-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Webhooks\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Webhooks\\Tests\\": "tests\/php\/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Worldline"
+        }
+    ],
+    "require": {
+        "php": "^7.2 | ^8.0",
+        "psr\/container": "^1.0",
+        "worldline\/modularity": "dev-main",
+        "dhii\/validator": "^0.1",
+        "dhii\/services": "^0.1.0-alpha2",
+        "psr\/http-server-handler": "^1.0.0",
+        "psr\/http-server-middleware": "^1.0.0"
+    },
+    "require-dev": {
+        "worldline\/php-coding-standards": "dev-main",
+        "vimeo\/psalm": "^4.6",
+        "phpunit\/phpunit": "^8.0 | ^9.0",
+        "brain\/monkey": "^2",
+        "php-stubs\/wordpress-stubs": "^5.0",
+        "php-stubs\/woocommerce-stubs": "^5.0"
+    }
+}

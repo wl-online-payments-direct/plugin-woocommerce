@@ -21,13 +21,13 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\Dhii\\Validator\\": "src"
+            "Worldline\\Vendor\\Dhii\\Validator\\": "src"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\Dhii\\Validator\\Test\\Func\\": "tests\/functional",
-            "Syde\\Vendor\\Worldline\\Dhii\\Validator\\Test\\Unit\\": "tests\/unit"
+            "Worldline\\Vendor\\Dhii\\Validator\\Test\\Func\\": "tests\/functional",
+            "Worldline\\Vendor\\Dhii\\Validator\\Test\\Unit\\": "tests\/unit"
         }
     },
     "extra": {

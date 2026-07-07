@@ -1,0 +1,33 @@
+{
+    "name": "worldline\/worldline-utils",
+    "description": "Worldline Utils",
+    "type": "worldline-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Utils\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Utils\\Tests\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Worldline"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "dhii\/services": "^0.1.0-alpha2"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^8.0 | ^9.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    }
+}

@@ -41,7 +41,7 @@ for (const [moduleId, assets] of Object.entries(modulesAssets)) {
         if (!fullModuleId.startsWith('worldline-')) {
             fullModuleId = 'worldline-' + fullModuleId;
         }
-        const path = `./modules/inpsyde/${fullModuleId}/resources/${relativePath}`;
+        const path = `./modules/worldline/${fullModuleId}/resources/${relativePath}`;
 
         entries[name] = path;
     }

@@ -25,14 +25,14 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\Robtimus\\Multipart\\": [
+            "Worldline\\Vendor\\Robtimus\\Multipart\\": [
                 "src\/Robtimus\/Multipart"
             ]
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\Robtimus\\Multipart\\": [
+            "Worldline\\Vendor\\Robtimus\\Multipart\\": [
                 "tests\/Robtimus\/Multipart"
             ]
         }

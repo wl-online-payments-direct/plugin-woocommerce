@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\Psr\Log;
+namespace Worldline\Vendor\Psr\Log;
 
 /**
  * This is a simple Logger trait that classes unable to extend AbstractLogger

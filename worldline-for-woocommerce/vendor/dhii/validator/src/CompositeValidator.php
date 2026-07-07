@@ -1,11 +1,11 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Dhii\Validator;
+namespace Worldline\Vendor\Dhii\Validator;
 
-use Syde\Vendor\Worldline\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
-use Syde\Vendor\Worldline\Dhii\Validation\ValidatorInterface;
-use Syde\Vendor\Worldline\Dhii\Validator\Exception\ValidationFailedException;
+use Worldline\Vendor\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
+use Worldline\Vendor\Dhii\Validation\ValidatorInterface;
+use Worldline\Vendor\Dhii\Validator\Exception\ValidationFailedException;
 /**
  * A validator that uses multiple inner validators to validate a subject.
  */

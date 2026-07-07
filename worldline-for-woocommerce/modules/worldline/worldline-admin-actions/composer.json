@@ -1,0 +1,15 @@
+{
+    "name": "worldline\/worldline-admin-actions",
+    "description": "Worldline Admin Actions module",
+    "type": "worldline-module",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Worldline"
+        }
+    ],
+    "require": {
+        "worldline\/modularity": "dev-main",
+        "worldline\/assets": "dev-main"
+    }
+}

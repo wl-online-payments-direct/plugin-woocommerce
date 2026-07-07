@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline;
+namespace Worldline\Vendor;
 
 /*
  * This file is part of the Symfony package.
@@ -10,7 +10,7 @@ namespace Syde\Vendor\Worldline;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-use Syde\Vendor\Worldline\Symfony\Polyfill\Php80 as p;
+use Worldline\Vendor\Symfony\Polyfill\Php80 as p;
 if (\PHP_VERSION_ID >= 80000) {
     return;
 }

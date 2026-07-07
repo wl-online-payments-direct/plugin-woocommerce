@@ -1,8 +1,8 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Authentication;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorConfiguration;
+use Worldline\Vendor\OnlinePayments\Sdk\CommunicatorConfiguration;
 class V1HmacAuthenticator implements Authenticator
 {
     const AUTHORIZATION_ID = 'GCS';

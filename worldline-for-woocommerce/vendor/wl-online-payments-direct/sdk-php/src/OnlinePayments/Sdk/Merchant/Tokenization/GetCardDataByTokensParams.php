@@ -3,9 +3,9 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokenization;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\Tokenization;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\RequestObject;
 /**
  * Query parameters for Get sensitive card details by card alias tokens
  *

@@ -3,20 +3,20 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\Products;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ApiException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\AuthorizationException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CallContext;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\InvalidResponseException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\GetPaymentProductsResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProduct;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentProductNetworksResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ProductDirectory;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\IdempotenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\PlatformException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ReferenceException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ValidationException;
+use Worldline\Vendor\OnlinePayments\Sdk\ApiException;
+use Worldline\Vendor\OnlinePayments\Sdk\AuthorizationException;
+use Worldline\Vendor\OnlinePayments\Sdk\CallContext;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\InvalidResponseException;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\GetPaymentProductsResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\PaymentProduct;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\PaymentProductNetworksResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\ProductDirectory;
+use Worldline\Vendor\OnlinePayments\Sdk\IdempotenceException;
+use Worldline\Vendor\OnlinePayments\Sdk\PlatformException;
+use Worldline\Vendor\OnlinePayments\Sdk\ReferenceException;
+use Worldline\Vendor\OnlinePayments\Sdk\ValidationException;
 /**
  * Products client interface.
  */

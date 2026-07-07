@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Authentication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Authentication;
 
 /**
  * Class Authenticator

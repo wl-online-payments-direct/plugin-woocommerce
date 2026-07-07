@@ -26,7 +26,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\": [
+            "Worldline\\Vendor\\OnlinePayments\\Sdk\\": [
                 "src\/OnlinePayments\/Sdk",
                 "lib\/OnlinePayments\/Sdk"
             ]
@@ -34,7 +34,7 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\OnlinePayments\\Sdk\\": [
+            "Worldline\\Vendor\\OnlinePayments\\Sdk\\": [
                 "tests\/OnlinePayments\/Sdk"
             ]
         }

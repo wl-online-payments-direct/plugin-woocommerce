@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Logging;
 
 use Exception;
 use SplFileObject;

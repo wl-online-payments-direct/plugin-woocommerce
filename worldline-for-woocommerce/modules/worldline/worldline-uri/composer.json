@@ -1,0 +1,36 @@
+{
+    "name": "worldline\/worldline-uri",
+    "description": "Worldline Uri",
+    "type": "worldline-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Uri\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Uri\\Tests\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Worldline"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "psr\/container": "^1.0",
+        "worldline\/modularity": "dev-main",
+        "psr\/http-message": "^1.0",
+        "dhii\/services": "^0.1.0-alpha2"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^8.0 | ^9.0"
+    },
+    "config": {
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    }
+}

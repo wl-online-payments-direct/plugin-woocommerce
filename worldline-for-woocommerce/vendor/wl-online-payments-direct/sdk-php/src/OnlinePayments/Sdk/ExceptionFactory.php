@@ -3,13 +3,13 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
+namespace Worldline\Vendor\OnlinePayments\Sdk;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\APIError;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PaymentErrorResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\RefundErrorResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\APIError;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\DataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\PaymentErrorResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\RefundErrorResponse;
 /**
  * Class ExceptionFactory
  *

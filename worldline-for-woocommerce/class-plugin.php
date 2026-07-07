@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce;
+namespace Worldline\Vendor\Worldline\WorldlineForWoocommerce;
 
 use wpdb;
 class Plugin

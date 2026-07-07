@@ -1,10 +1,10 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Communication;
 
 use stdClass;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorConfiguration;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
+use Worldline\Vendor\OnlinePayments\Sdk\CommunicatorConfiguration;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\ShoppingCartExtension;
 /**
  * Class MetadataProvider
  *

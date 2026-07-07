@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline;
+namespace Worldline\Vendor;
 
 /*
  * This file is part of the Symfony package.

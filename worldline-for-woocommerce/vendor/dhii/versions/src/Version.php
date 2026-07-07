@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Dhii\Versions;
+namespace Worldline\Vendor\Dhii\Versions;
 
-use Syde\Vendor\Worldline\Dhii\Package\Version\VersionInterface;
+use Worldline\Vendor\Dhii\Package\Version\VersionInterface;
 use DomainException;
 use Exception;
 use RangeException;

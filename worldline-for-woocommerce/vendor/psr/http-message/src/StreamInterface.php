@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Psr\Http\Message;
+namespace Worldline\Vendor\Psr\Http\Message;
 
 /**
  * Describes a data stream.

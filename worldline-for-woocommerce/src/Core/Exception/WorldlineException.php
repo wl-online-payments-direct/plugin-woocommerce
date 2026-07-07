@@ -1,7 +1,7 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Core\Exception;
+namespace Worldline\Vendor\Worldline\WorldlineForWoocommerce\Core\Exception;
 
 use Exception;
 /**

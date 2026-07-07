@@ -1,0 +1,66 @@
+{
+    "name": "worldline\/wp-context",
+    "type": "library",
+    "description": "A single-class utility to check the running context in WordPress sites.",
+    "license": "gpl-2.0-or-later",
+    "authors": [
+        {
+            "name": "Worldline",
+            "homepage": "https:\/\/worldline.com\/",
+            "role": "Company"
+        },
+        {
+            "name": "Giuseppe Mazzapica",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=7.1"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "~7.5.20 || ^8",
+        "worldline\/php-coding-standards": "dev-main",
+        "vimeo\/psalm": "^4.27.0",
+        "mockery\/mockery": "~1.3.6",
+        "brain\/monkey": "^2.6.1",
+        "worldline\/wp-stubs": "dev-main"
+    },
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\Tests\\": "tests\/"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "scripts": {
+        "cs": "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs",
+        "psalm": "@php .\/vendor\/vimeo\/psalm\/psalm --no-cache --output-format=compact",
+        "tests": "@php .\/vendor\/phpunit\/phpunit\/phpunit",
+        "tests:no-cov": "@php .\/vendor\/phpunit\/phpunit\/phpunit --no-coverage",
+        "phpcompat": "@php .\/vendor\/squizlabs\/php_codesniffer\/bin\/phpcs -p . --standard=PHPCompatibility --ignore=*\/vendor\/* --extensions=php --basepath=.\/ --runtime-set testVersion 7.1-",
+        "qa": [
+            "@cs",
+            "@phpcompat",
+            "@psalm",
+            "@tests:no-cov"
+        ]
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "dealerdirect\/phpcodesniffer-composer-installer": true,
+            "worldline\/*": true,
+            "composer\/*": true
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-main": "1.x-dev"
+        }
+    }
+}

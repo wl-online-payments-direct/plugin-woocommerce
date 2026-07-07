@@ -22,7 +22,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Syde\\Vendor\\Worldline\\Psr\\Container\\": "src\/"
+            "Worldline\\Vendor\\Psr\\Container\\": "src\/"
         }
     }
 }

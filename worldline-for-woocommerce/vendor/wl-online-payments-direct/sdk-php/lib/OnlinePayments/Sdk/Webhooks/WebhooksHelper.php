@@ -1,11 +1,11 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Webhooks;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Webhooks;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ConnectionResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseClassMap;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\ResponseFactory;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ConnectionResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseClassMap;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\ResponseFactory;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
 /**
  * Class WebhooksHelper
  *

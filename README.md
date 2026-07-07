@@ -134,6 +134,12 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.23 - 2026-06-09
+* Added: Changed integrator references
+* Fixed: Broken translations
+* Fixed: Order status after transaction cancellation
+* Fixed: Brand gateway directory names
+
 ### 2.5.22 - 2026-06-05
 * Added: Timeout settings for hosted checkout
 * Fixed: Load hosted tokenization only on checkout, harden API failure handling

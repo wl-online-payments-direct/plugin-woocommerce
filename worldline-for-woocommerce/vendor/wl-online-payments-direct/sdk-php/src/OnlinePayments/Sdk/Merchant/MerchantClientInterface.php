@@ -3,29 +3,29 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Captures\CapturesClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\CofSeries\CofSeriesClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Complete\CompleteClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedFields\HostedFieldsClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Mandates\MandatesClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\MerchantBatch\MerchantBatchClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payments\PaymentsClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Payouts\PayoutsClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PrivacyPolicy\PrivacyPolicyClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Products\ProductsClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Refunds\RefundsClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Services\ServicesClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Sessions\SessionsClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Subsequent\SubsequentClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokenization\TokenizationClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Tokens\TokensClientInterface;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\Webhooks\WebhooksClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Captures\CapturesClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\CofSeries\CofSeriesClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Complete\CompleteClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\HostedCheckout\HostedCheckoutClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\HostedFields\HostedFieldsClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\HostedTokenization\HostedTokenizationClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Mandates\MandatesClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\MerchantBatch\MerchantBatchClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\PaymentLinks\PaymentLinksClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Payments\PaymentsClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Payouts\PayoutsClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\PrivacyPolicy\PrivacyPolicyClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\ProductGroups\ProductGroupsClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Products\ProductsClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Refunds\RefundsClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Services\ServicesClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Sessions\SessionsClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Subsequent\SubsequentClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Tokenization\TokenizationClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Tokens\TokensClientInterface;
+use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Webhooks\WebhooksClientInterface;
 /**
  * Merchant client interface.
  */

@@ -1,0 +1,30 @@
+{
+    "name": "worldline\/worldline-vaulting",
+    "description": "Worldline module",
+    "type": "worldline-module",
+    "license": "GPL-2.0-or-later",
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Vaulting\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\Vaulting\\Tests\\": "tests\/php"
+        }
+    },
+    "authors": [
+        {
+            "name": "Worldline"
+        }
+    ],
+    "require": {
+        "php": ">=7.4",
+        "psr\/container": "^1.1",
+        "worldline\/modularity": "dev-main",
+        "dhii\/services": "^0.1.1-alpha3"
+    },
+    "require-dev": {
+        "phpunit\/phpunit": "^9.0"
+    }
+}

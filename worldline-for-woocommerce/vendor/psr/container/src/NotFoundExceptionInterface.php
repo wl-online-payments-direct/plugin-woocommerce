@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\Psr\Container;
+namespace Worldline\Vendor\Psr\Container;
 
 /**
  * No entry was found in the container.

@@ -3,11 +3,11 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk;
+namespace Worldline\Vendor\OnlinePayments\Sdk;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\PayoutResult;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\DataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\PayoutErrorResponse;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\PayoutResult;
 /**
  * Class DeclinedPayoutException
  *

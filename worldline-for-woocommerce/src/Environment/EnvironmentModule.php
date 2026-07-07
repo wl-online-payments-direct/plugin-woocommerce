@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Inpsyde\WorldlineForWoocommerce\Environment;
+namespace Worldline\Vendor\Worldline\WorldlineForWoocommerce\Environment;
 
-use Syde\Vendor\Worldline\Dhii\Validation\ValidatorInterface;
-use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ExecutableModule;
-use Syde\Vendor\Worldline\Inpsyde\Modularity\Module\ModuleClassNameIdTrait;
-use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Worldline\Vendor\Dhii\Validation\ValidatorInterface;
+use Worldline\Vendor\Worldline\Modularity\Module\ExecutableModule;
+use Worldline\Vendor\Worldline\Modularity\Module\ModuleClassNameIdTrait;
+use Worldline\Vendor\Psr\Container\ContainerInterface;
 class EnvironmentModule implements ExecutableModule
 {
     use ModuleClassNameIdTrait;

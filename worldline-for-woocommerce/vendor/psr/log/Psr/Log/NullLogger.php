@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\Psr\Log;
+namespace Worldline\Vendor\Psr\Log;
 
 /**
  * This Logger can be used to avoid conditional log calls.

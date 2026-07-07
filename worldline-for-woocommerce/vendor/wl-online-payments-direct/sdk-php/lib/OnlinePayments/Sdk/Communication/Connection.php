@@ -1,8 +1,8 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Communication;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\CommunicatorLogger;
 /**
  * Interface Connection
  *

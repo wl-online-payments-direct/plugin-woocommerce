@@ -1,0 +1,64 @@
+{
+    "name": "worldline\/logger",
+    "type": "worldline-module",
+    "description": "Logger module for worldline\/modularity based on WooCommerce logger",
+    "license": "GPL-2.0-or-later",
+    "authors": [
+        {
+            "name": "Worldline",
+            "homepage": "https:\/\/worldline.com\/",
+            "role": "Company"
+        },
+        {
+            "name": "Aleksas Pantechovskis",
+            "email": "alex.pantec@gmail.com",
+            "role": "Developer"
+        },
+        {
+            "name": "Kirill Braslavskyi",
+            "email": "strangerkir@gmail.com",
+            "role": "developer"
+        }
+    ],
+    "repositories": [
+        {
+            "type": "composer",
+            "url": "https:\/\/repo.packagist.com\/worldline\/"
+        }
+    ],
+    "config": {
+        "allow-plugins": {
+            "composer\/package-versions-deprecated": true,
+            "dealerdirect\/phpcodesniffer-composer-installer": true
+        }
+    },
+    "require": {
+        "php": "^7.2 | ^8.0",
+        "psr\/container": "^1.0 | ^2.0",
+        "psr\/log": "^1.1",
+        "worldline\/modularity": "dev-main"
+    },
+    "require-dev": {
+        "worldline\/php-coding-standards": "dev-main",
+        "vimeo\/psalm": "^4.6",
+        "phpunit\/phpunit": "^8.0",
+        "brain\/monkey": "^2",
+        "php-stubs\/wordpress-stubs": ">=5.0",
+        "php-stubs\/woocommerce-stubs": "^5.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\Logger\\": "src\/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Worldline\\Vendor\\Worldline\\Logger\\Tests\\": "tests\/php"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "installer-disable": true
+    }
+}

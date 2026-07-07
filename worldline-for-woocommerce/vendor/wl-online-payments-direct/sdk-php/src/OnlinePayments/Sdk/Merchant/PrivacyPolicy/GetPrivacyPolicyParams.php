@@ -3,9 +3,9 @@
 /*
  * This file was automatically generated.
  */
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Merchant\PrivacyPolicy;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Merchant\PrivacyPolicy;
 
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication\RequestObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Communication\RequestObject;
 /**
  * Query parameters for Get Privacy Policy
  *

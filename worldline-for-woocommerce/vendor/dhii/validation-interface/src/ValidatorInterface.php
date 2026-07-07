@@ -1,9 +1,9 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Dhii\Validation;
+namespace Worldline\Vendor\Dhii\Validation;
 
-use Syde\Vendor\Worldline\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
+use Worldline\Vendor\Dhii\Validation\Exception\ValidationFailedExceptionInterface;
 use RuntimeException;
 /**
  * Something that can validate a value.

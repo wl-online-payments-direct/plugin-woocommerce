@@ -1,12 +1,12 @@
 <?php
 
 declare (strict_types=1);
-namespace Syde\Vendor\Worldline\Dhii\Services\Factories;
+namespace Worldline\Vendor\Dhii\Services\Factories;
 
-use Syde\Vendor\Worldline\Dhii\Services\Factory;
-use Syde\Vendor\Worldline\Dhii\Services\ResolveKeysCapableTrait;
-use Syde\Vendor\Worldline\Dhii\Services\Service;
-use Syde\Vendor\Worldline\Psr\Container\ContainerInterface;
+use Worldline\Vendor\Dhii\Services\Factory;
+use Worldline\Vendor\Dhii\Services\ResolveKeysCapableTrait;
+use Worldline\Vendor\Dhii\Services\Service;
+use Worldline\Vendor\Psr\Container\ContainerInterface;
 /**
  * A constructor service factory.
  *

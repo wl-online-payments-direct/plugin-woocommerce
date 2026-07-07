@@ -1,6 +1,6 @@
 <?php
 
-namespace Syde\Vendor\Worldline\Psr\Log;
+namespace Worldline\Vendor\Psr\Log;
 
 class InvalidArgumentException extends \InvalidArgumentException
 {

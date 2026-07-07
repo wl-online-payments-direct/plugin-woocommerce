@@ -1,9 +1,9 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Communication;
 
 use RuntimeException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Domain\DataObject;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\DataObject;
 /**
  * Class ErrorResponseException
  *

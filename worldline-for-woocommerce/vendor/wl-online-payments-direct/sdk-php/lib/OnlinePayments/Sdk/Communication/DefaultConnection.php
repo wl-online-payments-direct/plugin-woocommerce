@@ -1,16 +1,16 @@
 <?php
 
-namespace Syde\Vendor\Worldline\OnlinePayments\Sdk\Communication;
+namespace Worldline\Vendor\OnlinePayments\Sdk\Communication;
 
 use ErrorException;
 use Exception;
-use Syde\Vendor\Worldline\Robtimus\Multipart\MultipartFormData;
+use Worldline\Vendor\Robtimus\Multipart\MultipartFormData;
 use UnexpectedValueException;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\CommunicatorConfiguration;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\BodyObfuscator;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\CommunicatorLogger;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\Logging\HeaderObfuscator;
-use Syde\Vendor\Worldline\OnlinePayments\Sdk\ProxyConfiguration;
+use Worldline\Vendor\OnlinePayments\Sdk\CommunicatorConfiguration;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\BodyObfuscator;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\CommunicatorLogger;
+use Worldline\Vendor\OnlinePayments\Sdk\Logging\HeaderObfuscator;
+use Worldline\Vendor\OnlinePayments\Sdk\ProxyConfiguration;
 /**
  * Class ApiException
  *
