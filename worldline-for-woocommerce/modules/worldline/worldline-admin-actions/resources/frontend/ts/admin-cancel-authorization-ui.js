@@ -288,6 +288,7 @@ ${ totalTd.dataset.wlOrig }
 				action: 'worldline_cancel_authorization',
 				order_id: orderId,
 				amount,
+				nonce: window.wlopAdminActions?.nonce,
 			} ),
 		} )
 			.then( ( r ) => r.json() )

@@ -134,11 +134,21 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.25 - 2026-07-16
+* Fixed: Security issues
+* Added: New signature type options for SEPA Direct Debit payment method
+* Added: Compatibility with PHP 8.4 and 8.5 (remove deprecation warnings)
+* Changed: Update Sofinco payment method name on the checkout
+
+### 2.5.24 - 2026-07-16
+* Fixed: Improved security by adding authorization checks, nonce validation, and upload restrictions for image upload and product-type management endpoints
+
 ### 2.5.23 - 2026-06-09
 * Added: Changed integrator references
 * Fixed: Broken translations
 * Fixed: Order status after transaction cancellation
 * Fixed: Brand gateway directory names
+* Fixed: Added support for SVG logos in Hosted Checkout, including automatic sanitization
 
 ### 2.5.22 - 2026-06-05
 * Added: Timeout settings for hosted checkout

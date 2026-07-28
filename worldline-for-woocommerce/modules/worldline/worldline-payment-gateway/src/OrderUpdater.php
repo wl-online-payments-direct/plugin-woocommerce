@@ -352,6 +352,9 @@ class OrderUpdater
     private function getThreeDSAuthenticationStatus(?string $key) : string
     {
         $statusMap = ['Y' => 'Authentication succeeded', 'A' => 'Authentication attempted', 'I' => 'Information only, liability shifted to the merchant', 'N' => 'Authentication failed', 'R' => 'Authentication rejected', 'U' => 'Authentication unavailable', 'C' => 'Authentication required'];
+        if ($key === null) {
+            return '';
+        }
         return $statusMap[$key] ?? '';
     }
     /**

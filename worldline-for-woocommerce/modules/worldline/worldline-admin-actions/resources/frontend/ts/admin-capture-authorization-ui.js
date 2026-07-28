@@ -288,6 +288,7 @@ document.addEventListener( 'DOMContentLoaded', () => {
 				action: 'worldline_capture_authorization',
 				order_id: orderId,
 				amount,
+				nonce: window.wlopAdminActions?.nonce,
 			} ),
 		} )
 			.then( ( r ) => r.json() )

@@ -40,7 +40,7 @@ class Alias extends Service
      *                               given or null, the service will attempt to fetch the original service from the
      *                               container anyway, which will result in a thrown {@link NotFoundExceptionInterface}.
      */
-    public function __construct(string $key, callable $default = null)
+    public function __construct(string $key, ?callable $default = null)
     {
         parent::__construct([]);
         $this->key = $key;

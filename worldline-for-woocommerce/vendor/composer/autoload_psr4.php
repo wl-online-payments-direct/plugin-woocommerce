@@ -6,6 +6,8 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
+    'cweagans\\Composer\\' => array($vendorDir . '/cweagans/composer-patches/src'),
+    'Worldline\\Vendor\\enshrined\\svgSanitize\\' => array($vendorDir . '/enshrined/svg-sanitize/src'),
     'Worldline\\Vendor\\Worldline\\Wp\\HttpClient\\' => array($vendorDir . '/worldline/psr-18-wp-http-client/src'),
     'Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WorldlinePaymentGateway\\' => array($baseDir . '/modules/worldline/worldline-payment-gateway/src'),
     'Worldline\\Vendor\\Worldline\\WorldlineForWoocommerce\\WorldlineLogging\\' => array($baseDir . '/modules/worldline/worldline-logging/src'),
@@ -47,7 +49,6 @@ return array(
     'Worldline\\Vendor\\Worldline\\Logger\\' => array($baseDir . '/modules/worldline/logger/src'),
     'Worldline\\Vendor\\Worldline\\' => array($vendorDir . '/worldline/wp-context/src'),
     'Worldline\\Vendor\\Symfony\\Polyfill\\Php80\\' => array($vendorDir . '/symfony/polyfill-php80'),
-    'Worldline\\Vendor\\Symfony\\Polyfill\\Mbstring\\' => array($vendorDir . '/symfony/polyfill-mbstring'),
     'Worldline\\Vendor\\Robtimus\\Multipart\\' => array($vendorDir . '/robtimus/multipart/src/Robtimus/Multipart'),
     'Worldline\\Vendor\\Psr\\Log\\' => array($vendorDir . '/psr/log/Psr/Log'),
     'Worldline\\Vendor\\Psr\\Http\\Server\\' => array($vendorDir . '/psr/http-server-middleware/src', $vendorDir . '/psr/http-server-handler/src'),

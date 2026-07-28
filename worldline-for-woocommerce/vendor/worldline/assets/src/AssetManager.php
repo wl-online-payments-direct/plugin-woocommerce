@@ -27,9 +27,12 @@ final class AssetManager
      */
     private array $hooksAdded = [];
     /**
-     * @var \SplObjectStorage<Asset, array{string, string}>
+     * Registered assets, keyed by object id to preserve object-identity
+     * de-duplication (the behaviour previously provided by SplObjectStorage).
+     *
+     * @var array<int, Asset>
      */
-    private \SplObjectStorage $assets;
+    private array $assets = [];
     /**
      * @var array<AssetHandler>
      */
@@ -39,10 +42,9 @@ final class AssetManager
     /**
      * @param AssetHookResolver|null $hookResolver
      */
-    public function __construct(AssetHookResolver $hookResolver = null)
+    public function __construct(?AssetHookResolver $hookResolver = null)
     {
         $this->hookResolver = $hookResolver ?? new AssetHookResolver();
-        $this->assets = new \SplObjectStorage();
     }
     /**
      * @return static
@@ -83,7 +85,7 @@ final class AssetManager
         foreach ($assets as $asset) {
             $handle = $asset->handle();
             if ($handle) {
-                $this->assets->attach($asset, [$handle, \get_class($asset)]);
+                $this->assets[\spl_object_id($asset)] = $asset;
             }
         }
         return $this;
@@ -95,13 +97,11 @@ final class AssetManager
     {
         $this->ensureSetup();
         $found = [];
-        $this->assets->rewind();
-        while ($this->assets->valid()) {
-            $asset = $this->assets->current();
-            [$handle, $class] = $this->assets->getInfo();
+        foreach ($this->assets as $asset) {
+            $handle = $asset->handle();
+            $class = \get_class($asset);
             isset($found[$class]) or $found[$class] = [];
             $found[$class][$handle] = $asset;
-            $this->assets->next();
         }
         return $found;
     }
@@ -123,10 +123,7 @@ final class AssetManager
         $this->ensureSetup();
         /** @var Asset|null $found */
         $found = null;
-        $this->assets->rewind();
-        while ($this->assets->valid()) {
-            $asset = $this->assets->current();
-            $this->assets->next();
+        foreach ($this->assets as $asset) {
             if ($asset->handle() !== $handle || $type && !\is_a($asset, $type)) {
                 continue;
             }
@@ -197,7 +194,7 @@ final class AssetManager
     private function loopCurrentHookAssets(string $currentHook, bool $process) : array
     {
         $this->ensureSetup();
-        if (!$this->assets->count()) {
+        if (!$this->assets) {
             return [];
         }
         /** @var int|null $locationId */
@@ -206,10 +203,7 @@ final class AssetManager
             return [];
         }
         $found = [];
-        $this->assets->rewind();
-        while ($this->assets->valid()) {
-            $asset = $this->assets->current();
-            $this->assets->next();
+        foreach ($this->assets as $asset) {
             $handlerName = $asset->handler();
             $handler = $this->handlers[$handlerName] ?? null;
             if (!$handler) {
@@ -246,7 +240,7 @@ final class AssetManager
          * @psalm-suppress PossiblyNullArgument
          */
         if (!$lastHook && \did_action($lastHook) && !\doing_action($lastHook)) {
-            $this->assets = new \SplObjectStorage();
+            $this->assets = [];
             return;
         }
         $this->useDefaultHandlers();

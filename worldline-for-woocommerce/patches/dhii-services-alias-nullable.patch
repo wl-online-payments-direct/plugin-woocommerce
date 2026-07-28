@@ -1,0 +1,16 @@
+Fix PHP 8.4/8.5 deprecation: "Implicitly marking parameter $default as nullable is deprecated".
+
+Upstream dhii/services has no released fix (newest release is v0.1.1-alpha3, 2023-01-31),
+so the explicit nullable type is applied here via composer-patches.
+
+--- a/src/Factories/Alias.php
++++ b/src/Factories/Alias.php
+@@ -44,7 +44,7 @@
+      *                               given or null, the service will attempt to fetch the original service from the
+      *                               container anyway, which will result in a thrown {@link NotFoundExceptionInterface}.
+      */
+-    public function __construct(string $key, callable $default = null)
++    public function __construct(string $key, ?callable $default = null)
+     {
+         parent::__construct([]);
+ 

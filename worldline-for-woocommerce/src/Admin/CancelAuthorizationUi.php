@@ -23,6 +23,15 @@ class CancelAuthorizationUi
     public function handle_cancel_ajax() : void
     {
         try {
+            if (!\current_user_can('edit_shop_orders')) {
+                \wp_send_json_error(['message' => \__('Forbidden.', 'worldline-for-woocommerce')], 403);
+                return;
+            }
+            $nonce = \sanitize_text_field(\wp_unslash($_POST['nonce'] ?? ''));
+            if (!\wp_verify_nonce($nonce, 'worldline_admin_actions')) {
+                \wp_send_json_error(['message' => \__('Invalid security token.', 'worldline-for-woocommerce')], 403);
+                return;
+            }
             $orderId = \absint($_POST['order_id'] ?? 0);
             $amount = (float) \str_replace(',', '.', $_POST['amount'] ?? 0);
             $order = \wc_get_order($orderId);

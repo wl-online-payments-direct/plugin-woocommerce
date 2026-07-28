@@ -147,6 +147,9 @@ class ProductTypeModule implements ExecutableModule, ServiceModule
         if (!isset($_POST['worldline_mealvoucher_nonce']) || !\wp_verify_nonce($_POST['worldline_mealvoucher_nonce'], 'save_worldline_mealvoucher_type')) {
             return;
         }
+        if (!\current_user_can('edit_post', $post_id)) {
+            return;
+        }
         if (\defined('DOING_AUTOSAVE') && \DOING_AUTOSAVE) {
             return;
         }
@@ -175,6 +178,9 @@ class ProductTypeModule implements ExecutableModule, ServiceModule
             \wp_send_json_error(['message' => \__('Invalid nonce.', 'worldline-for-woocommerce')]);
         }
         $productId = (int) $_POST['product_id'];
+        if (!\current_user_can('edit_post', $productId)) {
+            \wp_send_json_error(['message' => \__('You are not allowed to perform this action.', 'worldline-for-woocommerce')], 403);
+        }
         $type = \sanitize_text_field($_POST['type']);
         $table = $this->db->prefix . 'product_type';
         if ($type === 'none') {

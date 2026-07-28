@@ -1717,3 +1717,33 @@ msgstr "Passen Sie den Titel der Zahlungsmethode auf der Checkout-Seite an."
 
 msgid "If left empty, the default payment method name will be displayed on the checkout page."
 msgstr "Wenn dieses Feld leer bleibt, wird der Standardname der Zahlungsmethode auf der Checkout-Seite angezeigt."
+
+#: modules.local/pledg-gateway/inc/services.php
+#: modules.local/pledg-gateway/inc/fields.php
+msgid "Pay in installments"
+msgstr "Bezahlen in Raten"
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "Please ensure the mandate signing method is configured correctly if you offer SEPA Direct Debit to your customers; otherwise, transactions may be refused."
+msgstr "Bitte stellen Sie sicher, dass die Unterschriftsmethode für das Mandat korrekt konfiguriert ist, wenn Sie SEPA-Lastschrift an Ihre Kunden anbieten; andernfalls können Transaktionen abgelehnt werden."
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "Please note that not all signature types are available to every user. Depending on your partner, please choose as follows:"
+msgstr "Bitte beachten Sie, dass nicht alle Signaturarten für jeden Benutzer verfügbar sind. Je nach Partner wählen Sie bitte wie folgt:"
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "Worldline: SMS, UNSIGNED, or AIS"
+msgstr "Worldline: SMS, UNSIGNED oder AIS"
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "PAYONE: UNSIGNED or TICK_BOX"
+msgstr "PAYONE: UNSIGNED oder TICK_BOX"
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "ANZ or CAWL: this setting does not apply"
+msgstr "ANZ oder CAWL: diese Einstellung gilt nicht"

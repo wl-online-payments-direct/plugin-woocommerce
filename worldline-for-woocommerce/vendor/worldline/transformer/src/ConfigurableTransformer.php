@@ -198,7 +198,7 @@ class ConfigurableTransformer implements Transformer, MutableTransformer
         $transformer = $this->searchTransformer($returnType, $payload);
         $middlewares = $this->collectApplicableMiddlewares($returnType, $payload);
         $extensionWrapper = function ($previous, $extension) {
-            return function ($payload, Transformer $transformer = null) use($extension, $previous) {
+            return function ($payload, ?Transformer $transformer = null) use($extension, $previous) {
                 return $extension($payload, $previous, $transformer ?? $this);
             };
         };

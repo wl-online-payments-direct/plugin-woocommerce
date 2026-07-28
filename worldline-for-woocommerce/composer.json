@@ -22,6 +22,8 @@
     "require": {
         "php": ">=7.4",
         "ext-json": "*",
+        "enshrined\/svg-sanitize": "^0.19",
+        "cweagans\/composer-patches": "^1.7.3",
         "dhii\/services": "^0.1.1-alpha3",
         "dhii\/validator": "^0.1.0@alpha",
         "dhii\/versions": "^0.1.0@alpha",
@@ -117,13 +119,20 @@
             "dealerdirect\/phpcodesniffer-composer-installer": true,
             "worldline\/composer-assets-compiler": true,
             "composer\/installers": true,
-            "oomphinc\/composer-installers-extender": true
+            "oomphinc\/composer-installers-extender": true,
+            "cweagans\/composer-patches": true
         },
         "preferred-install": {
             "*": "dist"
         }
     },
     "extra": {
+        "composer-exit-on-patch-failure": true,
+        "patches": {
+            "dhii\/services": {
+                "Fix PHP 8.4\/8.5 implicitly-nullable param in Alias::__construct": "patches\/dhii-services-alias-nullable.patch"
+            }
+        },
         "installer-paths": {
             "modules\/{$vendor}\/{$name}": [
                 "type:worldline-module"

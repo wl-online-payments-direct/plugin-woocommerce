@@ -189,7 +189,7 @@ class LoggerModule implements ServiceModule, ExecutableModule
      * @param string|null $logLevel
      * @param string|null $message
      */
-    protected function dispatchLoggingFailedEvent(EventDispatcherInterface $eventDispatcher, Throwable $throwable, string $loggingFailedEventName, array $context, string $logLevel = null, string $message = null) : void
+    protected function dispatchLoggingFailedEvent(EventDispatcherInterface $eventDispatcher, Throwable $throwable, string $loggingFailedEventName, array $context, ?string $logLevel = null, ?string $message = null) : void
     {
         $eventDispatcher->dispatch($loggingFailedEventName, [['log_level' => $logLevel, 'message' => $message, 'context' => $context], $throwable]);
     }

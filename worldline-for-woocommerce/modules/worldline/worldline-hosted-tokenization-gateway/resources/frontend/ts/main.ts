@@ -366,6 +366,7 @@ addEventListener( 'DOMContentLoaded', () => {
 			url: WlopHtConfig.ajax,
 			data: {
 				action: 'wlop_hosted_tokenization_config',
+				nonce: WlopHtConfig.nonce,
 				withoutUrl,
 			},
 		} );

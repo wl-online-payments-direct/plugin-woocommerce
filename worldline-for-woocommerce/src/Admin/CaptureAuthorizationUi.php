@@ -23,6 +23,15 @@ class CaptureAuthorizationUi
     public function handle_capture_ajax() : void
     {
         try {
+            if (!\current_user_can('edit_shop_orders')) {
+                \wp_send_json_error(['message' => \__('Forbidden.', 'worldline-for-woocommerce')], 403);
+                return;
+            }
+            $nonce = \sanitize_text_field(\wp_unslash($_POST['nonce'] ?? ''));
+            if (!\wp_verify_nonce($nonce, 'worldline_admin_actions')) {
+                \wp_send_json_error(['message' => \__('Invalid security token.', 'worldline-for-woocommerce')], 403);
+                return;
+            }
             $orderId = \absint($_POST['order_id'] ?? 0);
             $amount = (float) \str_replace(',', '.', $_POST['amount'] ?? 0);
             $order = \wc_get_order($orderId);
@@ -111,6 +120,9 @@ class CaptureAuthorizationUi
         $assetPath = $this->root_path("assets/{$base}.asset.php");
         $asset = \file_exists($assetPath) ? require $assetPath : ['dependencies' => [], 'version' => '1.0.0'];
         \wp_enqueue_script('worldline-admin-actions', \plugins_url("assets/{$base}.js", $main_plugin_file), $asset['dependencies'] ?? [], $asset['version'] ?? '1.0.0', \true);
+        if (empty(\wp_scripts()->get_data('worldline-admin-actions', 'data'))) {
+            \wp_localize_script('worldline-admin-actions', 'wlopAdminActions', ['nonce' => \wp_create_nonce('worldline_admin_actions')]);
+        }
         $cssPath = $this->root_path("assets/{$base}.css");
         if (\file_exists($cssPath)) {
             \wp_enqueue_style('worldline-admin-actions', \plugins_url("assets/{$base}.css", $main_plugin_file), ['woocommerce_admin_styles'], $asset['version'] ?? '1.0.0');

@@ -1415,3 +1415,33 @@ msgstr ""
 
 msgid "Required refund reason sent to Wero"
 msgstr ""
+
+#: modules.local/pledg-gateway/inc/services.php
+#: modules.local/pledg-gateway/inc/fields.php
+msgid "Pay in installments"
+msgstr ""
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "Please ensure the mandate signing method is configured correctly if you offer SEPA Direct Debit to your customers; otherwise, transactions may be refused."
+msgstr ""
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "Please note that not all signature types are available to every user. Depending on your partner, please choose as follows:"
+msgstr ""
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "Worldline: SMS, UNSIGNED, or AIS"
+msgstr ""
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "PAYONE: UNSIGNED or TICK_BOX"
+msgstr ""
+
+#: modules.local/config/inc/fields.php
+#: modules.local/sepa-direct-debit-gateway/inc/fields.php
+msgid "ANZ or CAWL: this setting does not apply"
+msgstr ""

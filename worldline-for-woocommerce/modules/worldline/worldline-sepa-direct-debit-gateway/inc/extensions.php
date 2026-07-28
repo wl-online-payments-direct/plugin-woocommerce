@@ -22,7 +22,8 @@ return static function () : array {
     \add_filter("pre_update_option_{$sepaOptionName}", static function ($newValue, $oldValue) {
         if (\is_array($newValue) && isset($newValue['sdd_signature_type'])) {
             $posted = (string) $newValue['sdd_signature_type'];
-            $posted = $posted === 'UNSIGNED' ? 'UNSIGNED' : 'SMS';
+            $allowed = ['SMS', 'UNSIGNED', 'TICK_BOX', 'AIS'];
+            $posted = \in_array($posted, $allowed, \true) ? $posted : 'SMS';
             $global = \get_option('woocommerce_worldline-for-woocommerce_settings', []);
             $global['sdd_signature_type'] = $posted;
             \update_option('woocommerce_worldline-for-woocommerce_settings', $global);

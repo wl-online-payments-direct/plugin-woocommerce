@@ -80,15 +80,54 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
     }
     private function handleConfigAjax(ContainerInterface $container) : void
     {
-        // phpcs:ignore WordPress.Security.NonceVerification
+        $nonce = isset($_POST['nonce']) ? \sanitize_text_field(\wp_unslash($_POST['nonce'])) : '';
+        if (!\wp_verify_nonce($nonce, 'wlop_hosted_tokenization_config')) {
+            \wp_send_json_error(['message' => \__('Invalid security token.', 'worldline-for-woocommerce')], 403);
+            return;
+        }
         $withoutUrl = isset($_POST['withoutUrl']) && $_POST['withoutUrl'] === 'true';
+        if (!$withoutUrl && $this->isPaidCallThrottled($container)) {
+            \wp_send_json_error(['message' => \__('Too many requests.', 'worldline-for-woocommerce')], 429);
+            return;
+        }
         \wp_send_json_success($this->makeFrontendConfig($container, $withoutUrl));
+    }
+    /**
+     * Per-client token bucket guarding the paid Worldline API call. A generous
+     * burst is allowed so legitimate checkout retries (e.g. the guest
+     * checkout_error iframe reset) are never blocked.
+     */
+    private function isPaidCallThrottled(ContainerInterface $container) : bool
+    {
+        $transientKey = 'wlop_ht_throttle_' . \md5($this->throttleClientKey($container));
+        $count = (int) \get_transient($transientKey);
+        if ($count >= 30) {
+            return \true;
+        }
+        \set_transient($transientKey, $count + 1, \MINUTE_IN_SECONDS);
+        return \false;
+    }
+    /**
+     * Prefer the WooCommerce session customer id (survives CDN/proxy better
+     * than a raw IP); fall back to the REMOTE_ADDR-based client IP service.
+     */
+    private function throttleClientKey(ContainerInterface $container) : string
+    {
+        $session = \WC()->session;
+        if ($session !== null) {
+            $customerId = (string) $session->get_customer_id();
+            if ($customerId !== '') {
+                return $customerId;
+            }
+        }
+        $clientIp = $container->get('utils.client_ip_address');
+        return \is_string($clientIp) && $clientIp !== '' ? $clientIp : 'unknown';
     }
     public function makeFrontendConfig(ContainerInterface $container, bool $withoutUrl = \false) : array
     {
         $currencyCode = \get_woocommerce_currency();
         $gatewayId = GatewayIds::HOSTED_TOKENIZATION;
-        $config = ['ajax' => \admin_url('admin-ajax.php'), 'gateway' => ['id' => $gatewayId], 'wrapper' => ['id' => 'wlop_ht'], 'currency' => [
+        $config = ['ajax' => \admin_url('admin-ajax.php'), 'nonce' => \wp_create_nonce('wlop_hosted_tokenization_config'), 'gateway' => ['id' => $gatewayId], 'wrapper' => ['id' => 'wlop_ht'], 'currency' => [
             'centFactor' => 100,
             // for future currencies support
             // from https://github.com/woocommerce/woocommerce/blob/89068601d334953e2904ecf56f528fc271c7b9ec/plugins/woocommerce/src/Internal/Admin/Settings.php#L97-L103

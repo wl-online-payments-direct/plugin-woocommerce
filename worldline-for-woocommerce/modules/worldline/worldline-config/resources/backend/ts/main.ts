@@ -2,6 +2,16 @@ import '../scss/main.scss';
 import { setVisibleByClass, setVisible } from '#shared/utils/visibility';
 
 declare let wp;
+declare let wlopConfig: { nonce?: string };
+
+/**
+ * Returns the localized config admin nonce (empty string when unavailable).
+ */
+function getConfigNonce(): string {
+	return typeof wlopConfig !== 'undefined' && wlopConfig?.nonce
+		? wlopConfig.nonce
+		: '';
+}
 
 interface CopyHTMLButtonElement extends HTMLButtonElement {
 	disabled: boolean;
@@ -78,6 +88,7 @@ async function fetchLogoPreview() {
 			url: '/wp-admin/admin-ajax.php',
 			data: {
 				action: 'wlop_hosted_tokenization_logo',
+				nonce: wlopConfig.nonce,
 			},
 		});
 
@@ -104,6 +115,7 @@ async function fetchLogoPreview() {
 function handleLogoUpload(file: File) {
 	const formData = new FormData();
 	formData.append('action', 'wlop_hosted_tokenization_logo');
+	formData.append('nonce', getConfigNonce());
 	formData.append('logo_file', file);
 
 	jQuery.ajax({
@@ -157,7 +169,7 @@ function initLogoControls() {
 
 	const fileInput = document.createElement('input');
 	fileInput.type = 'file';
-	fileInput.accept = 'image/png, image/gif, image/jpeg';
+	fileInput.accept = 'image/png, image/gif, image/jpeg, image/svg+xml';
 	fileInput.style.display = 'none';
 
 	document.body.appendChild(fileInput);
@@ -306,29 +318,39 @@ function renderCustomIconsGrid(): void {
     }
 
     const icons = getCustomIcons();
-    if (icons.length === 0) {
-        grid.innerHTML = '';
-        return;
-    }
 
-    grid.innerHTML = icons
-        .map(
-            (icon) =>
-                `
-					<div class="wlop-custom-icon-item" data-icon-id="${icon.id}">
-						<img src="${icon.url}" alt="${icon.title}" class="wlop-custom-icon-image" />
-						<button type="button" class="wlop-custom-icon-delete" aria-label="Delete ${icon.title}">
-							<span class="dashicons dashicons-no-alt"></span>
-						</button>
-						<span class="wlop-custom-icon-title">${icon.title}</span>
-					</div>
-				`
-        ).join('');
+    const items = icons.map((icon) => {
+        const item = document.createElement('div');
+        item.className = 'wlop-custom-icon-item';
+        item.dataset.iconId = String(icon.id);
 
-    const deleteButtons = grid.querySelectorAll('.wlop-custom-icon-delete');
-    deleteButtons.forEach((button) => {
-        button.addEventListener('click', handleIconDelete);
+        const img = document.createElement('img');
+        img.src = icon.url;
+        img.alt = icon.title;
+        img.className = 'wlop-custom-icon-image';
+
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.className = 'wlop-custom-icon-delete';
+        deleteButton.setAttribute('aria-label', `Delete ${icon.title}`);
+        deleteButton.addEventListener('click', handleIconDelete);
+
+        const dashicon = document.createElement('span');
+        dashicon.className = 'dashicons dashicons-no-alt';
+        deleteButton.appendChild(dashicon);
+
+        const titleSpan = document.createElement('span');
+        titleSpan.className = 'wlop-custom-icon-title';
+        titleSpan.textContent = icon.title;
+
+        item.appendChild(img);
+        item.appendChild(deleteButton);
+        item.appendChild(titleSpan);
+
+        return item;
     });
+
+    grid.replaceChildren(...items);
 }
 
 function handleIconDelete(event: Event): void {
@@ -361,6 +383,7 @@ function loadCustomIcons(): void {
         url: '/wp-admin/admin-ajax.php',
         data: {
             action: 'wlop_get_custom_icons',
+            nonce: wlopConfig.nonce,
         },
         success: (response) => {
             if (response.success && response.data.icons) {
@@ -381,6 +404,7 @@ function handleIconsUpload(files: FileList): void {
 
     const formData = new FormData();
     formData.append('action', 'wlop_upload_custom_icon');
+    formData.append('nonce', getConfigNonce());
 
     Array.from(files).forEach((file, index) => {
         formData.append(`icon_files[${index}]`, file)

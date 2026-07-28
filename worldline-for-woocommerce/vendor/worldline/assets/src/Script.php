@@ -117,7 +117,7 @@ class Script extends \Worldline\Assets\BaseAsset implements \Worldline\Assets\As
      *
      * @return static
      */
-    public function withTranslation(string $domain = 'default', string $path = null) : \Worldline\Assets\Script
+    public function withTranslation(string $domain = 'default', ?string $path = null) : \Worldline\Assets\Script
     {
         $this->translation = ['domain' => $domain, 'path' => $path];
         return $this;

@@ -17,7 +17,7 @@ class BaseProperties implements Properties
      * @param string|null $baseUrl
      * @param array<string, mixed> $properties
      */
-    protected function __construct(string $baseName, string $basePath, string $baseUrl = null, array $properties = [])
+    protected function __construct(string $baseName, string $basePath, ?string $baseUrl = null, array $properties = [])
     {
         $baseName = $this->sanitizeBaseName($baseName);
         $basePath = \trailingslashit($basePath);

@@ -84,7 +84,8 @@ class HostedCheckoutUrlFactory
         $settings = \get_option('woocommerce_worldline-for-woocommerce_settings', []);
         $request->getRedirectPaymentMethodSpecificInput()->getPaymentProduct5408SpecificInput()->setInstantPaymentOnly(($settings['instant_payment'] ?? 'yes') === 'yes');
         $signatureTypeSetting = isset($settings['sdd_signature_type']) ? (string) $settings['sdd_signature_type'] : 'SMS';
-        $signatureType = $signatureTypeSetting === 'UNSIGNED' ? 'UNSIGNED' : 'SMS';
+        $allowedSignatureTypes = ['SMS', 'UNSIGNED', 'TICK_BOX', 'AIS'];
+        $signatureType = \in_array($signatureTypeSetting, $allowedSignatureTypes, \true) ? $signatureTypeSetting : 'SMS';
         $uniqueReference = $request->getOrder()->getReferences()->getMerchantReference() ?? '';
         $locale = 'en_US';
         if ($request->getHostedCheckoutSpecificInput() && $request->getHostedCheckoutSpecificInput()->getLocale()) {

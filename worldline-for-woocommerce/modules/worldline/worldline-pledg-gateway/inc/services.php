@@ -35,7 +35,7 @@ return static function () : array {
             if ($custom !== '') {
                 return $custom;
             }
-            return \__('Sofinco', 'worldline-for-woocommerce');
+            return \__('Pay in installments', 'worldline-for-woocommerce');
         }),
         "payment_gateway.{$gatewayId}.method_description" => static fn(): string => \__('Pay easily in instalments with Sofinco. Merchant is paid upfront.', 'worldline-for-woocommerce'),
         "payment_gateway.{$gatewayId}.description" => static fn(): string => '',
