@@ -532,6 +532,11 @@ document.addEventListener('DOMContentLoaded', () => {
 		const isLive = chkLiveMode.checked;
 
 		setVisibleByClass(
+			getFieldRow('#woocommerce_worldline-for-woocommerce_live_pspid'),
+			isLive,
+			'wlop-hidden'
+		);
+		setVisibleByClass(
 			getFieldRow('#woocommerce_worldline-for-woocommerce_live_api_key'),
 			isLive,
 			'wlop-hidden'
@@ -562,6 +567,11 @@ document.addEventListener('DOMContentLoaded', () => {
 				'#woocommerce_worldline-for-woocommerce_live_webhook_secret_key'
 			),
 			isLive,
+			'wlop-hidden'
+		);
+		setVisibleByClass(
+			getFieldRow('#woocommerce_worldline-for-woocommerce_test_pspid'),
+			!isLive,
 			'wlop-hidden'
 		);
 		setVisibleByClass(

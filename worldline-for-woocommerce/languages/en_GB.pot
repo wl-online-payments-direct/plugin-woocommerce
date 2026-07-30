@@ -123,6 +123,16 @@ msgstr ""
 msgid "PSPID"
 msgstr ""
 
+#: modules.local/config/inc/fields.php:48
+#: modules/worldline/worldline-config/inc/fields.php:48
+msgid "Test PSPID"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:82
+#: modules/worldline/worldline-config/inc/fields.php:82
+msgid "Live PSPID"
+msgstr ""
+
 #: modules.local/config/inc/fields.php:30
 #: modules/worldline/worldline-config/inc/fields.php:30
 msgid "Enter your Merchant ID or your Worldline Login Name."

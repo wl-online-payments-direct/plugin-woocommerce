@@ -23,6 +23,21 @@ class PaymentCapturedHandler implements WebhookHandlerInterface
      */
     public function handle(WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : void
     {
+        $order = $wlopWcOrder->order();
+        if (!$order) {
+            return;
+        }
+        /**
+         * Explicit guard, not relying on WooCommerce core to no-op a
+         * redundant payment_complete()/update_status('completed') call:
+         * a concurrent/duplicate payment.captured delivery for an order
+         * that's already completed must not re-trigger completion side
+         * effects (e.g. a merchant's woocommerce_order_status_completed
+         * hook).
+         */
+        if ($order->get_status() === 'completed') {
+            return;
+        }
         $capturedAmount = WebhookHelper::paymentCapturedAmount($webhook);
         if ($capturedAmount === null) {
             throw new \Exception("Can't retrieve captured amount. Webhook: {$webhook->id}");
@@ -32,15 +47,11 @@ class PaymentCapturedHandler implements WebhookHandlerInterface
             \__('Payment of %s successfully captured.', 'worldline-for-woocommerce'),
             $this->moneyAmountConverter->amountOfMoneyAsString($capturedAmount)
         ));
-        $order = $wlopWcOrder->order();
-        if (!$order) {
-            return;
-        }
         $transactionId = WebhookHelper::transactionId($webhook);
         $order->payment_complete($transactionId);
         if ($order->get_status() === 'processing' && !$order->needs_processing()) {
             $order->update_status('completed');
         }
-        $wlopWcOrder->order()->save();
+        $order->save();
     }
 }

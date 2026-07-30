@@ -134,6 +134,12 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.27 - 2026-07-28
+* Fixed: Webhooks race condition and duplicate order completion
+
+### 2.5.26 - 2026-07-23
+* Changed: Switching environment updates the PSPID value (PSPID is saved separately for test and live mode)
+
 ### 2.5.25 - 2026-07-16
 * Fixed: Security issues
 * Added: New signature type options for SEPA Direct Debit payment method

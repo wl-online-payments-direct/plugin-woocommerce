@@ -8,7 +8,9 @@ use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Webhooks\Helper\WebhookHe
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\WlopWcOrderFactory;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\WlopWcOrder;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Utils\LockerFactoryInterface;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\WebhooksEvent;
+use Exception;
 use WC_Meta_Data;
 class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
 {
@@ -18,21 +20,46 @@ class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
      * @var WebhookHandlerInterface[]
      */
     private array $handlers;
+    private LockerFactoryInterface $lockerFactory;
     /**
      * @param WebhookHandlerInterface[] $handlers
      */
-    public function __construct(array $handlers)
+    public function __construct(array $handlers, LockerFactoryInterface $lockerFactory)
     {
         $this->handlers = $handlers;
+        $this->lockerFactory = $lockerFactory;
     }
     public function handle(WebhooksEvent $webhook) : void
+    {
+        $ref = WebhookHelper::reference($webhook);
+        if ($ref === null) {
+            throw new Exception('Merchant reference not found.');
+        }
+        $locker = $this->lockerFactory->create((int) $ref);
+        if (!$locker->lockBlocking()) {
+            \do_action('wlop.webhook_lock_timeout', ['id' => $webhook->id, 'type' => $webhook->type, 'ref' => $ref]);
+            return;
+        }
+        try {
+            $this->handleLocked($webhook, $ref);
+        } finally {
+            $locker->unlock();
+        }
+    }
+    /**
+     * Runs while the per-order lock is held. The order is loaded here, not
+     * before locking, so a request that just finished waiting for the lock
+     * always sees the other request's already-committed changes instead of
+     * a stale pre-lock snapshot.
+     */
+    private function handleLocked(WebhooksEvent $webhook, string $ref) : void
     {
         $wlopWcOrderFactory = new WlopWcOrderFactory();
         $wlopWcOrder = $wlopWcOrderFactory->create($webhook);
         if ($this->webhookProcessed($wlopWcOrder, $webhook)) {
             return;
         }
-        $eventData = ['id' => $webhook->id, 'type' => $webhook->type, 'ref' => (string) WebhookHelper::reference($webhook), 'object' => $webhook];
+        $eventData = ['id' => $webhook->id, 'type' => $webhook->type, 'ref' => $ref, 'object' => $webhook];
         \do_action('wlop.webhook_handling_start', $eventData);
         foreach ($this->handlers as $handler) {
             if (!$handler->accepts($webhook)) {

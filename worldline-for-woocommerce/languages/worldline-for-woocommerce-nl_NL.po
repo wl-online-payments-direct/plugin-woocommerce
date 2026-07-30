@@ -1304,6 +1304,16 @@ msgstr "Je betaling wordt verwerkt. Even geduld..."
 msgid "PSPID"
 msgstr "PSPID"
 
+#: modules.local/config/inc/fields.php:48
+#: modules/worldline/worldline-config/inc/fields.php:48
+msgid "Test PSPID"
+msgstr "Test-PSPID"
+
+#: modules.local/config/inc/fields.php:82
+#: modules/worldline/worldline-config/inc/fields.php:82
+msgid "Live PSPID"
+msgstr "Live-PSPID"
+
 msgid "Reason for refund (Wero):"
 msgstr "Reden voor terugbetaling (Wero):"
 

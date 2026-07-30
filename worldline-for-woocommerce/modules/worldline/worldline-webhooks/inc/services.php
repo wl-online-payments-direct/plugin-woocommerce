@@ -62,7 +62,7 @@ return static function () : array {
         'webhooks.security_header_names' => new Value(['x_gcs_signature', 'x_gcs_keyid']),
         'webhooks.queue' => new Alias('webhooks.queue.shutdown'),
         'webhooks.queue.shutdown' => new Constructor(ShutdownWebhookQueue::class, ['webhooks.queue.executor']),
-        'webhooks.queue.executor' => new Constructor(WebhookHandlerExecutor::class, ['webhooks.handlers']),
+        'webhooks.queue.executor' => new Constructor(WebhookHandlerExecutor::class, ['webhooks.handlers', 'utils.locker.webhook_locker_factory']),
         'webhooks.handlers' => new ServiceList(['webhooks.handlers.webhook_received', 'webhooks.handlers.payment_captured', 'webhooks.handlers.payment_refunded', 'webhooks.handlers.payment_rejected']),
         'webhooks.handlers.payment_captured' => new Constructor(PaymentCapturedHandler::class, ['worldline_payment_gateway.money_amount_converter']),
         'webhooks.handlers.webhook_received' => new Constructor(WebhookReceivedHandler::class, ['worldline_payment_gateway.order_updater']),

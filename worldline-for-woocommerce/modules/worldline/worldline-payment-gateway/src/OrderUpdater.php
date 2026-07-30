@@ -31,12 +31,13 @@ class OrderUpdater
         $locker = $this->lockerFactory->create($wlopWcOrder->order()->get_id());
         /**
          * This optimization prevents unnecessary duplicated order requests.
-         * Be careful when using locker in other places.
+         * lock() is atomic: if another request already holds it, this
+         * returns false immediately instead of racing on a separate
+         * isLocked() check. Be careful when using locker in other places.
          */
-        if ($locker->isLocked()) {
+        if (!$locker->lock()) {
             return;
         }
-        $locker->lock();
         try {
             $callback();
         } finally {

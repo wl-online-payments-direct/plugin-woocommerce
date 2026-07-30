@@ -19,8 +19,8 @@ return static function () : array {
     $moduleRoot = \dirname(__FILE__, 2);
     return ['payment_gateway.worldline-for-woocommerce.form_fields' => Service::fromFile("{$moduleRoot}/inc/fields.php"), 'config.container' => new Constructor(ConfigContainer::class, ['worldline_payment_gateway.gateway']), 'config.connection_validator.callback' => new Factory(['worldline_payment_gateway.api.client.factory'], static function (MerchantClientFactory $clientFactory) : callable {
         return static function (array $settings) use($clientFactory) : ?string {
-            $pspid = (string) $settings['pspid'];
             $isLive = $settings['live_mode'] !== 'no';
+            $pspid = (string) $settings[$isLive ? 'live_pspid' : 'test_pspid'];
             $apiKey = (string) $settings[$isLive ? 'live_api_key' : 'test_api_key'];
             $apiSecret = (string) $settings[$isLive ? 'live_api_secret' : 'test_api_secret'];
             $apiEndpoint = (string) $settings[$isLive ? 'live_api_endpoint' : 'test_api_endpoint'];
@@ -53,8 +53,12 @@ return static function () : array {
         return $isLive ? $liveSecret : $testSecret;
     }), 'config.api_endpoint' => new Factory(['config.test_api_endpoint', 'config.live_api_endpoint', 'config.is_live'], static function (string $testEndpoint, string $liveEndpoint, bool $isLive) : string {
         return $isLive ? $liveEndpoint : $testEndpoint;
-    }), 'config.pspid' => new Factory(['config.container'], static function (ConfigContainer $config) : string {
-        return (string) $config->get('pspid');
+    }), 'config.test_pspid' => new Factory(['config.container'], static function (ConfigContainer $config) : string {
+        return (string) $config->get('test_pspid');
+    }), 'config.live_pspid' => new Factory(['config.container'], static function (ConfigContainer $config) : string {
+        return (string) $config->get('live_pspid');
+    }), 'config.pspid' => new Factory(['config.test_pspid', 'config.live_pspid', 'config.is_live'], static function (string $testPspid, string $livePspid, bool $isLive) : string {
+        return $isLive ? $livePspid : $testPspid;
     }), 'config.debug_logging' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
         return $config->get('debug_logging') !== 'no';
     }), 'config.authorization_mode' => new Factory(['config.container'], static function (ConfigContainer $config) : string {

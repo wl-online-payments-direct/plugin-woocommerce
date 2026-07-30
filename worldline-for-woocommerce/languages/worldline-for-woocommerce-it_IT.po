@@ -1306,6 +1306,16 @@ msgstr "Elaborazione del pagamento. Attendere prego..."
 msgid "PSPID"
 msgstr "Codice PSPI"
 
+#: modules.local/config/inc/fields.php:48
+#: modules/worldline/worldline-config/inc/fields.php:48
+msgid "Test PSPID"
+msgstr "PSPID di prova"
+
+#: modules.local/config/inc/fields.php:82
+#: modules/worldline/worldline-config/inc/fields.php:82
+msgid "Live PSPID"
+msgstr "PSPID live"
+
 msgid "Reason for refund (Wero):"
 msgstr "Motivo del rimborso (Wero):"
 
