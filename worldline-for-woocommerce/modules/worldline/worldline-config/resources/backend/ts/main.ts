@@ -32,6 +32,13 @@ const WARNING_MESSAGE = 'Automatic: The URL(s) below will be used for transactio
 const LAST_WEBHOOK_FIELD_ID = '#woocommerce_worldline-for-woocommerce_additional_webhook_url_4';
 const GLOBAL_WEBHOOK_ERROR_MESSAGE = 'Please enter a valid HTTPS URL (max 325 characters)';
 
+const SESSION_TIMEOUT_CUSTOM = 'custom';
+const SESSION_TIMEOUT_MIN_MINUTES = 1;
+const SESSION_TIMEOUT_MAX_MINUTES = 1440;
+const SESSION_TIMEOUT_DEFAULT_MINUTES = 180;
+const SESSION_TIMEOUT_CUSTOM_INPUT_ID =
+	'#woocommerce_worldline-for-woocommerce_session_timeout_custom_value';
+
 function getFieldRow(selector: string): HTMLElement | null {
 	const el = document.querySelector(selector);
 	return el?.closest('tr') ?? null;
@@ -514,6 +521,10 @@ document.addEventListener('DOMContentLoaded', () => {
 	let prevExemptionType: string | null = null;
 	const exemptionValuesCache: Record<string, string> = {};
 
+	const lstSessionTimeout = document.querySelector(
+		'#woocommerce_worldline-for-woocommerce_session_timeout'
+	) as HTMLSelectElement | null;
+
 	const webhookModeCheckbox = document.querySelector(
 		'#woocommerce_worldline-for-woocommerce_webhook_mode_is_automatic'
 	) as HTMLSelectElement | null;
@@ -732,6 +743,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+	function updateSessionTimeoutFields() {
+		if (!lstSessionTimeout) {
+			return;
+		}
+
+		const isCustom = lstSessionTimeout.value === SESSION_TIMEOUT_CUSTOM;
+
+		setVisibleByClass(
+			getFieldRow(SESSION_TIMEOUT_CUSTOM_INPUT_ID),
+			isCustom,
+			'wlop-hidden'
+		);
+
+		const customInput = document.querySelector(
+			SESSION_TIMEOUT_CUSTOM_INPUT_ID
+		) as HTMLInputElement | null;
+
+		if (!customInput) {
+			return;
+		}
+
+		if (isCustom) {
+			customInput.setAttribute('min', String(SESSION_TIMEOUT_MIN_MINUTES));
+			customInput.setAttribute('max', String(SESSION_TIMEOUT_MAX_MINUTES));
+			customInput.setAttribute('step', '1');
+			return;
+		}
+
+		customInput.removeAttribute('min');
+		customInput.removeAttribute('max');
+		customInput.removeAttribute('step');
+
+		if (!customInput.checkValidity()) {
+			customInput.value = String(SESSION_TIMEOUT_DEFAULT_MINUTES);
+		}
+	}
+
 	function updateWebhookModeFields() {
 		if (!webhookModeCheckbox || !webhookWarningBox) {
 			return;
@@ -823,6 +871,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	chkIs3dsAuthentication?.addEventListener('click', update3dsFields);
 	chkIs3dsExemption?.addEventListener('click', update3dsFields);
 	lst3dsExemptionType?.addEventListener('change', update3dsExemptionLimit);
+	lstSessionTimeout?.addEventListener('change', updateSessionTimeoutFields);
 	webhookModeCheckbox?.addEventListener('click', updateWebhookModeFields);
 
 	setVisibleByClass(
@@ -835,6 +884,7 @@ document.addEventListener('DOMContentLoaded', () => {
 	updateAuthorizationFields();
 	update3dsFields();
 	update3dsExemptionLimit();
+	updateSessionTimeoutFields();
 	updateWebhookModeFields();
 	initCopyButtons();
 	initLogoControls();

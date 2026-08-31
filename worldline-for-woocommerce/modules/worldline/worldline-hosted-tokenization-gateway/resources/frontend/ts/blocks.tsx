@@ -157,7 +157,9 @@ addEventListener( 'DOMContentLoaded', () => {
 			<>
 				<div
 					id={ WlopHtConfig.wrapper.id }
-					className={ 'wlop-ht-wrapper' }
+					className={ `wlop-ht-wrapper${
+						token ? '' : ' wlop-ht-new-card'
+					}` }
 				></div>
 				<SurchargeNote surcharge={ surcharge } />
 			</>

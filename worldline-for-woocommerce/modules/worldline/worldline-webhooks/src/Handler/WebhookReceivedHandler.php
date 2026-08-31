@@ -33,12 +33,21 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
         }
         $this->orderUpdater->update($wlopWcOrder);
     }
+    /**
+     * Whether this webhook's payment id should become the order's transaction id.
+     *
+     * The unsuccessful/refunded check runs before the empty-id check on purpose.
+     * An empty stored id used to mean "accept anything", but `initWlopWcOrder()`
+     * empties it at the start of every attempt, so a late webhook for the previous,
+     * abandoned payment would be adopted mid-retry - and the order would then be
+     * refreshed from that cancelled payment and driven back to `failed`.
+     *
+     * Rejecting it costs nothing: `OrderUpdater::refreshWlopData()` falls back to
+     * the stored hosted checkout id, which points at the attempt actually in
+     * progress, and sets the transaction id from there.
+     */
     protected function shouldSetTransactionId(string $newTransactionId, WebhooksEvent $webhook, WlopWcOrder $wlopWcOrder) : bool
     {
-        $wcTransactionId = $wlopWcOrder->transactionId();
-        if (!$wcTransactionId) {
-            return \true;
-        }
         $payment = $webhook->getPayment();
         if (!$payment) {
             return \false;
@@ -50,6 +59,10 @@ class WebhookReceivedHandler implements WebhookHandlerInterface
         $statusCategory = $statusOutput->getStatusCategory();
         if (\in_array($statusCategory, ['UNSUCCESSFUL', 'REFUNDED'], \true)) {
             return \false;
+        }
+        $wcTransactionId = $wlopWcOrder->transactionId();
+        if (!$wcTransactionId) {
+            return \true;
         }
         if (WebhookHelper::cleanupId($newTransactionId) === WebhookHelper::cleanupId($wcTransactionId)) {
             return \false;

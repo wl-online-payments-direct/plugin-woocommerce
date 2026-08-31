@@ -25,7 +25,9 @@ use Worldline\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Worldline\Vendor\Psr\Container\ContainerExceptionInterface;
 use Worldline\Vendor\Psr\Container\ContainerInterface;
 use Worldline\Vendor\Psr\Container\NotFoundExceptionInterface;
+use Worldline\Vendor\Psr\Log\LoggerInterface;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
+use Throwable;
 use WC_Order;
 use WC_Order_Refund;
 use Worldline\Vendor\WP_CLI;
@@ -34,6 +36,13 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
     use ModuleClassNameIdTrait;
     public const PACKAGE_NAME = 'worldline-payment-gateway';
     public const SESSION_TIMEOUT_SWEEP_INTERVAL = 30 * \MINUTE_IN_SECONDS;
+    public const SESSION_TIMEOUT_SWEEP_BATCH_SIZE = 50;
+    /**
+     * Query var carrying the sweep's meta clauses on the legacy posts store.
+     * Deliberately distinct from the one AutoCaptureHandler uses - both register
+     * on the same filter and can run in a single Action Scheduler batch.
+     */
+    protected const SWEEP_META_QUERY_VAR = 'wlop_session_timeout_meta_query';
     /**
      * @throws Exception
      */
@@ -189,13 +198,16 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
             }
             $transactionId = $payment->getId();
             $wlopWcOrder = new WlopWcOrder($wcOrder);
-            $savedTransactionId = $wlopWcOrder->transactionId();
-            if (empty($savedTransactionId)) {
-                $wlopWcOrder->setTransactionId($transactionId);
-            }
+            $wlopWcOrder->setTransactionId($transactionId);
             $orderUpdater = $container->get('worldline_payment_gateway.order_updater');
             \assert($orderUpdater instanceof OrderUpdater);
-            $orderUpdater->updateFromResponse($wlopWcOrder, $payment);
+            /*
+             * Wait for a concurrent writer rather than skipping. This runs on
+             * the order-received page, which Worldline hits at the same moment
+             * it fires the webhook - and this side holds the better data, since
+             * it fetched the very checkout the shopper just came back from.
+             */
+            $orderUpdater->updateFromResponse($wlopWcOrder, $payment, OrderUpdater::INTERACTIVE_LOCK_WAIT_SECONDS);
         });
     }
     protected function scheduleAutoCapturing(ContainerInterface $container) : void
@@ -239,7 +251,7 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
                 return;
             }
             $startTime = \time() + self::SESSION_TIMEOUT_SWEEP_INTERVAL;
-            \as_schedule_recurring_action($startTime, self::SESSION_TIMEOUT_SWEEP_INTERVAL, $hook, [], $group);
+            \as_schedule_recurring_action($startTime, self::SESSION_TIMEOUT_SWEEP_INTERVAL, $hook, [], $group, \true);
         });
         \add_action($hook, static function () use($container) : void {
             self::failTimedOutPendingOrders($container);
@@ -254,46 +266,125 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
      * is recorded as the `_wlop_creation_time` meta. Querying by that meta also
      * naturally scopes the sweep to Worldline orders only.
      */
+    /**
+     * Meta clauses selecting orders the sweep may act on.
+     *
+     * Two conditions, both required. The creation time is older than the
+     * configured window, and Worldline has **never reported a status** for the
+     * order: `OrderInitTrait` seeds the status-code meta with -1 when the shopper
+     * clicks Pay, and the first status received overwrites it, so a value below
+     * zero means no payment object was ever created. That is exactly the case
+     * where no webhook can arrive and the sweep is the only cleanup.
+     *
+     * Without the second clause the sweep also hits orders the platform reports
+     * as legitimately pending - codes 4, 46 and 51 all map to `pending`, which is
+     * normal and long-lived for bank transfer, SEPA direct debit, mealvouchers and
+     * CVCO. Filtering by gateway instead would not help: all four sit in
+     * HOSTED_CHECKOUT_GATEWAYS.
+     *
+     * @return array<int, array<string, mixed>>
+     */
+    protected static function sweepMetaQuery(int $thresholdTs) : array
+    {
+        return [['key' => OrderMetaKeys::CREATION_TIME, 'value' => $thresholdTs, 'compare' => '<', 'type' => 'NUMERIC'], ['key' => OrderMetaKeys::TRANSACTION_STATUS_CODE, 'value' => 0, 'compare' => '<', 'type' => 'NUMERIC']];
+    }
     protected static function failTimedOutPendingOrders(ContainerInterface $container) : void
     {
-        // Stored in hours.
-        $sessionTimeout = (int) $container->get('config.session_timeout');
-        $thresholdTs = \time() - $sessionTimeout * \HOUR_IN_SECONDS;
-        $query = ['status' => 'pending', 'payment_method' => GatewayIds::ALL, 'limit' => -1, 'return' => 'ids'];
-        $metaQuery = [['key' => OrderMetaKeys::CREATION_TIME, 'value' => $thresholdTs, 'compare' => '<', 'type' => 'NUMERIC']];
+        $sessionTimeoutMinutes = (int) $container->get('config.session_timeout_minutes');
+        $thresholdTs = \time() - $sessionTimeoutMinutes * \MINUTE_IN_SECONDS;
+        $query = ['status' => 'pending', 'payment_method' => GatewayIds::ALL, 'limit' => self::SESSION_TIMEOUT_SWEEP_BATCH_SIZE, 'orderby' => 'date', 'order' => 'ASC', 'return' => 'ids'];
+        $metaQuery = self::sweepMetaQuery($thresholdTs);
+        $legacyMetaQueryFilter = null;
         if (OrderUtil::custom_orders_table_usage_is_enabled()) {
             $query['meta_query'] = $metaQuery;
         } else {
-            $query['wlop_meta_query'] = $metaQuery;
-            \add_filter(
-                'woocommerce_order_data_store_cpt_get_orders_query',
-                /**
-                 * @param array $query - Args for WP_Query.
-                 * @param array $queryVars - Query vars from WC_Order_Query.
-                 * @return array modified $query
-                 * @psalm-suppress MixedArgument, MixedArrayAccess, MixedAssignment
-                 */
-                static function ($query, $queryVars) {
-                    if (!empty($queryVars['wlop_meta_query'])) {
-                        $query['meta_query'] = \array_merge($query['meta_query'] ?? [], $queryVars['wlop_meta_query']);
-                    }
-                    return $query;
-                },
-                10,
-                2
-            );
+            $query[self::SWEEP_META_QUERY_VAR] = $metaQuery;
+            /**
+             * @param array $query - Args for WP_Query.
+             * @param array $queryVars - Query vars from WC_Order_Query.
+             * @return array modified $query
+             * @psalm-suppress MixedArgument, MixedArrayAccess, MixedAssignment
+             */
+            $legacyMetaQueryFilter = static function ($query, $queryVars) {
+                if (!empty($queryVars[self::SWEEP_META_QUERY_VAR])) {
+                    $query['meta_query'] = \array_merge($query['meta_query'] ?? [], $queryVars[self::SWEEP_META_QUERY_VAR]);
+                }
+                return $query;
+            };
+            \add_filter('woocommerce_order_data_store_cpt_get_orders_query', $legacyMetaQueryFilter, 10, 2);
         }
-        $order_ids = \wc_get_orders($query);
-        if (empty($order_ids)) {
-            return;
-        }
-        foreach ($order_ids as $order_id) {
-            $order = \wc_get_order($order_id);
-            if (!$order instanceof WC_Order || $order->get_status() !== 'pending') {
-                continue;
+        try {
+            $order_ids = \wc_get_orders($query);
+        } finally {
+            if ($legacyMetaQueryFilter !== null) {
+                \remove_filter('woocommerce_order_data_store_cpt_get_orders_query', $legacyMetaQueryFilter, 10);
             }
-            $order->update_status('failed', \sprintf('Session timed out after %d hour(s) without a completed payment. Reserved stock released (Worldline plugin).', $sessionTimeout));
         }
+        $failed = self::failOrders(\is_array($order_ids) ? $order_ids : [], $sessionTimeoutMinutes);
+        self::logSweepOutcome($container, \is_array($order_ids) ? \count($order_ids) : 0, $failed, $sessionTimeoutMinutes);
+    }
+    /**
+     * Transitions the given pending orders to `failed` and releases their held stock.
+     *
+     * @param array<int|string|WC_Order> $orderIds
+     * @return int How many orders were actually transitioned.
+     */
+    protected static function failOrders(array $orderIds, int $sessionTimeoutMinutes) : int
+    {
+        if (empty($orderIds)) {
+            return 0;
+        }
+        \add_filter('woocommerce_email_enabled_failed_order', '__return_false', 99);
+        \add_filter('woocommerce_email_enabled_customer_failed_order', '__return_false', 99);
+        $failed = 0;
+        try {
+            foreach ($orderIds as $orderId) {
+                $failed += self::failTimedOutOrder($orderId, $sessionTimeoutMinutes);
+            }
+        } finally {
+            \remove_filter('woocommerce_email_enabled_failed_order', '__return_false', 99);
+            \remove_filter('woocommerce_email_enabled_customer_failed_order', '__return_false', 99);
+        }
+        return $failed;
+    }
+    /**
+     * @param int|string|WC_Order $orderId
+     * @return int 1 when the order was transitioned, 0 otherwise.
+     */
+    protected static function failTimedOutOrder($orderId, int $sessionTimeoutMinutes) : int
+    {
+        try {
+            $order = \wc_get_order($orderId);
+            if (!$order instanceof WC_Order || $order->get_status() !== 'pending') {
+                return 0;
+            }
+            $order->update_status('failed', \sprintf('Session timed out after %d minute(s) without a completed payment (Worldline plugin).', $sessionTimeoutMinutes));
+            if (\function_exists('wc_release_stock_for_order')) {
+                \wc_release_stock_for_order($order);
+            }
+            return 1;
+        } catch (Throwable $exception) {
+            \do_action('wlop.session_timeout_sweep_error', ['wcOrderId' => $orderId, 'exception' => $exception]);
+            return 0;
+        }
+    }
+    /**
+     * Reports what the sweep did, so a truncated run is not silent.
+     *
+     * A full batch means more expired orders are still queued: they stay pending
+     * with their stock reserved until a later run, and without this line nothing
+     * explains the delay. The debug line additionally confirms the sweep ran at
+     * all, which is otherwise unverifiable on a low-traffic site where WP-Cron
+     * fires irregularly.
+     */
+    protected static function logSweepOutcome(ContainerInterface $container, int $found, int $failed, int $sessionTimeoutMinutes) : void
+    {
+        $logger = $container->get('worldline_logger.logger');
+        \assert($logger instanceof LoggerInterface);
+        if ($found >= self::SESSION_TIMEOUT_SWEEP_BATCH_SIZE) {
+            $logger->warning(\sprintf('Session timeout sweep processed a full batch of %1$d orders. More expired ' . 'pending orders are still waiting and will be handled by one of the next ' . 'runs, %2$d minutes apart.', self::SESSION_TIMEOUT_SWEEP_BATCH_SIZE, (int) (self::SESSION_TIMEOUT_SWEEP_INTERVAL / \MINUTE_IN_SECONDS)));
+        }
+        $logger->debug(\sprintf('Session timeout sweep failed %1$d of %2$d candidate order(s) older than %3$d minute(s).', $failed, $found, $sessionTimeoutMinutes));
     }
     protected function registerAdminOrderDetails(ContainerInterface $container) : void
     {

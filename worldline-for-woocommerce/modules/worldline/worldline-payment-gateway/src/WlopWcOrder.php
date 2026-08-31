@@ -28,6 +28,9 @@ class WlopWcOrder
     public function setTransactionId(string $value) : void
     {
         $value = self::basePaymentId($value);
+        if ($value === $this->transactionId()) {
+            return;
+        }
         $this->order->update_meta_data(OrderMetaKeys::TRANSACTION_ID, $value);
         $this->order->set_transaction_id($value);
         $this->order->save();

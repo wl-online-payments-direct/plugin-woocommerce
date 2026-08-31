@@ -4,7 +4,7 @@ Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
 Tested up to: 7.0
 Requires PHP: 7.4
-Stable tag: 2.5.27
+Stable tag: 2.5.28
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -136,6 +136,12 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 == Changelog ==
 
+= 2.5.28 - 2026-08-13 =
+* Regular maintenance updates to enhance the integrity and security of the integration (low risk issues)
+* Fixed: Adjust minimum height due to iframe display on mobile
+* Changed: Adjust session timeout configuration with custom value
+* Added: Mark compatability with WooCommerce 11.0.0
+
 = 2.5.27 - 2026-07-28 =
 * Fixed: Webhooks race condition and duplicate order completion
 
@@ -147,6 +153,7 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 * Added: New signature type options for SEPA Direct Debit payment method
 * Added: Compatibility with PHP 8.4 and 8.5 (remove deprecation warnings)
 * Changed: Update Sofinco payment method name on the checkout
+* Added: Mark compatibility with WordPress 10.9.4 and WooCommerce 7.0.2
 
 = 2.5.24 - 2026-07-16 =
 * Fixed: Improved security by adding authorization checks, nonce validation, and upload restrictions for image upload and product-type management endpoints

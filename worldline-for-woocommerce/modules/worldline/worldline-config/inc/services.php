@@ -13,6 +13,7 @@ use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Config\CancellationInterv
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Config\CaptureMode;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Config\ConfigContainer;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Config\Sanitizer\ApiEndpointSanitizer;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Config\Sanitizer\SessionTimeoutSanitizer;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\AuthorizationMode;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Api\MerchantClientFactory;
 return static function () : array {
@@ -77,12 +78,21 @@ return static function () : array {
             return CaptureMode::MANUAL;
         }
         return $captureMode;
-    }), 'config.session_timeout' => new Factory(['config.container'], static function (ConfigContainer $config) : int {
-        $hours = (int) $config->get('session_timeout');
-        if ($hours < 1 || $hours > CancellationIntervals::ONE_DAY) {
-            return CancellationIntervals::THREE_HOURS;
+    }), 'config.session_timeout_minutes' => new Factory(['config.container'], static function (ConfigContainer $config) : int {
+        $defaultMinutes = CancellationIntervals::THREE_HOURS * CancellationIntervals::MINUTES_PER_HOUR;
+        $selected = (string) $config->get('session_timeout');
+        if ($selected !== CancellationIntervals::CUSTOM) {
+            $hours = (int) $selected;
+            if ($hours < CancellationIntervals::ONE_HOUR || $hours > CancellationIntervals::ONE_DAY) {
+                return $defaultMinutes;
+            }
+            return $hours * CancellationIntervals::MINUTES_PER_HOUR;
         }
-        return $hours;
+        $minutes = (int) $config->get('session_timeout_custom_value');
+        if ($minutes < CancellationIntervals::MIN_CUSTOM_MINUTES || $minutes > CancellationIntervals::MAX_CUSTOM_MINUTES) {
+            return CancellationIntervals::DEFAULT_CUSTOM_MINUTES;
+        }
+        return $minutes;
     }), 'config.enable_3ds' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
         return $config->get('enable_3ds') === 'yes';
     }), 'config.enforce_3dsv2' => new Factory(['config.container'], static function (ConfigContainer $config) : bool {
@@ -142,5 +152,5 @@ return static function () : array {
     }), 'payment_gateway.worldline-for-woocommerce.order_button_text' => new Factory(['config.payment_button_title'], static function (string $paymentButtonTitleRaw) : ?string {
         $paymentButtonTitle = \wp_strip_all_tags($paymentButtonTitleRaw);
         return $paymentButtonTitle !== '' ? $paymentButtonTitle : null;
-    }), 'payment_gateway.worldline-for-woocommerce.settings_field_sanitizer.test_api_endpoint_field' => new Constructor(ApiEndpointSanitizer::class, ['uri.builder', 'worldline_payment_gateway.api.default_test_endpoint']), 'payment_gateway.worldline-for-woocommerce.settings_field_sanitizer.live_api_endpoint_field' => new Constructor(ApiEndpointSanitizer::class, ['uri.builder', 'worldline_payment_gateway.api.default_live_endpoint'])];
+    }), 'payment_gateway.worldline-for-woocommerce.settings_field_sanitizer.test_api_endpoint_field' => new Constructor(ApiEndpointSanitizer::class, ['uri.builder', 'worldline_payment_gateway.api.default_test_endpoint']), 'payment_gateway.worldline-for-woocommerce.settings_field_sanitizer.live_api_endpoint_field' => new Constructor(ApiEndpointSanitizer::class, ['uri.builder', 'worldline_payment_gateway.api.default_live_endpoint']), 'payment_gateway.worldline-for-woocommerce.settings_field_sanitizer.session_timeout_custom_value_field' => new Constructor(SessionTimeoutSanitizer::class)];
 };

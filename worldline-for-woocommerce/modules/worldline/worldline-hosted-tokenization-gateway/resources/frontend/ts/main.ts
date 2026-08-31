@@ -344,17 +344,20 @@ addEventListener( 'DOMContentLoaded', () => {
 		const selectedRadio = document.querySelector(
 			tokenRadiosSelector + ':checked'
 		) as HTMLInputElement | null;
+
+		const isNewCard = ! selectedRadio || selectedRadio.value === 'new';
+		iframeWrapper()?.classList.toggle( 'wlop-ht-new-card', isNewCard );
+
 		if ( ! selectedRadio ) {
 			return;
 		}
 
-		const value = selectedRadio.value;
-		if ( value === 'new' ) {
+		if ( isNewCard ) {
 			lastSurchargeAmount = 0;
 			updateSurcharge( 0 );
 			tokenizer.useToken();
 		} else {
-			const token = WlopHtConfig.tokens[ value ];
+			const token = WlopHtConfig.tokens[ selectedRadio.value ];
 			tokenizer.useToken( token );
 		}
 	};

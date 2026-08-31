@@ -5,6 +5,7 @@ type WoocommerceParams = {
 };
 
 type ReturnPageResponse = {
+	success?: boolean;
 	data: {
 		status: string;
 		canCheckAgain: boolean;
@@ -36,6 +37,16 @@ document.addEventListener( 'DOMContentLoaded', () => {
 		! paymentStatusElement ||
 		paymentStatusElement.classList.contains( 'done' )
 	) {
+		/*
+		 * Nothing to poll, so reveal the page. The body class is added server-side
+		 * whenever the payment still looks undecided, and this script is the only
+		 * thing that ever removes it - normally through stopPolling(). Returning
+		 * without doing so leaves the page permanently blank in every case where
+		 * no polling happens: a status that resolved between the two server-side
+		 * checks, or WooCommerce skipping the thank-you content entirely, as it
+		 * does when a guest has to verify their email first.
+		 */
+		document.body.classList.remove( 'worldline-return-page-active' );
 		return;
 	}
 	startChecking( paymentStatusElement );
@@ -55,8 +66,23 @@ async function startChecking( returnPageElement: ReturnPageHTMLElement ) {
 
 	await updateOrderStatus( config, formData, returnPageElement );
 
+	stopPolling( returnPageElement );
+}
+
+function stopPolling( returnPageElement: ReturnPageHTMLElement ) {
 	returnPageElement.classList.add( 'done' );
 	document.body.classList.remove( 'worldline-return-page-active' );
+}
+
+function showError(
+	returnPageElement: ReturnPageHTMLElement,
+	message?: string
+) {
+	if ( ! message ) {
+		return;
+	}
+
+	returnPageElement.textContent = message;
 }
 
 async function updateOrderStatus(
@@ -75,6 +101,15 @@ async function updateOrderStatus(
 		} );
 
 		const orderStatus: ReturnPageResponse = await response.json();
+
+		if ( ! response.ok || orderStatus?.success === false ) {
+			stopPolling( returnPageElement );
+
+			if ( response.status !== 429 ) {
+				showError( returnPageElement, orderStatus?.data?.message );
+			}
+			return;
+		}
 
 		switch ( orderStatus.data.status ) {
 			case 'pending':

@@ -212,7 +212,14 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
             $wlopWcOrder = new WlopWcOrder($wcOrder);
             $orderUpdater = $container->get('worldline_payment_gateway.order_updater');
             \assert($orderUpdater instanceof OrderUpdater);
-            $orderUpdater->update($wlopWcOrder);
+            /*
+             * Wait for a concurrent writer rather than skipping. The payment is
+             * created server-side a few hundred milliseconds before this page
+             * loads, so Worldline's webhook and this request race for the order
+             * lock almost every time - and dropping this write leaves the page
+             * rendering a status that is already out of date.
+             */
+            $orderUpdater->update($wlopWcOrder, OrderUpdater::INTERACTIVE_LOCK_WAIT_SECONDS);
         });
     }
     public function services() : array

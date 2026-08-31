@@ -20,6 +20,8 @@ class ReturnPageStatusUpdater implements StatusUpdaterInterface
         if (!$wcOrder) {
             throw new Exception('WC order required.');
         }
-        $this->orderUpdater->update(new WlopWcOrder($wcOrder));
+        // Interactive path: the shopper is waiting on the return page, so wait
+        // briefly for a concurrent writer instead of dropping this update.
+        $this->orderUpdater->update(new WlopWcOrder($wcOrder), OrderUpdater::INTERACTIVE_LOCK_WAIT_SECONDS);
     }
 }

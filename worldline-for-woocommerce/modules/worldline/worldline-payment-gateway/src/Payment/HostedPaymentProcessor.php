@@ -51,7 +51,7 @@ class HostedPaymentProcessor implements PaymentProcessorInterface
             $wlopOrder = $this->wcOrderBasedFactory->create($wcOrder);
             $this->initWlopWcOrder($wcOrder);
             $hostedCheckoutResponse = $this->hostedCheckoutUrlFactory->create(new HostedCheckoutInput($wlopOrder, $wcOrder, $wcOrder->get_checkout_order_received_url(), $this->hostedCheckoutLanguage, $token, $this->modifier));
-            $wcOrder->add_meta_data(OrderMetaKeys::HOSTED_CHECKOUT_ID, $hostedCheckoutResponse->getHostedCheckoutId());
+            $wcOrder->update_meta_data(OrderMetaKeys::HOSTED_CHECKOUT_ID, $hostedCheckoutResponse->getHostedCheckoutId());
             $wcOrder->save();
         } catch (Throwable $exception) {
             $errors = '';

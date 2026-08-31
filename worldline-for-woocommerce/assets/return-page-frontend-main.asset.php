@@ -2,4 +2,4 @@
 
 namespace Worldline\Vendor;
 
-return array('dependencies' => array('regenerator-runtime'), 'version' => 'afc5ebdc8e649f49b677');
+return array('dependencies' => array('regenerator-runtime'), 'version' => 'db05fb1f7d5f4531ed7c');

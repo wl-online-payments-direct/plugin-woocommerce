@@ -5,6 +5,7 @@ namespace Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGat
 
 use Exception;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Utils\LockerFactoryInterface;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Utils\LockerInterface;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Fee\FeeFactory;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\PaymentDetailsResponse;
@@ -15,6 +16,13 @@ use Worldline\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Worldline\Vendor\OnlinePayments\Sdk\Merchant\Products\GetPaymentProductParams;
 class OrderUpdater
 {
+    /**
+     * How long an interactive caller should wait for a concurrent writer.
+     *
+     * Sized against what the webhook actually takes end to end, roughly a second.
+     */
+    public const INTERACTIVE_LOCK_WAIT_SECONDS = 3.0;
+    protected const LOCK_POLL_MICROSECONDS = 150000;
     protected MerchantClientInterface $apiClient;
     protected LockerFactoryInterface $lockerFactory;
     protected MoneyAmountConverter $moneyAmountConverter;
@@ -26,31 +34,70 @@ class OrderUpdater
         $this->moneyAmountConverter = $moneyAmountConverter;
         $this->feeFactory = $feeFactory;
     }
-    public function lockOrder(WlopWcOrder $wlopWcOrder, callable $callback) : void
+    /**
+     * Runs the callback while holding this order's lock.
+     *
+     * lock() is atomic: if another request already holds it, it returns false
+     * immediately instead of racing on a separate isLocked() check.
+     *
+     * Skipping is an optimisation only while the other writer is putting in the
+     * same or newer information. That does not hold for the return page, which
+     * has the most authoritative view of the attempt in progress - it was handed
+     * the hostedCheckoutId and has just fetched that exact checkout. Such callers
+     * pass $waitSeconds so the write happens instead of being dropped.
+     *
+     * @return bool Whether the callback actually ran.
+     */
+    public function lockOrder(WlopWcOrder $wlopWcOrder, callable $callback, float $waitSeconds = 0.0) : bool
     {
         $locker = $this->lockerFactory->create($wlopWcOrder->order()->get_id());
-        /**
-         * This optimization prevents unnecessary duplicated order requests.
-         * lock() is atomic: if another request already holds it, this
-         * returns false immediately instead of racing on a separate
-         * isLocked() check. Be careful when using locker in other places.
-         */
-        if (!$locker->lock()) {
-            return;
+        if (!$this->acquire($locker, $waitSeconds)) {
+            /*
+             * A dropped write used to be invisible: callers could not tell
+             * "updated, this status is final" from "did nothing", and rendered a
+             * stale status as final.
+             */
+            \do_action('wlop.order_update_skipped', ['wcOrderId' => $wlopWcOrder->order()->get_id(), 'waitSeconds' => $waitSeconds]);
+            return \false;
         }
         try {
             $callback();
         } finally {
             $locker->unlock();
         }
+        return \true;
+    }
+    /**
+     * Takes the lock, optionally waiting a bounded time for the current holder.
+     *
+     * Deliberately not LockerInterface::lockBlocking(): that uses
+     * `utils.locker.timeout`, which is at least 30 seconds - a sane ceiling for a
+     * background job and far too long for a page the shopper is looking at.
+     */
+    protected function acquire(LockerInterface $locker, float $waitSeconds) : bool
+    {
+        if ($locker->lock()) {
+            return \true;
+        }
+        if ($waitSeconds <= 0.0) {
+            return \false;
+        }
+        $deadline = \microtime(\true) + $waitSeconds;
+        while (\microtime(\true) < $deadline) {
+            \usleep(self::LOCK_POLL_MICROSECONDS);
+            if ($locker->lock()) {
+                return \true;
+            }
+        }
+        return \false;
     }
     /**
      * Retrieves and saves the current status from the API,
      * updates WC status/notes if needed.
      */
-    public function update(WlopWcOrder $wlopWcOrder) : void
+    public function update(WlopWcOrder $wlopWcOrder, float $waitSeconds = 0.0) : bool
     {
-        $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder) : void {
+        return $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder) : void {
             $paymentDetails = $this->refreshWlopData($wlopWcOrder);
             if ($paymentDetails) {
                 $this->addSurchargeIfPossible($wlopWcOrder, $paymentDetails->getPaymentOutput());
@@ -60,15 +107,15 @@ class OrderUpdater
                 $this->rebuildPaymentsFromOperations($wlopWcOrder, $paymentDetails);
                 $wlopWcOrder->order()->save();
             }
-        });
+        }, $waitSeconds);
     }
     /**
      * Saves the current status from the given API response,
      * updates WC status/notes if needed.
      */
-    public function updateFromResponse(WlopWcOrder $wlopWcOrder, PaymentResponse $paymentResponse) : void
+    public function updateFromResponse(WlopWcOrder $wlopWcOrder, PaymentResponse $paymentResponse, float $waitSeconds = 0.0) : bool
     {
-        $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder, $paymentResponse) : void {
+        return $this->lockOrder($wlopWcOrder, function () use($wlopWcOrder, $paymentResponse) : void {
             $this->updateStatusMeta($wlopWcOrder, $paymentResponse->getStatusOutput());
             $this->addSurchargeIfPossible($wlopWcOrder, $paymentResponse->getPaymentOutput());
             $this->adjustWcStatus($wlopWcOrder, $paymentResponse->getPaymentOutput());
@@ -76,7 +123,7 @@ class OrderUpdater
             $this->updateOrderDetailsMeta($wlopWcOrder, $paymentResponse);
             $this->rebuildPaymentsFromOperations($wlopWcOrder, $paymentResponse);
             $wlopWcOrder->order()->save();
-        });
+        }, $waitSeconds);
     }
     /**
      * Rebuilds the per-tender list from PaymentDetailsResponse->getOperations().
@@ -547,7 +594,7 @@ class OrderUpdater
             case 75:
             case 96:
                 return 'cancelled';
-            // failed
+            case 1:
             case 2:
             case 57:
             case 59:
@@ -557,7 +604,6 @@ class OrderUpdater
                 return 'failed';
             // no status update
             // refund status is automatically updated by WC
-            case 6:
             case 61:
             case 7:
             case 71:
@@ -577,6 +623,9 @@ class OrderUpdater
                 break;
             case 'cancelled':
                 $wlopWcOrder->addWorldlineOrderNote(\__('Payment authorization cancelled at Worldline.', 'worldline-for-woocommerce'));
+                break;
+            case 'failed':
+                $wlopWcOrder->addWorldlineOrderNote(\__('Payment was not completed at Worldline. The order stays payable, so the customer can try again.', 'worldline-for-woocommerce'));
                 break;
         }
     }

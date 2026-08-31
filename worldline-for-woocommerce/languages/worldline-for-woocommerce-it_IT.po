@@ -1747,3 +1747,31 @@ msgstr "PAYONE: UNSIGNED o TICK_BOX"
 #: modules.local/sepa-direct-debit-gateway/inc/fields.php
 msgid "ANZ or CAWL: this setting does not apply"
 msgstr "ANZ o CAWL: questa impostazione non si applica"
+
+#: modules.local/config/inc/fields.php
+msgid "Session timeout"
+msgstr "Timeout di sessione"
+
+#: modules.local/config/inc/fields.php
+msgid "Defines after how long an unpaid hosted checkout order is considered abandoned. The timer starts when the customer clicks \"Pay\". When it elapses, the order is marked as failed and its reserved items are released back into the inventory. This depends on the website activity since it relies on the WordPress cron."
+msgstr ""
+
+#: modules.local/config/inc/fields.php
+msgid "Custom"
+msgstr "Personalizzato"
+
+#: modules.local/config/inc/fields.php
+msgid "Session timeout value"
+msgstr "Valore di timeout di sessione"
+
+#: modules.local/config/inc/fields.php
+msgid "Configure the timeout value, from 1 to 1440 minutes"
+msgstr "Configura il valore di timeout, da 1 a 1440 minuti"
+
+#: modules.local/config/src/Sanitizer/SessionTimeoutSanitizer.php
+msgid "The session timeout value must be a whole number of minutes between %1$d and %2$d."
+msgstr "Il valore di timeout di sessione deve essere un numero intero di minuti compreso tra %1$d e %2$d."
+
+#: modules.local/worldline-payment-gateway/src/OrderUpdater.php
+msgid "Payment was not completed at Worldline. The order stays payable, so the customer can try again."
+msgstr "Il pagamento non è stato completato su Worldline. L'ordine resta pagabile, così il cliente può riprovare."
