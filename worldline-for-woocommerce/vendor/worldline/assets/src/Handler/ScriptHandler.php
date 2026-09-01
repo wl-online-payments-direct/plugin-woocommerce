@@ -53,16 +53,21 @@ class ScriptHandler implements \Worldline\Assets\Handler\AssetHandler, \Worldlin
         /** @var Script $asset */
         $handle = $asset->handle();
         \wp_register_script($handle, $asset->url(), $asset->dependencies(), $asset->version(), $asset->inFooter());
-        if (\count($asset->localize()) > 0) {
-            foreach ($asset->localize() as $name => $args) {
-                /**
-                 * Actually it is possible to use $args as scalar value for
-                 * \WP_Scripts::localize() - but it will produce a _doing_it_wrong().
-                 *
-                 * @psalm-suppress MixedArgument
-                 */
-                \wp_localize_script($handle, $name, $args);
-            }
+        /**
+         * Resolved once on purpose: Script::localize() invokes any callable
+         * payload on every call, so asking twice (once to count, once to
+         * iterate) runs the payload builder twice. Payload builders may issue
+         * remote API calls, which made a single render pay for them repeatedly.
+         */
+        $localized = $asset->localize();
+        foreach ($localized as $name => $args) {
+            /**
+             * Actually it is possible to use $args as scalar value for
+             * \WP_Scripts::localize() - but it will produce a _doing_it_wrong().
+             *
+             * @psalm-suppress MixedArgument
+             */
+            \wp_localize_script($handle, $name, $args);
         }
         foreach ($asset->inlineScripts() as $location => $data) {
             if (\count($data) > 0) {

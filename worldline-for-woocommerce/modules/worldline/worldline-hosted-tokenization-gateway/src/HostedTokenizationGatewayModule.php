@@ -32,6 +32,17 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
     use ModuleClassNameIdTrait;
     public const PACKAGE_NAME = 'worldline-hosted-tokenization-gateway';
     /**
+     * Request-scoped cache for makeFrontendConfig().
+     *
+     * The config is requested once per registered script, and building it with
+     * a URL issues a createHostedTokenization call. Both the classic and the
+     * blocks script share the same builder, so a single checkout render used to
+     * create several hosted tokenization sessions and discard all but one.
+     *
+     * @var array<string, array<string, mixed>>
+     */
+    private array $frontendConfigCache = [];
+    /**
      * @param ContainerInterface $container
      * @return bool
      * @throws ContainerExceptionInterface
@@ -125,6 +136,10 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
     }
     public function makeFrontendConfig(ContainerInterface $container, bool $withoutUrl = \false) : array
     {
+        $cacheKey = $withoutUrl ? 'without_url' : 'with_url';
+        if (isset($this->frontendConfigCache[$cacheKey])) {
+            return $this->frontendConfigCache[$cacheKey];
+        }
         $currencyCode = \get_woocommerce_currency();
         $gatewayId = GatewayIds::HOSTED_TOKENIZATION;
         $config = ['ajax' => \admin_url('admin-ajax.php'), 'nonce' => \wp_create_nonce('wlop_hosted_tokenization_config'), 'gateway' => ['id' => $gatewayId], 'wrapper' => ['id' => 'wlop_ht'], 'currency' => [
@@ -180,6 +195,7 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
         if (!\is_null($total)) {
             $config['total'] = $total;
         }
+        $this->frontendConfigCache[$cacheKey] = $config;
         return $config;
     }
     private function determineTotal(ContainerInterface $container) : ?int
