@@ -76,5 +76,5 @@ return static function () : array {
             $customBrands['custom_' . $customIcon['id']] = $customIcon['title'];
         }
         return \array_merge($predefinedBrands, $customBrands);
-    }), "payment_gateway.{$gatewayId}.payment_fields_renderer" => new Constructor(TokensPaymentFieldsRenderer::class, ['hosted_tokenization_gateway.gateway'])];
+    }), "payment_gateway.{$gatewayId}.payment_fields_renderer" => new Constructor(TokensPaymentFieldsRenderer::class, ['hosted_tokenization_gateway.gateway', 'config.stored_card_buttons'])];
 };

@@ -281,9 +281,14 @@ msgstr ""
 msgid "Enable card grouping"
 msgstr ""
 
-#: modules.local/config/inc/fields.php:154
-#: modules/worldline/worldline-config/inc/fields.php:154
-msgid "Show tokenized cards"
+#: modules.local/config/inc/fields.php:158
+#: modules/worldline/worldline-config/inc/fields.php:158
+msgid "Enable Saved Cards"
+msgstr ""
+
+#: modules.local/config/inc/fields.php:161
+#: modules/worldline/worldline-config/inc/fields.php:161
+msgid "When enabled, logged-in customers can save a card while paying and pay with it again later, and their saved cards are offered at checkout. When disabled, saving is never offered and saved cards are hidden. Guests are never offered card saving, regardless of this setting."
 msgstr ""
 
 #: modules.local/config/inc/fields.php:156
@@ -297,11 +302,6 @@ msgstr ""
 #: modules/worldline/worldline-config/inc/fields.php:257
 #: modules/worldline/worldline-config/inc/fields.php:265
 msgid "Enable"
-msgstr ""
-
-#: modules.local/config/inc/fields.php:157
-#: modules/worldline/worldline-config/inc/fields.php:157
-msgid "When a customer has stored cards, additional \"Pay with your stored card ...\" buttons will be displayed in checkout."
 msgstr ""
 
 #: modules.local/config/inc/fields.php:162

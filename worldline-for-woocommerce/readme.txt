@@ -2,9 +2,9 @@
 Contributors: worldlineisv
 Tags: woocommerce, Worldline, payments, ecommerce
 Requires at least: 6.3
-Tested up to: 7.0
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 2.5.29
+Stable tag: 2.5.30
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -135,6 +135,9 @@ If you encounter any issues with the plugin or its functions after an update, pu
 If that doesn’t solve the problem, create a thread on the [support forums](https://wordpress.org/support/plugin/worldline-for-woocommerce/) or contact our support team through [this form](https://docs.direct.worldline-solutions.com/en/about/contact/).
 
 == Changelog ==
+
+= 2.5.30 - 2026-09-03 =
+* Changed: Card saving now follows the "Enable Saved Cards" setting
 
 = 2.5.29 - 2026-08-24 =
 * Fixed: Reduced hosted tokenization session creation from four sessions to one

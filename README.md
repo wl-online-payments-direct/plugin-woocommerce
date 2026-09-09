@@ -134,6 +134,9 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.30 - 2026-09-03
+* Changed: Card saving now follows the "Enable Saved Cards" setting
+
 ### 2.5.29 - 2026-08-24
 * Fixed: Reduced hosted tokenization session creation from four sessions to one
 

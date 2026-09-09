@@ -1365,10 +1365,15 @@ msgstr ""
 msgid "Settings"
 msgstr "Instellingen"
 
-#: modules.local/config/inc/fields.php:154
-#: modules/worldline/worldline-config/inc/fields.php:154
-msgid "Show tokenized cards"
-msgstr "Toon opgeslagen kaarten"
+#: modules.local/config/inc/fields.php:158
+#: modules/worldline/worldline-config/inc/fields.php:158
+msgid "Enable Saved Cards"
+msgstr "Opgeslagen kaarten inschakelen"
+
+#: modules.local/config/inc/fields.php:161
+#: modules/worldline/worldline-config/inc/fields.php:161
+msgid "When enabled, logged-in customers can save a card while paying and pay with it again later, and their saved cards are offered at checkout. When disabled, saving is never offered and saved cards are hidden. Guests are never offered card saving, regardless of this setting."
+msgstr "Wanneer dit is ingeschakeld, kunnen ingelogde klanten tijdens het betalen een kaart opslaan en er later opnieuw mee betalen, en worden hun opgeslagen kaarten bij het afrekenen aangeboden. Wanneer het is uitgeschakeld, wordt opslaan nooit aangeboden en worden opgeslagen kaarten verborgen. Aan gasten wordt het opslaan van een kaart nooit aangeboden, ongeacht deze instelling."
 
 #: modules.local/webhooks/inc/fields.php:105
 #: modules/worldline/worldline-webhooks/inc/fields.php:16

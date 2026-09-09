@@ -1357,10 +1357,15 @@ msgstr ""
 msgid "Settings"
 msgstr "Paramètres"
 
-#: modules.local/config/inc/fields.php:154
-#: modules/worldline/worldline-config/inc/fields.php:154
-msgid "Show tokenized cards"
-msgstr "Afficher les cartes enregistrées"
+#: modules.local/config/inc/fields.php:158
+#: modules/worldline/worldline-config/inc/fields.php:158
+msgid "Enable Saved Cards"
+msgstr "Activer les cartes enregistrées"
+
+#: modules.local/config/inc/fields.php:161
+#: modules/worldline/worldline-config/inc/fields.php:161
+msgid "When enabled, logged-in customers can save a card while paying and pay with it again later, and their saved cards are offered at checkout. When disabled, saving is never offered and saved cards are hidden. Guests are never offered card saving, regardless of this setting."
+msgstr "Lorsque cette option est activée, les clients connectés peuvent enregistrer une carte lors du paiement et la réutiliser ultérieurement, et leurs cartes enregistrées leur sont proposées au moment du paiement. Lorsqu'elle est désactivée, l'enregistrement n'est jamais proposé et les cartes enregistrées sont masquées. L'enregistrement de carte n'est jamais proposé aux clients invités, quel que soit ce réglage."
 
 #: modules.local/webhooks/inc/fields.php:105
 #: modules/worldline/worldline-webhooks/inc/fields.php:16

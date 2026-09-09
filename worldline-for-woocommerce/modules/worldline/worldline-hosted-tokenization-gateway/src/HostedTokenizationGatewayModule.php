@@ -168,9 +168,10 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
                 $request->setVariant($template);
             }
             $request->setLocale((string) $container->get('worldline_payment_gateway.locale'));
-            $request->setAskConsumerConsent(\true);
             $userId = \get_current_user_id();
-            if ($userId > 0) {
+            $storedCardButtons = (bool) $container->get('config.stored_card_buttons');
+            $request->setAskConsumerConsent($storedCardButtons && $userId > 0);
+            if ($storedCardButtons && $userId > 0) {
                 $tokens = $wcTokenRepo->customerTokens($userId);
                 if (!empty($tokens)) {
                     $tokensStr = \implode(',', \array_map(static function (WC_Payment_Token $token) : string {

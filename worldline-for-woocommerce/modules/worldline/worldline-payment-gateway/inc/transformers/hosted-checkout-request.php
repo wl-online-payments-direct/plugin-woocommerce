@@ -36,16 +36,20 @@ return new Factory(['config.authorization_mode', 'worldline_payment_gateway.3ds.
         return $request;
     });
     $transformer->addTransformer(static function (HostedCheckoutInput $input) use($cardBrandsGrouped, $wcTokenRepository, $showTokens, $hostedCheckoutPageTemplate, $showPaymentConfirmationPage, $sessionTimeoutMinutes) : HostedCheckoutSpecificInput {
+        $userId = $input->wcOrder()->get_user_id();
+        $tokenizationAllowed = $showTokens && $userId > 0;
         $specificInput = new HostedCheckoutSpecificInput();
         $specificInput->setReturnUrl($input->returnUrl());
         $cardSpecificInputForHostedCheckout = new CardPaymentMethodSpecificInputForHostedCheckout();
         $cardSpecificInputForHostedCheckout->setGroupCards($cardBrandsGrouped);
+        if (!$tokenizationAllowed) {
+            $cardSpecificInputForHostedCheckout->setTokenizationMode('noTokenization');
+        }
         $specificInput->setCardPaymentMethodSpecificInput($cardSpecificInputForHostedCheckout);
         $specificInput->setVariant($hostedCheckoutPageTemplate);
         $specificInput->setShowResultPage($showPaymentConfirmationPage);
         $specificInput->setSessionTimeout($sessionTimeoutMinutes);
-        $userId = \get_current_user_id();
-        if ($showTokens && $userId > 0) {
+        if ($tokenizationAllowed) {
             $tokens = $wcTokenRepository->customerTokens($userId);
             if (!empty($tokens)) {
                 $tokensStr = \implode(',', \array_map(static function (\WC_Payment_Token $token) : string {
