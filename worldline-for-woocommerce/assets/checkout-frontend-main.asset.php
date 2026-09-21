@@ -2,4 +2,4 @@
 
 namespace Worldline\Vendor;
 
-return array('dependencies' => array(), 'version' => '8c5efb20ac905689f1ea');
+return array('dependencies' => array(), 'version' => '404e6801975367c86f83');

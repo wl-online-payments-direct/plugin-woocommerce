@@ -134,6 +134,13 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.31 - 2026-09-15
+* Fixed: Cart details are no longer discarded from the payment request due to rounding differences
+* Fixed: Cards saved on Hosted Checkout now appear with the other saved cards
+* Fixed: Saved cards are hidden on the checkout while the Credit cards method is disabled
+* Fixed: Concurrent order updates no longer send a second set of emails
+* Fixed: Mealvouchers product type saving after re-installation or plugin data reset
+
 ### 2.5.30 - 2026-09-03
 * Changed: Card saving now follows the "Enable Saved Cards" setting
 

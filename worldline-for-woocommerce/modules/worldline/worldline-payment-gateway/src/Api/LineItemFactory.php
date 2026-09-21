@@ -17,10 +17,14 @@ class LineItemFactory
     public function create(\WC_Order_Item_Product $wcLineItem, Transformer $transformer) : LineItem
     {
         $wlopLineItem = new LineItem();
-        $amountOfMoneyValue = (float) $wcLineItem->get_subtotal() + (float) $wcLineItem->get_subtotal_tax();
-        $amountOfMoney = $transformer->create(AmountOfMoney::class, new WcPriceStruct((string) $amountOfMoneyValue, $wcLineItem->get_order()->get_currency()));
-        \assert($amountOfMoney instanceof AmountOfMoney);
         $details = $this->lineItemDetails($wcLineItem, $transformer);
+        // Derived from the per-unit figures we are about to send, not from the line total, so that
+        // (productPrice + taxAmount) * quantity always equals this amount exactly. Whatever this
+        // leaves against the shop's own line total is a rounding residue, settled once for the
+        // whole order by CartTotalsReconciler.
+        $amountOfMoney = new AmountOfMoney();
+        $amountOfMoney->setCurrencyCode($wcLineItem->get_order()->get_currency());
+        $amountOfMoney->setAmount(((int) $details->getProductPrice() + (int) $details->getTaxAmount()) * (int) $details->getQuantity());
         $wlopLineItem->setAmountOfMoney($amountOfMoney);
         $wlopLineItem->setOrderLineDetails($details);
         return $wlopLineItem;

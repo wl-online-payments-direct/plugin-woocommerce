@@ -4,6 +4,7 @@ declare (strict_types=1);
 namespace Worldline\Vendor;
 
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Uninstall\DatabaseCleaner;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\ProductType\ProductTypeModule;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\Uninstall\UninstallModule;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Worldline\Vendor\Psr\Container\ContainerInterface;
@@ -15,7 +16,7 @@ return static function () : array {
         }, GatewayIds::ALL);
         return [...$gatewaySettingOptions];
     }, 'uninstall.worldline-all-cleanup-action-names' => static function (ContainerInterface $container) : array {
-        return [];
+        return [ProductTypeModule::CLEANUP_ACTION];
     }, 'uninstall.worldline-all-scheduled-action-names' => static function () : array {
         return ['wlop_update_status', 'wlop_cleanup_pending_orders'];
     }, 'uninstall.db-cleaner' => new Factory(['uninstall.worldline-all-option-names', 'uninstall.worldline-all-scheduled-action-names', 'uninstall.worldline-all-cleanup-action-names'], static function (array $optionNames, array $actionNames, array $scheduledActionNames) : DatabaseCleaner {

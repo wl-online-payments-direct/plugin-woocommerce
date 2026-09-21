@@ -25,6 +25,29 @@ class WlopWcOrder
     {
         return $this->order;
     }
+    /**
+     * Re-reads the wrapped order from the data store.
+     *
+     * Callers build this object from an order loaded before the per-order lock was
+     * taken, so by the time the lock is held another request may already have
+     * written a newer status. Every guard downstream reads through this object -
+     * the status comparison in OrderUpdater::adjustWcStatus(), the 3DS meta
+     * comparison in OrderUpdater::checkExemptionInfo() - so against a stale
+     * snapshot they all conclude there is work to do and redo it: the same status
+     * transition a second time, the same notes again, and a second set of
+     * WooCommerce emails to the shopper.
+     */
+    public function refresh() : void
+    {
+        $orderId = $this->order->get_id();
+        \wp_cache_delete($orderId, 'posts');
+        $dataStore = $this->order->get_data_store();
+        if ($dataStore->has_callable('clear_cached_data')) {
+            $dataStore->clear_cached_data([$orderId]);
+        }
+        $dataStore->read($this->order);
+        $this->order->read_meta_data(\true);
+    }
     public function setTransactionId(string $value) : void
     {
         $value = self::basePaymentId($value);

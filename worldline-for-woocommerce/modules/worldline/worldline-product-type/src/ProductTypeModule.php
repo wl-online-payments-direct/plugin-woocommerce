@@ -11,6 +11,17 @@ class ProductTypeModule implements ExecutableModule, ServiceModule
 {
     use ModuleClassNameIdTrait;
     /**
+     * Fired by DatabaseCleaner to remove everything this module stores.
+     *
+     * Registered as a cleanup action rather than an option name so the table and
+     * the version flag that guards its creation are removed by one callback. They
+     * are not independent: the flag is what stops `init` from creating the table,
+     * so a flag that outlives its table disables the feature for good - silently,
+     * because the writes go to a missing table and wpdb does not complain outside
+     * WP_DEBUG.
+     */
+    public const CLEANUP_ACTION = 'wlop.product_type.cleanup';
+    /**
      * Bump when the table schema changes so dbDelta runs again.
      */
     private const TABLE_VERSION = '1.0';
@@ -26,6 +37,7 @@ class ProductTypeModule implements ExecutableModule, ServiceModule
         \add_action('add_meta_boxes', [$this, 'addProductMetaBox'], 10, 2);
         \add_action('save_post_product', [$this, 'saveProductType']);
         \add_action('wp_ajax_save_worldline_product_type', [$this, 'ajaxSaveProductType']);
+        \add_action(self::CLEANUP_ACTION, [$this, 'cleanupProductTypeData']);
         return \true;
     }
     public function services() : array
@@ -49,6 +61,24 @@ class ProductTypeModule implements ExecutableModule, ServiceModule
         }
         $this->createProductTypeTable();
         \update_option(self::TABLE_VERSION_OPTION, self::TABLE_VERSION);
+    }
+    /**
+     * Removes the product type table and the version flag that guards its creation.
+     *
+     * The flag is deleted first, on purpose. The two deletions are not atomic, so
+     * one of them can be the last thing that runs, and the two possible half-states
+     * are not equally bad: a table without a flag heals itself on the next `init`
+     * (the flag is missing, so dbDelta runs and finds the table already there),
+     * while a flag without a table is the state that permanently breaks saving.
+     * Deleting the flag first means an interrupted cleanup lands in the harmless
+     * direction.
+     */
+    public function cleanupProductTypeData() : void
+    {
+        \delete_option(self::TABLE_VERSION_OPTION);
+        $table = $this->db->prefix . 'product_type';
+        // phpcs:ignore WordPress.DB.PreparedSQL.InterpolatedNotPrepared -- Identifier, not a value.
+        $this->db->query("DROP TABLE IF EXISTS `{$table}`");
     }
     /**
      * Creates a custom table for storing product types if it does not already exist.

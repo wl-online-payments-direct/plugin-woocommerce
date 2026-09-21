@@ -8,6 +8,7 @@ use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\P
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\AmountOfMoney;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\LineItem;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\Order;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\OrderLineDetails;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectionData;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
@@ -115,9 +116,19 @@ class MealvouchersRequestModifier extends AbstractHostedPaymentRequestModifier
         $mergedName = $this->resolveProductName($names, $mergedType);
         // 7. Determine unit
         $unit = \count(\array_unique($units)) === 1 ? \reset($units) : 'Merged item';
-        // 8. Create AmountOfMoney for the merged item
+        /*
+         * 8. Create AmountOfMoney for the merged item.
+         *
+         * Derived from the order total, not from the per-line figures summed above: those are
+         * each rounded on their own, while WooCommerce rounds the order's tax once over the
+         * whole order, so their sum can land a cent away from the total. The total is what the
+         * shopper is charged and what Worldline validates the parts against - it rejects the
+         * whole request with error 1099 when they do not add up - so the residue is absorbed
+         * into this one line.
+         */
+        $mergedAmountValue = $this->amountFromOrderTotal($order, $totalAmount);
         $mergedAmount = new AmountOfMoney();
-        $mergedAmount->setAmount($totalAmount);
+        $mergedAmount->setAmount($mergedAmountValue);
         $mergedAmount->setCurrencyCode($order->getAmountOfMoney()->getCurrencyCode());
         // 9. Create OrderLineDetails
         $orderLineDetails = new OrderLineDetails();
@@ -125,8 +136,7 @@ class MealvouchersRequestModifier extends AbstractHostedPaymentRequestModifier
         // always "Merged item"
         $orderLineDetails->setProductName($mergedName);
         // concatenated or shortened
-        $orderLineDetails->setProductPrice($totalPrice + $totalDiscount);
-        // price without taxes
+        $orderLineDetails->setProductPrice($mergedAmountValue - $totalTax + $totalDiscount);
         $orderLineDetails->setProductType($mergedType);
         // resolved type
         $orderLineDetails->setQuantity(1);
@@ -186,5 +196,25 @@ class MealvouchersRequestModifier extends AbstractHostedPaymentRequestModifier
             return "{$count} {$type} Items";
         }
         return $name;
+    }
+    /**
+     * What the merged line has to come to for the order to add up: the order total, less the
+     * shipping the same request carries. The discount is cleared before this runs, so nothing
+     * else is left to subtract.
+     *
+     * Falls back to the summed figure when there is no total to derive from.
+     */
+    private function amountFromOrderTotal(Order $order, int $summedAmount) : int
+    {
+        $amountOfMoney = $order->getAmountOfMoney();
+        if (!$amountOfMoney) {
+            return $summedAmount;
+        }
+        $amount = (int) $amountOfMoney->getAmount();
+        $shipping = $order->getShipping();
+        if ($shipping) {
+            $amount -= (int) $shipping->getShippingCost() + (int) $shipping->getShippingCostTax();
+        }
+        return $amount;
     }
 }

@@ -206,8 +206,13 @@ class WorldlinePaymentGatewayModule implements ExecutableModule, ServiceModule, 
              * the order-received page, which Worldline hits at the same moment
              * it fires the webhook - and this side holds the better data, since
              * it fetched the very checkout the shopper just came back from.
+             *
+             * The wait is the short page-load budget, not the interactive one:
+             * this is still ahead of the cart being emptied and persisted, so a
+             * long wait here is what lets a concurrent request resurrect the
+             * cart. The polling script settles the status if we lose the race.
              */
-            $orderUpdater->updateFromResponse($wlopWcOrder, $payment, OrderUpdater::INTERACTIVE_LOCK_WAIT_SECONDS);
+            $orderUpdater->updateFromResponse($wlopWcOrder, $payment, OrderUpdater::PAGE_LOAD_LOCK_WAIT_SECONDS);
         });
     }
     protected function scheduleAutoCapturing(ContainerInterface $container) : void

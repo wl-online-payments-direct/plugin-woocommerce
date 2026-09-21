@@ -20,8 +20,15 @@ class ReturnPageStatusUpdater implements StatusUpdaterInterface
         if (!$wcOrder) {
             throw new Exception('WC order required.');
         }
-        // Interactive path: the shopper is waiting on the return page, so wait
-        // briefly for a concurrent writer instead of dropping this update.
+        /*
+         * Interactive path: the shopper is waiting on the return page, so wait
+         * briefly for a concurrent writer instead of dropping this update.
+         *
+         * This is the AJAX poll, not the page load, so it gets the full interactive
+         * budget rather than the short page-load one. The page load has already
+         * emptied the cart and written the session by the time this runs, so there
+         * is no stale cart snapshot being held open while we wait here.
+         */
         $this->orderUpdater->update(new WlopWcOrder($wcOrder), OrderUpdater::INTERACTIVE_LOCK_WAIT_SECONDS);
     }
 }

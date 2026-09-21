@@ -20,8 +20,41 @@ class OrderUpdater
      * How long an interactive caller should wait for a concurrent writer.
      *
      * Sized against what the webhook actually takes end to end, roughly a second.
+     *
+     * Only for callers that are not themselves a page load - in practice the
+     * return page's AJAX poll. A page load wants PAGE_LOAD_LOCK_WAIT_SECONDS.
      */
     public const INTERACTIVE_LOCK_WAIT_SECONDS = 3.0;
+    /**
+     * How long a caller running inside a page load should wait for a concurrent writer.
+     *
+     * Short on purpose, and not for the sake of the shopper's patience. This runs on
+     * `wp` @5, which is before `wc_clear_cart_after_payment()` on `template_redirect`
+     * @20 - so every second spent here is a second the request holds a session
+     * snapshot taken while the cart was still full, before it has emptied and
+     * persisted it. `WC_Session_Handler::save_data()` rewrites the session as one
+     * blob with no version check, so any request from the same shopper that is in
+     * flight across that write puts the full cart back and the shopper finds the cart
+     * still there after paying. Keeping this phase under a second leaves a window too
+     * narrow for a second request to land in.
+     *
+     * Losing the race here does not lose the write. The return page ships a polling
+     * script whose whole job is to settle the status asynchronously, and its
+     * forceUpdate call still gets the full INTERACTIVE_LOCK_WAIT_SECONDS budget - by
+     * which point the empty cart is already durable, so waiting there is free.
+     */
+    public const PAGE_LOAD_LOCK_WAIT_SECONDS = 0.3;
+    /**
+     * How long a webhook delivery should wait for a concurrent writer.
+     *
+     * Nobody is looking at a webhook request, so there is no page to keep
+     * responsive, and skipping is not an option the way it is for a caller that
+     * only refreshes state: a dropped `payment.captured` loses the capture note
+     * and the completion that goes with it. So this waits well past the time an
+     * interactive writer can hold the lock - one API call plus a save - rather
+     * than the short interactive budget.
+     */
+    public const WEBHOOK_LOCK_WAIT_SECONDS = 10.0;
     protected const LOCK_POLL_MICROSECONDS = 150000;
     protected MerchantClientInterface $apiClient;
     protected LockerFactoryInterface $lockerFactory;
@@ -58,6 +91,13 @@ class OrderUpdater
              * stale status as final.
              */
             \do_action('wlop.order_update_skipped', ['wcOrderId' => $wlopWcOrder->order()->get_id(), 'waitSeconds' => $waitSeconds]);
+            return \false;
+        }
+        try {
+            $wlopWcOrder->refresh();
+        } catch (\Throwable $exception) {
+            $locker->unlock();
+            \do_action('wlop.order_update_skipped', ['wcOrderId' => $wlopWcOrder->order()->get_id(), 'waitSeconds' => $waitSeconds, 'exception' => $exception]);
             return \false;
         }
         try {

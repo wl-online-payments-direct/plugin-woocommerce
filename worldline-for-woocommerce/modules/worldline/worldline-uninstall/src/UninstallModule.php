@@ -36,7 +36,16 @@ class UninstallModule implements ExecutableModule, ServiceModule
             if (self::isValidCleanDbRequest()) {
                 $dbCleaner = $container->get('uninstall.db-cleaner');
                 \assert($dbCleaner instanceof DatabaseCleaner);
-                $dbCleaner->deleteOptions();
+                /*
+                 * The same cleanup the uninstall hook performs. This used to delete
+                 * only the options, which left the link promising more than it did -
+                 * scheduled actions kept running and the product type table survived
+                 * with all its rows. It also has to stay in step with uninstall now
+                 * that the product type table and the option guarding its creation
+                 * are removed together: deleting just the options would take the
+                 * guard and leave the table, so "reset" would not reset the feature.
+                 */
+                $dbCleaner->clearAll();
                 \wp_safe_redirect(\remove_query_arg([self::CLEAN_DB_ACTION, self::CLEAN_DB_NONCE]));
                 exit;
             }

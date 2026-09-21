@@ -22,7 +22,7 @@ class MoneyAmountConverter
      * We could use default factor of 100 and fill the array only with currencies
      * that have a different factor than 100.
      */
-    private function centDecimalConversionFactor(string $currency) : int
+    public function centDecimalConversionFactor(string $currency) : int
     {
         $currencyFactors = ['EUR' => 100, 'AUD' => 100];
         if (!isset($currencyFactors[$currency])) {

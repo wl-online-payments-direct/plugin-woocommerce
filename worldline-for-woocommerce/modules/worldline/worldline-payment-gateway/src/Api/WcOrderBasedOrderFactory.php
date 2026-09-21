@@ -5,6 +5,7 @@ namespace Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGat
 
 use Worldline\Vendor\Worldline\Transformer\Exception\TransformerException;
 use Worldline\Vendor\Worldline\Transformer\Transformer;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\CartTotalsReconciler;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\MismatchHandlerInterface;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentMismatchValidator;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Struct\WcPriceStruct;
@@ -24,13 +25,15 @@ class WcOrderBasedOrderFactory implements WcOrderBasedOrderFactoryInterface
     private Transformer $transformer;
     private PaymentMismatchValidator $paymentMismatchValidator;
     private MismatchHandlerInterface $mismatchHandler;
+    private CartTotalsReconciler $cartTotalsReconciler;
     private bool $surchargeEnabled;
     private bool $sendShoppingCart;
-    public function __construct(Transformer $transformer, PaymentMismatchValidator $paymentMismatchValidator, MismatchHandlerInterface $mismatchHandler, bool $surchargeEnabled, bool $sendShoppingCart)
+    public function __construct(Transformer $transformer, PaymentMismatchValidator $paymentMismatchValidator, MismatchHandlerInterface $mismatchHandler, CartTotalsReconciler $cartTotalsReconciler, bool $surchargeEnabled, bool $sendShoppingCart)
     {
         $this->transformer = $transformer;
         $this->paymentMismatchValidator = $paymentMismatchValidator;
         $this->mismatchHandler = $mismatchHandler;
+        $this->cartTotalsReconciler = $cartTotalsReconciler;
         $this->surchargeEnabled = $surchargeEnabled;
         $this->sendShoppingCart = $sendShoppingCart;
     }
@@ -67,6 +70,7 @@ class WcOrderBasedOrderFactory implements WcOrderBasedOrderFactoryInterface
             $discount->setAmount($amountOfMoneyDiscount->getAmount());
             $wlopOrder->setDiscount($discount);
         }
+        $this->cartTotalsReconciler->reconcile($wlopOrder);
         try {
             $this->paymentMismatchValidator->validate($wlopOrder);
         } catch (\Throwable $exception) {

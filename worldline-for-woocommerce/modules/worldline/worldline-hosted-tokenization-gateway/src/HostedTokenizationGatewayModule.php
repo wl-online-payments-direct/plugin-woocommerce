@@ -235,8 +235,13 @@ class HostedTokenizationGatewayModule implements ExecutableModule, ServiceModule
              * loads, so Worldline's webhook and this request race for the order
              * lock almost every time - and dropping this write leaves the page
              * rendering a status that is already out of date.
+             *
+             * The wait is the short page-load budget, not the interactive one:
+             * this is still ahead of the cart being emptied and persisted, so a
+             * long wait here is what lets a concurrent request resurrect the
+             * cart. The polling script settles the status if we lose the race.
              */
-            $orderUpdater->update($wlopWcOrder, OrderUpdater::INTERACTIVE_LOCK_WAIT_SECONDS);
+            $orderUpdater->update($wlopWcOrder, OrderUpdater::PAGE_LOAD_LOCK_WAIT_SECONDS);
         });
     }
     public function services() : array

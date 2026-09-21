@@ -64,7 +64,7 @@ return static function () : array {
         'webhooks.queue.shutdown' => new Constructor(ShutdownWebhookQueue::class, ['webhooks.queue.executor']),
         'webhooks.queue.executor' => new Constructor(WebhookHandlerExecutor::class, ['webhooks.handlers', 'utils.locker.webhook_locker_factory']),
         'webhooks.handlers' => new ServiceList(['webhooks.handlers.webhook_received', 'webhooks.handlers.payment_captured', 'webhooks.handlers.payment_refunded', 'webhooks.handlers.payment_rejected']),
-        'webhooks.handlers.payment_captured' => new Constructor(PaymentCapturedHandler::class, ['worldline_payment_gateway.money_amount_converter']),
+        'webhooks.handlers.payment_captured' => new Constructor(PaymentCapturedHandler::class, ['worldline_payment_gateway.money_amount_converter', 'worldline_payment_gateway.order_updater']),
         'webhooks.handlers.webhook_received' => new Constructor(WebhookReceivedHandler::class, ['worldline_payment_gateway.order_updater']),
         'webhooks.handlers.payment_refunded' => new Constructor(PaymentRefundedHandler::class, ['worldline_payment_gateway.money_amount_converter']),
         'webhooks.handlers.payment_rejected' => new Constructor(PaymentRejectedHandler::class),

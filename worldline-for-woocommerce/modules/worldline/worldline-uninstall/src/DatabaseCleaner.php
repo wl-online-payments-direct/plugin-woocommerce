@@ -52,6 +52,17 @@ class DatabaseCleaner
      */
     public function clearScheduledActions() : void
     {
+        /*
+         * Action Scheduler comes from WooCommerce, and this runs from the admin
+         * "reset data" request as well as from uninstall. That request has no
+         * try/catch around it, so on a site where WooCommerce is inactive - which
+         * WordPress only prevents from 6.5 on, and this plugin supports 6.3 - an
+         * undefined function here would take down the admin page instead of
+         * cleaning up. There is nothing scheduled in that case anyway.
+         */
+        if (!\function_exists('as_unschedule_action')) {
+            return;
+        }
         foreach ($this->scheduledActionNames as $actionName) {
             \as_unschedule_action($actionName);
         }

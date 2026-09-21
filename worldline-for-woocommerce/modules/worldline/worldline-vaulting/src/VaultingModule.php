@@ -7,7 +7,6 @@ use Worldline\Vendor\Worldline\Modularity\Module\ExecutableModule;
 use Worldline\Vendor\Worldline\Modularity\Module\ExtendingModule;
 use Worldline\Vendor\Worldline\Modularity\Module\ModuleClassNameIdTrait;
 use Worldline\Vendor\Worldline\Modularity\Module\ServiceModule;
-use Worldline\Vendor\Worldline\PaymentGateway\PaymentGateway;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\GatewayIds;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderMetaKeys;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\PaymentOutput;
@@ -15,9 +14,11 @@ use Worldline\Vendor\OnlinePayments\Sdk\ReferenceException;
 use Worldline\Vendor\Psr\Container\ContainerInterface;
 use Worldline\Vendor\OnlinePayments\Sdk\Merchant\MerchantClientInterface;
 use Throwable;
-use WC_Cart;
 use WC_Order;
+use WC_Payment_Gateway;
+use WC_Payment_Token;
 use WC_Payment_Token_CC;
+use WC_Payment_Tokens;
 class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
 {
     use ModuleClassNameIdTrait;
@@ -25,9 +26,8 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
     {
         $this->addNewTokenHandler($container);
         $this->addStoredCardDeletionHandler($container);
-        $this->addCheckoutStoredCardButtons($container);
-        $this->addPayOrderStoredCardButtons($container);
-        $this->filterStoredCardsOnBlockCheckout($container);
+        $this->mergeHostedCheckoutTokensIntoCardGateway($container);
+        $this->filterStoredCardsOnCheckout($container);
         return \true;
     }
     public function services() : array
@@ -132,86 +132,77 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
             2
         );
     }
-    private function renderStoredCardButtons(ContainerInterface $container) : string
+    /**
+     * Lists cards saved on Hosted Checkout under the card gateway as well.
+     *
+     * Tokens are partitioned by gateway id - WcTokenRepository::addCard() stamps the id the
+     * card was saved through - so a card saved on the Worldline hosted page is invisible to the
+     * card gateway. Shoppers have one wallet, not one per integration path, so both sets are
+     * merged here.
+     *
+     * This one filter covers display and payment at once: WC_Payment_Gateway::get_tokens()
+     * renders from it, and HostedTokenizationGatewayModule builds both the tokens it sends to
+     * Worldline and the id-to-token map the iframe uses through the same repository call.
+     */
+    private function mergeHostedCheckoutTokensIntoCardGateway(ContainerInterface $container) : void
     {
-        $gatewayId = GatewayIds::HOSTED_CHECKOUT;
-        $wcTokenRepo = $container->get("vaulting.repository.wc.tokens.{$gatewayId}");
-        \assert($wcTokenRepo instanceof WcTokenRepository);
-        $renderer = $container->get('vaulting.card_button_renderer');
-        \assert($renderer instanceof CardButtonRenderer);
-        $tokens = $wcTokenRepo->sortedCustomerTokens(\get_current_user_id());
-        $tokens = \array_slice($tokens, 0, 3);
-        if (empty($tokens)) {
-            return '';
+        \add_filter(
+            'woocommerce_get_customer_payment_tokens',
+            /**
+             * @param mixed $tokens
+             * @param mixed $customerId
+             * @param mixed $gatewayId
+             *
+             * @return mixed
+             */
+            function ($tokens, $customerId, $gatewayId) use($container) {
+                if (!\is_array($tokens) || (string) $gatewayId !== GatewayIds::HOSTED_TOKENIZATION) {
+                    return $tokens;
+                }
+                if (!$container->get('config.stored_card_buttons')) {
+                    return $tokens;
+                }
+                return $this->withHostedCheckoutTokens($tokens, (int) $customerId);
+            },
+            10,
+            3
+        );
+    }
+    /**
+     * @param array<int, WC_Payment_Token> $tokens
+     *
+     * @return array<int, WC_Payment_Token>
+     */
+    private function withHostedCheckoutTokens(array $tokens, int $customerId) : array
+    {
+        $hostedCheckoutTokens = WC_Payment_Tokens::get_customer_tokens($customerId, GatewayIds::HOSTED_CHECKOUT);
+        foreach ($hostedCheckoutTokens as $token) {
+            $tokens[$token->get_id()] = $token;
         }
-        $html = '<div class="wlop-saved-card-buttons-wrapper">';
-        foreach ($tokens as $token) {
-            $html .= $renderer->render($token);
-        }
-        $html .= '</div>';
-        return $html;
+        return $tokens;
     }
-    private function addCheckoutStoredCardButtons(ContainerInterface $container) : void
-    {
-        $tokenButtonsHook = (string) \apply_filters('wlop_checkout_saved_cards_renderer_hook', 'woocommerce_review_order_before_payment');
-        \add_action($tokenButtonsHook, function () use($container) : void {
-            if (!$container->get('config.stored_card_buttons')) {
-                return;
-            }
-            $gateway = $container->get('worldline_payment_gateway.gateway');
-            \assert($gateway instanceof PaymentGateway);
-            if (!$gateway->is_available()) {
-                return;
-            }
-            $cart = \WC()->cart;
-            if (!$cart instanceof WC_Cart) {
-                return;
-            }
-            $total = (float) $cart->get_total('numeric');
-            if ($total <= 0) {
-                return;
-            }
-            // phpcs:ignore WordPress.Security.EscapeOutput
-            echo $this->renderStoredCardButtons($container);
-        });
-    }
-    private function addPayOrderStoredCardButtons(ContainerInterface $container) : void
-    {
-        $tokenButtonsHook = (string) \apply_filters('wlop_pay_order_saved_cards_renderer_hook', 'woocommerce_pay_order_before_payment');
-        \add_action($tokenButtonsHook, function () use($container) : void {
-            if (!$container->get('config.stored_card_buttons')) {
-                return;
-            }
-            global $wp;
-            if (!isset($wp->query_vars['order-pay'])) {
-                return;
-            }
-            $orderId = \absint($wp->query_vars['order-pay']);
-            $order = \wc_get_order($orderId);
-            if (!$order instanceof WC_Order) {
-                return;
-            }
-            $total = (float) $order->get_total();
-            if ($total <= 0) {
-                return;
-            }
-            $gateway = $container->get('worldline_payment_gateway.gateway');
-            \assert($gateway instanceof PaymentGateway);
-            if (!$gateway->is_available()) {
-                return;
-            }
-            // phpcs:ignore WordPress.Security.EscapeOutput
-            echo $this->renderStoredCardButtons($container);
-        });
-    }
+    /**
+     * Hides the saved cards from the checkout when the card gateway is switched off.
+     *
+     * Every saved card is a card, and the card gateway is the only method that can charge one
+     * from the shop checkout, so once it is disabled there is nothing left to offer the
+     * shopper. WooCommerce drops the cards saved through the card gateway by itself - it only
+     * lists tokens whose gateway is enabled - but a card saved on Hosted Checkout carries the
+     * Hosted Checkout gateway id and would keep showing under that method, so both sets are
+     * dropped here.
+     *
+     * Only the checkout is filtered; My account keeps listing the cards so they can still be
+     * reviewed and deleted, and a card saved this way stays usable on the Worldline hosted
+     * page, which receives the tokens over the API rather than through this list.
+     */
     // phpcs:ignore Worldline.CodeQuality.NestingLevel.High
-    private function filterStoredCardsOnBlockCheckout(ContainerInterface $container) : void
+    private function filterStoredCardsOnCheckout(ContainerInterface $container) : void
     {
-        \add_filter('woocommerce_saved_payment_methods_list', static function (array $methods) use($container) {
+        \add_filter('woocommerce_saved_payment_methods_list', function (array $methods) use($container) : array {
             if (!\is_checkout() || empty($methods['cc'])) {
                 return $methods;
             }
-            if ($container->get('config.stored_card_buttons')) {
+            if ($this->savedCardsOfferedOnCheckout($container)) {
                 return $methods;
             }
             foreach ($methods['cc'] as $index => $method) {
@@ -221,5 +212,24 @@ class VaultingModule implements ExecutableModule, ServiceModule, ExtendingModule
             }
             return $methods;
         });
+    }
+    private function savedCardsOfferedOnCheckout(ContainerInterface $container) : bool
+    {
+        return (bool) $container->get('config.stored_card_buttons') && $this->cardGatewayEnabled();
+    }
+    /**
+     * Whether the card gateway is switched on in the plugin configuration. Availability is not
+     * consulted on purpose: WooCommerce keeps a saved card on the block checkout for as long as
+     * its gateway is enabled, so reading the very same flag makes both sets of cards appear and
+     * disappear together.
+     */
+    private function cardGatewayEnabled() : bool
+    {
+        if (!\function_exists('WC') || !\WC()->payment_gateways()) {
+            return \false;
+        }
+        $gateways = \WC()->payment_gateways()->payment_gateways();
+        $cardGateway = $gateways[GatewayIds::HOSTED_TOKENIZATION] ?? null;
+        return $cardGateway instanceof WC_Payment_Gateway && $cardGateway->enabled === 'yes';
     }
 }

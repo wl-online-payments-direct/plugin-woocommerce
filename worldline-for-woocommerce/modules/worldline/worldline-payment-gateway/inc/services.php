@@ -34,6 +34,7 @@ use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\G
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Helper\MoneyAmountConverter;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Notice\OrderActionNotice;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\OrderUpdater;
+use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\CartTotalsReconciler;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\DetailsDroppingMismatchHandler;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\HostedPaymentProcessor;
 use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\Payment\PaymentCaptureValidator;
@@ -129,7 +130,7 @@ return static function () : array {
             return $getStaticAssetUrl(WorldlinePaymentGatewayModule::PACKAGE_NAME, "images/worldline-gateway-logo.svg");
         }),
         'worldline_payment_gateway.transformer.wc_order_to_wlop_order' => Service::fromFile("{$moduleRoot}/inc/transformers/wc-order-to-wlop-order.php"),
-        'worldline_payment_gateway.wc_order_factory' => new Constructor(WcOrderBasedOrderFactory::class, ['worldline_payment_gateway.transformer.wc_order_to_wlop_order', 'worldline_payment_gateway.payment_mismatch_validator', 'worldline_payment_gateway.details_dropping_mismatch_handler', 'config.surcharge_enabled', 'config.send_shopping_cart']),
+        'worldline_payment_gateway.wc_order_factory' => new Constructor(WcOrderBasedOrderFactory::class, ['worldline_payment_gateway.transformer.wc_order_to_wlop_order', 'worldline_payment_gateway.payment_mismatch_validator', 'worldline_payment_gateway.details_dropping_mismatch_handler', 'worldline_payment_gateway.cart_totals_reconciler', 'config.surcharge_enabled', 'config.send_shopping_cart']),
         'worldline_payment_gateway.amount_of_money_factory' => new Constructor(AmountOfMoneyFactory::class, ['worldline_payment_gateway.money_amount_converter']),
         'worldline_payment_gateway.transformer.hosted_checkout_request' => Service::fromFile("{$moduleRoot}/inc/transformers/hosted-checkout-request.php"),
         'worldline_payment_gateway.hosted_checkout_url_factory' => new Constructor(HostedCheckoutUrlFactory::class, ['worldline_payment_gateway.api.client', 'worldline_payment_gateway.transformer.hosted_checkout_request', 'webhooks.notification_url', 'config.webhook_mode_is_automatic', 'config.additional_webhook_urls']),
@@ -160,6 +161,7 @@ return static function () : array {
         },
         'worldline_payment_gateway.currency_support_validator' => new Constructor(CurrencySupportValidator::class, ['worldline_payment_gateway.api.client']),
         'worldline_payment_gateway.payment_mismatch_validator' => new Constructor(PaymentMismatchValidator::class, []),
+        'worldline_payment_gateway.cart_totals_reconciler' => new Constructor(CartTotalsReconciler::class, ['worldline_payment_gateway.money_amount_converter']),
         'worldline_payment_gateway.details_dropping_mismatch_handler' => static function () : DetailsDroppingMismatchHandler {
             return new DetailsDroppingMismatchHandler();
         },
