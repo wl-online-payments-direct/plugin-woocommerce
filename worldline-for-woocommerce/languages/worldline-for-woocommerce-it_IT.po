@@ -1780,3 +1780,11 @@ msgstr "Il valore di timeout di sessione deve essere un numero intero di minuti 
 #: modules.local/worldline-payment-gateway/src/OrderUpdater.php
 msgid "Payment was not completed at Worldline. The order stays payable, so the customer can try again."
 msgstr "Il pagamento non è stato completato su Worldline. L'ordine resta pagabile, così il cliente può riprovare."
+
+#: modules.local/cvco-gateway/inc/fields.php:40
+msgid "Allow CVCO amount adjustment"
+msgstr "Consentire la modifica dell'importo CVCO"
+
+#: modules.local/cvco-gateway/inc/fields.php:43
+msgid "Enable this option if you wish to allow your customers to change, in their CV Connect app, the amount to be paid using Chèque-Vacances Connect."
+msgstr "Abilitare questa opzione se si desidera consentire ai clienti di modificare, all'interno della propria app CV Connect, l'importo da pagare tramite Chèque-Vacances Connect."

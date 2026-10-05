@@ -35,8 +35,8 @@ class ComposerAutoloaderInitbbd4576ab2c4df6ab195f2c7cf228dda
 
         $filesToLoad = \Composer\Autoload\ComposerStaticInitbbd4576ab2c4df6ab195f2c7cf228dda::$files;
         $requireFile = \Closure::bind(static function ($fileIdentifier, $file) {
-            if (empty($GLOBALS['__composer_autoload_files_WorldlineForWoocommerce6a1d703'][$fileIdentifier])) {
-                $GLOBALS['__composer_autoload_files_WorldlineForWoocommerce6a1d703'][$fileIdentifier] = true;
+            if (empty($GLOBALS['__composer_autoload_files_WorldlineForWoocommerce4778c7f'][$fileIdentifier])) {
+                $GLOBALS['__composer_autoload_files_WorldlineForWoocommerce4778c7f'][$fileIdentifier] = true;
 
                 require $file;
             }

@@ -642,6 +642,10 @@ class OrderUpdater
             case 83:
             case 93:
                 return 'failed';
+            // 55 (pending completion) is a normal waiting state for a split payment; the order
+            // status is decided by the final payment, not by this one.
+            case 55:
+                return null;
             // no status update
             // refund status is automatically updated by WC
             case 61:

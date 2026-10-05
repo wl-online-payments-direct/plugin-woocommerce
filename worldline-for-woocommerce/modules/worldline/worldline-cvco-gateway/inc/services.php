@@ -44,20 +44,17 @@ return static function () : array {
                         $wcOrder = \wc_get_order(\absint($wp->query_vars['order-pay']));
                     }
                 }
-                // When order is created
+                // Order-pay: the billing e-mail is already known and authoritative.
                 if ($wcOrder instanceof \WC_Order) {
-                    $customer_email = $wcOrder->get_billing_email();
-                    $customer_id = $wcOrder->get_customer_id();
+                    return !empty($wcOrder->get_billing_email());
                 }
-                // When order is not yet created
-                if (!$wcOrder instanceof \WC_Order) {
-                    if (!\WC()->cart || \count(\WC()->cart->get_cart()) === 0) {
-                        return \false;
-                    }
-                    $customer_email = \WC()->customer ? \WC()->customer->get_email() : '';
-                    $customer_id = \WC()->customer ? \WC()->customer->get_id() : 0;
-                }
-                return !empty($customer_email) && !empty($customer_id);
+                // Checkout, before the order exists. The payment methods are rendered BEFORE the
+                // shopper fills the form, so a guest has no e-mail in the session yet and gating
+                // on one would hide CVCO from guests permanently. WooCommerce will not let the
+                // order be placed without a billing e-mail, so the request still carries one -
+                // and CVCO sends no merchantCustomerId, so a guest's payload is the same as a
+                // registered customer's.
+                return \WC()->cart && \count(\WC()->cart->get_cart()) > 0;
             } catch (\Throwable $exception) {
                 return \false;
             }

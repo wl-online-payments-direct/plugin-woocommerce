@@ -17,6 +17,9 @@ class WcOrderStatusChecker implements StatusCheckerInterface
         switch ($wcOrder->get_status()) {
             case 'on-hold':
             case 'processing':
+            // Downloadable/virtual orders skip `processing` and are auto-completed by WooCommerce,
+            // so `completed` is a normal outcome on the return page, not an unknown state.
+            case 'completed':
                 return ReturnPageStatus::SUCCESS;
             case 'failed':
             case 'refunded':

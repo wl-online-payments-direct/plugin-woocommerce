@@ -1483,3 +1483,11 @@ msgstr ""
 #: modules.local/worldline-payment-gateway/src/OrderUpdater.php
 msgid "Payment was not completed at Worldline. The order stays payable, so the customer can try again."
 msgstr ""
+
+#: modules.local/cvco-gateway/inc/fields.php:35
+msgid "Allow CVCO amount adjustment"
+msgstr ""
+
+#: modules.local/cvco-gateway/inc/fields.php:39
+msgid "Enable this option if you wish to allow your customers to change, in their CV Connect app, the amount to be paid using Chèque-Vacances Connect."
+msgstr ""

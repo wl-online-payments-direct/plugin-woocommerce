@@ -15,7 +15,7 @@ use Worldline\Vendor\OnlinePayments\Sdk\Domain\PaymentProductFiltersHostedChecko
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5300SpecificInput;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentProduct3112SpecificInput;
-use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5403SpecificInput;
+use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5412SpecificInput;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5408SpecificInput;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\SepaDirectDebitPaymentMethodSpecificInputBase;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\SepaDirectDebitPaymentProduct771SpecificInputBase;
@@ -28,13 +28,16 @@ class HostedCheckoutUrlFactory
     private ?UriInterface $notificationUrl;
     private bool $webhookModeIsAutomatic;
     private array $additionalWebhookUrls;
-    public function __construct(MerchantClientInterface $apiClient, Transformer $requestTransformer, ?UriInterface $notificationUrl = null, bool $webhookModeIsAutomatic = \false, array $additionalWebhookUrls = [])
+    /** CVCO "adjustable amount"; true matches the API default for an omitted field. */
+    private bool $cvcoAdjustableAmount;
+    public function __construct(MerchantClientInterface $apiClient, Transformer $requestTransformer, ?UriInterface $notificationUrl = null, bool $webhookModeIsAutomatic = \false, array $additionalWebhookUrls = [], bool $cvcoAdjustableAmount = \true)
     {
         $this->apiClient = $apiClient;
         $this->requestTransformer = $requestTransformer;
         $this->notificationUrl = $notificationUrl;
         $this->webhookModeIsAutomatic = $webhookModeIsAutomatic;
         $this->additionalWebhookUrls = $additionalWebhookUrls;
+        $this->cvcoAdjustableAmount = $cvcoAdjustableAmount;
     }
     /**
      * @throws Exception
@@ -52,10 +55,11 @@ class HostedCheckoutUrlFactory
             $request->setFeedbacks($feedbacks);
         }
         $productFilterHostedCheckout = new PaymentProductFiltersHostedCheckout();
-        $excludeMealVoucherFilter = new PaymentProductFilter();
-        $excludeMealVoucherFilter->setProducts([5402]);
-        // MEALVOCUHERS_PRODUCT_ID
-        $productFilterHostedCheckout->setExclude($excludeMealVoucherFilter);
+        $excludedProductsFilter = new PaymentProductFilter();
+        // 5402 has its own gateway. 5403 shares its display label with 5412, so leaving it in would
+        // show two identical "Chèque-Vacances Connect" rows.
+        $excludedProductsFilter->setProducts([5402, 5403]);
+        $productFilterHostedCheckout->setExclude($excludedProductsFilter);
         $request->getHostedCheckoutSpecificInput()->setPaymentProductFilters($productFilterHostedCheckout);
         \assert($request instanceof CreateHostedCheckoutRequest);
         $redirectInput = $request->getRedirectPaymentMethodSpecificInput();
@@ -66,9 +70,10 @@ class HostedCheckoutUrlFactory
         if (!$sepaInput) {
             $sepaInput = new SepaDirectDebitPaymentMethodSpecificInputBase();
         }
-        $cvcoSpecificInput = new RedirectPaymentProduct5403SpecificInput();
-        $cvcoSpecificInput->setCompleteRemainingPaymentAmount(\true);
-        $redirectInput->setPaymentProduct5403SpecificInput($cvcoSpecificInput);
+        // Always sent: the API defaults adjustableAmount to true.
+        $cvcoSpecificInput = new RedirectPaymentProduct5412SpecificInput();
+        $cvcoSpecificInput->setAdjustableAmount($this->cvcoAdjustableAmount);
+        $redirectInput->setPaymentProduct5412SpecificInput($cvcoSpecificInput);
         $illicadoSpecificInput = new RedirectPaymentProduct3112SpecificInput();
         $illicadoSpecificInput->setCompleteRemainingPaymentAmount(\true);
         $redirectInput->setPaymentProduct3112SpecificInput($illicadoSpecificInput);

@@ -1778,3 +1778,11 @@ msgstr "El valor de tiempo de expiración de sesión debe ser un número entero 
 #: modules.local/worldline-payment-gateway/src/OrderUpdater.php
 msgid "Payment was not completed at Worldline. The order stays payable, so the customer can try again."
 msgstr "El pago no se completó en Worldline. El pedido sigue siendo pagable, por lo que el cliente puede volver a intentarlo."
+
+#: modules.local/cvco-gateway/inc/fields.php:40
+msgid "Allow CVCO amount adjustment"
+msgstr "Permitir ajuste de importe CVCO"
+
+#: modules.local/cvco-gateway/inc/fields.php:43
+msgid "Enable this option if you wish to allow your customers to change, in their CV Connect app, the amount to be paid using Chèque-Vacances Connect."
+msgstr "Active esta opción si desea permitir que sus clientes modifiquen, desde su aplicación CV Connect, el importe a pagar mediante Chèque-Vacances Connect."

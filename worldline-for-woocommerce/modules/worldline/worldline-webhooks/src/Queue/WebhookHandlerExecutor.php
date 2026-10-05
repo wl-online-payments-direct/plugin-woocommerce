@@ -14,7 +14,9 @@ use Exception;
 use WC_Meta_Data;
 class WebhookHandlerExecutor implements WebhookHandlerExecutorInterface
 {
-    const VOUCHER_IDS = [3112, 5402, 5403];
+    // 5412 (direct CVCO) belongs here too: a voucher leg that is captured while the residual is
+    // never paid still reports acquired < ordered, exactly as 5403 did.
+    const VOUCHER_IDS = [3112, 5402, 5403, 5412];
     const VOUCHER_SKIP_EVENTS = ['payment.authorization_requested', 'payment.pending_approval', 'payment.pending_completion', 'payment.pending_capture', 'payment.captured', 'payment.cancelled', 'payment.rejected'];
     /**
      * @var WebhookHandlerInterface[]

@@ -1779,3 +1779,11 @@ msgstr "De sessietime-outwaarde moet een geheel aantal minuten tussen %1$d en %2
 #: modules.local/worldline-payment-gateway/src/OrderUpdater.php
 msgid "Payment was not completed at Worldline. The order stays payable, so the customer can try again."
 msgstr "De betaling is niet voltooid bij Worldline. De bestelling blijft betaalbaar, zodat de klant het opnieuw kan proberen."
+
+#: modules.local/cvco-gateway/inc/fields.php:40
+msgid "Allow CVCO amount adjustment"
+msgstr "CVCO-bedrag aanpassen toestaan"
+
+#: modules.local/cvco-gateway/inc/fields.php:43
+msgid "Enable this option if you wish to allow your customers to change, in their CV Connect app, the amount to be paid using Chèque-Vacances Connect."
+msgstr "Schakel deze optie in als u uw klanten in hun CV Connect-app het bedrag wilt laten wijzigen dat via Chèque-Vacances Connect moet worden betaald."

@@ -8,7 +8,6 @@ use Worldline\Vendor\Worldline\WorldlineForWoocommerce\WorldlinePaymentGateway\P
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\CreateHostedCheckoutRequest;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectionData;
 use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentMethodSpecificInput;
-use Worldline\Vendor\OnlinePayments\Sdk\Domain\RedirectPaymentProduct5403SpecificInput;
 class CVCORequestModifier extends AbstractHostedPaymentRequestModifier
 {
     public function modify(CreateHostedCheckoutRequest $hostedCheckoutRequest, HostedCheckoutInput $hostedCheckoutInput) : CreateHostedCheckoutRequest
@@ -16,8 +15,9 @@ class CVCORequestModifier extends AbstractHostedPaymentRequestModifier
         $hostedCheckoutRequest->setCardPaymentMethodSpecificInput(null);
         $hostedCheckoutRequest->setMobilePaymentMethodSpecificInput(null);
         $redirectPaymentMethodSpecificInput = $hostedCheckoutRequest->getRedirectPaymentMethodSpecificInput();
-        $redirectPaymentMethodSpecificInput->setPaymentProductId(5403);
-        $redirectPaymentMethodSpecificInput->setRequiresApproval(\false);
+        $redirectPaymentMethodSpecificInput->setPaymentProductId(5412);
+        // `requiresApproval` stays as the merchant configured it.
+        // The 5412 block is owned by HostedCheckoutUrlFactory, which attaches it before this runs.
         $redirectionData = new RedirectionData();
         $redirectionData->setReturnUrl($hostedCheckoutInput->returnUrl());
         $redirectPaymentMethodSpecificInput->setRedirectionData($redirectionData);
