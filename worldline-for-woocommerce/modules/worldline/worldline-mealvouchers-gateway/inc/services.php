@@ -47,7 +47,6 @@ return static function () : array {
                 if ($wcOrder instanceof \WC_Order) {
                     $items = $wcOrder->get_items();
                     $customer_email = $wcOrder->get_billing_email();
-                    $customer_id = $wcOrder->get_customer_id();
                 }
                 // When order is not yet created
                 if (!$wcOrder instanceof \WC_Order) {
@@ -55,8 +54,10 @@ return static function () : array {
                         return \false;
                     }
                     $items = \WC()->cart->get_cart();
-                    $customer_email = \WC()->customer ? \WC()->customer->get_email() : '';
-                    $customer_id = \WC()->customer ? \WC()->customer->get_id() : 0;
+                    // The BILLING e-mail, not the account one: `get_email()` reads the WP user's
+                    // address, which a guest does not have. `get_billing_email()` is what the
+                    // checkout form fills in, for guests and logged-in shoppers alike.
+                    $customer_email = \WC()->customer ? \WC()->customer->get_billing_email() ?: \WC()->customer->get_email() : '';
                 }
                 global $wpdb;
                 $table = $wpdb->prefix . 'product_type';
@@ -64,7 +65,11 @@ return static function () : array {
                     $product_id = $item instanceof \WC_Order_Item_Product ? $item->get_product_id() : $item['product_id'] ?? 0;
                     $type = $wpdb->get_var($wpdb->prepare("SELECT `type` FROM `{$table}` WHERE product_id = %d", \absint($product_id)));
                     if (\in_array($type, ['food', 'home', 'gift'], \true)) {
-                        return !empty($customer_email) && !empty($customer_id);
+                        // The e-mail alone. `merchantCustomerId` is optional on a Mealvouchers
+                        // payment (confirmed with the client), and the customer id is 0 for a
+                        // guest - so requiring it hid the method from every guest even though
+                        // the request it builds would have been accepted.
+                        return !empty($customer_email);
                     }
                 }
                 return \false;

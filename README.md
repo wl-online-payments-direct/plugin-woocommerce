@@ -134,6 +134,9 @@ If that doesn’t solve the problem, create a thread on the [support forums](htt
 
 ## Changelog
 
+### 2.5.33 - 2026-10-19
+* Changed: Remove the requirement to be logged in for the Mealvouchers payment method
+
 ### 2.5.32 - 2026-09-30
 * Changed: Update the Chèque Vacances Connect payment method and its management
 
