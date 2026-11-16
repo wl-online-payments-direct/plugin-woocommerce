@@ -3,13 +3,13 @@
 /**
  * Plugin Name: Worldline Global Online Pay for WooCommerce
  * Description: Worldline Global Online Pay for WooCommerce.
- * Version:     2.5.33
- * SHA:        0f06edf
+ * Version:     2.5.34
+ * SHA:        de06a16
  * Requires at least: 6.3
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  * WC requires at least: 8.6
- * WC tested up to: 11.0.1
+ * WC tested up to: 11.2.2
  * Author:      Worldline
  * Author URI:  https://worldline.com
  * Text Domain: worldline-for-woocommerce

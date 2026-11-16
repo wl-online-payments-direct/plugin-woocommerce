@@ -60,11 +60,11 @@ class DatabaseCleaner
          * undefined function here would take down the admin page instead of
          * cleaning up. There is nothing scheduled in that case anyway.
          */
-        if (!\function_exists('as_unschedule_action')) {
+        if (!\function_exists('as_unschedule_all_actions')) {
             return;
         }
         foreach ($this->scheduledActionNames as $actionName) {
-            \as_unschedule_action($actionName);
+            \as_unschedule_all_actions($actionName);
         }
     }
     /**
